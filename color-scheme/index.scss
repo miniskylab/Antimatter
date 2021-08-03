@@ -39,6 +39,7 @@ $primary--a45: rgba($primary, 0.45);
 $primary--w25: mix($white, $primary, 25%);
 
 $secondary: rgb(135, 172, 78);
+$secondary--a10: rgba($secondary, 0.1);
 $secondary--w25: mix($white, $secondary, 25%);
 
 $tertiary: rgb(255, 71, 133);
