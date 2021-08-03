@@ -1,0 +1,64 @@
+@use "~antimatter/typography";
+@use "~antimatter/color-scheme";
+
+b,
+strong {
+    font-weight: typography.$font-weight--bold;
+}
+
+i,
+em {
+    font-style: italic;
+}
+
+u {
+    text-decoration: underline;
+}
+
+.text {
+
+    &-primary {
+        @extend .text;
+
+        color: color-scheme.$primary;
+    }
+
+    &-green {
+        @extend .text;
+
+        color: color-scheme.$green;
+    }
+
+    &-gold {
+        @extend .text;
+
+        color: color-scheme.$gold;
+    }
+
+    &-tomato {
+        @extend .text;
+
+        color: color-scheme.$tomato;
+    }
+
+    &-justify {
+        @extend .text;
+
+        display: inline-block;
+        text-align: justify;
+    }
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    color: color-scheme.$white;
+    font-weight: typography.$font-weight--bold;
+    line-height: normal;
+
+    &-accent {
+        @extend .badge;
+
+        background-color: color-scheme.$accent;
+    }
+}

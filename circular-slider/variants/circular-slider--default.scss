@@ -1,0 +1,84 @@
+@use "~antimatter/typography" as typography;
+@use "~antimatter/color-scheme" as color-scheme;
+
+.circular-slider {
+    display: inline-flex;
+    flex-shrink: 0;
+    position: relative;
+    width: 400px;
+    height: 400px;
+    padding: 2px;
+    box-sizing: border-box;
+    overflow: hidden;
+
+    &__track-outer-border {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        box-shadow: 0 0 0 2px color-scheme.$black--a25;
+        background-color: color-scheme.$background;
+    }
+
+    &__track-inner-border {
+        width: calc(100% - 100px);
+        height: calc(100% - 100px);
+        padding: 5px;
+        box-sizing: border-box;
+        border-radius: 50%;
+        box-shadow: 0 0 0 1px color-scheme.$white--a10;
+        background-color: color-scheme.$background;
+    }
+
+    &__fill-canvas {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        padding: 6px;
+        box-sizing: border-box;
+        fill: color-scheme.$primary;
+        transform: rotate(-90deg);
+    }
+
+    &__rotor {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        margin: 8px;
+        pointer-events: none;
+    }
+
+    &__knob {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        font-size: typography.$font-size--21px;
+        color: color-scheme.$primary;
+        background-color: color-scheme.$background;
+        pointer-events: all;
+        cursor: pointer;
+        touch-action: none;
+
+        &--start {
+            composes: circular-slider__knob;
+        }
+
+        &--end {
+            composes: circular-slider__knob;
+        }
+    }
+}

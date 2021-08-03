@@ -1,0 +1,15 @@
+@use "pips--horizontal";
+@use "~antimatter/typography" as typography;
+
+.pips {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    text-align: center;
+
+    &__label {
+        font-size: typography.$font-size--20px;
+        padding-top: 25px;
+        font-weight: typography.$font-weight--bold;
+    }
+}

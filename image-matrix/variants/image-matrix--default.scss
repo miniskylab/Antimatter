@@ -1,0 +1,27 @@
+@use "~antimatter/infrastructures/sass" as sass;
+@use "~antimatter/color-scheme" as color-scheme;
+
+.image-matrix {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+
+    &__image {
+        width: 100%;
+        padding: 15px 5px;
+        box-sizing: border-box;
+        object-fit: contain;
+
+        @include sass.screen-size--S {
+            width: 50%;
+        }
+
+        @include sass.screen-size--M {
+            width: 33.33%;
+        }
+
+        @include sass.screen-size--L {
+            width: 20%;
+        }
+    }
+}

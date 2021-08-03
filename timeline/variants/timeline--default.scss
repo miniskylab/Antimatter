@@ -1,0 +1,140 @@
+@use "~antimatter/typography" as typography;
+@use "~antimatter/infrastructures/sass" as sass;
+@use "~antimatter/color-scheme" as color-scheme;
+
+.timeline {
+    position: relative;
+    margin: auto;
+    width: fit-content;
+    min-width: 300px;
+    max-width: sass.$screen-size--XL;
+    z-index: sass.$layer--default;
+
+    &__event-stream {
+        position: relative;
+        width: fit-content;
+        margin: auto;
+
+        & > :first-child {
+            margin-top: 0;
+        }
+    }
+
+    &__vertical-line {
+        position: absolute;
+        width: 3px;
+        top: -1px;
+        right: 0;
+        bottom: 0;
+        left: 15px;
+        margin: 50px 0 30px;
+        background-color: color-scheme.$gray;
+        z-index: sass.$layer--lower;
+
+        @include sass.screen-size--L {
+            width: 6px;
+            left: calc(50% - 3px);
+            margin: 50px 0 60px;
+        }
+    }
+
+    &__origin {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        font-size: typography.$font-size--30px;
+        margin: 80px 0 0 1px;
+        color: color-scheme.$gray;
+        background-color: color-scheme.$transparent;
+
+        @include sass.screen-size--L {
+            width: 100%;
+            height: 60px;
+            font-size: typography.$font-size--60px;
+            margin: 200px 0 0;
+        }
+    }
+
+    &__bootstrap-event {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: -90px 0 0 45px;
+        padding: 30px 25px 25px;
+        border: 1px solid color-scheme.$gray;
+        box-sizing: border-box;
+        color: color-scheme.$neutral;
+        background-color: color-scheme.$ambient;
+
+        @include sass.screen-size--L {
+            width: 100%;
+            max-width: unset;
+            height: 200px;
+            margin: 30px 0 0;
+        }
+
+        &-triangle-arrow {
+            position: absolute;
+            top: 65px;
+            left: -10px;
+            width: 0;
+            height: 0;
+            margin: auto;
+            border-top: 9px solid color-scheme.$transparent;
+            border-bottom: 9px solid color-scheme.$transparent;
+            border-right: 9px solid color-scheme.$gray;
+
+            @include sass.screen-size--L {
+                top: -19px;
+                left: 0;
+                right: 0;
+                bottom: unset;
+                border-top: unset;
+                border-left: 18px solid color-scheme.$transparent;
+                border-right: 18px solid color-scheme.$transparent;
+                border-bottom: 18px solid color-scheme.$gray;
+            }
+        }
+
+        &-icon {
+            width: 35px;
+            height: 35px;
+            font-size: typography.$font-size--35px;
+            margin-bottom: 18px;
+
+            @include sass.screen-size--L {
+                width: 45px;
+                height: 45px;
+                font-size: typography.$font-size--45px;
+                margin-bottom: 23px;
+            }
+        }
+
+        &-name {
+            text-align: center;
+            line-height: 28px;
+            font-size: typography.$font-size--20px;
+            font-weight: typography.$font-weight--bold;
+
+            @include sass.screen-size--L {
+                font-size: typography.$font-size--30px;
+                margin-bottom: 10px;
+            }
+        }
+
+        &-description {
+            line-height: 21px;
+            text-align: center;
+            margin-top: 6px;
+            font-size: typography.$font-size--14px;
+
+            @include sass.screen-size--L {
+                font-size: typography.$font-size--17px;
+            }
+        }
+    }
+}

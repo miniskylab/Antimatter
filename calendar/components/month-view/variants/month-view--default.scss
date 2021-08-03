@@ -1,0 +1,44 @@
+@use "~antimatter/typography" as typography;
+@use "~antimatter/color-scheme" as color-scheme;
+
+.month-view {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &__grid-cell {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: calc(25% - 10px);
+        height: 60px;
+        margin: 5px;
+        font-size: typography.$font-size--14px;
+        border: 3px solid color-scheme.$transparent;
+        box-sizing: border-box;
+        cursor: pointer;
+
+        &:hover {
+            color: color-scheme.$white;
+            border-color: color-scheme.$primary;
+            background-color: color-scheme.$primary--a10;
+        }
+
+        &:active {
+            color: color-scheme.$white;
+            border-color: color-scheme.$primary;
+            background-color: color-scheme.$primary;
+        }
+
+        &--extraneous {
+            composes: month-view__grid-cell;
+            color: color-scheme.$white--a10;
+        }
+
+        &--selected {
+            composes: month-view__grid-cell;
+            font-weight: typography.$font-weight--bold;
+            border-color: color-scheme.$neutral;
+        }
+    }
+}

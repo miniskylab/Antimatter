@@ -1,0 +1,13 @@
+@use "~antimatter/infrastructures/sass" as sass;
+@use "card--33pct-wide";
+
+.card {
+    @include sass.screen-size--XL {
+
+        &:first-child:nth-last-child(n + 4),
+        &:first-child:nth-last-child(n + 4) ~ & {
+            width: 25%;
+            margin: 0;
+        }
+    }
+}

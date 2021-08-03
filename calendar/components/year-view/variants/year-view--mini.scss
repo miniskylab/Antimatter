@@ -1,0 +1,15 @@
+@use "./year-view--default";
+@use "~antimatter/typography" as typography;
+
+.year-view {
+
+    &__grid-cell {
+        $margin: 4px;
+
+        width: calc(25% - #{$margin * 2});
+        height: 55px;
+        margin: $margin;
+        font-size: typography.$font-size--16px;
+        border-width: 3px;
+    }
+}

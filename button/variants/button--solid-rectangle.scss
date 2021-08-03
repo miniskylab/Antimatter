@@ -1,0 +1,21 @@
+@use "button--outlined-rectangle";
+@use "~antimatter/color-scheme" as color-scheme;
+
+.button {
+    color: color-scheme.$ambient;
+    border-color: color-scheme.$primary;
+    background-color: color-scheme.$primary;
+
+    &:not(&--disabled):hover {
+        color: color-scheme.$ambient;
+        border-color: color-scheme.$primary--w25;
+        background-color: color-scheme.$primary--w25;
+
+        &:active {
+            outline-offset: 3px;
+            border-color: color-scheme.$primary--w25;
+            background-color: color-scheme.$primary--w25;
+            outline: 1px solid color-scheme.$primary--w25;
+        }
+    }
+}

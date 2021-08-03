@@ -1,0 +1,25 @@
+@use "./header--default";
+@use "~antimatter/typography" as typography;
+
+.header {
+
+    &__navigator {
+        width: 36px;
+        height: 36px;
+        font-size: typography.$font-size--18px;
+        border-width: 3px;
+
+        &:first-child {
+            padding-right: 2px;
+        }
+
+        &:last-child {
+            padding-left: 2px;
+        }
+    }
+
+    &__headline {
+        line-height: 23px;
+        font-size: typography.$font-size--18px;
+    }
+}

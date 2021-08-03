@@ -1,0 +1,24 @@
+@use "button--outlined-circular";
+@use "~antimatter/typography" as typography;
+@use "~antimatter/color-scheme" as color-scheme;
+
+.button {
+    width: fit-content;
+    min-width: 120px;
+    font-weight: typography.$font-weight--regular;
+    padding: 6px 12px;
+    border-width: 1px;
+    border-radius: 0;
+
+    &__icon {
+        min-width: 16px;
+        height: 16px;
+        font-size: typography.$font-size--16px;
+    }
+
+    &__text {
+        display: block;
+        padding: 0 10px;
+        font-size: typography.$font-size--14px;
+    }
+}

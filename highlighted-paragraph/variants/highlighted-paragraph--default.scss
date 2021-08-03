@@ -1,0 +1,38 @@
+@use "~antimatter/typography" as typography;
+@use "~antimatter/color-scheme" as color-scheme;
+
+.highlighted-paragraph {
+    width: 100%;
+    padding: 20px;
+    color: color-scheme.$white;
+    background-color: color-scheme.$gray--a10;
+    border: 3px solid color-scheme.$gray;
+    box-sizing: border-box;
+
+    &__title {
+        display: inline-flex;
+        align-items: center;
+        height: 30px;
+        font-size: typography.$font-size--18px;
+        font-weight: typography.$font-weight--bold;
+    }
+
+    &__icon {
+        display: inline-flex;
+        width: 25px;
+        padding-right: 12px;
+        font-size: typography.$font-size--25px;
+        justify-content: center;
+    }
+
+    &__text {
+        display: flex;
+        text-align: justify;
+        font-size: typography.$font-size--14px;
+        line-height: 24px;
+    }
+
+    &__gap {
+        height: 12px;
+    }
+}

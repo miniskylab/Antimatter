@@ -1,0 +1,116 @@
+@use "~antimatter/infrastructures/sass" as sass;
+@use "~antimatter/color-scheme" as color-scheme;
+
+$knob-radius: 15px;
+$track-padding: 4px;
+
+.range-slider {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: 75px;
+
+    &__track {
+        width: 100%;
+        height: 16px;
+        border-radius: 16px;
+        margin-top: $knob-radius;
+        padding: $track-padding;
+        box-sizing: border-box;
+        box-shadow: inset 0 1px 2px color-scheme.$black--a25, 0 1px color-scheme.$white--a8;
+        background-color: color-scheme.$ambient;
+
+        &--interactable {
+            composes: range-slider__track;
+            cursor: pointer;
+        }
+    }
+
+    &__fill {
+        height: 100%;
+        vertical-align: top;
+    }
+
+    &__fill-left {
+        composes: range-slider__fill;
+        display: inline-block;
+        background: color-scheme.$primary linear-gradient(to bottom, color-scheme.$white--a30, color-scheme.$white--a5);
+    }
+
+    &__fill-right {
+        composes: range-slider__fill;
+        float: right;
+        background-color: color-scheme.$transparent;
+    }
+
+    &__stopper-left {
+        composes: range-slider__fill-left;
+        width: $knob-radius - $track-padding;
+        border-radius: 16px 0 0 16px;
+        background: color-scheme.$primary linear-gradient(to bottom, color-scheme.$white--a30, color-scheme.$white--a5);
+    }
+
+    &__stopper-right {
+        composes: range-slider__fill-right;
+        width: $knob-radius - $track-padding;
+        border-radius: 0 16px 16px 0;
+        background-color: color-scheme.$transparent;
+    }
+
+    &__knob {
+        position: absolute;
+        width: $knob-radius * 2;
+        height: $knob-radius * 2;
+        top: 0;
+        bottom: 0;
+        margin-top: auto;
+        margin-bottom: auto;
+        margin-left: -$knob-radius;
+        border-radius: 50%;
+        background-color: color-scheme.$white;
+        z-index: sass.$layer--higher;
+        animation: range-slider__pulse 5s infinite alternate;
+        touch-action: none;
+
+        &--interactable {
+            composes: range-slider__knob;
+            box-shadow: 0 0 8px color-scheme.$black--a35;
+            background-image: linear-gradient(to bottom, color-scheme.$white--a30, color-scheme.$white--a5);
+            cursor: pointer;
+            animation: none;
+
+            &::after {
+                content: "";
+                width: $knob-radius;
+                height: $knob-radius;
+                margin: auto;
+                position: absolute;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                left: 0;
+                border-radius: 50%;
+                background-image: linear-gradient(to bottom, color-scheme.$black--a15, color-scheme.$white--a5);
+            }
+        }
+    }
+
+    &__free-zone {
+        position: relative;
+        display: inline-block;
+        width: calc(100% - #{$knob-radius - $track-padding} * 2);
+        height: 100%;
+        background-color: inherit;
+    }
+}
+
+@keyframes range-slider__pulse {
+
+    from {
+        box-shadow: 0 0 45px;
+    }
+
+    to {
+        box-shadow: 0 0 45px 1px color-scheme.$gainsboro;
+    }
+}

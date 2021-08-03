@@ -1,0 +1,83 @@
+@use "~antimatter/typography" as typography;
+@use "~antimatter/color-scheme" as color-scheme;
+
+.header {
+    display: flex;
+
+    &__navigator {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        font-size: typography.$font-size--16px;
+        box-sizing: border-box;
+        border-radius: 50%;
+        border: 3px solid color-scheme.$transparent;
+        cursor: pointer;
+
+        &:first-child {
+            padding-right: 2px;
+        }
+
+        &:last-child {
+            padding-left: 2px;
+        }
+
+        &:hover {
+            color: color-scheme.$white;
+            border-color: color-scheme.$primary;
+            background-color: color-scheme.$primary--a10;
+        }
+
+        &:active {
+            color: color-scheme.$white;
+            border-color: color-scheme.$primary;
+            background-color: color-scheme.$primary;
+        }
+
+        &--disabled {
+            composes: header__navigator;
+            color: color-scheme.$white--a10;
+            cursor: not-allowed;
+
+            &:hover,
+            &:active {
+                color: color-scheme.$white--a10;
+                background-color: unset;
+                border-color: color-scheme.$transparent;
+            }
+        }
+    }
+
+    &__headline {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        flex-grow: 1;
+        line-height: 25px;
+        font-size: typography.$font-size--16px;
+        font-weight: typography.$font-weight--bold;
+        color: color-scheme.$gainsboro;
+        cursor: pointer;
+
+        &:hover {
+            color: color-scheme.$white;
+        }
+
+        &:active {
+            color: color-scheme.$neutral;
+        }
+
+        &--unclickable {
+            composes: header__headline;
+            color: color-scheme.$gainsboro;
+
+            &:hover,
+            &:active {
+                color: color-scheme.$gainsboro;
+                cursor: default;
+            }
+        }
+    }
+}

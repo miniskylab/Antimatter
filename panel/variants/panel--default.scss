@@ -1,0 +1,20 @@
+@use "~antimatter/typography" as typography;
+@use "~antimatter/color-scheme" as color-scheme;
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    background-color: color-scheme.$background;
+
+    &__title {
+        color: color-scheme.$white;
+        font-size: typography.$font-size--20px;
+        font-weight: typography.$font-weight--bold;
+        line-height: 30px;
+        margin: 10px 15px -5px;
+    }
+
+    &__content {
+        margin: 15px;
+    }
+}

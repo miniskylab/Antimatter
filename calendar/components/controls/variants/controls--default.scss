@@ -1,0 +1,50 @@
+@use "~antimatter/typography" as typography;
+@use "~antimatter/color-scheme" as color-scheme;
+
+.controls {
+    display: flex;
+    justify-content: space-around;
+
+    &__button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80px;
+        height: 34px;
+        font-size: typography.$font-size--12px;
+        font-weight: typography.$font-weight--bold;
+        box-sizing: border-box;
+        color: color-scheme.$neutral;
+        border: 2px solid color-scheme.$transparent;
+        cursor: pointer;
+
+        &:hover {
+            color: color-scheme.$gainsboro;
+        }
+
+        &:active {
+            color: color-scheme.$gray;
+        }
+
+        &--disabled {
+            composes: controls__button;
+            color: color-scheme.$white--a10;
+            cursor: not-allowed;
+
+            &:hover,
+            &:active {
+                color: color-scheme.$white--a10;
+            }
+        }
+    }
+
+    &__icon {
+        display: inline-block;
+    }
+
+    &__text {
+        display: inline-block;
+        margin-top: 1px;
+        margin-left: 5px;
+    }
+}

@@ -1,0 +1,13 @@
+@function -to-upper-case-first-letter($string) {
+    @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
+}
+
+@mixin load($name, $type, $weight, $style) {
+    @font-face {
+        font-family: -to-upper-case-first-letter("#{$name}");
+        src: url("#{$name}-#{$type}.woff2") format("woff2"), url("#{$name}-#{$type}.woff") format("woff");
+        font-weight: $weight;
+        font-style: $style;
+        font-display: fallback;
+    }
+}

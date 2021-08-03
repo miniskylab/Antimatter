@@ -1,0 +1,4 @@
+@use "../font-face";
+@use "../font-weight";
+
+@include font-face.load("roboto", "light-italic", font-weight.$light, italic);
