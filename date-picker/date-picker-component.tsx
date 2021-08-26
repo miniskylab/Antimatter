@@ -1,5 +1,5 @@
 import {Calendar, CalendarVariant} from "antimatter/calendar";
-import {GregorianCalendar} from "antimatter/date-time";
+import {DateFormat, GregorianCalendar} from "antimatter/date-time";
 import {Icon, IconName} from "antimatter/icon";
 import {Char} from "antimatter/infrastructures";
 import React, {Component, createRef, RefObject} from "react";
@@ -49,24 +49,39 @@ export class DatePickerComponent extends Component<DatePickerComponentProps, Dat
     render(): JSX.Element
     {
         return (
-            <div className={this.props.variant["date-picker"]}>
-                <input
-                    ref={this.inputFieldRef}
-                    type={"text"}
-                    className={this.props.variant["date-picker__input-field"]}
-                    value={this.state.userInput}
-                    placeholder={this.props.placeholderText}
-                    onChange={this.onChange.bind(this)}
-                    onBlur={this.props.onBlur}
-                    onFocus={this.props.onFocus}
-                    onPointerDown={this.props.onPointerDown}
-                    onKeyDown={this.onKeyDown.bind(this)}
-                    autoFocus={this.props.autoFocus}
-                />
+            <div className={this.props.variant[`date-picker${this.state.calendarIsOpen ? "--active" : String.EMPTY}`]}>
+                {this.renderInputField()}
                 {this.renderAddon()}
                 {this.state.calendarIsOpen && this.renderCalendar()}
             </div>
         );
+    }
+
+    private renderInputField(): JSX.Element
+    {
+        return (
+            <input
+                ref={this.inputFieldRef}
+                type={"text"}
+                className={this.props.variant["date-picker__input-field"]}
+                value={this.getDateString()}
+                placeholder={this.props.placeholderText}
+                onChange={this.onChange.bind(this)}
+                onBlur={this.props.onBlur}
+                onFocus={this.props.onFocus}
+                onPointerDown={this.props.onPointerDown}
+                onKeyDown={this.onKeyDown.bind(this)}
+                autoFocus={this.props.autoFocus}
+                readOnly={this.props.disableTyping}
+            />
+        );
+    }
+
+    private getDateString(): string
+    {
+        return this.props.disableTyping && this.state.selectedDate
+            ? GregorianCalendar.toString(this.state.selectedDate, DateFormat.Full)
+            : this.state.userInput;
     }
 
     private renderAddon(): JSX.Element
@@ -88,7 +103,7 @@ export class DatePickerComponent extends Component<DatePickerComponentProps, Dat
                 tabIndex={-1}
                 ref={this.calendarRef}
                 className={this.props.variant["date-picker__calendar"]}
-                onPointerDown={event => event.preventDefault()}
+                onMouseDown={event => event.preventDefault()}
                 onBlur={() => { this.setState({calendarIsOpen: false}); }}
             >
                 <div className={this.props.variant["date-picker__caret"]}/>

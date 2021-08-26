@@ -31,6 +31,14 @@ export class DatePickerComponentProps extends ComponentProps
 
 
     /**
+     * Prevent users from typing into the input field
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly disableTyping?: boolean;
+
+
+    /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
     readonly onBlur?: FocusEventHandler<HTMLInputElement>;

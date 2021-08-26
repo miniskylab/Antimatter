@@ -17,6 +17,7 @@ export class DatePickerExporter extends ComponentExporter<DatePickerExportProps>
             autoFocus: false,
             defaultSelectedDate: undefined,
             placeholderText: String.EMPTY,
+            disableTyping: undefined,
             onBlur: undefined,
             onFocus: undefined,
             onPointerDown: undefined,

@@ -9,6 +9,10 @@
     width: 276px;
     height: 34px;
 
+    &--active {
+        composes: date-picker;
+    }
+
     &__input-field {
         composes: input-field;
         width: 100%;

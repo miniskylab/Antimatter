@@ -201,6 +201,13 @@ class _GregorianCalendar
                     month: minimumTimeUnit < TimeUnit.Year ? "long" : undefined,
                     year: "numeric"
                 });
+            case DateFormat.Full:
+                return date.toLocaleDateString("en-US", {
+                    weekday: minimumTimeUnit === TimeUnit.Day ? "long" : undefined,
+                    day: minimumTimeUnit === TimeUnit.Day ? "2-digit" : undefined,
+                    month: minimumTimeUnit < TimeUnit.Year ? "long" : undefined,
+                    year: "numeric"
+                });
         }
     }
 
