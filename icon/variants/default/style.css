@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'antimatter';
-  src:  url('fonts/antimatter.eot?k3copo');
-  src:  url('fonts/antimatter.eot?k3copo#iefix') format('embedded-opentype'),
-    url('fonts/antimatter.ttf?k3copo') format('truetype'),
-    url('fonts/antimatter.woff?k3copo') format('woff'),
-    url('fonts/antimatter.svg?k3copo#antimatter') format('svg');
+  src:  url('fonts/antimatter.eot?wf6fxp');
+  src:  url('fonts/antimatter.eot?wf6fxp#iefix') format('embedded-opentype'),
+    url('fonts/antimatter.ttf?wf6fxp') format('truetype'),
+    url('fonts/antimatter.woff?wf6fxp') format('woff'),
+    url('fonts/antimatter.svg?wf6fxp#antimatter') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -118,7 +118,7 @@
 .antimatter-icon__antimatter:before {
   content: "\e916";
 }
-.antimatter-icon__orbital:before {
+.antimatter-icon__mini-skylab:before {
   content: "\e921";
 }
 .antimatter-icon__react-js:before {
