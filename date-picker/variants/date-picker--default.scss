@@ -1,7 +1,7 @@
-@use "~antimatter/typography" as typography;
-@use "~antimatter/infrastructures/sass" as sass;
-@use "~antimatter/color-scheme" as color-scheme;
-@use "~antimatter/input-field/variants/input-field--default";
+@use "~@miniskylab/antimatter/typography" as typography;
+@use "~@miniskylab/antimatter/infrastructures/sass" as sass;
+@use "~@miniskylab/antimatter/color-scheme" as color-scheme;
+@use "~@miniskylab/antimatter/input-field/variants/input-field--default";
 
 .date-picker {
     display: inline-flex;

@@ -1,4 +1,4 @@
-import {Decade} from "antimatter/date-time";
+import {Decade} from "@miniskylab/antimatter/date-time";
 
 export class CalendarTimeFrame
 {

@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {TransitionComponentProps} from "./models/transition-component-props";
 import {TransitionExporter} from "./models/transition-exporter";
 import {TransitionComponent} from "./transition-component";

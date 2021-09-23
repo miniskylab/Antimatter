@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps} from "antimatter/infrastructures";
-import {ArrayNotEmpty, IsArray, IsDefined} from "antimatter/validation";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {ArrayNotEmpty, IsArray, IsDefined} from "@miniskylab/antimatter/validation";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {EventProps} from "../components/event";

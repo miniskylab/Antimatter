@@ -1,4 +1,4 @@
-import {ComponentExporter, CSS, Enum} from "antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
 import {ClassConstructor} from "class-transformer";
 import {DefaultNumericInputFieldVariant, NumericInputFieldVariant} from "../variants";
 import {NumericInputFieldComponentProps} from "./numeric-input-field-component-props";

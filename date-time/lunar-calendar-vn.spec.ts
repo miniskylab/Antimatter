@@ -1,4 +1,4 @@
-import {LunarCalendarVn} from "antimatter/date-time";
+import {LunarCalendarVn} from "@miniskylab/antimatter/date-time";
 
 describe("how to use [LunarCalendarVn.getJulianDayCount(...)]", (): void =>
 {

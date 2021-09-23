@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps} from "antimatter/infrastructures";
-import {IsBoolean, IsDate, IsString} from "antimatter/validation";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {IsBoolean, IsDate, IsString} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 import {FocusEventHandler, KeyboardEventHandler, PointerEventHandler} from "react";
 

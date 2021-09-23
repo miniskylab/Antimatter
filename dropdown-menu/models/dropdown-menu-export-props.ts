@@ -1,4 +1,4 @@
-import {Export} from "antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructures";
 import {DropdownMenuVariant} from "../variants";
 import {DropdownMenuComponentProps} from "./dropdown-menu-component-props";
 

@@ -1,4 +1,4 @@
-import {ValidationMessageTemplate} from "antimatter/validation";
+import {ValidationMessageTemplate} from "@miniskylab/antimatter/validation";
 import {ClassConstructor, plainToClass} from "class-transformer";
 import {validateSync, ValidationError} from "class-validator";
 import {ComponentType, createElement} from "react";

@@ -1,4 +1,4 @@
-import {GregorianCalendar} from "antimatter/date-time";
+import {GregorianCalendar} from "@miniskylab/antimatter/date-time";
 
 export function reformat(dateString: string): string
 {

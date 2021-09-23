@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps} from "antimatter/infrastructures";
-import {IsArray, IsInteger, IsPositive, IsString} from "antimatter/validation";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {IsArray, IsInteger, IsPositive, IsString} from "@miniskylab/antimatter/validation";
 import {IsOptional, ValidateNested} from "class-validator";
 import {DataTableAddNewRow} from "./data-table-add-new-row";
 import {DataTableRow} from "./data-table-row";

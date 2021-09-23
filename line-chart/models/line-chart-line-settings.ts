@@ -1,4 +1,4 @@
-import {ArrayNotEmpty, IsArray, IsDefined, IsEnum, IsString} from "antimatter/validation";
+import {ArrayNotEmpty, IsArray, IsDefined, IsEnum, IsString} from "@miniskylab/antimatter/validation";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {LineChartCoordinate} from "./line-chart-coordinate";

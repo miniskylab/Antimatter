@@ -1,4 +1,4 @@
-import {ArrayNotEmpty, IsArray, IsDefined, IsNotEmpty, IsString} from "antimatter/validation";
+import {ArrayNotEmpty, IsArray, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter/validation";
 
 export class DataTableRow
 {

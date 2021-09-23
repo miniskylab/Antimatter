@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {SpacerComponentProps} from "./models/spacer-component-props";
 import {SpacerExporter} from "./models/spacer-exporter";
 import {SpacerComponent} from "./spacer-component";

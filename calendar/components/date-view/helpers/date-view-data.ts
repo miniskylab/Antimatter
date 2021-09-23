@@ -1,4 +1,4 @@
-import {DayOfWeek, GregorianCalendar} from "antimatter/date-time";
+import {DayOfWeek, GregorianCalendar} from "@miniskylab/antimatter/date-time";
 
 export function getDateViewData(displayingMonth: Date): Date[][]
 {

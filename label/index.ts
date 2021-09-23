@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {LabelComponent} from "./label-component";
 import {LabelComponentProps} from "./models/label-component-props";
 import {LabelExporter} from "./models/label-exporter";

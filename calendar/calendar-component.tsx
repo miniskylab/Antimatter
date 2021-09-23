@@ -1,6 +1,6 @@
-import {Decade, GregorianCalendar} from "antimatter/date-time";
-import {Char} from "antimatter/infrastructures";
-import {Transition} from "antimatter/transition";
+import {Decade, GregorianCalendar} from "@miniskylab/antimatter/date-time";
+import {Char} from "@miniskylab/antimatter/infrastructures";
+import {Transition} from "@miniskylab/antimatter/transition";
 import React, {Component} from "react";
 import {Controls} from "./components/controls";
 import {DateView, getDateViewData} from "./components/date-view";

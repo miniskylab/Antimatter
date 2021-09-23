@@ -1,4 +1,4 @@
-import {Export} from "antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructures";
 import {HeaderVariant} from "../variants";
 import {HeaderComponentProps} from "./header-component-props";
 

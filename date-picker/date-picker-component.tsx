@@ -1,7 +1,7 @@
-import {Calendar, CalendarVariant} from "antimatter/calendar";
-import {DateFormat, GregorianCalendar} from "antimatter/date-time";
-import {Icon, IconName} from "antimatter/icon";
-import {Char} from "antimatter/infrastructures";
+import {Calendar, CalendarVariant} from "@miniskylab/antimatter/calendar";
+import {DateFormat, GregorianCalendar} from "@miniskylab/antimatter/date-time";
+import {Icon, IconName} from "@miniskylab/antimatter/icon";
+import {Char} from "@miniskylab/antimatter/infrastructures";
 import React, {Component, createRef, RefObject} from "react";
 import {isAllowedKey} from "./helpers/keyboard-event";
 import {isDigit, reformat, removeNonDigitCharacters, tryParseDate} from "./helpers/string";

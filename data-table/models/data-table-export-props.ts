@@ -1,4 +1,4 @@
-import {Export} from "antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructures";
 import {DataTableVariant} from "../variants";
 import {DataTableComponentProps} from "./data-table-component-props";
 

@@ -1,4 +1,4 @@
-import {ComponentExporter, CSS, Enum} from "antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
 import {ClassConstructor} from "class-transformer";
 import {DefaultHeaderVariant, HeaderVariant, MiniHeaderVariant, SesquialteralHeaderVariant} from "../variants";
 import {HeaderComponentProps} from "./header-component-props";

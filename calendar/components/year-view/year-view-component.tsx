@@ -1,4 +1,4 @@
-import {Decade, GregorianCalendar} from "antimatter/date-time";
+import {Decade, GregorianCalendar} from "@miniskylab/antimatter/date-time";
 import React from "react";
 import {YearViewComponentProps} from "./models/year-view-component-props";
 

@@ -1,5 +1,13 @@
-import {ComponentName, ComponentProps} from "antimatter/infrastructures";
-import {IsDefined, IsEnum, IsGreaterThanOrEqualTo, IsLessThanOrEqualTo, IsMultipleOf, IsNumber, IsPositive} from "antimatter/validation";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {
+    IsDefined,
+    IsEnum,
+    IsGreaterThanOrEqualTo,
+    IsLessThanOrEqualTo,
+    IsMultipleOf,
+    IsNumber,
+    IsPositive
+} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 import {PipsShape} from "./pips-shape";
 

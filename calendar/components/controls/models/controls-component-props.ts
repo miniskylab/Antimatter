@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps} from "antimatter/infrastructures";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
 import {MouseEventHandler} from "react";
 
 @ComponentName("Controls")

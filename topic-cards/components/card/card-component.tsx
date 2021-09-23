@@ -1,7 +1,7 @@
-import {Button} from "antimatter/button";
-import {Icon, IconName} from "antimatter/icon";
-import {Markdown} from "antimatter/markdown";
-import {Spacer} from "antimatter/spacer";
+import {Button} from "@miniskylab/antimatter/button";
+import {Icon, IconName} from "@miniskylab/antimatter/icon";
+import {Markdown} from "@miniskylab/antimatter/markdown";
+import {Spacer} from "@miniskylab/antimatter/spacer";
 import React from "react";
 import {CardComponentProps} from "./models/card-component-props";
 import {CtaButtonVariant, Horizontal15pxSpacerVariant, Horizontal5pxSpacerVariant} from "./variants";

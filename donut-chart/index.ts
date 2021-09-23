@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {DonutChartComponent} from "./donut-chart-component";
 import {DonutChartComponentProps} from "./models/donut-chart-component-props";
 import {DonutChartExporter} from "./models/donut-chart-exporter";

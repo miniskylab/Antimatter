@@ -1,4 +1,4 @@
-import {IsDefined, IsString} from "antimatter/validation";
+import {IsDefined, IsString} from "@miniskylab/antimatter/validation";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {ImageUrl} from "./image-url";

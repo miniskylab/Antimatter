@@ -1,4 +1,4 @@
-import {IsDefined, IsNumber} from "antimatter/validation";
+import {IsDefined, IsNumber} from "@miniskylab/antimatter/validation";
 
 export class LineChartCoordinate
 {

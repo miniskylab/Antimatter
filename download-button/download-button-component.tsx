@@ -1,4 +1,4 @@
-import {Button} from "antimatter/button";
+import {Button} from "@miniskylab/antimatter/button";
 import React, {Component} from "react";
 import {DownloadButtonComponentProps} from "./models/download-button-component-props";
 import {DownloadButtonComponentState} from "./models/download-button-component-state";

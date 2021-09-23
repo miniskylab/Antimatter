@@ -1,5 +1,5 @@
-import {Button} from "antimatter/button";
-import {Icon, IconName} from "antimatter/icon";
+import {Button} from "@miniskylab/antimatter/button";
+import {Icon, IconName} from "@miniskylab/antimatter/icon";
 import React, {Component, createRef, RefObject} from "react";
 import {Record} from "./components/record";
 import {DataTableComponentProps} from "./models/data-table-component-props";

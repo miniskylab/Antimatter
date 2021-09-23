@@ -1,5 +1,5 @@
-import {IconName} from "antimatter/icon";
-import {IsDefined, IsEnum, IsNotEmpty, IsString} from "antimatter/validation";
+import {IconName} from "@miniskylab/antimatter/icon";
+import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter/validation";
 
 export class TimelineBootstrapEvent
 {

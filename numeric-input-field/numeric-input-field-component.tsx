@@ -1,4 +1,4 @@
-import {Char} from "antimatter/infrastructures";
+import {Char} from "@miniskylab/antimatter/infrastructures";
 import React, {Component, createRef, RefObject} from "react";
 import {isAllowedKey} from "./helpers/keyboard-event";
 import {endWithDotAndZeros, removeCosmeticCharacters, removeNonDigitCharacters} from "./helpers/string";

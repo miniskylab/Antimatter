@@ -1,6 +1,6 @@
-@use "~antimatter/typography" as typography;
-@use "~antimatter/color-scheme" as color-scheme;
-@use "~antimatter/button/variants/button--solid-rectangle";
+@use "~@miniskylab/antimatter/typography" as typography;
+@use "~@miniskylab/antimatter/color-scheme" as color-scheme;
+@use "~@miniskylab/antimatter/button/variants/button--solid-rectangle";
 
 $button__icon: null;
 

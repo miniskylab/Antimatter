@@ -1,5 +1,5 @@
-import {GregorianCalendar} from "antimatter/date-time";
-import {ComponentExporter, CSS, Enum} from "antimatter/infrastructures";
+import {GregorianCalendar} from "@miniskylab/antimatter/date-time";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
 import {ClassConstructor} from "class-transformer";
 import {DefaultYearViewVariant, MiniYearViewVariant, SesquialteralYearViewVariant, YearViewVariant} from "../variants";
 import {YearViewComponentProps} from "./year-view-component-props";

@@ -1,4 +1,4 @@
-import {Export} from "antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructures";
 import {ImageMatrixVariant} from "../variants";
 import {ImageMatrixComponentProps} from "./image-matrix-component-props";
 

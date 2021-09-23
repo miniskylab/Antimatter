@@ -1,5 +1,5 @@
 @use "button--outlined-rectangle";
-@use "~antimatter/color-scheme" as color-scheme;
+@use "~@miniskylab/antimatter/color-scheme" as color-scheme;
 
 .button {
     color: color-scheme.$ambient;

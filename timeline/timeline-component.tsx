@@ -1,5 +1,5 @@
-import {Icon, IconName} from "antimatter/icon";
-import {Markdown} from "antimatter/markdown";
+import {Icon, IconName} from "@miniskylab/antimatter/icon";
+import {Markdown} from "@miniskylab/antimatter/markdown";
 import React, {Component} from "react";
 import {Event, EventPosition} from "./components/event";
 import {TimelineComponentProps} from "./models/timeline-component-props";

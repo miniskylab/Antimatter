@@ -1,4 +1,4 @@
-import {GregorianCalendar} from "antimatter/date-time";
+import {GregorianCalendar} from "@miniskylab/antimatter/date-time";
 import React from "react";
 import {MonthViewComponentProps} from "./models/month-view-component-props";
 

@@ -1,4 +1,4 @@
-import {Export} from "antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructures";
 import {PanelVariant} from "../variants";
 import {PanelComponentProps} from "./panel-component-props";
 

@@ -1,6 +1,6 @@
-@use "~antimatter/typography" as typography;
-@use "~antimatter/infrastructures/sass" as sass;
-@use "~antimatter/color-scheme" as color-scheme;
+@use "~@miniskylab/antimatter/typography" as typography;
+@use "~@miniskylab/antimatter/infrastructures/sass" as sass;
+@use "~@miniskylab/antimatter/color-scheme" as color-scheme;
 
 .event {
     position: relative;

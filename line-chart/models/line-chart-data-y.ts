@@ -1,4 +1,4 @@
-import {ArrayNotEmpty, IsArray, IsDefined, IsEnum, IsHexColor, IsString} from "antimatter/validation";
+import {ArrayNotEmpty, IsArray, IsDefined, IsEnum, IsHexColor, IsString} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 import {LineChartLineStyle} from "./line-chart-line-style";
 

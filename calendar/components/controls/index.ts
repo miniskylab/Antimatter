@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {ControlsComponent} from "./controls-component";
 import {ControlsComponentProps} from "./models/controls-component-props";
 import {ControlsExporter} from "./models/controls-exporter";

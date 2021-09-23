@@ -1,7 +1,7 @@
 @use "css-reset";
 @use "~normalize.css/normalize";
 @use "markdown-editor";
-@use "~antimatter/color-scheme";
+@use "~@miniskylab/antimatter/color-scheme";
 
 body {
     background-color: color-scheme.$ambient;

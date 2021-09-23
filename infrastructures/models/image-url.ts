@@ -1,4 +1,4 @@
-import {IsDefined, IsNotEmpty, IsString} from "antimatter/validation";
+import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 
 export class ImageUrl

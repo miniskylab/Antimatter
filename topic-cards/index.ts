@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {TopicCardsComponentProps} from "./models/topic-cards-component-props";
 import {TopicCardsExporter} from "./models/topic-cards-exporter";
 import {TopicCardsComponent} from "./topic-cards-component";

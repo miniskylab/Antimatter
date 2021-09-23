@@ -1,5 +1,5 @@
-@use "~antimatter/infrastructures/sass" as sass;
-@use "~antimatter/color-scheme" as color-scheme;
+@use "~@miniskylab/antimatter/infrastructures/sass" as sass;
+@use "~@miniskylab/antimatter/color-scheme" as color-scheme;
 
 $knob-radius: 15px;
 $track-padding: 4px;

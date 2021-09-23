@@ -1,5 +1,5 @@
-import {CSS} from "antimatter/infrastructures";
-import {IsBoolean, IsDefined, IsMultipleOf, IsNumber, IsPositive} from "antimatter/validation";
+import {CSS} from "@miniskylab/antimatter/infrastructures";
+import {IsBoolean, IsDefined, IsMultipleOf, IsNumber, IsPositive} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 
 export class RangeSliderPipSettings

@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {ImageMatrixComponent} from "./image-matrix-component";
 import {ImageMatrixComponentProps} from "./models/image-matrix-component-props";
 import {ImageMatrixExporter} from "./models/image-matrix-exporter";

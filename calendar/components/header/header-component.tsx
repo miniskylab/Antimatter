@@ -1,4 +1,4 @@
-import {Icon, IconName} from "antimatter/icon";
+import {Icon, IconName} from "@miniskylab/antimatter/icon";
 import React from "react";
 import {HeaderComponentProps} from "./models/header-component-props";
 

@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps, Image} from "antimatter/infrastructures";
-import {IsArray} from "antimatter/validation";
+import {ComponentName, ComponentProps, Image} from "@miniskylab/antimatter/infrastructures";
+import {IsArray} from "@miniskylab/antimatter/validation";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 

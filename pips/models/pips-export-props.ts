@@ -1,4 +1,4 @@
-import {Export} from "antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructures";
 import {PipsVariant} from "../variants";
 import {PipsComponentProps} from "./pips-component-props";
 import {PipsShape} from "./pips-shape";

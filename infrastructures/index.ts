@@ -1,4 +1,4 @@
-import "antimatter/typography";
+import "@miniskylab/antimatter/typography";
 import "reflect-metadata";
 import "./sass/global-styles/index.global.scss";
 

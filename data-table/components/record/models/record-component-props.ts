@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps} from "antimatter/infrastructures";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
 import {IsArray, IsOptional} from "class-validator";
 import {MouseEventHandler} from "react";
 

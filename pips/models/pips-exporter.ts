@@ -1,4 +1,4 @@
-import {ComponentExporter, CSS, Enum} from "antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
 import {ClassConstructor} from "class-transformer";
 import {CircularPipsVariant, HorizontalPipsVariant, PipsVariant} from "../variants";
 import {PipsComponentProps} from "./pips-component-props";

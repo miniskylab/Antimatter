@@ -1,4 +1,4 @@
-import {IsDefined, IsHexColor, IsString} from "antimatter/validation";
+import {IsDefined, IsHexColor, IsString} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 
 export class LineChartDataX

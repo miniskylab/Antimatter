@@ -1,4 +1,4 @@
-import {Export} from "antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructures";
 import {LineChartVariant} from "../variants";
 import {LineChartComponentProps} from "./line-chart-component-props";
 

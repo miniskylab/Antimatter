@@ -1,6 +1,6 @@
-import {DateFormat, GregorianCalendar, TimeUnit} from "antimatter/date-time";
-import {Icon, IconName} from "antimatter/icon";
-import {Markdown} from "antimatter/markdown";
+import {DateFormat, GregorianCalendar, TimeUnit} from "@miniskylab/antimatter/date-time";
+import {Icon, IconName} from "@miniskylab/antimatter/icon";
+import {Markdown} from "@miniskylab/antimatter/markdown";
 import React from "react";
 import {EventComponentProps} from "./models/event-component-props";
 

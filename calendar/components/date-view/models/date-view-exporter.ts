@@ -1,4 +1,4 @@
-import {ComponentExporter, CSS, Enum} from "antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
 import {ClassConstructor} from "class-transformer";
 import {DateViewVariant, DefaultDateViewVariant, MiniDateViewVariant, SesquialteralDateViewVariant} from "../variants";
 import {DateViewComponentProps} from "./date-view-component-props";

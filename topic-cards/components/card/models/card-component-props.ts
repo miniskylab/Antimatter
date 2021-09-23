@@ -1,7 +1,7 @@
-import {ButtonProps} from "antimatter/button";
-import {IconName} from "antimatter/icon";
-import {ComponentName, ComponentProps} from "antimatter/infrastructures";
-import {IsArray, IsBoolean, IsDefined, IsNotEmpty, IsString} from "antimatter/validation";
+import {ButtonProps} from "@miniskylab/antimatter/button";
+import {IconName} from "@miniskylab/antimatter/icon";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {IsArray, IsBoolean, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter/validation";
 import {IsOptional, ValidateIf} from "class-validator";
 
 @ComponentName("Card Props")

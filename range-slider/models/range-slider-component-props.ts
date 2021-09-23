@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps} from "antimatter/infrastructures";
-import {IsBoolean, IsDefined, IsGreaterThanOrEqualTo, IsLessThanOrEqualTo, IsNumber} from "antimatter/validation";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {IsBoolean, IsDefined, IsGreaterThanOrEqualTo, IsLessThanOrEqualTo, IsNumber} from "@miniskylab/antimatter/validation";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {RangeSliderPipSettings} from "./range-slider-pip-settings";

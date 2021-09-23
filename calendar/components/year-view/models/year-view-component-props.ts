@@ -1,6 +1,6 @@
-import {Decade} from "antimatter/date-time";
-import {ComponentName, ComponentProps} from "antimatter/infrastructures";
-import {IsInteger} from "antimatter/validation";
+import {Decade} from "@miniskylab/antimatter/date-time";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {IsInteger} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 
 @ComponentName("Year View")

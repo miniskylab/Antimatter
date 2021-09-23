@@ -1,4 +1,4 @@
-import {Char} from "antimatter/infrastructures";
+import {Char} from "@miniskylab/antimatter/infrastructures";
 
 describe("how to use [Char.isDigit(...)]", (): void =>
 {

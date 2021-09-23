@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps} from "antimatter/infrastructures";
-import {IsDefined, IsInteger, IsPositive} from "antimatter/validation";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {IsDefined, IsInteger, IsPositive} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 import {Key} from "react";
 import {CSSTransitionClassNames} from "react-transition-group/CSSTransition";

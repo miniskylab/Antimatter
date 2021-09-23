@@ -1,4 +1,4 @@
-import {Icon, IconName} from "antimatter/icon";
+import {Icon, IconName} from "@miniskylab/antimatter/icon";
 import React, {Component} from "react";
 import {DropdownMenuComponentProps} from "./models/dropdown-menu-component-props";
 import {DropdownMenuComponentState} from "./models/dropdown-menu-component-state";

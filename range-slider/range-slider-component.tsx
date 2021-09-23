@@ -1,4 +1,4 @@
-import {Pips} from "antimatter/pips";
+import {Pips} from "@miniskylab/antimatter/pips";
 import React, {Component, createRef, RefObject} from "react";
 import {RangeSliderComponentProps} from "./models/range-slider-component-props";
 

@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {RecordComponentProps} from "./models/record-component-props";
 import {RecordExporter} from "./models/record-exporter";
 import {RecordComponent} from "./record-component";

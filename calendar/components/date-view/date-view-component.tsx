@@ -1,4 +1,4 @@
-import {GregorianCalendar, LunarCalendarVn} from "antimatter/date-time";
+import {GregorianCalendar, LunarCalendarVn} from "@miniskylab/antimatter/date-time";
 import React, {Component} from "react";
 import {getDateViewData} from "./helpers/date-view-data";
 import {DateViewComponentProps} from "./models/date-view-component-props";

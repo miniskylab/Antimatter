@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {CircularSliderComponent} from "./circular-slider-component";
 import {CircularSliderComponentProps} from "./models/circular-slider-component-props";
 import {CircularSliderExporter} from "./models/circular-slider-exporter";

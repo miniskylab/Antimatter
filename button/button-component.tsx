@@ -1,4 +1,4 @@
-import {Icon} from "antimatter/icon";
+import {Icon} from "@miniskylab/antimatter/icon";
 import React from "react";
 import {ButtonComponentProps} from "./models/button-component-props";
 import {ButtonTarget} from "./models/button-target";

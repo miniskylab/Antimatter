@@ -1,5 +1,5 @@
-import {GregorianCalendar} from "antimatter/date-time";
-import {IsDefined, IsNumber, Max, Min} from "antimatter/validation";
+import {GregorianCalendar} from "@miniskylab/antimatter/date-time";
+import {IsDefined, IsNumber, Max, Min} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 
 export class DateViewHighlightedDate

@@ -1,5 +1,5 @@
-import {Icon} from "antimatter/icon";
-import {Markdown} from "antimatter/markdown";
+import {Icon} from "@miniskylab/antimatter/icon";
+import {Markdown} from "@miniskylab/antimatter/markdown";
 import React from "react";
 import {HighlightedParagraphComponentProps} from "./models/highlighted-paragraph-component-props";
 

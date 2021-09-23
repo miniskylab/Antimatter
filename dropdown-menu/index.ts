@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {DropdownMenuComponent} from "./dropdown-menu-component";
 import {DropdownMenuComponentProps} from "./models/dropdown-menu-component-props";
 import {DropdownMenuExporter} from "./models/dropdown-menu-exporter";

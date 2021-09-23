@@ -1,5 +1,5 @@
-import {IconName} from "antimatter/icon";
-import {ComponentExporter, CSS, Enum} from "antimatter/infrastructures";
+import {IconName} from "@miniskylab/antimatter/icon";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
 import {ClassConstructor} from "class-transformer";
 import {
     CardVariant,

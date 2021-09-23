@@ -1,4 +1,4 @@
-import {Export} from "antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructures";
 import {DateViewVariant} from "../variants";
 import {DateViewComponentProps} from "./date-view-component-props";
 

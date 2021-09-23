@@ -1,5 +1,5 @@
-import {Icon, IconName} from "antimatter/icon";
-import {Pips, PipsShape} from "antimatter/pips";
+import {Icon, IconName} from "@miniskylab/antimatter/icon";
+import {Pips, PipsShape} from "@miniskylab/antimatter/pips";
 import React, {Component, createRef, RefObject} from "react";
 import {CircularSliderComponentProps} from "./models/circular-slider-component-props";
 import {CircularSliderKnob} from "./models/circular-slider-knob";

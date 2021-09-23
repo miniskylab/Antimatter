@@ -1,4 +1,4 @@
-import {GregorianCalendar} from "antimatter/date-time";
+import {GregorianCalendar} from "@miniskylab/antimatter/date-time";
 import {CalendarTimeFrame} from "../models/calendar-time-frame";
 import {CalendarView} from "../models/calendar-view";
 

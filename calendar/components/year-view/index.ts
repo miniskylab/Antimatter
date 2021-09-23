@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {YearViewComponentProps} from "./models/year-view-component-props";
 import {YearViewExporter} from "./models/year-view-exporter";
 import {YearViewComponent} from "./year-view-component";

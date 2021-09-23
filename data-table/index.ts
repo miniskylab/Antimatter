@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
 import {DataTableComponent} from "./data-table-component";
 import {DataTableComponentProps} from "./models/data-table-component-props";
 import {DataTableExporter} from "./models/data-table-exporter";

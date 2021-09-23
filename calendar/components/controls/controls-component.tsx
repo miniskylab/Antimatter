@@ -1,4 +1,4 @@
-import {Icon, IconName} from "antimatter/icon";
+import {Icon, IconName} from "@miniskylab/antimatter/icon";
 import React, {MouseEventHandler} from "react";
 import {ControlsComponentProps} from "./models/controls-component-props";
 
