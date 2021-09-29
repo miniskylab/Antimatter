@@ -1,6 +1,6 @@
+import {OpenAPIDocument} from "@miniskylab/openapi";
 import {OpenAPIV3_1} from "openapi-types";
 import React, {useEffect} from "react";
-import {apiList} from "./models/rapi-doc-api-list";
 import {RapidDocComponentProps} from "./models/rapi-doc-component-props";
 
 /**
@@ -25,7 +25,7 @@ export function RapiDocComponent(props: RapidDocComponentProps): JSX.Element
             {
                 type RapiDocElement = HTMLElement & { loadSpec: (specObject: OpenAPIV3_1.Document) => Record<string, unknown> };
                 const rapiDocElement = document.getElementsByTagName("rapi-doc")[0] as RapiDocElement;
-                rapiDocElement.loadSpec(apiList[props.apiName]);
+                rapiDocElement.loadSpec(OpenAPIDocument[props.apiName]);
             };
 
             document.getElementsByTagName("head")[0].appendChild(script);
