@@ -1,9 +1,10 @@
 <Project Sdk="Microsoft.Build.NoTargets/2.0.1">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.1;</TargetFrameworks>
+    <TargetFramework>net5.0</TargetFramework>
     <NoBuild>true</NoBuild>
     <IsPackable>false</IsPackable>
     <IncludeBuildOutput>false</IncludeBuildOutput>
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
