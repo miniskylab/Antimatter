@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {HighlightedParagraphComponent} from "./highlighted-paragraph-component";
 import {HighlightedParagraphComponentProps} from "./models/highlighted-paragraph-component-props";
 import {HighlightedParagraphExporter} from "./models/highlighted-paragraph-exporter";

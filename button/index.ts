@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {ButtonComponent} from "./button-component";
 import {ButtonComponentProps} from "./models/button-component-props";
 import {ButtonExporter} from "./models/button-exporter";

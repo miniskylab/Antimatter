@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {DatePickerVariant} from "../variants";
 import {DatePickerComponentProps} from "./date-picker-component-props";
 

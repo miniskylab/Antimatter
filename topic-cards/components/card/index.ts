@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {CardComponent} from "./card-component";
 import {CardComponentProps} from "./models/card-component-props";
 import {CardExporter} from "./models/card-exporter";

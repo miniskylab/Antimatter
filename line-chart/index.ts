@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {LineChartComponent} from "./line-chart-component";
 import {LineChartComponentProps} from "./models/line-chart-component-props";
 import {LineChartExporter} from "./models/line-chart-exporter";

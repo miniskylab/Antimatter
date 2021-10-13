@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {CalendarComponent} from "./calendar-component";
 import {CalendarComponentProps} from "./models/calendar-component-props";
 import {CalendarExporter} from "./models/calendar-exporter";

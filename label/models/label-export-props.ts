@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {LabelVariant} from "../variants";
 import {LabelComponentProps} from "./label-component-props";
 

@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {PanelComponentProps} from "./models/panel-component-props";
 import {PanelExporter} from "./models/panel-exporter";
 import {PanelComponent} from "./panel-component";

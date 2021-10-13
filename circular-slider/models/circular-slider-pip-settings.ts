@@ -1,4 +1,4 @@
-import {CSS} from "@miniskylab/antimatter/infrastructures";
+import {CSS} from "@miniskylab/antimatter/infrastructure";
 import {IsBoolean, IsDefined, IsMultipleOf, IsNumber, IsPositive} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 

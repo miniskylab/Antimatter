@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {EventComponent} from "./event-component";
 import {EventComponentProps} from "./models/event-component-props";
 import {EventExporter} from "./models/event-exporter";

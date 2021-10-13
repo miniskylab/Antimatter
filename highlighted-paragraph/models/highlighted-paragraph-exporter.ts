@@ -1,5 +1,5 @@
 import {IconName} from "@miniskylab/antimatter/icon";
-import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructure";
 import {ClassConstructor} from "class-transformer";
 import {DefaultHighlightedParagraphVariant, HighlightedParagraphVariant} from "../variants";
 import {HighlightedParagraphComponentProps} from "./highlighted-paragraph-component-props";

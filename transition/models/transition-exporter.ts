@@ -1,4 +1,4 @@
-import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructure";
 import {ClassConstructor} from "class-transformer";
 import {DefaultTransitionVariant, TransitionVariant} from "../variants";
 import {TransitionComponentProps} from "./transition-component-props";

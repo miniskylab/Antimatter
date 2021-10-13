@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {TransitionVariant} from "../variants";
 import {TransitionComponentProps} from "./transition-component-props";
 

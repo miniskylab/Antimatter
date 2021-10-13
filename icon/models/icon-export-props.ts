@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {IconVariant} from "../variants";
 import {IconComponentProps} from "./icon-component-props";
 import {IconName} from "./icon-name";

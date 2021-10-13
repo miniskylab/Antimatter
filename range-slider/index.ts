@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {RangeSliderComponentProps} from "./models/range-slider-component-props";
 import {RangeSliderExporter} from "./models/range-slider-exporter";
 import {RangeSliderComponent} from "./range-slider-component";

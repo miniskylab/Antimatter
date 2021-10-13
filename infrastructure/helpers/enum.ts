@@ -1,4 +1,4 @@
-import {CSS} from "@miniskylab/antimatter/infrastructures";
+import {CSS} from "@miniskylab/antimatter/infrastructure";
 
 class _Enum
 {

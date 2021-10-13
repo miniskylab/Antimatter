@@ -1,6 +1,6 @@
 import {ButtonProps} from "@miniskylab/antimatter/button";
 import {IconName} from "@miniskylab/antimatter/icon";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructure";
 import {IsArray, IsBoolean, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter/validation";
 import {IsOptional, ValidateIf} from "class-validator";
 

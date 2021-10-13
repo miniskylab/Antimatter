@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {TimelineComponentProps} from "./models/timeline-component-props";
 import {TimelineExporter} from "./models/timeline-exporter";
 import {TimelineComponent} from "./timeline-component";

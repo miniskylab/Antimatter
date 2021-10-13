@@ -1,5 +1,5 @@
 import {Decade, GregorianCalendar} from "@miniskylab/antimatter/date-time";
-import {Char} from "@miniskylab/antimatter/infrastructures";
+import {Char} from "@miniskylab/antimatter/infrastructure";
 import {Transition} from "@miniskylab/antimatter/transition";
 import React, {Component} from "react";
 import {Controls} from "./components/controls";

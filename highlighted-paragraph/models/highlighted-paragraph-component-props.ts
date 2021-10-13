@@ -1,5 +1,5 @@
 import {IconName} from "@miniskylab/antimatter/icon";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructure";
 import {IsEnum, IsString} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 

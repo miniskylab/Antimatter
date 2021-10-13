@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {SpacerVariant} from "../variants";
 import {SpacerComponentProps} from "./spacer-component-props";
 

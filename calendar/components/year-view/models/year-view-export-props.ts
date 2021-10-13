@@ -1,5 +1,5 @@
 import {Decade} from "@miniskylab/antimatter/date-time";
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {YearViewVariant} from "../variants";
 import {YearViewComponentProps} from "./year-view-component-props";
 

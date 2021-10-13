@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {RecordVariant} from "../variants";
 import {RecordComponentProps} from "./record-component-props";
 

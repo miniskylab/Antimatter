@@ -1,4 +1,4 @@
-import {ComponentExporter, CSS} from "@miniskylab/antimatter/infrastructures";
+import {ComponentExporter, CSS} from "@miniskylab/antimatter/infrastructure";
 import {ClassConstructor} from "class-transformer";
 import {RapidDocComponentProps} from "./rapi-doc-component-props";
 import {RapiDocExportProps} from "./rapi-doc-export-props";

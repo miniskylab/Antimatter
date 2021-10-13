@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {NumericInputFieldComponentProps} from "./models/numeric-input-field-component-props";
 import {NumericInputFieldExporter} from "./models/numeric-input-field-exporter";
 import {NumericInputFieldComponent} from "./numeric-input-field-component";

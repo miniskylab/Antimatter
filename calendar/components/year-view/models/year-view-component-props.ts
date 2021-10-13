@@ -1,5 +1,5 @@
 import {Decade} from "@miniskylab/antimatter/date-time";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructure";
 import {IsInteger} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 

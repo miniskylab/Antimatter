@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructure";
 import {IsDefined, IsInteger, IsPositive} from "@miniskylab/antimatter/validation";
 import {IsOptional} from "class-validator";
 import {Key} from "react";

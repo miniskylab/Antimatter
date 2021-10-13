@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructure";
 import {ArrayNotEmpty, IsArray, IsDefined} from "@miniskylab/antimatter/validation";
 import {CardProps} from "../components/card";
 

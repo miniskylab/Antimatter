@@ -1,4 +1,4 @@
-import {Char} from "@miniskylab/antimatter/infrastructures";
+import {Char} from "@miniskylab/antimatter/infrastructure";
 import React from "react";
 
 export function isAllowedKey(keyboardEvent: React.KeyboardEvent<HTMLInputElement>): boolean

@@ -1,4 +1,4 @@
-import {CSS, Export, Modify} from "@miniskylab/antimatter/infrastructures";
+import {CSS, Export, Modify} from "@miniskylab/antimatter/infrastructure";
 import {ControlsVariant} from "../components/controls";
 import {DateViewVariant} from "../components/date-view";
 import {HeaderVariant} from "../components/header";

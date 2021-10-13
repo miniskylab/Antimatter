@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {CircularSliderVariant} from "../variants";
 import {CircularSliderComponentProps} from "./circular-slider-component-props";
 

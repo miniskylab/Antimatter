@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructure";
 import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter/validation";
 
 @ComponentName("Label")

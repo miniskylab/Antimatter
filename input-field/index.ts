@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {InputFieldComponent} from "./input-field-component";
 import {InputFieldComponentProps} from "./models/input-field-component-props";
 import {InputFieldExporter} from "./models/input-field-exporter";

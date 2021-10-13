@@ -1,4 +1,4 @@
-import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructure";
 import {ClassConstructor} from "class-transformer";
 import {DataTableVariant, DefaultDataTableVariant} from "../variants";
 import {DataTableComponentProps} from "./data-table-component-props";

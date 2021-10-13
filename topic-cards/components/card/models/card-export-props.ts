@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {CardVariant} from "../variants";
 import {CardComponentProps} from "./card-component-props";
 

@@ -1,4 +1,4 @@
-import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructure";
 import {ClassConstructor} from "class-transformer";
 import {DefaultDropdownMenuVariant, DropdownMenuVariant} from "../variants";
 import {DropdownMenuComponentProps} from "./dropdown-menu-component-props";

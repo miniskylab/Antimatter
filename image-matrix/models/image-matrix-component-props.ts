@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps, Image} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, ComponentProps, Image} from "@miniskylab/antimatter/infrastructure";
 import {IsArray} from "@miniskylab/antimatter/validation";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";

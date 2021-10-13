@@ -1,4 +1,4 @@
-import {Radians} from "@miniskylab/antimatter/infrastructures";
+import {Radians} from "@miniskylab/antimatter/infrastructure";
 import React, {Component, createRef, RefObject} from "react";
 import {DonutChartComponentProps} from "./models/donut-chart-component-props";
 

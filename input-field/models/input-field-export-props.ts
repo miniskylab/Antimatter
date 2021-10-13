@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {InputFieldVariant} from "../variants";
 import {InputFieldComponentProps} from "./input-field-component-props";
 

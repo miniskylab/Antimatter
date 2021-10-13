@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {IconComponent} from "./icon-component";
 import {IconComponentProps} from "./models/icon-component-props";
 import {IconExporter} from "./models/icon-exporter";

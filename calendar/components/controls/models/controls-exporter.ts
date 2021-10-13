@@ -1,4 +1,4 @@
-import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructure";
 import {ClassConstructor} from "class-transformer";
 import {ControlsVariant, DefaultControlsVariant, MiniControlsVariant, SesquialteralControlsVariant} from "../variants";
 import {ControlsComponentProps} from "./controls-component-props";

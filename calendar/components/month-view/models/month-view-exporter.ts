@@ -1,4 +1,4 @@
-import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructure";
 import {ClassConstructor} from "class-transformer";
 import {DefaultMonthViewVariant, MiniMonthViewVariant, MonthViewVariant, SesquialteralMonthViewVariant} from "../variants";
 import {MonthViewComponentProps} from "./month-view-component-props";

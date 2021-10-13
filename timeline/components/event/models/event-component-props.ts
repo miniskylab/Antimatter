@@ -1,6 +1,6 @@
 import {TimeUnit} from "@miniskylab/antimatter/date-time";
 import {IconName} from "@miniskylab/antimatter/icon";
-import {ComponentName, ComponentProps, Image} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, ComponentProps, Image} from "@miniskylab/antimatter/infrastructure";
 import {IsBoolean, IsDate, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter/validation";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";

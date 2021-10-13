@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {RapidDocComponentProps} from "./models/rapi-doc-component-props";
 import {RapiDocExporter} from "./models/rapi-doc-exporter";
 import {RapiDocComponent} from "./rapi-doc-component";

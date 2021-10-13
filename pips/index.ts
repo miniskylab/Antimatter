@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {PipsComponentProps} from "./models/pips-component-props";
 import {PipsExporter} from "./models/pips-exporter";
 import {PipsComponent} from "./pips-component";

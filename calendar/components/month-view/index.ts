@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {MonthViewComponentProps} from "./models/month-view-component-props";
 import {MonthViewExporter} from "./models/month-view-exporter";
 import {MonthViewComponent} from "./month-view-component";

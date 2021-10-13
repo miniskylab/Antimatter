@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {HeaderComponent} from "./header-component";
 import {HeaderComponentProps} from "./models/header-component-props";
 import {HeaderExporter} from "./models/header-exporter";

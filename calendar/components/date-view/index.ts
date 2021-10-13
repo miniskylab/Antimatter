@@ -1,4 +1,4 @@
-import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructures";
+import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {DateViewComponent} from "./date-view-component";
 import {DateViewComponentProps} from "./models/date-view-component-props";
 import {DateViewExporter} from "./models/date-view-exporter";

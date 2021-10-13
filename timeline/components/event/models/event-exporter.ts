@@ -1,6 +1,6 @@
 import {TimeUnit} from "@miniskylab/antimatter/date-time";
 import {IconName} from "@miniskylab/antimatter/icon";
-import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructures";
+import {ComponentExporter, CSS, Enum} from "@miniskylab/antimatter/infrastructure";
 import {ClassConstructor} from "class-transformer";
 import {DefaultEventVariant, EventVariant} from "../variants";
 import {EventComponentProps} from "./event-component-props";

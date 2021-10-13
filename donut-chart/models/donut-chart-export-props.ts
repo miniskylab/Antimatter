@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {DonutChartVariant} from "../variants";
 import {DonutChartComponentProps} from "./donut-chart-component-props";
 

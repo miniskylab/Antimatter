@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {ControlsVariant} from "../variants";
 import {ControlsComponentProps} from "./controls-component-props";
 

@@ -1,4 +1,4 @@
-import {Export} from "@miniskylab/antimatter/infrastructures";
+import {Export} from "@miniskylab/antimatter/infrastructure";
 import {MonthViewVariant} from "../variants";
 import {MonthViewComponentProps} from "./month-view-component-props";
 
