@@ -12,7 +12,7 @@
     "rehype-raw": "6.1.0",
     "rehype-sanitize": "5.0.0",
     "reflect-metadata": "0.1.13",
-    "react-markdown": "7.0.1",
+    "react-markdown": "7.1.0",
     "react-transition-group": "4.4.2"
   }
 }
