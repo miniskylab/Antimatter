@@ -37,7 +37,7 @@ export enum IconName
     StackOverflow = "antimatter-icon__stack-overflow",
     Tower = "antimatter-icon__tower",
     Strapi = "antimatter-icon__strapi",
-    MiniSkyLab = "antimatter-icon__mini-skylab",
+    MiniSkyLab = "antimatter-icon__miniskylab",
     NewTab = "antimatter-icon__new-tab",
     Download = "antimatter-icon__download",
     Calendar = "antimatter-icon__calendar",
