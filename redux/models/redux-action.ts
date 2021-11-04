@@ -4,6 +4,8 @@ export abstract class ReduxAction<TReduxState> implements AnyAction
 {
     readonly type: string;
 
+    [extraProps: string]: unknown;
+
     constructor()
     {
         this.type = this.constructor.name;
