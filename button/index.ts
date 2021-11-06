@@ -3,7 +3,7 @@ import {ButtonComponent} from "./button-component";
 import {ButtonComponentProps} from "./models/button-component-props";
 import {ButtonExporter} from "./models/button-exporter";
 
-export const ButtonComponentName = Decorator.getValue(ComponentName, ButtonComponentProps) as string;
+export const ButtonComponentName = Decorator.getValue<string>(ComponentName, ButtonComponentProps);
 
 export {ButtonComponent};
 export {ButtonComponentProps};

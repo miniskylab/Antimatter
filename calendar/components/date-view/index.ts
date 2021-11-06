@@ -3,7 +3,7 @@ import {DateViewComponent} from "./date-view-component";
 import {DateViewComponentProps} from "./models/date-view-component-props";
 import {DateViewExporter} from "./models/date-view-exporter";
 
-export const DateViewComponentName = Decorator.getValue(ComponentName, DateViewComponentProps) as string;
+export const DateViewComponentName = Decorator.getValue<string>(ComponentName, DateViewComponentProps);
 
 export {DateViewComponent};
 export {DateViewComponentProps};

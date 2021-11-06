@@ -1,7 +1,7 @@
 import {ComponentName, Decorator} from "@miniskylab/antimatter/infrastructure";
 import {DownloadButtonComponentProps} from "./models/download-button-component-props";
 
-export const DownloadButtonComponentName = Decorator.getValue(ComponentName, DownloadButtonComponentProps) as string;
+export const DownloadButtonComponentName = Decorator.getValue<string>(ComponentName, DownloadButtonComponentProps);
 
 export {DownloadButtonComponentProps};
 

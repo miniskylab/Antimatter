@@ -3,7 +3,7 @@ import {TransitionComponentProps} from "./models/transition-component-props";
 import {TransitionExporter} from "./models/transition-exporter";
 import {TransitionComponent} from "./transition-component";
 
-export const TransitionComponentName = Decorator.getValue(ComponentName, TransitionComponentProps) as string;
+export const TransitionComponentName = Decorator.getValue<string>(ComponentName, TransitionComponentProps);
 
 export {TransitionComponent};
 export {TransitionComponentProps};

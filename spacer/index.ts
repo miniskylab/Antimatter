@@ -3,7 +3,7 @@ import {SpacerComponentProps} from "./models/spacer-component-props";
 import {SpacerExporter} from "./models/spacer-exporter";
 import {SpacerComponent} from "./spacer-component";
 
-export const SpacerComponentName = Decorator.getValue(ComponentName, SpacerComponentProps) as string;
+export const SpacerComponentName = Decorator.getValue<string>(ComponentName, SpacerComponentProps);
 
 export {SpacerComponent};
 export {SpacerComponentProps};

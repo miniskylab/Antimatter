@@ -3,7 +3,7 @@ import {EventComponent} from "./event-component";
 import {EventComponentProps} from "./models/event-component-props";
 import {EventExporter} from "./models/event-exporter";
 
-export const EventComponentName = Decorator.getValue(ComponentName, EventComponentProps) as string;
+export const EventComponentName = Decorator.getValue<string>(ComponentName, EventComponentProps);
 
 export {EventComponent};
 export {EventComponentProps};

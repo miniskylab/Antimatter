@@ -3,7 +3,7 @@ import {DataTableComponent} from "./data-table-component";
 import {DataTableComponentProps} from "./models/data-table-component-props";
 import {DataTableExporter} from "./models/data-table-exporter";
 
-export const DataTableComponentName = Decorator.getValue(ComponentName, DataTableComponentProps) as string;
+export const DataTableComponentName = Decorator.getValue<string>(ComponentName, DataTableComponentProps);
 
 export {DataTableComponent};
 export {DataTableComponentProps};

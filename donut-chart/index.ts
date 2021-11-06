@@ -3,7 +3,7 @@ import {DonutChartComponent} from "./donut-chart-component";
 import {DonutChartComponentProps} from "./models/donut-chart-component-props";
 import {DonutChartExporter} from "./models/donut-chart-exporter";
 
-export const DonutChartComponentName = Decorator.getValue(ComponentName, DonutChartComponentProps) as string;
+export const DonutChartComponentName = Decorator.getValue<string>(ComponentName, DonutChartComponentProps);
 
 export {DonutChartComponent};
 export {DonutChartComponentProps};

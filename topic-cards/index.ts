@@ -3,7 +3,7 @@ import {TopicCardsComponentProps} from "./models/topic-cards-component-props";
 import {TopicCardsExporter} from "./models/topic-cards-exporter";
 import {TopicCardsComponent} from "./topic-cards-component";
 
-export const TopicCardsComponentName = Decorator.getValue(ComponentName, TopicCardsComponentProps) as string;
+export const TopicCardsComponentName = Decorator.getValue<string>(ComponentName, TopicCardsComponentProps);
 
 export {TopicCardsComponent};
 export {TopicCardsComponentProps};

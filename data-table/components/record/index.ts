@@ -3,7 +3,7 @@ import {RecordComponentProps} from "./models/record-component-props";
 import {RecordExporter} from "./models/record-exporter";
 import {RecordComponent} from "./record-component";
 
-export const RecordComponentName = Decorator.getValue(ComponentName, RecordComponentProps) as string;
+export const RecordComponentName = Decorator.getValue<string>(ComponentName, RecordComponentProps);
 
 export {RecordComponent};
 export {RecordComponentProps};

@@ -3,7 +3,7 @@ import {HeaderComponent} from "./header-component";
 import {HeaderComponentProps} from "./models/header-component-props";
 import {HeaderExporter} from "./models/header-exporter";
 
-export const HeaderComponentName = Decorator.getValue(ComponentName, HeaderComponentProps) as string;
+export const HeaderComponentName = Decorator.getValue<string>(ComponentName, HeaderComponentProps);
 
 export {HeaderComponent};
 export {HeaderComponentProps};

@@ -3,7 +3,7 @@ import {DropdownMenuComponent} from "./dropdown-menu-component";
 import {DropdownMenuComponentProps} from "./models/dropdown-menu-component-props";
 import {DropdownMenuExporter} from "./models/dropdown-menu-exporter";
 
-export const DropdownMenuComponentName = Decorator.getValue(ComponentName, DropdownMenuComponentProps) as string;
+export const DropdownMenuComponentName = Decorator.getValue<string>(ComponentName, DropdownMenuComponentProps);
 
 export {DropdownMenuComponent};
 export {DropdownMenuComponentProps};

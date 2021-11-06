@@ -3,7 +3,7 @@ import {ImageMatrixComponent} from "./image-matrix-component";
 import {ImageMatrixComponentProps} from "./models/image-matrix-component-props";
 import {ImageMatrixExporter} from "./models/image-matrix-exporter";
 
-export const ImageMatrixComponentName = Decorator.getValue(ComponentName, ImageMatrixComponentProps) as string;
+export const ImageMatrixComponentName = Decorator.getValue<string>(ComponentName, ImageMatrixComponentProps);
 
 export {ImageMatrixComponent};
 export {ImageMatrixComponentProps};

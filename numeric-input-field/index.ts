@@ -3,7 +3,7 @@ import {NumericInputFieldComponentProps} from "./models/numeric-input-field-comp
 import {NumericInputFieldExporter} from "./models/numeric-input-field-exporter";
 import {NumericInputFieldComponent} from "./numeric-input-field-component";
 
-export const NumericInputFieldComponentName = Decorator.getValue(ComponentName, NumericInputFieldComponentProps) as string;
+export const NumericInputFieldComponentName = Decorator.getValue<string>(ComponentName, NumericInputFieldComponentProps);
 
 export {NumericInputFieldComponent};
 export {NumericInputFieldComponentProps};

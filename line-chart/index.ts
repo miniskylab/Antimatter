@@ -3,7 +3,7 @@ import {LineChartComponent} from "./line-chart-component";
 import {LineChartComponentProps} from "./models/line-chart-component-props";
 import {LineChartExporter} from "./models/line-chart-exporter";
 
-export const LineChartComponentName = Decorator.getValue(ComponentName, LineChartComponentProps) as string;
+export const LineChartComponentName = Decorator.getValue<string>(ComponentName, LineChartComponentProps);
 
 export {LineChartComponent};
 export {LineChartComponentProps};

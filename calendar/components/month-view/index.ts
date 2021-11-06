@@ -3,7 +3,7 @@ import {MonthViewComponentProps} from "./models/month-view-component-props";
 import {MonthViewExporter} from "./models/month-view-exporter";
 import {MonthViewComponent} from "./month-view-component";
 
-export const MonthViewComponentName = Decorator.getValue(ComponentName, MonthViewComponentProps) as string;
+export const MonthViewComponentName = Decorator.getValue<string>(ComponentName, MonthViewComponentProps);
 
 export {MonthViewComponent};
 export {MonthViewComponentProps};

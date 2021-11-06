@@ -3,7 +3,7 @@ import {PipsComponentProps} from "./models/pips-component-props";
 import {PipsExporter} from "./models/pips-exporter";
 import {PipsComponent} from "./pips-component";
 
-export const PipsComponentName = Decorator.getValue(ComponentName, PipsComponentProps) as string;
+export const PipsComponentName = Decorator.getValue<string>(ComponentName, PipsComponentProps);
 
 export {PipsComponent};
 export {PipsComponentProps};

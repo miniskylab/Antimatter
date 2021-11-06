@@ -3,7 +3,7 @@ import {IconComponent} from "./icon-component";
 import {IconComponentProps} from "./models/icon-component-props";
 import {IconExporter} from "./models/icon-exporter";
 
-export const IconComponentName = Decorator.getValue(ComponentName, IconComponentProps) as string;
+export const IconComponentName = Decorator.getValue<string>(ComponentName, IconComponentProps);
 
 export {IconComponent};
 export {IconComponentProps};

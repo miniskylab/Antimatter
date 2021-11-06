@@ -2,7 +2,7 @@ class _Decorator
 {
     getMetadataKey(key: string): string { return `antimatter:anotation:${key}`; }
 
-    getValue(decorator: (constructor: unknown) => void, target: unknown): unknown
+    getValue<T = unknown>(decorator: (constructor: unknown) => void, target: unknown): T
     {
         const metadataKey = this.getMetadataKey(decorator.name);
 

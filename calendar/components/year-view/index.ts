@@ -3,7 +3,7 @@ import {YearViewComponentProps} from "./models/year-view-component-props";
 import {YearViewExporter} from "./models/year-view-exporter";
 import {YearViewComponent} from "./year-view-component";
 
-export const YearViewComponentName = Decorator.getValue(ComponentName, YearViewComponentProps) as string;
+export const YearViewComponentName = Decorator.getValue<string>(ComponentName, YearViewComponentProps);
 
 export {YearViewComponent};
 export {YearViewComponentProps};

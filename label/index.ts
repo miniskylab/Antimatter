@@ -3,7 +3,7 @@ import {LabelComponent} from "./label-component";
 import {LabelComponentProps} from "./models/label-component-props";
 import {LabelExporter} from "./models/label-exporter";
 
-export const LabelComponentName = Decorator.getValue(ComponentName, LabelComponentProps) as string;
+export const LabelComponentName = Decorator.getValue<string>(ComponentName, LabelComponentProps);
 
 export {LabelComponent};
 export {LabelComponentProps};

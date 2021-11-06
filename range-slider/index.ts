@@ -3,7 +3,7 @@ import {RangeSliderComponentProps} from "./models/range-slider-component-props";
 import {RangeSliderExporter} from "./models/range-slider-exporter";
 import {RangeSliderComponent} from "./range-slider-component";
 
-export const RangeSliderComponentName = Decorator.getValue(ComponentName, RangeSliderComponentProps) as string;
+export const RangeSliderComponentName = Decorator.getValue<string>(ComponentName, RangeSliderComponentProps);
 
 export {RangeSliderComponent};
 export {RangeSliderComponentProps};

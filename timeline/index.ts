@@ -3,7 +3,7 @@ import {TimelineComponentProps} from "./models/timeline-component-props";
 import {TimelineExporter} from "./models/timeline-exporter";
 import {TimelineComponent} from "./timeline-component";
 
-export const TimelineComponentName = Decorator.getValue(ComponentName, TimelineComponentProps) as string;
+export const TimelineComponentName = Decorator.getValue<string>(ComponentName, TimelineComponentProps);
 
 export {TimelineComponent};
 export {TimelineComponentProps};

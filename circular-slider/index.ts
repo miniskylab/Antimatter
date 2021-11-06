@@ -3,7 +3,7 @@ import {CircularSliderComponent} from "./circular-slider-component";
 import {CircularSliderComponentProps} from "./models/circular-slider-component-props";
 import {CircularSliderExporter} from "./models/circular-slider-exporter";
 
-export const CircularSliderComponentName = Decorator.getValue(ComponentName, CircularSliderComponentProps) as string;
+export const CircularSliderComponentName = Decorator.getValue<string>(ComponentName, CircularSliderComponentProps);
 
 export {CircularSliderComponent};
 export {CircularSliderComponentProps};

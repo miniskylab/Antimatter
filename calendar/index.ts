@@ -3,7 +3,7 @@ import {CalendarComponent} from "./calendar-component";
 import {CalendarComponentProps} from "./models/calendar-component-props";
 import {CalendarExporter} from "./models/calendar-exporter";
 
-export const CalendarComponentName = Decorator.getValue(ComponentName, CalendarComponentProps) as string;
+export const CalendarComponentName = Decorator.getValue<string>(ComponentName, CalendarComponentProps);
 
 export {CalendarComponent};
 export {CalendarComponentProps};

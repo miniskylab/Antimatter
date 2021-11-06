@@ -72,7 +72,7 @@ export class PipsComponent extends Component<PipsComponentProps>
 
             const pctPipValue = this.getPctPipValue(pipIndex);
             pips.push(
-                <span
+                <div
                     key={pipIndex}
                     className={this.props.variant[pipClassName]}
                     style={this.getPipStyles(pipIndex, pctPipValue)}
@@ -102,7 +102,7 @@ export class PipsComponent extends Component<PipsComponentProps>
             const pctPipValue = this.getPctPipValue(pipIndex);
             const labelText = (pctPipValue * (this.props.maxValue - this.props.minValue) + this.props.minValue).shorten();
             labels.push(
-                <span
+                <div
                     key={pipIndex}
                     className={this.props.variant[labelClassName]}
                     style={this.getLabelStyles(pipIndex, pctPipValue)}
@@ -112,7 +112,7 @@ export class PipsComponent extends Component<PipsComponentProps>
                             ? <div style={{transform: `rotate(-${pctPipValue * 360}deg)`}}>{labelText}</div>
                             : labelText
                     }
-                </span>
+                </div>
             );
         }
 

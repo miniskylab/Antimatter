@@ -3,7 +3,7 @@ import {PanelComponentProps} from "./models/panel-component-props";
 import {PanelExporter} from "./models/panel-exporter";
 import {PanelComponent} from "./panel-component";
 
-export const PanelComponentName = Decorator.getValue(ComponentName, PanelComponentProps) as string;
+export const PanelComponentName = Decorator.getValue<string>(ComponentName, PanelComponentProps);
 
 export {PanelComponent};
 export {PanelComponentProps};

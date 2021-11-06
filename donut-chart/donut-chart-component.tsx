@@ -31,8 +31,8 @@ export class DonutChartComponent extends Component<DonutChartComponentProps>
                     className={this.props.variant["donut-chart__canvas"]}
                 />
                 <div className={this.props.variant["donut-chart__legend"]}>
-                    <span className={this.props.variant["donut-chart__value"]}>{this.props.pctValue.ensurePercent().toFixed(0)}</span>
-                    <span className={this.props.variant["donut-chart__percent-symbol"]}>%</span>
+                    <div className={this.props.variant["donut-chart__value"]}>{this.props.pctValue.ensurePercent().toFixed(0)}</div>
+                    <div className={this.props.variant["donut-chart__percent-symbol"]}>%</div>
                     <div className={this.props.variant["donut-chart__description"]}>{this.props.description}</div>
                 </div>
             </div>

@@ -3,7 +3,7 @@ import {ControlsComponent} from "./controls-component";
 import {ControlsComponentProps} from "./models/controls-component-props";
 import {ControlsExporter} from "./models/controls-exporter";
 
-export const ControlsComponentName = Decorator.getValue(ComponentName, ControlsComponentProps) as string;
+export const ControlsComponentName = Decorator.getValue<string>(ComponentName, ControlsComponentProps);
 
 export {ControlsComponent};
 export {ControlsComponentProps};

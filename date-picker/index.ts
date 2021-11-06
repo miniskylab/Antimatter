@@ -3,7 +3,7 @@ import {DatePickerComponent} from "./date-picker-component";
 import {DatePickerComponentProps} from "./models/date-picker-component-props";
 import {DatePickerExporter} from "./models/date-picker-exporter";
 
-export const DatePickerComponentName = Decorator.getValue(ComponentName, DatePickerComponentProps) as string;
+export const DatePickerComponentName = Decorator.getValue<string>(ComponentName, DatePickerComponentProps);
 
 export {DatePickerComponent};
 export {DatePickerComponentProps};

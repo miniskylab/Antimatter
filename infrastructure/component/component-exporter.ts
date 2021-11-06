@@ -66,12 +66,13 @@ export abstract class ComponentExporter<TExportProps extends Record<string, unkn
                  * To workaround this issue, I added an option to excludes all properties that start with:
                  * - "on": which indicates they are functions
                  * - "children": which indicates they are classes or functions (child react components)
+                 * - "dispatch": which indicates they are Redux's dispatch function
                  * - other special cases
                  *
                  * Current [class-transformer] version: 0.4.0
                  * TODO: Remove the below line of code when new version of [class-transformer] is released
                  */
-                {excludePrefixes: ["on", "children", "componentType"]}
+                {excludePrefixes: ["on", "children", "dispatch", "componentType"]}
             )
         );
 
@@ -79,7 +80,7 @@ export abstract class ComponentExporter<TExportProps extends Record<string, unkn
         {
             this.getErrorMessages(error).forEach(errorMessage =>
             {
-                const componentName = Decorator.getValue(ComponentName, error.target) as string;
+                const componentName = Decorator.getValue<string>(ComponentName, error.target);
                 console.error(`${ValidationMessageTemplate.PropsValidationErrorOccurred.format(componentName)} ${errorMessage}`);
             });
         });

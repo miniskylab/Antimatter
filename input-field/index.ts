@@ -3,7 +3,7 @@ import {InputFieldComponent} from "./input-field-component";
 import {InputFieldComponentProps} from "./models/input-field-component-props";
 import {InputFieldExporter} from "./models/input-field-exporter";
 
-export const InputFieldComponentName = Decorator.getValue(ComponentName, InputFieldComponentProps) as string;
+export const InputFieldComponentName = Decorator.getValue<string>(ComponentName, InputFieldComponentProps);
 
 export {InputFieldComponent};
 export {InputFieldComponentProps};

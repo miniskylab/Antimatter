@@ -9,7 +9,7 @@ export function createPlainObjectActionMiddleware<TReduxState>(): Middleware<Any
         (next): (action: ReduxAction<TReduxState> | SagaAction) => void =>
             (action): void =>
             {
-                let plainAction: AnyAction;
+                let plainAction: AnyAction = action;
                 if (action instanceof ReduxAction)
                 {
                     plainAction = {
