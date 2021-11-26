@@ -14,7 +14,7 @@ export class RecordExporter extends ComponentExporter<RecordExportProps>
     protected get DefaultProps(): Partial<RecordComponentProps>
     {
         return {
-            cellData: [],
+            cells: [],
             onClick: undefined
         };
     }

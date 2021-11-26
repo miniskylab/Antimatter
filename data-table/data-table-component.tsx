@@ -1,9 +1,7 @@
-import {Button} from "@miniskylab/antimatter/button";
 import {Icon, IconName} from "@miniskylab/antimatter/icon";
 import React, {Component, createRef, RefObject} from "react";
 import {Record} from "./components/record";
 import {DataTableComponentProps} from "./models/data-table-component-props";
-import {TabularRecordCancelButtonVariant, TabularRecordDeleteButtonVariant, TabularRecordOkButtonVariant} from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -18,11 +16,8 @@ export class DataTableComponent extends Component<DataTableComponentProps>
     render(): JSX.Element
     {
         return (
-            <div
-                ref={this.ref}
-                className={this.props.variant["data-table"]}
-            >
-                {this.renderColumns()}
+            <div ref={this.ref} className={this.props.variant["data-table"]}>
+                {this.renderPages()}
             </div>
         );
     }
@@ -45,164 +40,132 @@ export class DataTableComponent extends Component<DataTableComponentProps>
         }, (1 / 60) * 1000);
     }
 
-    private getColumnCount(): number
+    private getPageCount(): number
     {
         if (!this.ref.current)
         {
             return 0;
         }
 
-        const minColumnCount = 1;
+        const minPageCount = 1;
         const dataTableWidth = this.ref.current.getBoundingClientRect().width;
-        const columnCount = dataTableWidth / (this.props.pxMinColumnWidth + this.pxGutterWidth.double());
+        const pageCount = dataTableWidth / (this.props.pxMinPageWidth + this.pxGutterWidth.double());
 
-        return Math.trunc(columnCount).clamp(minColumnCount, this.props.maxColumnCount);
+        return Math.trunc(pageCount).clamp(minPageCount, this.props.maxPageCount);
     }
 
-    private renderColumns(): JSX.Element[]
+    private renderPages(): JSX.Element[]
     {
-        const columnCount = this.getColumnCount();
-        if (!columnCount)
+        const pageCount = this.getPageCount();
+        if (!pageCount)
         {
             return [];
         }
 
-        const columnStyles = {
+        const pageStyles = {
             margin: `0 ${this.pxGutterWidth}px`,
-            width: `calc(${Number.ONE_HUNDRED_PERCENT / columnCount}% - ${this.pxGutterWidth.double()}px)`
+            width: `calc(${Number.ONE_HUNDRED_PERCENT / pageCount}% - ${this.pxGutterWidth.double()}px)`
         };
 
-        const columns: JSX.Element[] = [];
-        for (let columnIndex = 0; columnIndex < columnCount; columnIndex++)
+        const pages: JSX.Element[] = [];
+        for (let pageIndex = 0; pageIndex < pageCount; pageIndex++)
         {
-            columns.push(
-                <div key={columnIndex} className={this.props.variant["data-table__column"]} style={columnStyles}>
-                    {this.renderRows(columnIndex)}
+            pages.push(
+                <div key={pageIndex} className={this.props.variant["data-table__page"]} style={pageStyles}>
+                    {this.renderRowsForPage(pageIndex)}
                 </div>
             );
         }
 
-        return columns;
+        return pages;
     }
 
-    private renderRows(columnIndex: number): JSX.Element[]
+    private renderRowsForPage(pageIndex: number): JSX.Element[]
     {
-        const rows: JSX.Element[] = [
-            <Record
-                key={this.props.headerRow.id}
-                cellData={[...this.props.headerRow.cells, this.renderControlBox(this.props.headerRow.id, true)]}
-            />
-        ];
+        const rows: JSX.Element[] = [];
 
-        if (columnIndex === 0 && this.props.addNewRow)
+        renderHeaderRow(this.props);
+        function renderHeaderRow(props: DataTableComponentProps)
         {
-            rows.push(<Record
-                key={this.props.addNewRow.id}
-                cellData={this.renderAddNewRow()}
-                onClick={(): void => { this.props.onRowClicked(this.props.addNewRow.id); }}
-            />);
-        }
-
-        const rowsInCurrentColumn = this.props.rows.slice(
-            this.props.addNewRow ? (columnIndex * this.props.rowCount - 1).clamp(0) : columnIndex * this.props.rowCount,
-            this.props.addNewRow ? (columnIndex + 1) * this.props.rowCount - 1 : (columnIndex + 1) * this.props.rowCount
-        );
-
-        for (let rowIndex = 0; rowIndex < this.props.rowCount; rowIndex++)
-        {
-            if (rowIndex >= rowsInCurrentColumn.length)
+            if (props.headerRowCells && props.headerRowCells.length > 0)
             {
-                rows.push(<Record key={rowIndex}/>);
-                continue;
+                rows.push(
+                    <Record
+                        id={props.headerRowCells.map(x => x.text).join()}
+                        key={props.headerRowCells.map(x => x.text).join()}
+                        cells={props.headerRowCells.map(labelProps => ({dataType: "label", data: labelProps}))}
+                    />
+                );
             }
-
-            rows.push(<Record
-                key={rowsInCurrentColumn[rowIndex].id}
-                cellData={[
-                    ...this.props.rows.filter((r): boolean => r.id === rowsInCurrentColumn[rowIndex].id)[0].cells,
-                    this.renderControlBox(
-                        rowsInCurrentColumn[rowIndex].id,
-                        false,
-                        rowsInCurrentColumn[rowIndex].id !== this.props.selectedRowId
-                    )
-                ]}
-                onClick={
-                    rowsInCurrentColumn[rowIndex].id === this.props.selectedRowId
-                        ? undefined
-                        : (): void =>
-                        {
-                            if (rowsInCurrentColumn[rowIndex].id !== this.props.selectedRowId)
-                            {
-                                this.props.onRowClicked(rowsInCurrentColumn[rowIndex].id);
-                            }
-                        }
-                }
-            />);
         }
 
-        if (rows.length <= this.props.rowCount + 1)
+        renderAddNewRow(this.props);
+        function renderAddNewRow(props: DataTableComponentProps)
         {
-            rows.push(<Record key={this.props.rowCount + 1}/>);
+            if (pageIndex === 0 && props.addNewRowText)
+            {
+                rows.push(
+                    <div key={"add-new-row"} className={props.variant["data-table__add-new-row"]}>
+                        <Icon iconName={IconName.PlusCircle} className={props.variant["data-table__add-new-icon"]}/>
+                        <div className={props.variant["data-table__add-new-label"]}>{props.addNewRowText}</div>
+                    </div>
+                );
+            }
+        }
+
+        renderRecords(this.props);
+        function renderRecords(props: DataTableComponentProps)
+        {
+            const recordsInCurrentPage = props.records.slice(
+                props.addNewRowText
+                    ? (pageIndex * props.rowCountPerPage - 1).clamp(0)
+                    : pageIndex * props.rowCountPerPage,
+                props.addNewRowText
+                    ? (pageIndex + 1) * props.rowCountPerPage - 1
+                    : (pageIndex + 1) * props.rowCountPerPage
+            );
+
+            for (let rowIndex = 0; rowIndex < props.rowCountPerPage; rowIndex++)
+            {
+                if (rowIndex >= recordsInCurrentPage.length)
+                {
+                    rows.push(<Record id={`${rowIndex}`} key={rowIndex}/>);
+                    continue;
+                }
+
+                const rowRecord = recordsInCurrentPage[rowIndex];
+                rows.push(
+                    <Record
+                        id={rowRecord.id}
+                        key={rowRecord.id}
+                        cells={props.records.find(x => x.id === rowRecord.id).cells}
+                        onSaveButtonClick={props.onRecordSave ? () => { props.onRecordSave(rowRecord.id); } : undefined}
+                        onCancelButtonClick={props.onRecordSave ? () => { props.onRecordDraftDiscard(rowRecord.id); } : undefined}
+                        onDeleteButtonClick={props.onRecordSave ? () => { props.onRecordDelete(rowRecord.id); } : undefined}
+                        onClick={
+                            props.onRowClick && rowRecord.id !== props.selectedRecordId
+                                ? () => { props.onRowClick(rowRecord.id); }
+                                : undefined
+                        }
+                    />
+                );
+            }
+        }
+
+        InsertAnEmptyRowToMakeUpForTheAddNewRow(this.props);
+        function InsertAnEmptyRowToMakeUpForTheAddNewRow(props: DataTableComponentProps)
+        {
+            if (rows.length <= props.rowCountPerPage + 1)
+            {
+                rows.push(
+                    <Record
+                        id={`${props.rowCountPerPage + 1}`}
+                        key={props.rowCountPerPage + 1}
+                    />
+                );
+            }
         }
 
         return rows;
-    }
-
-    private renderAddNewRow(): JSX.Element[]
-    {
-        return [
-            <>
-                <Icon iconName={IconName.PlusCircle} className={this.props.variant["data-table__add-new-icon"]}/>
-                <div className={this.props.variant["data-table__add-new-label"]}>{this.props.addNewRow.text}</div>
-            </>
-        ];
-    }
-
-    private renderControlBox(rowId: string, isEmpty = false, disabled = true): JSX.Element
-    {
-        let vrClassName = "data-table__vr";
-        let controlBoxClassName = "data-table__control-box";
-        if (!isEmpty && disabled) vrClassName += "--disabled";
-        if (!isEmpty && !disabled) controlBoxClassName += "--selected";
-
-        return (
-            <div className={this.props.variant[controlBoxClassName]}>
-                {!isEmpty && (
-                    <>
-                        <Button
-                            variant={TabularRecordOkButtonVariant}
-                            disabled={disabled}
-                            icon={"CheckMark"}
-                            onClick={(mouseEvent: React.MouseEvent<HTMLElement>): void =>
-                            {
-                                mouseEvent.stopPropagation();
-                                this.props.onSaveButtonClicked(rowId);
-                            }}
-                        />
-                        <Button
-                            variant={TabularRecordCancelButtonVariant}
-                            disabled={disabled}
-                            icon={"XMark"}
-                            onClick={(mouseEvent: React.MouseEvent<HTMLElement>): void =>
-                            {
-                                mouseEvent.stopPropagation();
-                                this.props.onCancelButtonClicked(rowId);
-                            }}
-                        />
-                        <div className={this.props.variant[vrClassName]}/>
-                        <Button
-                            variant={TabularRecordDeleteButtonVariant}
-                            disabled={disabled}
-                            icon={"TrashCan"}
-                            onClick={(mouseEvent: React.MouseEvent<HTMLElement>): void =>
-                            {
-                                mouseEvent.stopPropagation();
-                                this.props.onDeleteButtonClicked(rowId);
-                            }}
-                        />
-                    </>
-                )}
-            </div>
-        );
     }
 }

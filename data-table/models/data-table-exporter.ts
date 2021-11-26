@@ -3,7 +3,6 @@ import {ClassConstructor} from "class-transformer";
 import {DataTableVariant, DefaultDataTableVariant} from "../variants";
 import {DataTableComponentProps} from "./data-table-component-props";
 import {DataTableExportProps} from "./data-table-export-props";
-import {DataTableRow} from "./data-table-row";
 
 export class DataTableExporter extends ComponentExporter<DataTableExportProps>
 {
@@ -15,17 +14,17 @@ export class DataTableExporter extends ComponentExporter<DataTableExportProps>
     protected get DefaultProps(): Partial<DataTableComponentProps>
     {
         return {
-            rows: [] as DataTableRow[],
-            headerRow: undefined,
-            selectedRowId: undefined,
-            addNewRow: undefined,
-            rowCount: 15,
-            maxColumnCount: undefined,
-            pxMinColumnWidth: 570,
-            onRowClicked: undefined,
-            onSaveButtonClicked: undefined,
-            onCancelButtonClicked: undefined,
-            onDeleteButtonClicked: undefined
+            headerRowCells: [],
+            addNewRowText: undefined,
+            records: [],
+            selectedRecordId: undefined,
+            rowCountPerPage: 15,
+            maxPageCount: undefined,
+            pxMinPageWidth: 570,
+            onRowClick: undefined,
+            onRecordSave: undefined,
+            onRecordDraftDiscard: undefined,
+            onRecordDelete: undefined
         };
     }
 

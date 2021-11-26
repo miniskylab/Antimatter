@@ -16,4 +16,23 @@
             background-color: color-scheme.$background;
         }
     }
+
+    &__control-box {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        width: 115px;
+        height: 34px;
+        padding: 4px 10px 4px 12px;
+
+        &--active {
+            composes: record__control-box;
+            background-color: color-scheme.$accent--a10;
+            border-top: 1px solid color-scheme.$accent;
+            border-bottom: 1px solid color-scheme.$accent;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+    }
 }

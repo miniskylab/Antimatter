@@ -1,8 +1,8 @@
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter/infrastructure";
+import {LabelProps} from "@miniskylab/antimatter/label";
 import {IsArray, IsInteger, IsPositive, IsString} from "@miniskylab/antimatter/validation";
 import {IsOptional, ValidateNested} from "class-validator";
-import {DataTableAddNewRow} from "./data-table-add-new-row";
-import {DataTableRow} from "./data-table-row";
+import {RecordProps} from "../components/record";
 
 @ComponentName("Data Table")
 export class DataTableComponentProps extends ComponentProps
@@ -13,15 +13,7 @@ export class DataTableComponentProps extends ComponentProps
     @ValidateNested()
     @IsArray()
     @IsOptional()
-    readonly rows?: DataTableRow[];
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @ValidateNested()
-    @IsOptional()
-    readonly headerRow?: DataTableRow;
+    readonly headerRowCells?: LabelProps[];
 
 
     /**
@@ -29,15 +21,24 @@ export class DataTableComponentProps extends ComponentProps
      */
     @IsString()
     @IsOptional()
-    readonly selectedRowId?: string;
+    readonly addNewRowText?: string;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @ValidateNested()
+    @IsArray()
     @IsOptional()
-    readonly addNewRow?: DataTableAddNewRow;
+    readonly records?: RecordProps[];
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsString()
+    @IsOptional()
+    readonly selectedRecordId?: string;
 
 
     /**
@@ -46,7 +47,7 @@ export class DataTableComponentProps extends ComponentProps
     @IsPositive()
     @IsInteger()
     @IsOptional()
-    readonly rowCount?: number;
+    readonly rowCountPerPage?: number;
 
 
     /**
@@ -55,7 +56,7 @@ export class DataTableComponentProps extends ComponentProps
     @IsPositive()
     @IsInteger()
     @IsOptional()
-    readonly maxColumnCount?: number;
+    readonly maxPageCount?: number;
 
 
     /**
@@ -64,29 +65,29 @@ export class DataTableComponentProps extends ComponentProps
     @IsPositive()
     @IsInteger()
     @IsOptional()
-    readonly pxMinColumnWidth?: number;
+    readonly pxMinPageWidth?: number;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onRowClicked?: (rowId: string) => void;
+    readonly onRowClick?: (rowId: number | string) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onSaveButtonClicked?: (rowId: string) => void;
+    readonly onRecordSave?: (recordId: number | string) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onCancelButtonClicked?: (rowId: string) => void;
+    readonly onRecordDraftDiscard?: (recordId: number | string) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onDeleteButtonClicked?: (rowId: string) => void;
+    readonly onRecordDelete?: (recordId: number | string) => void;
 }

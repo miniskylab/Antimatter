@@ -8,24 +8,16 @@
     width: 26px;
     height: 26px;
     box-sizing: border-box;
-    border: 2px solid color-scheme.$gray;
+    border: 2px solid color-scheme.$positive;
     vertical-align: top;
     user-select: none;
     cursor: pointer;
-
-    svg {
-        fill: color-scheme.$gray;
-    }
 
     &--disabled {
         composes: button;
         opacity: 0.65;
         pointer-events: none;
         border-color: color-scheme.$background;
-
-        svg {
-            fill: color-scheme.$background;
-        }
     }
 
     &--circular {
@@ -39,20 +31,12 @@
 
     &:hover {
         color: color-scheme.$white;
-        background-color: color-scheme.$gray--a10;
-
-        svg {
-            fill: color-scheme.$white;
-        }
+        background-color: color-scheme.$positive--a10;
     }
 
     &:active {
         color: color-scheme.$white;
-        background-color: color-scheme.$gray;
-
-        svg {
-            fill: color-scheme.$white;
-        }
+        background-color: color-scheme.$positive;
     }
 
     &__icon {
