@@ -1,37 +1,32 @@
 import React from "react";
-import MarkdownComponent from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import rehypeSanitize, {defaultSchema} from "rehype-sanitize";
-import GFM from "remark-gfm";
+import sanitizeHtml from "sanitize-html";
+import Showdown from "showdown";
 import MarkdownStyles from "./markdown.scss";
 
 class _Markdown
 {
-    render(text: string): JSX.Element
+    render(dangerousMarkdownText: string): JSX.Element
     {
+        const markdownConverter = new Showdown.Converter({
+            simpleLineBreaks: true
+        });
+        markdownConverter.setFlavor("github");
+
+        const dangerousHtmlString = markdownConverter.makeHtml(dangerousMarkdownText);
+        const sanitizedHtmlString = sanitizeHtml(
+            dangerousHtmlString,
+            {
+                allowedAttributes: {
+                    "*": ["class"]
+                }
+            }
+        );
+
         return (
-            <MarkdownComponent
+            <div
                 className={MarkdownStyles["markdown"]}
-                plugins={[GFM]}
-                rehypePlugins={[
-                    rehypeRaw,
-                    [
-                        rehypeSanitize,
-                        {
-                            ...defaultSchema,
-                            attributes: {
-                                ...defaultSchema.attributes,
-                                "*": [
-                                    ...defaultSchema.attributes["*"],
-                                    "className"
-                                ]
-                            }
-                        }
-                    ]
-                ]}
-            >
-                {text}
-            </MarkdownComponent>
+                dangerouslySetInnerHTML={{__html: sanitizedHtmlString}}
+            />
         );
     }
 }
