@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 
 @ComponentName("Label")
 export class LabelComponentProps extends ComponentProps

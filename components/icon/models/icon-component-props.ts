@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {IsDefined, IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {IsOptional} from "class-validator";
 import {CSSProperties, MouseEventHandler, PointerEventHandler} from "react";
 import {IconName} from "./icon-name";

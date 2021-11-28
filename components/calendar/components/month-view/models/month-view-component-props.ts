@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {IsDate, IsInteger} from "@miniskylab/antimatter-class-validator";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {IsOptional} from "class-validator";
 
 @ComponentName("Month View")

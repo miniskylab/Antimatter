@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 
 @ComponentName("RapiDoc")
 export class RapidDocComponentProps extends ComponentProps

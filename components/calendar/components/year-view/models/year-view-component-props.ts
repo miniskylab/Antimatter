@@ -1,6 +1,6 @@
-import {Decade} from "@miniskylab/antimatter-typescript";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {IsInteger} from "@miniskylab/antimatter-class-validator";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
+import {Decade} from "@miniskylab/antimatter-typescript";
 import {IsOptional} from "class-validator";
 
 @ComponentName("Year View")

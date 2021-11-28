@@ -1,5 +1,5 @@
-import {GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import {IsDefined, IsNumber, Max, Min} from "@miniskylab/antimatter-class-validator";
+import {GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import {IsOptional} from "class-validator";
 
 export class DateViewHighlightedDate

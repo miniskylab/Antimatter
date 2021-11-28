@@ -1,4 +1,3 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {
     IsDefined,
     IsEnum,
@@ -8,6 +7,7 @@ import {
     IsNumber,
     IsPositive
 } from "@miniskylab/antimatter-class-validator";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {IsOptional} from "class-validator";
 import {PipsShape} from "./pips-shape";
 

@@ -1,5 +1,5 @@
-import {ComponentStyles} from "@miniskylab/antimatter-component";
 import {IsBoolean, IsDefined, IsMultipleOf, IsNumber, IsPositive} from "@miniskylab/antimatter-class-validator";
+import {ComponentStyles} from "@miniskylab/antimatter-component";
 import {IsOptional} from "class-validator";
 
 export class CircularSliderPipSettings

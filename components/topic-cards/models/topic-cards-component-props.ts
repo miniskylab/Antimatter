@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {ArrayNotEmpty, IsArray, IsDefined} from "@miniskylab/antimatter-class-validator";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {CardProps} from "../components/card";
 
 @ComponentName("Topic Cards")
