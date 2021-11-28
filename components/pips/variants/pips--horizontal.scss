@@ -9,6 +9,7 @@
     pointer-events: none;
 
     &__pip {
+        display: inline;
         position: absolute;
         width: 2px;
         height: 8px;
@@ -33,6 +34,7 @@
     }
 
     &__label {
+        display: inline;
         position: absolute;
         width: 30px;
         padding-top: 20px;

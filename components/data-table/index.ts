@@ -13,4 +13,4 @@ export {DataTableVariant} from "./variants";
 export type {DataTableExportProps as DataTableProps} from "./models/data-table-export-props";
 export const DataTable = new DataTableExporter().export(DataTableComponent);
 
-export {RecordProps} from "./components/record";
+export type {RecordProps} from "./components/record";
