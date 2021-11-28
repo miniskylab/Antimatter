@@ -10,20 +10,20 @@ export function HeaderComponent(props: HeaderComponentProps): JSX.Element
     return (
         <div className={props.variant["header"]}>
             <Icon
-                className={props.variant[`header__navigator${props.onPrevClicked ? String.EMPTY : "--disabled"}`]}
+                className={props.variant[`header__navigator${props.onPrevClick ? String.EMPTY : "--disabled"}`]}
                 iconName={IconName.ChevronLeft}
-                onClick={props.onPrevClicked}
+                onClick={props.onPrevClick}
             />
             <div
-                onClick={props.onHeadlineClicked}
-                className={props.variant[`header__headline${props.onHeadlineClicked ? String.EMPTY : "--unclickable"}`]}
+                onClick={props.onHeadlineClick}
+                className={props.variant[`header__headline${props.onHeadlineClick ? String.EMPTY : "--unclickable"}`]}
             >
                 {props.headline}
             </div>
             <Icon
-                className={props.variant[`header__navigator${props.onNextClicked ? String.EMPTY : "--disabled"}`]}
+                className={props.variant[`header__navigator${props.onNextClick ? String.EMPTY : "--disabled"}`]}
                 iconName={IconName.ChevronRight}
-                onClick={props.onNextClicked}
+                onClick={props.onNextClick}
             />
         </div>
     );

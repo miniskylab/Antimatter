@@ -25,7 +25,7 @@ export class MonthViewExporter extends ComponentExporter<MonthViewExportProps>
         return {
             selectedMonth: this.today,
             displayingYear: this.today.getFullYear(),
-            onMonthClicked: undefined
+            onMonthClick: undefined
         };
     }
 

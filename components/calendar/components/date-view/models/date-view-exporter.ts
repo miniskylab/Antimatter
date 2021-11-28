@@ -26,7 +26,7 @@ export class DateViewExporter extends ComponentExporter<DateViewExportProps>
             selectedDate: undefined,
             displayingMonth: this.today,
             highlightedDates: [],
-            onDateClicked: undefined
+            onDateClick: undefined
         };
     }
 

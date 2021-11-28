@@ -16,9 +16,9 @@ export class HeaderExporter extends ComponentExporter<HeaderExportProps>
     {
         return {
             headline: String.EMPTY,
-            onPrevClicked: undefined,
-            onNextClicked: undefined,
-            onHeadlineClicked: undefined
+            onPrevClick: undefined,
+            onNextClick: undefined,
+            onHeadlineClick: undefined
         };
     }
 

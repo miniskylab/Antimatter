@@ -25,7 +25,7 @@ export class YearViewExporter extends ComponentExporter<YearViewExportProps>
         return {
             selectedYear: this.today.getFullYear(),
             displayingDecade: GregorianCalendar.getDecade(this.today.getFullYear()),
-            onYearClicked: undefined
+            onYearClick: undefined
         };
     }
 

@@ -81,17 +81,17 @@ export class CalendarComponent extends Component<CalendarComponentProps, Calenda
             <Header
                 variant={this.props.componentVariant.header}
                 headline={this.getHeadline()}
-                onPrevClicked={
+                onPrevClick={
                     canNavigateBackward(this.state.view, this.state.timeFrame)
                         ? () => { this.navigate(CalendarTransitionDirection.Backward); }
                         : undefined
                 }
-                onHeadlineClicked={
+                onHeadlineClick={
                     this.state.view < CalendarView.Year
                         ? () => { this.zoomOut(); }
                         : undefined
                 }
-                onNextClicked={
+                onNextClick={
                     canNavigateForward(this.state.view, this.state.timeFrame)
                         ? () => { this.navigate(CalendarTransitionDirection.Forward); }
                         : undefined
@@ -118,19 +118,19 @@ export class CalendarComponent extends Component<CalendarComponentProps, Calenda
                             variant={this.props.componentVariant.dateView}
                             selectedDate={this.props.selectedDate}
                             displayingMonth={this.state.timeFrame.monthAndYear}
-                            onDateClicked={this.onDateClicked.bind(this)}
+                            onDateClick={this.onDateClick.bind(this)}
                         />
                     ) || this.state.view === CalendarView.Month && (
                         <MonthView
                             variant={this.props.componentVariant.monthView}
                             displayingYear={this.state.timeFrame.monthAndYear.getFullYear()}
-                            onMonthClicked={this.onMonthClicked.bind(this)}
+                            onMonthClick={this.onMonthClick.bind(this)}
                         />
                     ) || this.state.view === CalendarView.Year && (
                         <YearView
                             variant={this.props.componentVariant.yearView}
                             displayingDecade={this.state.timeFrame.decade}
-                            onYearClicked={this.onYearClicked.bind(this)}
+                            onYearClick={this.onYearClick.bind(this)}
                         />
                     )
                 }
@@ -143,12 +143,12 @@ export class CalendarComponent extends Component<CalendarComponentProps, Calenda
         return (
             <Controls
                 variant={this.props.componentVariant.controls}
-                onTodayButtonClicked={
+                onTodayButtonClick={
                     this.state.view !== CalendarView.Date || !this.isWithinTimeFrame(new Date())
                         ? () => { this.goToToday(); }
                         : null
                 }
-                onSelectionButtonClicked={
+                onSelectionButtonClick={
                     this.props.selectedDate && (this.state.view !== CalendarView.Date || !this.isWithinTimeFrame(this.props.selectedDate))
                         ? () => { this.goToSelectedDate(); }
                         : null
@@ -287,28 +287,28 @@ export class CalendarComponent extends Component<CalendarComponentProps, Calenda
         return dateViewData.flat().filter(x => GregorianCalendar.isEqualDate(x, date))?.length > 0;
     }
 
-    private onDateClicked(clickedDate: Date): void
+    private onDateClick(date: Date): void
     {
         this.props.onChange?.(
-            GregorianCalendar.isEqualDate(clickedDate, this.props.selectedDate)
+            GregorianCalendar.isEqualDate(date, this.props.selectedDate)
                 ? undefined
-                : clickedDate
+                : date
         );
     }
 
-    private onMonthClicked(clickedMonth: Date): void
+    private onMonthClick(month: Date): void
     {
         this.zoomIn({
-            monthAndYear: clickedMonth,
-            decade: GregorianCalendar.getDecade(clickedMonth.getFullYear())
+            monthAndYear: month,
+            decade: GregorianCalendar.getDecade(month.getFullYear())
         });
     }
 
-    private onYearClicked(clickedYear: number): void
+    private onYearClick(year: number): void
     {
         this.zoomIn({
-            monthAndYear: new Date(clickedYear, 0, 1),
-            decade: GregorianCalendar.getDecade(clickedYear)
+            monthAndYear: new Date(year, 0, 1),
+            decade: GregorianCalendar.getDecade(year)
         });
     }
 }

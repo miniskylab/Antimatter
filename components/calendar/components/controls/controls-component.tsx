@@ -7,7 +7,7 @@ import {ControlsComponentProps} from "./models/controls-component-props";
  */
 export function ControlsComponent(props: ControlsComponentProps): JSX.Element
 {
-    const thereAreNoControlButtons = props.onTodayButtonClicked === undefined && props.onSelectionButtonClicked === undefined;
+    const thereAreNoControlButtons = props.onTodayButtonClick === undefined && props.onSelectionButtonClick === undefined;
     if (thereAreNoControlButtons)
     {
         return null;
@@ -33,8 +33,8 @@ export function ControlsComponent(props: ControlsComponentProps): JSX.Element
 
     return (
         <div className={props.variant["controls"]}>
-            {renderButton("Today", IconName.Flag, props.onTodayButtonClicked)}
-            {renderButton("Selection", IconName.Location, props.onSelectionButtonClicked)}
+            {renderButton("Today", IconName.Flag, props.onTodayButtonClick)}
+            {renderButton("Selection", IconName.Location, props.onSelectionButtonClick)}
         </div>
     );
 }

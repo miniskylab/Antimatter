@@ -15,8 +15,8 @@ export class ControlsExporter extends ComponentExporter<ControlsExportProps>
     protected get DefaultProps(): Partial<ControlsComponentProps>
     {
         return {
-            onTodayButtonClicked: undefined,
-            onSelectionButtonClicked: undefined
+            onTodayButtonClick: undefined,
+            onSelectionButtonClick: undefined
         };
     }
 

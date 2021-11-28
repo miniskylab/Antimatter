@@ -7,11 +7,11 @@ export class ControlsComponentProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onTodayButtonClicked?: MouseEventHandler;
+    readonly onTodayButtonClick?: MouseEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onSelectionButtonClicked?: MouseEventHandler;
+    readonly onSelectionButtonClick?: MouseEventHandler;
 }

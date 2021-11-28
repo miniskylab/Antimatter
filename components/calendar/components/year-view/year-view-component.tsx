@@ -24,7 +24,7 @@ export function YearViewComponent(props: YearViewComponentProps): JSX.Element
                 onClick={
                     outOfSupportedYearRange
                         ? undefined
-                        : (): void => { props.onYearClicked(year); }
+                        : (): void => { props.onYearClick(year); }
                 }
                 className={props.variant[`year-view__grid-cell${modifier}`]}
             >

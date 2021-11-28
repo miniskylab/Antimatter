@@ -89,7 +89,7 @@ export class DatePickerComponent extends Component<DatePickerComponentProps, Dat
             <Icon
                 className={this.props.variant[`date-picker__addon${this.state.calendarIsOpen ? "--active" : String.EMPTY}`]}
                 iconName={IconName.Calendar}
-                onClick={this.onAddonClicked.bind(this)}
+                onClick={this.onAddonClick.bind(this)}
                 onPointerDown={event => event.preventDefault()}
             />
         );
@@ -279,7 +279,7 @@ export class DatePickerComponent extends Component<DatePickerComponentProps, Dat
         this.props.onKeyDown?.(keyboardEvent);
     }
 
-    private onAddonClicked(): void
+    private onAddonClick(): void
     {
         this.setState({calendarIsOpen: !this.state.calendarIsOpen});
     }

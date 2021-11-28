@@ -18,7 +18,7 @@ export function MonthViewComponent(props: MonthViewComponentProps): JSX.Element
         return (
             <div
                 key={`${month.getMonth()}${month.getFullYear()}`}
-                onClick={(): void => { props.onMonthClicked(new Date(month)); }}
+                onClick={(): void => { props.onMonthClick(new Date(month)); }}
                 className={props.variant[`month-view__grid-cell${modifier}`]}
             >
                 {GregorianCalendar.getShortMonthName(month.getMonth())}

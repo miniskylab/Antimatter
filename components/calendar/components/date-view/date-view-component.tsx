@@ -67,7 +67,7 @@ export class DateViewComponent extends Component<DateViewComponentProps>
                     <div
                         key={dayNo.toString()}
                         className={this.getDateClassName(date)}
-                        onClick={() => { this.props.onDateClicked?.(date); }}
+                        onClick={() => { this.props.onDateClick?.(date); }}
                     >
                         {
                             isToday

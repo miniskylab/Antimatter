@@ -17,17 +17,17 @@ export class HeaderComponentProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onPrevClicked?: MouseEventHandler;
+    onPrevClick?: MouseEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onNextClicked?: MouseEventHandler;
+    onNextClick?: MouseEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onHeadlineClicked?: MouseEventHandler;
+    onHeadlineClick?: MouseEventHandler;
 }
