@@ -1,0 +1,21 @@
+@use "button--outlined-rectangle";
+@use "~@miniskylab/antimatter-color-scheme";
+
+.button {
+    color: antimatter-color-scheme.$ambient;
+    border-color: antimatter-color-scheme.$primary;
+    background-color: antimatter-color-scheme.$primary;
+
+    &:not(&--disabled):hover {
+        color: antimatter-color-scheme.$ambient;
+        border-color: antimatter-color-scheme.$primary--w25;
+        background-color: antimatter-color-scheme.$primary--w25;
+
+        &:active {
+            outline-offset: 3px;
+            border-color: antimatter-color-scheme.$primary--w25;
+            background-color: antimatter-color-scheme.$primary--w25;
+            outline: 1px solid antimatter-color-scheme.$primary--w25;
+        }
+    }
+}

@@ -1,9 +1,0 @@
-@use "css-reset";
-@use "~normalize.css/normalize";
-@use "markdown-editor";
-@use "~@miniskylab/antimatter/color-scheme";
-
-body {
-    background-color: color-scheme.$ambient;
-    font-family: Roboto, antimatter, sans-serif;
-}

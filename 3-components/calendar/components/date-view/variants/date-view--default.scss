@@ -1,0 +1,149 @@
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+
+.date-view {
+    display: flex;
+    flex-wrap: wrap;
+
+    &__week-no {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        font-size: antimatter-typography.$font-size--13px;
+        font-weight: antimatter-typography.$font-weight--bold;
+        color: antimatter-color-scheme.$white--a10;
+        padding-top: 1px;
+        box-sizing: border-box;
+        pointer-events: none;
+
+        &:first-child {
+            padding-top: 2px;
+        }
+    }
+
+    &__week-of-year {
+        composes: date-view__week-no;
+        font-size: antimatter-typography.$font-size--10px;
+    }
+
+    &__day-of-week {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        font-size: antimatter-typography.$font-size--14px;
+        font-weight: antimatter-typography.$font-weight--bold;
+        color: antimatter-color-scheme.$gainsboro;
+        pointer-events: none;
+    }
+
+    &__date {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        font-size: antimatter-typography.$font-size--12px;
+        border-radius: 50%;
+        border: 3px solid antimatter-color-scheme.$transparent;
+        padding-top: 2px;
+        margin: 1px;
+        box-sizing: border-box;
+    }
+
+    &__date-container {
+        cursor: pointer;
+
+        &--extraneous {
+            composes: date-view__date-container;
+            color: antimatter-color-scheme.$white--a10;
+        }
+
+        &--highlighted {
+            composes: date-view__date-container;
+
+            .date-view__date {
+                font-weight: antimatter-typography.$font-weight--bold;
+            }
+        }
+
+        &--selected {
+            cursor: pointer;
+
+            .date-view__date {
+                font-weight: antimatter-typography.$font-weight--bold;
+                color: antimatter-color-scheme.$white;
+                background-color: antimatter-color-scheme.$primary;
+            }
+        }
+
+        &:hover {
+
+            .date-view__date {
+                color: antimatter-color-scheme.$white;
+                border-color: antimatter-color-scheme.$primary;
+                background-color: antimatter-color-scheme.$primary--a10;
+            }
+        }
+
+        &:active {
+
+            .date-view__date {
+                font-weight: antimatter-typography.$font-weight--bold;
+                color: antimatter-color-scheme.$white;
+                border-color: antimatter-color-scheme.$primary;
+                background-color: antimatter-color-scheme.$primary;
+            }
+        }
+    }
+
+    &__today {
+        composes: date-view__date;
+        border-color: antimatter-color-scheme.$neutral;
+    }
+
+    &__today-container {
+        composes: date-view__date-container;
+
+        &--selected {
+            cursor: pointer;
+
+            .date-view__today {
+                pointer-events: none;
+                font-weight: antimatter-typography.$font-weight--bold;
+                color: antimatter-color-scheme.$white;
+                border-color: antimatter-color-scheme.$primary;
+                background-color: antimatter-color-scheme.$primary;
+            }
+        }
+
+        &--highlighted {
+            composes: date-view__today-container;
+
+            .date-view__today {
+                font-weight: antimatter-typography.$font-weight--bold;
+            }
+        }
+    }
+
+    &__today-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 14px;
+        font-size: antimatter-typography.$font-size--10px;
+        padding-top: 5px;
+    }
+
+    &__today-number {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 15px;
+        font-size: antimatter-typography.$font-size--11px;
+        padding-bottom: 3px;
+    }
+}

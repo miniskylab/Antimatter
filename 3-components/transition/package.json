@@ -1,0 +1,9 @@
+{
+  "name": "@miniskylab/antimatter-transition",
+  "version": "0.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react-transition-group": "4.4.4",
+    "react-transition-group": "4.4.2"
+  }
+}

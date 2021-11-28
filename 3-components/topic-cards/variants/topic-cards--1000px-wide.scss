@@ -1,0 +1,17 @@
+@use "~@miniskylab/antimatter-layer";
+@use "~@miniskylab/antimatter-responsive/screen-size";
+
+.topic-cards {
+    margin: auto;
+    min-width: 300px;
+    max-width: 1000px;
+
+    &__container {
+        display: flex;
+        position: relative;
+        flex-wrap: wrap;
+        justify-content: center;
+        box-sizing: border-box;
+        z-index: antimatter-layer.$default;
+    }
+}

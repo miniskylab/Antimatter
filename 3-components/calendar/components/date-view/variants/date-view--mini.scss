@@ -1,0 +1,33 @@
+@use "./date-view--default";
+@use "~@miniskylab/antimatter-typography";
+
+.date-view {
+
+    &__week-no {
+        display: none;
+    }
+
+    &__day-of-week {
+        width: 36px;
+        height: 36px;
+        font-size: antimatter-typography.$font-size--16px;
+    }
+
+    &__date {
+        width: 34px;
+        height: 34px;
+        font-size: antimatter-typography.$font-size--16px;
+        border-width: 3px;
+        padding-top: 1px;
+        margin: 1px;
+    }
+
+    &__today-text {
+        display: none;
+    }
+
+    &__today-number {
+        font-size: antimatter-typography.$font-size--16px;
+        padding: 0;
+    }
+}

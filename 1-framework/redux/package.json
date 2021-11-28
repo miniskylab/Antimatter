@@ -1,0 +1,13 @@
+{
+  "name": "@miniskylab/antimatter-redux",
+  "version": "0.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "@types/react-redux": "7.1.20",
+    "react-redux": "7.2.6",
+    "redux": "4.1.2",
+    "redux-devtools-extension": "2.13.9",
+    "redux-saga": "1.1.3",
+    "reselect": "4.1.5"
+  }
+}

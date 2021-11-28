@@ -1,0 +1,86 @@
+@use "~@miniskylab/antimatter-layer";
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-responsive/screen-size";
+@use "~@miniskylab/antimatter-input-field/variants/input-field--default";
+
+.date-picker {
+    display: inline-flex;
+    position: relative;
+    width: 276px;
+    height: 34px;
+
+    &--active {
+        composes: date-picker;
+    }
+
+    &__input-field {
+        composes: input-field;
+        width: 100%;
+        height: 100%;
+        padding-right: 36px;
+    }
+
+    &__addon {
+        display: flex;
+        position: absolute;
+        top: 0;
+        right: 0;
+        justify-content: center;
+        align-items: center;
+        width: 36px;
+        height: 100%;
+        font-size: antimatter-typography.$font-size--16px;
+        box-sizing: border-box;
+        color: antimatter-color-scheme.$neutral;
+        background-color: antimatter-color-scheme.$transparent;
+        cursor: pointer;
+
+        &:hover {
+            color: antimatter-color-scheme.$white;
+        }
+
+        &:active {
+            color: antimatter-color-scheme.$primary;
+        }
+
+        &--active {
+            @extend .date-picker__addon;
+
+            color: antimatter-color-scheme.$primary;
+
+            &:hover {
+                color: antimatter-color-scheme.$primary;
+            }
+
+            &:active {
+                color: antimatter-color-scheme.$white;
+            }
+        }
+    }
+
+    &__caret {
+        position: absolute;
+        width: 0;
+        height: 0;
+        top: -24px;
+        right: 6px;
+        border: 12px solid antimatter-color-scheme.$transparent;
+        border-bottom-color: antimatter-color-scheme.$background;
+        pointer-events: none;
+    }
+
+    &__calendar {
+        position: absolute;
+        top: 40px;
+        right: 0;
+        padding: 10px 12px 12px;
+        background-color: antimatter-color-scheme.$background;
+        box-shadow: 0 10px 20px antimatter-color-scheme.$black;
+        z-index: antimatter-layer.$always-on-top;
+
+        &:focus {
+            outline: none;
+        }
+    }
+}

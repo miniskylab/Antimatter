@@ -1,0 +1,38 @@
+@use "~@miniskylab/antimatter-color-scheme";
+
+.record {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 34px;
+    border-top: 1px solid antimatter-color-scheme.$background;
+
+    &--interactable {
+        composes: record;
+        cursor: pointer;
+
+        &:hover {
+            background-color: antimatter-color-scheme.$background;
+        }
+    }
+
+    &__control-box {
+        display: inline-flex;
+        align-items: center;
+        justify-content: space-between;
+        box-sizing: border-box;
+        width: 115px;
+        height: 34px;
+        padding: 4px 10px 4px 12px;
+
+        &--active {
+            composes: record__control-box;
+            background-color: antimatter-color-scheme.$accent--a10;
+            border-top: 1px solid antimatter-color-scheme.$accent;
+            border-bottom: 1px solid antimatter-color-scheme.$accent;
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+    }
+}

@@ -1,0 +1,51 @@
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+
+.pips {
+    width: 100%;
+    position: relative;
+    height: 35px;
+    margin: 5px 15px 0 15px;
+    pointer-events: none;
+
+    &__pip {
+        position: absolute;
+        width: 2px;
+        height: 8px;
+        border-radius: 10px;
+        background-color: antimatter-color-scheme.$gainsboro;
+        transform: translate(-50%, 0) rotate(-0.0000000001deg);
+        transition: background-color 0.1s linear;
+
+        &--milestone {
+            composes: pips__pip;
+            height: 16px;
+        }
+
+        &--highlighted {
+            composes: pips__pip;
+            background-color: antimatter-color-scheme.$primary;
+        }
+
+        &--highlighted-milestone {
+            composes: pips__pip--highlighted pips__pip--milestone;
+        }
+    }
+
+    &__label {
+        position: absolute;
+        width: 30px;
+        padding-top: 20px;
+        font-size: antimatter-typography.$font-size--10px;
+        line-height: 15px;
+        text-align: center;
+        color: antimatter-color-scheme.$gainsboro;
+        transform: translate(-50%, 0);
+        transition: color 0.1s linear;
+
+        &--highlighted {
+            composes: pips__label;
+            color: antimatter-color-scheme.$primary;
+        }
+    }
+}

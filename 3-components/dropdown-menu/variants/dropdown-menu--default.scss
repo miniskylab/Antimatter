@@ -1,0 +1,137 @@
+@use "~@miniskylab/antimatter-layer";
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-responsive/screen-size";
+
+.dropdown-menu {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    width: 220px;
+    height: 34px;
+    padding: 6px 12px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    vertical-align: top;
+    background-color: antimatter-color-scheme.$mine-shaft;
+
+    &__selected-value-text {
+        display: inline-block;
+        overflow: hidden;
+        width: 100%;
+        font-size: antimatter-typography.$font-size--14px;
+        color: antimatter-color-scheme.$neutral;
+    }
+
+    &__placeholder-text {
+        composes: dropdown-menu__selected-value-text;
+        color: antimatter-color-scheme.$gray--a65;
+    }
+
+    &__menu {
+        position: absolute;
+        top: 36px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin: 0;
+        padding: 5px 0;
+        list-style: none;
+        background-color: antimatter-color-scheme.$mine-shaft;
+        z-index: antimatter-layer.$context-menu;
+    }
+
+    &__menu-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        height: 22px;
+        padding: 4px 12px;
+        margin: 5px 0;
+        font-size: antimatter-typography.$font-size--14px;
+        color: antimatter-color-scheme.$neutral;
+        cursor: pointer;
+
+        &:hover {
+            color: antimatter-color-scheme.$white;
+            background-color: antimatter-color-scheme.$primary--a10;
+            outline: 1px solid antimatter-color-scheme.$primary;
+            outline-offset: -1px;
+        }
+
+        &:active {
+            color: antimatter-color-scheme.$white;
+            background-color: antimatter-color-scheme.$primary;
+            outline: 1px solid antimatter-color-scheme.$primary;
+            outline-offset: -1px;
+        }
+
+        &--selected {
+            composes: dropdown-menu__menu-item;
+            color: antimatter-color-scheme.$white;
+            background-color: antimatter-color-scheme.$primary;
+            outline: 1px solid antimatter-color-scheme.$primary;
+            outline-offset: -1px;
+            cursor: default;
+
+            &:hover {
+                color: antimatter-color-scheme.$white;
+                background-color: antimatter-color-scheme.$primary;
+            }
+        }
+
+        &--placeholder {
+            composes: dropdown-menu__menu-item;
+            color: antimatter-color-scheme.$gray--a65;
+        }
+    }
+
+    &__selection-icon {
+        position: absolute;
+        font-size: antimatter-typography.$font-size--16px;
+        right: 7px;
+    }
+
+    &__caret {
+        position: absolute;
+        width: 0;
+        height: 0;
+        right: 10px;
+        top: 15px;
+        border-top: 5px solid antimatter-color-scheme.$neutral;
+        border-left: 5px solid antimatter-color-scheme.$transparent;
+        border-right: 5px solid antimatter-color-scheme.$transparent;
+    }
+
+    &__divider {
+        height: 1px;
+        margin: 5px 0;
+        background-color: antimatter-color-scheme.$gray--a65;
+    }
+
+    &--open {
+        composes: dropdown-menu;
+    }
+
+    &--closed {
+        composes: dropdown-menu;
+        cursor: pointer;
+
+        &:hover {
+            color: antimatter-color-scheme.$white;
+            outline: 1px solid antimatter-color-scheme.$primary;
+            outline-offset: -1px;
+            background-color: antimatter-color-scheme.$primary--a10;
+
+            .dropdown-menu__caret {
+                border-top-color: antimatter-color-scheme.$white;
+            }
+
+            .dropdown-menu__selected-value-text,
+            .dropdown-menu__placeholder-text {
+                color: antimatter-color-scheme.$white;
+            }
+        }
+    }
+}

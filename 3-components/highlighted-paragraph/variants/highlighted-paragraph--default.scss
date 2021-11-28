@@ -1,0 +1,38 @@
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+
+.highlighted-paragraph {
+    width: 100%;
+    padding: 20px;
+    color: antimatter-color-scheme.$white;
+    background-color: antimatter-color-scheme.$gray--a10;
+    border: 3px solid antimatter-color-scheme.$gray;
+    box-sizing: border-box;
+
+    &__title {
+        display: inline-flex;
+        align-items: center;
+        height: 30px;
+        font-size: antimatter-typography.$font-size--18px;
+        font-weight: antimatter-typography.$font-weight--bold;
+    }
+
+    &__icon {
+        display: inline-flex;
+        width: 25px;
+        padding-right: 12px;
+        font-size: antimatter-typography.$font-size--25px;
+        justify-content: center;
+    }
+
+    &__text {
+        display: flex;
+        text-align: justify;
+        font-size: antimatter-typography.$font-size--14px;
+        line-height: 24px;
+    }
+
+    &__gap {
+        height: 12px;
+    }
+}

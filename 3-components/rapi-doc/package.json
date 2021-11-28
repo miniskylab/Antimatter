@@ -1,0 +1,8 @@
+{
+  "name": "@miniskylab/antimatter-rapi-doc",
+  "version": "0.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "rapidoc": "9.1.3"
+  }
+}

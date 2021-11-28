@@ -1,0 +1,8 @@
+{
+  "name": "@miniskylab/antimatter-decorator",
+  "version": "0.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "reflect-metadata": "0.1.13"
+  }
+}
