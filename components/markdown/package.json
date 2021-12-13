@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "dependencies": {
-    "@types/sanitize-html": "2.5.0",
+    "@types/sanitize-html": "2.6.0",
     "@types/showdown": "1.9.4",
-    "sanitize-html": "2.6.0",
+    "sanitize-html": "2.6.1",
     "showdown": "1.9.1"
   }
 }
