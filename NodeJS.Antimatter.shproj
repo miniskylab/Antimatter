@@ -1,0 +1,10 @@
+<Project>
+
+  <ItemGroup>
+    <Content Include="**" />
+    <Content Update=".gitignore" Link=".github/.gitignore" />
+    <Content Update="README.md" Link=".github/README.md" />
+    <Content Update="LICENSE" Link=".github/.LICENSE" />
+  </ItemGroup>
+
+</Project>
