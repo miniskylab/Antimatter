@@ -1,15 +1,2 @@
-<Project>
-
-  <ItemGroup>
-    <None Include="**" />
-    <None Update=".gitignore" Link=".github/.gitignore" />
-    <None Update="README.md" Link=".github/README.md" />
-    <None Update="LICENSE" Link=".github/.LICENSE" />
-  </ItemGroup>
-
-  <Target Name="Build" />
-  <Target Name="Clean" />
-  <Target Name="Rebuild" />
-  <Target Name="VSTest" />
-
+<Project Sdk="MiniSkyLab.NET.Sdk.ContentOnly">
 </Project>
