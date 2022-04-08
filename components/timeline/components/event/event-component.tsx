@@ -1,5 +1,5 @@
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
-import {Markdown} from "@miniskylab/antimatter-markdown";
+import {Html} from "@miniskylab/antimatter-html";
 import {DateFormat, GregorianCalendar, TimeUnit} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {EventComponentProps} from "./models/event-component-props";
@@ -99,7 +99,7 @@ export function EventComponent(props: EventComponentProps): JSX.Element
                     iconName={IconName.Location}
                 />
                 <div className={props.variant["event__location"]}>
-                    {props.location && Markdown.render(props.location)}
+                    {props.location && Html.render(props.location)}
                 </div>
             </div>
             <div className={props.variant["event__row"]}>
@@ -107,7 +107,7 @@ export function EventComponent(props: EventComponentProps): JSX.Element
                     className={props.variant["event__bulletin-icon--top-aligned"]}
                     iconName={IconName.Pen}
                 />
-                {props.description && Markdown.render(props.description)}
+                {props.description && Html.render(props.description)}
             </div>
         </div>
     );

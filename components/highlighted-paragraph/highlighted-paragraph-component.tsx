@@ -1,5 +1,5 @@
 import {Icon} from "@miniskylab/antimatter-icon";
-import {Markdown} from "@miniskylab/antimatter-markdown";
+import {Html} from "@miniskylab/antimatter-html";
 import React from "react";
 import {HighlightedParagraphComponentProps} from "./models/highlighted-paragraph-component-props";
 
@@ -23,7 +23,7 @@ export function HighlightedParagraphComponent(props: HighlightedParagraphCompone
             )}
             {(props.title || props.icon) && props.text && <div className={props.variant["highlighted-paragraph__gap"]}/>}
             {props.text && (
-                <div className={props.variant["highlighted-paragraph__text"]}>{Markdown.render(props.text)}</div>
+                <div className={props.variant["highlighted-paragraph__text"]}>{Html.render(props.text)}</div>
             )}
         </div>
     );

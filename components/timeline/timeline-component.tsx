@@ -1,5 +1,5 @@
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
-import {Markdown} from "@miniskylab/antimatter-markdown";
+import {Html} from "@miniskylab/antimatter-html";
 import React, {Component} from "react";
 import {Event, EventPosition} from "./components/event";
 import {TimelineComponentProps} from "./models/timeline-component-props";
@@ -52,10 +52,10 @@ export class TimelineComponent extends Component<TimelineComponentProps>
                             iconName={this.props.bootstrapEvent.icon}
                         />
                         <div className={this.props.variant["timeline__bootstrap-event-name"]}>
-                            {Markdown.render(this.props.bootstrapEvent.name)}
+                            {Html.render(this.props.bootstrapEvent.name)}
                         </div>
                         <div className={this.props.variant["timeline__bootstrap-event-description"]}>
-                            {Markdown.render(this.props.bootstrapEvent.description)}
+                            {Html.render(this.props.bootstrapEvent.description)}
                         </div>
                     </div>
                 )}

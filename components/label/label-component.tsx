@@ -1,3 +1,4 @@
+import {Html} from "@miniskylab/antimatter-html";
 import React from "react";
 import {LabelComponentProps} from "./models/label-component-props";
 
@@ -7,6 +8,6 @@ import {LabelComponentProps} from "./models/label-component-props";
 export function LabelComponent(props: LabelComponentProps): JSX.Element
 {
     return (
-        <div className={props.variant["label"]}>{props.text}</div>
+        <div className={props.variant["label"]}>{Html.render(props.text)}</div>
     );
 }

@@ -1,6 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
-import {Markdown} from "@miniskylab/antimatter-markdown";
+import {Html} from "@miniskylab/antimatter-html";
 import {Spacer} from "@miniskylab/antimatter-spacer";
 import React from "react";
 import {CardComponentProps} from "./models/card-component-props";
@@ -19,7 +19,7 @@ export function CardComponent(props: CardComponentProps): JSX.Element
                     : <img className={props.variant["card__icon"]} src={props.icon} alt={""}/>
             }
             <div className={props.variant["card__name"]}>{props.name}</div>
-            <div className={props.variant["card__description"]}>{Markdown.render(props.description)}</div>
+            <div className={props.variant["card__description"]}>{Html.render(props.description)}</div>
             {props.ctaButtons && props.ctaButtons.length > 0 && (
                 <>
                     <Spacer variant={Horizontal15pxSpacerVariant}/>

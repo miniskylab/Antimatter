@@ -1,0 +1,9 @@
+{
+  "name": "@miniskylab/antimatter-html",
+  "version": "0.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "@types/sanitize-html": "2.6.2",
+    "sanitize-html": "2.7.0"
+  }
+}
