@@ -25,7 +25,7 @@ export class TimelineExporter extends ComponentExporter<TimelineExportProps>
     {
         return {
             ...timelineExportProps,
-            bootstrapEvent: {
+            bootstrapEvent: timelineExportProps.bootstrapEvent && {
                 ...timelineExportProps.bootstrapEvent,
                 icon: Enum.getValue(IconName, timelineExportProps.bootstrapEvent.icon)
             }
