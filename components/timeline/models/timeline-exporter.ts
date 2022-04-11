@@ -25,10 +25,12 @@ export class TimelineExporter extends ComponentExporter<TimelineExportProps>
     {
         return {
             ...timelineExportProps,
-            bootstrapEvent: timelineExportProps.bootstrapEvent && {
-                ...timelineExportProps.bootstrapEvent,
-                icon: Enum.getValue(IconName, timelineExportProps.bootstrapEvent.icon)
-            }
+            bootstrapEvent: timelineExportProps.bootstrapEvent
+                ? {
+                    ...timelineExportProps.bootstrapEvent,
+                    icon: Enum.getValue(IconName, timelineExportProps.bootstrapEvent.icon)
+                }
+                : undefined
         };
     }
 
