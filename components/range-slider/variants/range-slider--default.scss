@@ -35,7 +35,8 @@ $track-padding: 4px;
     &__fill-left {
         composes: range-slider__fill;
         display: inline-block;
-        background: antimatter-color-scheme.$primary linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
+        background-color: antimatter-color-scheme.$primary;
+        background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
     }
 
     &__fill-right {
@@ -48,7 +49,8 @@ $track-padding: 4px;
         composes: range-slider__fill-left;
         width: $knob-radius - $track-padding;
         border-radius: 16px 0 0 16px;
-        background: antimatter-color-scheme.$primary linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
+        background-color: antimatter-color-scheme.$primary;
+        background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
     }
 
     &__stopper-right {

@@ -45,7 +45,7 @@
         }
 
         &--active {
-            @extend .date-picker__addon;
+            composes: date-picker__addon;
 
             color: antimatter-color-scheme.$primary;
 

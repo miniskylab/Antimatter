@@ -2,14 +2,14 @@
 *.suo
 *.user
 .vs/
+.vscode/
 
-## Build results
-[Dd]ebug/
-[Rr]elease/
+## .NET
 [Bb]in/
 [Oo]bj/
 
-## Node Modules
+## Frontend
+__dist__/
 node_modules/
 
 ## Windows

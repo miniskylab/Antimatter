@@ -16,33 +16,34 @@ u {
 }
 
 .text {
+    display: inline-block;
 
-    &-primary {
-        @extend .text;
+    &--primary {
+        composes: text;
 
         color: antimatter-color-scheme.$primary;
     }
 
-    &-green {
-        @extend .text;
+    &--green {
+        composes: text;
 
         color: antimatter-color-scheme.$green;
     }
 
-    &-gold {
-        @extend .text;
+    &--gold {
+        composes: text;
 
         color: antimatter-color-scheme.$gold;
     }
 
-    &-tomato {
-        @extend .text;
+    &--tomato {
+        composes: text;
 
         color: antimatter-color-scheme.$tomato;
     }
 
-    &-justify {
-        @extend .text;
+    &--justify {
+        composes: text;
 
         display: inline-block;
         text-align: justify;
@@ -56,8 +57,8 @@ u {
     font-weight: antimatter-typography.$font-weight--bold;
     line-height: normal;
 
-    &-accent {
-        @extend .badge;
+    &--accent {
+        composes: badge;
 
         background-color: antimatter-color-scheme.$accent;
     }

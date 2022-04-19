@@ -1,3 +1,5 @@
+@use "sass:color";
+
 $white: rgb(255, 255, 255);
 $white--a3: rgba($white, 0.03);
 $white--a4: rgba($white, 0.04);
@@ -27,7 +29,7 @@ $mine-shaft: rgb(40, 40, 40);
 $gray: rgb(128, 128, 128);
 $gray--a10: rgba($gray, 0.1);
 $gray--a65: rgba($gray, 0.65);
-$gray--w25: mix($white, $gray, 25%);
+$gray--w25: color.mix($white, $gray, 25%);
 
 $gainsboro: rgb(220, 220, 220);
 
@@ -36,27 +38,27 @@ $transparent: rgba(0, 0, 0, 0);
 $primary: rgb(0, 160, 255);
 $primary--a10: rgba($primary, 0.1);
 $primary--a45: rgba($primary, 0.45);
-$primary--w25: mix($white, $primary, 25%);
+$primary--w25: color.mix($white, $primary, 25%);
 
 $secondary: rgb(135, 172, 78);
 $secondary--a10: rgba($secondary, 0.1);
-$secondary--w25: mix($white, $secondary, 25%);
+$secondary--w25: color.mix($white, $secondary, 25%);
 
 $tertiary: rgb(255, 71, 133);
 
-$complementary: complement($primary);
+$complementary: color.complement($primary);
 $complementary--a10: rgba($complementary, 0.1);
 $complementary--a45: rgba($complementary, 0.45);
 
 $positive: rgb(135, 172, 78);
 $positive--a10: rgba($positive, 0.1);
 $positive--a45: rgba($positive, 0.45);
-$positive--w25: mix($white, $positive, 25%);
+$positive--w25: color.mix($white, $positive, 25%);
 
 $warning: rgb(255, 191, 71);
 $warning--a10: rgba($warning, 0.1);
 $warning--a45: rgba($warning, 0.45);
-$warning--w25: mix($white, $warning, 25%);
+$warning--w25: color.mix($white, $warning, 25%);
 
 $neutral: rgb(155, 155, 155);
 
