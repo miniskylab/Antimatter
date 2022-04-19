@@ -15,42 +15,41 @@ u {
     text-decoration: underline;
 }
 
-.text {
-    display: inline-block;
+.text, %text {
 
     &--primary {
-        composes: text;
+        @extend %text;
 
         color: antimatter-color-scheme.$primary;
     }
 
     &--green {
-        composes: text;
+        @extend %text;
 
         color: antimatter-color-scheme.$green;
     }
 
     &--gold {
-        composes: text;
+        @extend %text;
 
         color: antimatter-color-scheme.$gold;
     }
 
     &--tomato {
-        composes: text;
+        @extend %text;
 
         color: antimatter-color-scheme.$tomato;
     }
 
     &--justify {
-        composes: text;
+        @extend %text;
 
         display: inline-block;
         text-align: justify;
     }
 }
 
-.badge {
+.badge, %badge {
     display: inline-block;
     padding: 2px 8px;
     color: antimatter-color-scheme.$white;
@@ -58,7 +57,7 @@ u {
     line-height: normal;
 
     &--accent {
-        composes: badge;
+        @extend %badge;
 
         background-color: antimatter-color-scheme.$accent;
     }
