@@ -44,7 +44,6 @@ u {
     &--justify {
         @extend %text;
 
-        display: inline-block;
         text-align: justify;
     }
 }
