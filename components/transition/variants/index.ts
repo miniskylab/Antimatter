@@ -1,8 +1,1 @@
-import DefaultTransitionVariant from "./transition--default.scss";
-
-export {DefaultTransitionVariant};
-
-export enum TransitionVariant
-{
-    Default
-}
+export {Default} from "./default.scss";

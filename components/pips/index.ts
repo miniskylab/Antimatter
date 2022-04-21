@@ -1,15 +1,5 @@
-import {ComponentName} from "@miniskylab/antimatter-component";
-import {Decorator} from "@miniskylab/antimatter-decorator";
-import {PipsComponentProps} from "./models/pips-component-props";
-import {PipsExporter} from "./models/pips-exporter";
-import {PipsComponent} from "./pips-component";
-
-export const PipsComponentName = Decorator.getValue<string>(ComponentName, PipsComponentProps);
-
-export {PipsComponent};
-export {PipsComponentProps};
-
-export {PipsShape} from "./models/pips-shape";
-export {PipsVariant} from "./variants";
-export type {PipsExportProps as PipsProps} from "./models/pips-export-props";
-export const Pips = new PipsExporter().export(PipsComponent);
+export {Name} from "./name";
+export {Props} from "./models/props";
+export {Shape} from "./models/shape";
+export {Pips} from "./component";
+export * as Variant from "./variants";

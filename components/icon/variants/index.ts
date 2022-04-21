@@ -1,8 +1,1 @@
-import DefaultIconVariant from "./default/index.scss";
-
-export {DefaultIconVariant};
-
-export enum IconVariant
-{
-    Default
-}
+export {Default} from "./default/index.scss";

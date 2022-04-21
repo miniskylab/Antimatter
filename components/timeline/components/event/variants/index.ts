@@ -1,8 +1,1 @@
-import DefaultEventVariant from "./event--default.scss";
-
-export {DefaultEventVariant};
-
-export enum EventVariant
-{
-    Default
-}
+export {Default} from "./default.scss";

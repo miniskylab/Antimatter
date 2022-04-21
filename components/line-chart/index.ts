@@ -1,15 +1,9 @@
-import {ComponentName} from "@miniskylab/antimatter-component";
-import {Decorator} from "@miniskylab/antimatter-decorator";
-import {LineChartComponent} from "./line-chart-component";
-import {LineChartComponentProps} from "./models/line-chart-component-props";
-import {LineChartExporter} from "./models/line-chart-exporter";
-
-export const LineChartComponentName = Decorator.getValue<string>(ComponentName, LineChartComponentProps);
-
-export {LineChartComponent};
-export {LineChartComponentProps};
-
-export {LineChartVariant} from "./variants";
-export {LineChartLineStyle} from "./models/line-chart-line-style";
-export type {LineChartExportProps as LineChartProps} from "./models/line-chart-export-props";
-export const LineChart = new LineChartExporter().export(LineChartComponent);
+export {Name} from "./name";
+export {Props} from "./models/props";
+export {Coordinate} from "./models/coordinate";
+export {DataX} from "./models/data-x";
+export {DataY} from "./models/data-y";
+export {LineSettings} from "./models/line-settings";
+export {LineStyle} from "./models/line-style";
+export {LineChart} from "./component";
+export * as Variant from "./variants";

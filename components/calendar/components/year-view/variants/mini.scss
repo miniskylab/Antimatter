@@ -1,0 +1,15 @@
+@use "./default";
+@use "~@miniskylab/antimatter-typography";
+
+.year-view {
+
+    &__grid-cell {
+        $margin: 4px;
+
+        width: calc(25% - #{$margin * 2});
+        height: 55px;
+        margin: $margin;
+        font-size: antimatter-typography.$font-size--16px;
+        border-width: 3px;
+    }
+}

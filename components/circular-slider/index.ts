@@ -1,14 +1,6 @@
-import {ComponentName} from "@miniskylab/antimatter-component";
-import {Decorator} from "@miniskylab/antimatter-decorator";
-import {CircularSliderComponent} from "./circular-slider-component";
-import {CircularSliderComponentProps} from "./models/circular-slider-component-props";
-import {CircularSliderExporter} from "./models/circular-slider-exporter";
-
-export const CircularSliderComponentName = Decorator.getValue<string>(ComponentName, CircularSliderComponentProps);
-
-export {CircularSliderComponent};
-export {CircularSliderComponentProps};
-
-export {CircularSliderVariant} from "./variants";
-export type {CircularSliderExportProps as CircularSliderProps} from "./models/circular-slider-export-props";
-export const CircularSlider = new CircularSliderExporter().export(CircularSliderComponent);
+export {Name} from "./name";
+export {Props} from "./models/props";
+export {Knob} from "./models/knob";
+export {PipSettings} from "./models/pip-settings";
+export {CircularSlider} from "./component";
+export * as Variant from "./variants";

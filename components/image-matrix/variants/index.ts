@@ -1,8 +1,1 @@
-import DefaultImageMatrixVariant from "./image-matrix--default.scss";
-
-export {DefaultImageMatrixVariant};
-
-export enum ImageMatrixVariant
-{
-    Default
-}
+export {Default} from "./default.scss";

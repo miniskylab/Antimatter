@@ -1,14 +1,3 @@
-import OutlinedCircularButtonVariant from "./button--outlined-circular.scss";
-import OutlinedRectangleButtonVariant from "./button--outlined-rectangle.scss";
-import SolidRectangleButtonVariant from "./button--solid-rectangle.scss";
-
-export {OutlinedCircularButtonVariant};
-export {OutlinedRectangleButtonVariant};
-export {SolidRectangleButtonVariant};
-
-export enum ButtonVariant
-{
-    OutlinedCircular,
-    OutlinedRectangle,
-    SolidRectangle
-}
+export {OutlinedCircular} from "./outlined-circular.scss";
+export {OutlinedRectangle} from "./outlined-rectangle.scss";
+export {SolidRectangle} from "./solid-rectangle.scss";
