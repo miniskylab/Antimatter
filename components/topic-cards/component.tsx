@@ -1,16 +1,16 @@
 import {ComponentStyles} from "@miniskylab/antimatter-component";
-import React, {Component} from "react";
-import {Card, Variant as CardVariant} from "./components/card";
-import {Props} from "./models/props";
-import * as TopicCardsVariant from "./variants";
+import React from "react";
+import {Card} from "./components";
+import {Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Timeline extends Component<Props>
+export class Component extends React.Component<Props>
 {
     static defaultProps: Partial<Props> = {
-        variant: TopicCardsVariant.ThreeColumns,
+        variant: Variant.ThreeColumns,
         cards: []
     };
 
@@ -20,7 +20,7 @@ export class Timeline extends Component<Props>
             <div className={this.props.variant["topic-cards"]}>
                 <div className={this.props.variant["topic-cards__container"]}>
                     {[...this.props.cards].map((x, i) => (
-                        <Card
+                        <Card.Component
                             key={i}
                             variant={x.variant || this.getCardVariant(x.thisIsPlaceholderCard)}
                             icon={x.icon}
@@ -41,15 +41,15 @@ export class Timeline extends Component<Props>
         {
             case null:
             case undefined:
-            case TopicCardsVariant.ThreeColumns:
+            case Variant.ThreeColumns:
                 return isPlaceholderCard
-                    ? CardVariant.ThirtyThreePercentWideInvisiblePlaceholder
-                    : CardVariant.ThirtyThreePercentWide;
+                    ? Card.Variant.ThirtyThreePercentWideInvisiblePlaceholder
+                    : Card.Variant.ThirtyThreePercentWide;
 
-            case TopicCardsVariant.FourColumns:
+            case Variant.FourColumns:
                 return isPlaceholderCard
-                    ? CardVariant.TwentyFivePercentWideVisiblePlaceholder
-                    : CardVariant.TwentyFivePercentWide;
+                    ? Card.Variant.TwentyFivePercentWideVisiblePlaceholder
+                    : Card.Variant.TwentyFivePercentWide;
         }
     }
 }

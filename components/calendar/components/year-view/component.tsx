@@ -1,7 +1,7 @@
 import {Decade, GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import React from "react";
-import * as Variant from "../month-view/variants";
-import {Props} from "./models/props";
+import {Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

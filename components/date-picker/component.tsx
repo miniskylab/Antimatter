@@ -2,11 +2,9 @@ import {Calendar, Variant as CalendarVariant} from "@miniskylab/antimatter-calen
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {Char, DateFormat, GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import React, {createRef, RefObject} from "react";
-import {isAllowedKey} from "./helpers/keyboard-event";
-import {isDigit, reformat, removeNonDigitCharacters, tryParseDate} from "./helpers/string";
-import {Props} from "./models/props";
-import {State} from "./models/state";
-import * as Variant from "./variants";
+import {isAllowedKey, isDigit, reformat, removeNonDigitCharacters, tryParseDate} from "./helper";
+import {Props, State} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

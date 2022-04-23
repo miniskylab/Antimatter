@@ -1,8 +1,8 @@
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import React, {createRef, RefObject} from "react";
-import {Record} from "./components/record";
-import {Props} from "./models/props";
-import * as Variant from "./variants";
+import {Record} from "./components";
+import {Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -99,7 +99,7 @@ export class Component extends React.Component<Props>
             if (props.headerRowCells && props.headerRowCells.length > 0)
             {
                 rows.push(
-                    <Record
+                    <Record.Component
                         id={props.headerRowCells.map(x => x.text).join()}
                         key={props.headerRowCells.map(x => x.text).join()}
                         cells={props.headerRowCells.map(labelProps => ({dataType: "label", data: labelProps}))}
@@ -138,13 +138,13 @@ export class Component extends React.Component<Props>
             {
                 if (rowIndex >= recordsInCurrentPage.length)
                 {
-                    rows.push(<Record id={`${rowIndex}`} key={rowIndex}/>);
+                    rows.push(<Record.Component id={`${rowIndex}`} key={rowIndex}/>);
                     continue;
                 }
 
                 const rowRecord = recordsInCurrentPage[rowIndex];
                 rows.push(
-                    <Record
+                    <Record.Component
                         id={rowRecord.id}
                         key={rowRecord.id}
                         cells={props.records.find(x => x.id === rowRecord.id).cells}
@@ -167,7 +167,7 @@ export class Component extends React.Component<Props>
             if (rows.length <= props.rowCountPerPage + 1)
             {
                 rows.push(
-                    <Record
+                    <Record.Component
                         id={`${props.rowCountPerPage + 1}`}
                         key={props.rowCountPerPage + 1}
                     />

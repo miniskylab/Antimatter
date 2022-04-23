@@ -1,7 +1,6 @@
 import {Dispatch} from "react";
 import {AnyAction, Middleware} from "redux";
-import {ReduxAction} from "../models/redux-action";
-import {SagaAction} from "../models/saga-action";
+import {ReduxAction, SagaAction} from "../model";
 
 export function createPlainObjectActionMiddleware<TReduxState>(): Middleware<AnyAction, TReduxState>
 {

@@ -1,3 +1,1 @@
-export type ComponentStyles = {
-    [key: string]: string;
-}
+export type ComponentStyles = Record<string, string>;

@@ -1,13 +1,13 @@
 import {Html} from "@miniskylab/antimatter-html";
 import {Icon} from "@miniskylab/antimatter-icon";
 import React from "react";
-import {Props} from "./models/props";
-import * as Variant from "./variants";
+import {Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function HighlightedParagraph(props: Props): JSX.Element
+export function Component(props: Props): JSX.Element
 {
     const {
         variant = Variant.Default,
@@ -20,19 +20,12 @@ export function HighlightedParagraph(props: Props): JSX.Element
         <div className={variant["highlighted-paragraph"]}>
             {(icon || title) && (
                 <div className={variant["highlighted-paragraph__title"]}>
-                    {icon && (
-                        <Icon
-                            className={variant["highlighted-paragraph__icon"]}
-                            iconName={icon}
-                        />
-                    )}
+                    {icon && <Icon className={variant["highlighted-paragraph__icon"]} iconName={icon}/>}
                     {title && title}
                 </div>
             )}
             {(title || icon) && text && <div className={variant["highlighted-paragraph__gap"]}/>}
-            {text && (
-                <div className={variant["highlighted-paragraph__text"]}>{Html.render(text)}</div>
-            )}
+            {text && <div className={variant["highlighted-paragraph__text"]}>{Html.render(text)}</div>}
         </div>
     );
 }

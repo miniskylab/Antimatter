@@ -1,12 +1,11 @@
-import React, {Component, createRef, CSSProperties, RefObject} from "react";
-import {Props} from "./models/props";
-import {Shape} from "./models/shape";
-import * as Variant from "./variants";
+import React, {createRef, CSSProperties, RefObject} from "react";
+import {Props, Shape} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Pips extends Component<Props>
+export class Component extends React.Component<Props>
 {
     static defaultProps: Partial<Props> = {
         variant: Variant.Horizontal,

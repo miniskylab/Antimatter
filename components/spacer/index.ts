@@ -1,4 +1,4 @@
 export {Name} from "./name";
-export {Props} from "./models/props";
-export {Spacer} from "./component";
-export * as Variant from "./variants";
+export {Props} from "./model";
+export {Component as Spacer} from "./component";
+export * as Variant from "./variant";

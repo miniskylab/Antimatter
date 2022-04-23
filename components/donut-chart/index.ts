@@ -1,4 +1,4 @@
 export {Name} from "./name";
-export {Props} from "./models/props";
-export {DonutChart} from "./component";
-export * as Variant from "./variants";
+export {Props} from "./model";
+export {Component as DonutChart} from "./component";
+export * as Variant from "./variant";

@@ -1,4 +1,4 @@
 export {Name} from "./name";
-export {Props} from "./models/props";
-export {ImageMatrix} from "./component";
-export * as Variant from "./variants";
+export {Props} from "./model";
+export {Component as ImageMatrix} from "./component";
+export * as Variant from "./variant";

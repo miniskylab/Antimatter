@@ -1,4 +1,3 @@
-export {Props} from "./models/props";
-export {Position} from "./models/position";
-export {Event} from "./component";
-export * as Variant from "./variants";
+export {Props, Position} from "./model";
+export {Component} from "./component";
+export * as Variant from "./variant";

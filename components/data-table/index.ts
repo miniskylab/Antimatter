@@ -1,4 +1,4 @@
 export {Name} from "./name";
-export {Props} from "./models/props";
+export {Props} from "./model";
 export {Component as DataTable} from "./component";
-export * as Variant from "./variants";
+export * as Variant from "./variant";

@@ -1,4 +1,4 @@
-export {Props} from "./models/props";
-export {Component as DateView} from "./component";
-export * from "./helpers";
-export * as Variant from "./variants";
+export {Props} from "./model";
+export {Component} from "./component";
+export {getData} from "./helper";
+export * as Variant from "./variant";

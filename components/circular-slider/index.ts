@@ -1,6 +1,4 @@
 export {Name} from "./name";
-export {Props} from "./models/props";
-export {Knob} from "./models/knob";
-export {PipSettings} from "./models/pip-settings";
-export {CircularSlider} from "./component";
-export * as Variant from "./variants";
+export {Props, Knob, PipSettings} from "./model";
+export {Component as CircularSlider} from "./component";
+export * as Variant from "./variant";

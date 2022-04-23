@@ -2,19 +2,10 @@ import {ComponentStyles} from "@miniskylab/antimatter-component";
 import {Transition} from "@miniskylab/antimatter-transition";
 import {Char, Decade, GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import React from "react";
-import {DateViewVariant, HeaderVariant, MonthViewVariant, YearViewVariant} from "./components";
-import {Controls} from "./components/controls";
-import {DateView, getDateViewData} from "./components/date-view";
-import {Header} from "./components/header";
-import {MonthView} from "./components/month-view";
-import {YearView} from "./components/year-view";
-import {canNavigateBackward, canNavigateForward} from "./helpers/time-frame";
-import {Props} from "./models/props";
-import {State} from "./models/state";
-import {TimeFrame} from "./models/time-frame";
-import {TransitionDirection} from "./models/transition-direction";
-import {View} from "./models/view";
-import * as CalendarVariant from "./variants";
+import {Control, DateView, Header, MonthView, YearView} from "./components";
+import {canNavigateBackward, canNavigateForward} from "./helper";
+import {Props, State, TimeFrame, TransitionDirection, View} from "./model";
+import * as CalendarVariant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -90,20 +81,20 @@ export class Component extends React.Component<Props, State>
         switch (this.props.variant)
         {
             case CalendarVariant.Default:
-                return HeaderVariant.Default;
+                return Header.Variant.Default;
 
             case CalendarVariant.Mini:
-                return HeaderVariant.Mini;
+                return Header.Variant.Mini;
 
             case CalendarVariant.Sesquialteral:
-                return HeaderVariant.Sesquialteral;
+                return Header.Variant.Sesquialteral;
         }
     }
 
     private renderHeader(): JSX.Element
     {
         return (
-            <Header
+            <Header.Component
                 variant={this.getHeaderVariant()}
                 headline={this.getHeadline()}
                 onPrevClick={
@@ -135,13 +126,13 @@ export class Component extends React.Component<Props, State>
         switch (this.props.variant)
         {
             case CalendarVariant.Default:
-                return DateViewVariant.Default;
+                return DateView.Variant.Default;
 
             case CalendarVariant.Mini:
-                return DateViewVariant.Mini;
+                return DateView.Variant.Mini;
 
             case CalendarVariant.Sesquialteral:
-                return DateViewVariant.Sesquialteral;
+                return DateView.Variant.Sesquialteral;
         }
     }
 
@@ -155,13 +146,13 @@ export class Component extends React.Component<Props, State>
         switch (this.props.variant)
         {
             case CalendarVariant.Default:
-                return MonthViewVariant.Default;
+                return MonthView.Variant.Default;
 
             case CalendarVariant.Mini:
-                return MonthViewVariant.Mini;
+                return MonthView.Variant.Mini;
 
             case CalendarVariant.Sesquialteral:
-                return MonthViewVariant.Sesquialteral;
+                return MonthView.Variant.Sesquialteral;
         }
     }
 
@@ -175,13 +166,13 @@ export class Component extends React.Component<Props, State>
         switch (this.props.variant)
         {
             case CalendarVariant.Default:
-                return YearViewVariant.Default;
+                return YearView.Variant.Default;
 
             case CalendarVariant.Mini:
-                return YearViewVariant.Mini;
+                return YearView.Variant.Mini;
 
             case CalendarVariant.Sesquialteral:
-                return YearViewVariant.Sesquialteral;
+                return YearView.Variant.Sesquialteral;
         }
     }
 
@@ -200,7 +191,7 @@ export class Component extends React.Component<Props, State>
                 {
                     this.state.view === View.Date &&
                     (
-                        <DateView
+                        <DateView.Component
                             variant={this.getDateViewVariant()}
                             selectedDate={this.props.selectedDate}
                             displayingMonth={this.state.timeFrame.monthAndYear}
@@ -208,14 +199,14 @@ export class Component extends React.Component<Props, State>
                         />
                     ) || this.state.view === View.Month &&
                     (
-                        <MonthView
+                        <MonthView.Component
                             variant={this.getMonthViewVariant()}
                             displayingYear={this.state.timeFrame.monthAndYear.getFullYear()}
                             onMonthClick={this.onMonthClick.bind(this)}
                         />
                     ) || this.state.view === View.Year &&
                     (
-                        <YearView
+                        <YearView.Component
                             variant={this.getYearViewVariant()}
                             displayingDecade={this.state.timeFrame.decade}
                             onYearClick={this.onYearClick.bind(this)}
@@ -229,7 +220,7 @@ export class Component extends React.Component<Props, State>
     private renderControls(): JSX.Element
     {
         return (
-            <Controls
+            <Control.Component
                 variant={this.props.componentVariant.controls}
                 onTodayButtonClick={
                     this.state.view !== View.Date || !this.isWithinTimeFrame(new Date())
@@ -371,7 +362,7 @@ export class Component extends React.Component<Props, State>
 
     private isWithinTimeFrame(date: Date): boolean
     {
-        const dateViewData = getDateViewData(this.state.timeFrame.monthAndYear);
+        const dateViewData = DateView.getData(this.state.timeFrame.monthAndYear);
         return dateViewData.flat().filter(x => GregorianCalendar.isEqualDate(x, date))?.length > 0;
     }
 

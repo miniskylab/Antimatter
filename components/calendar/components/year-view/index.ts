@@ -1,3 +1,3 @@
-export {Props} from "./models/props";
-export {Component as YearView} from "./component";
-export * as Variant from "./variants";
+export {Props} from "./model";
+export {Component} from "./component";
+export * as Variant from "./variant";

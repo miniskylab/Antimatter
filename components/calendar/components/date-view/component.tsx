@@ -1,9 +1,8 @@
 import {GregorianCalendar, LunarCalendarVn} from "@miniskylab/antimatter-typescript";
 import React from "react";
-import {getDateViewData} from "./helpers/date-view-data";
-import {HighlightedDate} from "./models/highlighted-date";
-import {Props} from "./models/props";
-import * as Variant from "./variants";
+import {getData} from "./helper";
+import {HighlightedDate, Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -45,7 +44,7 @@ export class Component extends React.Component<Props>
     {
         let week: JSX.Element[];
         const dateView: JSX.Element[][] = [];
-        const dateViewData = getDateViewData(this.props.displayingMonth);
+        const dateViewData = getData(this.props.displayingMonth);
         const weekCountInDateView = 6;
         for (let weekNo = 0; weekNo < weekCountInDateView; weekNo++)
         {

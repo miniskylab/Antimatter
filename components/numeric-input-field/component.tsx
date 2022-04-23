@@ -1,15 +1,13 @@
 import {Char} from "@miniskylab/antimatter-typescript";
-import React, {Component, createRef, RefObject} from "react";
-import {isAllowedKey} from "./helpers/keyboard-event";
-import {endWithDotAndZeros, removeCosmeticCharacters, removeNonDigitCharacters} from "./helpers/string";
-import {Props} from "./models/props";
-import {State} from "./models/state";
-import * as Variant from "./variants";
+import React, {createRef, RefObject} from "react";
+import {endWithDotAndZeros, isAllowedKey, removeCosmeticCharacters, removeNonDigitCharacters} from "./helper";
+import {Props, State} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class NumericInputField extends Component<Props, State>
+export class Component extends React.Component<Props, State>
 {
     static defaultProps: Partial<Props> = {
         variant: Variant.Default,

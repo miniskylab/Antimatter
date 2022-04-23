@@ -6,8 +6,8 @@ import {InputField, Props as InputFieldProps} from "@miniskylab/antimatter-input
 import {Label, Props as LabelProps} from "@miniskylab/antimatter-label";
 import {NumericInputField, Props as NumericInputFieldProps} from "@miniskylab/antimatter-numeric-input-field";
 import React, {Fragment} from "react";
-import {Props} from "./models/props";
-import * as Variant from "./variants";
+import {Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

@@ -2,13 +2,13 @@ import {Html} from "@miniskylab/antimatter-html";
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {DateFormat, GregorianCalendar, TimeUnit} from "@miniskylab/antimatter-typescript";
 import React from "react";
-import {Props} from "./models/props";
-import * as Variant from "./variants";
+import {Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Event(props: Props): JSX.Element
+export function Component(props: Props): JSX.Element
 {
     const {
         variant = Variant.Default,

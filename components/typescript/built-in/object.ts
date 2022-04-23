@@ -3,7 +3,6 @@ declare global
     interface ObjectConstructor
     {
         isEmpty(anyObject: unknown): boolean;
-        removeUndefinedProperties(anyObject: Record<string, unknown>): Record<string, unknown>;
         isNullOrUndefined(anyObject: unknown): boolean;
         toRepresentationString(anyObject: unknown): string;
         isNumericEnum(anyObject: unknown): boolean;
@@ -18,17 +17,6 @@ Object.isNullOrUndefined = function (anyObject: unknown): boolean
 Object.isEmpty = function (anyObject: unknown): boolean
 {
     return anyObject ? Object.keys(anyObject).length === 0 : false;
-};
-
-Object.removeUndefinedProperties = function (anyObject: Record<string, unknown>): Record<string, unknown>
-{
-    // TODO: remove recursively
-    const result: Record<string, unknown> = {};
-    Object.keys(anyObject)
-        .filter((key) => anyObject[key] !== undefined)
-        .forEach((key) => result[key] = anyObject[key]);
-
-    return result;
 };
 
 Object.toRepresentationString = function (anyObject: unknown): string

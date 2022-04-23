@@ -1,13 +1,12 @@
 import {Icon} from "@miniskylab/antimatter-icon";
 import React from "react";
-import {Props} from "./models/props";
-import {Target} from "./models/target";
-import * as Variant from "./variants";
+import {Props, Target} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Button(props: Props): JSX.Element
+export function Component(props: Props): JSX.Element
 {
     const {
         variant = props.text ? Variant.OutlinedRectangle : Variant.OutlinedCircular,

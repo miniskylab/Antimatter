@@ -1,14 +1,14 @@
 import {Html} from "@miniskylab/antimatter-html";
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
-import React, {Component} from "react";
-import {Event, Position} from "./components/event";
-import {Props} from "./models/props";
-import * as Variant from "./variants";
+import React from "react";
+import {Event} from "./components";
+import {Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Timeline extends Component<Props>
+export class Component extends React.Component<Props>
 {
     static defaultProps: Partial<Props> = {
         variant: Variant.Default,
@@ -30,9 +30,9 @@ export class Timeline extends Component<Props>
             <div className={this.props.variant["timeline"]}>
                 <div className={this.props.variant["timeline__event-stream"]}>
                     {this.props.events.map((event, i) => (
-                        <Event
+                        <Event.Component
                             key={i}
-                            position={i % 2 === 0 ? Position.Left : Position.Right}
+                            position={i % 2 === 0 ? Event.Position.Left : Event.Position.Right}
                             name={event.name}
                             image={event.image}
                             startDate={event.startDate}

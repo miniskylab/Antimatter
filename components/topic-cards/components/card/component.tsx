@@ -3,13 +3,13 @@ import {Html} from "@miniskylab/antimatter-html";
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {Spacer} from "@miniskylab/antimatter-spacer";
 import React from "react";
-import {Props} from "./models/props";
-import * as Variant from "./variants";
+import {Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Card(props: Props): JSX.Element
+export function Component(props: Props): JSX.Element
 {
     const {
         variant = Variant.ThirtyThreePercentWide,

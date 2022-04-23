@@ -1,12 +1,11 @@
 import {Button} from "@miniskylab/antimatter-button";
-import React, {Component} from "react";
-import {Props} from "./models/props";
-import {State} from "./models/state";
+import React from "react";
+import {Props, State} from "./model";
 
 /**
  * This component inherits all functionalities and styles from the `Button` component.
  */
-export class DownloadButton extends Component<Props, State>
+export class Component extends React.Component<Props, State>
 {
     constructor(props: Props)
     {

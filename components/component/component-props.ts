@@ -1,5 +1,4 @@
 import {IsOptional} from "class-validator";
-import {ComponentStyles} from "./component-styles";
 
 export class ComponentProps
 {
@@ -10,5 +9,5 @@ export class ComponentProps
      * The look and feel includes: size, shape, color and anything else you can do with CSS.
      */
     @IsOptional()
-    readonly variant?: ComponentStyles;
+    readonly variant?: Record<string, string>;
 }

@@ -1,13 +1,13 @@
-import React, {cloneElement, Component, ReactElement} from "react";
+import React, {cloneElement, ReactElement} from "react";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {CSSTransitionClassNames} from "react-transition-group/CSSTransition";
-import {Props} from "./models/props";
-import * as Variant from "./variants";
+import {Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Transition extends Component<Props>
+export class Component extends React.Component<Props>
 {
     static defaultProps: Partial<Props> = {
         variant: Variant.Default,
@@ -42,7 +42,7 @@ export class Transition extends Component<Props>
                     addEndListener={
                         this.props.msTimeout
                             ? undefined
-                            : Transition.transitionEndListener
+                            : Component.transitionEndListener
                     }
                     classNames={this.props.classNames}
                 >

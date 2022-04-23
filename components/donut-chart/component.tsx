@@ -1,12 +1,12 @@
 import {Radians} from "@miniskylab/antimatter-typescript";
-import React, {Component, createRef, RefObject} from "react";
-import {Props} from "./models/props";
-import * as Variant from "./variants";
+import React, {createRef, RefObject} from "react";
+import {Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class DonutChart extends Component<Props>
+export class Component extends React.Component<Props>
 {
     static defaultProps: Partial<Props> = {
         variant: Variant.Default,

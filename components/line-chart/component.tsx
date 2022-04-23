@@ -1,14 +1,11 @@
-import React, {Component, createRef, RefObject} from "react";
-import {Coordinate} from "./models/coordinate";
-import {LineSettings} from "./models/line-settings";
-import {LineStyle} from "./models/line-style";
-import {Props} from "./models/props";
-import * as Variant from "./variants";
+import React, {createRef, RefObject} from "react";
+import {Coordinate, LineSettings, LineStyle, Props} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class LineChart extends Component<Props>
+export class Component extends React.Component<Props>
 {
     static defaultProps: Partial<Props> = {
         variant: Variant.Default,

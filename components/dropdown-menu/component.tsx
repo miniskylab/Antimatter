@@ -1,13 +1,12 @@
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
-import React, {Component} from "react";
-import {Props} from "./models/props";
-import {State} from "./models/state";
-import * as Variant from "./variants";
+import React from "react";
+import {Props, State} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class DropdownMenu extends Component<Props, State>
+export class Component extends React.Component<Props, State>
 {
     static defaultProps: Partial<Props> = {
         variant: Variant.Default,
