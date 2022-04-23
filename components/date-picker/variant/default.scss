@@ -2,7 +2,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-responsive/screen-size";
-@use "~@miniskylab/antimatter-input-field/variants/default";
+@use "~@miniskylab/antimatter-input-field/variant/default";
 
 .date-picker {
     display: inline-flex;

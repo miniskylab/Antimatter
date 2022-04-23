@@ -1,0 +1,8 @@
+{
+  "name": "@miniskylab/antimatter-model",
+  "version": "0.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "class-transformer": "0.5.1"
+  }
+}

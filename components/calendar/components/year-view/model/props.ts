@@ -1,5 +1,5 @@
 import {IsInteger} from "@miniskylab/antimatter-class-validator";
-import {ComponentProps} from "@miniskylab/antimatter-component";
+import {ComponentProps} from "@miniskylab/antimatter-model";
 import {Decade} from "@miniskylab/antimatter-typescript";
 import {IsOptional} from "class-validator";
 

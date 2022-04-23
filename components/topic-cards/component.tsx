@@ -1,4 +1,3 @@
-import {ComponentStyles} from "@miniskylab/antimatter-component";
 import React from "react";
 import {Card} from "./components";
 import {Props} from "./model";
@@ -35,7 +34,7 @@ export class Component extends React.Component<Props>
         );
     }
 
-    private getCardVariant(isPlaceholderCard: boolean): ComponentStyles
+    private getCardVariant(isPlaceholderCard: boolean): Record<string, string>
     {
         switch (this.props.variant)
         {

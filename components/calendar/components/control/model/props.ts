@@ -1,4 +1,4 @@
-import {ComponentProps} from "@miniskylab/antimatter-component";
+import {ComponentProps} from "@miniskylab/antimatter-model";
 import {MouseEventHandler} from "react";
 
 export class Props extends ComponentProps

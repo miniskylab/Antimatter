@@ -1,1 +1,1 @@
-export * as Cta from "./cta.scss";
+export {default as Cta} from "./cta.scss";

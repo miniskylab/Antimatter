@@ -1,6 +1,6 @@
 import {IsArray, IsInteger, IsPositive, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
 import {Props as LabelProps} from "@miniskylab/antimatter-label";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional, ValidateNested} from "class-validator";
 import {Props as RecordProps} from "../components/record";
 

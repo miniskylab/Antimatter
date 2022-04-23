@@ -18,7 +18,7 @@ export type Props = SerializedProps<CalendarProps, {
         readonly dateView?: keyof typeof DateViewVariant;
         readonly monthView?: keyof typeof MonthViewVariant;
         readonly yearView?: keyof typeof YearViewVariant;
-        readonly controls?: keyof typeof ControlVariant;
+        readonly control?: keyof typeof ControlVariant;
     }>;
     readonly selectedDate?: string;
 }>;

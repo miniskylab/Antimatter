@@ -1,5 +1,5 @@
 import {IsDate, IsInteger} from "@miniskylab/antimatter-class-validator";
-import {ComponentProps} from "@miniskylab/antimatter-component";
+import {ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 
 export class Props extends ComponentProps

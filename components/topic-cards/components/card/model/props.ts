@@ -1,7 +1,7 @@
 import {Props as ButtonProps} from "@miniskylab/antimatter-button";
 import {IsArray, IsBoolean, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentProps} from "@miniskylab/antimatter-component";
 import {IconName} from "@miniskylab/antimatter-icon";
+import {ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional, ValidateIf} from "class-validator";
 
 export class Props extends ComponentProps

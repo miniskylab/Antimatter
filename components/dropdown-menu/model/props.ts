@@ -1,5 +1,5 @@
 import {ExistsIn, IsBoolean, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 
 @ComponentName("Dropdown Menu")

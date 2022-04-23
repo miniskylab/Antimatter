@@ -20,7 +20,7 @@ export class CalendarDeserializerCreator extends DeserializerCreator<SerializedP
                 dateView: HeaderVariant[serializedProps.componentVariant.dateView],
                 monthView: HeaderVariant[serializedProps.componentVariant.monthView],
                 yearView: HeaderVariant[serializedProps.componentVariant.yearView],
-                controls: HeaderVariant[serializedProps.componentVariant.controls]
+                control: HeaderVariant[serializedProps.componentVariant.control]
             },
             selectedDate: Date.deserialize(serializedProps.selectedDate)
         };

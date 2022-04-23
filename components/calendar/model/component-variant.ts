@@ -1,10 +1,8 @@
-import {ComponentStyles} from "@miniskylab/antimatter-component";
-
 export class ComponentVariant
 {
-    readonly header?: ComponentStyles;
-    readonly dateView?: ComponentStyles;
-    readonly monthView?: ComponentStyles;
-    readonly yearView?: ComponentStyles;
-    readonly controls?: ComponentStyles;
+    readonly header?: Record<string, string>;
+    readonly dateView?: Record<string, string>;
+    readonly monthView?: Record<string, string>;
+    readonly yearView?: Record<string, string>;
+    readonly control?: Record<string, string>;
 }

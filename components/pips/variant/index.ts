@@ -1,2 +1,2 @@
-export * as Horizontal from "./horizontal.scss";
-export * as Circular from "./circular.scss";
+export {default as Horizontal} from "./horizontal.scss";
+export {default as Circular} from "./circular.scss";

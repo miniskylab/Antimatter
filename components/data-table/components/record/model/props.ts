@@ -1,5 +1,5 @@
 import {IsBoolean, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentProps} from "@miniskylab/antimatter-component";
+import {ComponentProps} from "@miniskylab/antimatter-model";
 import {IsArray, IsOptional} from "class-validator";
 import {Cell} from "./cell";
 

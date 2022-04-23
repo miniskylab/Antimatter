@@ -1,2 +1,2 @@
-export * as ThreeColumns from "./three-columns.scss";
-export * as FourColumns from "./four-columns.scss";
+export {default as ThreeColumns} from "./three-columns.scss";
+export {default as FourColumns} from "./four-columns.scss";

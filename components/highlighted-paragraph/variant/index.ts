@@ -1,1 +1,1 @@
-export * as Default from "./default.scss";
+export {default as Default} from "./default.scss";

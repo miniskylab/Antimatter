@@ -1,5 +1,5 @@
 import {IsBoolean, IsDate, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-component";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 import {FocusEventHandler, KeyboardEventHandler, PointerEventHandler} from "react";
 

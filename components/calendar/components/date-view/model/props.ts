@@ -1,5 +1,5 @@
 import {IsArray, IsDate} from "@miniskylab/antimatter-class-validator";
-import {ComponentProps} from "@miniskylab/antimatter-component";
+import {ComponentProps} from "@miniskylab/antimatter-model";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {HighlightedDate} from "./highlighted-date";

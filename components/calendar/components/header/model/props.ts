@@ -1,5 +1,5 @@
 import {IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentProps} from "@miniskylab/antimatter-component";
+import {ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 import {MouseEventHandler} from "react";
 

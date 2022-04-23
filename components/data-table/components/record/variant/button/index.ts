@@ -1,3 +1,3 @@
-export * as Ok from "./ok.scss";
-export * as Cancel from "./cancel.scss";
-export * as Delete from "./delete.scss";
+export {default as Ok} from "./ok.scss";
+export {default as Cancel} from "./cancel.scss";
+export {default as Delete} from "./delete.scss";
