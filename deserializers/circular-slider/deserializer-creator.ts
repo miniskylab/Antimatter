@@ -1,7 +1,7 @@
 import {Props as CircularSliderProps, Variant} from "@miniskylab/antimatter-circular-slider";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class CircularSliderDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

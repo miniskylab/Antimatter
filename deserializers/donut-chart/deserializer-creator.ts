@@ -1,7 +1,7 @@
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {Props as DonutChartProps, Variant} from "@miniskylab/antimatter-donut-chart";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "../circular-slider/models/props";
+import {Props as SerializedProps} from "./model";
 
 export class DonutChartDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

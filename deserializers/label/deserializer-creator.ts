@@ -1,7 +1,7 @@
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {Props as LabelProps, Variant} from "@miniskylab/antimatter-label";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class LabelDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

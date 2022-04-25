@@ -1,7 +1,7 @@
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {Props as DropdownMenuProps, Variant} from "@miniskylab/antimatter-dropdown-menu";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class DropdownMenuDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

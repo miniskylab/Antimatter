@@ -1,7 +1,7 @@
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {Props as InputFieldProps, Variant} from "@miniskylab/antimatter-input-field";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class InputFieldDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

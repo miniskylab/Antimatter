@@ -1,7 +1,7 @@
 import {Props as DatePickerProps, Variant} from "@miniskylab/antimatter-date-picker";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class DatePickerDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

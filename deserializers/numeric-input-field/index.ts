@@ -2,3 +2,4 @@ import {NumericInputField as NumericInputFieldComponent} from "@miniskylab/antim
 import {NumericInputFieldDeserializerCreator} from "./deserializer-creator";
 
 export const NumericInputField = new NumericInputFieldDeserializerCreator().createFrom(NumericInputFieldComponent);
+export {Props} from "./model";

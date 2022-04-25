@@ -1,8 +1,8 @@
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {IconName, Props as IconProps, Variant} from "@miniskylab/antimatter-icon";
 import {Enum} from "@miniskylab/antimatter-typescript";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class IconDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

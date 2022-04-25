@@ -1,7 +1,7 @@
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {Props as RangeSliderProps, Variant} from "@miniskylab/antimatter-range-slider";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class RangeSliderDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

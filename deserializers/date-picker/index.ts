@@ -2,3 +2,4 @@ import {DatePicker as DatePickerComponent} from "@miniskylab/antimatter-date-pic
 import {DatePickerDeserializerCreator} from "./deserializer-creator";
 
 export const DatePicker = new DatePickerDeserializerCreator().createFrom(DatePickerComponent);
+export {Props} from "./model";

@@ -2,3 +2,4 @@ import {DonutChart as DonutChartComponent} from "@miniskylab/antimatter-donut-ch
 import {DonutChartDeserializerCreator} from "./deserializer-creator";
 
 export const DonutChart = new DonutChartDeserializerCreator().createFrom(DonutChartComponent);
+export {Props} from "./model";

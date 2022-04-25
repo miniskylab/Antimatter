@@ -1,9 +1,9 @@
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {Props as HighlightedParagraphProps, Variant} from "@miniskylab/antimatter-highlighted-paragraph";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {Enum} from "@miniskylab/antimatter-typescript";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class HighlightedParagraphDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

@@ -2,3 +2,4 @@ import {RangeSlider as RangeSliderComponent} from "@miniskylab/antimatter-range-
 import {RangeSliderDeserializerCreator} from "./deserializer-creator";
 
 export const RangeSlider = new RangeSliderDeserializerCreator().createFrom(RangeSliderComponent);
+export {Props} from "./model";

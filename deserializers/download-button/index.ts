@@ -1,1 +1,1 @@
-export {Button as DownloadButton} from "@miniskylab/deserializer-button";
+export {Button as DownloadButton, Props} from "@miniskylab/antimatter-deserializer-button";

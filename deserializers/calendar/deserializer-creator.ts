@@ -1,7 +1,7 @@
 import {HeaderVariant, Props as CalendarProps, Variant as CalendarVariant} from "@miniskylab/antimatter-calendar";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class CalendarDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

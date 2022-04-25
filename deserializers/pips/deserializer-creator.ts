@@ -1,8 +1,8 @@
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {Props as PipsProps, Shape, Variant} from "@miniskylab/antimatter-pips";
 import {Enum} from "@miniskylab/antimatter-typescript";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class PipsDeserializerCreator extends DeserializerCreator<SerializedProps>
 {

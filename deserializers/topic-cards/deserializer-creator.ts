@@ -1,7 +1,7 @@
+import {DeserializerCreator} from "@miniskylab/antimatter-deserializer-model";
 import {Props as TopicCardsProps, Variant} from "@miniskylab/antimatter-topic-cards";
-import {DeserializerCreator} from "@miniskylab/deserializer-model";
 import {ClassConstructor} from "class-transformer";
-import {Props as SerializedProps} from "./models/props";
+import {Props as SerializedProps} from "./model";
 
 export class TopicCardsDeserializerCreator extends DeserializerCreator<SerializedProps>
 {
