@@ -9,7 +9,7 @@ import * as Variant from "./variant";
 export function Component(props: Props): JSX.Element
 {
     const {
-        variant = props.text ? Variant.Value.OutlinedRectangle : Variant.Value.OutlinedCircular,
+        variant = props.text ? Variant.OutlinedRectangle : Variant.OutlinedCircular,
         href,
         text = String.EMPTY,
         icon,

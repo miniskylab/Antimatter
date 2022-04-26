@@ -3,7 +3,7 @@ import {SerializedProps} from "@miniskylab/antimatter-deserializer-model";
 import {IconName} from "@miniskylab/antimatter-icon";
 
 export type Props = SerializedProps<ButtonProps, {
-    readonly variant?: Variant.Type;
+    readonly variant?: keyof typeof Variant;
     readonly icon?: keyof typeof IconName;
     readonly target?: keyof typeof Target;
 }>;

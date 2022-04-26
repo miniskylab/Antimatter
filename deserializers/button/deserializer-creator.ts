@@ -16,7 +16,7 @@ export class ButtonDeserializerCreator extends DeserializerCreator<SerializedPro
     {
         return {
             ...serializedProps,
-            variant: Variant.Value[serializedProps.variant],
+            variant: Variant[serializedProps.variant],
             icon: Enum.getValue(IconName, serializedProps.icon),
             target: Enum.getValue(Target, serializedProps.target)
         };
