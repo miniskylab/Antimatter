@@ -1,0 +1,10 @@
+@use "default";
+@use "header/sesquialteral" as header;
+@use "date-view/sesquialteral" as date-view;
+@use "month-view/sesquialteral" as month-view;
+@use "year-view/sesquialteral" as year-view;
+@use "control/sesquialteral" as control;
+
+.calendar {
+    width: 480px;
+}

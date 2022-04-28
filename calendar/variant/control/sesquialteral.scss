@@ -1,0 +1,17 @@
+@use "default";
+@use "~@miniskylab/antimatter-typography";
+
+.controls {
+
+    &__button {
+        width: 120px;
+        height: 51px;
+        font-size: antimatter-typography.$font-size--18px;
+        border-width: 3px;
+    }
+
+    &__text {
+        margin-top: 2px;
+        margin-left: 8px;
+    }
+}

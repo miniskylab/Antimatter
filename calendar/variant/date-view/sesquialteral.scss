@@ -1,0 +1,48 @@
+@use "default";
+@use "~@miniskylab/antimatter-typography";
+
+.date-view {
+
+    &__week-no {
+        width: 60px;
+        height: 60px;
+        font-size: antimatter-typography.$font-size--20px;
+        padding-top: 2px;
+
+        &:first-child {
+            padding-top: 1px;
+        }
+    }
+
+    &__week-of-year {
+        composes: date-view__week-no;
+        font-size: antimatter-typography.$font-size--15px;
+    }
+
+    &__day-of-week {
+        width: 60px;
+        height: 60px;
+        font-size: antimatter-typography.$font-size--21px;
+    }
+
+    &__date {
+        width: 58px;
+        height: 57px;
+        font-size: antimatter-typography.$font-size--18px;
+        border-width: 4px;
+        padding-top: 3px;
+        margin: 1px;
+    }
+
+    &__today-text {
+        height: 21px;
+        font-size: antimatter-typography.$font-size--15px;
+        padding-top: 8px;
+    }
+
+    &__today-number {
+        height: 23px;
+        font-size: antimatter-typography.$font-size--17px;
+        padding-bottom: 5px;
+    }
+}

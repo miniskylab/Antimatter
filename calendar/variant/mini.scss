@@ -1,0 +1,10 @@
+@use "default";
+@use "header/mini" as header;
+@use "date-view/mini" as date-view;
+@use "month-view/mini" as month-view;
+@use "year-view/mini" as year-view;
+@use "control/mini" as mini;
+
+.calendar {
+    width: 252px;
+}

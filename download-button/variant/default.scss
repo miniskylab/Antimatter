@@ -1,0 +1,21 @@
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-button/variant/outlined-rectangle";
+
+.button {
+    flex-direction: row-reverse;
+    border-color: antimatter-color-scheme.$primary;
+    color: antimatter-color-scheme.$primary;
+
+    &__icon {
+        font-size: antimatter-typography.$font-size--14px;
+    }
+
+    &:not(&--disabled):hover {
+        background-color: antimatter-color-scheme.$primary--a10;
+
+        &:active {
+            background-color: antimatter-color-scheme.$primary;
+        }
+    }
+}

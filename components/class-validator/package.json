@@ -1,8 +1,0 @@
-{
-  "name": "@miniskylab/antimatter-class-validator",
-  "version": "0.0.0",
-  "license": "MIT",
-  "dependencies": {
-    "class-validator": "0.13.2"
-  }
-}
