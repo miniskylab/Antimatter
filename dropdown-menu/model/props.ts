@@ -9,7 +9,7 @@ export class Props extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly keyValueSet?: { [key: string]: string };
+    readonly keyValueSet?: Record<string, string>;
 
 
     /**

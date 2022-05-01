@@ -6,18 +6,17 @@ import * as Variant from "./variant";
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Component(props: Props): JSX.Element
+export function Component({
+    variant,
+    text = String.EMPTY,
+    target = Target.SameFrame,
+    disabled = false,
+    href,
+    icon,
+    onClick
+}: Props): JSX.Element
 {
-    const {
-        variant = props.text ? Variant.OutlinedRectangle : Variant.OutlinedCircular,
-        href,
-        text = String.EMPTY,
-        icon,
-        target = Target.SameFrame,
-        download,
-        disabled = false,
-        onClick
-    } = props;
+    variant = variant ?? (text ? Variant.OutlinedRectangle : Variant.OutlinedCircular);
 
     return (
         <a
@@ -25,7 +24,6 @@ export function Component(props: Props): JSX.Element
             target={target}
             rel={target === Target.NewWindowOrTab ? "noopener" : undefined}
             className={variant[`button${disabled ? "--disabled" : String.EMPTY}`]}
-            download={download}
             onClick={!disabled && onClick ? onClick : undefined}
         >
             {icon && <Icon className={variant["button__icon"]} iconName={icon}/>}

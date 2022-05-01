@@ -1,6 +1,7 @@
 @use "~@miniskylab/antimatter-layer";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-responsive/screen-size";
+@use "~@miniskylab/antimatter-pips/variant/horizontal";
 
 $knob-radius: 15px;
 $track-padding: 4px;

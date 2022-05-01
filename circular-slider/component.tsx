@@ -40,7 +40,7 @@ export class Component extends React.Component<Props>
                         {
                             this.props.pipSettings &&
                             <Pips
-                                variant={this.props.pipSettings.variant}
+                                variant={this.props.pipSettings.variant ?? (this.props.variant["pips"] ? this.props.variant : undefined)}
                                 shape={Shape.Circle}
                                 minValue={this.props.minValue}
                                 maxValue={this.props.maxValue}

@@ -4,7 +4,7 @@ import React from "react";
 import {Control, DateView, Header, MonthView, YearView} from "./components";
 import {canNavigateBackward, canNavigateForward} from "./helper";
 import {Props, State, TimeFrame, TransitionDirection, View} from "./model";
-import * as CalendarVariant from "./variant";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -12,7 +12,7 @@ import * as CalendarVariant from "./variant";
 export class Component extends React.Component<Props, State>
 {
     static defaultProps: Partial<Props> = {
-        variant: CalendarVariant.Default
+        variant: Variant.Default
     };
 
     constructor(props: Props)

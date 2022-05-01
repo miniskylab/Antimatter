@@ -6,4 +6,3 @@ export * from "./char";
 export * from "./enum";
 export * from "./radians";
 export * from "./types";
-export * from "./class";

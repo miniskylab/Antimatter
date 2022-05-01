@@ -31,10 +31,7 @@ export class Component extends React.Component<Props>
                     onPointerDown={this.props.canInteractWith ? this.onPointerDownSlider.bind(this) : undefined}
                 >
                     <div className={this.props.variant["range-slider__stopper-left"]}/>
-                    <div
-                        className={this.props.variant["range-slider__free-zone"]}
-                        ref={this.freezoneRef}
-                    >
+                    <div className={this.props.variant["range-slider__free-zone"]} ref={this.freezoneRef}>
                         <div
                             className={this.props.variant["range-slider__fill-left"]}
                             style={{width: `${this.toPercent(this.props.value)}%`}}
@@ -57,7 +54,7 @@ export class Component extends React.Component<Props>
                 {
                     this.props.pipSettings &&
                     <Pips
-                        variant={this.props.pipSettings.variant}
+                        variant={this.props.pipSettings.variant ?? (this.props.variant["pips"] ? this.props.variant : undefined)}
                         minValue={this.props.minValue}
                         maxValue={this.props.maxValue}
                         step={this.props.pipSettings.step}

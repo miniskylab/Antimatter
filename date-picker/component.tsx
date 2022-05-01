@@ -13,6 +13,8 @@ export class Component extends React.Component<Props, State>
 {
     static defaultProps: Partial<Props> = {
         variant: Variant.Default,
+        autoFocus: false,
+        disableTyping: false,
         placeholderText: String.EMPTY
     };
 

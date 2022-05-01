@@ -1,5 +1,6 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-pips/variant/circular";
 
 .circular-slider {
     display: inline-flex;

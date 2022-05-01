@@ -10,7 +10,7 @@ export function withValidation<TProps extends ComponentProps>(
     PropsType: new () => TProps
 ): ComponentType<TProps>
 {
-    return function _(props: TProps): JSX.Element
+    const validator: ComponentType<TProps> = (props: TProps): JSX.Element =>
     {
         return validateProps(props) ? createElement(component, props) : null;
         function validateProps(props: TProps): boolean
@@ -89,4 +89,8 @@ export function withValidation<TProps extends ComponentProps>(
             return !errors || errors.length === 0;
         }
     };
+
+    validator.displayName = component.displayName;
+    validator.defaultProps = component.defaultProps;
+    return validator;
 }

@@ -44,13 +44,6 @@ export class Props extends ComponentProps
     readonly target?: Target;
 
 
-    // TODO: union validation
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    readonly download?: string | boolean;
-
-
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */

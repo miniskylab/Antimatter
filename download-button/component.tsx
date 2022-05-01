@@ -1,10 +1,10 @@
-import {Button, Target} from "@miniskylab/antimatter-button";
+import {Icon} from "@miniskylab/antimatter-icon";
 import React from "react";
 import {Props, State} from "./model";
 import * as Variant from "./variant";
 
 /**
- * This component inherits all functionalities and styles from the `Button` component.
+ * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export class Component extends React.Component<Props, State>
 {
@@ -42,17 +42,18 @@ export class Component extends React.Component<Props, State>
 
     render(): JSX.Element
     {
+        const disabled = this.props.disabled || this.state.disabled;
+
         return (
-            <Button
-                variant={this.props.variant}
+            <a
                 href={this.state.disabled ? undefined : this.state.href}
-                text={this.props.text}
-                icon={this.props.icon}
-                target={Target.SameFrame}
+                className={this.props.variant[`button${disabled ? "--disabled" : String.EMPTY}`]}
                 download={this.props.fileName || true}
-                disabled={this.props.disabled || this.state.disabled}
-                onClick={undefined}
-            />
+                target={"_self"}
+            >
+                {this.props.icon && <Icon className={this.props.variant["button__icon"]} iconName={this.props.icon}/>}
+                {this.props.text && <div className={this.props.variant["button__text"]}>{this.props.text}</div>}
+            </a>
         );
     }
 }
