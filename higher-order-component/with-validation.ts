@@ -50,16 +50,17 @@ export function withValidation<TProps extends ComponentProps>(
                 function getValidationErrorMessages(validationError: ValidationError, parentPropertyName = String.EMPTY): string[]
                 {
                     const errorMessages: string[] = [];
-                    const propertyName = parentPropertyName
+                    const hierarchicalPropertyName = parentPropertyName
                         ? `${parentPropertyName}.${validationError.property}`
                         : validationError.property;
 
                     if (validationError.constraints)
                     {
+                        const propertyName = hierarchicalPropertyName.split(".").pop();
                         const propertyValue = (validationError.target as Record<string, unknown>)[propertyName];
                         Object.keys(validationError.constraints).forEach(x =>
                         {
-                            const tokens: string[] = [propertyName];
+                            const tokens: string[] = [hierarchicalPropertyName];
                             const targetPropertyNames = (validationError.contexts?.[x]?.targetPropertyNames || []) as string[];
 
                             tokens.push(...targetPropertyNames, Object.toRepresentationString(propertyValue));
@@ -78,7 +79,7 @@ export function withValidation<TProps extends ComponentProps>(
                     {
                         validationError.children.forEach(childValidationError =>
                         {
-                            errorMessages.push(...this.getValidationErrorMessages(childValidationError, propertyName));
+                            errorMessages.push(...getValidationErrorMessages(childValidationError, hierarchicalPropertyName));
                         });
                     }
 

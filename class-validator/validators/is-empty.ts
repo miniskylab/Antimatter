@@ -1,17 +1,17 @@
-import {isNotEmpty, registerDecorator} from "class-validator";
+import {isEmpty, registerDecorator} from "class-validator";
 import {ValidationMessageTemplate} from "../validation-message-template";
 
-export function IsNotEmpty()
+export function IsEmpty()
 {
     return function (classContainingThisProperty: unknown, thisPropertyName: string): void
     {
         registerDecorator({
-            name: "IsNotEmpty",
+            name: "IsEmpty",
             target: classContainingThisProperty.constructor,
             propertyName: thisPropertyName,
             validator: {
-                validate(thisPropertyValue: unknown) { return isNotEmpty(thisPropertyValue); },
-                defaultMessage() { return ValidationMessageTemplate.CannotBeEmptyString; }
+                validate(thisPropertyValue: unknown) { return isEmpty(thisPropertyValue); },
+                defaultMessage() { return ValidationMessageTemplate.MustBeEmpty; }
             }
         });
     };

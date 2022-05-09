@@ -18,7 +18,7 @@ export class Props extends ComponentProps
     @IsDefined()
     @ValidateNested()
     @Type(() => Event.Props)
-    readonly events: Event.Props[];
+    readonly events: Omit<Event.Props, "position">[];
 
 
     /**

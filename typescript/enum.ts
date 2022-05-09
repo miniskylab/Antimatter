@@ -19,11 +19,9 @@ class _Enum
             .filter(x => anyEnum[x] !== undefined ? typeof x === "number" : true);
     }
 
-    getValue<T extends number | string | U, U = unknown>(anyEnum: Record<string, number | string>, possiblyKey: U): T
+    getValue<T extends number | string>(anyEnum: Record<string, T & number | string>, possiblyKey: string): T
     {
-        return typeof possiblyKey === "string" && Object.keys(anyEnum).includes(possiblyKey)
-            ? anyEnum[possiblyKey] as T
-            : possiblyKey as T;
+        return anyEnum[possiblyKey] as T;
     }
 }
 

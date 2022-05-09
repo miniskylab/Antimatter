@@ -1,4 +1,4 @@
-import {IsBoolean, IsDate, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsBoolean, IsDate, IsDefined, IsEmpty, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {ComponentProps, Image} from "@miniskylab/antimatter-model";
 import {TimeUnit} from "@miniskylab/antimatter-typescript";
@@ -11,6 +11,7 @@ export class Props extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsEmpty()
     @IsEnum(Position)
     @IsOptional()
     readonly position?: Position;

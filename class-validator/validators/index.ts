@@ -2,6 +2,7 @@ export * from "./min";
 export * from "./max";
 export * from "./is-date";
 export * from "./is-enum";
+export * from "./is-empty";
 export * from "./is-email";
 export * from "./is-array";
 export * from "./exists-in";
