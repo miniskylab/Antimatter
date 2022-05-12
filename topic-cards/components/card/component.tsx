@@ -31,15 +31,15 @@ export function Component(props: Props): JSX.Element
             {ctaButtons && ctaButtons.length > 0 && (
                 <>
                     <Spacer variant={Variant.Spacer.Horizontal15px}/>
-                    {ctaButtons.map((x, i) => (
+                    {ctaButtons.map((ctaButton, i) => (
                         <Button
                             key={i}
-                            variant={x.variant || Variant.Button.Cta}
-                            icon={x.icon}
-                            text={x.text}
-                            href={x.href}
-                            target={x.target}
-                            disabled={x.disabled}
+                            variant={ctaButton.variant ?? Variant.Button.Cta}
+                            icon={ctaButton.icon}
+                            text={ctaButton.text}
+                            href={ctaButton.href}
+                            target={ctaButton.target}
+                            disabled={ctaButton.disabled}
                             onClick={undefined}
                         />
                     ))}
