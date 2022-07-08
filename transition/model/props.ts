@@ -1,7 +1,7 @@
 import {IsDefined, IsInteger, IsPositive} from "@miniskylab/antimatter-class-validator";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
-import {Key} from "react";
+import {Key, ReactNode} from "react";
 import {CSSTransitionClassNames} from "react-transition-group/CSSTransition";
 
 @ComponentName("Transition")
@@ -28,4 +28,11 @@ export class Props extends ComponentProps
      */
     @IsOptional()
     readonly classNames?: CSSTransitionClassNames;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsOptional()
+    readonly children?: ReactNode;
 }
