@@ -72,7 +72,7 @@ export class Component extends React.Component<Props>
             pageBreakThreshold = marginPagerCount * marginCount + minPageBreakThreshold;
         }
 
-        let pageNumbers = this.tryGetPageNumbersWithoutPageBreak(pageBreakThreshold);
+        let pageNumbers = this.getPageNumbersWithoutPageBreak(pageBreakThreshold);
         if (pageNumbers.length <= 0)
         {
             pageNumbers = this.getPageNumbersWithPageBreak(marginPagerCount);
@@ -97,7 +97,7 @@ export class Component extends React.Component<Props>
         });
     }
 
-    private tryGetPageNumbersWithoutPageBreak(pageBreakThreshold: number): number[]
+    private getPageNumbersWithoutPageBreak(pageBreakThreshold: number): number[]
     {
         const pageNumbers: number[] = [];
         if (this.props.pageCount <= this.props.maxTotalPagerCount)

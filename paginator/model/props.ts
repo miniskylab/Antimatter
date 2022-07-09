@@ -1,6 +1,6 @@
-import {IsDefined, IsLessThanOrEqualTo, IsNumber, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsDefined, IsLessThanOrEqualTo, IsNumber, IsPositive, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
-import {IsOptional, IsPositive} from "class-validator";
+import {IsOptional} from "class-validator";
 
 @ComponentName("Paginator")
 export class Props extends ComponentProps
