@@ -16,7 +16,7 @@
         border: 3px solid antimatter-color-scheme.$transparent;
         cursor: pointer;
 
-        &:first-child {
+        &:first-of-type {
             padding-right: 2px;
         }
 

@@ -9,7 +9,7 @@
         font-size: antimatter-typography.$font-size--18px;
         border-width: 3px;
 
-        &:first-child {
+        &:first-of-type {
             padding-right: 2px;
         }
 
