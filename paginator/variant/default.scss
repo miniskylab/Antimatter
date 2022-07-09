@@ -1,0 +1,93 @@
+@use "~@miniskylab/antimatter-layer";
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+
+.paginator {
+
+    @mixin -clickable {
+        position: relative;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: antimatter-color-scheme.$gray;
+        background-color: antimatter-color-scheme.$transparent;
+        font-size: antimatter-typography.$font-size--14px;
+        border: 1px solid antimatter-color-scheme.$gray;
+        box-sizing: border-box;
+        height: 40px;
+        min-width: 40px;
+        margin-left: -1px;
+        cursor: pointer;
+        user-select: none;
+    }
+
+    @mixin -disabled {
+        cursor: not-allowed;
+        color: antimatter-color-scheme.$white--a10;
+        border-color: antimatter-color-scheme.$white--a10;
+    }
+
+    @mixin -hover {
+        color: antimatter-color-scheme.$white;
+        border-color: antimatter-color-scheme.$primary;
+        background-color: antimatter-color-scheme.$primary--a10;
+        z-index: antimatter-layer.$higher;
+    }
+
+    @mixin -active {
+        background-color: antimatter-color-scheme.$primary;
+    }
+
+    &__pager {
+        @include -clickable;
+
+        &--selected {
+            composes: paginator__pager;
+            color: antimatter-color-scheme.$white;
+            background-color: antimatter-color-scheme.$primary--a10;
+            border-color: antimatter-color-scheme.$primary;
+            z-index: antimatter-layer.$higher;
+            cursor: default;
+        }
+
+        &--disabled {
+            composes: paginator__pager;
+            @include -disabled;
+        }
+
+        &:not(&--disabled):not(&--selected):hover {
+            @include -hover;
+
+            &:active {
+                @include -active;
+            }
+        }
+    }
+
+    &__ellipsis {
+        @include -clickable;
+        width: 50px;
+        border: none;
+        font-weight: antimatter-typography.$font-weight--bold;
+        cursor: default;
+    }
+
+    &__navigator {
+        @include -clickable;
+
+        padding: 0 15px;
+
+        &--disabled {
+            composes: paginator__navigator;
+            @include -disabled;
+        }
+
+        &:not(&--disabled):hover {
+            @include -hover;
+
+            &:active {
+                @include -active;
+            }
+        }
+    }
+}
