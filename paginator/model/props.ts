@@ -1,6 +1,6 @@
-import {IsDefined, IsNumber, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsDefined, IsLessThanOrEqualTo, IsNumber, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
-import {IsOptional} from "class-validator";
+import {IsOptional, IsPositive} from "class-validator";
 
 @ComponentName("Paginator")
 export class Props extends ComponentProps
@@ -9,6 +9,7 @@ export class Props extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNumber()
+    @IsPositive()
     @IsDefined()
     readonly pageCount: number;
 
@@ -17,6 +18,8 @@ export class Props extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNumber()
+    @IsPositive()
+    @IsLessThanOrEqualTo("pageCount")
     @IsOptional()
     readonly selectedPage?: number;
 
@@ -25,14 +28,17 @@ export class Props extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNumber()
+    @IsPositive()
     @IsOptional()
-    readonly maxMiddlePagerCount?: number;
+    readonly maxTotalPagerCount?: number;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNumber()
+    @IsPositive()
+    @IsLessThanOrEqualTo("maxTotalPagerCount")
     @IsOptional()
     readonly maxMarginPagerCount?: number;
 

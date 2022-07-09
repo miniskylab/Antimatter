@@ -10,7 +10,7 @@ export class Component extends React.Component<Props>
     static defaultProps: Partial<Props> = {
         variant: Variant.Default,
         selectedPage: 1,
-        maxMiddlePagerCount: 8,
+        maxTotalPagerCount: 8,
         maxMarginPagerCount: 1,
         nextLabel: "Next",
         prevLabel: "Prev"
@@ -66,7 +66,7 @@ export class Component extends React.Component<Props>
         const minPageBreakThreshold = 5;
         let marginPagerCount = this.props.maxMarginPagerCount;
         let pageBreakThreshold = marginPagerCount * marginCount + minPageBreakThreshold;
-        while (marginPagerCount > 1 && pageBreakThreshold > this.props.maxMiddlePagerCount)
+        while (marginPagerCount > 1 && pageBreakThreshold > this.props.maxTotalPagerCount)
         {
             marginPagerCount -= 1;
             pageBreakThreshold = marginPagerCount * marginCount + minPageBreakThreshold;
@@ -100,7 +100,7 @@ export class Component extends React.Component<Props>
     private tryGetPageNumbersWithoutPageBreak(pageBreakThreshold: number): number[]
     {
         const pageNumbers: number[] = [];
-        if (this.props.pageCount <= this.props.maxMiddlePagerCount)
+        if (this.props.pageCount <= this.props.maxTotalPagerCount)
         {
             for (let pageNumber = 1; pageNumber < this.props.pageCount + 1; pageNumber++)
             {
@@ -110,11 +110,11 @@ export class Component extends React.Component<Props>
             return pageNumbers;
         }
 
-        if (this.props.maxMiddlePagerCount < pageBreakThreshold)
+        if (this.props.maxTotalPagerCount < pageBreakThreshold)
         {
             pageNumbers.push(this.props.selectedPage);
 
-            let remainingPagerCount = this.props.maxMiddlePagerCount - 1;
+            let remainingPagerCount = this.props.maxTotalPagerCount - 1;
             while (remainingPagerCount > 0)
             {
                 let step = this.props.selectedPage < this.prevSelectedPage ? -1 : 1;
@@ -152,7 +152,8 @@ export class Component extends React.Component<Props>
 
     private getPageNumbersWithPageBreak(marginPagerCount: number): number[]
     {
-        const ellipsis = -9999;
+        const leftEllipsis = -999999998;
+        const rightEllipsis = -999999999;
         const initialPageNumber = 1;
         const ellipsisMinHiddenPagerCount = 2;
         const marginPagerCountIncludesEllipsis = marginPagerCount + ellipsisMinHiddenPagerCount;
@@ -169,7 +170,7 @@ export class Component extends React.Component<Props>
         }
         else
         {
-            leftGroup.push(ellipsis);
+            leftGroup.push(leftEllipsis);
         }
 
         const rightGroup: number[] = [];
@@ -184,11 +185,11 @@ export class Component extends React.Component<Props>
         }
         else
         {
-            rightGroup.unshift(ellipsis);
+            rightGroup.unshift(rightEllipsis);
         }
 
         const middleGroup: number[] = [];
-        let remainingPagerCount = this.props.maxMiddlePagerCount - leftGroup.length - rightGroup.length;
+        let remainingPagerCount = this.props.maxTotalPagerCount - leftGroup.length - rightGroup.length;
         if (leftGroup[leftGroup.length - 1] < 0 && rightGroup[0] < 0)
         {
             middleGroup.push(this.props.selectedPage);
