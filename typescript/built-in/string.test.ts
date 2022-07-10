@@ -37,4 +37,3 @@ describe("how to use [String.splitCamelCase(...)]", (): void =>
         expect("antimatterRCPExt".splitCamelCase()).toBe("antimatter RCP Ext");
     });
 });
-

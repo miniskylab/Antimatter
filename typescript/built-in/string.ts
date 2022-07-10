@@ -33,7 +33,8 @@ String.prototype.format = function (this: string, ...replacements: string[]): st
 
 String.prototype.splitCamelCase = function (this: string): string
 {
-    return this.split(/(?<=[a-z])(?=[A-Z])|(?<=[A-Z])(?=[A-Z][a-z])/g).join(" ");
+    return this.replace(/([a-zA-Z])([A-Z][a-z])/g, "$1 $2")
+        .replace(/([a-z])([A-Z])/g, "$1 $2");
 };
 
 export {};
