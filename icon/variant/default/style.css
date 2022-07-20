@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'antimatter';
-  src:  url('fonts/antimatter.eot?kh52l9');
-  src:  url('fonts/antimatter.eot?kh52l9#iefix') format('embedded-opentype'),
-    url('fonts/antimatter.ttf?kh52l9') format('truetype'),
-    url('fonts/antimatter.woff?kh52l9') format('woff'),
-    url('fonts/antimatter.svg?kh52l9#antimatter') format('svg');
+  src:  url('fonts/antimatter.eot?62kqyo');
+  src:  url('fonts/antimatter.eot?62kqyo#iefix') format('embedded-opentype'),
+    url('fonts/antimatter.ttf?62kqyo') format('truetype'),
+    url('fonts/antimatter.woff?62kqyo') format('woff'),
+    url('fonts/antimatter.svg?62kqyo#antimatter') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -153,4 +153,22 @@
 }
 .antimatter-icon__document:before {
   content: "\e929";
+}
+.antimatter-icon__floppy-disk:before {
+  content: "\e92a";
+}
+.antimatter-icon__x-mark-inside-circle:before {
+  content: "\e92b";
+}
+.antimatter-icon__eye:before {
+  content: "\e92c";
+}
+.antimatter-icon__quill:before {
+  content: "\e92d";
+}
+.antimatter-icon__fire:before {
+  content: "\e92e";
+}
+.antimatter-icon__not-allowed:before {
+  content: "\e92f";
 }

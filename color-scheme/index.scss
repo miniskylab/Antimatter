@@ -38,6 +38,7 @@ $transparent: rgba(0, 0, 0, 0);
 $primary: rgb(0, 160, 255);
 $primary--a10: rgba($primary, 0.1);
 $primary--a45: rgba($primary, 0.45);
+$primary--a65: rgba($primary, 0.65);
 $primary--w25: color.mix($white, $primary, 25%);
 
 $secondary: rgb(135, 172, 78);

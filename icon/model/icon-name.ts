@@ -42,5 +42,11 @@ export enum IconName
     Download = "antimatter-icon__download",
     Calendar = "antimatter-icon__calendar",
     WiFi = "antimatter-icon__wifi",
-    Document = "antimatter-icon__document"
+    Document = "antimatter-icon__document",
+    FloppyDisk = "antimatter-icon__floppy-disk",
+    XMarkInsideCircle = "antimatter-icon__x-mark-inside-circle",
+    Eye = "antimatter-icon__eye",
+    Quill = "antimatter-icon__quill",
+    Fire = "antimatter-icon__fire",
+    NotAllowed = "antimatter-icon__not-allowed"
 }
