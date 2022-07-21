@@ -7,7 +7,7 @@ import {LineStyle} from "./line-style";
 export class LineSettings
 {
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsString()
     @IsOptional()
@@ -15,7 +15,7 @@ export class LineSettings
 
 
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsEnum(LineStyle)
     @IsOptional()
@@ -23,7 +23,7 @@ export class LineSettings
 
 
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @ArrayNotEmpty()
     @IsArray()

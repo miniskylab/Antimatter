@@ -1,4 +1,4 @@
-import {IsDefined, IsNumber, Max, Min} from "@miniskylab/antimatter-class-validator";
+import {IsBoolean, IsDefined, IsNumber, Max, Min} from "@miniskylab/antimatter-class-validator";
 import {GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import {IsOptional} from "class-validator";
 
@@ -34,5 +34,10 @@ export class HighlightedDate
     readonly year?: number;
 
 
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
     readonly useLunarCalendar?: boolean;
 }
