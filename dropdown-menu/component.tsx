@@ -11,8 +11,9 @@ export class Component extends React.Component<Props, State>
     static defaultProps: Partial<Props> = {
         variant: Variant.Default,
         keyValueSet: {},
+        selectedKeys: [],
         placeholderText: String.EMPTY,
-        canRemoveSelection: false,
+        maxSelectionCount: 1,
         isOpenByDefault: false
     };
 
@@ -25,9 +26,19 @@ export class Component extends React.Component<Props, State>
         };
     }
 
+    private get canMultiSelect()
+    {
+        return this.props.maxSelectionCount > 1;
+    }
+
+    private get maxSelectionCountReached()
+    {
+        return this.props.selectedKeys.length >= this.props.maxSelectionCount;
+    }
+
     render(): JSX.Element
     {
-        const hasSelectedValue = Object.keys(this.props.keyValueSet).indexOf(this.props.selectedKey) >= 0;
+        const hasSelection = this.props.selectedKeys.length > 0;
         return (
             <div
                 className={this.props.variant[`dropdown-menu${this.state.isOpen ? "--open" : "--closed"}`]}
@@ -36,8 +47,14 @@ export class Component extends React.Component<Props, State>
                 tabIndex={0}
             >
                 {
-                    <div className={this.props.variant[`dropdown-menu__${hasSelectedValue ? "selected-value-text" : "placeholder-text"}`]}>
-                        {hasSelectedValue ? this.props.keyValueSet[this.props.selectedKey] : this.props.placeholderText}
+                    <div className={this.props.variant[`dropdown-menu__${hasSelection ? "badge-container" : "placeholder-text"}`]}>
+                        {
+                            hasSelection
+                                ? this.props.selectedKeys.map((x, i) => (
+                                    <div key={i} className={this.props.variant["dropdown-menu__badge"]}>{this.props.keyValueSet[x]}</div>
+                                ))
+                                : this.props.placeholderText
+                        }
                     </div>
                 }
                 <div className={this.props.variant["dropdown-menu__caret"]}/>
@@ -48,52 +65,41 @@ export class Component extends React.Component<Props, State>
 
     private renderMenu(): JSX.Element
     {
-        const keyValueSet = this.props.canRemoveSelection
-            ? {
-                [String.EMPTY]: this.props.placeholderText,
-                ...this.props.keyValueSet
-            }
-            : this.props.keyValueSet;
-
         const menuItems: JSX.Element[] = [];
-        for (const key in keyValueSet)
+        for (const key in this.props.keyValueSet)
         {
-            if (!keyValueSet.hasOwnProperty(key))
+            if (!this.props.keyValueSet.hasOwnProperty(key))
             {
                 continue;
             }
 
-            const value = keyValueSet[key];
+            const value = this.props.keyValueSet[key];
             if (value === "---")
             {
                 menuItems.push(<div key={key} className={this.props.variant["dropdown-menu__divider"]}/>);
                 continue;
             }
 
-            const isPlaceholderMenuItem = key === String.EMPTY;
-            const isSelectedMenuItem = key === this.props.selectedKey && !isPlaceholderMenuItem;
-            let menuItemClassName = "dropdown-menu__menu-item";
-            if (isPlaceholderMenuItem)
+            let menuItemModifier = String.EMPTY;
+            const menuItemIsSelected = this.props.selectedKeys.includes(key);
+            const menuItemIsDisabled = !menuItemIsSelected && this.canMultiSelect && this.maxSelectionCountReached;
+            if (menuItemIsSelected)
             {
-                menuItemClassName += "--placeholder";
+                menuItemModifier = "--selected";
             }
-            else if (isSelectedMenuItem)
+            else if (menuItemIsDisabled)
             {
-                menuItemClassName += "--selected";
+                menuItemModifier = "--disabled";
             }
 
             menuItems.push(
                 <li
                     key={key}
-                    className={this.props.variant[menuItemClassName]}
-                    onClick={isSelectedMenuItem ? undefined : (): void =>
-                    {
-                        this.setState({isOpen: false});
-                        this.props.onChange?.(key === String.EMPTY ? undefined : key);
-                    }}
+                    className={this.props.variant[`dropdown-menu__menu-item${menuItemModifier}`]}
+                    onClick={menuItemIsDisabled ? undefined : event => { this.onMenuItemClick(event, key); }}
                 >
                     {value}
-                    {isSelectedMenuItem && (
+                    {menuItemIsSelected && (
                         <Icon
                             className={this.props.variant["dropdown-menu__selection-icon"]}
                             iconName={IconName.CheckMark}
@@ -103,6 +109,47 @@ export class Component extends React.Component<Props, State>
             );
         }
 
-        return (<ul className={this.props.variant["dropdown-menu__menu"]}>{menuItems}</ul>);
+        return (
+            <ul className={this.props.variant["dropdown-menu__menu"]} onClick={event => { event.stopPropagation(); }}>
+                {menuItems}
+            </ul>
+        );
+    }
+
+    private onMenuItemClick(event: React.MouseEvent<HTMLElement, MouseEvent>, key: string): void
+    {
+        event.stopPropagation();
+
+        const menuItemIsSelected = this.props.selectedKeys.includes(key);
+        if (menuItemIsSelected)
+        {
+            this.props.onChange?.(this.props.selectedKeys.filter(x => x !== key));
+
+            const maxSelectionCountReachedAfterThisClick = (this.props.selectedKeys.length - 1) >= this.props.maxSelectionCount;
+            if (maxSelectionCountReachedAfterThisClick)
+            {
+                this.setState({isOpen: false});
+            }
+        }
+        else
+        {
+            if (this.maxSelectionCountReached)
+            {
+                if (!this.canMultiSelect)
+                {
+                    this.props.onChange?.([key]);
+                }
+            }
+            else
+            {
+                this.props.onChange?.([...this.props.selectedKeys, key]);
+            }
+
+            const maxSelectionCountReachedAfterThisClick = (this.props.selectedKeys.length + 1) >= this.props.maxSelectionCount;
+            if (maxSelectionCountReachedAfterThisClick)
+            {
+                this.setState({isOpen: false});
+            }
+        }
     }
 }

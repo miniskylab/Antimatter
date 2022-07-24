@@ -1,4 +1,4 @@
-import {ExistsIn, IsBoolean, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsBoolean, IsInteger, IsPositive, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 
@@ -15,10 +15,9 @@ export class Props extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @ExistsIn("keyValueSet")
-    @IsString()
+    @IsString({each: true})
     @IsOptional()
-    readonly selectedKey?: string;
+    readonly selectedKeys?: string[];
 
 
     /**
@@ -32,9 +31,10 @@ export class Props extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsBoolean()
+    @IsInteger()
+    @IsPositive()
     @IsOptional()
-    readonly canRemoveSelection?: boolean;
+    readonly maxSelectionCount?: number;
 
 
     /**
@@ -48,5 +48,5 @@ export class Props extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChange?: (newlySelectedKey: string) => void;
+    readonly onChange?: (newlySelectedKeys: string[]) => void;
 }
