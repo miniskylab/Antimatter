@@ -54,6 +54,11 @@
         background-color: antimatter-color-scheme.$mine-shaft;
         z-index: antimatter-layer.$context-menu;
         cursor: default;
+
+        &--hidden {
+            composes: dropdown-menu__menu;
+            display: none;
+        }
     }
 
     &__menu-item {
@@ -71,8 +76,7 @@
             composes: dropdown-menu__menu-item;
             color: antimatter-color-scheme.$white;
             background-color: antimatter-color-scheme.$primary;
-            outline: 1px solid antimatter-color-scheme.$primary;
-            outline-offset: -1px;
+            box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
         }
 
         &--disabled {
@@ -82,18 +86,19 @@
             font-style: italic;
         }
 
-        &:not(&--disabled):not(&--selected):hover {
-            color: antimatter-color-scheme.$white;
-            background-color: antimatter-color-scheme.$primary--a10;
-            outline: 1px solid antimatter-color-scheme.$primary;
-            outline-offset: -1px;
-        }
+        @media (hover: hover) {
 
-        &:not(&--disabled):not(&--selected):active {
-            color: antimatter-color-scheme.$white;
-            background-color: antimatter-color-scheme.$primary;
-            outline: 1px solid antimatter-color-scheme.$primary;
-            outline-offset: -1px;
+            &:not(&--disabled):not(&--selected):hover {
+                color: antimatter-color-scheme.$white;
+                background-color: antimatter-color-scheme.$primary--a10;
+                box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+            }
+
+            &:not(&--disabled):not(&--selected):active {
+                color: antimatter-color-scheme.$white;
+                background-color: antimatter-color-scheme.$primary;
+                box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+            }
         }
     }
 
@@ -127,19 +132,21 @@
     &--closed {
         composes: dropdown-menu;
 
-        &:hover {
-            color: antimatter-color-scheme.$white;
-            outline: 1px solid antimatter-color-scheme.$primary;
-            outline-offset: -1px;
-            background-color: antimatter-color-scheme.$primary--a10;
+        @media (hover: hover) {
 
-            .dropdown-menu__caret {
-                border-top-color: antimatter-color-scheme.$white;
-            }
-
-            .dropdown-menu__selected-value-text,
-            .dropdown-menu__placeholder-text {
+            &:hover {
                 color: antimatter-color-scheme.$white;
+                box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+                background-color: antimatter-color-scheme.$primary--a10;
+
+                .dropdown-menu__caret {
+                    border-top-color: antimatter-color-scheme.$white;
+                }
+
+                .dropdown-menu__selected-value-text,
+                .dropdown-menu__placeholder-text {
+                    color: antimatter-color-scheme.$white;
+                }
             }
         }
     }

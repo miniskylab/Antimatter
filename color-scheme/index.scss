@@ -62,6 +62,7 @@ $warning--a45: rgba($warning, 0.45);
 $warning--w25: color.mix($white, $warning, 25%);
 
 $neutral: rgb(155, 155, 155);
+$neutral--a10: rgba($neutral, 0.1);
 
 $negative: rgb(255, 112, 71);
 $negative--a10: rgba($negative, 0.1);

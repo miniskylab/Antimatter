@@ -1,5 +1,5 @@
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
-import React from "react";
+import React, {createRef, RefObject} from "react";
 import {Props, State} from "./model";
 import * as Variant from "./variant";
 
@@ -17,10 +17,13 @@ export class Component extends React.Component<Props, State>
         isOpenByDefault: false
     };
 
+    private readonly menuRef: RefObject<HTMLUListElement>;
+
     constructor(props: Props)
     {
         super(props);
 
+        this.menuRef = createRef<HTMLUListElement>();
         this.state = {
             isOpen: this.props.isOpenByDefault
         };
@@ -38,7 +41,6 @@ export class Component extends React.Component<Props, State>
 
     render(): JSX.Element
     {
-        const hasSelection = this.props.selectedKeys.length > 0;
         return (
             <div
                 className={this.props.variant[`dropdown-menu${this.state.isOpen ? "--open" : "--closed"}`]}
@@ -46,19 +48,25 @@ export class Component extends React.Component<Props, State>
                 onBlur={(): void => { this.setState({isOpen: false}); }}
                 tabIndex={0}
             >
-                {
-                    <div className={this.props.variant[`dropdown-menu__${hasSelection ? "badge-container" : "placeholder-text"}`]}>
-                        {
-                            hasSelection
-                                ? this.props.selectedKeys.map((x, i) => (
-                                    <div key={i} className={this.props.variant["dropdown-menu__badge"]}>{this.props.keyValueSet[x]}</div>
-                                ))
-                                : this.props.placeholderText
-                        }
-                    </div>
-                }
+                {this.renderContainer()}
+                {this.renderMenu()}
                 <div className={this.props.variant["dropdown-menu__caret"]}/>
-                {this.state.isOpen && this.renderMenu()}
+            </div>
+        );
+    }
+
+    private renderContainer(): JSX.Element
+    {
+        const hasSelection = this.props.selectedKeys.length > 0;
+        return (
+            <div className={this.props.variant[`dropdown-menu__${hasSelection ? "badge-container" : "placeholder-text"}`]}>
+                {
+                    hasSelection
+                        ? this.props.selectedKeys.map((x, i) => (
+                            <div key={i} className={this.props.variant["dropdown-menu__badge"]}>{this.props.keyValueSet[x]}</div>
+                        ))
+                        : this.props.placeholderText
+                }
             </div>
         );
     }
@@ -110,10 +118,32 @@ export class Component extends React.Component<Props, State>
         }
 
         return (
-            <ul className={this.props.variant["dropdown-menu__menu"]} onClick={event => { event.stopPropagation(); }}>
+            <ul
+                ref={this.menuRef}
+                className={this.props.variant[`dropdown-menu__menu${this.state.isOpen ? String.EMPTY : "--hidden"}`]}
+                onClick={event => { event.stopPropagation(); }}
+                onWheel={event => { this.onMenuWheel(event); }}
+            >
                 {menuItems}
             </ul>
         );
+    }
+
+    private onMenuWheel(event: React.WheelEvent): void
+    {
+        if (event.deltaY === 0)
+        {
+            return;
+        }
+
+        const menuElement = this.menuRef.current;
+        if (menuElement)
+        {
+            menuElement.scrollTo({
+                left: menuElement.scrollLeft + event.deltaY,
+                behavior: "smooth"
+            });
+        }
     }
 
     private onMenuItemClick(event: React.MouseEvent<HTMLElement, MouseEvent>, key: string): void
