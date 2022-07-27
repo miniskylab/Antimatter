@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'antimatter';
-  src:  url('fonts/antimatter.eot?62kqyo');
-  src:  url('fonts/antimatter.eot?62kqyo#iefix') format('embedded-opentype'),
-    url('fonts/antimatter.ttf?62kqyo') format('truetype'),
-    url('fonts/antimatter.woff?62kqyo') format('woff'),
-    url('fonts/antimatter.svg?62kqyo#antimatter') format('svg');
+  src:  url('fonts/antimatter.eot?w5p5ms');
+  src:  url('fonts/antimatter.eot?w5p5ms#iefix') format('embedded-opentype'),
+    url('fonts/antimatter.ttf?w5p5ms') format('truetype'),
+    url('fonts/antimatter.woff?w5p5ms') format('woff'),
+    url('fonts/antimatter.svg?w5p5ms#antimatter') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -171,4 +171,34 @@
 }
 .antimatter-icon__not-allowed:before {
   content: "\e92f";
+}
+.antimatter-icon__apple:before {
+  content: "\e930";
+}
+.antimatter-icon__gas-station:before {
+  content: "\e931";
+}
+.antimatter-icon__plane:before {
+  content: "\e932";
+}
+.antimatter-icon__lightning:before {
+  content: "\e933";
+}
+.antimatter-icon__droplet:before {
+  content: "\e934";
+}
+.antimatter-icon__group:before {
+  content: "\e935";
+}
+.antimatter-icon__road:before {
+  content: "\e936";
+}
+.antimatter-icon__basket:before {
+  content: "\e937";
+}
+.antimatter-icon__money:before {
+  content: "\e938";
+}
+.antimatter-icon__price-tag:before {
+  content: "\e939";
 }

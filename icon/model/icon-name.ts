@@ -48,5 +48,15 @@ export enum IconName
     Eye = "antimatter-icon__eye",
     Quill = "antimatter-icon__quill",
     Fire = "antimatter-icon__fire",
-    NotAllowed = "antimatter-icon__not-allowed"
+    NotAllowed = "antimatter-icon__not-allowed",
+    Apple = "antimatter-icon__apple",
+    GasStation = "antimatter-icon__gas-station",
+    Plane = "antimatter-icon__plane",
+    Lightning = "antimatter-icon__lightning",
+    Droplet = "antimatter-icon__droplet",
+    Group = "antimatter-icon__group",
+    Road = "antimatter-icon__road",
+    Basket = "antimatter-icon__basket",
+    Money = "antimatter-icon__money",
+    PriceTag = "antimatter-icon__price-tag"
 }

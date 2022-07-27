@@ -61,6 +61,7 @@ export class Component extends React.Component<Props, State>
             <input
                 ref={this.ref}
                 type={"text"}
+                pattern={"[0-9]*"}
                 className={this.props.variant["numeric-input-field"]}
                 value={this.state.userInput}
                 placeholder={this.props.placeholderText}

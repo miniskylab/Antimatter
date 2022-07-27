@@ -1,6 +1,8 @@
 @use "~@miniskylab/antimatter-color-scheme";
 
 .html {
+    overflow: inherit;
+    text-overflow: inherit;
 
     & hr {
         display: block;
