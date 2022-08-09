@@ -1,0 +1,27 @@
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-width: 300px;
+    max-width: 450px;
+    padding: 30px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    color: antimatter-color-scheme.$neutral;
+    background-color: antimatter-color-scheme.$background;
+    box-shadow: 0 10px 20px antimatter-color-scheme.$black;
+
+    &__logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 80px;
+        height: 80px;
+        font-size: antimatter-typography.$font-size--80px;
+    }
+}

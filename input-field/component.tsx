@@ -1,5 +1,5 @@
 import {Icon} from "@miniskylab/antimatter-icon";
-import React, {useState} from "react";
+import React from "react";
 import {Props} from "./model";
 import * as Variant from "./variant";
 
@@ -20,7 +20,7 @@ export function Component({
     onKeyDown
 }: Props): JSX.Element
 {
-    const [hasValue, setHasValue] = useState(!!value);
+    const hasValue = !!value;
     const shrunkModifier = placeholderText && hasValue ? "--shrunk" : String.EMPTY;
 
     return (
@@ -46,8 +46,6 @@ export function Component({
     function handleChangeEvent(changeEvent: React.ChangeEvent<HTMLInputElement>)
     {
         const newValue = changeEvent.target.value;
-        setHasValue(!!newValue);
-
         onChange?.(newValue);
     }
 }
