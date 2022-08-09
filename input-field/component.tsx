@@ -1,41 +1,53 @@
-import React from "react";
+import {Icon} from "@miniskylab/antimatter-icon";
+import React, {useState} from "react";
 import {Props} from "./model";
 import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props>
+export function Component({
+    variant = Variant.Default,
+    icon,
+    value = String.EMPTY,
+    placeholderText = String.EMPTY,
+    autoFocus = false,
+    isPasswordField = false,
+    onChange,
+    onBlur,
+    onFocus,
+    onPointerDown,
+    onKeyDown
+}: Props): JSX.Element
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
-        autoFocus: false,
-        value: String.EMPTY,
-        placeholderText: String.EMPTY,
-        isPasswordField: false
-    };
+    const [hasValue, setHasValue] = useState(!!value);
+    const shrunkModifier = placeholderText && hasValue ? "--shrunk" : String.EMPTY;
 
-    render(): JSX.Element
-    {
-        return (
-            <input
-                type={this.props.isPasswordField ? "password" : "text"}
-                className={this.props.variant["input-field"]}
-                value={this.props.value}
-                placeholder={this.props.placeholderText}
-                onChange={this.onChange.bind(this)}
-                onBlur={this.props.onBlur}
-                onFocus={this.props.onFocus}
-                onPointerDown={this.props.onPointerDown}
-                onKeyDown={this.props.onKeyDown}
-                autoFocus={this.props.autoFocus}
-            />
-        );
-    }
+    return (
+        <div className={variant["input-field"]}>
+            {icon && <Icon className={variant["input-field__addon"]} iconName={icon}/>}
+            <div className={variant["input-field__container"]}>
+                {placeholderText && <div className={variant[`input-field__placeholder${shrunkModifier}`]}>{placeholderText}</div>}
+                <input
+                    type={isPasswordField ? "password" : "text"}
+                    className={variant[`input-field__text-box${shrunkModifier}`]}
+                    value={value}
+                    onChange={handleChangeEvent}
+                    onBlur={onBlur}
+                    onFocus={onFocus}
+                    onPointerDown={onPointerDown}
+                    onKeyDown={onKeyDown}
+                    autoFocus={autoFocus}
+                />
+            </div>
+        </div>
+    );
 
-    private onChange(changeEvent: React.ChangeEvent<HTMLInputElement>): void
+    function handleChangeEvent(changeEvent: React.ChangeEvent<HTMLInputElement>)
     {
         const newValue = changeEvent.target.value;
-        this.props.onChange?.(newValue);
+        setHasValue(!!newValue);
+
+        onChange?.(newValue);
     }
 }

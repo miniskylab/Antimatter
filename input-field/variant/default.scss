@@ -2,19 +2,61 @@
 @use "~@miniskylab/antimatter-color-scheme";
 
 .input-field {
-    width: 260px;
-    height: 34px;
-    font-size: antimatter-typography.$font-size--14px;
-    padding: 6px 12px;
-    border: none;
-    outline: none;
-    text-align: inherit;
-    box-sizing: border-box;
-    color: antimatter-color-scheme.$neutral;
+    display: flex;
+    width: 100%;
+    height: 40px;
     background-color: antimatter-color-scheme.$mine-shaft;
 
-    &::placeholder {
+    &__addon {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 100%;
+        font-size: antimatter-typography.$font-size--20px;
+        color: antimatter-color-scheme.$mine-shaft;
+        background-color: antimatter-color-scheme.$gray;
+    }
+
+    &__container {
+        flex-grow: 1;
+        position: relative;
+    }
+
+    &__placeholder {
+        position: absolute;
+        left: 12px;
+        display: inline-flex;
+        align-items: center;
+        width: 100%;
+        height: 100%;
         color: antimatter-color-scheme.$gray;
-        font-style: italic;
+        transition: transform ease-out 100ms;
+        transform-origin: left center;
+        pointer-events: none;
+
+        &--shrunk {
+            composes: input-field__placeholder;
+            transform: scale(0.72) translateY(-12px);
+        }
+    }
+
+    &__text-box {
+        width: 100%;
+        height: 100%;
+        border: none;
+        outline: none;
+        padding: 6px 12px;
+        box-sizing: border-box;
+        font-size: antimatter-typography.$font-size--14px;
+        color: antimatter-color-scheme.$neutral;
+        background-color: antimatter-color-scheme.$transparent;
+        transition: padding ease-out 100ms;
+
+        &--shrunk {
+            composes: input-field__text-box;
+            padding-top: 20px;
+            padding-bottom: 5px;
+        }
     }
 }

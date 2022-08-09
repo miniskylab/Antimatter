@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'antimatter';
-  src:  url('fonts/antimatter.eot?cpoh6y');
-  src:  url('fonts/antimatter.eot?cpoh6y#iefix') format('embedded-opentype'),
-    url('fonts/antimatter.ttf?cpoh6y') format('truetype'),
-    url('fonts/antimatter.woff?cpoh6y') format('woff'),
-    url('fonts/antimatter.svg?cpoh6y#antimatter') format('svg');
+  src:  url('fonts/antimatter.eot?4fy9vh');
+  src:  url('fonts/antimatter.eot?4fy9vh#iefix') format('embedded-opentype'),
+    url('fonts/antimatter.ttf?4fy9vh') format('truetype'),
+    url('fonts/antimatter.woff?4fy9vh') format('woff'),
+    url('fonts/antimatter.svg?4fy9vh#antimatter') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -202,12 +202,12 @@
 .antimatter-icon__price-tag:before {
   content: "\e939";
 }
-.antimatter-icon__key:before {
-  content: "\e93b";
-}
 .antimatter-icon__user:before {
   content: "\e93c";
 }
 .antimatter-icon__lock-inside-shield:before {
   content: "\e93a";
+}
+.antimatter-icon__lock:before {
+  content: "\e93b";
 }

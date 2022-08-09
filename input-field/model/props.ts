@@ -1,4 +1,5 @@
-import {IsBoolean, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
+import {IconName} from "@miniskylab/antimatter-icon";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 import {FocusEventHandler, KeyboardEventHandler, PointerEventHandler} from "react";
@@ -8,10 +9,12 @@ export class Props extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type IconName
      */
-    @IsBoolean()
+    @IsEnum(IconName)
     @IsOptional()
-    readonly autoFocus?: boolean;
+    readonly icon?: IconName;
 
 
     /**
@@ -28,6 +31,14 @@ export class Props extends ComponentProps
     @IsString()
     @IsOptional()
     readonly placeholderText?: string;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly autoFocus?: boolean;
 
 
     /**

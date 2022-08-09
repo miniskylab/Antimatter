@@ -61,5 +61,5 @@ export enum IconName
     PriceTag = "antimatter-icon__price-tag",
     LockInsideShield = "antimatter-icon__lock-inside-shield",
     User = "antimatter-icon__user",
-    Key = "antimatter-icon__key"
+    Lock = "antimatter-icon__lock"
 }

@@ -2,7 +2,6 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-responsive/screen-size";
-@use "~@miniskylab/antimatter-input-field/variant/default";
 
 .date-picker {
     display: inline-flex;
@@ -15,10 +14,21 @@
     }
 
     &__input-field {
-        composes: input-field;
         width: 100%;
         height: 100%;
-        padding-right: 36px;
+        font-size: antimatter-typography.$font-size--14px;
+        padding: 6px 36px 6px 12px;
+        border: none;
+        outline: none;
+        text-align: inherit;
+        box-sizing: border-box;
+        color: antimatter-color-scheme.$neutral;
+        background-color: antimatter-color-scheme.$mine-shaft;
+
+        &::placeholder {
+            color: antimatter-color-scheme.$gray;
+            font-style: italic;
+        }
     }
 
     &__addon {
@@ -31,7 +41,6 @@
         width: 36px;
         height: 100%;
         font-size: antimatter-typography.$font-size--16px;
-        box-sizing: border-box;
         color: antimatter-color-scheme.$neutral;
         background-color: antimatter-color-scheme.$transparent;
         cursor: pointer;
