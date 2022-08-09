@@ -58,5 +58,8 @@ export enum IconName
     Road = "antimatter-icon__road",
     Basket = "antimatter-icon__basket",
     Money = "antimatter-icon__money",
-    PriceTag = "antimatter-icon__price-tag"
+    PriceTag = "antimatter-icon__price-tag",
+    LockInsideShield = "antimatter-icon__lock-inside-shield",
+    User = "antimatter-icon__user",
+    Key = "antimatter-icon__key"
 }
