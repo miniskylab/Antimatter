@@ -1,4 +1,4 @@
-import {Icon} from "@miniskylab/antimatter-icon";
+import {Icon} from "@miniskylab/antimatter-icon-legacy";
 import React from "react";
 import {Props, State} from "./model";
 import * as Variant from "./variant";

@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {DatePicker, Props as DatePickerProps} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenu, Props as DropdownMenuProps} from "@miniskylab/antimatter-dropdown-menu";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {IconName} from "@miniskylab/antimatter-icon-legacy";
 import {InputField, Props as InputFieldProps} from "@miniskylab/antimatter-input-field";
 import {Label, Props as LabelProps} from "@miniskylab/antimatter-label";
 import {NumericInputField, Props as NumericInputFieldProps} from "@miniskylab/antimatter-numeric-input-field";

@@ -1,5 +1,5 @@
 import {Calendar, Variant as CalendarVariant} from "@miniskylab/antimatter-calendar";
-import {Icon, IconName} from "@miniskylab/antimatter-icon";
+import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
 import {Char, DateFormat, GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import React, {createRef, RefObject} from "react";
 import {isAllowedKey, isDigit, reformat, removeNonDigitCharacters, tryParseDate} from "./helper";

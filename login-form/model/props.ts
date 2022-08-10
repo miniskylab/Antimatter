@@ -1,6 +1,6 @@
 import {Props as ButtonProps} from "@miniskylab/antimatter-button";
 import {IsDefined, IsEnum} from "@miniskylab/antimatter-class-validator";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {IconName} from "@miniskylab/antimatter-icon-legacy";
 import {Props as InputFieldProps} from "@miniskylab/antimatter-input-field";
 import {Props as LabelProps} from "@miniskylab/antimatter-label";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";

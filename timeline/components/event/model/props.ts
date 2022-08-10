@@ -1,5 +1,5 @@
 import {IsBoolean, IsDate, IsDefined, IsEmpty, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {IconName} from "@miniskylab/antimatter-icon-legacy";
 import {ComponentProps, Image} from "@miniskylab/antimatter-model";
 import {TimeUnit} from "@miniskylab/antimatter-typescript";
 import {Type} from "class-transformer";

@@ -1,5 +1,5 @@
 import {Html} from "@miniskylab/antimatter-html";
-import {Icon, IconName} from "@miniskylab/antimatter-icon";
+import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
 import {DateFormat, GregorianCalendar, TimeUnit} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {Props} from "./model";

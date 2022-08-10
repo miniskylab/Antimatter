@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Icon} from "@miniskylab/antimatter-icon";
+import {Icon} from "@miniskylab/antimatter-icon-legacy";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
 import React, {useState} from "react";

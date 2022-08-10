@@ -1,5 +1,5 @@
 import {Html} from "@miniskylab/antimatter-html";
-import {Icon} from "@miniskylab/antimatter-icon";
+import {Icon} from "@miniskylab/antimatter-icon-legacy";
 import React from "react";
 import {Props} from "./model";
 import * as Variant from "./variant";

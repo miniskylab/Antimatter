@@ -1,4 +1,4 @@
-import {Icon, IconName} from "@miniskylab/antimatter-icon";
+import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
 import React, {createRef, RefObject} from "react";
 import {Record} from "./components";
 import {Props} from "./model";

@@ -1,6 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Html} from "@miniskylab/antimatter-html";
-import {Icon, IconName} from "@miniskylab/antimatter-icon";
+import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
 import {Spacer} from "@miniskylab/antimatter-spacer";
 import React from "react";
 import {Props} from "./model";
