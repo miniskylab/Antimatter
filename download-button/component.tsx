@@ -1,4 +1,5 @@
-import {Icon} from "@miniskylab/antimatter-icon-legacy";
+import {Icon} from "@miniskylab/antimatter-icon";
+import {Label} from "@miniskylab/antimatter-label";
 import React from "react";
 import {Props, State} from "./model";
 import * as Variant from "./variant";
@@ -12,7 +13,6 @@ export class Component extends React.Component<Props, State>
         variant: Variant.Default,
         fileName: String.EMPTY,
         href: String.EMPTY,
-        text: String.EMPTY,
         disabled: false
     };
 
@@ -51,8 +51,8 @@ export class Component extends React.Component<Props, State>
                 download={this.props.fileName || true}
                 target={"_self"}
             >
-                {this.props.icon && <Icon className={this.props.variant["button__icon"]} iconName={this.props.icon}/>}
-                {this.props.text && <div className={this.props.variant["button__text"]}>{this.props.text}</div>}
+                {this.props.icon && <Icon {...this.props.icon} variant={this.props.icon.variant ?? this.props.variant}/>}
+                {this.props.label?.text && <Label {...this.props.label} variant={this.props.label.variant ?? this.props.variant}/>}
             </a>
         );
     }

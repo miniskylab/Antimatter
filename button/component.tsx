@@ -27,8 +27,8 @@ export function Component({
             className={variant[`button${disabled ? "--disabled" : String.EMPTY}`]}
             onClick={!disabled && onClick ? onClick : undefined}
         >
-            {icon && <Icon {...icon} variant={icon?.variant ?? variant}/>}
-            {label?.text && <Label {...label} variant={label?.variant ?? variant}/>}
+            {icon && <Icon {...icon} variant={icon.variant ?? variant}/>}
+            {label?.text && <Label {...label} variant={label.variant ?? variant}/>}
         </a>
     );
 }

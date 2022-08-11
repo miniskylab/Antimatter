@@ -1,0 +1,5 @@
+@use "~@miniskylab/antimatter-typography";
+
+.icon {
+    font-size: antimatter-typography.$font-size--14px;
+}
