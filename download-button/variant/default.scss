@@ -1,6 +1,6 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
-@use "~@miniskylab/antimatter-button/variant/outlined-rectangle";
+@use "~@miniskylab/antimatter-button/variant/outlined-rectangular/button";
 
 .button {
     flex-direction: row-reverse;

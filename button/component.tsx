@@ -1,4 +1,5 @@
-import {Icon} from "@miniskylab/antimatter-icon-legacy";
+import {Icon} from "@miniskylab/antimatter-icon";
+import {Label} from "@miniskylab/antimatter-label";
 import React from "react";
 import {Props, Target} from "./model";
 import * as Variant from "./variant";
@@ -8,7 +9,7 @@ import * as Variant from "./variant";
  */
 export function Component({
     variant,
-    text = String.EMPTY,
+    label,
     target = Target.SameFrame,
     disabled = false,
     href,
@@ -16,7 +17,7 @@ export function Component({
     onClick
 }: Props): JSX.Element
 {
-    variant = variant ?? (text ? Variant.OutlinedRectangle : Variant.OutlinedCircular);
+    variant = variant ?? (label?.text ? Variant.OutlinedRectangular : Variant.OutlinedCircular);
 
     return (
         <a
@@ -26,8 +27,8 @@ export function Component({
             className={variant[`button${disabled ? "--disabled" : String.EMPTY}`]}
             onClick={!disabled && onClick ? onClick : undefined}
         >
-            {icon && <Icon className={variant["button__icon"]} iconName={icon}/>}
-            {text && <div className={variant["button__text"]}>{text}</div>}
+            {icon && <Icon {...icon} variant={icon?.variant ?? variant}/>}
+            {label?.text && <Label {...label} variant={label?.variant ?? variant}/>}
         </a>
     );
 }

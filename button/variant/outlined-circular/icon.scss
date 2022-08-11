@@ -1,8 +1,8 @@
 @use "~@miniskylab/antimatter-typography";
-@use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-icon/variant/default";
 
-.label {
-    display: inline-flex;
+.icon {
+    display: flex;
     justify-content: center;
     align-items: center;
     font-size: antimatter-typography.$font-size--14px;
