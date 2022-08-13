@@ -51,8 +51,8 @@ export class Component extends React.Component<Props, State>
                 download={this.props.fileName || true}
                 target={"_self"}
             >
-                {this.props.icon && <Icon {...this.props.icon} variant={this.props.icon.variant ?? this.props.variant}/>}
-                {this.props.label?.text && <Label {...this.props.label} variant={this.props.label.variant ?? this.props.variant}/>}
+                {this.props.icon && <Icon {...this.props.icon} variant={this.props.variant}/>}
+                {this.props.label?.text && <Label {...this.props.label} variant={this.props.variant}/>}
             </a>
         );
     }

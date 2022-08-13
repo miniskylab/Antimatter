@@ -1,23 +1,22 @@
-import {Props as ButtonProps} from "@miniskylab/antimatter-button";
-import {IsDefined, IsEnum} from "@miniskylab/antimatter-class-validator";
-import {IconName} from "@miniskylab/antimatter-icon-legacy";
-import {Props as InputFieldProps} from "@miniskylab/antimatter-input-field";
-import {Props as LabelProps} from "@miniskylab/antimatter-label";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ButtonProps} from "@miniskylab/antimatter-button";
+import {IsDefined} from "@miniskylab/antimatter-class-validator";
+import {IconProps} from "@miniskylab/antimatter-icon";
+import {InputFieldProps} from "@miniskylab/antimatter-input-field";
+import {LabelProps} from "@miniskylab/antimatter-label";
+import {Child, ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {Type} from "class-transformer";
 import {ValidateNested} from "class-validator";
 
 @ComponentName("Login Form")
-export class Props extends ComponentProps
+export class LoginFormProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type IconName
      */
-    @IsEnum(IconName)
     @IsDefined()
-    readonly logo: IconName;
+    @ValidateNested()
+    @Type(() => IconProps)
+    readonly logo: Child<IconProps>;
 
 
     /**
@@ -26,7 +25,7 @@ export class Props extends ComponentProps
     @IsDefined()
     @ValidateNested()
     @Type(() => LabelProps)
-    readonly titleLabel: LabelProps;
+    readonly title: Child<LabelProps>;
 
 
     /**
@@ -35,40 +34,34 @@ export class Props extends ComponentProps
     @IsDefined()
     @ValidateNested()
     @Type(() => LabelProps)
-    readonly descriptionLabel: LabelProps;
+    readonly description: Child<LabelProps>;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type InputFieldProps
      */
     @IsDefined()
     @ValidateNested()
     @Type(() => InputFieldProps)
-    readonly usernameInputField: Pick<InputFieldProps, "variant" | "icon" | "placeholderText">;
+    readonly usernameInputField: Pick<Child<InputFieldProps>, "icon" | "placeholder">;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type InputFieldProps
      */
     @IsDefined()
     @ValidateNested()
     @Type(() => InputFieldProps)
-    readonly passwordInputField: Pick<InputFieldProps, "variant" | "icon" | "placeholderText">;
+    readonly passwordInputField: Pick<Child<InputFieldProps>, "icon" | "placeholder">;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type ButtonProps
      */
     @IsDefined()
     @ValidateNested()
     @Type(() => ButtonProps)
-    readonly loginButton: Pick<ButtonProps, "variant" | "text">;
+    readonly loginButton: Pick<Child<ButtonProps>, "label">;
 
 
     /**

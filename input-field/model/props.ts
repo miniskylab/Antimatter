@@ -1,20 +1,21 @@
-import {IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
-import {IconName} from "@miniskylab/antimatter-icon-legacy";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
-import {IsOptional} from "class-validator";
+import {IsBoolean, IsString} from "@miniskylab/antimatter-class-validator";
+import {IconProps} from "@miniskylab/antimatter-icon";
+import {LabelProps} from "@miniskylab/antimatter-label";
+import {Child, ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {Type} from "class-transformer";
+import {IsOptional, ValidateNested} from "class-validator";
 import {FocusEventHandler, KeyboardEventHandler, PointerEventHandler} from "react";
 
 @ComponentName("Input Field")
-export class Props extends ComponentProps
+export class InputFieldProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type IconName
      */
-    @IsEnum(IconName)
     @IsOptional()
-    readonly icon?: IconName;
+    @ValidateNested()
+    @Type(() => IconProps)
+    readonly icon?: Child<IconProps>;
 
 
     /**
@@ -28,9 +29,10 @@ export class Props extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsString()
     @IsOptional()
-    readonly placeholderText?: string;
+    @ValidateNested()
+    @Type(() => LabelProps)
+    readonly placeholder?: Child<LabelProps>;
 
 
     /**

@@ -1,18 +1,17 @@
-import {IsDefined} from "@miniskylab/antimatter-class-validator";
+import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {MouseEventHandler, PointerEventHandler} from "react";
-import type {IconName} from "./icon-name";
 
 @ComponentName("Icon")
-export class Props extends ComponentProps
+export class IconProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type IconName
      */
+    @IsNotEmpty()
+    @IsString()
     @IsDefined()
-    readonly name: IconName;
+    readonly name: string;
 
 
     /**

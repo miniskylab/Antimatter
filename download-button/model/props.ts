@@ -1,7 +1,7 @@
 import {IsBoolean, IsString} from "@miniskylab/antimatter-class-validator";
 import {Props as IconProps} from "@miniskylab/antimatter-icon";
 import {Props as LabelProps} from "@miniskylab/antimatter-label";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {Child, ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 
@@ -19,23 +19,23 @@ export class Props extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type LabelProps
+     * @type Child<LabelProps>
      */
     @IsOptional()
     @ValidateNested()
     @Type(() => LabelProps)
-    readonly label?: LabelProps;
+    readonly label?: Child<LabelProps>;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type IconProps
+     * @type Child<IconProps>
      */
     @IsOptional()
     @ValidateNested()
     @Type(() => IconProps)
-    readonly icon?: IconProps;
+    readonly icon?: Child<IconProps>;
 
 
     /**

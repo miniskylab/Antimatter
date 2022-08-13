@@ -10,4 +10,11 @@ export class ComponentProps
      */
     @IsOptional()
     readonly variant?: Record<string, string>;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsOptional()
+    readonly className?: string;
 }

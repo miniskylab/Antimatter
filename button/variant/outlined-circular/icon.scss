@@ -1,9 +1,0 @@
-@use "~@miniskylab/antimatter-typography";
-@use "~@miniskylab/antimatter-icon/variant/default";
-
-.icon {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: antimatter-typography.$font-size--14px;
-}

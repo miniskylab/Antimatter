@@ -1,0 +1,62 @@
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+
+%button, .solid-rectangular-button {
+    $button: &;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    width: fit-content;
+    height: 34px;
+    padding: 6px 12px;
+    border-radius: 0;
+    border: 1px solid antimatter-color-scheme.$primary;
+    box-sizing: border-box;
+    color: antimatter-color-scheme.$ambient;
+    background-color: antimatter-color-scheme.$primary;
+    font-weight: antimatter-typography.$font-weight--regular;
+    vertical-align: top;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+
+    &__icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 16px;
+        height: 16px;
+        font-size: antimatter-typography.$font-size--16px;
+    }
+
+    &__label {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10px;
+        font-size: antimatter-typography.$font-size--14px;
+    }
+
+    &--disabled {
+        @extend #{$button};
+        opacity: 0.65;
+        filter: saturate(0%);
+        cursor: not-allowed;
+    }
+
+    &:not(&--disabled):hover {
+        color: antimatter-color-scheme.$ambient;
+        border-color: antimatter-color-scheme.$primary--w25;
+        background-color: antimatter-color-scheme.$primary--w25;
+
+        &:active {
+            outline-offset: 3px;
+            color: antimatter-color-scheme.$ambient;
+            border-color: antimatter-color-scheme.$primary--w25;
+            background-color: antimatter-color-scheme.$primary--w25;
+            outline: 1px solid antimatter-color-scheme.$primary--w25;
+        }
+    }
+}

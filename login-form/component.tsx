@@ -1,51 +1,50 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Icon} from "@miniskylab/antimatter-icon-legacy";
+import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
 import React, {useState} from "react";
-import {Props} from "./model";
-import * as Variant from "./variant";
+import {LoginFormProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Component({
-    variant = Variant.Default,
+export function LoginForm({
+    className = "login-form",
     logo,
-    titleLabel,
-    descriptionLabel,
+    title,
+    description,
     usernameInputField,
     passwordInputField,
     loginButton,
     onLogin
-}: Props): JSX.Element
+}: LoginFormProps): JSX.Element
 {
     const [username, setUsername] = useState(String.EMPTY);
     const [password, setPassword] = useState(String.EMPTY);
 
     return (
-        <div className={variant["login-form"]}>
-            <Icon className={variant["login-form__logo"]} iconName={logo}/>
-            <Label variant={titleLabel.variant ?? Variant.Label.Title} text={titleLabel.text}/>
-            <Label variant={descriptionLabel.variant ?? Variant.Label.Description} text={descriptionLabel.text}/>
+        <div className={className}>
+            <Icon className={`${className}__logo`} {...logo}/>
+            <Label className={`${className}__title`} {...title}/>
+            <Label className={`${className}__description`} {...description}/>
             <InputField
-                variant={usernameInputField.variant ?? Variant.InputField.Username}
+                className={`${className}__username-input-field`}
                 icon={usernameInputField.icon}
-                placeholderText={usernameInputField.placeholderText}
+                placeholder={usernameInputField.placeholder}
                 value={username}
                 onChange={newValue => { setUsername(newValue); }}
             />
             <InputField
-                variant={passwordInputField.variant ?? Variant.InputField.Password}
+                className={`${className}__password-input-field`}
                 icon={passwordInputField.icon}
-                placeholderText={passwordInputField.placeholderText}
+                placeholder={passwordInputField.placeholder}
                 isPasswordField={true}
                 value={password}
                 onChange={newValue => { setPassword(newValue); }}
             />
             <Button
-                variant={loginButton.variant ?? Variant.Button.Login}
-                text={loginButton.text}
+                className={`${className}__login-button`}
+                label={loginButton.label}
                 disabled={!username || !password}
                 onClick={() => { onLogin(username, password); }}
             />

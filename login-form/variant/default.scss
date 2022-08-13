@@ -1,7 +1,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-.login-form {
+%login-form, .login-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -23,5 +23,218 @@
         width: 80px;
         height: 80px;
         font-size: antimatter-typography.$font-size--80px;
+    }
+
+    &__title {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 30px;
+        margin-top: 25px;
+        color: antimatter-color-scheme.$white;
+        font-size: antimatter-typography.$font-size--25px;
+        font-weight: antimatter-typography.$font-weight--bold;
+    }
+
+    &__description {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        height: 20px;
+        margin-top: 5px;
+        font-size: antimatter-typography.$font-size--16px;
+        color: antimatter-color-scheme.$gray;
+    }
+
+    &__username-input-field {
+        display: flex;
+        width: 100%;
+        height: 40px;
+        margin-top: 20px;
+        background-color: antimatter-color-scheme.$mine-shaft;
+
+        &__addon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 100%;
+            font-size: antimatter-typography.$font-size--20px;
+            color: antimatter-color-scheme.$mine-shaft;
+            background-color: antimatter-color-scheme.$gray;
+        }
+
+        &__container {
+            flex-grow: 1;
+            position: relative;
+        }
+
+        &__placeholder {
+            $placeholder: &;
+
+            position: absolute;
+            left: 12px;
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            color: antimatter-color-scheme.$gray;
+            transition: transform ease-out 100ms;
+            transform-origin: left center;
+            pointer-events: none;
+
+            &--shrunk {
+                @extend #{$placeholder};
+                transform: scale(0.72) translateY(-12px);
+            }
+        }
+
+        &__text-box {
+            $text-box: &;
+
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            padding: 6px 12px;
+            box-sizing: border-box;
+            font-size: antimatter-typography.$font-size--14px;
+            color: antimatter-color-scheme.$neutral;
+            background-color: antimatter-color-scheme.$transparent;
+            transition: padding ease-out 100ms;
+
+            &--shrunk {
+                @extend #{$text-box};
+                padding-top: 20px;
+                padding-bottom: 5px;
+            }
+        }
+    }
+
+    &__password-input-field {
+        display: flex;
+        width: 100%;
+        height: 40px;
+        margin-top: 15px;
+        background-color: antimatter-color-scheme.$mine-shaft;
+
+        &__addon {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 100%;
+            font-size: antimatter-typography.$font-size--20px;
+            color: antimatter-color-scheme.$mine-shaft;
+            background-color: antimatter-color-scheme.$gray;
+        }
+
+        &__container {
+            flex-grow: 1;
+            position: relative;
+        }
+
+        &__placeholder {
+            $placeholder: &;
+
+            position: absolute;
+            left: 12px;
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            color: antimatter-color-scheme.$gray;
+            transition: transform ease-out 100ms;
+            transform-origin: left center;
+            pointer-events: none;
+
+            &--shrunk {
+                @extend #{$placeholder};
+                transform: scale(0.72) translateY(-12px);
+            }
+        }
+
+        &__text-box {
+            $text-box: &;
+
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            padding: 6px 12px;
+            box-sizing: border-box;
+            font-size: antimatter-typography.$font-size--14px;
+            color: antimatter-color-scheme.$neutral;
+            background-color: antimatter-color-scheme.$transparent;
+            transition: padding ease-out 100ms;
+
+            &--shrunk {
+                @extend #{$text-box};
+                padding-top: 20px;
+                padding-bottom: 5px;
+            }
+        }
+    }
+
+    &__login-button {
+        $login-button: &;
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 120px;
+        width: 100%;
+        height: 40px;
+        padding: 6px 12px;
+        margin-top: 30px;
+        border-radius: 0;
+        border: 1px solid antimatter-color-scheme.$primary;
+        box-sizing: border-box;
+        color: antimatter-color-scheme.$ambient;
+        background-color: antimatter-color-scheme.$primary;
+        font-weight: antimatter-typography.$font-weight--regular;
+        vertical-align: top;
+        user-select: none;
+        cursor: pointer;
+        text-decoration: none;
+
+        &__icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 16px;
+            height: 16px;
+            font-size: antimatter-typography.$font-size--16px;
+        }
+
+        &__label {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 10px;
+            font-size: antimatter-typography.$font-size--16px;
+            font-weight: antimatter-typography.$font-weight--bold;
+        }
+
+        &--disabled {
+            @extend #{$login-button};
+            opacity: 0.65;
+            filter: saturate(0%);
+            cursor: not-allowed;
+        }
+
+        &:not(&--disabled):hover {
+            color: antimatter-color-scheme.$ambient;
+            border-color: antimatter-color-scheme.$primary--w25;
+            background-color: antimatter-color-scheme.$primary--w25;
+
+            &:active {
+                outline-offset: 3px;
+                color: antimatter-color-scheme.$ambient;
+                border-color: antimatter-color-scheme.$primary--w25;
+                background-color: antimatter-color-scheme.$primary--w25;
+                outline: 1px solid antimatter-color-scheme.$primary--w25;
+            }
+        }
     }
 }

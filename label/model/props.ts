@@ -2,7 +2,7 @@ import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-vali
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 
 @ComponentName("Label")
-export class Props extends ComponentProps
+export class LabelProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

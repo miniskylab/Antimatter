@@ -1,0 +1,48 @@
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+
+%button, .outlined-circular-button {
+    $button: &;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid antimatter-color-scheme.$primary;
+    box-sizing: border-box;
+    color: antimatter-color-scheme.$primary;
+    vertical-align: top;
+    user-select: none;
+    cursor: pointer;
+    text-decoration: none;
+
+    &__icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: antimatter-typography.$font-size--14px;
+    }
+
+    &__label {
+        display: none;
+    }
+
+    &--disabled {
+        @extend #{$button};
+        opacity: 0.65;
+        filter: saturate(0%);
+        cursor: not-allowed;
+    }
+
+    &:not(&--disabled):hover {
+        color: antimatter-color-scheme.$white;
+        background-color: antimatter-color-scheme.$primary--a10;
+
+        &:active {
+            color: antimatter-color-scheme.$ambient;
+            background-color: antimatter-color-scheme.$primary;
+        }
+    }
+}

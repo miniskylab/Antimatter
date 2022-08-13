@@ -1,19 +1,41 @@
+@use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
 .button {
     display: inline-flex;
+    flex-direction: row-reverse;
     align-items: center;
     justify-content: center;
-    width: 34px;
+    min-width: 120px;
+    width: fit-content;
     height: 34px;
+    padding: 6px 12px;
+    border-radius: 0;
+    border: 1px solid antimatter-color-scheme.$primary;
     box-sizing: border-box;
-    border-radius: 50%;
-    border: 2px solid antimatter-color-scheme.$primary;
     color: antimatter-color-scheme.$primary;
+    font-weight: antimatter-typography.$font-weight--regular;
     vertical-align: top;
     user-select: none;
     cursor: pointer;
     text-decoration: none;
+
+    .icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 16px;
+        height: 16px;
+        font-size: antimatter-typography.$font-size--14px;
+    }
+
+    .label {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0 10px;
+        font-size: antimatter-typography.$font-size--14px;
+    }
 
     &--disabled {
         composes: button;

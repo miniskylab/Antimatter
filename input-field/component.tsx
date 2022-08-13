@@ -1,16 +1,16 @@
-import {Icon} from "@miniskylab/antimatter-icon-legacy";
+import {Icon} from "@miniskylab/antimatter-icon";
+import {Label} from "@miniskylab/antimatter-label";
 import React from "react";
-import {Props} from "./model";
-import * as Variant from "./variant";
+import {InputFieldProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Component({
-    variant = Variant.Default,
-    icon,
+export function InputField({
+    className = "input-field",
     value = String.EMPTY,
-    placeholderText = String.EMPTY,
+    icon,
+    placeholder,
     autoFocus = false,
     isPasswordField = false,
     onChange,
@@ -18,19 +18,18 @@ export function Component({
     onFocus,
     onPointerDown,
     onKeyDown
-}: Props): JSX.Element
+}: InputFieldProps): JSX.Element
 {
-    const hasValue = !!value;
-    const shrunkModifier = placeholderText && hasValue ? "--shrunk" : String.EMPTY;
+    const shrunkModifier = placeholder?.text && value ? "--shrunk" : String.EMPTY;
 
     return (
-        <div className={variant["input-field"]}>
-            {icon && <Icon className={variant["input-field__addon"]} iconName={icon}/>}
-            <div className={variant["input-field__container"]}>
-                {placeholderText && <div className={variant[`input-field__placeholder${shrunkModifier}`]}>{placeholderText}</div>}
+        <div className={className}>
+            {icon && <Icon className={`${className}__addon`} {...icon}/>}
+            <div className={`${className}__container`}>
+                {placeholder?.text && <Label className={`${className}__placeholder${shrunkModifier}`} {...placeholder}/>}
                 <input
                     type={isPasswordField ? "password" : "text"}
-                    className={variant[`input-field__text-box${shrunkModifier}`]}
+                    className={`${className}__text-box${shrunkModifier}`}
                     value={value}
                     onChange={handleChangeEvent}
                     onBlur={onBlur}
