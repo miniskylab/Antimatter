@@ -3,17 +3,8 @@ import {IsOptional} from "class-validator";
 export class ComponentProps
 {
     /**
-     * Select a variant for this component.
-     *
-     * A variant is a CSS file which defines the look and feel of a component.
+     * Set the look and feel of this component.
      * The look and feel includes: size, shape, color and anything else you can do with CSS.
-     */
-    @IsOptional()
-    readonly variant?: Record<string, string>;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
     readonly className?: string;

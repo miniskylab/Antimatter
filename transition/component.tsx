@@ -1,16 +1,15 @@
 import React, {cloneElement, ReactElement} from "react";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {CSSTransitionClassNames} from "react-transition-group/CSSTransition";
-import {Props} from "./model";
-import * as Variant from "./variant";
+import {TransitionProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props>
+export class Transition extends React.Component<TransitionProps>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
+    static defaultProps: Partial<TransitionProps> = {
+        className: "transition",
         classNames: {
             appear: String.EMPTY,
             appearActive: String.EMPTY,
@@ -33,17 +32,13 @@ export class Component extends React.Component<Props>
     {
         return (
             <TransitionGroup
-                className={this.props.variant["transition"]}
+                className={this.props.className}
                 childFactory={this.getChildFactory(this.props.classNames)}
             >
                 <CSSTransition<undefined>
                     key={this.props.childIdentifier}
                     timeout={this.props.msTimeout}
-                    addEndListener={
-                        this.props.msTimeout
-                            ? undefined
-                            : Component.transitionEndListener
-                    }
+                    addEndListener={this.props.msTimeout ? undefined : Transition.transitionEndListener}
                     classNames={this.props.classNames}
                 >
                     {this.props.children}

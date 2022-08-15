@@ -6,16 +6,8 @@ import {IconProps} from "./model";
  */
 export function Icon({
     className = "icon",
-    name,
-    onClick,
-    onPointerDown
+    name
 }: IconProps): JSX.Element
 {
-    return (
-        <div
-            className={`${className} ${name}`}
-            onClick={onClick ? onClick : undefined}
-            onPointerDown={onPointerDown ? onPointerDown : undefined}
-        />
-    );
+    return (<div className={`${className} ${name}`}/>);
 }

@@ -1,36 +1,37 @@
-import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
+import {Button} from "@miniskylab/antimatter-button";
+import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import React from "react";
 import {Props} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Component(props: Props): JSX.Element
+export function Component({
+    className = "header",
+    headline,
+    onPrevClick,
+    onNextClick,
+    onHeadlineClick
+}: Props): JSX.Element
 {
-    const {
-        variant,
-        headline = String.EMPTY,
-        onPrevClick,
-        onNextClick,
-        onHeadlineClick
-    } = props;
-
     return (
-        <div className={variant["header"]}>
-            <Icon
-                className={variant[`header__navigator${onPrevClick ? String.EMPTY : "--disabled"}`]}
-                iconName={IconName.ChevronLeft}
+        <div className={className}>
+            <Button
+                className={`${className}__navigator`}
+                icon={{name: Icomoon.ChevronLeft}}
+                disabled={!onPrevClick}
                 onClick={onPrevClick}
             />
-            <div
+            <Button
+                className={`${className}__headline`}
+                label={{text: headline}}
+                disabled={!onHeadlineClick}
                 onClick={onHeadlineClick}
-                className={variant[`header__headline${onHeadlineClick ? String.EMPTY : "--unclickable"}`]}
-            >
-                {headline}
-            </div>
-            <Icon
-                className={variant[`header__navigator${onNextClick ? String.EMPTY : "--disabled"}`]}
-                iconName={IconName.ChevronRight}
+            />
+            <Button
+                className={`${className}__navigator`}
+                icon={{name: Icomoon.ChevronRight}}
+                disabled={!onNextClick}
                 onClick={onNextClick}
             />
         </div>

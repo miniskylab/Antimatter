@@ -1,3 +1,4 @@
+import {Label} from "@miniskylab/antimatter-label";
 import {GregorianCalendar, LunarCalendarVn} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {getData} from "./helper";
@@ -9,6 +10,7 @@ import {HighlightedDate, Props} from "./model";
 export class Component extends React.Component<Props>
 {
     static defaultProps: Partial<Props> = {
+        className: "date-view",
         highlightedDates: []
     };
 
@@ -19,8 +21,8 @@ export class Component extends React.Component<Props>
         this.today = new Date();
 
         return (
-            <div className={this.props.variant["date-view"]}>
-                <div className={this.props.variant["date-view__week-no"]}>#</div>
+            <div className={this.props.className}>
+                <Label className={`${this.props.className}__week-no`} text={"#"}/>
                 {this.renderDaysOfWeek()}
                 {this.renderDates()}
             </div>
@@ -31,9 +33,7 @@ export class Component extends React.Component<Props>
     {
         return (
             ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map(shortDayName => (
-                <div key={shortDayName} className={this.props.variant["date-view__day-of-week"]}>
-                    {shortDayName}
-                </div>
+                <Label key={shortDayName} className={`${this.props.className}__day-of-week`} text={shortDayName}/>
             ))
         );
     }
@@ -56,9 +56,11 @@ export class Component extends React.Component<Props>
              */
             const thursday = 3;
             week = [
-                <div key={"#"} className={this.props.variant["date-view__week-of-year"]}>
-                    {GregorianCalendar.getWeekNumber(dateViewData[weekNo][thursday])}
-                </div>
+                <Label
+                    key={"#"}
+                    className={`${this.props.className}__week-of-year`}
+                    text={GregorianCalendar.getWeekNumber(dateViewData[weekNo][thursday]).toString()}
+                />
             ];
 
             for (let dayNo = 0; dayNo < GregorianCalendar.DAY_COUNT_IN_WEEK; dayNo++)
@@ -74,13 +76,11 @@ export class Component extends React.Component<Props>
                     >
                         {
                             isToday
-                                ? <div className={this.props.variant["date-view__today"]}>
-                                    <div className={this.props.variant["date-view__today-text"]}>Today</div>
-                                    <div className={this.props.variant["date-view__today-number"]}>
-                                        {date.getDate()}
-                                    </div>
+                                ? <div className={`${this.props.className}__today`}>
+                                    <Label className={`${this.props.className}__today-text`} text={"Today"}/>
+                                    <Label className={`${this.props.className}__today-number`} text={date.getDate().toString()}/>
                                 </div>
-                                : <div className={this.props.variant["date-view__date"]}>{date.getDate()}</div>
+                                : <Label className={`${this.props.className}__date`} text={date.getDate().toString()}/>
                         }
                     </div>
                 );
@@ -96,37 +96,37 @@ export class Component extends React.Component<Props>
     {
         if (GregorianCalendar.isEqualDate(date, this.today))
         {
-            const className = "date-view__today-container";
+            const dateClassName = `${this.props.className}__today-container`;
             if (GregorianCalendar.isEqualDate(date, this.props.selectedDate))
             {
-                return this.props.variant[`${className}--selected`];
+                return `${dateClassName}--selected`;
             }
 
             if (this.isHighlightedDate(date))
             {
-                return this.props.variant[`${className}--highlighted`];
+                return `${dateClassName}--highlighted`;
             }
 
-            return this.props.variant[className];
+            return dateClassName;
         }
 
-        const className = "date-view__date-container";
+        const dateClassName = `${this.props.className}__date-container`;
         if (GregorianCalendar.isEqualDate(date, this.props.selectedDate))
         {
-            return this.props.variant[`${className}--selected`];
+            return `${dateClassName}--selected`;
         }
 
         if (this.isHighlightedDate(date))
         {
-            return this.props.variant[`${className}--highlighted`];
+            return `${dateClassName}--highlighted`;
         }
 
         if (!GregorianCalendar.isEqualMonth(date, this.props.displayingMonth))
         {
-            return this.props.variant[`${className}--extraneous`];
+            return `${dateClassName}--extraneous`;
         }
 
-        return this.props.variant[className];
+        return dateClassName;
     }
 
     private isHighlightedDate(date: Date): boolean { return !!this.getHighlightedDate(date); }

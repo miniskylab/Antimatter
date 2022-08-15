@@ -1,3 +1,4 @@
+import {Button} from "@miniskylab/antimatter-button";
 import {GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {Props} from "./model";
@@ -7,12 +8,14 @@ import {Props} from "./model";
  */
 export class Component extends React.Component<Props>
 {
-    static defaultProps: Partial<Props> = {};
+    static defaultProps: Partial<Props> = {
+        className: "month-view"
+    };
 
     render(): JSX.Element
     {
         return (
-            <div className={this.props.variant["month-view"]}>
+            <div className={this.props.className}>
                 {this.renderGrid()}
             </div>
         );
@@ -55,13 +58,12 @@ export class Component extends React.Component<Props>
                 : String.EMPTY;
 
         return (
-            <div
+            <Button
                 key={`${month.getMonth()}${month.getFullYear()}`}
+                className={`${this.props.className}__grid-cell${modifier}`}
+                label={{text: GregorianCalendar.getShortMonthName(month.getMonth())}}
                 onClick={(): void => { this.props.onMonthClick(new Date(month)); }}
-                className={this.props.variant[`month-view__grid-cell${modifier}`]}
-            >
-                {GregorianCalendar.getShortMonthName(month.getMonth())}
-            </div>
+            />
         );
     }
 }

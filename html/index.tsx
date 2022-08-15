@@ -1,6 +1,6 @@
 import React from "react";
 import sanitizeHtml from "sanitize-html";
-import HtmlStyles from "./html.scss";
+import "./html.scss";
 
 class _Html
 {
@@ -17,7 +17,7 @@ class _Html
 
         return (
             <div
-                className={HtmlStyles["html"]}
+                className={"html"}
                 dangerouslySetInnerHTML={{__html: sanitizedHtmlString}}
             />
         );

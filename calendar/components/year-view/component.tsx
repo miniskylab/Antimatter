@@ -1,3 +1,4 @@
+import {Button} from "@miniskylab/antimatter-button";
 import {Decade, GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {Props} from "./model";
@@ -7,12 +8,14 @@ import {Props} from "./model";
  */
 export class Component extends React.Component<Props>
 {
-    static defaultProps: Partial<Props> = {};
+    static defaultProps: Partial<Props> = {
+        className: "year-view"
+    };
 
     render(): JSX.Element
     {
         return (
-            <div className={this.props.variant["year-view"]}>
+            <div className={this.props.className}>
                 {this.renderGrid()}
             </div>
         );
@@ -50,13 +53,12 @@ export class Component extends React.Component<Props>
                     : String.EMPTY;
 
         return (
-            <div
+            <Button
                 key={year}
+                className={`${this.props.className}__grid-cell${modifier}`}
+                label={{text: outOfSupportedYearRange ? String.EMPTY : year.toString()}}
                 onClick={outOfSupportedYearRange ? undefined : (): void => { this.props.onYearClick(year); }}
-                className={this.props.variant[`year-view__grid-cell${modifier}`]}
-            >
-                {outOfSupportedYearRange ? String.EMPTY : year}
-            </div>
+            />
         );
     }
 }

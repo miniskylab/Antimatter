@@ -1,4 +1,3 @@
-export {Component as Calendar} from "./component";
-export {Props} from "./model";
+export {Calendar} from "./component";
+export {CalendarProps} from "./model";
 export {Name} from "./name";
-export * as Variant from "./variant";

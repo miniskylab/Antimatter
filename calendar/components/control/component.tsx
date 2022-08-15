@@ -1,40 +1,43 @@
-import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
-import React, {MouseEventHandler} from "react";
+import {Button} from "@miniskylab/antimatter-button";
+import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
+import React from "react";
 import {Props} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Component(props: Props): JSX.Element
+export function Component({
+    className = "controls",
+    onTodayButtonClick,
+    onSelectionButtonClick
+}: Props): JSX.Element
 {
-    const {
-        variant,
-        onTodayButtonClick,
-        onSelectionButtonClick
-    } = props;
-
     const thereAreNoControlButtons = onTodayButtonClick === undefined && onSelectionButtonClick === undefined;
     if (thereAreNoControlButtons)
     {
         return null;
     }
 
-    function renderButton(text: string, icon: IconName, onClick: MouseEventHandler): JSX.Element
-    {
-        return (
-            onClick !== undefined && (
-                <div className={variant[`controls__button${onClick === null ? "--disabled" : String.EMPTY}`]} onClick={onClick}>
-                    <Icon className={variant["controls__icon"]} iconName={icon}/>
-                    <div className={variant["controls__text"]}>{text}</div>
-                </div>
-            )
-        );
-    }
-
     return (
-        <div className={variant["controls"]}>
-            {renderButton("Today", IconName.Flag, onTodayButtonClick)}
-            {renderButton("Selection", IconName.Location, onSelectionButtonClick)}
+        <div className={className}>
+            {onTodayButtonClick !== undefined && (
+                <Button
+                    className={`${className}__button`}
+                    disabled={onTodayButtonClick === null}
+                    icon={{name: Icomoon.Flag}}
+                    label={{text: "Today"}}
+                    onClick={onTodayButtonClick}
+                />
+            )}
+            {onSelectionButtonClick !== undefined && (
+                <Button
+                    className={`${className}__button`}
+                    disabled={onSelectionButtonClick === null}
+                    icon={{name: Icomoon.Location}}
+                    label={{text: "Selection"}}
+                    onClick={onSelectionButtonClick}
+                />
+            )}
         </div>
     );
 }

@@ -5,7 +5,7 @@ import {Key, ReactNode} from "react";
 import {CSSTransitionClassNames} from "react-transition-group/CSSTransition";
 
 @ComponentName("Transition")
-export class Props extends ComponentProps
+export class TransitionProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

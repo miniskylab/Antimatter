@@ -4,7 +4,7 @@ import {IsOptional} from "class-validator";
 import {FocusEventHandler} from "react";
 
 @ComponentName("Calendar")
-export class Props extends ComponentProps
+export class CalendarProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

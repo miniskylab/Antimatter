@@ -3,19 +3,18 @@ import {Char, Decade, GregorianCalendar} from "@miniskylab/antimatter-typescript
 import React from "react";
 import {Control, DateView, Header, MonthView, YearView} from "./components";
 import {canNavigateBackward, canNavigateForward} from "./helper";
-import {Props, State, TimeFrame, TransitionDirection, View} from "./model";
-import * as Variant from "./variant";
+import {CalendarProps, State, TimeFrame, TransitionDirection, View} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props, State>
+export class Calendar extends React.Component<CalendarProps, State>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default
+    static defaultProps: Partial<CalendarProps> = {
+        className: "calendar"
     };
 
-    constructor(props: Props)
+    constructor(props: CalendarProps)
     {
         super(props);
 
@@ -36,7 +35,7 @@ export class Component extends React.Component<Props, State>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.variant["calendar"]} tabIndex={-1} onBlur={this.props.onBlur}>
+            <div className={this.props.className} tabIndex={-1} onBlur={this.props.onBlur}>
                 {this.renderHeader()}
                 {this.renderView()}
                 {this.renderControl()}
@@ -74,7 +73,7 @@ export class Component extends React.Component<Props, State>
     {
         return (
             <Header.Component
-                variant={this.props.variant}
+                className={`${this.props.className}__header`}
                 headline={this.getHeadline()}
                 onPrevClick={
                     canNavigateBackward(this.state.view, this.state.timeFrame)
@@ -99,19 +98,20 @@ export class Component extends React.Component<Props, State>
     {
         return (
             <Transition
+                className={`${this.props.className}__transition`}
                 childIdentifier={`${this.state.view}-${this.state.timeFrame.monthAndYear}-${this.state.timeFrame.decade}`}
                 classNames={{
-                    enter: this.props.variant[`calendar__transition--${this.state.transitionDirection}-in-start`],
-                    enterActive: this.props.variant[`calendar__transition--${this.state.transitionDirection}-in-in-progress`],
-                    exit: this.props.variant[`calendar__transition--${this.state.transitionDirection}-out-start`],
-                    exitActive: this.props.variant[`calendar__transition--${this.state.transitionDirection}-out-in-progress`]
+                    enter: `${this.props.className}__transition--${this.state.transitionDirection}-in-start`,
+                    enterActive: `${this.props.className}__transition--${this.state.transitionDirection}-in-in-progress`,
+                    exit: `${this.props.className}__transition--${this.state.transitionDirection}-out-start`,
+                    exitActive: `${this.props.className}__transition--${this.state.transitionDirection}-out-in-progress`
                 }}
             >
                 {
                     this.state.view === View.Date &&
                     (
                         <DateView.Component
-                            variant={this.props.variant}
+                            className={`${this.props.className}__date-view`}
                             selectedDate={this.props.selectedDate}
                             displayingMonth={this.state.timeFrame.monthAndYear}
                             onDateClick={this.onDateClick.bind(this)}
@@ -119,14 +119,14 @@ export class Component extends React.Component<Props, State>
                     ) || this.state.view === View.Month &&
                     (
                         <MonthView.Component
-                            variant={this.props.variant}
+                            className={`${this.props.className}__month-view`}
                             displayingYear={this.state.timeFrame.monthAndYear.getFullYear()}
                             onMonthClick={this.onMonthClick.bind(this)}
                         />
                     ) || this.state.view === View.Year &&
                     (
                         <YearView.Component
-                            variant={this.props.variant}
+                            className={`${this.props.className}__year-view`}
                             displayingDecade={this.state.timeFrame.decade}
                             onYearClick={this.onYearClick.bind(this)}
                         />
@@ -140,7 +140,7 @@ export class Component extends React.Component<Props, State>
     {
         return (
             <Control.Component
-                variant={this.props.variant}
+                className={`${this.props.className}__controls`}
                 onTodayButtonClick={
                     this.state.view !== View.Date || !this.isWithinTimeFrame(new Date())
                         ? () => { this.goToToday(); }

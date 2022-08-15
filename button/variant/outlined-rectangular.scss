@@ -45,13 +45,16 @@
         cursor: not-allowed;
     }
 
-    &:not(&--disabled):hover {
-        color: antimatter-color-scheme.$white;
-        background-color: antimatter-color-scheme.$primary--a10;
+    @media (hover: hover) {
 
-        &:active {
-            color: antimatter-color-scheme.$ambient;
-            background-color: antimatter-color-scheme.$primary;
+        &:not(&--disabled):hover {
+            color: antimatter-color-scheme.$white;
+            background-color: antimatter-color-scheme.$primary--a10;
+
+            &:active {
+                color: antimatter-color-scheme.$ambient;
+                background-color: antimatter-color-scheme.$primary;
+            }
         }
     }
 }

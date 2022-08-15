@@ -46,17 +46,20 @@
         cursor: not-allowed;
     }
 
-    &:not(&--disabled):hover {
-        color: antimatter-color-scheme.$ambient;
-        border-color: antimatter-color-scheme.$primary--w25;
-        background-color: antimatter-color-scheme.$primary--w25;
+    @media (hover: hover) {
 
-        &:active {
-            outline-offset: 3px;
+        &:not(&--disabled):hover {
             color: antimatter-color-scheme.$ambient;
             border-color: antimatter-color-scheme.$primary--w25;
             background-color: antimatter-color-scheme.$primary--w25;
-            outline: 1px solid antimatter-color-scheme.$primary--w25;
+
+            &:active {
+                outline-offset: 3px;
+                color: antimatter-color-scheme.$ambient;
+                border-color: antimatter-color-scheme.$primary--w25;
+                background-color: antimatter-color-scheme.$primary--w25;
+                outline: 1px solid antimatter-color-scheme.$primary--w25;
+            }
         }
     }
 }
