@@ -1,4 +1,3 @@
-export {Component as RangeSlider} from "./component";
-export {Props} from "./model";
+export {RangeSlider} from "./component";
+export {RangeSliderProps} from "./model";
 export {Name} from "./name";
-export * as Variant from "./variant";

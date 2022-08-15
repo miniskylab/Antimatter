@@ -1,17 +1,14 @@
 import {
     IsDefined,
-    IsEnum,
     IsGreaterThanOrEqualTo,
     IsLessThanOrEqualTo,
     IsMultipleOf,
     IsNumber,
     IsPositive
 } from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
-import {Shape} from "./shape";
 
-@ComponentName("Pips")
 export class Props extends ComponentProps
 {
     /**
@@ -69,14 +66,4 @@ export class Props extends ComponentProps
     @IsNumber()
     @IsOptional()
     readonly milestoneStep?: number;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type Shape
-     */
-    @IsEnum(Shape)
-    @IsOptional()
-    readonly shape?: Shape;
 }

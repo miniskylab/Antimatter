@@ -1,6 +1,5 @@
 import React, {createRef, CSSProperties, RefObject} from "react";
-import {Props, Shape} from "./model";
-import * as Variant from "./variant";
+import {Props} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -8,8 +7,7 @@ import * as Variant from "./variant";
 export class Component extends React.Component<Props>
 {
     static defaultProps: Partial<Props> = {
-        variant: Variant.Horizontal,
-        shape: Shape.HorizontalBar
+        className: "pips"
     };
 
     private pipCount: number;
@@ -46,7 +44,7 @@ export class Component extends React.Component<Props>
         this.pipCount = Math.round((this.props.maxValue - this.props.minValue) / this.props.step);
 
         return (
-            <div ref={this.ref} className={this.props.variant["pips"]}>
+            <div ref={this.ref} className={this.props.className}>
                 {this.renderPips()}
                 {this.renderLabels()}
             </div>
@@ -58,28 +56,25 @@ export class Component extends React.Component<Props>
         const pips: JSX.Element[] = [];
         for (let pipIndex = 0; pipIndex <= this.pipCount; pipIndex++)
         {
-            let pipClassName = "pips__pip";
-            if (
-                this.isMilestonePip(pipIndex) &&
-                this.isHighlightedPip(pipIndex)
-            )
+            let pipClassName = `${this.props.className}__pip`;
+            if (this.isMilestonePip(pipIndex) && this.isHighlightedPip(pipIndex))
             {
-                pipClassName = "pips__pip--highlighted-milestone";
+                pipClassName = `${this.props.className}__pip--highlighted-milestone`;
             }
             else if (this.isMilestonePip(pipIndex))
             {
-                pipClassName = "pips__pip--milestone";
+                pipClassName = `${this.props.className}__pip--milestone`;
             }
             else if (this.isHighlightedPip(pipIndex))
             {
-                pipClassName = "pips__pip--highlighted";
+                pipClassName = `${this.props.className}__pip--highlighted`;
             }
 
             const pctPipValue = this.getPctPipValue(pipIndex);
             pips.push(
                 <div
                     key={pipIndex}
-                    className={this.props.variant[pipClassName]}
+                    className={pipClassName}
                     style={this.getPipStyles(pipIndex, pctPipValue)}
                 />
             );
@@ -98,10 +93,10 @@ export class Component extends React.Component<Props>
                 continue;
             }
 
-            let labelClassName = "pips__label";
+            let labelClassName = `${this.props.className}__label`;
             if (this.isHighlightedPip(pipIndex))
             {
-                labelClassName = "pips__label--highlighted";
+                labelClassName = `${this.props.className}__label--highlighted`;
             }
 
             const pctPipValue = this.getPctPipValue(pipIndex);
@@ -109,14 +104,10 @@ export class Component extends React.Component<Props>
             labels.push(
                 <div
                     key={pipIndex}
-                    className={this.props.variant[labelClassName]}
+                    className={labelClassName}
                     style={this.getLabelStyles(pipIndex, pctPipValue)}
                 >
-                    {
-                        this.props.shape === Shape.Circle
-                            ? <div style={{transform: `rotate(-${pctPipValue * 360}deg)`}}>{labelText}</div>
-                            : labelText
-                    }
+                    {<div style={{transform: `rotate(-${pctPipValue * 360}deg)`}}>{labelText}</div>}
                 </div>
             );
         }
@@ -126,8 +117,17 @@ export class Component extends React.Component<Props>
 
     private getPipStyles(pipIndex: number, pctPipValue: number): CSSProperties
     {
-        const isCircularPips = this.props.shape === Shape.Circle;
-        if (isCircularPips)
+        return pipIndex !== 0
+            ? {
+                transform: `translateX(-50%) rotate(${pctPipValue * 360}deg)`,
+                transformOrigin: `center ${this.pxPipsRadius}px`
+            }
+            : {display: "none"};
+    }
+
+    private getLabelStyles(pipIndex: number, pctPipValue: number): CSSProperties
+    {
+        if (this.isMilestonePip(pipIndex))
         {
             return pipIndex !== 0
                 ? {
@@ -135,29 +135,6 @@ export class Component extends React.Component<Props>
                     transformOrigin: `center ${this.pxPipsRadius}px`
                 }
                 : {display: "none"};
-        }
-
-        return {left: `${pctPipValue.ensurePercent()}%`};
-    }
-
-    private getLabelStyles(pipIndex: number, pctPipValue: number): CSSProperties
-    {
-        if (this.isMilestonePip(pipIndex))
-        {
-            const isCircularPips = this.props.shape === Shape.Circle;
-            if (isCircularPips)
-            {
-                return pipIndex !== 0
-                    ? {
-                        transform: `translateX(-50%) rotate(${pctPipValue * 360}deg)`,
-                        transformOrigin: `center ${this.pxPipsRadius}px`
-                    }
-                    : {display: "none"};
-            }
-
-            return {
-                left: `${pctPipValue.ensurePercent()}%`
-            };
         }
     }
 
@@ -183,7 +160,7 @@ export class Component extends React.Component<Props>
 
     private isHighlightedPip(pipIndex: number): boolean
     {
-        if (this.props.shape === Shape.Circle && pipIndex === this.pipCount && this.props.startValue === this.props.minValue)
+        if (pipIndex === this.pipCount && this.props.startValue === this.props.minValue)
         {
             return true;
         }
@@ -192,7 +169,7 @@ export class Component extends React.Component<Props>
         const pctStartValue = (this.props.startValue - this.props.minValue) / (this.props.maxValue - this.props.minValue);
         let pctEndValue = (this.props.endValue - this.props.minValue) / (this.props.maxValue - this.props.minValue);
 
-        if (this.props.shape === Shape.Circle && pctEndValue < pctStartValue)
+        if (pctEndValue < pctStartValue)
         {
             if (pctPipValue < pctEndValue || Math.abs(pctPipValue - pctEndValue) < 0.001)
             {

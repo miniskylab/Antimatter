@@ -1,11 +1,10 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
-@use "~@miniskylab/antimatter-pips/variant/circular";
 
-.circular-slider {
+%circular-slider, .circular-slider {
+    position: relative;
     display: inline-flex;
     flex-shrink: 0;
-    position: relative;
     width: 400px;
     height: 400px;
     padding: 2px;
@@ -27,8 +26,8 @@
         width: calc(100% - 100px);
         height: calc(100% - 100px);
         padding: 5px;
-        box-sizing: border-box;
         border-radius: 50%;
+        box-sizing: border-box;
         box-shadow: 0 0 0 1px antimatter-color-scheme.$white--a10;
         background-color: antimatter-color-scheme.$background;
     }
@@ -61,6 +60,8 @@
     }
 
     &__knob {
+        $knob: &;
+
         display: flex;
         justify-content: center;
         align-items: center;
@@ -75,11 +76,69 @@
         touch-action: none;
 
         &--start {
-            composes: circular-slider__knob;
+            @extend #{$knob};
         }
 
         &--end {
-            composes: circular-slider__knob;
+            @extend #{$knob};
+        }
+    }
+
+    &__pips {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        text-align: center;
+        pointer-events: none;
+
+        &__pip {
+            $pip: &;
+
+            display: inline;
+            position: absolute;
+            width: 2px;
+            height: 8px;
+            border-radius: 10px;
+            background-color: antimatter-color-scheme.$gainsboro;
+            transform: translate(-50%, 0) rotate(-0.0000000001deg);
+            transition: background-color 0.1s linear;
+
+            &--milestone {
+                @extend #{$pip};
+                height: 16px;
+            }
+
+            &--highlighted {
+                @extend #{$pip};
+                background-color: antimatter-color-scheme.$primary;
+            }
+
+            &--highlighted-milestone {
+                @extend #{$pip}--highlighted;
+                @extend #{$pip}--milestone;
+            }
+        }
+
+        &__label {
+            $label: &;
+
+            position: absolute;
+            display: inline;
+            width: 30px;
+            padding-top: 25px;
+            text-align: center;
+            font-size: antimatter-typography.$font-size--20px;
+            font-weight: antimatter-typography.$font-weight--bold;
+            line-height: 15px;
+            color: antimatter-color-scheme.$gainsboro;
+            transform: translate(-50%, 0);
+            transition: color 0.1s linear;
+
+            &--highlighted {
+                @extend #{$label};
+                color: antimatter-color-scheme.$primary;
+            }
         }
     }
 }

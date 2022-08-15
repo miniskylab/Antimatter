@@ -4,7 +4,7 @@ import {LabelProps} from "@miniskylab/antimatter-label";
 import {Child, ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {MouseEventHandler} from "react";
+import {MouseEventHandler, PointerEventHandler} from "react";
 import {Target} from "./target";
 
 @ComponentName("Button")
@@ -58,4 +58,10 @@ export class ButtonProps extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     readonly onClick?: MouseEventHandler;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly onPointerDown?: PointerEventHandler;
 }

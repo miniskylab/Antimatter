@@ -3,11 +3,8 @@ import {IsOptional} from "class-validator";
 
 export class PipSettings
 {
-    readonly variant?: Record<string, string>;
-
-
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsPositive()
     @IsNumber()
@@ -16,7 +13,7 @@ export class PipSettings
 
 
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsMultipleOf("step")
     @IsPositive()
@@ -26,7 +23,7 @@ export class PipSettings
 
 
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsBoolean()
     @IsOptional()

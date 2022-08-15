@@ -1,67 +1,66 @@
 @use "~@miniskylab/antimatter-layer";
+@use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
-@use "~@miniskylab/antimatter-responsive/screen-size";
-@use "~@miniskylab/antimatter-pips/variant/horizontal";
 
 $knob-radius: 15px;
 $track-padding: 4px;
 
-.range-slider {
+%range-slider, .range-slider {
+    $range-slider: &;
+
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     height: 75px;
 
     &__track {
+        $track: &;
+
         width: 100%;
         height: 16px;
+        padding: $track-padding;
         border-radius: 16px;
         margin-top: $knob-radius;
-        padding: $track-padding;
         box-sizing: border-box;
         box-shadow: inset 0 1px 2px antimatter-color-scheme.$black--a25, 0 1px antimatter-color-scheme.$white--a8;
         background-color: antimatter-color-scheme.$ambient;
 
         &--interactable {
-            composes: range-slider__track;
+            @extend #{$track};
             cursor: pointer;
         }
     }
 
-    &__fill {
+    &__fill-left {
+        display: inline-block;
         height: 100%;
         vertical-align: top;
-    }
-
-    &__fill-left {
-        composes: range-slider__fill;
-        display: inline-block;
         background-color: antimatter-color-scheme.$primary;
         background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
     }
 
     &__fill-right {
-        composes: range-slider__fill;
+        height: 100%;
+        vertical-align: top;
         float: right;
         background-color: antimatter-color-scheme.$transparent;
     }
 
     &__stopper-left {
-        composes: range-slider__fill-left;
+        @extend #{$range-slider}__fill-left;
         width: $knob-radius - $track-padding;
         border-radius: 16px 0 0 16px;
-        background-color: antimatter-color-scheme.$primary;
-        background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
     }
 
     &__stopper-right {
-        composes: range-slider__fill-right;
+        @extend #{$range-slider}__fill-right;
         width: $knob-radius - $track-padding;
         border-radius: 0 16px 16px 0;
-        background-color: antimatter-color-scheme.$transparent;
     }
 
     &__knob {
+        $knob: &;
+
         position: absolute;
         width: $knob-radius * 2;
         height: $knob-radius * 2;
@@ -77,7 +76,7 @@ $track-padding: 4px;
         touch-action: none;
 
         &--interactable {
-            composes: range-slider__knob;
+            @extend #{$knob};
             box-shadow: 0 0 8px antimatter-color-scheme.$black--a35;
             background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
             cursor: pointer;
@@ -105,6 +104,62 @@ $track-padding: 4px;
         width: calc(100% - #{$knob-radius - $track-padding} * 2);
         height: 100%;
         background-color: inherit;
+    }
+
+    &__pips {
+        position: relative;
+        width: 100%;
+        height: 35px;
+        margin: 5px 15px 0 15px;
+        pointer-events: none;
+
+        &__pip {
+            $pip: &;
+
+            position: absolute;
+            display: inline;
+            width: 2px;
+            height: 8px;
+            border-radius: 10px;
+            background-color: antimatter-color-scheme.$gainsboro;
+            transform: translate(-50%, 0) rotate(-0.0000000001deg);
+            transition: background-color 0.1s linear;
+
+            &--milestone {
+                @extend #{$pip};
+                height: 16px;
+            }
+
+            &--highlighted {
+                @extend #{$pip};
+                background-color: antimatter-color-scheme.$primary;
+            }
+
+            &--highlighted-milestone {
+                @extend #{$pip}--highlighted;
+                @extend #{$pip}--milestone;
+            }
+        }
+
+        &__label {
+            $label: &;
+
+            position: absolute;
+            display: inline;
+            width: 30px;
+            padding-top: 20px;
+            line-height: 15px;
+            text-align: center;
+            font-size: antimatter-typography.$font-size--10px;
+            color: antimatter-color-scheme.$gainsboro;
+            transform: translate(-50%, 0);
+            transition: color 0.1s linear;
+
+            &--highlighted {
+                @extend #{$label};
+                color: antimatter-color-scheme.$primary;
+            }
+        }
     }
 }
 

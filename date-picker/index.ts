@@ -1,4 +1,3 @@
-export {Component as DatePicker} from "./component";
-export {Props} from "./model";
+export {DatePicker} from "./component";
+export {DatePickerProps} from "./model";
 export {Name} from "./name";
-export * as Variant from "./variant";

@@ -1,9 +1,9 @@
 import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {Props as DatePickerProps} from "@miniskylab/antimatter-date-picker";
-import {Props as DropdownMenuProps} from "@miniskylab/antimatter-dropdown-menu";
-import {Props as InputFieldProps} from "@miniskylab/antimatter-input-field";
-import {Props as LabelProps} from "@miniskylab/antimatter-label";
-import {Props as NumericInputFieldProps} from "@miniskylab/antimatter-numeric-input-field";
+import {DatePickerProps} from "@miniskylab/antimatter-date-picker";
+import {DropdownMenuProps} from "@miniskylab/antimatter-dropdown-menu";
+import {InputFieldProps} from "@miniskylab/antimatter-input-field";
+import {LabelProps} from "@miniskylab/antimatter-label";
+import {NumericInputFieldProps} from "@miniskylab/antimatter-numeric-input-field";
 
 export class Cell
 {

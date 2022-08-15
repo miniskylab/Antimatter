@@ -1,16 +1,15 @@
-import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
-import {Pips, Shape} from "@miniskylab/antimatter-pips";
+import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import React, {createRef, RefObject} from "react";
-import {Knob, Props} from "./model";
-import * as Variant from "./variant";
+import {Pips} from "./components";
+import {CircularSliderProps, Knob} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props>
+export class CircularSlider extends React.Component<CircularSliderProps>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
+    static defaultProps: Partial<CircularSliderProps> = {
+        className: "circular-slider",
         startValue: 0,
         endValue: 0
     };
@@ -19,7 +18,7 @@ export class Component extends React.Component<Props>
     private readonly ref: RefObject<HTMLDivElement>;
     private readonly canvasRef: RefObject<HTMLCanvasElement>;
 
-    constructor(props: Props)
+    constructor(props: CircularSliderProps)
     {
         super(props);
 
@@ -31,17 +30,13 @@ export class Component extends React.Component<Props>
     render(): JSX.Element
     {
         return (
-            <div
-                ref={this.ref}
-                className={this.props.variant["circular-slider"]}
-            >
-                <div className={this.props.variant["circular-slider__track-outer-border"]}>
-                    <div className={this.props.variant["circular-slider__track-inner-border"]}>
+            <div ref={this.ref} className={this.props.className}>
+                <div className={`${this.props.className}__track-outer-border`}>
+                    <div className={`${this.props.className}__track-inner-border`}>
                         {
                             this.props.pipSettings &&
-                            <Pips
-                                variant={this.props.pipSettings.variant ?? (this.props.variant["pips"] ? this.props.variant : undefined)}
-                                shape={Shape.Circle}
+                            <Pips.Component
+                                className={`${this.props.className}__pips`}
                                 minValue={this.props.minValue}
                                 maxValue={this.props.maxValue}
                                 step={this.props.pipSettings.step}
@@ -54,18 +49,17 @@ export class Component extends React.Component<Props>
                 </div>
                 <canvas
                     ref={this.canvasRef}
-                    className={this.props.variant["circular-slider__fill-canvas"]}
+                    className={`${this.props.className}__fill-canvas`}
                     width={this.canvasResolution}
                     height={this.canvasResolution}
                 >
                 </canvas>
                 <div
-                    className={this.props.variant["circular-slider__rotor"]}
+                    className={`${this.props.className}__rotor`}
                     style={{transform: `rotate(${this.toPercentage(this.props.startValue) * 360}deg)`}}
                 >
-                    <Icon
-                        iconName={IconName.Moon}
-                        className={this.props.variant["circular-slider__knob--start"]}
+                    <div
+                        className={`${this.props.className}__knob--start ${Icomoon.Moon}`}
                         style={{transform: `rotate(-${this.toPercentage(this.props.startValue) * 360}deg)`}}
                         onPointerDown={(pointerEvent: React.PointerEvent<HTMLDivElement>): void =>
                         {
@@ -74,12 +68,11 @@ export class Component extends React.Component<Props>
                     />
                 </div>
                 <div
-                    className={this.props.variant["circular-slider__rotor"]}
+                    className={`${this.props.className}__rotor`}
                     style={{transform: `rotate(${this.toPercentage(this.props.endValue) * 360}deg)`}}
                 >
-                    <Icon
-                        iconName={IconName.Sun}
-                        className={this.props.variant["circular-slider__knob--end"]}
+                    <div
+                        className={`${this.props.className}__knob--end ${Icomoon.Sun}`}
                         style={{transform: `rotate(-${this.toPercentage(this.props.endValue) * 360}deg)`}}
                         onPointerDown={(pointerEvent: React.PointerEvent<HTMLDivElement>): void =>
                         {

@@ -5,7 +5,7 @@ import {IsOptional, ValidateNested} from "class-validator";
 import {PipSettings} from "./pip-settings";
 
 @ComponentName("Range Slider")
-export class Props extends ComponentProps
+export class RangeSliderProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

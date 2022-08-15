@@ -13,7 +13,8 @@ export function Button({
     disabled = false,
     href,
     icon,
-    onClick
+    onClick,
+    onPointerDown
 }: ButtonProps): JSX.Element
 {
     return (
@@ -23,6 +24,7 @@ export function Button({
             rel={target === Target.NewWindowOrTab ? "noopener" : undefined}
             className={`${className}${disabled ? "--disabled" : String.EMPTY}`}
             onClick={!disabled && onClick ? onClick : undefined}
+            onPointerDown={onPointerDown}
         >
             {icon && <Icon className={`${className}__icon`} {...icon}/>}
             {label?.text && <Label className={`${className}__label`} {...label}/>}

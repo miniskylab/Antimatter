@@ -1,13 +1,12 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {DatePicker, Props as DatePickerProps} from "@miniskylab/antimatter-date-picker";
-import {DropdownMenu, Props as DropdownMenuProps} from "@miniskylab/antimatter-dropdown-menu";
-import {IconName} from "@miniskylab/antimatter-icon-legacy";
-import {InputField, Props as InputFieldProps} from "@miniskylab/antimatter-input-field";
-import {Label, Props as LabelProps} from "@miniskylab/antimatter-label";
-import {NumericInputField, Props as NumericInputFieldProps} from "@miniskylab/antimatter-numeric-input-field";
+import {DatePicker, DatePickerProps} from "@miniskylab/antimatter-date-picker";
+import {DropdownMenu, DropdownMenuProps} from "@miniskylab/antimatter-dropdown-menu";
+import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
+import {InputField, InputFieldProps} from "@miniskylab/antimatter-input-field";
+import {Label, LabelProps} from "@miniskylab/antimatter-label";
+import {NumericInputField, NumericInputFieldProps} from "@miniskylab/antimatter-numeric-input-field";
 import React, {Fragment} from "react";
 import {Props} from "./model";
-import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -15,7 +14,7 @@ import * as Variant from "./variant";
 export function Component(props: Props): JSX.Element
 {
     const {
-        variant = Variant.Default,
+        className = "record",
         id,
         cells = [],
         editable = false,
@@ -25,21 +24,9 @@ export function Component(props: Props): JSX.Element
         onDeleteButtonClick
     } = props;
 
-    let recordClassName = "record";
-    if (onClick)
-    {
-        recordClassName += "--interactable";
-    }
-
-    let controlBoxClassName = "data-table__control-box";
-    if (editable)
-    {
-        controlBoxClassName += "--active";
-    }
-
     return (
         <div
-            className={variant[recordClassName]}
+            className={`${className}${onClick ? "--interactable" : String.EMPTY}`}
             onClick={mouseEvent =>
             {
                 mouseEvent.stopPropagation();
@@ -59,13 +46,13 @@ export function Component(props: Props): JSX.Element
             }
             {
                 (onSaveButtonClick || onCancelButtonClick || onDeleteButtonClick) &&
-                <div className={variant[controlBoxClassName]}>
+                <div className={`${className}__control-box${editable ? "--active" : String.EMPTY}`}>
                     {
                         onSaveButtonClick &&
                         <Button
-                            variant={Variant.Button.Ok}
+                            className={`${className}__ok-butotn`}
                             disabled={!editable}
-                            icon={IconName.CheckMark}
+                            icon={{name: Icomoon.CheckMark}}
                             onClick={mouseEvent =>
                             {
                                 mouseEvent.stopPropagation();
@@ -76,9 +63,9 @@ export function Component(props: Props): JSX.Element
                     {
                         onCancelButtonClick &&
                         <Button
-                            variant={Variant.Button.Cancel}
+                            className={`${className}__cancel-butotn`}
                             disabled={!editable}
-                            icon={IconName.XMark}
+                            icon={{name: Icomoon.XMark}}
                             onClick={mouseEvent =>
                             {
                                 mouseEvent.stopPropagation();
@@ -89,9 +76,9 @@ export function Component(props: Props): JSX.Element
                     {
                         onDeleteButtonClick &&
                         <Button
-                            variant={Variant.Button.Delete}
+                            className={`${className}__delete-butotn`}
                             disabled={!editable}
-                            icon={IconName.TrashCan}
+                            icon={{name: Icomoon.TrashCan}}
                             onClick={mouseEvent =>
                             {
                                 mouseEvent.stopPropagation();

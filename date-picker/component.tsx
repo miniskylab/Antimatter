@@ -1,21 +1,21 @@
-import {Calendar, Variant as CalendarVariant} from "@miniskylab/antimatter-calendar";
-import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
+import {Button} from "@miniskylab/antimatter-button";
+import {Calendar} from "@miniskylab/antimatter-calendar";
+import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {Char, DateFormat, GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import React, {createRef, RefObject} from "react";
 import {isAllowedKey, isDigit, reformat, removeNonDigitCharacters, tryParseDate} from "./helper";
-import {Props, State} from "./model";
-import * as Variant from "./variant";
+import {DatePickerProps, State} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props, State>
+export class DatePicker extends React.Component<DatePickerProps, State>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
+    static defaultProps: Partial<DatePickerProps> = {
+        className: "date-picker",
         autoFocus: false,
         disableTyping: false,
-        placeholderText: String.EMPTY
+        placeholder: String.EMPTY
     };
 
     private caretPositionWhenKeydown: number;
@@ -25,7 +25,7 @@ export class Component extends React.Component<Props, State>
     private readonly inputFieldRef: RefObject<HTMLInputElement>;
     private readonly calendarRef: RefObject<HTMLDivElement>;
 
-    constructor(props: Props)
+    constructor(props: DatePickerProps)
     {
         super(props);
 
@@ -54,7 +54,7 @@ export class Component extends React.Component<Props, State>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.variant[`date-picker${this.state.calendarIsOpen ? "--active" : String.EMPTY}`]}>
+            <div className={`${this.props.className}${this.state.calendarIsOpen ? "--active" : String.EMPTY}`}>
                 {this.renderInputField()}
                 {this.renderAddon()}
                 {this.state.calendarIsOpen && this.renderCalendar()}
@@ -68,9 +68,9 @@ export class Component extends React.Component<Props, State>
             <input
                 ref={this.inputFieldRef}
                 type={"text"}
-                className={this.props.variant["date-picker__input-field"]}
+                className={`${this.props.className}__input-field`}
                 value={this.getDateString()}
-                placeholder={this.props.placeholderText}
+                placeholder={this.props.placeholder}
                 onChange={this.onChange.bind(this)}
                 onBlur={this.props.onBlur}
                 onFocus={this.props.onFocus}
@@ -92,9 +92,9 @@ export class Component extends React.Component<Props, State>
     private renderAddon(): JSX.Element
     {
         return (
-            <Icon
-                className={this.props.variant[`date-picker__addon${this.state.calendarIsOpen ? "--active" : String.EMPTY}`]}
-                iconName={IconName.Calendar}
+            <Button
+                className={`${this.props.className}__addon${this.state.calendarIsOpen ? "--active" : String.EMPTY}`}
+                icon={{name: Icomoon.Calendar}}
                 onClick={this.onAddonClick.bind(this)}
                 onPointerDown={event => event.preventDefault()}
             />
@@ -107,13 +107,13 @@ export class Component extends React.Component<Props, State>
             <div
                 tabIndex={-1}
                 ref={this.calendarRef}
-                className={this.props.variant["date-picker__calendar"]}
+                className={`${this.props.className}__calendar-container`}
                 onMouseDown={event => event.preventDefault()}
                 onBlur={() => { this.setState({calendarIsOpen: false}); }}
             >
-                <div className={this.props.variant["date-picker__caret"]}/>
+                <div className={`${this.props.className}__caret`}/>
                 <Calendar
-                    variant={CalendarVariant.Mini}
+                    className={`${this.props.className}__calendar`}
                     selectedDate={this.state.selectedDate}
                     onChange={this.onDateSelectedFromCalendar.bind(this)}
                 />

@@ -1,21 +1,20 @@
-import {Pips} from "@miniskylab/antimatter-pips";
 import React, {createRef, RefObject} from "react";
-import {Props} from "./model";
-import * as Variant from "./variant";
+import {Pips} from "./components";
+import {RangeSliderProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props>
+export class RangeSlider extends React.Component<RangeSliderProps>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
+    static defaultProps: Partial<RangeSliderProps> = {
+        className: "range-slider",
         canInteractWith: true
     };
 
     private readonly freezoneRef: RefObject<HTMLDivElement>;
 
-    constructor(props: Props)
+    constructor(props: RangeSliderProps)
     {
         super(props);
 
@@ -25,36 +24,34 @@ export class Component extends React.Component<Props>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.variant["range-slider"]}>
+            <div className={this.props.className}>
                 <div
-                    className={this.props.variant[`range-slider__track${this.props.canInteractWith ? "--interactable" : String.EMPTY}`]}
-                    onPointerDown={this.props.canInteractWith ? this.onPointerDownSlider.bind(this) : undefined}
+                    className={`${this.props.className}__track${this.props.canInteractWith ? "--interactable" : String.EMPTY}`}
+                    onPointerDown={this.props.canInteractWith ? event => this.onPointerDownSlider(event) : undefined}
                 >
-                    <div className={this.props.variant["range-slider__stopper-left"]}/>
-                    <div className={this.props.variant["range-slider__free-zone"]} ref={this.freezoneRef}>
+                    <div className={`${this.props.className}__stopper-left`}/>
+                    <div className={`${this.props.className}__free-zone`} ref={this.freezoneRef}>
                         <div
-                            className={this.props.variant["range-slider__fill-left"]}
+                            className={`${this.props.className}__fill-left`}
                             style={{width: `${this.toPercent(this.props.value)}%`}}
                         />
                         <div
-                            className={
-                                this.props.variant[`range-slider__knob${this.props.canInteractWith ? "--interactable" : String.EMPTY}`]
-                            }
                             style={{left: `${this.toPercent(this.props.value)}%`}}
-                            onPointerDown={this.props.canInteractWith ? this.onPointerDownKnob.bind(this) : undefined}
+                            className={`${this.props.className}__knob${this.props.canInteractWith ? "--interactable" : String.EMPTY}`}
+                            onPointerDown={this.props.canInteractWith ? event => this.onPointerDownKnob(event) : undefined}
                         >
                         </div>
                         <div
-                            className={this.props.variant["range-slider__fill-right"]}
+                            className={`${this.props.className}__fill-right`}
                             style={{width: `${100 - this.toPercent(this.props.value)}%`}}
                         />
                     </div>
-                    <div className={this.props.variant["range-slider__stopper-right"]}/>
+                    <div className={`${this.props.className}__stopper-right`}/>
                 </div>
                 {
                     this.props.pipSettings &&
-                    <Pips
-                        variant={this.props.pipSettings.variant ?? (this.props.variant["pips"] ? this.props.variant : undefined)}
+                    <Pips.Component
+                        className={`${this.props.className}__pips`}
                         minValue={this.props.minValue}
                         maxValue={this.props.maxValue}
                         step={this.props.pipSettings.step}

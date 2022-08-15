@@ -1,25 +1,26 @@
-import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
+import {Icon} from "@miniskylab/antimatter-icon";
+import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
+import {Label} from "@miniskylab/antimatter-label";
 import React, {createRef, RefObject} from "react";
-import {Props, State} from "./model";
-import * as Variant from "./variant";
+import {DropdownMenuProps, State} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props, State>
+export class DropdownMenu extends React.Component<DropdownMenuProps, State>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
+    static defaultProps: Partial<DropdownMenuProps> = {
+        className: "dropdown-menu",
         keyValueSet: {},
         selectedKeys: [],
-        placeholderText: String.EMPTY,
+        placeholder: String.EMPTY,
         maxSelectionCount: 1,
         isOpenByDefault: false
     };
 
     private readonly menuRef: RefObject<HTMLUListElement>;
 
-    constructor(props: Props)
+    constructor(props: DropdownMenuProps)
     {
         super(props);
 
@@ -43,14 +44,14 @@ export class Component extends React.Component<Props, State>
     {
         return (
             <div
-                className={this.props.variant[`dropdown-menu${this.state.isOpen ? "--open" : "--closed"}`]}
+                className={`${this.props.className}${this.state.isOpen ? "--open" : "--closed"}`}
                 onClick={(): void => { this.setState({isOpen: !this.state.isOpen}); }}
                 onBlur={(): void => { this.setState({isOpen: false}); }}
                 tabIndex={0}
             >
                 {this.renderContainer()}
                 {this.renderMenu()}
-                <div className={this.props.variant["dropdown-menu__caret"]}/>
+                <div className={`${this.props.className}__caret`}/>
             </div>
         );
     }
@@ -59,13 +60,13 @@ export class Component extends React.Component<Props, State>
     {
         const hasSelection = this.props.selectedKeys.length > 0;
         return (
-            <div className={this.props.variant[`dropdown-menu__${hasSelection ? "badge-container" : "placeholder-text"}`]}>
+            <div className={`${this.props.className}__${hasSelection ? "badge-container" : "placeholder"}`}>
                 {
                     hasSelection
                         ? this.props.selectedKeys.map((x, i) => (
-                            <div key={i} className={this.props.variant["dropdown-menu__badge"]}>{this.props.keyValueSet[x]}</div>
+                            <Label key={i} className={`${this.props.className}__badge`} text={this.props.keyValueSet[x]}/>
                         ))
-                        : this.props.placeholderText
+                        : this.props.placeholder
                 }
             </div>
         );
@@ -84,7 +85,7 @@ export class Component extends React.Component<Props, State>
             const value = this.props.keyValueSet[key];
             if (value === "---")
             {
-                menuItems.push(<div key={key} className={this.props.variant["dropdown-menu__divider"]}/>);
+                menuItems.push(<div key={key} className={`${this.props.className}__divider`}/>);
                 continue;
             }
 
@@ -103,14 +104,14 @@ export class Component extends React.Component<Props, State>
             menuItems.push(
                 <li
                     key={key}
-                    className={this.props.variant[`dropdown-menu__menu-item${menuItemModifier}`]}
+                    className={`${this.props.className}__menu-item${menuItemModifier}`}
                     onClick={menuItemIsDisabled ? undefined : event => { this.onMenuItemClick(event, key); }}
                 >
                     {value}
                     {menuItemIsSelected && (
                         <Icon
-                            className={this.props.variant["dropdown-menu__selection-icon"]}
-                            iconName={IconName.CheckMark}
+                            className={`${this.props.className}__selection-icon`}
+                            name={Icomoon.CheckMark}
                         />
                     )}
                 </li>
@@ -120,7 +121,7 @@ export class Component extends React.Component<Props, State>
         return (
             <ul
                 ref={this.menuRef}
-                className={this.props.variant[`dropdown-menu__menu${this.state.isOpen ? String.EMPTY : "--hidden"}`]}
+                className={`${this.props.className}__menu${this.state.isOpen ? String.EMPTY : "--hidden"}`}
                 onClick={event => { event.stopPropagation(); }}
                 onWheel={event => { this.onMenuWheel(event); }}
             >

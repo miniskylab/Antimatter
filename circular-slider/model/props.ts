@@ -5,7 +5,7 @@ import {IsOptional, ValidateNested} from "class-validator";
 import {PipSettings} from "./pip-settings";
 
 @ComponentName("Circular Slider")
-export class Props extends ComponentProps
+export class CircularSliderProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

@@ -12,7 +12,7 @@ import {IsOptional} from "class-validator";
 import {FocusEventHandler, KeyboardEventHandler, PointerEventHandler} from "react";
 
 @ComponentName("Numeric Input Field")
-export class Props extends ComponentProps
+export class NumericInputFieldProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -27,7 +27,7 @@ export class Props extends ComponentProps
      */
     @IsString()
     @IsOptional()
-    readonly placeholderText?: string;
+    readonly placeholder?: string;
 
 
     /**

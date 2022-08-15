@@ -1,16 +1,15 @@
 import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
 import React, {createRef, RefObject} from "react";
 import {Record} from "./components";
-import {Props} from "./model";
-import * as Variant from "./variant";
+import {DataTableProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props>
+export class DataTable extends React.Component<DataTableProps>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
+    static defaultProps: Partial<DataTableProps> = {
+        className: "data-table",
         headerRowCells: [],
         records: [],
         rowCountPerPage: 15,
@@ -25,7 +24,7 @@ export class Component extends React.Component<Props>
     render(): JSX.Element
     {
         return (
-            <div ref={this.ref} className={this.props.variant["data-table"]}>
+            <div ref={this.ref} className={this.props.className}>
                 {this.renderPages()}
             </div>
         );
@@ -80,7 +79,7 @@ export class Component extends React.Component<Props>
         for (let pageIndex = 0; pageIndex < pageCount; pageIndex++)
         {
             pages.push(
-                <div key={pageIndex} className={this.props.variant["data-table__page"]} style={pageStyles}>
+                <div key={pageIndex} className={`${this.props.className}__page`} style={pageStyles}>
                     {this.renderRowsForPage(pageIndex)}
                 </div>
             );
@@ -94,7 +93,7 @@ export class Component extends React.Component<Props>
         const rows: JSX.Element[] = [];
 
         renderHeaderRow(this.props);
-        function renderHeaderRow(props: Props)
+        function renderHeaderRow(props: DataTableProps)
         {
             if (props.headerRowCells && props.headerRowCells.length > 0)
             {
@@ -109,21 +108,21 @@ export class Component extends React.Component<Props>
         }
 
         renderAddNewRow(this.props);
-        function renderAddNewRow(props: Props)
+        function renderAddNewRow(props: DataTableProps)
         {
             if (pageIndex === 0 && props.addNewRowText)
             {
                 rows.push(
-                    <div key={"add-new-row"} className={props.variant["data-table__add-new-row"]}>
-                        <Icon iconName={IconName.PlusCircle} className={props.variant["data-table__add-new-icon"]}/>
-                        <div className={props.variant["data-table__add-new-label"]}>{props.addNewRowText}</div>
+                    <div key={"add-new-row"} className={`${props.className}__add-new-row`}>
+                        <Icon iconName={IconName.PlusCircle} className={`${props.className}__add-new-icon`}/>
+                        <div className={`${props.className}__add-new-label`}>{props.addNewRowText}</div>
                     </div>
                 );
             }
         }
 
         renderRecords(this.props);
-        function renderRecords(props: Props)
+        function renderRecords(props: DataTableProps)
         {
             const recordsInCurrentPage = props.records.slice(
                 props.addNewRowText
@@ -162,7 +161,7 @@ export class Component extends React.Component<Props>
         }
 
         InsertAnEmptyRowToMakeUpForTheAddNewRow(this.props);
-        function InsertAnEmptyRowToMakeUpForTheAddNewRow(props: Props)
+        function InsertAnEmptyRowToMakeUpForTheAddNewRow(props: DataTableProps)
         {
             if (rows.length <= props.rowCountPerPage + 1)
             {

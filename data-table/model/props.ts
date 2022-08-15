@@ -1,17 +1,15 @@
 import {IsArray, IsInteger, IsPositive, IsString} from "@miniskylab/antimatter-class-validator";
-import {Props as LabelProps} from "@miniskylab/antimatter-label";
+import {LabelProps} from "@miniskylab/antimatter-label";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {Record} from "../components";
 
 @ComponentName("Data Table")
-export class Props extends ComponentProps
+export class DataTableProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type Label.Props[]
      */
     @IsArray()
     @IsOptional()
@@ -30,8 +28,6 @@ export class Props extends ComponentProps
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type Record.Props[]
      */
     @IsArray()
     @IsOptional()

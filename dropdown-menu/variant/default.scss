@@ -1,18 +1,19 @@
 @use "~@miniskylab/antimatter-layer";
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
-@use "~@miniskylab/antimatter-responsive/screen-size";
 
-.dropdown-menu {
+%dropdown-menu, .dropdown-menu {
+    $dropdown-menu: &;
+
     position: relative;
     display: inline-flex;
     align-items: center;
     width: 220px;
     min-height: 34px;
     padding: 8px 12px;
-    box-sizing: border-box;
     border: none;
     outline: none;
+    box-sizing: border-box;
     vertical-align: top;
     background-color: antimatter-color-scheme.$mine-shaft;
     cursor: pointer;
@@ -35,11 +36,14 @@
         font-size: antimatter-typography.$font-size--12px;
     }
 
-    &__placeholder-text {
-        composes: dropdown-menu__badge-container;
+    &__placeholder {
+        display: flex;
+        flex-wrap: wrap;
+        row-gap: 5px;
+        margin-right: 15px;
+        line-height: 18px;
         font-size: antimatter-typography.$font-size--14px;
         color: antimatter-color-scheme.$gray--a65;
-        line-height: 18px;
     }
 
     &__menu {
@@ -48,20 +52,20 @@
         left: 0;
         right: 0;
         width: 100%;
-        margin: 2px 0 0 0;
         padding: 5px 0;
+        margin: 2px 0 0 0;
         list-style: none;
         background-color: antimatter-color-scheme.$mine-shaft;
         z-index: antimatter-layer.$context-menu;
         cursor: default;
 
         &--hidden {
-            composes: dropdown-menu__menu;
             display: none;
         }
     }
 
     &__menu-item {
+        $menu-item: &;
         position: relative;
         display: flex;
         align-items: center;
@@ -73,14 +77,14 @@
         cursor: pointer;
 
         &--selected {
-            composes: dropdown-menu__menu-item;
+            @extend #{$menu-item};
             color: antimatter-color-scheme.$white;
             background-color: antimatter-color-scheme.$primary;
             box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
         }
 
         &--disabled {
-            composes: dropdown-menu__menu-item;
+            @extend #{$menu-item};
             color: antimatter-color-scheme.$gray--a65;
             cursor: not-allowed;
             font-style: italic;
@@ -92,12 +96,12 @@
                 color: antimatter-color-scheme.$white;
                 background-color: antimatter-color-scheme.$primary--a10;
                 box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
-            }
 
-            &:not(&--disabled):not(&--selected):active {
-                color: antimatter-color-scheme.$white;
-                background-color: antimatter-color-scheme.$primary;
-                box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+                &:active {
+                    color: antimatter-color-scheme.$white;
+                    background-color: antimatter-color-scheme.$primary;
+                    box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+                }
             }
         }
     }
@@ -110,10 +114,10 @@
 
     &__caret {
         position: absolute;
-        width: 0;
-        height: 0;
         right: 10px;
         top: 15px;
+        width: 0;
+        height: 0;
         border-top: 5px solid antimatter-color-scheme.$neutral;
         border-left: 5px solid antimatter-color-scheme.$transparent;
         border-right: 5px solid antimatter-color-scheme.$transparent;
@@ -126,11 +130,11 @@
     }
 
     &--open {
-        composes: dropdown-menu;
+        @extend #{$dropdown-menu};
     }
 
     &--closed {
-        composes: dropdown-menu;
+        @extend #{$dropdown-menu};
 
         @media (hover: hover) {
 
@@ -139,12 +143,11 @@
                 box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
                 background-color: antimatter-color-scheme.$primary--a10;
 
-                .dropdown-menu__caret {
+                #{$dropdown-menu}__caret {
                     border-top-color: antimatter-color-scheme.$white;
                 }
 
-                .dropdown-menu__selected-value-text,
-                .dropdown-menu__placeholder-text {
+                #{$dropdown-menu}__placeholder {
                     color: antimatter-color-scheme.$white;
                 }
             }

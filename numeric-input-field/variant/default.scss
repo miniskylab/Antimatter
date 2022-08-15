@@ -4,12 +4,12 @@
 .numeric-input-field {
     width: 260px;
     height: 34px;
-    font-size: antimatter-typography.$font-size--14px;
     padding: 6px 12px;
     border: none;
     outline: none;
-    text-align: inherit;
     box-sizing: border-box;
+    text-align: inherit;
+    font-size: antimatter-typography.$font-size--14px;
     color: antimatter-color-scheme.$neutral;
     background-color: antimatter-color-scheme.$mine-shaft;
 

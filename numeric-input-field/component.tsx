@@ -1,22 +1,21 @@
 import {Char} from "@miniskylab/antimatter-typescript";
 import React, {createRef, RefObject} from "react";
 import {endWithDotAndZeros, isAllowedKey, removeCosmeticCharacters, removeNonDigitCharacters} from "./helper";
-import {Props, State} from "./model";
-import * as Variant from "./variant";
+import {NumericInputFieldProps, State} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props, State>
+export class NumericInputField extends React.Component<NumericInputFieldProps, State>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
+    static defaultProps: Partial<NumericInputFieldProps> = {
+        className: "numeric-input-field",
         autoFocus: false,
         minValue: Number.MIN,
         maxValue: Number.MAX,
         maximumFractionDigits: 20,
         maximumDigitCount: Number.MAX,
-        placeholderText: String.EMPTY,
+        placeholder: String.EMPTY,
         showPlusSymbolForPositiveNumber: false
     };
 
@@ -26,7 +25,7 @@ export class Component extends React.Component<Props, State>
     private lastKeycodeDown: number;
     private readonly ref: RefObject<HTMLInputElement>;
 
-    constructor(props: Props)
+    constructor(props: NumericInputFieldProps)
     {
         super(props);
 
@@ -39,7 +38,7 @@ export class Component extends React.Component<Props, State>
         };
     }
 
-    componentDidUpdate(prevProps: Props): void
+    componentDidUpdate(prevProps: NumericInputFieldProps): void
     {
         const hasFocus = this.ref.current === document.activeElement;
         const caretPositionIsValid = this.ref.current.selectionStart || this.ref.current.selectionStart === 0;
@@ -62,14 +61,14 @@ export class Component extends React.Component<Props, State>
                 ref={this.ref}
                 type={"text"}
                 pattern={"[0-9]*"}
-                className={this.props.variant["numeric-input-field"]}
+                className={this.props.className}
                 value={this.state.userInput}
-                placeholder={this.props.placeholderText}
-                onChange={this.onChange.bind(this)}
-                onBlur={this.onBlur.bind(this)}
+                placeholder={this.props.placeholder}
+                onChange={event => this.onChange(event)}
+                onBlur={event => this.onBlur(event)}
                 onFocus={this.props.onFocus}
                 onPointerDown={this.props.onPointerDown}
-                onKeyDown={this.onKeyDown.bind(this)}
+                onKeyDown={event => this.onKeyDown(event)}
                 autoFocus={this.props.autoFocus}
             />
         );

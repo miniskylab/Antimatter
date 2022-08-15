@@ -4,7 +4,7 @@ import {IsOptional} from "class-validator";
 import {FocusEventHandler, KeyboardEventHandler, PointerEventHandler} from "react";
 
 @ComponentName("Date Picker")
-export class Props extends ComponentProps
+export class DatePickerProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -27,7 +27,7 @@ export class Props extends ComponentProps
      */
     @IsString()
     @IsOptional()
-    readonly placeholderText?: string;
+    readonly placeholder?: string;
 
 
     /**

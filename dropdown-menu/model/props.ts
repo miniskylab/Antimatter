@@ -3,7 +3,7 @@ import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 
 @ComponentName("Dropdown Menu")
-export class Props extends ComponentProps
+export class DropdownMenuProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -25,7 +25,7 @@ export class Props extends ComponentProps
      */
     @IsString()
     @IsOptional()
-    readonly placeholderText?: string;
+    readonly placeholder?: string;
 
 
     /**
