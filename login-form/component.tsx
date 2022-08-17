@@ -24,9 +24,9 @@ export function LoginForm({
 
     return (
         <div className={className}>
-            <Icon className={`${className}__logo`} {...logo}/>
-            <Label className={`${className}__title`} {...title}/>
-            <Label className={`${className}__description`} {...description}/>
+            <Icon className={`${className}__logo`} name={logo}/>
+            <Label className={`${className}__title`} text={title}/>
+            <Label className={`${className}__description`} text={description}/>
             <InputField
                 className={`${className}__username-input-field`}
                 icon={usernameInputField.icon}

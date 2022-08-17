@@ -1,8 +1,6 @@
 import {ButtonProps} from "@miniskylab/antimatter-button";
-import {IsDefined} from "@miniskylab/antimatter-class-validator";
-import {IconProps} from "@miniskylab/antimatter-icon";
+import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
 import {InputFieldProps} from "@miniskylab/antimatter-input-field";
-import {LabelProps} from "@miniskylab/antimatter-label";
 import {Child, ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {Type} from "class-transformer";
 import {ValidateNested} from "class-validator";
@@ -13,28 +11,28 @@ export class LoginFormProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsNotEmpty()
+    @IsString()
     @IsDefined()
-    @ValidateNested()
-    @Type(() => IconProps)
-    readonly logo: Child<IconProps>;
+    readonly logo: string;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsNotEmpty()
+    @IsString()
     @IsDefined()
-    @ValidateNested()
-    @Type(() => LabelProps)
-    readonly title: Child<LabelProps>;
+    readonly title: string;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsNotEmpty()
+    @IsString()
     @IsDefined()
-    @ValidateNested()
-    @Type(() => LabelProps)
-    readonly description: Child<LabelProps>;
+    readonly description: string;
 
 
     /**

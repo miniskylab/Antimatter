@@ -3,7 +3,7 @@ import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 
 @ComponentName("Paginator")
-export class Props extends ComponentProps
+export class PaginatorProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

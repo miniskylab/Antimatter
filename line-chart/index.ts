@@ -1,4 +1,3 @@
-export {Component as LineChart} from "./component";
-export {LineStyle, Props} from "./model";
+export {LineChart} from "./component";
+export {LineStyle, LineChartProps} from "./model";
 export {Name} from "./name";
-export * as Variant from "./variant";

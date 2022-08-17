@@ -1,24 +1,23 @@
+import {Label} from "@miniskylab/antimatter-label";
 import {Radians} from "@miniskylab/antimatter-typescript";
 import React, {createRef, RefObject} from "react";
-import {Props} from "./model";
-import * as Variant from "./variant";
+import {DonutChartProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props>
+export class DonutChart extends React.Component<DonutChartProps>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
-        pctValue: 0,
-        description: String.EMPTY
+    static defaultProps: Partial<DonutChartProps> = {
+        className: "antimatter-donut-chart-default",
+        pctValue: 0
     };
 
     private canvasResolution: number;
     private readonly ref: RefObject<HTMLDivElement>;
     private readonly canvasRef: RefObject<HTMLCanvasElement>;
 
-    constructor(props: Props)
+    constructor(props: DonutChartProps)
     {
         super(props);
 
@@ -30,17 +29,17 @@ export class Component extends React.Component<Props>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.variant["donut-chart"]} ref={this.ref}>
+            <div className={this.props.className} ref={this.ref}>
                 <canvas
                     ref={this.canvasRef}
                     width={this.canvasResolution}
                     height={this.canvasResolution}
-                    className={this.props.variant["donut-chart__canvas"]}
+                    className={`${this.props.className}__canvas`}
                 />
-                <div className={this.props.variant["donut-chart__legend"]}>
-                    <div className={this.props.variant["donut-chart__value"]}>{this.props.pctValue.ensurePercent().toFixed(0)}</div>
-                    <div className={this.props.variant["donut-chart__percent-symbol"]}>%</div>
-                    <div className={this.props.variant["donut-chart__description"]}>{this.props.description}</div>
+                <div className={`${this.props.className}__legend`}>
+                    <Label className={`${this.props.className}__value`} text={this.props.pctValue.ensurePercent().toFixed(0)}/>
+                    <Label className={`${this.props.className}__percent-symbol`} text={"%"}/>
+                    <Label className={`${this.props.className}__description`} text={this.props.description}/>
                 </div>
             </div>
         );

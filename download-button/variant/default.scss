@@ -1,7 +1,9 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-.button {
+%download-button, .antimatter-download-button-default {
+    $download-button: &;
+
     display: inline-flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -20,7 +22,7 @@
     cursor: pointer;
     text-decoration: none;
 
-    .icon {
+    &__icon {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -29,7 +31,7 @@
         font-size: antimatter-typography.$font-size--14px;
     }
 
-    .label {
+    &__label {
         display: inline-flex;
         justify-content: center;
         align-items: center;
@@ -38,19 +40,22 @@
     }
 
     &--disabled {
-        composes: button;
+        @extend #{$download-button};
         opacity: 0.65;
         filter: saturate(0%);
         cursor: not-allowed;
     }
 
-    &:not(&--disabled):hover {
-        color: antimatter-color-scheme.$white;
-        background-color: antimatter-color-scheme.$primary--a10;
+    @media (hover: hover) {
 
-        &:active {
-            color: antimatter-color-scheme.$ambient;
-            background-color: antimatter-color-scheme.$primary;
+        &:not(&--disabled):hover {
+            color: antimatter-color-scheme.$white;
+            background-color: antimatter-color-scheme.$primary--a10;
+
+            &:active {
+                color: antimatter-color-scheme.$ambient;
+                background-color: antimatter-color-scheme.$primary;
+            }
         }
     }
 }

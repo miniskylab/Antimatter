@@ -1,14 +1,14 @@
+import {Button} from "@miniskylab/antimatter-button";
 import React from "react";
-import {Props} from "./model";
-import * as Variant from "./variant";
+import {PaginatorProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props>
+export class Paginator extends React.Component<PaginatorProps>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
+    static defaultProps: Partial<PaginatorProps> = {
+        className: "antimatter-paginator-default",
         selectedPage: 1,
         maxTotalPagerCount: 8,
         maxMarginPagerCount: 1,
@@ -18,7 +18,7 @@ export class Component extends React.Component<Props>
 
     private prevSelectedPage: number;
 
-    constructor(props: Props)
+    constructor(props: PaginatorProps)
     {
         super(props);
         this.prevSelectedPage = props.selectedPage;
@@ -36,7 +36,7 @@ export class Component extends React.Component<Props>
     private renderPagination(): JSX.Element
     {
         return (
-            <div className={this.props.variant["paginator"]}>
+            <div className={this.props.className}>
                 {this.renderNavigator(-1)}
                 {this.renderPagers()}
                 {this.renderNavigator(1)}
@@ -50,13 +50,11 @@ export class Component extends React.Component<Props>
         const noMorePage = (step > 0 && this.props.selectedPage === this.props.pageCount) || (step < 0 && this.props.selectedPage === 1);
 
         return (
-            <div
-                className={this.props.variant[`paginator__navigator${noMorePage ? "--disabled" : String.EMPTY}`]}
-                onMouseDown={noMorePage ? undefined : event => event.preventDefault()}
+            <Button
+                className={`${this.props.className}__navigator${noMorePage ? "--disabled" : String.EMPTY}`}
+                label={step > 0 ? this.props.nextLabel : this.props.prevLabel}
                 onClick={noMorePage ? undefined : () => { this.props.onPageChange?.(this.props.selectedPage + step); }}
-            >
-                {step > 0 ? this.props.nextLabel : this.props.prevLabel}
-            </div>
+            />
         );
     }
 
@@ -82,17 +80,15 @@ export class Component extends React.Component<Props>
         {
             const isEllipsis = pageNumber <= 0;
             const isSelectedPage = pageNumber > 0 && this.props.selectedPage === pageNumber;
-            const pagerCssClassName = `paginator__${isEllipsis ? "ellipsis" : `pager${isSelectedPage ? "--selected" : String.EMPTY}`}`;
+            const pagerCssClassName = `__pager${isSelectedPage ? "--selected" : String.EMPTY}`;
 
             return (
-                <div
+                <Button
                     key={pageNumber}
-                    className={this.props.variant[pagerCssClassName]}
-                    onMouseDown={isSelectedPage ? undefined : event => event.preventDefault()}
-                    onClick={isSelectedPage ? undefined : () => { this.props.onPageChange?.(pageNumber); }}
-                >
-                    {isEllipsis ? "..." : pageNumber}
-                </div>
+                    className={`${this.props.className}${isEllipsis ? "__ellipsis" : pagerCssClassName}`}
+                    label={isEllipsis ? "..." : pageNumber.toString()}
+                    onClick={isEllipsis || isSelectedPage ? undefined : () => { this.props.onPageChange?.(pageNumber); }}
+                />
             );
         });
     }

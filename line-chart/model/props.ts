@@ -6,7 +6,7 @@ import {DataX} from "./data-x";
 import {DataY} from "./data-y";
 
 @ComponentName("Line Chart")
-export class Props extends ComponentProps
+export class LineChartProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

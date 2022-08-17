@@ -4,7 +4,7 @@ import {IsOptional} from "class-validator";
 import {ReactNode} from "react";
 
 @ComponentName("Panel")
-export class Props extends ComponentProps
+export class PanelProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

@@ -1,14 +1,13 @@
 import React, {createRef, RefObject} from "react";
-import {Coordinate, LineSettings, LineStyle, Props} from "./model";
-import * as Variant from "./variant";
+import {Coordinate, LineChartProps, LineSettings, LineStyle} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props>
+export class LineChart extends React.Component<LineChartProps>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
+    static defaultProps: Partial<LineChartProps> = {
+        className: "antimatter-line-chart-default",
         dataX: [],
         dataY: []
     };
@@ -29,7 +28,7 @@ export class Component extends React.Component<Props>
     private minY: number;
     private maxY: number;
 
-    constructor(props: Props)
+    constructor(props: LineChartProps)
     {
         super(props);
 
@@ -41,8 +40,8 @@ export class Component extends React.Component<Props>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.variant["line-chart"]} ref={this.lineChartRef}>
-                <canvas className={this.props.variant["line-chart__canvas"]} ref={this.canvasRef}/>
+            <div className={this.props.className} ref={this.lineChartRef}>
+                <canvas className={`${this.props.className}__canvas`} ref={this.canvasRef}/>
             </div>
         );
     }

@@ -18,19 +18,19 @@ export function Component({
         <div className={className}>
             <Button
                 className={`${className}__navigator`}
-                icon={{name: Icomoon.ChevronLeft}}
+                icon={Icomoon.ChevronLeft}
                 disabled={!onPrevClick}
                 onClick={onPrevClick}
             />
             <Button
                 className={`${className}__headline`}
-                label={{text: headline}}
+                label={headline}
                 disabled={!onHeadlineClick}
                 onClick={onHeadlineClick}
             />
             <Button
                 className={`${className}__navigator`}
-                icon={{name: Icomoon.ChevronRight}}
+                icon={Icomoon.ChevronRight}
                 disabled={!onNextClick}
                 onClick={onNextClick}
             />

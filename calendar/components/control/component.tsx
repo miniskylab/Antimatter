@@ -24,8 +24,8 @@ export function Component({
                 <Button
                     className={`${className}__button`}
                     disabled={onTodayButtonClick === null}
-                    icon={{name: Icomoon.Flag}}
-                    label={{text: "Today"}}
+                    icon={Icomoon.Flag}
+                    label={"Today"}
                     onClick={onTodayButtonClick}
                 />
             )}
@@ -33,8 +33,8 @@ export function Component({
                 <Button
                     className={`${className}__button`}
                     disabled={onSelectionButtonClick === null}
-                    icon={{name: Icomoon.Location}}
-                    label={{text: "Selection"}}
+                    icon={Icomoon.Location}
+                    label={"Selection"}
                     onClick={onSelectionButtonClick}
                 />
             )}

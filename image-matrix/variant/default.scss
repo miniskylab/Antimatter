@@ -1,7 +1,7 @@
-@use "~@miniskylab/antimatter-responsive/screen-size";
 @use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-responsive/screen-size";
 
-.image-matrix {
+%image-matrix, .antimatter-image-matrix-default {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

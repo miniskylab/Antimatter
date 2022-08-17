@@ -17,7 +17,7 @@ class _Html
 
         return (
             <div
-                className={"html"}
+                className={"antimatter-html"}
                 dangerouslySetInnerHTML={{__html: sanitizedHtmlString}}
             />
         );

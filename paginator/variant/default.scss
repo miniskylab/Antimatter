@@ -2,9 +2,9 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-.paginator {
+%paginator, .antimatter-paginator-default {
 
-    @mixin -clickable {
+    @at-root %pager {
         position: relative;
         display: inline-flex;
         justify-content: center;
@@ -21,28 +21,12 @@
         user-select: none;
     }
 
-    @mixin -disabled {
-        cursor: not-allowed;
-        color: antimatter-color-scheme.$white--a10;
-        border-color: antimatter-color-scheme.$white--a10;
-    }
-
-    @mixin -hover {
-        color: antimatter-color-scheme.$white;
-        border-color: antimatter-color-scheme.$primary;
-        background-color: antimatter-color-scheme.$primary--a10;
-        z-index: antimatter-layer.$higher;
-    }
-
-    @mixin -active {
-        background-color: antimatter-color-scheme.$primary;
-    }
-
     &__pager {
-        @include -clickable;
+        $pager: &;
+        @extend %pager;
 
         &--selected {
-            composes: paginator__pager;
+            @extend #{$pager};
             color: antimatter-color-scheme.$white;
             background-color: antimatter-color-scheme.$primary--a10;
             border-color: antimatter-color-scheme.$primary;
@@ -51,42 +35,58 @@
         }
 
         &--disabled {
-            composes: paginator__pager;
-            @include -disabled;
+            @extend #{$pager};
+            cursor: not-allowed;
+            color: antimatter-color-scheme.$white--a10;
+            border-color: antimatter-color-scheme.$white--a10;
         }
 
-        &:not(&--disabled):not(&--selected):hover {
-            @include -hover;
+        @media (hover: hover) {
 
-            &:active {
-                @include -active;
+            &:not(&--disabled):not(&--selected):hover {
+                color: antimatter-color-scheme.$white;
+                border-color: antimatter-color-scheme.$primary;
+                background-color: antimatter-color-scheme.$primary--a10;
+                z-index: antimatter-layer.$higher;
+
+                &:active {
+                    background-color: antimatter-color-scheme.$primary;
+                }
             }
         }
     }
 
     &__ellipsis {
-        @include -clickable;
-        width: 50px;
-        border: none;
+        @extend %pager;
         font-weight: antimatter-typography.$font-weight--bold;
+        border: none;
         cursor: default;
     }
 
     &__navigator {
-        @include -clickable;
+        $navigator: &;
 
+        @extend %pager;
         padding: 0 15px;
 
         &--disabled {
-            composes: paginator__navigator;
-            @include -disabled;
+            @extend #{$navigator};
+            cursor: not-allowed;
+            color: antimatter-color-scheme.$white--a10;
+            border-color: antimatter-color-scheme.$white--a10;
         }
 
-        &:not(&--disabled):hover {
-            @include -hover;
+        @media (hover: hover) {
 
-            &:active {
-                @include -active;
+            &:not(&--disabled):hover {
+                color: antimatter-color-scheme.$white;
+                border-color: antimatter-color-scheme.$primary;
+                background-color: antimatter-color-scheme.$primary--a10;
+                z-index: antimatter-layer.$higher;
+
+                &:active {
+                    background-color: antimatter-color-scheme.$primary;
+                }
             }
         }
     }

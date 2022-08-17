@@ -56,7 +56,7 @@ export class Component extends React.Component<Props>
             <Button
                 key={year}
                 className={`${this.props.className}__grid-cell${modifier}`}
-                label={{text: outOfSupportedYearRange ? String.EMPTY : year.toString()}}
+                label={outOfSupportedYearRange ? String.EMPTY : year.toString()}
                 onClick={outOfSupportedYearRange ? undefined : (): void => { this.props.onYearClick(year); }}
             />
         );

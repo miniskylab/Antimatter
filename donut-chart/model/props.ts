@@ -3,7 +3,7 @@ import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 
 @ComponentName("Donut Chart")
-export class Props extends ComponentProps
+export class DonutChartProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

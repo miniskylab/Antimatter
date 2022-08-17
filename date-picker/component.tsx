@@ -94,7 +94,7 @@ export class DatePicker extends React.Component<DatePickerProps, State>
         return (
             <Button
                 className={`${this.props.className}__addon${this.state.calendarIsOpen ? "--active" : String.EMPTY}`}
-                icon={{name: Icomoon.Calendar}}
+                icon={Icomoon.Calendar}
                 onClick={this.onAddonClick.bind(this)}
                 onPointerDown={event => event.preventDefault()}
             />

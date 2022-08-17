@@ -1,29 +1,28 @@
-import {Html} from "@miniskylab/antimatter-html";
-import {Icon} from "@miniskylab/antimatter-icon-legacy";
+import {Icon} from "@miniskylab/antimatter-icon";
+import {Label} from "@miniskylab/antimatter-label";
 import React from "react";
-import {Props} from "./model";
-import * as Variant from "./variant";
+import {HighlightedParagraphProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Component({
-    variant = Variant.Default,
-    title = String.EMPTY,
-    text = String.EMPTY,
-    icon
-}: Props): JSX.Element
+export function HighlightedParagraph({
+    className = "antimatter-highlighted-paragraph-default",
+    icon,
+    title,
+    content
+}: HighlightedParagraphProps): JSX.Element
 {
     return (
-        <div className={variant["highlighted-paragraph"]}>
+        <div className={className}>
             {(icon || title) && (
-                <div className={variant["highlighted-paragraph__title"]}>
-                    {icon && <Icon className={variant["highlighted-paragraph__icon"]} iconName={icon}/>}
-                    {title && title}
+                <div className={`${className}__title-container`}>
+                    {icon && <Icon className={`${className}__title-icon`} name={icon}/>}
+                    {title && <Label className={`${className}__title-text`} text={title}/>}
                 </div>
             )}
-            {(title || icon) && text && <div className={variant["highlighted-paragraph__gap"]}/>}
-            {text && <div className={variant["highlighted-paragraph__text"]}>{Html.render(text)}</div>}
+            {(icon || title) && content && <div className={`${className}__gap`}/>}
+            {content && <Label className={`${className}__content`} text={content}/>}
         </div>
     );
 }

@@ -1,9 +1,6 @@
-import {IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
-import {IconProps} from "@miniskylab/antimatter-icon";
-import {LabelProps} from "@miniskylab/antimatter-label";
-import {Child, ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
-import {Type} from "class-transformer";
-import {IsOptional, ValidateNested} from "class-validator";
+import {IsBoolean, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {IsOptional} from "class-validator";
 import {MouseEventHandler, PointerEventHandler} from "react";
 import {Target} from "./target";
 
@@ -21,19 +18,18 @@ export class ButtonProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsString()
     @IsOptional()
-    @ValidateNested()
-    @Type(() => LabelProps)
-    readonly label?: Child<LabelProps>;
+    readonly label?: string;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsNotEmpty()
+    @IsString()
     @IsOptional()
-    @ValidateNested()
-    @Type(() => IconProps)
-    readonly icon?: Child<IconProps>;
+    readonly icon?: string;
 
 
     /**

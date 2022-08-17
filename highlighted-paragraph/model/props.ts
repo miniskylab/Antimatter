@@ -1,19 +1,17 @@
-import {IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
-import {IconName} from "@miniskylab/antimatter-icon-legacy";
+import {IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 
 @ComponentName("Highlighted Paragraph")
-export class Props extends ComponentProps
+export class HighlightedParagraphProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type IconName
      */
-    @IsEnum(IconName)
+    @IsNotEmpty()
+    @IsString()
     @IsOptional()
-    readonly icon?: IconName;
+    readonly icon?: string;
 
 
     /**
@@ -29,5 +27,5 @@ export class Props extends ComponentProps
      */
     @IsString()
     @IsOptional()
-    readonly text?: string;
+    readonly content?: string;
 }

@@ -26,8 +26,8 @@ export function Button({
             onClick={!disabled && onClick ? onClick : undefined}
             onPointerDown={onPointerDown}
         >
-            {icon && <Icon className={`${className}__icon`} {...icon}/>}
-            {label?.text && <Label className={`${className}__label`} {...label}/>}
+            {icon && <Icon className={`${className}__icon`} name={icon}/>}
+            {label && <Label className={`${className}__label`} text={label}/>}
         </a>
     );
 }

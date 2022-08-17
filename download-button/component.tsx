@@ -1,22 +1,21 @@
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import React from "react";
-import {Props, State} from "./model";
-import * as Variant from "./variant";
+import {DownloadButtonProps, State} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props, State>
+export class DownloadButton extends React.Component<DownloadButtonProps, State>
 {
-    static defaultProps: Partial<Props> = {
-        variant: Variant.Default,
+    static defaultProps: Partial<DownloadButtonProps> = {
+        className: "antimatter-download-button-default",
         fileName: String.EMPTY,
         href: String.EMPTY,
         disabled: false
     };
 
-    constructor(props: Props)
+    constructor(props: DownloadButtonProps)
     {
         super(props);
 
@@ -47,12 +46,13 @@ export class Component extends React.Component<Props, State>
         return (
             <a
                 href={this.state.disabled ? undefined : this.state.href}
-                className={this.props.variant[`button${disabled ? "--disabled" : String.EMPTY}`]}
+                className={`${this.props.className}${disabled ? "--disabled" : String.EMPTY}`}
                 download={this.props.fileName || true}
                 target={"_self"}
+                draggable={false}
             >
-                {this.props.icon && <Icon {...this.props.icon} variant={this.props.variant}/>}
-                {this.props.label?.text && <Label {...this.props.label} variant={this.props.variant}/>}
+                {this.props.icon && <Icon className={`${this.props.className}__icon`} name={this.props.icon}/>}
+                {this.props.label && <Label className={`${this.props.className}__label`} text={this.props.label}/>}
             </a>
         );
     }

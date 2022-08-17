@@ -1,21 +1,20 @@
 import React from "react";
-import {Props} from "./model";
-import * as Variant from "./variant";
+import {ImageMatrixProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Component({
-    variant = Variant.Default,
+export function ImageMatrix({
+    className = "antimatter-image-matrix-default",
     images = []
-}: Props): JSX.Element
+}: ImageMatrixProps): JSX.Element
 {
     return (
-        <div className={variant["image-matrix"]}>
+        <div className={className}>
             {images.map((x, i) => (
                 <img
                     key={i}
-                    className={variant["image-matrix__image"]}
+                    className={`${className}__image`}
                     src={x.url.original}
                     alt={x.altText}
                 />

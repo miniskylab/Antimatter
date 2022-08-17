@@ -1,7 +1,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-.panel {
+%panel, .antimatter-panel-default {
     display: flex;
     flex-direction: column;
     background-color: antimatter-color-scheme.$background;

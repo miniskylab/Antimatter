@@ -1,4 +1,3 @@
-export {Component as DownloadButton} from "./component";
-export {Props} from "./model";
+export {DownloadButton} from "./component";
+export {DownloadButtonProps} from "./model";
 export {Name} from "./name";
-export * as Variant from "./variant";

@@ -61,7 +61,7 @@ export class Component extends React.Component<Props>
             <Button
                 key={`${month.getMonth()}${month.getFullYear()}`}
                 className={`${this.props.className}__grid-cell${modifier}`}
-                label={{text: GregorianCalendar.getShortMonthName(month.getMonth())}}
+                label={GregorianCalendar.getShortMonthName(month.getMonth())}
                 onClick={(): void => { this.props.onMonthClick(new Date(month)); }}
             />
         );
