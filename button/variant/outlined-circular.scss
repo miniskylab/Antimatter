@@ -1,7 +1,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-%button, .outlined-circular-button {
+%button, .antimatter-button-outlined-circular {
     $button: &;
 
     display: inline-flex;

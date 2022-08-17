@@ -9,7 +9,7 @@ import {NumericInputFieldProps, State} from "./model";
 export class NumericInputField extends React.Component<NumericInputFieldProps, State>
 {
     static defaultProps: Partial<NumericInputFieldProps> = {
-        className: "numeric-input-field",
+        className: "antimatter-numeric-input-field-default",
         autoFocus: false,
         minValue: Number.MIN,
         maxValue: Number.MAX,

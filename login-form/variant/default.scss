@@ -1,7 +1,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-%login-form, .login-form {
+%login-form, .antimatter-login-form-default {
     display: flex;
     flex-direction: column;
     justify-content: center;

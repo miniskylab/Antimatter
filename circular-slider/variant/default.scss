@@ -1,7 +1,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-%circular-slider, .circular-slider {
+%circular-slider, .antimatter-circular-slider-default {
     position: relative;
     display: inline-flex;
     flex-shrink: 0;

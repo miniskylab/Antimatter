@@ -1,7 +1,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-%data-table, .data-table {
+%data-table, .antimatter-data-table-default {
 
     &__page {
         display: inline-block;

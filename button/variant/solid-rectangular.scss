@@ -1,7 +1,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-%button, .solid-rectangular-button {
+%button, .antimatter-button-solid-rectangular {
     $button: &;
 
     display: inline-flex;

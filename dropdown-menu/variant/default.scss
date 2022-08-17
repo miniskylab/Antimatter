@@ -2,7 +2,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-%dropdown-menu, .dropdown-menu {
+%dropdown-menu, .antimatter-dropdown-menu-default {
     $dropdown-menu: &;
 
     position: relative;

@@ -9,7 +9,7 @@ import {LoginFormProps} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function LoginForm({
-    className = "login-form",
+    className = "antimatter-login-form-default",
     logo,
     title,
     description,

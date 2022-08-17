@@ -2,7 +2,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-%date-picker, .date-picker {
+%date-picker, .antimatter-date-picker-default {
     $date-picker: &;
 
     position: relative;

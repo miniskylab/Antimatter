@@ -8,7 +8,7 @@ import {RangeSliderProps} from "./model";
 export class RangeSlider extends React.Component<RangeSliderProps>
 {
     static defaultProps: Partial<RangeSliderProps> = {
-        className: "range-slider",
+        className: "antimatter-range-slider-default",
         canInteractWith: true
     };
 

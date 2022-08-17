@@ -10,7 +10,7 @@ import {DropdownMenuProps, State} from "./model";
 export class DropdownMenu extends React.Component<DropdownMenuProps, State>
 {
     static defaultProps: Partial<DropdownMenuProps> = {
-        className: "dropdown-menu",
+        className: "antimatter-dropdown-menu-default",
         keyValueSet: {},
         selectedKeys: [],
         placeholder: String.EMPTY,
