@@ -22,11 +22,10 @@
     }
 
     &__pager {
-        $pager: &;
         @extend %pager;
 
         &--selected {
-            @extend #{$pager};
+            @extend %paginator__pager;
             color: antimatter-color-scheme.$white;
             background-color: antimatter-color-scheme.$primary--a10;
             border-color: antimatter-color-scheme.$primary;
@@ -35,7 +34,7 @@
         }
 
         &--disabled {
-            @extend #{$pager};
+            @extend %paginator__pager;
             cursor: not-allowed;
             color: antimatter-color-scheme.$white--a10;
             border-color: antimatter-color-scheme.$white--a10;
@@ -64,13 +63,11 @@
     }
 
     &__navigator {
-        $navigator: &;
-
         @extend %pager;
         padding: 0 15px;
 
         &--disabled {
-            @extend #{$navigator};
+            @extend %paginator__navigator;
             cursor: not-allowed;
             color: antimatter-color-scheme.$white--a10;
             border-color: antimatter-color-scheme.$white--a10;

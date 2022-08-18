@@ -6,9 +6,7 @@ import {Props} from "./model";
  */
 export class Component extends React.Component<Props>
 {
-    static defaultProps: Partial<Props> = {
-        className: "pips"
-    };
+    static defaultProps: Partial<Props> = {};
 
     private pipCount: number;
     private pxPipsRadius: number;

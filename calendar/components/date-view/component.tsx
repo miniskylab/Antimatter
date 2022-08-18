@@ -10,7 +10,6 @@ import {HighlightedDate, Props} from "./model";
 export class Component extends React.Component<Props>
 {
     static defaultProps: Partial<Props> = {
-        className: "date-view",
         highlightedDates: []
     };
 

@@ -8,7 +8,6 @@ import {PaginatorProps} from "./model";
 export class Paginator extends React.Component<PaginatorProps>
 {
     static defaultProps: Partial<PaginatorProps> = {
-        className: "antimatter-paginator-default",
         selectedPage: 1,
         maxTotalPagerCount: 8,
         maxMarginPagerCount: 1,

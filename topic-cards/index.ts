@@ -1,4 +1,3 @@
-export {Component as TopicCards} from "./component";
-export {Props} from "./model";
+export {TopicCards} from "./component";
+export {TopicCardsProps} from "./model";
 export {Name} from "./name";
-export * as Variant from "./variant";

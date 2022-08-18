@@ -2,8 +2,6 @@
 @use "~@miniskylab/antimatter-color-scheme";
 
 %button, .antimatter-button-outlined-rectangular {
-    $button: &;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -39,7 +37,7 @@
     }
 
     &--disabled {
-        @extend #{$button};
+        @extend %button;
         opacity: 0.65;
         filter: saturate(0%);
         cursor: not-allowed;

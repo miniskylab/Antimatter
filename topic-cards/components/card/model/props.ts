@@ -1,17 +1,16 @@
-import {Props as ButtonProps} from "@miniskylab/antimatter-button";
+import {ButtonProps} from "@miniskylab/antimatter-button";
 import {IsArray, IsBoolean, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {IconName} from "@miniskylab/antimatter-icon-legacy";
-import {ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentProps, Image} from "@miniskylab/antimatter-model";
 import {IsOptional, ValidateIf} from "class-validator";
 
-export class Props extends ComponentProps
+export class CardProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsDefined()
-    @ValidateIf((cardProps: Props) => !cardProps.thisIsPlaceholderCard)
-    readonly icon?: IconName;
+    @ValidateIf((cardProps: CardProps) => !cardProps.thisIsPlaceholderCard)
+    readonly image: Image | string;
 
 
     /**
@@ -20,8 +19,8 @@ export class Props extends ComponentProps
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    @ValidateIf((cardProps: Props) => !cardProps.thisIsPlaceholderCard)
-    readonly name?: string;
+    @ValidateIf((cardProps: CardProps) => !cardProps.thisIsPlaceholderCard)
+    readonly title: string;
 
 
     /**
@@ -30,8 +29,8 @@ export class Props extends ComponentProps
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    @ValidateIf((cardProps: Props) => !cardProps.thisIsPlaceholderCard)
-    readonly description?: string;
+    @ValidateIf((cardProps: CardProps) => !cardProps.thisIsPlaceholderCard)
+    readonly description: string;
 
 
     /**
@@ -47,5 +46,5 @@ export class Props extends ComponentProps
      */
     @IsArray()
     @IsOptional()
-    readonly ctaButtons?: ButtonProps[];
+    readonly ctaButtons?: Pick<ButtonProps, "icon" | "label" | "href" | "target" | "disabled">[];
 }

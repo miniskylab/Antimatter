@@ -6,7 +6,7 @@ import {SpacerProps} from "./model";
  * Use CSS to control the `width` of vertical gap or `height` of horizontal gap.
  */
 export function Spacer({
-    className = "antimatter-spacer-default"
+    className
 }: SpacerProps): JSX.Element
 {
     return (<div className={className}/>);

@@ -1,9 +1,0 @@
-@use "card--33pct-wide";
-
-.card {
-    visibility: hidden;
-
-    & * {
-        display: none;
-    }
-}

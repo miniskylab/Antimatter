@@ -6,16 +6,12 @@ $knob-radius: 15px;
 $track-padding: 4px;
 
 %range-slider, .antimatter-range-slider-default {
-    $range-slider: &;
-
     display: flex;
     flex-wrap: wrap;
     width: 100%;
     height: 75px;
 
     &__track {
-        $track: &;
-
         width: 100%;
         height: 16px;
         padding: $track-padding;
@@ -26,7 +22,7 @@ $track-padding: 4px;
         background-color: antimatter-color-scheme.$ambient;
 
         &--interactable {
-            @extend #{$track};
+            @extend %range-slider__track;
             cursor: pointer;
         }
     }
@@ -47,20 +43,18 @@ $track-padding: 4px;
     }
 
     &__stopper-left {
-        @extend #{$range-slider}__fill-left;
+        @extend %range-slider__fill-left;
         width: $knob-radius - $track-padding;
         border-radius: 16px 0 0 16px;
     }
 
     &__stopper-right {
-        @extend #{$range-slider}__fill-right;
+        @extend %range-slider__fill-right;
         width: $knob-radius - $track-padding;
         border-radius: 0 16px 16px 0;
     }
 
     &__knob {
-        $knob: &;
-
         position: absolute;
         width: $knob-radius * 2;
         height: $knob-radius * 2;
@@ -76,7 +70,7 @@ $track-padding: 4px;
         touch-action: none;
 
         &--interactable {
-            @extend #{$knob};
+            @extend %range-slider__knob;
             box-shadow: 0 0 8px antimatter-color-scheme.$black--a35;
             background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
             cursor: pointer;
@@ -114,8 +108,6 @@ $track-padding: 4px;
         pointer-events: none;
 
         &__pip {
-            $pip: &;
-
             position: absolute;
             display: inline;
             width: 2px;
@@ -126,24 +118,22 @@ $track-padding: 4px;
             transition: background-color 0.1s linear;
 
             &--milestone {
-                @extend #{$pip};
+                @extend %range-slider__pips__pip;
                 height: 16px;
             }
 
             &--highlighted {
-                @extend #{$pip};
+                @extend %range-slider__pips__pip;
                 background-color: antimatter-color-scheme.$primary;
             }
 
             &--highlighted-milestone {
-                @extend #{$pip}--highlighted;
-                @extend #{$pip}--milestone;
+                @extend %range-slider__pips__pip--highlighted;
+                @extend %range-slider__pips__pip--milestone;
             }
         }
 
         &__label {
-            $label: &;
-
             position: absolute;
             display: inline;
             width: 30px;
@@ -156,7 +146,7 @@ $track-padding: 4px;
             transition: color 0.1s linear;
 
             &--highlighted {
-                @extend #{$label};
+                @extend %range-slider__pips__label;
                 color: antimatter-color-scheme.$primary;
             }
         }

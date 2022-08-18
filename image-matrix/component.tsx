@@ -5,7 +5,7 @@ import {ImageMatrixProps} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function ImageMatrix({
-    className = "antimatter-image-matrix-default",
+    className,
     images = []
 }: ImageMatrixProps): JSX.Element
 {

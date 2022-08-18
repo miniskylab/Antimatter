@@ -9,7 +9,6 @@ import {TransitionProps} from "./model";
 export class Transition extends React.Component<TransitionProps>
 {
     static defaultProps: Partial<TransitionProps> = {
-        className: "transition",
         classNames: {
             appear: String.EMPTY,
             appearActive: String.EMPTY,

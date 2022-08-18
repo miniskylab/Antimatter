@@ -7,7 +7,7 @@ import {InputFieldProps} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function InputField({
-    className = "antimatter-input-field-default",
+    className,
     value = String.EMPTY,
     icon,
     placeholder,

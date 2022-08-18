@@ -10,9 +10,7 @@ import {CalendarProps, State, TimeFrame, TransitionDirection, View} from "./mode
  */
 export class Calendar extends React.Component<CalendarProps, State>
 {
-    static defaultProps: Partial<CalendarProps> = {
-        className: "antimatter-calendar-default"
-    };
+    static defaultProps: Partial<CalendarProps> = {};
 
     constructor(props: CalendarProps)
     {

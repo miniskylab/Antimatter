@@ -7,7 +7,6 @@ import {Coordinate, LineChartProps, LineSettings, LineStyle} from "./model";
 export class LineChart extends React.Component<LineChartProps>
 {
     static defaultProps: Partial<LineChartProps> = {
-        className: "antimatter-line-chart-default",
         dataX: [],
         dataY: []
     };

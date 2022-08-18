@@ -19,4 +19,13 @@ export class Image
     @ValidateNested()
     @Type(() => ImageUrl)
     readonly url: ImageUrl;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    static isAssignableFrom(anyObject: unknown): anyObject is Image
+    {
+        return typeof anyObject === "object" && "url" in anyObject && "altText" in anyObject;
+    }
 }

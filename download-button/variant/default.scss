@@ -2,8 +2,6 @@
 @use "~@miniskylab/antimatter-color-scheme";
 
 %download-button, .antimatter-download-button-default {
-    $download-button: &;
-
     display: inline-flex;
     flex-direction: row-reverse;
     align-items: center;
@@ -40,7 +38,7 @@
     }
 
     &--disabled {
-        @extend #{$download-button};
+        @extend %download-button;
         opacity: 0.65;
         filter: saturate(0%);
         cursor: not-allowed;

@@ -1,18 +1,18 @@
-import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {IconName} from "@miniskylab/antimatter-icon-legacy";
+import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
 
 export class BootstrapEvent
 {
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsEnum(IconName)
+    @IsNotEmpty()
+    @IsString()
     @IsDefined()
-    readonly icon: IconName;
+    readonly icon: string;
 
 
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNotEmpty()
     @IsString()
@@ -21,7 +21,7 @@ export class BootstrapEvent
 
 
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNotEmpty()
     @IsString()

@@ -9,7 +9,6 @@ import {CircularSliderProps, Knob} from "./model";
 export class CircularSlider extends React.Component<CircularSliderProps>
 {
     static defaultProps: Partial<CircularSliderProps> = {
-        className: "antimatter-circular-slider-default",
         startValue: 0,
         endValue: 0
     };

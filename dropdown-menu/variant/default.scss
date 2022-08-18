@@ -3,8 +3,6 @@
 @use "~@miniskylab/antimatter-color-scheme";
 
 %dropdown-menu, .antimatter-dropdown-menu-default {
-    $dropdown-menu: &;
-
     position: relative;
     display: inline-flex;
     align-items: center;
@@ -65,7 +63,6 @@
     }
 
     &__menu-item {
-        $menu-item: &;
         position: relative;
         display: flex;
         align-items: center;
@@ -77,14 +74,14 @@
         cursor: pointer;
 
         &--selected {
-            @extend #{$menu-item};
+            @extend %dropdown-menu__menu-item;
             color: antimatter-color-scheme.$white;
             background-color: antimatter-color-scheme.$primary;
             box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
         }
 
         &--disabled {
-            @extend #{$menu-item};
+            @extend %dropdown-menu__menu-item;
             color: antimatter-color-scheme.$gray--a65;
             cursor: not-allowed;
             font-style: italic;
@@ -130,11 +127,11 @@
     }
 
     &--open {
-        @extend #{$dropdown-menu};
+        @extend %dropdown-menu;
     }
 
     &--closed {
-        @extend #{$dropdown-menu};
+        @extend %dropdown-menu;
 
         @media (hover: hover) {
 
@@ -143,11 +140,11 @@
                 box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
                 background-color: antimatter-color-scheme.$primary--a10;
 
-                #{$dropdown-menu}__caret {
+                .antimatter-dropdown-menu-default__caret {
                     border-top-color: antimatter-color-scheme.$white;
                 }
 
-                #{$dropdown-menu}__placeholder {
+                .antimatter-dropdown-menu-default__placeholder {
                     color: antimatter-color-scheme.$white;
                 }
             }

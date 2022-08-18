@@ -6,7 +6,7 @@ import {PanelProps} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Panel({
-    className = "antimatter-panel-default",
+    className,
     title = String.EMPTY,
     children
 }: PanelProps): JSX.Element

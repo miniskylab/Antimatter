@@ -9,7 +9,6 @@ import {DownloadButtonProps, State} from "./model";
 export class DownloadButton extends React.Component<DownloadButtonProps, State>
 {
     static defaultProps: Partial<DownloadButtonProps> = {
-        className: "antimatter-download-button-default",
         fileName: String.EMPTY,
         href: String.EMPTY,
         disabled: false

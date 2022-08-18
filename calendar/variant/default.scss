@@ -14,8 +14,6 @@
         display: flex;
 
         &__navigator {
-            $navigator: &;
-
             display: flex;
             justify-content: center;
             align-items: center;
@@ -28,7 +26,7 @@
             cursor: pointer;
 
             &--disabled {
-                @extend #{$navigator};
+                @extend %calendar__header__navigator;
                 color: antimatter-color-scheme.$white--a10;
                 cursor: not-allowed;
             }
@@ -58,8 +56,6 @@
         }
 
         &__headline {
-            $headline: &;
-
             display: inline-flex;
             justify-content: center;
             align-items: center;
@@ -71,7 +67,7 @@
             cursor: pointer;
 
             &--disabled {
-                @extend #{$headline};
+                @extend %calendar__header__headline;
                 color: antimatter-color-scheme.$gainsboro;
                 cursor: default;
             }
@@ -90,8 +86,6 @@
     }
 
     &__date-view {
-        $date-view: &;
-
         display: flex;
         flex-wrap: wrap;
 
@@ -114,7 +108,7 @@
         }
 
         &__week-of-year {
-            @extend #{$date-view}__week-no;
+            @extend %calendar__date-view__week-no;
             font-size: antimatter-typography.$font-size--10px;
         }
 
@@ -146,32 +140,30 @@
         }
 
         &__today {
-            @extend #{$date-view}__date;
+            @extend %calendar__date-view__date;
             border-color: antimatter-color-scheme.$neutral;
         }
 
         &__date-container {
-            $date-container: &;
-
             cursor: pointer;
 
             &--extraneous {
-                @extend #{$date-container};
+                @extend %calendar__date-view__date-container;
                 color: antimatter-color-scheme.$white--a10;
             }
 
             &--highlighted {
-                @extend #{$date-container};
+                @extend %calendar__date-view__date-container;
 
-                #{$date-view}__date {
+                .antimatter-calendar-default__date-view__date {
                     font-weight: antimatter-typography.$font-weight--bold;
                 }
             }
 
             &--selected {
-                @extend #{$date-container};
+                @extend %calendar__date-view__date-container;
 
-                #{$date-view}__date {
+                .antimatter-calendar-default__date-view__date {
                     font-weight: antimatter-typography.$font-weight--bold;
                     color: antimatter-color-scheme.$white;
                     background-color: antimatter-color-scheme.$primary;
@@ -182,7 +174,7 @@
 
                 &:not(&--selected):hover {
 
-                    #{$date-view}__date {
+                    .antimatter-calendar-default__date-view__date {
                         color: antimatter-color-scheme.$white;
                         border-color: antimatter-color-scheme.$primary;
                         background-color: antimatter-color-scheme.$primary--a10;
@@ -190,7 +182,7 @@
 
                     &:active {
 
-                        #{$date-view}__date {
+                        .antimatter-calendar-default__date-view__date {
                             font-weight: antimatter-typography.$font-weight--bold;
                             color: antimatter-color-scheme.$white;
                             border-color: antimatter-color-scheme.$primary;
@@ -202,22 +194,20 @@
         }
 
         &__today-container {
-            $today-container: &;
-
             cursor: pointer;
 
             &--highlighted {
-                @extend #{$today-container};
+                @extend %calendar__date-view__today-container;
 
-                #{$date-view}__today {
+                .antimatter-calendar-default__date-view__today {
                     font-weight: antimatter-typography.$font-weight--bold;
                 }
             }
 
             &--selected {
-                @extend #{$today-container};
+                @extend %calendar__date-view__today-container;
 
-                #{$date-view}__today {
+                .antimatter-calendar-default__date-view__today {
                     font-weight: antimatter-typography.$font-weight--bold;
                     color: antimatter-color-scheme.$white;
                     border-color: antimatter-color-scheme.$primary;
@@ -229,7 +219,7 @@
 
                 &:not(&--selected):hover {
 
-                    #{$date-view}__today {
+                    .antimatter-calendar-default__date-view__today {
                         color: antimatter-color-scheme.$white;
                         border-color: antimatter-color-scheme.$primary;
                         background-color: antimatter-color-scheme.$primary--a10;
@@ -237,7 +227,7 @@
 
                     &:active {
 
-                        #{$date-view}__today {
+                        .antimatter-calendar-default__date-view__today {
                             font-weight: antimatter-typography.$font-weight--bold;
                             color: antimatter-color-scheme.$white;
                             border-color: antimatter-color-scheme.$primary;
@@ -273,8 +263,6 @@
         justify-content: space-between;
 
         &__grid-cell {
-            $grid-cell: &;
-
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -287,12 +275,12 @@
             cursor: pointer;
 
             &--extraneous {
-                @extend #{$grid-cell};
+                @extend %calendar__month-view__grid-cell;
                 color: antimatter-color-scheme.$white--a10;
             }
 
             &--selected {
-                @extend #{$grid-cell};
+                @extend %calendar__month-view__grid-cell;
                 font-weight: antimatter-typography.$font-weight--bold;
                 border-color: antimatter-color-scheme.$neutral;
             }
@@ -320,8 +308,6 @@
         justify-content: space-between;
 
         &__grid-cell {
-            $grid-cell: &;
-
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -334,18 +320,18 @@
             cursor: pointer;
 
             &--extraneous {
-                @extend #{$grid-cell};
+                @extend %calendar__year-view__grid-cell;
                 color: antimatter-color-scheme.$white--a10;
             }
 
             &--selected {
-                @extend #{$grid-cell};
+                @extend %calendar__year-view__grid-cell;
                 font-weight: antimatter-typography.$font-weight--bold;
                 border-color: antimatter-color-scheme.$neutral;
             }
 
             &--empty {
-                @extend #{$grid-cell};
+                @extend %calendar__year-view__grid-cell;
                 pointer-events: none;
             }
 
@@ -371,8 +357,6 @@
         justify-content: space-around;
 
         &__button {
-            $button: &;
-
             display: flex;
             justify-content: center;
             align-items: center;
@@ -396,7 +380,7 @@
             }
 
             &--disabled {
-                @extend #{$button};
+                @extend %calendar__controls__button;
                 color: antimatter-color-scheme.$white--a10;
                 cursor: not-allowed;
             }

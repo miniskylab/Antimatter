@@ -8,9 +8,7 @@ import {Props} from "./model";
  */
 export class Component extends React.Component<Props>
 {
-    static defaultProps: Partial<Props> = {
-        className: "year-view"
-    };
+    static defaultProps: Partial<Props> = {};
 
     render(): JSX.Element
     {

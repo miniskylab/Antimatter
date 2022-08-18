@@ -4,7 +4,7 @@ import {IsOptional} from "class-validator";
 export class ImageUrl
 {
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNotEmpty()
     @IsString()
@@ -13,7 +13,7 @@ export class ImageUrl
 
 
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNotEmpty()
     @IsString()
@@ -22,7 +22,7 @@ export class ImageUrl
 
 
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNotEmpty()
     @IsString()
@@ -31,7 +31,7 @@ export class ImageUrl
 
 
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNotEmpty()
     @IsString()
@@ -40,7 +40,7 @@ export class ImageUrl
 
 
     /**
-     *
+     * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsNotEmpty()
     @IsString()

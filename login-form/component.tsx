@@ -9,7 +9,7 @@ import {LoginFormProps} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function LoginForm({
-    className = "antimatter-login-form-default",
+    className,
     logo,
     title,
     description,
@@ -28,14 +28,14 @@ export function LoginForm({
             <Label className={`${className}__title`} text={title}/>
             <Label className={`${className}__description`} text={description}/>
             <InputField
-                className={`${className}__username-input-field`}
+                className={`${className}__input-field`}
                 icon={usernameInputField.icon}
                 placeholder={usernameInputField.placeholder}
                 value={username}
                 onChange={newValue => { setUsername(newValue); }}
             />
             <InputField
-                className={`${className}__password-input-field`}
+                className={`${className}__input-field`}
                 icon={passwordInputField.icon}
                 placeholder={passwordInputField.placeholder}
                 isPasswordField={true}

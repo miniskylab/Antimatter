@@ -7,7 +7,7 @@ import {HighlightedParagraphProps} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function HighlightedParagraph({
-    className = "antimatter-highlighted-paragraph-default",
+    className,
     icon,
     title,
     content

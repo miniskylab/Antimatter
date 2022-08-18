@@ -60,8 +60,6 @@
     }
 
     &__knob {
-        $knob: &;
-
         display: flex;
         justify-content: center;
         align-items: center;
@@ -76,11 +74,11 @@
         touch-action: none;
 
         &--start {
-            @extend #{$knob};
+            @extend %circular-slider__knob;
         }
 
         &--end {
-            @extend #{$knob};
+            @extend %circular-slider__knob;
         }
     }
 
@@ -93,8 +91,6 @@
         pointer-events: none;
 
         &__pip {
-            $pip: &;
-
             display: inline;
             position: absolute;
             width: 2px;
@@ -105,24 +101,22 @@
             transition: background-color 0.1s linear;
 
             &--milestone {
-                @extend #{$pip};
+                @extend %circular-slider__pips__pip;
                 height: 16px;
             }
 
             &--highlighted {
-                @extend #{$pip};
+                @extend %circular-slider__pips__pip;
                 background-color: antimatter-color-scheme.$primary;
             }
 
             &--highlighted-milestone {
-                @extend #{$pip}--highlighted;
-                @extend #{$pip}--milestone;
+                @extend %circular-slider__pips__pip--highlighted;
+                @extend %circular-slider__pips__pip--milestone;
             }
         }
 
         &__label {
-            $label: &;
-
             position: absolute;
             display: inline;
             width: 30px;
@@ -136,7 +130,7 @@
             transition: color 0.1s linear;
 
             &--highlighted {
-                @extend #{$label};
+                @extend %circular-slider__pips__label;
                 color: antimatter-color-scheme.$primary;
             }
         }

@@ -25,8 +25,6 @@
     }
 
     &__record {
-        $record: &;
-
         display: flex;
         justify-content: center;
         align-items: center;
@@ -35,7 +33,7 @@
         border-top: 1px solid antimatter-color-scheme.$background;
 
         &--interactable {
-            @extend #{$record};
+            @extend %data-table__record;
             cursor: pointer;
 
             @media (hover: hover) {
@@ -47,8 +45,6 @@
         }
 
         &__control-box {
-            $control-box: &;
-
             display: inline-flex;
             align-items: center;
             justify-content: space-between;
@@ -58,7 +54,7 @@
             box-sizing: border-box;
 
             &--active {
-                @extend #{$control-box};
+                @extend %data-table__record__control-box;
                 background-color: antimatter-color-scheme.$accent--a10;
                 border-top: 1px solid antimatter-color-scheme.$accent;
                 border-bottom: 1px solid antimatter-color-scheme.$accent;
@@ -68,8 +64,6 @@
         }
 
         &__ok-button {
-            $button: &;
-
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -82,19 +76,19 @@
             cursor: pointer;
 
             &--disabled {
-                @extend #{$button};
+                @extend %data-table__record__ok-button;
                 opacity: 0.65;
                 pointer-events: none;
                 border-color: antimatter-color-scheme.$background;
             }
 
             &--circular {
-                @extend #{$button};
+                @extend %data-table__record__ok-button;
                 border-radius: 50%;
 
                 &--disabled {
-                    @extend #{$button}--circular;
-                    @extend #{$button}--disabled;
+                    @extend %data-table__record__ok-button--circular;
+                    @extend %data-table__record__ok-button--disabled;
                 }
             }
 
@@ -131,8 +125,6 @@
         }
 
         &__cancel-button {
-            $button: &;
-
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -145,19 +137,19 @@
             cursor: pointer;
 
             &--disabled {
-                @extend #{$button};
+                @extend %data-table__record__cancel-button;
                 opacity: 0.65;
                 pointer-events: none;
                 border-color: antimatter-color-scheme.$background;
             }
 
             &--circular {
-                @extend #{$button};
+                @extend %data-table__record__cancel-button;
                 border-radius: 50%;
 
                 &--disabled {
-                    @extend #{$button}--circular;
-                    @extend #{$button}--disabled;
+                    @extend %data-table__record__cancel-button--circular;
+                    @extend %data-table__record__cancel-button--disabled;
                 }
             }
 
@@ -194,8 +186,6 @@
         }
 
         &__delete-button {
-            $button: &;
-
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -208,19 +198,19 @@
             cursor: pointer;
 
             &--disabled {
-                @extend #{$button};
+                @extend %data-table__record__delete-button;
                 opacity: 0.65;
                 pointer-events: none;
                 border-color: antimatter-color-scheme.$background;
             }
 
             &--circular {
-                @extend #{$button};
+                @extend %data-table__record__delete-button;
                 border-radius: 50%;
 
                 &--disabled {
-                    @extend #{$button}--circular;
-                    @extend #{$button}--disabled;
+                    @extend %data-table__record__delete-button--circular;
+                    @extend %data-table__record__delete-button--disabled;
                 }
             }
 

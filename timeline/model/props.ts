@@ -6,19 +6,17 @@ import {Event} from "../components";
 import {BootstrapEvent} from "./bootstrap-event";
 
 @ComponentName("Timeline")
-export class Props extends ComponentProps
+export class TimelineProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type Event.Props[]
      */
     @ArrayNotEmpty()
     @IsArray()
     @IsDefined()
     @ValidateNested()
     @Type(() => Event.Props)
-    readonly events: Omit<Event.Props, "position">[];
+    readonly events: Event.Props[];
 
 
     /**

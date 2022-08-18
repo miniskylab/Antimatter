@@ -7,7 +7,7 @@ import {ButtonProps, Target} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Button({
-    className = "antimatter-button-outlined-circular",
+    className,
     label,
     target = Target.SameFrame,
     disabled = false,

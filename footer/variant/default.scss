@@ -1,0 +1,15 @@
+@use "~@miniskylab/antimatter-typography";
+@use "~@miniskylab/antimatter-color-scheme";
+
+%footer, .antimatter-footer-default {
+    width: 100%;
+    min-width: 300px;
+    line-height: 28px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: antimatter-typography.$font-size--16px;
+    font-weight: antimatter-typography.$font-weight--bold;
+    color: antimatter-color-scheme.$white;
+    background-color: antimatter-color-scheme.$background;
+    text-align: center;
+}

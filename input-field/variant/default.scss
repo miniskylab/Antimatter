@@ -24,8 +24,6 @@
     }
 
     &__placeholder {
-        $placeholder: &;
-
         position: absolute;
         left: 12px;
         display: inline-flex;
@@ -38,14 +36,12 @@
         pointer-events: none;
 
         &--shrunk {
-            @extend #{$placeholder};
+            @extend %input-field__placeholder;
             transform: scale(0.72) translateY(-12px);
         }
     }
 
     &__text-box {
-        $text-box: &;
-
         width: 100%;
         height: 100%;
         border: none;
@@ -58,7 +54,7 @@
         transition: padding ease-out 100ms;
 
         &--shrunk {
-            @extend #{$text-box};
+            @extend %input-field__text-box;
             padding-top: 20px;
             padding-bottom: 5px;
         }

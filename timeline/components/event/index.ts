@@ -1,3 +1,2 @@
-export {Props, Position} from "./model";
+export {EventProps as Props} from "./model";
 export {Component} from "./component";
-export * as Variant from "./variant";

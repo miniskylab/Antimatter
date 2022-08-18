@@ -11,19 +11,17 @@ import {Props} from "./model";
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Component(props: Props): JSX.Element
+export function Component({
+    className,
+    id,
+    cells = [],
+    editable = false,
+    onClick,
+    onSaveButtonClick,
+    onCancelButtonClick,
+    onDeleteButtonClick
+}: Props): JSX.Element
 {
-    const {
-        className = "record",
-        id,
-        cells = [],
-        editable = false,
-        onClick,
-        onSaveButtonClick,
-        onCancelButtonClick,
-        onDeleteButtonClick
-    } = props;
-
     return (
         <div
             className={`${className}${onClick ? "--interactable" : String.EMPTY}`}
@@ -52,7 +50,7 @@ export function Component(props: Props): JSX.Element
                         <Button
                             className={`${className}__ok-butotn`}
                             disabled={!editable}
-                            icon={{name: Icomoon.CheckMark}}
+                            icon={Icomoon.CheckMark}
                             onClick={mouseEvent =>
                             {
                                 mouseEvent.stopPropagation();
@@ -65,7 +63,7 @@ export function Component(props: Props): JSX.Element
                         <Button
                             className={`${className}__cancel-butotn`}
                             disabled={!editable}
-                            icon={{name: Icomoon.XMark}}
+                            icon={Icomoon.XMark}
                             onClick={mouseEvent =>
                             {
                                 mouseEvent.stopPropagation();
@@ -78,7 +76,7 @@ export function Component(props: Props): JSX.Element
                         <Button
                             className={`${className}__delete-butotn`}
                             disabled={!editable}
-                            icon={{name: Icomoon.TrashCan}}
+                            icon={Icomoon.TrashCan}
                             onClick={mouseEvent =>
                             {
                                 mouseEvent.stopPropagation();

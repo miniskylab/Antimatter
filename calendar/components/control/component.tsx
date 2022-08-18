@@ -7,7 +7,7 @@ import {Props} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Component({
-    className = "controls",
+    className,
     onTodayButtonClick,
     onSelectionButtonClick
 }: Props): JSX.Element

@@ -1,50 +1,38 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Html} from "@miniskylab/antimatter-html";
-import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
-import {Spacer} from "@miniskylab/antimatter-spacer";
+import {Icon} from "@miniskylab/antimatter-icon";
+import {Label} from "@miniskylab/antimatter-label";
+import {Image} from "@miniskylab/antimatter-model";
 import React from "react";
-import {Props} from "./model";
-import * as Variant from "./variant";
+import {CardProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Component(props: Props): JSX.Element
+export function Component({
+    className,
+    image,
+    title,
+    description,
+    ctaButtons = []
+}: CardProps): JSX.Element
 {
-    const {
-        variant = Variant.ThirtyThreePercentWide,
-        icon,
-        name = String.EMPTY,
-        description = String.EMPTY,
-        ctaButtons = []
-    } = props;
-
     return (
-        <div className={variant["card"]}>
-            {
-                Object.values<string>(IconName).includes(icon)
-                    ? <Icon className={variant["card__icon"]} iconName={icon}/>
-                    : <img className={variant["card__icon"]} src={icon} alt={""}/>
-            }
-            <div className={variant["card__name"]}>{name}</div>
-            <div className={variant["card__description"]}>{Html.render(description)}</div>
+        <div className={className}>
+            {Image.isAssignableFrom(image) && <img className={`${className}__image`} src={image.url.original} alt={image.altText}/>}
+            {typeof image === "string" && <Icon className={`${className}__image`} name={image}/>}
+            <Label className={`${className}__title`} text={title}/>
+            <Label className={`${className}__description`} text={description}/>
             {ctaButtons && ctaButtons.length > 0 && (
-                <>
-                    <Spacer variant={Variant.Spacer.Horizontal15px}/>
-                    {ctaButtons.map((ctaButton, i) => (
+                <div className={`${className}__cta-button-container`}>
+                    {ctaButtons.map((buttonProps, i) => (
                         <Button
                             key={i}
-                            variant={ctaButton.variant ?? Variant.Button.Cta}
-                            icon={ctaButton.icon}
-                            text={ctaButton.text}
-                            href={ctaButton.href}
-                            target={ctaButton.target}
-                            disabled={ctaButton.disabled}
+                            className={`${className}__cta-button`}
                             onClick={undefined}
+                            {...buttonProps}
                         />
                     ))}
-                    <Spacer variant={Variant.Spacer.Horizontal5px}/>
-                </>
+                </div>
             )}
         </div>
     );

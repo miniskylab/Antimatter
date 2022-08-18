@@ -9,7 +9,6 @@ import {DonutChartProps} from "./model";
 export class DonutChart extends React.Component<DonutChartProps>
 {
     static defaultProps: Partial<DonutChartProps> = {
-        className: "antimatter-donut-chart-default",
         pctValue: 0
     };
 

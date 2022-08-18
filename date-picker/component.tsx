@@ -12,7 +12,6 @@ import {DatePickerProps, State} from "./model";
 export class DatePicker extends React.Component<DatePickerProps, State>
 {
     static defaultProps: Partial<DatePickerProps> = {
-        className: "antimatter-date-picker-default",
         autoFocus: false,
         disableTyping: false,
         placeholder: String.EMPTY

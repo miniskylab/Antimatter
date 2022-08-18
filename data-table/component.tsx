@@ -9,7 +9,6 @@ import {DataTableProps} from "./model";
 export class DataTable extends React.Component<DataTableProps>
 {
     static defaultProps: Partial<DataTableProps> = {
-        className: "antimatter-data-table-default",
         headerRowCells: [],
         records: [],
         rowCountPerPage: 15,

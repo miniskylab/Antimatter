@@ -5,17 +5,15 @@ import {ValidateNested} from "class-validator";
 import {Card} from "../components";
 
 @ComponentName("Topic Cards")
-export class Props extends ComponentProps
+export class TopicCardsProps extends ComponentProps
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type Card.Props[]
      */
     @ArrayNotEmpty()
     @IsArray()
     @IsDefined()
     @ValidateNested()
     @Type(() => Card.Props)
-    readonly cards: Card.Props[];
+    readonly cards: Omit<Card.Props, "className">[];
 }

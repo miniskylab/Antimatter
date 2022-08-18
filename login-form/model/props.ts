@@ -1,7 +1,7 @@
 import {ButtonProps} from "@miniskylab/antimatter-button";
 import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
 import {InputFieldProps} from "@miniskylab/antimatter-input-field";
-import {Child, ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {Type} from "class-transformer";
 import {ValidateNested} from "class-validator";
 
@@ -41,7 +41,7 @@ export class LoginFormProps extends ComponentProps
     @IsDefined()
     @ValidateNested()
     @Type(() => InputFieldProps)
-    readonly usernameInputField: Pick<Child<InputFieldProps>, "icon" | "placeholder">;
+    readonly usernameInputField: Pick<InputFieldProps, "icon" | "placeholder">;
 
 
     /**
@@ -50,7 +50,7 @@ export class LoginFormProps extends ComponentProps
     @IsDefined()
     @ValidateNested()
     @Type(() => InputFieldProps)
-    readonly passwordInputField: Pick<Child<InputFieldProps>, "icon" | "placeholder">;
+    readonly passwordInputField: Pick<InputFieldProps, "icon" | "placeholder">;
 
 
     /**
@@ -59,7 +59,7 @@ export class LoginFormProps extends ComponentProps
     @IsDefined()
     @ValidateNested()
     @Type(() => ButtonProps)
-    readonly loginButton: Pick<Child<ButtonProps>, "label">;
+    readonly loginButton: Pick<ButtonProps, "label">;
 
 
     /**
