@@ -1,4 +1,5 @@
-import {Icon, IconName} from "@miniskylab/antimatter-icon-legacy";
+import {Icon} from "@miniskylab/antimatter-icon";
+import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import React, {createRef, RefObject} from "react";
 import {Record} from "./components";
 import {DataTableProps} from "./model";
@@ -113,7 +114,7 @@ export class DataTable extends React.Component<DataTableProps>
             {
                 rows.push(
                     <div key={"add-new-row"} className={`${props.className}__add-new-row`}>
-                        <Icon iconName={IconName.PlusCircle} className={`${props.className}__add-new-icon`}/>
+                        <Icon name={Icomoon.PlusCircle} className={`${props.className}__add-new-icon`}/>
                         <div className={`${props.className}__add-new-label`}>{props.addNewRowText}</div>
                     </div>
                 );

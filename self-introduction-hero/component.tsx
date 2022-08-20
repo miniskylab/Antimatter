@@ -58,10 +58,7 @@ export function SelfIntroductionHero({
             {downloadButton && (
                 <DownloadButton
                     className={`${className}__download-button`}
-                    href={downloadButton.href}
-                    icon={downloadButton.icon}
-                    label={downloadButton.label}
-                    fileName={downloadButton.fileName}
+                    {...downloadButton}
                 />
             )}
             <div className={`${className}__mobile-section`}>

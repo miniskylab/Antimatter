@@ -15,5 +15,5 @@ export class TopicCardsProps extends ComponentProps
     @IsDefined()
     @ValidateNested()
     @Type(() => Card.Props)
-    readonly cards: Omit<Card.Props, "className">[];
+    readonly cards: Omit<Card.Props, keyof ComponentProps>[];
 }
