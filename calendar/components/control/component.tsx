@@ -22,7 +22,7 @@ export function Component({
         <div className={className}>
             {onTodayButtonClick !== undefined && (
                 <Button
-                    className={`${className}__button`}
+                    className={"Calendar-Controls-Button"}
                     disabled={onTodayButtonClick === null}
                     icon={Icomoon.Flag}
                     label={"Today"}
@@ -31,7 +31,7 @@ export function Component({
             )}
             {onSelectionButtonClick !== undefined && (
                 <Button
-                    className={`${className}__button`}
+                    className={"Calendar-Controls-Button"}
                     disabled={onSelectionButtonClick === null}
                     icon={Icomoon.Location}
                     label={"Selection"}

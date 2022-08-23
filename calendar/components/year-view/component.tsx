@@ -43,17 +43,17 @@ export class Component extends React.Component<Props>
     {
         const outOfSupportedYearRange = year < GregorianCalendar.MIN_YEAR || GregorianCalendar.MAX_YEAR < year;
         const modifier = outOfSupportedYearRange
-            ? "--empty"
+            ? "--Empty"
             : year === this.props.selectedYear
-                ? "--selected"
+                ? "--Selected"
                 : year < this.props.displayingDecade || nextDecade <= year
-                    ? "--extraneous"
+                    ? "--Extraneous"
                     : String.EMPTY;
 
         return (
             <Button
                 key={year}
-                className={`${this.props.className}__grid-cell${modifier}`}
+                className={`Calendar-YearView-GridCell${modifier}`}
                 label={outOfSupportedYearRange ? String.EMPTY : year.toString()}
                 onClick={outOfSupportedYearRange ? undefined : (): void => { this.props.onYearClick(year); }}
             />

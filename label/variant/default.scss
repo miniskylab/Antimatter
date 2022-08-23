@@ -1,10 +1,19 @@
+@use "sass:string";
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-%label, .antimatter-label-default {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    font-size: antimatter-typography.$font-size--14px;
-    color: antimatter-color-scheme.$white;
+@mixin variant($class-name) {
+    $Selector: ".#{$class-name}";
+    $Label: "%#{$class-name}";
+    @at-root {
+        #{$Label}, #{$Selector} {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    %-#{$class-name}, #{$Selector} {
+        @content;
+    }
 }

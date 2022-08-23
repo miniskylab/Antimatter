@@ -21,7 +21,7 @@ export class Component extends React.Component<Props>
 
         return (
             <div className={this.props.className}>
-                <Label className={`${this.props.className}__week-no`} text={"#"}/>
+                <Label className={"Calendar-DateView-WeekNo"} text={"#"}/>
                 {this.renderDaysOfWeek()}
                 {this.renderDates()}
             </div>
@@ -32,7 +32,7 @@ export class Component extends React.Component<Props>
     {
         return (
             ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map(shortDayName => (
-                <Label key={shortDayName} className={`${this.props.className}__day-of-week`} text={shortDayName}/>
+                <Label key={shortDayName} className={"Calendar-DateView-DayOfWeek"} text={shortDayName}/>
             ))
         );
     }
@@ -57,7 +57,7 @@ export class Component extends React.Component<Props>
             week = [
                 <Label
                     key={"#"}
-                    className={`${this.props.className}__week-of-year`}
+                    className={"Calendar-DateView-WeekOfYear"}
                     text={GregorianCalendar.getWeekNumber(dateViewData[weekNo][thursday]).toString()}
                 />
             ];
@@ -75,11 +75,11 @@ export class Component extends React.Component<Props>
                     >
                         {
                             isToday
-                                ? <div className={`${this.props.className}__today`}>
-                                    <Label className={`${this.props.className}__today-text`} text={"Today"}/>
-                                    <Label className={`${this.props.className}__today-number`} text={date.getDate().toString()}/>
+                                ? <div className={`${this.props.className}__Today`}>
+                                    <Label className={"Calendar-DateView-TodayText"} text={"Today"}/>
+                                    <Label className={"Calendar-DateView-TodayNumber"} text={date.getDate().toString()}/>
                                 </div>
-                                : <Label className={`${this.props.className}__date`} text={date.getDate().toString()}/>
+                                : <div className={`${this.props.className}__Date`}>{date.getDate().toString()}</div>
                         }
                     </div>
                 );
@@ -95,34 +95,34 @@ export class Component extends React.Component<Props>
     {
         if (GregorianCalendar.isEqualDate(date, this.today))
         {
-            const dateClassName = `${this.props.className}__today-container`;
+            const dateClassName = `${this.props.className}__TodayContainer`;
             if (GregorianCalendar.isEqualDate(date, this.props.selectedDate))
             {
-                return `${dateClassName}--selected`;
+                return `${dateClassName}--Selected`;
             }
 
             if (this.isHighlightedDate(date))
             {
-                return `${dateClassName}--highlighted`;
+                return `${dateClassName}--Highlighted`;
             }
 
             return dateClassName;
         }
 
-        const dateClassName = `${this.props.className}__date-container`;
+        const dateClassName = `${this.props.className}__DateContainer`;
         if (GregorianCalendar.isEqualDate(date, this.props.selectedDate))
         {
-            return `${dateClassName}--selected`;
+            return `${dateClassName}--Selected`;
         }
 
         if (this.isHighlightedDate(date))
         {
-            return `${dateClassName}--highlighted`;
+            return `${dateClassName}--Highlighted`;
         }
 
         if (!GregorianCalendar.isEqualMonth(date, this.props.displayingMonth))
         {
-            return `${dateClassName}--extraneous`;
+            return `${dateClassName}--Extraneous`;
         }
 
         return dateClassName;

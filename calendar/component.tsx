@@ -71,7 +71,7 @@ export class Calendar extends React.Component<CalendarProps, State>
     {
         return (
             <Header.Component
-                className={`${this.props.className}__header`}
+                className={"Calendar-Header"}
                 headline={this.getHeadline()}
                 onPrevClick={
                     canNavigateBackward(this.state.view, this.state.timeFrame)
@@ -96,20 +96,20 @@ export class Calendar extends React.Component<CalendarProps, State>
     {
         return (
             <Transition
-                className={`${this.props.className}__transition`}
+                className={"Calendar-Transition"}
                 childIdentifier={`${this.state.view}-${this.state.timeFrame.monthAndYear}-${this.state.timeFrame.decade}`}
                 classNames={{
-                    enter: `${this.props.className}__transition--${this.state.transitionDirection}-in-start`,
-                    enterActive: `${this.props.className}__transition--${this.state.transitionDirection}-in-in-progress`,
-                    exit: `${this.props.className}__transition--${this.state.transitionDirection}-out-start`,
-                    exitActive: `${this.props.className}__transition--${this.state.transitionDirection}-out-in-progress`
+                    enter: `Calendar-Transition--${this.state.transitionDirection}InStart`,
+                    enterActive: `Calendar-Transition--${this.state.transitionDirection}InInProgress`,
+                    exit: `Calendar-Transition--${this.state.transitionDirection}OutStart`,
+                    exitActive: `Calendar-Transition--${this.state.transitionDirection}OutInProgress`
                 }}
             >
                 {
                     this.state.view === View.Date &&
                     (
                         <DateView.Component
-                            className={`${this.props.className}__date-view`}
+                            className={"Calendar-DateView"}
                             selectedDate={this.props.selectedDate}
                             displayingMonth={this.state.timeFrame.monthAndYear}
                             onDateClick={this.onDateClick.bind(this)}
@@ -117,14 +117,14 @@ export class Calendar extends React.Component<CalendarProps, State>
                     ) || this.state.view === View.Month &&
                     (
                         <MonthView.Component
-                            className={`${this.props.className}__month-view`}
+                            className={"Calendar-MonthView"}
                             displayingYear={this.state.timeFrame.monthAndYear.getFullYear()}
                             onMonthClick={this.onMonthClick.bind(this)}
                         />
                     ) || this.state.view === View.Year &&
                     (
                         <YearView.Component
-                            className={`${this.props.className}__year-view`}
+                            className={"Calendar-YearView"}
                             displayingDecade={this.state.timeFrame.decade}
                             onYearClick={this.onYearClick.bind(this)}
                         />
@@ -138,7 +138,7 @@ export class Calendar extends React.Component<CalendarProps, State>
     {
         return (
             <Control.Component
-                className={`${this.props.className}__controls`}
+                className={"Calendar-Controls"}
                 onTodayButtonClick={
                     this.state.view !== View.Date || !this.isWithinTimeFrame(new Date())
                         ? () => { this.goToToday(); }

@@ -17,19 +17,19 @@ export function Component({
     return (
         <div className={className}>
             <Button
-                className={`${className}__navigator`}
+                className={"Calendar-Header-Navigator"}
                 icon={Icomoon.ChevronLeft}
                 disabled={!onPrevClick}
                 onClick={onPrevClick}
             />
             <Button
-                className={`${className}__headline`}
+                className={"Calendar-Header-Headline"}
                 label={headline}
                 disabled={!onHeadlineClick}
                 onClick={onHeadlineClick}
             />
             <Button
-                className={`${className}__navigator`}
+                className={"Calendar-Header-Navigator"}
                 icon={Icomoon.ChevronRight}
                 disabled={!onNextClick}
                 onClick={onNextClick}

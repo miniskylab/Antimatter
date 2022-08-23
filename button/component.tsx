@@ -22,12 +22,12 @@ export function Button({
             target={target}
             href={disabled ? undefined : href}
             rel={target === Target.NewWindowOrTab ? "noopener" : undefined}
-            className={`${className}${disabled ? "--disabled" : String.EMPTY}`}
+            className={`${className}${disabled ? "--Disabled" : String.EMPTY}`}
             onClick={!disabled && onClick ? onClick : undefined}
             onPointerDown={onPointerDown}
         >
-            {icon && <Icon className={`${className}__icon`} name={icon}/>}
-            {label && <Label className={`${className}__label`} text={label}/>}
+            {icon && <Icon className={"Button-Icon"} name={icon}/>}
+            {label && <Label className={"Button-Label"} text={label}/>}
         </a>
     );
 }

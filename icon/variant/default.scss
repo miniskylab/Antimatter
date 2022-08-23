@@ -1,3 +1,17 @@
-%icon, .antimatter-icon-default {
-    display: block;
+@use "sass:string";
+
+@mixin variant($class-name) {
+    $Selector: ".#{$class-name}";
+    $Icon: "%#{$class-name}";
+    @at-root {
+        #{$Icon}, #{$Selector} {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    %-#{$class-name}, #{$Selector} {
+        @content;
+    }
 }

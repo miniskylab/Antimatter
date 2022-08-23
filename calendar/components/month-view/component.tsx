@@ -50,15 +50,15 @@ export class Component extends React.Component<Props>
     private renderGridCell(month: Date): JSX.Element
     {
         const modifier = GregorianCalendar.isEqualMonth(month, this.props.selectedMonth)
-            ? "--selected"
+            ? "--Selected"
             : month.getFullYear() !== this.props.displayingYear
-                ? "--extraneous"
+                ? "--Extraneous"
                 : String.EMPTY;
 
         return (
             <Button
                 key={`${month.getMonth()}${month.getFullYear()}`}
-                className={`${this.props.className}__grid-cell${modifier}`}
+                className={`Calendar-MonthView-GridCell${modifier}`}
                 label={GregorianCalendar.getShortMonthName(month.getMonth())}
                 onClick={(): void => { this.props.onMonthClick(new Date(month)); }}
             />

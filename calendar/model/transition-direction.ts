@@ -1,8 +1,8 @@
 export enum TransitionDirection
 {
-    None = "none",
-    Forward = "forward",
-    Backward = "backward",
-    Inward = "inward",
-    Outward = "outward"
+    None = "None",
+    Forward = "Forward",
+    Backward = "Backward",
+    Inward = "Inward",
+    Outward = "Outward"
 }
