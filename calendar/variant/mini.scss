@@ -5,10 +5,9 @@
 @use "~@miniskylab/antimatter-button/variant/outlined-circular" as antimatter-button-outlined-circular;
 @use "~@miniskylab/antimatter-button/variant/outlined-rectangular" as antimatter-button-outlined-rectangular;
 
-@mixin variant($class-name) {
-    $Calendar: ".#{$class-name}";
+@mixin variant($Calendar) {
     @at-root {
-        %-Calendar, #{$Calendar} {
+        #{$Calendar} {
             display: inline-block;
             width: 252px;
             text-align: center;
@@ -20,19 +19,16 @@
             .Calendar-Header {
                 display: flex;
 
-                $Calendar-Header-Navigator: "Calendar-Header-Navigator";
+                $Calendar-Header-Navigator: ".Calendar-Header-Navigator";
                 @include antimatter-button-outlined-circular.variant($Calendar-Header-Navigator) {
                     display: flex;
                     width: 36px;
                     height: 36px;
                     border: 3px solid antimatter-color-scheme.$transparent;
                     color: antimatter-color-scheme.$neutral;
-                    font-size: antimatter-typography.$font-size--18px;
 
-                    &--Disabled {
-                        @extend %-#{$Calendar-Header-Navigator};
-                        color: antimatter-color-scheme.$white--a10;
-                        cursor: not-allowed;
+                    .Button-Icon {
+                        font-size: antimatter-typography.$font-size--18px;
                     }
 
                     &:first-of-type {
@@ -46,12 +42,10 @@
                     @media (hover: hover) {
 
                         &:not(&--Disabled):hover {
-                            color: antimatter-color-scheme.$white;
                             border-color: antimatter-color-scheme.$primary;
                             background-color: antimatter-color-scheme.$primary--a10;
 
                             &:active {
-                                color: antimatter-color-scheme.$white;
                                 border-color: antimatter-color-scheme.$primary;
                                 background-color: antimatter-color-scheme.$primary;
                             }
@@ -59,7 +53,7 @@
                     }
                 }
 
-                $Calendar-Header-Headline: "Calendar-Header-Headline";
+                $Calendar-Header-Headline: ".Calendar-Header-Headline";
                 @include antimatter-button-outlined-rectangular.variant($Calendar-Header-Headline) {
                     flex-grow: 1;
                     min-width: auto;
@@ -68,12 +62,16 @@
                     line-height: 23px;
                     padding: 0;
                     border: none;
-                    font-size: antimatter-typography.$font-size--18px;
                     font-weight: antimatter-typography.$font-weight--bold;
                     color: antimatter-color-scheme.$gainsboro;
 
+                    .Button-Label {
+                        font-size: antimatter-typography.$font-size--18px;
+                    }
+
                     &--Disabled {
-                        @extend %-#{$Calendar-Header-Headline};
+                        opacity: 1;
+                        filter: saturate(100%);
                         color: antimatter-color-scheme.$gainsboro;
                         cursor: default;
                     }
@@ -82,6 +80,7 @@
 
                         &:not(&--Disabled):hover {
                             color: antimatter-color-scheme.$white;
+                            background-color: antimatter-color-scheme.$transparent;
 
                             &:active {
                                 color: antimatter-color-scheme.$neutral;
@@ -91,7 +90,7 @@
                 }
             }
 
-            #{$Calendar}-DateView, .Calendar-DateView {
+            .Calendar-DateView {
                 display: flex;
                 flex-wrap: wrap;
 
@@ -103,7 +102,7 @@
                     display: none;
                 }
 
-                $Calendar-DateView-DayOfWeek: "Calendar-DateView-DayOfWeek";
+                $Calendar-DateView-DayOfWeek: ".Calendar-DateView-DayOfWeek";
                 @include antimatter-label-default.variant($Calendar-DateView-DayOfWeek) {
                     display: flex;
                     flex-direction: column;
@@ -131,7 +130,7 @@
                 }
 
                 &__Today {
-                    @extend #{$Calendar}-DateView__Date;
+                    @extend .Calendar-DateView__Date;
                     border-color: antimatter-color-scheme.$neutral;
                 }
 
@@ -139,12 +138,12 @@
                     cursor: pointer;
 
                     &--Extraneous {
-                        @extend #{$Calendar}-DateView__DateContainer;
+                        @extend .Calendar-DateView__DateContainer;
                         color: antimatter-color-scheme.$white--a10;
                     }
 
                     &--Highlighted {
-                        @extend #{$Calendar}-DateView__DateContainer;
+                        @extend .Calendar-DateView__DateContainer;
 
                         .Calendar-DateView__Date {
                             font-weight: antimatter-typography.$font-weight--bold;
@@ -152,12 +151,12 @@
                     }
 
                     &--Selected {
-                        @extend #{$Calendar}-DateView__DateContainer;
+                        @extend .Calendar-DateView__DateContainer;
 
                         .Calendar-DateView__Date {
-                            font-weight: antimatter-typography.$font-weight--bold;
-                            color: antimatter-color-scheme.$white;
+                            color: antimatter-color-scheme.$ambient;
                             background-color: antimatter-color-scheme.$primary;
+                            font-weight: antimatter-typography.$font-weight--bold;
                         }
                     }
 
@@ -174,10 +173,10 @@
                             &:active {
 
                                 .Calendar-DateView__Date {
-                                    font-weight: antimatter-typography.$font-weight--bold;
-                                    color: antimatter-color-scheme.$white;
+                                    color: antimatter-color-scheme.$ambient;
                                     border-color: antimatter-color-scheme.$primary;
                                     background-color: antimatter-color-scheme.$primary;
+                                    font-weight: antimatter-typography.$font-weight--bold;
                                 }
                             }
                         }
@@ -188,7 +187,7 @@
                     cursor: pointer;
 
                     &--Highlighted {
-                        @extend #{$Calendar}-DateView__TodayContainer;
+                        @extend .Calendar-DateView__TodayContainer;
 
                         .Calendar-DateView__Today {
                             font-weight: antimatter-typography.$font-weight--bold;
@@ -196,13 +195,13 @@
                     }
 
                     &--Selected {
-                        @extend #{$Calendar}-DateView__TodayContainer;
+                        @extend .Calendar-DateView__TodayContainer;
 
                         .Calendar-DateView__Today {
-                            font-weight: antimatter-typography.$font-weight--bold;
-                            color: antimatter-color-scheme.$white;
+                            color: antimatter-color-scheme.$ambient;
                             border-color: antimatter-color-scheme.$primary;
                             background-color: antimatter-color-scheme.$primary;
+                            font-weight: antimatter-typography.$font-weight--bold;
                         }
                     }
 
@@ -219,10 +218,10 @@
                             &:active {
 
                                 .Calendar-DateView__Today {
-                                    font-weight: antimatter-typography.$font-weight--bold;
-                                    color: antimatter-color-scheme.$white;
+                                    color: antimatter-color-scheme.$ambient;
                                     border-color: antimatter-color-scheme.$primary;
                                     background-color: antimatter-color-scheme.$primary;
+                                    font-weight: antimatter-typography.$font-weight--bold;
                                 }
                             }
                         }
@@ -233,7 +232,7 @@
                     display: none;
                 }
 
-                $Calendar-DateView-TodayNumber: "Calendar-DateView-TodayNumber";
+                $Calendar-DateView-TodayNumber: ".Calendar-DateView-TodayNumber";
                 @include antimatter-label-default.variant($Calendar-DateView-TodayNumber) {
                     display: flex;
                     flex-direction: column;
@@ -248,7 +247,7 @@
                 flex-wrap: wrap;
                 justify-content: space-between;
 
-                $Calendar-MonthView-GridCell: "Calendar-MonthView-GridCell";
+                $Calendar-MonthView-GridCell: ".Calendar-MonthView-GridCell";
                 @include antimatter-button-outlined-rectangular.variant($Calendar-MonthView-GridCell) {
                     display: flex;
                     flex-direction: column;
@@ -258,6 +257,7 @@
                     padding: 0;
                     border: 3px solid antimatter-color-scheme.$transparent;
                     margin: 4px;
+                    color: antimatter-color-scheme.$neutral;
 
                     .Button-Icon {
                         display: none;
@@ -268,12 +268,12 @@
                     }
 
                     &--Extraneous {
-                        @extend %-#{$Calendar-MonthView-GridCell};
+                        @extend #{$Calendar-MonthView-GridCell};
                         color: antimatter-color-scheme.$white--a10;
                     }
 
                     &--Selected {
-                        @extend %-#{$Calendar-MonthView-GridCell};
+                        @extend #{$Calendar-MonthView-GridCell};
                         font-weight: antimatter-typography.$font-weight--bold;
                         border-color: antimatter-color-scheme.$neutral;
                     }
@@ -281,12 +281,10 @@
                     @media (hover: hover) {
 
                         &:hover {
-                            color: antimatter-color-scheme.$white;
                             border-color: antimatter-color-scheme.$primary;
                             background-color: antimatter-color-scheme.$primary--a10;
 
                             &:active {
-                                color: antimatter-color-scheme.$white;
                                 border-color: antimatter-color-scheme.$primary;
                                 background-color: antimatter-color-scheme.$primary;
                             }
@@ -300,7 +298,7 @@
                 flex-wrap: wrap;
                 justify-content: space-between;
 
-                $Calendar-YearView-GridCell: "Calendar-YearView-GridCell";
+                $Calendar-YearView-GridCell: ".Calendar-YearView-GridCell";
                 @include antimatter-button-outlined-rectangular.variant($Calendar-YearView-GridCell) {
                     display: flex;
                     flex-direction: column;
@@ -310,6 +308,7 @@
                     padding: 0;
                     border: 3px solid antimatter-color-scheme.$transparent;
                     margin: 4px;
+                    color: antimatter-color-scheme.$neutral;
 
                     .Button-Icon {
                         display: none;
@@ -320,30 +319,28 @@
                     }
 
                     &--Extraneous {
-                        @extend %-#{$Calendar-YearView-GridCell};
+                        @extend #{$Calendar-YearView-GridCell};
                         color: antimatter-color-scheme.$white--a10;
                     }
 
                     &--Selected {
-                        @extend %-#{$Calendar-YearView-GridCell};
+                        @extend #{$Calendar-YearView-GridCell};
                         font-weight: antimatter-typography.$font-weight--bold;
                         border-color: antimatter-color-scheme.$neutral;
                     }
 
                     &--Empty {
-                        @extend %-#{$Calendar-YearView-GridCell};
+                        @extend #{$Calendar-YearView-GridCell};
                         pointer-events: none;
                     }
 
                     @media (hover: hover) {
 
                         &:hover {
-                            color: antimatter-color-scheme.$white;
                             border-color: antimatter-color-scheme.$primary;
                             background-color: antimatter-color-scheme.$primary--a10;
 
                             &:active {
-                                color: antimatter-color-scheme.$white;
                                 border-color: antimatter-color-scheme.$primary;
                                 background-color: antimatter-color-scheme.$primary;
                             }
@@ -555,7 +552,7 @@
         }
     }
 
-    %-#{$class-name}, #{$Calendar} {
+    #{$Calendar} {
         @content;
     }
 }

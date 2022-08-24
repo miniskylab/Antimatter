@@ -1,17 +1,15 @@
 @use "sass:string";
 
-@mixin variant($class-name) {
-    $Selector: ".#{$class-name}";
-    $Icon: "%#{$class-name}";
+@mixin variant($Icon) {
     @at-root {
-        #{$Icon}, #{$Selector} {
+        #{$Icon} {
             display: flex;
             justify-content: center;
             align-items: center;
         }
     }
 
-    %-#{$class-name}, #{$Selector} {
+    #{$Icon} {
         @content;
     }
 }

@@ -3,11 +3,9 @@
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
 
-@mixin variant($class-name) {
-    $Selector: ".#{$class-name}";
-    $Button: "%#{$class-name}";
+@mixin variant($Button) {
     @at-root {
-        #{$Button}, #{$Selector} {
+        #{$Button} {
             display: inline-flex;
             align-items: center;
             justify-content: center;
@@ -22,7 +20,7 @@
             cursor: pointer;
             text-decoration: none;
 
-            $Button-Icon: "Button-Icon";
+            $Button-Icon: ".Button-Icon";
             @include antimatter-icon-default.variant($Button-Icon) {
                 font-size: antimatter-typography.$font-size--14px;
             }
@@ -53,7 +51,7 @@
         }
     }
 
-    %-#{$class-name}, #{$Selector} {
+    #{$Button} {
         @content;
     }
 }

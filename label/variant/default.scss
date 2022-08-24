@@ -2,18 +2,16 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-@mixin variant($class-name) {
-    $Selector: ".#{$class-name}";
-    $Label: "%#{$class-name}";
+@mixin variant($Label) {
     @at-root {
-        #{$Label}, #{$Selector} {
+        #{$Label} {
             display: inline-flex;
             justify-content: center;
             align-items: center;
         }
     }
 
-    %-#{$class-name}, #{$Selector} {
+    #{$Label} {
         @content;
     }
 }
