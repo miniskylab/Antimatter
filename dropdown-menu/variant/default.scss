@@ -1,153 +1,165 @@
 @use "~@miniskylab/antimatter-layer";
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
+@use "~@miniskylab/antimatter-label/variant/default" as antimatter-label-default;
 
-%dropdown-menu, .antimatter-dropdown-menu-default {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    width: 220px;
-    min-height: 34px;
-    padding: 8px 12px;
-    border: none;
-    outline: none;
-    box-sizing: border-box;
-    vertical-align: top;
-    background-color: antimatter-color-scheme.$mine-shaft;
-    cursor: pointer;
+@mixin variant($DropdownMenu) {
+    @at-root {
+        #{$DropdownMenu} {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            width: 220px;
+            min-height: 34px;
+            padding: 8px 12px;
+            border: none;
+            outline: none;
+            box-sizing: border-box;
+            vertical-align: top;
+            background-color: antimatter-color-scheme.$mine-shaft;
+            cursor: pointer;
 
-    &__badge-container {
-        display: flex;
-        flex-wrap: wrap;
-        row-gap: 5px;
-        margin-right: 15px;
-    }
+            &__BadgeContainer {
+                display: flex;
+                flex-wrap: wrap;
+                row-gap: 5px;
+                margin-right: 15px;
+            }
 
-    &__badge {
-        display: inline-flex;
-        line-height: 18px;
-        padding: 0 8px;
-        margin-right: 5px;
-        box-sizing: border-box;
-        color: antimatter-color-scheme.$background;
-        background-color: antimatter-color-scheme.$neutral;
-        font-size: antimatter-typography.$font-size--12px;
-    }
+            $DropdownMenu-Badge: ".DropdownMenu-Badge";
+            @include antimatter-icon-default.variant($DropdownMenu-Badge) {
+                display: inline-flex;
+                line-height: 18px;
+                padding: 0 8px;
+                margin-right: 5px;
+                box-sizing: border-box;
+                color: antimatter-color-scheme.$background;
+                background-color: antimatter-color-scheme.$neutral;
+                font-size: antimatter-typography.$font-size--12px;
+            }
 
-    &__placeholder {
-        display: flex;
-        flex-wrap: wrap;
-        row-gap: 5px;
-        margin-right: 15px;
-        line-height: 18px;
-        font-size: antimatter-typography.$font-size--14px;
-        color: antimatter-color-scheme.$gray--a65;
-    }
+            &__Placeholder {
+                display: flex;
+                flex-wrap: wrap;
+                row-gap: 5px;
+                margin-right: 15px;
+                line-height: 18px;
+                font-size: antimatter-typography.$font-size--14px;
+                color: antimatter-color-scheme.$gray--a65;
+            }
 
-    &__menu {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        right: 0;
-        width: 100%;
-        padding: 5px 0;
-        margin: 2px 0 0 0;
-        list-style: none;
-        background-color: antimatter-color-scheme.$mine-shaft;
-        z-index: antimatter-layer.$context-menu;
-        cursor: default;
+            &__Menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                width: 100%;
+                padding: 5px 0;
+                margin: 2px 0 0 0;
+                list-style: none;
+                background-color: antimatter-color-scheme.$mine-shaft;
+                z-index: antimatter-layer.$context-menu;
+                cursor: default;
 
-        &--hidden {
-            display: none;
-        }
-    }
+                &--Hidden {
+                    display: none;
+                }
+            }
 
-    &__menu-item {
-        position: relative;
-        display: flex;
-        align-items: center;
-        height: 22px;
-        padding: 4px 12px;
-        margin: 5px 0;
-        font-size: antimatter-typography.$font-size--14px;
-        color: antimatter-color-scheme.$neutral;
-        cursor: pointer;
+            &__MenuItem {
+                position: relative;
+                display: flex;
+                align-items: center;
+                height: 22px;
+                padding: 4px 12px;
+                margin: 5px 0;
+                font-size: antimatter-typography.$font-size--14px;
+                color: antimatter-color-scheme.$neutral;
+                cursor: pointer;
 
-        &--selected {
-            @extend %dropdown-menu__menu-item;
-            color: antimatter-color-scheme.$white;
-            background-color: antimatter-color-scheme.$primary;
-            box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
-        }
+                @media (hover: hover) {
 
-        &--disabled {
-            @extend %dropdown-menu__menu-item;
-            color: antimatter-color-scheme.$gray--a65;
-            cursor: not-allowed;
-            font-style: italic;
-        }
+                    &:not(&--Disabled):not(&--Selected):hover {
+                        color: antimatter-color-scheme.$white;
+                        background-color: antimatter-color-scheme.$primary--a10;
+                        box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
 
-        @media (hover: hover) {
+                        &:active {
+                            color: antimatter-color-scheme.$white;
+                            background-color: antimatter-color-scheme.$primary;
+                            box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+                        }
+                    }
+                }
 
-            &:not(&--disabled):not(&--selected):hover {
-                color: antimatter-color-scheme.$white;
-                background-color: antimatter-color-scheme.$primary--a10;
-                box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
-
-                &:active {
+                &--Selected {
+                    @extend #{$DropdownMenu}__MenuItem;
                     color: antimatter-color-scheme.$white;
                     background-color: antimatter-color-scheme.$primary;
                     box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
                 }
+
+                &--Disabled {
+                    @extend #{$DropdownMenu}__MenuItem;
+                    color: antimatter-color-scheme.$gray--a65;
+                    cursor: not-allowed;
+                    font-style: italic;
+                }
+            }
+
+            $DropdownMenu-SelectionIcon: ".DropdownMenu-SelectionIcon";
+            @include antimatter-label-default.variant($DropdownMenu-SelectionIcon) {
+                position: absolute;
+                font-size: antimatter-typography.$font-size--16px;
+                right: 7px;
+            }
+
+            &__Caret {
+                position: absolute;
+                right: 10px;
+                top: 15px;
+                width: 0;
+                height: 0;
+                border-top: 5px solid antimatter-color-scheme.$neutral;
+                border-left: 5px solid antimatter-color-scheme.$transparent;
+                border-right: 5px solid antimatter-color-scheme.$transparent;
+            }
+
+            &__Divider {
+                height: 1px;
+                margin: 5px 0;
+                background-color: antimatter-color-scheme.$gray--a65;
+            }
+
+            &--Open {
+                @extend #{$DropdownMenu};
+            }
+
+            &--Closed {
+                @extend #{$DropdownMenu};
+
+                @media (hover: hover) {
+
+                    &:hover {
+                        color: antimatter-color-scheme.$white;
+                        background-color: antimatter-color-scheme.$primary--a10;
+                        box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+
+                        #{$DropdownMenu}__Caret {
+                            border-top-color: antimatter-color-scheme.$white;
+                        }
+
+                        #{$DropdownMenu}__Placeholder {
+                            color: antimatter-color-scheme.$white;
+                        }
+                    }
+                }
             }
         }
     }
 
-    &__selection-icon {
-        position: absolute;
-        font-size: antimatter-typography.$font-size--16px;
-        right: 7px;
-    }
-
-    &__caret {
-        position: absolute;
-        right: 10px;
-        top: 15px;
-        width: 0;
-        height: 0;
-        border-top: 5px solid antimatter-color-scheme.$neutral;
-        border-left: 5px solid antimatter-color-scheme.$transparent;
-        border-right: 5px solid antimatter-color-scheme.$transparent;
-    }
-
-    &__divider {
-        height: 1px;
-        margin: 5px 0;
-        background-color: antimatter-color-scheme.$gray--a65;
-    }
-
-    &--open {
-        @extend %dropdown-menu;
-    }
-
-    &--closed {
-        @extend %dropdown-menu;
-
-        @media (hover: hover) {
-
-            &:hover {
-                color: antimatter-color-scheme.$white;
-                box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
-                background-color: antimatter-color-scheme.$primary--a10;
-
-                .antimatter-dropdown-menu-default__caret {
-                    border-top-color: antimatter-color-scheme.$white;
-                }
-
-                .antimatter-dropdown-menu-default__placeholder {
-                    color: antimatter-color-scheme.$white;
-                }
-            }
-        }
+    #{$DropdownMenu} {
+        @content;
     }
 }

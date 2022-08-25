@@ -1,631 +1,114 @@
 @use "~@miniskylab/antimatter-layer";
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-calendar/variant/mini" as antimatter-calendar-mini;
+@use "~@miniskylab/antimatter-button/variant/outlined-circular" as antimatter-button-outlined-circular;
 
-%date-picker, .antimatter-date-picker-default {
-    position: relative;
-    display: inline-flex;
-    width: 276px;
-    height: 34px;
+@mixin variant($DatePicker) {
+    @at-root {
+        #{$DatePicker} {
+            position: relative;
+            display: inline-flex;
+            width: 276px;
+            height: 34px;
 
-    &--active {
-        @extend %date-picker;
-    }
-
-    &__input-field {
-        width: 100%;
-        height: 100%;
-        padding: 6px 36px 6px 12px;
-        border: none;
-        outline: none;
-        box-sizing: border-box;
-        color: antimatter-color-scheme.$neutral;
-        background-color: antimatter-color-scheme.$mine-shaft;
-        font-size: antimatter-typography.$font-size--14px;
-        text-align: inherit;
-
-        &::placeholder {
-            color: antimatter-color-scheme.$gray;
-            font-style: italic;
-        }
-    }
-
-    &__addon {
-        position: absolute;
-        top: 0;
-        right: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 36px;
-        height: 100%;
-        color: antimatter-color-scheme.$neutral;
-        background-color: antimatter-color-scheme.$transparent;
-        font-size: antimatter-typography.$font-size--16px;
-        cursor: pointer;
-
-        &--active {
-            @extend %date-picker__addon;
-            color: antimatter-color-scheme.$primary;
-
-            @media (hover: hover) {
-
-                &:hover {
-                    color: antimatter-color-scheme.$primary;
-
-                    &:active {
-                        color: antimatter-color-scheme.$white;
-                    }
-                }
+            &--Active {
+                @extend #{$DatePicker};
             }
-        }
 
-        @media (hover: hover) {
-
-            &:hover {
-                color: antimatter-color-scheme.$white;
-
-                &:active {
-                    color: antimatter-color-scheme.$primary;
-                }
-            }
-        }
-    }
-
-    &__caret {
-        position: absolute;
-        top: -24px;
-        right: 6px;
-        width: 0;
-        height: 0;
-        border: 12px solid antimatter-color-scheme.$transparent;
-        border-bottom-color: antimatter-color-scheme.$background;
-        pointer-events: none;
-    }
-
-    &__calendar-container {
-        position: absolute;
-        top: 40px;
-        right: 0;
-        padding: 10px 12px 12px;
-        background-color: antimatter-color-scheme.$background;
-        box-shadow: 0 10px 20px antimatter-color-scheme.$black;
-        z-index: antimatter-layer.$always-on-top;
-
-        &:focus {
-            outline: none;
-        }
-    }
-
-    &__calendar {
-        display: inline-block;
-        width: 252px;
-        text-align: center;
-        color: antimatter-color-scheme.$neutral;
-        outline: none;
-        overflow: hidden;
-        user-select: none;
-
-        &__header {
-            display: flex;
-
-            &__navigator {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 36px;
-                height: 36px;
-                border-radius: 50%;
-                border: 3px solid antimatter-color-scheme.$transparent;
+            &__InputField {
+                width: 100%;
+                height: 100%;
+                padding: 6px 36px 6px 12px;
+                border: none;
+                outline: none;
                 box-sizing: border-box;
-                font-size: antimatter-typography.$font-size--18px;
-                cursor: pointer;
+                color: antimatter-color-scheme.$neutral;
+                background-color: antimatter-color-scheme.$mine-shaft;
+                font-size: antimatter-typography.$font-size--14px;
+                text-align: inherit;
 
-                &--disabled {
-                    @extend %date-picker__calendar__header__navigator;
-                    color: antimatter-color-scheme.$white--a10;
-                    cursor: not-allowed;
-                }
-
-                &:first-of-type {
-                    padding-right: 2px;
-                }
-
-                &:last-child {
-                    padding-left: 2px;
-                }
-
-                @media (hover: hover) {
-
-                    &:not(&--disabled):hover {
-                        color: antimatter-color-scheme.$white;
-                        border-color: antimatter-color-scheme.$primary;
-                        background-color: antimatter-color-scheme.$primary--a10;
-
-                        &:active {
-                            color: antimatter-color-scheme.$white;
-                            border-color: antimatter-color-scheme.$primary;
-                            background-color: antimatter-color-scheme.$primary;
-                        }
-                    }
+                &::placeholder {
+                    color: antimatter-color-scheme.$gray;
+                    font-style: italic;
                 }
             }
 
-            &__headline {
-                display: inline-flex;
-                justify-content: center;
-                align-items: center;
-                flex-grow: 1;
-                line-height: 23px;
-                font-size: antimatter-typography.$font-size--18px;
-                font-weight: antimatter-typography.$font-weight--bold;
-                color: antimatter-color-scheme.$gainsboro;
-                cursor: pointer;
-
-                &--disabled {
-                    @extend %date-picker__calendar__header__headline;
-                    color: antimatter-color-scheme.$gainsboro;
-                    cursor: default;
-                }
-
-                @media (hover: hover) {
-
-                    &:not(&--disabled):hover {
-                        color: antimatter-color-scheme.$white;
-
-                        &:active {
-                            color: antimatter-color-scheme.$neutral;
-                        }
-                    }
-                }
-            }
-        }
-
-        &__date-view {
-            display: flex;
-            flex-wrap: wrap;
-
-            &__week-no {
-                display: none;
-            }
-
-            &__week-of-year {
-                display: none;
-            }
-
-            &__day-of-week {
+            $Button-Addon: ".Button-Addon";
+            @include antimatter-button-outlined-circular.variant($Button-Addon) {
+                position: absolute;
+                top: 0;
+                right: 0;
                 display: flex;
-                flex-direction: column;
-                justify-content: center;
                 width: 36px;
-                height: 36px;
-                color: antimatter-color-scheme.$gainsboro;
-                font-size: antimatter-typography.$font-size--16px;
-                font-weight: antimatter-typography.$font-weight--bold;
+                height: 100%;
+                border: none;
+                color: antimatter-color-scheme.$neutral;
+
+                .Button-Icon {
+                    font-size: antimatter-typography.$font-size--16px;
+                }
+
+                @media (hover: hover) {
+
+                    &:not(#{$Button-Addon}--Disabled):hover {
+                        background-color: antimatter-color-scheme.$transparent;
+
+                        &:active {
+                            color: antimatter-color-scheme.$primary;
+                        }
+                    }
+                }
+
+                &--Active {
+                    @extend #{$Button-Addon};
+                    color: antimatter-color-scheme.$primary;
+
+                    @media (hover: hover) {
+
+                        &:not(#{$Button-Addon}--Disabled):hover {
+                            color: antimatter-color-scheme.$primary;
+
+                            &:active {
+                                color: antimatter-color-scheme.$white;
+                                background-color: antimatter-color-scheme.$transparent;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &__Caret {
+                position: absolute;
+                top: -24px;
+                right: 6px;
+                width: 0;
+                height: 0;
+                border: 12px solid antimatter-color-scheme.$transparent;
+                border-bottom-color: antimatter-color-scheme.$background;
                 pointer-events: none;
             }
 
-            &__date {
-                display: flex;
-                flex-direction: column;
-                flex-wrap: nowrap;
-                justify-content: center;
-                width: 34px;
-                height: 34px;
-                border-radius: 50%;
-                border: 3px solid antimatter-color-scheme.$transparent;
-                margin: 1px;
-                box-sizing: border-box;
-                font-size: antimatter-typography.$font-size--16px;
-            }
+            &__CalendarContainer {
+                position: absolute;
+                top: 40px;
+                right: 0;
+                padding: 10px 12px 12px;
+                background-color: antimatter-color-scheme.$background;
+                box-shadow: 0 10px 20px antimatter-color-scheme.$black;
+                z-index: antimatter-layer.$always-on-top;
 
-            &__today {
-                @extend %date-picker__calendar__date-view__date;
-                border-color: antimatter-color-scheme.$neutral;
-            }
-
-            &__date-container {
-                cursor: pointer;
-
-                &--extraneous {
-                    @extend %date-picker__calendar__date-view__date-container;
-                    color: antimatter-color-scheme.$white--a10;
-                }
-
-                &--highlighted {
-                    @extend %date-picker__calendar__date-view__date-container;
-
-                    .antimatter-date-picker-default__calendar__date-view__date {
-                        font-weight: antimatter-typography.$font-weight--bold;
-                    }
-                }
-
-                &--selected {
-                    @extend %date-picker__calendar__date-view__date-container;
-
-                    .antimatter-date-picker-default__calendar__date-view__date {
-                        font-weight: antimatter-typography.$font-weight--bold;
-                        color: antimatter-color-scheme.$white;
-                        background-color: antimatter-color-scheme.$primary;
-                    }
-                }
-
-                @media (hover: hover) {
-
-                    &:not(&--selected):hover {
-
-                        .antimatter-date-picker-default__calendar__date-view__date {
-                            color: antimatter-color-scheme.$white;
-                            border-color: antimatter-color-scheme.$primary;
-                            background-color: antimatter-color-scheme.$primary--a10;
-                        }
-
-                        &:active {
-
-                            .antimatter-date-picker-default__calendar__date-view__date {
-                                font-weight: antimatter-typography.$font-weight--bold;
-                                color: antimatter-color-scheme.$white;
-                                border-color: antimatter-color-scheme.$primary;
-                                background-color: antimatter-color-scheme.$primary;
-                            }
-                        }
-                    }
+                &:focus {
+                    outline: none;
                 }
             }
 
-            &__today-container {
-                cursor: pointer;
-
-                &--highlighted {
-                    @extend %date-picker__calendar__date-view__today-container;
-
-                    .antimatter-date-picker-default__calendar__date-view__today {
-                        font-weight: antimatter-typography.$font-weight--bold;
-                    }
-                }
-
-                &--selected {
-                    @extend %date-picker__calendar__date-view__today-container;
-
-                    .antimatter-date-picker-default__calendar__date-view__today {
-                        font-weight: antimatter-typography.$font-weight--bold;
-                        color: antimatter-color-scheme.$white;
-                        border-color: antimatter-color-scheme.$primary;
-                        background-color: antimatter-color-scheme.$primary;
-                    }
-                }
-
-                @media (hover: hover) {
-
-                    &:not(&--selected):hover {
-
-                        .antimatter-date-picker-default__calendar__date-view__today {
-                            color: antimatter-color-scheme.$white;
-                            border-color: antimatter-color-scheme.$primary;
-                            background-color: antimatter-color-scheme.$primary--a10;
-                        }
-
-                        &:active {
-
-                            .antimatter-date-picker-default__calendar__date-view__today {
-                                font-weight: antimatter-typography.$font-weight--bold;
-                                color: antimatter-color-scheme.$white;
-                                border-color: antimatter-color-scheme.$primary;
-                                background-color: antimatter-color-scheme.$primary;
-                            }
-                        }
-                    }
-                }
-            }
-
-            &__today-text {
-                display: none;
-            }
-
-            &__today-number {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                height: 15px;
-                padding: 0;
-                font-size: antimatter-typography.$font-size--16px;
-            }
+            $DatePicker-Calendar: ".DatePicker-Calendar";
+            @include antimatter-calendar-mini.variant($DatePicker-Calendar);
         }
+    }
 
-        &__month-view {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-
-            &__grid-cell {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                width: calc(25% - 8px);
-                height: 55px;
-                border: 3px solid antimatter-color-scheme.$transparent;
-                margin: 4px;
-                box-sizing: border-box;
-                font-size: antimatter-typography.$font-size--16px;
-                cursor: pointer;
-
-                &--extraneous {
-                    @extend %date-picker__calendar__month-view__grid-cell;
-                    color: antimatter-color-scheme.$white--a10;
-                }
-
-                &--selected {
-                    @extend %date-picker__calendar__month-view__grid-cell;
-                    font-weight: antimatter-typography.$font-weight--bold;
-                    border-color: antimatter-color-scheme.$neutral;
-                }
-
-                @media (hover: hover) {
-
-                    &:hover {
-                        color: antimatter-color-scheme.$white;
-                        border-color: antimatter-color-scheme.$primary;
-                        background-color: antimatter-color-scheme.$primary--a10;
-
-                        &:active {
-                            color: antimatter-color-scheme.$white;
-                            border-color: antimatter-color-scheme.$primary;
-                            background-color: antimatter-color-scheme.$primary;
-                        }
-                    }
-                }
-            }
-        }
-
-        &__year-view {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-
-            &__grid-cell {
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                width: calc(25% - 8px);
-                height: 55px;
-                border: 3px solid antimatter-color-scheme.$transparent;
-                margin: 4px;
-                box-sizing: border-box;
-                font-size: antimatter-typography.$font-size--16px;
-                cursor: pointer;
-
-                &--extraneous {
-                    @extend %date-picker__calendar__year-view__grid-cell;
-                    color: antimatter-color-scheme.$white--a10;
-                }
-
-                &--selected {
-                    @extend %date-picker__calendar__year-view__grid-cell;
-                    font-weight: antimatter-typography.$font-weight--bold;
-                    border-color: antimatter-color-scheme.$neutral;
-                }
-
-                &--empty {
-                    @extend %date-picker__calendar__year-view__grid-cell;
-                    pointer-events: none;
-                }
-
-                @media (hover: hover) {
-
-                    &:hover {
-                        color: antimatter-color-scheme.$white;
-                        border-color: antimatter-color-scheme.$primary;
-                        background-color: antimatter-color-scheme.$primary--a10;
-
-                        &:active {
-                            color: antimatter-color-scheme.$white;
-                            border-color: antimatter-color-scheme.$primary;
-                            background-color: antimatter-color-scheme.$primary;
-                        }
-                    }
-                }
-            }
-        }
-
-        &__controls {
-            display: none;
-        }
-
-        &__transition {
-            position: relative;
-            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-
-            /*# region No Transition */
-
-            &--none-out-start {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                opacity: 1;
-                transform: translateX(0%);
-            }
-
-            &--none-out-in-progress {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                opacity: 0;
-                transform: translateX(100%);
-                transition: transform, opacity;
-                transition-duration: 0ms;
-            }
-
-            &--none-in-start {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-
-            &--none-in-in-progress {
-                opacity: 1;
-                transform: translateX(0%);
-                transition: transform, opacity;
-                transition-duration: 0ms;
-            }
-
-            /*# endregion */
-
-            /*# region Forward Transition */
-
-            &--forward-out-start {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                opacity: 1;
-                transform: translateX(0%);
-            }
-
-            &--forward-out-in-progress {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                opacity: 0;
-                transform: translateX(100%);
-                transition: transform ease-out, opacity cubic-bezier(0, 0, 0, 1);
-                transition-duration: 500ms;
-            }
-
-            &--forward-in-start {
-                opacity: 0;
-                transform: translateX(-100%);
-            }
-
-            &--forward-in-in-progress {
-                opacity: 1;
-                transform: translateX(0%);
-                transition: transform ease-out, opacity cubic-bezier(0, 0, 0, 1);
-                transition-duration: 500ms;
-            }
-
-            /*# endregion */
-
-            /*# region Backward Transition */
-
-            &--backward-out-start {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                opacity: 1;
-                transform: translateX(0%);
-            }
-
-            &--backward-out-in-progress {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                opacity: 0;
-                transform: translateX(-100%);
-                transition: transform ease-out, opacity cubic-bezier(0, 0, 0, 1);
-                transition-duration: 500ms;
-            }
-
-            &--backward-in-start {
-                opacity: 0;
-                transform: translateX(100%);
-            }
-
-            &--backward-in-in-progress {
-                opacity: 1;
-                transform: translateX(0%);
-                transition: transform ease-out, opacity cubic-bezier(0, 0, 0, 1);
-                transition-duration: 500ms;
-            }
-
-            /*# endregion */
-
-            /*# region Inward Transition */
-
-            &--inward-out-start {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            &--inward-out-in-progress {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                opacity: 0;
-                transform: scale(0.7);
-                transition: transform ease-out, opacity cubic-bezier(0, 0, 0, 1);
-                transition-duration: 200ms;
-            }
-
-            &--inward-in-start {
-                opacity: 0;
-                transform: scale(2);
-            }
-
-            &--inward-in-in-progress {
-                opacity: 1;
-                transform: scale(1);
-                transition: transform ease-out, opacity cubic-bezier(0, 0, 0, 1);
-                transition-duration: 200ms;
-                transition-delay: 250ms;
-            }
-
-            /*# endregion */
-
-            /*# region Outward Transition */
-
-            &--outward-out-start {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            &--outward-out-in-progress {
-                position: absolute;
-                top: 0;
-                bottom: 0;
-                left: 0;
-                right: 0;
-                opacity: 0;
-                transform: scale(1.3);
-                transition: transform ease-out, opacity cubic-bezier(0, 0, 0, 1);
-                transition-duration: 200ms;
-            }
-
-            &--outward-in-start {
-                opacity: 0;
-                transform: scale(0.7);
-            }
-
-            &--outward-in-in-progress {
-                opacity: 1;
-                transform: scale(1);
-                transition: transform ease-out, opacity cubic-bezier(0, 0, 0, 1);
-                transition-duration: 200ms;
-                transition-delay: 250ms;
-            }
-
-            /*# endregion */
-        }
+    #{$DatePicker} {
+        @content;
     }
 }

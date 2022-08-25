@@ -31,7 +31,7 @@ export class DatePickerProps extends ComponentProps
 
 
     /**
-     * Prevent users from typing into the input field
+     * Prevent users from typing into the input field.
      */
     @IsBoolean()
     @IsOptional()

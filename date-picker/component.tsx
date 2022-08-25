@@ -53,7 +53,7 @@ export class DatePicker extends React.Component<DatePickerProps, State>
     render(): JSX.Element
     {
         return (
-            <div className={`${this.props.className}${this.state.calendarIsOpen ? "--active" : String.EMPTY}`}>
+            <div className={`${this.props.className}${this.state.calendarIsOpen ? "--Active" : String.EMPTY}`}>
                 {this.renderInputField()}
                 {this.renderAddon()}
                 {this.state.calendarIsOpen && this.renderCalendar()}
@@ -67,7 +67,7 @@ export class DatePicker extends React.Component<DatePickerProps, State>
             <input
                 ref={this.inputFieldRef}
                 type={"text"}
-                className={`${this.props.className}__input-field`}
+                className={`${this.props.className}__InputField`}
                 value={this.getDateString()}
                 placeholder={this.props.placeholder}
                 onChange={this.onChange.bind(this)}
@@ -92,7 +92,7 @@ export class DatePicker extends React.Component<DatePickerProps, State>
     {
         return (
             <Button
-                className={`${this.props.className}__addon${this.state.calendarIsOpen ? "--active" : String.EMPTY}`}
+                className={`Button-Addon${this.state.calendarIsOpen ? "--Active" : String.EMPTY}`}
                 icon={Icomoon.Calendar}
                 onClick={this.onAddonClick.bind(this)}
                 onPointerDown={event => event.preventDefault()}
@@ -106,13 +106,13 @@ export class DatePicker extends React.Component<DatePickerProps, State>
             <div
                 tabIndex={-1}
                 ref={this.calendarRef}
-                className={`${this.props.className}__calendar-container`}
+                className={`${this.props.className}__CalendarContainer`}
                 onMouseDown={event => event.preventDefault()}
                 onBlur={() => { this.setState({calendarIsOpen: false}); }}
             >
-                <div className={`${this.props.className}__caret`}/>
+                <div className={`${this.props.className}__Caret`}/>
                 <Calendar
-                    className={`${this.props.className}__calendar`}
+                    className={"DatePicker-Calendar"}
                     selectedDate={this.state.selectedDate}
                     onChange={this.onDateSelectedFromCalendar.bind(this)}
                 />

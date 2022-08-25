@@ -43,14 +43,14 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
     {
         return (
             <div
-                className={`${this.props.className}${this.state.isOpen ? "--open" : "--closed"}`}
+                className={`${this.props.className}${this.state.isOpen ? "--Open" : "--Closed"}`}
                 onClick={(): void => { this.setState({isOpen: !this.state.isOpen}); }}
                 onBlur={(): void => { this.setState({isOpen: false}); }}
                 tabIndex={0}
             >
                 {this.renderContainer()}
                 {this.renderMenu()}
-                <div className={`${this.props.className}__caret`}/>
+                <div className={`${this.props.className}__Caret`}/>
             </div>
         );
     }
@@ -59,11 +59,11 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
     {
         const hasSelection = this.props.selectedKeys.length > 0;
         return (
-            <div className={`${this.props.className}__${hasSelection ? "badge-container" : "placeholder"}`}>
+            <div className={`${this.props.className}__${hasSelection ? "BadgeContainer" : "Placeholder"}`}>
                 {
                     hasSelection
                         ? this.props.selectedKeys.map((x, i) => (
-                            <Label key={i} className={`${this.props.className}__badge`} text={this.props.keyValueSet[x]}/>
+                            <Label key={i} className={"DropdownMenu-Badge"} text={this.props.keyValueSet[x]}/>
                         ))
                         : this.props.placeholder
                 }
@@ -84,7 +84,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
             const value = this.props.keyValueSet[key];
             if (value === "---")
             {
-                menuItems.push(<div key={key} className={`${this.props.className}__divider`}/>);
+                menuItems.push(<div key={key} className={`${this.props.className}__Divider`}/>);
                 continue;
             }
 
@@ -93,23 +93,23 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
             const menuItemIsDisabled = !menuItemIsSelected && this.canMultiSelect && this.maxSelectionCountReached;
             if (menuItemIsSelected)
             {
-                menuItemModifier = "--selected";
+                menuItemModifier = "--Selected";
             }
             else if (menuItemIsDisabled)
             {
-                menuItemModifier = "--disabled";
+                menuItemModifier = "--Disabled";
             }
 
             menuItems.push(
                 <li
                     key={key}
-                    className={`${this.props.className}__menu-item${menuItemModifier}`}
+                    className={`${this.props.className}__MenuItem${menuItemModifier}`}
                     onClick={menuItemIsDisabled ? undefined : event => { this.onMenuItemClick(event, key); }}
                 >
                     {value}
                     {menuItemIsSelected && (
                         <Icon
-                            className={`${this.props.className}__selection-icon`}
+                            className={"DropdownMenu-SelectionIcon"}
                             name={Icomoon.CheckMark}
                         />
                     )}
@@ -120,7 +120,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
         return (
             <ul
                 ref={this.menuRef}
-                className={`${this.props.className}__menu${this.state.isOpen ? String.EMPTY : "--hidden"}`}
+                className={`${this.props.className}__Menu${this.state.isOpen ? String.EMPTY : "--Hidden"}`}
                 onClick={event => { event.stopPropagation(); }}
                 onWheel={event => { this.onMenuWheel(event); }}
             >

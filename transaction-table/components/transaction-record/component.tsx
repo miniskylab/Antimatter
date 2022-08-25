@@ -25,8 +25,8 @@ export function Component({
 {
     return (
         <div className={`${className}${getModeModifier()}`} onClick={onClick}>
-            <Icon className={`${className}__icon`} name={getIcon()}/>
-            <div className={`${className}__name-and-label-container`}>
+            <Icon className={"TransactionTable-TransactionRecord-Icon"} name={getIcon()}/>
+            <div className={`${className}__NameAndLabelContainer`}>
                 {renderName()}
                 {renderLabels()}
             </div>
@@ -39,17 +39,17 @@ export function Component({
         switch (mode)
         {
             case Mode.Draft:
-                return "--draft-mode";
+                return "--DraftMode";
 
             case Mode.Edit:
-                return "--edit-mode";
+                return "--EditMode";
 
             case Mode.Delete:
-                return "--delete-mode";
+                return "--DeleteMode";
 
             default:
             case Mode.ReadOnly:
-                return onClick ? "--read-only-mode" : String.EMPTY;
+                return onClick ? "--ReadOnlyMode" : String.EMPTY;
         }
     }
 
@@ -76,13 +76,13 @@ export function Component({
         return (
             mode === Mode.Draft || mode === Mode.Edit
                 ? <InputField
-                    className={`${className}__name-input-field`}
+                    className={"TransactionTable-TransactionRecord-NameInputField"}
                     placeholder={"Transaction Name"}
                     autoFocus={true}
                     value={name}
                     onChange={newValue => { onChange({name: newValue, amount, labels, executedDate, modifiedDate}); }}
                 />
-                : <Label className={`${className}__name`} text={name}/>
+                : <Label className={"TransactionTable-TransactionRecord-Name"} text={name}/>
         );
     }
 
@@ -92,7 +92,7 @@ export function Component({
         {
             return (
                 <DropdownMenu
-                    className={`${className}__label-selector`}
+                    className={"TransactionTable-TransactionRecord-LabelSelector"}
                     maxSelectionCount={2}
                     keyValueSet={getDropdownMenuKeyValueSet()}
                     selectedKeys={labels}
@@ -103,8 +103,14 @@ export function Component({
         else
         {
             return (
-                <div className={`${className}__label-container`}>
-                    {labels?.map(labelId => <Label key={labelId} className={`${className}__label`} text={labelSet[labelId].name}/>)}
+                <div className={`${className}__LabelContainer`}>
+                    {labels?.map(labelId => (
+                        <Label
+                            key={labelId}
+                            className={"TransactionTable-TransactionRecord-Label"}
+                            text={labelSet[labelId].name}
+                        />
+                    ))}
                 </div>
             );
         }
@@ -116,7 +122,7 @@ export function Component({
         return (
             mode === Mode.Draft || mode === Mode.Edit
                 ? <NumericInputField
-                    className={`${className}__amount-input-field--${isIncome ? "income" : "expense"}`}
+                    className={`TransactionTable-TransactionRecord-AmountInputField--${isIncome ? "Income" : "Expense"}`}
                     minValue={0}
                     maxValue={999999999}
                     showPlusSymbolForPositiveNumber={isIncome}
@@ -126,7 +132,7 @@ export function Component({
                     onChange={newValue => { onChange({name, amount: newValue, labels, executedDate, modifiedDate}); }}
                 />
                 : <Label
-                    className={`${className}__amount--${isIncome ? "income" : "expense"}`}
+                    className={`TransactionTable-TransactionRecord-Amount--${isIncome ? "Income" : "Expense"}`}
                     text={`${isIncome ? "+" : String.EMPTY}${amount.toLocaleString()}`}
                 />
         );

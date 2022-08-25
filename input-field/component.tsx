@@ -20,16 +20,16 @@ export function InputField({
     onKeyDown
 }: InputFieldProps): JSX.Element
 {
-    const shrunkModifier = placeholder && value ? "--shrunk" : String.EMPTY;
+    const shrunkModifier = placeholder && value ? "--Shrunk" : String.EMPTY;
 
     return (
         <div className={className}>
-            {icon && <Icon className={`${className}__addon`} name={icon}/>}
-            <div className={`${className}__container`}>
-                {placeholder && <Label className={`${className}__placeholder${shrunkModifier}`} text={placeholder}/>}
+            {icon && <Icon className={"InputField-Addon"} name={icon}/>}
+            <div className={`${className}__Container`}>
+                {placeholder && <Label className={`InputField-Placeholder${shrunkModifier}`} text={placeholder}/>}
                 <input
                     type={isPasswordField ? "password" : "text"}
-                    className={`${className}__text-box${shrunkModifier}`}
+                    className={`${className}__TextBox${shrunkModifier}`}
                     value={value}
                     onChange={handleChangeEvent}
                     onBlur={onBlur}

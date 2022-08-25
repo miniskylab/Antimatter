@@ -32,14 +32,14 @@ export function TransactionTable({
     return (
         <div className={className}>
             {renderDateSelector()}
-            <div className={`${className}__transaction-details`}>
+            <div className={`${className}__TransactionDetails`}>
                 {renderControlPanel()}
-                <div className={`${className}__transaction-container`}>
-                    <div className={`${className}__transaction-scroll`}>
-                        <div className={`${className}__hr--top`}/>
+                <div className={`${className}__TransactionContainer`}>
+                    <div className={`${className}__TransactionScroll`}>
+                        <div className={`${className}__Hr--Top`}/>
                         {renderTransactions()}
                         {mode !== TransactionRecord.Mode.Draft && renderAddNewButton()}
-                        <div className={`${className}__hr--bottom`}/>
+                        <div className={`${className}__Hr--Bottom`}/>
                     </div>
                 </div>
                 {renderSummary()}
@@ -53,31 +53,31 @@ export function TransactionTable({
         {
             case TransactionRecord.Mode.Draft:
                 return {
-                    modeButton: {modifier: "--draft", icon: Icomoon.Quill, text: "Draft-Mode"},
-                    actionButton: {modifier: "--edit", icon: Icomoon.FloppyDisk, text: "Save", onClick: onSaveTransaction},
+                    modeButton: {modifier: "--Draft", icon: Icomoon.Quill, text: "Draft-Mode"},
+                    actionButton: {modifier: "--Edit", icon: Icomoon.FloppyDisk, text: "Save", onClick: onSaveTransaction},
                     cancelButton: {modifier: String.EMPTY, icon: Icomoon.XMarkInsideCircle, text: "Cancel", onClick: onCancel}
                 };
 
             case TransactionRecord.Mode.Edit:
                 return {
-                    modeButton: {modifier: "--edit", icon: Icomoon.Quill, text: "Edit-Mode", onClick: switchMode},
-                    actionButton: {modifier: "--edit", icon: Icomoon.FloppyDisk, text: "Save", onClick: onSaveTransaction},
+                    modeButton: {modifier: "--Edit", icon: Icomoon.Quill, text: "Edit-Mode", onClick: switchMode},
+                    actionButton: {modifier: "--Edit", icon: Icomoon.FloppyDisk, text: "Save", onClick: onSaveTransaction},
                     cancelButton: {modifier: String.EMPTY, icon: Icomoon.XMarkInsideCircle, text: "Cancel", onClick: onCancel}
                 };
 
             case TransactionRecord.Mode.Delete:
                 return {
-                    modeButton: {modifier: "--delete", icon: Icomoon.Fire, text: "Delete-Mode", onClick: switchMode},
-                    actionButton: {modifier: "--delete", icon: Icomoon.TrashCan, text: "Delete", onClick: onDeleteTransaction},
+                    modeButton: {modifier: "--Delete", icon: Icomoon.Fire, text: "Delete-Mode", onClick: switchMode},
+                    actionButton: {modifier: "--Delete", icon: Icomoon.TrashCan, text: "Delete", onClick: onDeleteTransaction},
                     cancelButton: {modifier: String.EMPTY, icon: Icomoon.XMarkInsideCircle, text: "Cancel", onClick: onCancel}
                 };
 
             default:
             case TransactionRecord.Mode.ReadOnly:
                 return {
-                    modeButton: {modifier: "--disabled", icon: Icomoon.Eye, text: "Read-Only"},
-                    actionButton: {modifier: "--disabled", icon: Icomoon.FloppyDisk, text: "Save"},
-                    cancelButton: {modifier: "--disabled", icon: Icomoon.XMarkInsideCircle, text: "Cancel"}
+                    modeButton: {modifier: "--Disabled", icon: Icomoon.Eye, text: "Read-Only"},
+                    actionButton: {modifier: "--Disabled", icon: Icomoon.FloppyDisk, text: "Save"},
+                    cancelButton: {modifier: "--Disabled", icon: Icomoon.XMarkInsideCircle, text: "Cancel"}
                 };
         }
     }
@@ -90,7 +90,7 @@ export function TransactionTable({
                 return {modifier: String.EMPTY, icon: Icomoon.PlusCircle, onClick: onAddNewTransaction};
 
             default:
-                return {modifier: "--disabled", icon: Icomoon.NotAllowed};
+                return {modifier: "--Disabled", icon: Icomoon.NotAllowed};
         }
     }
 
@@ -147,17 +147,17 @@ export function TransactionTable({
     {
         return (
             <>
-                <div className={`${className}__calendar-container`}>
+                <div className={`${className}__CalendarContainer`}>
                     <Calendar
-                        className={`${className}__calendar`}
+                        className={"TransactionTable-Calendar"}
                         selectedDate={selectedDate}
                         onChange={onSelectDate}
                     />
                 </div>
-                <div className={`${className}__date-picker-container`}>
+                <div className={`${className}__DatePickerContainer`}>
                     <DatePicker
                         key={selectedDate.getTime()}
-                        className={`${className}__date-picker`}
+                        className={"TransactionTable-DatePicker"}
                         defaultSelectedDate={selectedDate}
                         disableTyping={true}
                         onChange={onSelectDate}
@@ -170,21 +170,21 @@ export function TransactionTable({
     function renderControlPanel(): JSX.Element
     {
         return (
-            <div className={`${className}__control-panel`}>
+            <div className={`${className}__ControlPanel`}>
                 <Button
-                    className={`${className}__control-button${actionButton.modifier}`}
+                    className={`TransactionTable-ControlButton${actionButton.modifier}`}
                     icon={actionButton.icon}
                     label={actionButton.text}
                     onClick={actionButton.onClick}
                 />
                 <Button
-                    className={`${className}__control-button${modeButton.modifier}`}
+                    className={`TransactionTable-ControlButton${modeButton.modifier}`}
                     icon={modeButton.icon}
                     label={modeButton.text}
                     onClick={modeButton.onClick}
                 />
                 <Button
-                    className={`${className}__control-button${cancelButton.modifier}`}
+                    className={`TransactionTable-ControlButton${cancelButton.modifier}`}
                     icon={cancelButton.icon}
                     label={cancelButton.text}
                     onClick={cancelButton.onClick}
@@ -213,7 +213,7 @@ export function TransactionTable({
             return (
                 <TransactionRecord.Component
                     key={transactionId}
-                    className={`${className}__transaction-record`}
+                    className={"TransactionTable-TransactionRecord"}
                     name={transactionData.name}
                     labelSet={labelSet}
                     labels={transactionData.labels}
@@ -233,7 +233,7 @@ export function TransactionTable({
         const addNewButton = getAddNewButtonModel();
         return (
             <Button
-                className={`${className}__add-new-button${addNewButton.modifier}`}
+                className={`TransactionTable-AddNewButton${addNewButton.modifier}`}
                 icon={addNewButton.icon}
                 onClick={addNewButton.onClick}
             />
@@ -243,14 +243,14 @@ export function TransactionTable({
     function renderSummary(): JSX.Element
     {
         return (
-            <div className={`${className}__summary`}>
-                <div className={`${className}__summary-record`}>
-                    <Label className={`${className}__summary-text`} text={"TOTAL EXPENSES:"}/>
-                    <Label className={`${className}__summary-amount--expenses`} text={getTotalExpense().toLocaleString()}/>
+            <div className={`${className}__Summary`}>
+                <div className={`${className}__SummaryRecord`}>
+                    <Label className={"TransactionTable-SummaryText"} text={"TOTAL EXPENSES:"}/>
+                    <Label className={"TransactionTable-SummaryAmount--Expense"} text={getTotalExpense().toLocaleString()}/>
                 </div>
-                <div className={`${className}__summary-record`}>
-                    <Label className={`${className}__summary-text`} text={"TOTAL INCOME:"}/>
-                    <Label className={`${className}__summary-amount--income`} text={getTotalIncome().toLocaleString()}/>
+                <div className={`${className}__SummaryRecord`}>
+                    <Label className={"TransactionTable-SummaryText"} text={"TOTAL INCOME:"}/>
+                    <Label className={"TransactionTable-SummaryAmount--Income"} text={getTotalIncome().toLocaleString()}/>
                 </div>
             </div>
         );
