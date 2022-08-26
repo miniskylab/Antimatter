@@ -50,7 +50,7 @@ export class Paginator extends React.Component<PaginatorProps>
 
         return (
             <Button
-                className={`${this.props.className}__navigator${noMorePage ? "--disabled" : String.EMPTY}`}
+                className={`Paginator-Navigator${noMorePage ? "--Disabled" : String.EMPTY}`}
                 label={step > 0 ? this.props.nextLabel : this.props.prevLabel}
                 onClick={noMorePage ? undefined : () => { this.props.onPageChange?.(this.props.selectedPage + step); }}
             />
@@ -79,12 +79,11 @@ export class Paginator extends React.Component<PaginatorProps>
         {
             const isEllipsis = pageNumber <= 0;
             const isSelectedPage = pageNumber > 0 && this.props.selectedPage === pageNumber;
-            const pagerCssClassName = `__pager${isSelectedPage ? "--selected" : String.EMPTY}`;
 
             return (
                 <Button
                     key={pageNumber}
-                    className={`${this.props.className}${isEllipsis ? "__ellipsis" : pagerCssClassName}`}
+                    className={isEllipsis ? "Paginator-Ellipsis" : `Paginator-Pager${isSelectedPage ? "--Selected" : String.EMPTY}`}
                     label={isEllipsis ? "..." : pageNumber.toString()}
                     onClick={isEllipsis || isSelectedPage ? undefined : () => { this.props.onPageChange?.(pageNumber); }}
                 />

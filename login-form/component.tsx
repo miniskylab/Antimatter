@@ -24,18 +24,18 @@ export function LoginForm({
 
     return (
         <div className={className}>
-            <Icon className={`${className}__logo`} name={logo}/>
-            <Label className={`${className}__title`} text={title}/>
-            <Label className={`${className}__description`} text={description}/>
+            <Icon className={"LoginForm-Logo"} name={logo}/>
+            <Label className={"LoginForm-Title"} text={title}/>
+            <Label className={"LoginForm-Description"} text={description}/>
             <InputField
-                className={`${className}__input-field`}
+                className={"LoginForm-InputField"}
                 icon={usernameInputField.icon}
                 placeholder={usernameInputField.placeholder}
                 value={username}
                 onChange={newValue => { setUsername(newValue); }}
             />
             <InputField
-                className={`${className}__input-field`}
+                className={"LoginForm-InputField"}
                 icon={passwordInputField.icon}
                 placeholder={passwordInputField.placeholder}
                 isPasswordField={true}
@@ -43,7 +43,7 @@ export function LoginForm({
                 onChange={newValue => { setPassword(newValue); }}
             />
             <Button
-                className={`${className}__login-button`}
+                className={"LoginForm-LoginButton"}
                 label={loginButton.label}
                 disabled={!username || !password}
                 onClick={() => { onLogin(username, password); }}

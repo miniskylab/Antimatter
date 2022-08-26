@@ -40,7 +40,7 @@ export class LineChart extends React.Component<LineChartProps>
     {
         return (
             <div className={this.props.className} ref={this.lineChartRef}>
-                <canvas className={`${this.props.className}__canvas`} ref={this.canvasRef}/>
+                <canvas className={`${this.props.className}__Canvas`} ref={this.canvasRef}/>
             </div>
         );
     }

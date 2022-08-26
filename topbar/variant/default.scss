@@ -2,40 +2,48 @@
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-responsive/screen-size";
 
-%topbar, .antimatter-topbar-default {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    min-width: 1000px;
-    height: 50px;
-    background: antimatter-color-scheme.$ambient;
+@mixin variant($Topbar) {
+    @at-root {
+        #{$Topbar} {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            min-width: 1000px;
+            height: 50px;
+            background: antimatter-color-scheme.$ambient;
 
-    /* box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 0 transparent, 0 0 0 transparent, 0 0 0 transparent; */
-    box-shadow: 0 1px 0 antimatter-color-scheme.$white--a10, 0 1px 3px antimatter-color-scheme.$white--a10, 0 4px 20px antimatter-color-scheme.$white--a4, 0 1px 1px antimatter-color-scheme.$white--a3;
-    z-index: antimatter-layer.$always-on-top;
+            /* box-shadow: 0 1px 0 rgba(255, 255, 255, 0.15), 0 0 0 transparent, 0 0 0 transparent, 0 0 0 transparent; */
+            box-shadow: 0 1px 0 antimatter-color-scheme.$white--a10, 0 1px 3px antimatter-color-scheme.$white--a10, 0 4px 20px antimatter-color-scheme.$white--a4, 0 1px 1px antimatter-color-scheme.$white--a3;
+            z-index: antimatter-layer.$always-on-top;
 
-    &__notification-area {
-        display: inline-block;
-        width: calc(100% - 200px);
-        height: 100%;
-        text-align: center;
-    }
+            &__NotificationArea {
+                display: inline-block;
+                width: calc(100% - 200px);
+                height: 100%;
+                text-align: center;
+            }
 
-    &__icon {
-        display: inline-block;
-        width: 30px;
-        height: 30px;
-        padding: 10px 20px;
-    }
+            &__Icon {
+                display: inline-block;
+                width: 30px;
+                height: 30px;
+                padding: 10px 20px;
+            }
 
-    &__logo {
-        @extend %topbar__icon;
-        padding: 10px 15px 10px 15px;
-        vertical-align: top;
+            &__Logo {
+                @extend #{$Topbar}__Icon;
+                padding: 10px 15px 10px 15px;
+                vertical-align: top;
 
-        svg {
-            fill: antimatter-color-scheme.$primary;
+                svg {
+                    fill: antimatter-color-scheme.$primary;
+                }
+            }
         }
+    }
+
+    #{$Topbar} {
+        @content;
     }
 }

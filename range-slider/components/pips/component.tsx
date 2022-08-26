@@ -36,18 +36,18 @@ export class Component extends React.Component<Props>
         const pips: JSX.Element[] = [];
         for (let pipIndex = 0; pipIndex <= this.pipCount; pipIndex++)
         {
-            let pipClassName = `${this.props.className}__pip`;
+            let pipClassName = `${this.props.className}__Pip`;
             if (this.isMilestonePip(pipIndex) && this.isHighlightedPip(pipIndex))
             {
-                pipClassName = `${this.props.className}__pip--highlighted-milestone`;
+                pipClassName = `${this.props.className}__Pip--HighlightedMilestone`;
             }
             else if (this.isMilestonePip(pipIndex))
             {
-                pipClassName = `${this.props.className}__pip--milestone`;
+                pipClassName = `${this.props.className}__Pip--Milestone`;
             }
             else if (this.isHighlightedPip(pipIndex))
             {
-                pipClassName = `${this.props.className}__pip--highlighted`;
+                pipClassName = `${this.props.className}__Pip--Highlighted`;
             }
 
             const pctPipValue = this.getPctPipValue(pipIndex);
@@ -73,10 +73,10 @@ export class Component extends React.Component<Props>
                 continue;
             }
 
-            let labelClassName = `${this.props.className}__label`;
+            let labelClassName = `${this.props.className}__Label`;
             if (this.isHighlightedPip(pipIndex))
             {
-                labelClassName = `${this.props.className}__label--highlighted`;
+                labelClassName = `${this.props.className}__Label--Highlighted`;
             }
 
             const pctPipValue = this.getPctPipValue(pipIndex);

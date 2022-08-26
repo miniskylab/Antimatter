@@ -1,90 +1,83 @@
 @use "~@miniskylab/antimatter-layer";
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-button/variant/outlined-rectangular" as antimatter-button-outlined-rectangular;
 
-%paginator, .antimatter-paginator-default {
+@mixin -pager {
+    position: relative;
+    min-width: 40px;
+    height: 40px;
+    padding: 0;
+    margin-left: -1px;
+    border: 1px solid antimatter-color-scheme.$neutral;
+    color: antimatter-color-scheme.$neutral;
+    background-color: antimatter-color-scheme.$transparent;
+    font-size: antimatter-typography.$font-size--14px;
+}
 
-    @at-root %pager {
-        position: relative;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        color: antimatter-color-scheme.$gray;
-        background-color: antimatter-color-scheme.$transparent;
-        font-size: antimatter-typography.$font-size--14px;
-        border: 1px solid antimatter-color-scheme.$gray;
-        box-sizing: border-box;
-        height: 40px;
-        min-width: 40px;
-        margin-left: -1px;
-        cursor: pointer;
-        user-select: none;
-    }
+@mixin variant($Paginator) {
+    @at-root {
+        #{$Paginator} {
+            $Paginator-Pager: ".Paginator-Pager";
+            @include antimatter-button-outlined-rectangular.variant($Paginator-Pager) {
+                @include -pager;
 
-    &__pager {
-        @extend %pager;
+                @media (hover: hover) {
 
-        &--selected {
-            @extend %paginator__pager;
-            color: antimatter-color-scheme.$white;
-            background-color: antimatter-color-scheme.$primary--a10;
-            border-color: antimatter-color-scheme.$primary;
-            z-index: antimatter-layer.$higher;
-            cursor: default;
-        }
+                    &:not(#{$Paginator-Pager}--Disabled):not(#{$Paginator-Pager}--Selected):hover {
+                        border-color: antimatter-color-scheme.$primary;
+                        z-index: antimatter-layer.$higher;
+                    }
+                }
 
-        &--disabled {
-            @extend %paginator__pager;
-            cursor: not-allowed;
-            color: antimatter-color-scheme.$white--a10;
-            border-color: antimatter-color-scheme.$white--a10;
-        }
+                &--Selected {
+                    @extend #{$Paginator-Pager};
+                    color: antimatter-color-scheme.$white;
+                    background-color: antimatter-color-scheme.$primary--a10;
+                    border-color: antimatter-color-scheme.$primary;
+                    z-index: antimatter-layer.$higher;
+                    cursor: default;
 
-        @media (hover: hover) {
+                    &:not(#{$Paginator-Pager}--Disabled):hover:active {
+                        color: antimatter-color-scheme.$white;
+                        background-color: antimatter-color-scheme.$primary--a10;
+                    }
+                }
+            }
 
-            &:not(&--disabled):not(&--selected):hover {
-                color: antimatter-color-scheme.$white;
-                border-color: antimatter-color-scheme.$primary;
-                background-color: antimatter-color-scheme.$primary--a10;
-                z-index: antimatter-layer.$higher;
+            $Paginator-Ellipsis: ".Paginator-Ellipsis";
+            @include antimatter-button-outlined-rectangular.variant($Paginator-Ellipsis) {
+                @include -pager;
+                font-weight: antimatter-typography.$font-weight--bold;
+                border: none;
+                cursor: default;
 
-                &:active {
-                    background-color: antimatter-color-scheme.$primary;
+                @media (hover: hover) {
+
+                    &:not(#{$Paginator-Ellipsis}--Disabled):hover {
+                        color: antimatter-color-scheme.$neutral;
+                        background-color: antimatter-color-scheme.$transparent;
+                    }
+                }
+            }
+
+            $Paginator-Navigator: ".Paginator-Navigator";
+            @include antimatter-button-outlined-rectangular.variant($Paginator-Navigator) {
+                @include -pager;
+                padding: 0 5px;
+
+                @media (hover: hover) {
+
+                    &:not(#{$Paginator-Navigator}--Disabled):hover {
+                        border-color: antimatter-color-scheme.$primary;
+                        z-index: antimatter-layer.$higher;
+                    }
                 }
             }
         }
     }
 
-    &__ellipsis {
-        @extend %pager;
-        font-weight: antimatter-typography.$font-weight--bold;
-        border: none;
-        cursor: default;
-    }
-
-    &__navigator {
-        @extend %pager;
-        padding: 0 15px;
-
-        &--disabled {
-            @extend %paginator__navigator;
-            cursor: not-allowed;
-            color: antimatter-color-scheme.$white--a10;
-            border-color: antimatter-color-scheme.$white--a10;
-        }
-
-        @media (hover: hover) {
-
-            &:not(&--disabled):hover {
-                color: antimatter-color-scheme.$white;
-                border-color: antimatter-color-scheme.$primary;
-                background-color: antimatter-color-scheme.$primary--a10;
-                z-index: antimatter-layer.$higher;
-
-                &:active {
-                    background-color: antimatter-color-scheme.$primary;
-                }
-            }
-        }
+    #{$Paginator} {
+        @content;
     }
 }

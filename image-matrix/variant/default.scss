@@ -1,27 +1,34 @@
-@use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-responsive/screen-size";
 
-%image-matrix, .antimatter-image-matrix-default {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+@mixin variant($ImageMatrix) {
+    @at-root {
+        #{$ImageMatrix} {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
 
-    &__image {
-        width: 100%;
-        padding: 15px 5px;
-        box-sizing: border-box;
-        object-fit: contain;
+            &__Image {
+                width: 100%;
+                padding: 15px 5px;
+                box-sizing: border-box;
+                object-fit: contain;
 
-        @include screen-size.S {
-            width: 50%;
+                @include screen-size.S {
+                    width: 50%;
+                }
+
+                @include screen-size.M {
+                    width: 33.33%;
+                }
+
+                @include screen-size.L {
+                    width: 20%;
+                }
+            }
         }
+    }
 
-        @include screen-size.M {
-            width: 33.33%;
-        }
-
-        @include screen-size.L {
-            width: 20%;
-        }
+    #{$ImageMatrix} {
+        @content;
     }
 }

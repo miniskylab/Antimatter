@@ -14,7 +14,7 @@ export function ImageMatrix({
             {images.map((x, i) => (
                 <img
                     key={i}
-                    className={`${className}__image`}
+                    className={`${className}__Image`}
                     src={x.url.original}
                     alt={x.altText}
                 />

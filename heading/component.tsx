@@ -9,13 +9,13 @@ import {HeadingProps} from "./model";
 export function Heading({
     className,
     title,
-    subTitle = String.EMPTY
+    subTitle
 }: HeadingProps): JSX.Element
 {
     return (
         <div className={className}>
-            <Label className={`${className}__title`} text={title}/>
-            {subTitle && (<HighlightedParagraph className={`${className}__sub-title`} content={subTitle}/>)}
+            <Label className={"Heading-Title"} text={title}/>
+            {subTitle && (<HighlightedParagraph className={"Heading-SubTitle"} content={subTitle}/>)}
         </div>
     );
 }

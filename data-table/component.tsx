@@ -79,7 +79,7 @@ export class DataTable extends React.Component<DataTableProps>
         for (let pageIndex = 0; pageIndex < pageCount; pageIndex++)
         {
             pages.push(
-                <div key={pageIndex} className={`${this.props.className}__page`} style={pageStyles}>
+                <div key={pageIndex} className={`${this.props.className}__Page`} style={pageStyles}>
                     {this.renderRowsForPage(pageIndex)}
                 </div>
             );
@@ -113,9 +113,9 @@ export class DataTable extends React.Component<DataTableProps>
             if (pageIndex === 0 && props.addNewRowText)
             {
                 rows.push(
-                    <div key={"add-new-row"} className={`${props.className}__add-new-row`}>
-                        <Icon name={Icomoon.PlusCircle} className={`${props.className}__add-new-icon`}/>
-                        <div className={`${props.className}__add-new-label`}>{props.addNewRowText}</div>
+                    <div key={"add-new-row"} className={`${props.className}__AddNewRow`}>
+                        <Icon name={Icomoon.PlusCircle} className={"DataTable-AddNewIcon"}/>
+                        <div className={`${props.className}__AddNewLabel`}>{props.addNewRowText}</div>
                     </div>
                 );
             }
@@ -146,6 +146,7 @@ export class DataTable extends React.Component<DataTableProps>
                     <Record.Component
                         id={rowRecord.id}
                         key={rowRecord.id}
+                        className={"DataTable-Record"}
                         cells={props.records.find(x => x.id === rowRecord.id).cells}
                         onSaveButtonClick={props.onRecordSave ? () => { props.onRecordSave(rowRecord.id); } : undefined}
                         onCancelButtonClick={props.onRecordSave ? () => { props.onRecordDraftDiscard(rowRecord.id); } : undefined}

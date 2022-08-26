@@ -1,5 +1,6 @@
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {HighlightedParagraphProps} from "./model";
 
@@ -14,15 +15,15 @@ export function HighlightedParagraph({
 }: HighlightedParagraphProps): JSX.Element
 {
     return (
-        <div className={className}>
+        <div className={bem(className)}>
             {(icon || title) && (
-                <div className={`${className}__title-container`}>
-                    {icon && <Icon className={`${className}__title-icon`} name={icon}/>}
-                    {title && <Label className={`${className}__title-text`} text={title}/>}
+                <div className={bem(className, "TitleContainer")}>
+                    {icon && <Icon className={bem("HighlightedParagraph-TitleIcon")} name={icon}/>}
+                    {title && <Label className={bem("HighlightedParagraph-TitleText")} text={title}/>}
                 </div>
             )}
-            {(icon || title) && content && <div className={`${className}__gap`}/>}
-            {content && <Label className={`${className}__content`} text={content}/>}
+            {(icon || title) && content && <div className={bem(className, "Gap")}/>}
+            {content && <Label className={bem("HighlightedParagraph-Content")} text={content}/>}
         </div>
     );
 }

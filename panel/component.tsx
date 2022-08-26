@@ -7,14 +7,14 @@ import {PanelProps} from "./model";
  */
 export function Panel({
     className,
-    title = String.EMPTY,
+    title,
     children
 }: PanelProps): JSX.Element
 {
     return (
         <div className={className}>
-            {title && <Label className={`${className}__title`} text={title}/>}
-            <div className={`${className}__content`}>{children}</div>
+            {title && <Label className={"Panel-Title"} text={title}/>}
+            <div className={`${className}__Content`}>{children}</div>
         </div>
     );
 }

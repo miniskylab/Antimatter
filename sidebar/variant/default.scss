@@ -1,19 +1,26 @@
 @use "~@miniskylab/antimatter-layer";
 @use "~@miniskylab/antimatter-color-scheme";
-@use "~@miniskylab/antimatter-responsive/screen-size";
 
-%sidebar, .antimatter-sidebar-default {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 60px;
-    padding: 50px 0;
+@mixin variant($Sidebar) {
+    @at-root {
+        #{$Sidebar} {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 60px;
+            padding: 50px 0;
 
-    &__background {
-        position: fixed;
-        width: 60px;
-        height: 100%;
-        background-color: antimatter-color-scheme.$black--a35;
-        z-index: antimatter-layer.$background;
+            &__Background {
+                position: fixed;
+                width: 60px;
+                height: 100%;
+                background-color: antimatter-color-scheme.$black--a35;
+                z-index: antimatter-layer.$background;
+            }
+        }
+    }
+
+    #{$Sidebar} {
+        @content;
     }
 }

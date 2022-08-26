@@ -1,302 +1,240 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-responsive/screen-size";
+@use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
+@use "~@miniskylab/antimatter-label/variant/default" as antimatter-label-default;
+@use "~@miniskylab/antimatter-download-button/variant/default" as antimatter-download-button-default;
+@use "~@miniskylab/antimatter-highlighted-paragraph/variant/default" as antimatter-highlighted-paragraph-default;
 
-%self-introduction-hero, .antimatter-self-introduction-hero-default {
-    display: flex;
-    flex-basis: screen-size.$XL;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-width: 300px;
-
-    &__cover-photo {
-        display: block;
-        width: 100%;
-        height: 300px;
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    }
-
-    &__banner {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        height: 70px;
-        background-color: antimatter-color-scheme.$background;
-    }
-
-    &__personal-info {
-        display: none;
-
-        @include screen-size.S {
-            display: inline-block;
-            width: 168px;
-            height: 100%;
-        }
-
-        @include screen-size.M {
-            width: 200px;
-        }
-    }
-
-    &__personal-info-title {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 37px;
-        font-size: antimatter-typography.$font-size--17px;
-        font-weight: antimatter-typography.$font-weight--black;
-        color: antimatter-color-scheme.$neutral;
-
-        @include screen-size.M {
-            font-size: antimatter-typography.$font-size--20px;
-        }
-    }
-
-    &__personal-info-value {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        height: 33px;
-        border-bottom: 4px solid antimatter-color-scheme.$primary;
-        box-sizing: border-box;
-        font-size: antimatter-typography.$font-size--17px;
-        font-weight: antimatter-typography.$font-weight--black;
-        color: antimatter-color-scheme.$white;
-
-        @include screen-size.M {
-            font-size: antimatter-typography.$font-size--20px;
-        }
-    }
-
-    &__avatar {
-        position: relative;
-        display: inline-block;
-        width: 200px;
-        height: 100%;
-
-        @include screen-size.M {
-            margin: 0 50px;
-        }
-
-        img {
-            position: absolute;
-            top: -100px;
-            width: 200px;
-            height: 200px;
-            padding: 5px;
-            border-radius: 50%;
-            border: 10px solid antimatter-color-scheme.$white;
-            box-sizing: border-box;
-        }
-    }
-
-    &__name {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 50px;
-        margin-top: 45px;
-        font-size: antimatter-typography.$font-size--40px;
-        font-weight: antimatter-typography.$font-weight--black;
-        color: antimatter-color-scheme.$white;
-
-        @include screen-size.S {
-            height: 60px;
-            font-size: antimatter-typography.$font-size--50px;
-        }
-    }
-
-    &__alternative-name {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 40px;
-        font-size: antimatter-typography.$font-size--28px;
-        font-weight: antimatter-typography.$font-weight--black;
-        color: antimatter-color-scheme.$white;
-
-        @include screen-size.S {
-            height: 50px;
-            font-size: antimatter-typography.$font-size--38px;
-        }
-    }
-
-    &__description {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        line-height: 30px;
-        padding: 20px 15px;
-        box-sizing: border-box;
-        font-size: antimatter-typography.$font-size--20px;
-        color: antimatter-color-scheme.$neutral;
-        text-align: justify;
-        text-align-last: center;
-
-        @include screen-size.S {
-            padding: 30px 20px;
-        }
-
-        @include screen-size.M {
-            width: 742px;
-        }
-    }
-
-    &__download-button {
-        display: none;
-        flex-direction: row-reverse;
-        align-items: center;
-        justify-content: center;
-        min-width: 150px;
-        width: fit-content;
-        height: 34px;
-        padding: 6px 12px;
-        border-radius: 0;
-        border: 1px solid antimatter-color-scheme.$primary;
-        margin: -5px 25% 30px;
-        box-sizing: border-box;
-        color: antimatter-color-scheme.$primary;
-        font-weight: antimatter-typography.$font-weight--regular;
-        vertical-align: top;
-        user-select: none;
-        cursor: pointer;
-        text-decoration: none;
-
-        &__icon {
+@mixin variant($AntimatterSelfIntroductionHeroDefault) {
+    @at-root {
+        #{$AntimatterSelfIntroductionHeroDefault} {
             display: flex;
+            flex-basis: screen-size.$XL;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            min-width: 16px;
-            height: 16px;
-            font-size: antimatter-typography.$font-size--14px;
-        }
+            min-width: 300px;
 
-        &__label {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            padding: 0 10px;
-            font-size: antimatter-typography.$font-size--14px;
-            font-weight: antimatter-typography.$font-weight--bold;
-        }
+            &__CoverPhoto {
+                display: block;
+                width: 100%;
+                height: 300px;
 
-        &--disabled {
-            @extend %self-introduction-hero__download-button;
-            opacity: 0.65;
-            filter: saturate(0%);
-            cursor: not-allowed;
-        }
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
 
-        @media (hover: hover) {
+            &__Banner {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                height: 70px;
+                background-color: antimatter-color-scheme.$background;
+            }
 
-            &:not(&--disabled):hover {
+            &__PersonalInfo {
+                display: none;
+
+                @include screen-size.S {
+                    display: inline-block;
+                    width: 168px;
+                    height: 100%;
+                }
+
+                @include screen-size.M {
+                    width: 200px;
+                }
+            }
+
+            $SelfIntroductionHero-PersonalInfoTitle: ".SelfIntroductionHero-PersonalInfoTitle";
+            @include antimatter-label-default.variant($SelfIntroductionHero-PersonalInfoTitle) {
+                display: flex;
+                height: 37px;
+                font-size: antimatter-typography.$font-size--17px;
+                font-weight: antimatter-typography.$font-weight--black;
+                color: antimatter-color-scheme.$neutral;
+
+                @include screen-size.M {
+                    font-size: antimatter-typography.$font-size--20px;
+                }
+            }
+
+            $SelfIntroductionHero-PersonalInfoValue: ".SelfIntroductionHero-PersonalInfoValue";
+            @include antimatter-label-default.variant($SelfIntroductionHero-PersonalInfoValue) {
+                display: flex;
+                align-items: flex-start;
+                height: 33px;
+                border-bottom: 4px solid antimatter-color-scheme.$primary;
+                box-sizing: border-box;
+                font-size: antimatter-typography.$font-size--17px;
+                font-weight: antimatter-typography.$font-weight--black;
+                color: antimatter-color-scheme.$white;
+
+                @include screen-size.M {
+                    font-size: antimatter-typography.$font-size--20px;
+                }
+            }
+
+            &__Avatar {
+                position: relative;
+                display: inline-block;
+                width: 200px;
+                height: 100%;
+
+                @include screen-size.M {
+                    margin: 0 50px;
+                }
+
+                img {
+                    position: absolute;
+                    top: -100px;
+                    width: 200px;
+                    height: 200px;
+                    padding: 5px;
+                    border-radius: 50%;
+                    border: 10px solid antimatter-color-scheme.$white;
+                    box-sizing: border-box;
+                }
+            }
+
+            $SelfIntroductionHero-Name: ".SelfIntroductionHero-Name";
+            @include antimatter-label-default.variant($SelfIntroductionHero-Name) {
+                display: flex;
+                width: 100%;
+                height: 50px;
+                margin-top: 45px;
+                font-size: antimatter-typography.$font-size--40px;
+                font-weight: antimatter-typography.$font-weight--black;
+                color: antimatter-color-scheme.$white;
+
+                @include screen-size.S {
+                    height: 60px;
+                    font-size: antimatter-typography.$font-size--50px;
+                }
+            }
+
+            $SelfIntroductionHero-AlternativeName: ".SelfIntroductionHero-AlternativeName";
+            @include antimatter-label-default.variant($SelfIntroductionHero-AlternativeName) {
+                display: flex;
+                width: 100%;
+                height: 40px;
+                font-size: antimatter-typography.$font-size--28px;
+                font-weight: antimatter-typography.$font-weight--black;
+                color: antimatter-color-scheme.$white;
+
+                @include screen-size.S {
+                    height: 50px;
+                    font-size: antimatter-typography.$font-size--38px;
+                }
+            }
+
+            $SelfIntroductionHero-Description: ".SelfIntroductionHero-Description";
+            @include antimatter-label-default.variant($SelfIntroductionHero-Description) {
+                display: flex;
+                width: 100%;
+                line-height: 30px;
+                padding: 20px 15px;
+                box-sizing: border-box;
+                font-size: antimatter-typography.$font-size--20px;
+                color: antimatter-color-scheme.$neutral;
+                text-align: justify;
+                text-align-last: center;
+
+                @include screen-size.S {
+                    padding: 30px 20px;
+                }
+
+                @include screen-size.M {
+                    width: 742px;
+                }
+            }
+
+            $SelfIntroductionHero-DownloadButton: ".SelfIntroductionHero-DownloadButton";
+            @include antimatter-download-button-default.variant($SelfIntroductionHero-DownloadButton) {
+                display: none;
+                min-width: 150px;
+                margin: -5px 25% 30px;
                 color: antimatter-color-scheme.$ambient;
-                border-color: antimatter-color-scheme.$primary--w25;
-                background-color: antimatter-color-scheme.$primary--w25;
+                border-color: antimatter-color-scheme.$primary;
+                background-color: antimatter-color-scheme.$primary;
+                font-weight: antimatter-typography.$font-weight--bold;
 
-                &:active {
-                    outline-offset: 3px;
-                    outline: 1px solid antimatter-color-scheme.$primary--w25;
-                    color: antimatter-color-scheme.$ambient;
-                    border-color: antimatter-color-scheme.$primary--w25;
-                    background-color: antimatter-color-scheme.$primary--w25;
+                @media (hover: hover) {
+
+                    &:not(#{$SelfIntroductionHero-DownloadButton}--Disabled):hover {
+                        color: antimatter-color-scheme.$ambient;
+                        border-color: antimatter-color-scheme.$primary--w25;
+                        background-color: antimatter-color-scheme.$primary--w25;
+
+                        &:active {
+                            outline-offset: 3px;
+                            color: antimatter-color-scheme.$ambient;
+                            border-color: antimatter-color-scheme.$primary--w25;
+                            background-color: antimatter-color-scheme.$primary--w25;
+                            outline: 1px solid antimatter-color-scheme.$primary--w25;
+                        }
+                    }
+                }
+
+                @include screen-size.S {
+                    display: flex;
+                }
+            }
+
+            &__MobileSection {
+                width: 100%;
+                padding: 10px 15px;
+                box-sizing: border-box;
+
+                @include screen-size.S {
+                    display: none;
+                }
+            }
+
+            $SelfIntroductionHero-MobilePersonalInfo: ".SelfIntroductionHero-MobilePersonalInfo";
+            @include antimatter-highlighted-paragraph-default.variant($SelfIntroductionHero-MobilePersonalInfo) {
+                padding: 6px 20px 10px;
+
+                &__TitleContainer {
+                    display: flex;
+                    justify-content: center;
+                    color: antimatter-color-scheme.$neutral;
+                }
+
+                $HighlightedParagraph-TitleIcon: ".HighlightedParagraph-TitleIcon";
+                @include antimatter-icon-default.variant($HighlightedParagraph-TitleIcon) {
+                    display: none;
+                }
+
+                $HighlightedParagraph-TitleText: ".HighlightedParagraph-TitleText";
+                @include antimatter-label-default.variant($HighlightedParagraph-TitleText) {
+                    font-size: antimatter-typography.$font-size--16px;
+                }
+
+                &__Gap {
+                    height: 0;
+                }
+
+                $HighlightedParagraph-Content: ".HighlightedParagraph-Content";
+                @include antimatter-label-default.variant($HighlightedParagraph-Content) {
+                    justify-content: center;
+                    font-size: antimatter-typography.$font-size--20px;
+                    font-weight: antimatter-typography.$font-weight--bold;
+                }
+
+                &--Primary {
+                    background-color: antimatter-color-scheme.$primary--a10;
+                    border-color: antimatter-color-scheme.$primary;
                 }
             }
         }
-
-        @include screen-size.S {
-            display: inline-flex;
-            color: antimatter-color-scheme.$ambient;
-            border-color: antimatter-color-scheme.$primary;
-            background-color: antimatter-color-scheme.$primary;
-        }
     }
 
-    &__mobile-section {
-        width: 100%;
-        padding: 10px 15px;
-        box-sizing: border-box;
-
-        @include screen-size.S {
-            display: none;
-        }
-    }
-
-    &__mobile-personal-info {
-        width: 100%;
-        padding: 6px 20px 10px;
-        border: 3px solid antimatter-color-scheme.$gray;
-        box-sizing: border-box;
-        color: antimatter-color-scheme.$white;
-        background-color: antimatter-color-scheme.$gray--a10;
-
-        &__title-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 30px;
-            font-size: antimatter-typography.$font-size--16px;
-            font-weight: antimatter-typography.$font-weight--bold;
-            color: antimatter-color-scheme.$neutral;
-        }
-
-        &__title-icon {
-            display: inline-flex;
-            justify-content: center;
-            width: 25px;
-            padding-right: 12px;
-            font-size: antimatter-typography.$font-size--25px;
-        }
-
-        &__title-text {
-            text-align: center;
-        }
-
-        &__gap {
-            height: 0;
-        }
-
-        &__content {
-            display: flex;
-            justify-content: center;
-            line-height: 24px;
-            font-size: antimatter-typography.$font-size--20px;
-            font-weight: antimatter-typography.$font-weight--bold;
-        }
-
-        &--primary {
-            @extend %self-introduction-hero__mobile-personal-info;
-            background-color: antimatter-color-scheme.$primary--a10;
-            border: 3px solid antimatter-color-scheme.$primary;
-
-            &__title-container {
-                @extend %self-introduction-hero__mobile-personal-info__title-container;
-            }
-
-            &__title-icon {
-                @extend %self-introduction-hero__mobile-personal-info__title-icon;
-            }
-
-            &__title-text {
-                @extend %self-introduction-hero__mobile-personal-info__title-text;
-            }
-
-            &__gap {
-                @extend %self-introduction-hero__mobile-personal-info__gap;
-            }
-
-            &__content {
-                @extend %self-introduction-hero__mobile-personal-info__content;
-            }
-        }
+    #{$AntimatterSelfIntroductionHeroDefault} {
+        @content;
     }
 }

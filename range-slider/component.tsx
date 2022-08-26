@@ -25,32 +25,32 @@ export class RangeSlider extends React.Component<RangeSliderProps>
         return (
             <div className={this.props.className}>
                 <div
-                    className={`${this.props.className}__track${this.props.canInteractWith ? "--interactable" : String.EMPTY}`}
+                    className={`${this.props.className}__Track${this.props.canInteractWith ? "--Interactable" : String.EMPTY}`}
                     onPointerDown={this.props.canInteractWith ? event => this.onPointerDownSlider(event) : undefined}
                 >
-                    <div className={`${this.props.className}__stopper-left`}/>
-                    <div className={`${this.props.className}__free-zone`} ref={this.freezoneRef}>
+                    <div className={`${this.props.className}__StopperLeft`}/>
+                    <div className={`${this.props.className}__FreeZone`} ref={this.freezoneRef}>
                         <div
-                            className={`${this.props.className}__fill-left`}
+                            className={`${this.props.className}__FillLeft`}
                             style={{width: `${this.toPercent(this.props.value)}%`}}
                         />
                         <div
                             style={{left: `${this.toPercent(this.props.value)}%`}}
-                            className={`${this.props.className}__knob${this.props.canInteractWith ? "--interactable" : String.EMPTY}`}
+                            className={`${this.props.className}__Knob${this.props.canInteractWith ? "--Interactable" : String.EMPTY}`}
                             onPointerDown={this.props.canInteractWith ? event => this.onPointerDownKnob(event) : undefined}
                         >
                         </div>
                         <div
-                            className={`${this.props.className}__fill-right`}
+                            className={`${this.props.className}__FillRight`}
                             style={{width: `${100 - this.toPercent(this.props.value)}%`}}
                         />
                     </div>
-                    <div className={`${this.props.className}__stopper-right`}/>
+                    <div className={`${this.props.className}__StopperRight`}/>
                 </div>
                 {
                     this.props.pipSettings &&
                     <Pips.Component
-                        className={`${this.props.className}__pips`}
+                        className={"RangeSlider-Pips"}
                         minValue={this.props.minValue}
                         maxValue={this.props.maxValue}
                         step={this.props.pipSettings.step}

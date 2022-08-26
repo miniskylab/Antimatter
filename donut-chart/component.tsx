@@ -33,12 +33,12 @@ export class DonutChart extends React.Component<DonutChartProps>
                     ref={this.canvasRef}
                     width={this.canvasResolution}
                     height={this.canvasResolution}
-                    className={`${this.props.className}__canvas`}
+                    className={`${this.props.className}__Canvas`}
                 />
-                <div className={`${this.props.className}__legend`}>
-                    <Label className={`${this.props.className}__value`} text={this.props.pctValue.ensurePercent().toFixed(0)}/>
-                    <Label className={`${this.props.className}__percent-symbol`} text={"%"}/>
-                    <Label className={`${this.props.className}__description`} text={this.props.description}/>
+                <div className={`${this.props.className}__Legend`}>
+                    <Label className={"DonutChart-Value"} text={this.props.pctValue.ensurePercent().toFixed(0)}/>
+                    <Label className={"DonutChart-PercentSymbol"} text={"%"}/>
+                    <Label className={"DonutChart-Description"} text={this.props.description}/>
                 </div>
             </div>
         );

@@ -13,11 +13,11 @@ export function Topbar({
 {
     return (
         <div className={className}>
-            <div className={`${className}__logo ${Icomoon.Flag}`}/>
-            <div className={`${className}__notification-area`}>
-                {notificationIcons.map((icon, index) => <div key={index} className={`${className}__icon`}>{icon}</div>)}
+            <div className={`${className}__Logo ${Icomoon.Flag}`}/>
+            <div className={`${className}__NotificationArea`}>
+                {notificationIcons.map((icon, index) => <div key={index} className={`${className}__Icon`}>{icon}</div>)}
             </div>
-            {functionalityIcons.map((icon, index) => <div key={index} className={`${className}__icon`}>{icon}</div>)}
+            {functionalityIcons.map((icon, index) => <div key={index} className={`${className}__Icon`}>{icon}</div>)}
         </div>
     );
 }

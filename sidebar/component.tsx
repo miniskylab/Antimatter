@@ -11,7 +11,7 @@ export function Sidebar({
 {
     return (
         <div className={className}>
-            <div className={`${className}__background`}/>
+            <div className={`${className}__Background`}/>
             {icons.map((icon, i) => <Fragment key={i}>{icon}</Fragment>)}
         </div>
     );

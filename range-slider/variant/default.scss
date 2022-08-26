@@ -1,165 +1,175 @@
+@use "sass:string";
 @use "~@miniskylab/antimatter-layer";
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
-$knob-radius: 15px;
-$track-padding: 4px;
+@mixin variant($RangeSlider) {
+    @at-root {
+        $-knob-radius: 15px;
+        $-track-padding: 4px;
 
-%range-slider, .antimatter-range-slider-default {
-    display: flex;
-    flex-wrap: wrap;
-    width: 100%;
-    height: 75px;
+        #{$RangeSlider} {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            height: 75px;
 
-    &__track {
-        width: 100%;
-        height: 16px;
-        padding: $track-padding;
-        border-radius: 16px;
-        margin-top: $knob-radius;
-        box-sizing: border-box;
-        box-shadow: inset 0 1px 2px antimatter-color-scheme.$black--a25, 0 1px antimatter-color-scheme.$white--a8;
-        background-color: antimatter-color-scheme.$ambient;
+            &__Track {
+                width: 100%;
+                height: 16px;
+                padding: $-track-padding;
+                border-radius: 16px;
+                margin-top: $-knob-radius;
+                box-sizing: border-box;
+                box-shadow: inset 0 1px 2px antimatter-color-scheme.$black--a25, 0 1px antimatter-color-scheme.$white--a8;
+                background-color: antimatter-color-scheme.$ambient;
 
-        &--interactable {
-            @extend %range-slider__track;
-            cursor: pointer;
-        }
-    }
+                &--Interactable {
+                    @extend #{$RangeSlider}__Track;
+                    cursor: pointer;
+                }
+            }
 
-    &__fill-left {
-        display: inline-block;
-        height: 100%;
-        vertical-align: top;
-        background-color: antimatter-color-scheme.$primary;
-        background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
-    }
+            &__FillLeft {
+                display: inline-block;
+                height: 100%;
+                vertical-align: top;
+                background-color: antimatter-color-scheme.$primary;
+                background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
+            }
 
-    &__fill-right {
-        height: 100%;
-        vertical-align: top;
-        float: right;
-        background-color: antimatter-color-scheme.$transparent;
-    }
+            &__FillRight {
+                height: 100%;
+                vertical-align: top;
+                float: right;
+                background-color: antimatter-color-scheme.$transparent;
+            }
 
-    &__stopper-left {
-        @extend %range-slider__fill-left;
-        width: $knob-radius - $track-padding;
-        border-radius: 16px 0 0 16px;
-    }
+            &__StopperLeft {
+                @extend #{$RangeSlider}__FillLeft;
+                width: $-knob-radius - $-track-padding;
+                border-radius: 16px 0 0 16px;
+            }
 
-    &__stopper-right {
-        @extend %range-slider__fill-right;
-        width: $knob-radius - $track-padding;
-        border-radius: 0 16px 16px 0;
-    }
+            &__StopperRight {
+                @extend #{$RangeSlider}__FillRight;
+                width: $-knob-radius - $-track-padding;
+                border-radius: 0 16px 16px 0;
+            }
 
-    &__knob {
-        position: absolute;
-        width: $knob-radius * 2;
-        height: $knob-radius * 2;
-        top: 0;
-        bottom: 0;
-        margin-top: auto;
-        margin-bottom: auto;
-        margin-left: -$knob-radius;
-        border-radius: 50%;
-        background-color: antimatter-color-scheme.$white;
-        z-index: antimatter-layer.$higher;
-        animation: range-slider__pulse 5s infinite alternate;
-        touch-action: none;
+            &__Knob {
+                $-pulse: #{string.slice($RangeSlider, 2)}-Knob-Pulse;
+                @keyframes #{$-pulse} {
 
-        &--interactable {
-            @extend %range-slider__knob;
-            box-shadow: 0 0 8px antimatter-color-scheme.$black--a35;
-            background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
-            cursor: pointer;
-            animation: none;
+                    from {
+                        box-shadow: 0 0 45px;
+                    }
 
-            &::after {
-                content: "";
-                width: $knob-radius;
-                height: $knob-radius;
-                margin: auto;
+                    to {
+                        box-shadow: 0 0 45px 1px antimatter-color-scheme.$gainsboro;
+                    }
+                }
+
                 position: absolute;
                 top: 0;
-                right: 0;
                 bottom: 0;
-                left: 0;
+                width: $-knob-radius * 2;
+                height: $-knob-radius * 2;
                 border-radius: 50%;
-                background-image: linear-gradient(to bottom, antimatter-color-scheme.$black--a15, antimatter-color-scheme.$white--a5);
+                margin-top: auto;
+                margin-bottom: auto;
+                margin-left: -$-knob-radius;
+                background-color: antimatter-color-scheme.$white;
+                z-index: antimatter-layer.$higher;
+                animation: $-pulse 5s infinite alternate;
+                touch-action: none;
+
+                &--Interactable {
+                    @extend #{$RangeSlider}__Knob;
+                    box-shadow: 0 0 8px antimatter-color-scheme.$black--a35;
+                    background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
+                    cursor: pointer;
+                    animation: none;
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        width: $-knob-radius;
+                        height: $-knob-radius;
+                        border-radius: 50%;
+                        margin: auto;
+                        background-image: linear-gradient(to bottom, antimatter-color-scheme.$black--a15, antimatter-color-scheme.$white--a5);
+                    }
+                }
+            }
+
+            &__FreeZone {
+                position: relative;
+                display: inline-block;
+                width: calc(100% - #{$-knob-radius - $-track-padding} * 2);
+                height: 100%;
+                background-color: inherit;
+            }
+
+            .RangeSlider-Pips {
+                position: relative;
+                width: 100%;
+                height: 35px;
+                margin: 5px 15px 0 15px;
+                pointer-events: none;
+
+                &__Pip {
+                    position: absolute;
+                    display: inline;
+                    width: 2px;
+                    height: 8px;
+                    border-radius: 10px;
+                    background-color: antimatter-color-scheme.$gainsboro;
+                    transform: translate(-50%, 0) rotate(-0.0000000001deg);
+                    transition: background-color 0.1s linear;
+
+                    &--Milestone {
+                        @extend .RangeSlider-Pips__Pip;
+                        height: 16px;
+                    }
+
+                    &--Highlighted {
+                        @extend .RangeSlider-Pips__Pip;
+                        background-color: antimatter-color-scheme.$primary;
+                    }
+
+                    &--HighlightedMilestone {
+                        @extend .RangeSlider-Pips__Pip--Highlighted;
+                        @extend .RangeSlider-Pips__Pip--Milestone;
+                    }
+                }
+
+                &__Label {
+                    position: absolute;
+                    display: inline;
+                    width: 30px;
+                    line-height: 15px;
+                    padding-top: 20px;
+                    text-align: center;
+                    font-size: antimatter-typography.$font-size--10px;
+                    color: antimatter-color-scheme.$gainsboro;
+                    transform: translate(-50%, 0);
+                    transition: color 0.1s linear;
+
+                    &--Highlighted {
+                        @extend .RangeSlider-Pips__Label;
+                        color: antimatter-color-scheme.$primary;
+                    }
+                }
             }
         }
     }
 
-    &__free-zone {
-        position: relative;
-        display: inline-block;
-        width: calc(100% - #{$knob-radius - $track-padding} * 2);
-        height: 100%;
-        background-color: inherit;
-    }
-
-    &__pips {
-        position: relative;
-        width: 100%;
-        height: 35px;
-        margin: 5px 15px 0 15px;
-        pointer-events: none;
-
-        &__pip {
-            position: absolute;
-            display: inline;
-            width: 2px;
-            height: 8px;
-            border-radius: 10px;
-            background-color: antimatter-color-scheme.$gainsboro;
-            transform: translate(-50%, 0) rotate(-0.0000000001deg);
-            transition: background-color 0.1s linear;
-
-            &--milestone {
-                @extend %range-slider__pips__pip;
-                height: 16px;
-            }
-
-            &--highlighted {
-                @extend %range-slider__pips__pip;
-                background-color: antimatter-color-scheme.$primary;
-            }
-
-            &--highlighted-milestone {
-                @extend %range-slider__pips__pip--highlighted;
-                @extend %range-slider__pips__pip--milestone;
-            }
-        }
-
-        &__label {
-            position: absolute;
-            display: inline;
-            width: 30px;
-            padding-top: 20px;
-            line-height: 15px;
-            text-align: center;
-            font-size: antimatter-typography.$font-size--10px;
-            color: antimatter-color-scheme.$gainsboro;
-            transform: translate(-50%, 0);
-            transition: color 0.1s linear;
-
-            &--highlighted {
-                @extend %range-slider__pips__label;
-                color: antimatter-color-scheme.$primary;
-            }
-        }
-    }
-}
-
-@keyframes range-slider__pulse {
-
-    from {
-        box-shadow: 0 0 45px;
-    }
-
-    to {
-        box-shadow: 0 0 45px 1px antimatter-color-scheme.$gainsboro;
+    #{$RangeSlider} {
+        @content;
     }
 }

@@ -24,7 +24,7 @@ export function Component({
 {
     return (
         <div
-            className={`${className}${onClick ? "--interactable" : String.EMPTY}`}
+            className={`${className}${onClick ? "--Interactable" : String.EMPTY}`}
             onClick={mouseEvent =>
             {
                 mouseEvent.stopPropagation();
@@ -44,11 +44,11 @@ export function Component({
             }
             {
                 (onSaveButtonClick || onCancelButtonClick || onDeleteButtonClick) &&
-                <div className={`${className}__control-box${editable ? "--active" : String.EMPTY}`}>
+                <div className={`${className}__ControlBox${editable ? "--Active" : String.EMPTY}`}>
                     {
                         onSaveButtonClick &&
                         <Button
-                            className={`${className}__ok-butotn`}
+                            className={"DataTable-Record-OkButton"}
                             disabled={!editable}
                             icon={Icomoon.CheckMark}
                             onClick={mouseEvent =>
@@ -61,7 +61,7 @@ export function Component({
                     {
                         onCancelButtonClick &&
                         <Button
-                            className={`${className}__cancel-butotn`}
+                            className={"DataTable-Record-CancelButton"}
                             disabled={!editable}
                             icon={Icomoon.XMark}
                             onClick={mouseEvent =>
@@ -74,7 +74,7 @@ export function Component({
                     {
                         onDeleteButtonClick &&
                         <Button
-                            className={`${className}__delete-butotn`}
+                            className={"DataTable-Record-DeleteButton"}
                             disabled={!editable}
                             icon={Icomoon.TrashCan}
                             onClick={mouseEvent =>

@@ -1,6 +1,7 @@
 import {DownloadButton} from "@miniskylab/antimatter-download-button";
 import {HighlightedParagraph} from "@miniskylab/antimatter-highlighted-paragraph";
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import {ScreenSize} from "@miniskylab/antimatter-responsive";
 import React from "react";
 import {SelfIntroductionHeroProps} from "./model";
@@ -24,7 +25,7 @@ export function SelfIntroductionHero({
 {
     return (
         <div className={className}>
-            <div className={`${className}__cover-photo`}>
+            <div className={`${className}__CoverPhoto`}>
                 <picture>
                     <source media={`(min-width:${ScreenSize.Large}px)`} srcSet={coverPhoto.url.original}/>
                     <source media={`(min-width:${ScreenSize.Medium}px)`} srcSet={coverPhoto.url.original}/>
@@ -33,12 +34,12 @@ export function SelfIntroductionHero({
                     <img src={coverPhoto.url.original} alt={coverPhoto.altText}/>
                 </picture>
             </div>
-            <div className={`${className}__banner`}>
-                <div className={`${className}__personal-info`}>
-                    <Label className={`${className}__personal-info-title`} text={emailTitle}/>
-                    <Label className={`${className}__personal-info-value`} text={emailAddress}/>
+            <div className={`${className}__Banner`}>
+                <div className={`${className}__PersonalInfo`}>
+                    <Label className={"SelfIntroductionHero-PersonalInfoTitle"} text={emailTitle}/>
+                    <Label className={"SelfIntroductionHero-PersonalInfoValue"} text={emailAddress}/>
                 </div>
-                <div className={`${className}__avatar`}>
+                <div className={`${className}__Avatar`}>
                     <picture>
                         <source media={`(min-width:${ScreenSize.Large}px)`} srcSet={avatar.url.original}/>
                         <source media={`(min-width:${ScreenSize.Medium}px)`} srcSet={avatar.url.original}/>
@@ -47,29 +48,29 @@ export function SelfIntroductionHero({
                         <img src={avatar.url.original} alt={avatar.altText}/>
                     </picture>
                 </div>
-                <div className={`${className}__personal-info`}>
-                    <Label className={`${className}__personal-info-title`} text={locationTitle}/>
-                    <Label className={`${className}__personal-info-value`} text={location}/>
+                <div className={`${className}__PersonalInfo`}>
+                    <Label className={"SelfIntroductionHero-PersonalInfoTitle"} text={locationTitle}/>
+                    <Label className={"SelfIntroductionHero-PersonalInfoValue"} text={location}/>
                 </div>
             </div>
-            <Label className={`${className}__name`} text={name}/>
-            <Label className={`${className}__alternative-name`} text={alternativeName}/>
-            <Label className={`${className}__description`} text={description}/>
+            <Label className={"SelfIntroductionHero-Name"} text={name}/>
+            <Label className={"SelfIntroductionHero-AlternativeName"} text={alternativeName}/>
+            <Label className={"SelfIntroductionHero-Description"} text={description}/>
             {downloadButton && (
                 <DownloadButton
-                    className={`${className}__download-button`}
+                    className={"SelfIntroductionHero-DownloadButton"}
                     {...downloadButton}
                 />
             )}
-            <div className={`${className}__mobile-section`}>
+            <div className={`${className}__MobileSection`}>
                 <HighlightedParagraph
-                    className={`${className}__mobile-personal-info`}
+                    className={"SelfIntroductionHero-MobilePersonalInfo"}
                     title={locationTitle}
                     content={location}
                 />
                 <br/>
                 <HighlightedParagraph
-                    className={`${className}__mobile-personal-info--primary`}
+                    className={bem("SelfIntroductionHero-MobilePersonalInfo", null, "Primary")}
                     title={emailTitle}
                     content={emailAddress}
                 />

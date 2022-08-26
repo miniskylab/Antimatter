@@ -30,12 +30,12 @@ export class CircularSlider extends React.Component<CircularSliderProps>
     {
         return (
             <div ref={this.ref} className={this.props.className}>
-                <div className={`${this.props.className}__track-outer-border`}>
-                    <div className={`${this.props.className}__track-inner-border`}>
+                <div className={`${this.props.className}__TrackOuterBorder`}>
+                    <div className={`${this.props.className}__TrackInnerBorder`}>
                         {
                             this.props.pipSettings &&
                             <Pips.Component
-                                className={`${this.props.className}__pips`}
+                                className={"CircularSlider-Pips"}
                                 minValue={this.props.minValue}
                                 maxValue={this.props.maxValue}
                                 step={this.props.pipSettings.step}
@@ -48,17 +48,17 @@ export class CircularSlider extends React.Component<CircularSliderProps>
                 </div>
                 <canvas
                     ref={this.canvasRef}
-                    className={`${this.props.className}__fill-canvas`}
+                    className={`${this.props.className}__FillCanvas`}
                     width={this.canvasResolution}
                     height={this.canvasResolution}
                 >
                 </canvas>
                 <div
-                    className={`${this.props.className}__rotor`}
+                    className={`${this.props.className}__Rotor`}
                     style={{transform: `rotate(${this.toPercentage(this.props.startValue) * 360}deg)`}}
                 >
                     <div
-                        className={`${this.props.className}__knob--start ${Icomoon.Moon}`}
+                        className={`${this.props.className}__Knob--Start ${Icomoon.Moon}`}
                         style={{transform: `rotate(-${this.toPercentage(this.props.startValue) * 360}deg)`}}
                         onPointerDown={(pointerEvent: React.PointerEvent<HTMLDivElement>): void =>
                         {
@@ -67,11 +67,11 @@ export class CircularSlider extends React.Component<CircularSliderProps>
                     />
                 </div>
                 <div
-                    className={`${this.props.className}__rotor`}
+                    className={`${this.props.className}__Rotor`}
                     style={{transform: `rotate(${this.toPercentage(this.props.endValue) * 360}deg)`}}
                 >
                     <div
-                        className={`${this.props.className}__knob--end ${Icomoon.Sun}`}
+                        className={`${this.props.className}__Knob--End ${Icomoon.Sun}`}
                         style={{transform: `rotate(-${this.toPercentage(this.props.endValue) * 360}deg)`}}
                         onPointerDown={(pointerEvent: React.PointerEvent<HTMLDivElement>): void =>
                         {
