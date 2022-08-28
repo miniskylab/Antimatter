@@ -1,4 +1,5 @@
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import {GregorianCalendar, LunarCalendarVn} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {getData} from "./helper";
@@ -20,8 +21,8 @@ export class Component extends React.Component<Props>
         this.today = new Date();
 
         return (
-            <div className={this.props.className}>
-                <Label className={"Calendar-DateView-WeekNo"} text={"#"}/>
+            <div className={bem(this.props.className)}>
+                <Label className={bem("Calendar-DateView-WeekNo")} text={"#"}/>
                 {this.renderDaysOfWeek()}
                 {this.renderDates()}
             </div>
@@ -32,7 +33,7 @@ export class Component extends React.Component<Props>
     {
         return (
             ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map(shortDayName => (
-                <Label key={shortDayName} className={"Calendar-DateView-DayOfWeek"} text={shortDayName}/>
+                <Label key={shortDayName} className={bem("Calendar-DateView-DayOfWeek")} text={shortDayName}/>
             ))
         );
     }
@@ -57,7 +58,7 @@ export class Component extends React.Component<Props>
             week = [
                 <Label
                     key={"#"}
-                    className={"Calendar-DateView-WeekOfYear"}
+                    className={bem("Calendar-DateView-WeekOfYear")}
                     text={GregorianCalendar.getWeekNumber(dateViewData[weekNo][thursday]).toString()}
                 />
             ];
@@ -75,11 +76,11 @@ export class Component extends React.Component<Props>
                     >
                         {
                             isToday
-                                ? <div className={`${this.props.className}__Today`}>
-                                    <Label className={"Calendar-DateView-TodayText"} text={"Today"}/>
-                                    <Label className={"Calendar-DateView-TodayNumber"} text={date.getDate().toString()}/>
+                                ? <div className={bem(this.props.className, "Today")}>
+                                    <Label className={bem("Calendar-DateView-TodayText")} text={"Today"}/>
+                                    <Label className={bem("Calendar-DateView-TodayNumber")} text={date.getDate().toString()}/>
                                 </div>
-                                : <div className={`${this.props.className}__Date`}>{date.getDate().toString()}</div>
+                                : <div className={bem(this.props.className, "Date")}>{date.getDate().toString()}</div>
                         }
                     </div>
                 );
@@ -93,39 +94,25 @@ export class Component extends React.Component<Props>
 
     private getDateClassName(date: Date): string
     {
-        if (GregorianCalendar.isEqualDate(date, this.today))
-        {
-            const dateClassName = `${this.props.className}__TodayContainer`;
-            if (GregorianCalendar.isEqualDate(date, this.props.selectedDate))
-            {
-                return `${dateClassName}--Selected`;
-            }
+        const element = GregorianCalendar.isEqualDate(date, this.today)
+            ? "TodayContainer"
+            : "DateContainer";
 
-            if (this.isHighlightedDate(date))
-            {
-                return `${dateClassName}--Highlighted`;
-            }
-
-            return dateClassName;
-        }
-
-        const dateClassName = `${this.props.className}__DateContainer`;
+        let modifier = String.EMPTY;
         if (GregorianCalendar.isEqualDate(date, this.props.selectedDate))
         {
-            return `${dateClassName}--Selected`;
+            modifier = "Selected";
         }
-
-        if (this.isHighlightedDate(date))
+        else if (this.isHighlightedDate(date))
         {
-            return `${dateClassName}--Highlighted`;
+            modifier = "Highlighted";
         }
-
-        if (!GregorianCalendar.isEqualMonth(date, this.props.displayingMonth))
+        else if (!GregorianCalendar.isEqualMonth(date, this.props.displayingMonth))
         {
-            return `${dateClassName}--Extraneous`;
+            modifier = "Extraneous";
         }
 
-        return dateClassName;
+        return bem(this.props.className, element, modifier);
     }
 
     private isHighlightedDate(date: Date): boolean { return !!this.getHighlightedDate(date); }

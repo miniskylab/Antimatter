@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {IconProps} from "./model";
 
@@ -9,5 +10,5 @@ export function Icon({
     name
 }: IconProps): JSX.Element
 {
-    return (<div className={`${className} ${name}`}/>);
+    return (<div className={`${bem(className)} ${name}`}/>);
 }

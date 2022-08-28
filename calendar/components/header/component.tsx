@@ -1,5 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {Props} from "./model";
 
@@ -15,21 +16,21 @@ export function Component({
 }: Props): JSX.Element
 {
     return (
-        <div className={className}>
+        <div className={bem(className)}>
             <Button
-                className={"Calendar-Header-Navigator"}
+                className={bem("Calendar-Header-Navigator")}
                 icon={Icomoon.ChevronLeft}
                 disabled={!onPrevClick}
                 onClick={onPrevClick}
             />
             <Button
-                className={"Calendar-Header-Headline"}
+                className={bem("Calendar-Header-Headline")}
                 label={headline}
                 disabled={!onHeadlineClick}
                 onClick={onHeadlineClick}
             />
             <Button
-                className={"Calendar-Header-Navigator"}
+                className={bem("Calendar-Header-Navigator")}
                 icon={Icomoon.ChevronRight}
                 disabled={!onNextClick}
                 onClick={onNextClick}

@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {ImageMatrixProps} from "./model";
 
@@ -10,11 +11,11 @@ export function ImageMatrix({
 }: ImageMatrixProps): JSX.Element
 {
     return (
-        <div className={className}>
+        <div className={bem(className)}>
             {images.map((x, i) => (
                 <img
                     key={i}
-                    className={`${className}__Image`}
+                    className={bem(className, "Image")}
                     src={x.url.original}
                     alt={x.altText}
                 />

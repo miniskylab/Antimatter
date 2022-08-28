@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import {Char} from "@miniskylab/antimatter-typescript";
 import React, {createRef, RefObject} from "react";
 import {endWithDotAndZeros, isAllowedKey, removeCosmeticCharacters, removeNonDigitCharacters} from "./helper";
@@ -60,7 +61,7 @@ export class NumericInputField extends React.Component<NumericInputFieldProps, S
                 ref={this.ref}
                 type={"text"}
                 pattern={"[0-9]*"}
-                className={this.props.className}
+                className={bem(this.props.className)}
                 value={this.state.userInput}
                 placeholder={this.props.placeholder}
                 onChange={event => this.onChange(event)}

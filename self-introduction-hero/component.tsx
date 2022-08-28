@@ -24,8 +24,8 @@ export function SelfIntroductionHero({
 }: SelfIntroductionHeroProps): JSX.Element
 {
     return (
-        <div className={className}>
-            <div className={`${className}__CoverPhoto`}>
+        <div className={bem(className)}>
+            <div className={bem(className, "CoverPhoto")}>
                 <picture>
                     <source media={`(min-width:${ScreenSize.Large}px)`} srcSet={coverPhoto.url.original}/>
                     <source media={`(min-width:${ScreenSize.Medium}px)`} srcSet={coverPhoto.url.original}/>
@@ -34,12 +34,12 @@ export function SelfIntroductionHero({
                     <img src={coverPhoto.url.original} alt={coverPhoto.altText}/>
                 </picture>
             </div>
-            <div className={`${className}__Banner`}>
-                <div className={`${className}__PersonalInfo`}>
-                    <Label className={"SelfIntroductionHero-PersonalInfoTitle"} text={emailTitle}/>
-                    <Label className={"SelfIntroductionHero-PersonalInfoValue"} text={emailAddress}/>
+            <div className={bem(className, "Banner")}>
+                <div className={bem(className, "PersonalInfo")}>
+                    <Label className={bem("SelfIntroductionHero-PersonalInfoTitle")} text={emailTitle}/>
+                    <Label className={bem("SelfIntroductionHero-PersonalInfoValue")} text={emailAddress}/>
                 </div>
-                <div className={`${className}__Avatar`}>
+                <div className={bem(className, "Avatar")}>
                     <picture>
                         <source media={`(min-width:${ScreenSize.Large}px)`} srcSet={avatar.url.original}/>
                         <source media={`(min-width:${ScreenSize.Medium}px)`} srcSet={avatar.url.original}/>
@@ -48,23 +48,23 @@ export function SelfIntroductionHero({
                         <img src={avatar.url.original} alt={avatar.altText}/>
                     </picture>
                 </div>
-                <div className={`${className}__PersonalInfo`}>
-                    <Label className={"SelfIntroductionHero-PersonalInfoTitle"} text={locationTitle}/>
-                    <Label className={"SelfIntroductionHero-PersonalInfoValue"} text={location}/>
+                <div className={bem(className, "PersonalInfo")}>
+                    <Label className={bem("SelfIntroductionHero-PersonalInfoTitle")} text={locationTitle}/>
+                    <Label className={bem("SelfIntroductionHero-PersonalInfoValue")} text={location}/>
                 </div>
             </div>
-            <Label className={"SelfIntroductionHero-Name"} text={name}/>
-            <Label className={"SelfIntroductionHero-AlternativeName"} text={alternativeName}/>
-            <Label className={"SelfIntroductionHero-Description"} text={description}/>
+            <Label className={bem("SelfIntroductionHero-Name")} text={name}/>
+            <Label className={bem("SelfIntroductionHero-AlternativeName")} text={alternativeName}/>
+            <Label className={bem("SelfIntroductionHero-Description")} text={description}/>
             {downloadButton && (
                 <DownloadButton
-                    className={"SelfIntroductionHero-DownloadButton"}
+                    className={bem("SelfIntroductionHero-DownloadButton")}
                     {...downloadButton}
                 />
             )}
-            <div className={`${className}__MobileSection`}>
+            <div className={bem(className, "MobileSection")}>
                 <HighlightedParagraph
-                    className={"SelfIntroductionHero-MobilePersonalInfo"}
+                    className={bem("SelfIntroductionHero-MobilePersonalInfo")}
                     title={locationTitle}
                     content={location}
                 />

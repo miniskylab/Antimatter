@@ -37,7 +37,6 @@
             }
 
             &--Disabled {
-                @extend #{$Button};
                 opacity: .2;
                 filter: saturate(0%);
                 cursor: not-allowed;

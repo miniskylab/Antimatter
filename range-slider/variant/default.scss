@@ -25,7 +25,6 @@
                 background-color: antimatter-color-scheme.$ambient;
 
                 &--Interactable {
-                    @extend #{$RangeSlider}__Track;
                     cursor: pointer;
                 }
             }
@@ -85,7 +84,6 @@
                 touch-action: none;
 
                 &--Interactable {
-                    @extend #{$RangeSlider}__Knob;
                     box-shadow: 0 0 8px antimatter-color-scheme.$black--a35;
                     background-image: linear-gradient(to bottom, antimatter-color-scheme.$white--a30, antimatter-color-scheme.$white--a5);
                     cursor: pointer;
@@ -133,12 +131,10 @@
                     transition: background-color 0.1s linear;
 
                     &--Milestone {
-                        @extend .RangeSlider-Pips__Pip;
                         height: 16px;
                     }
 
                     &--Highlighted {
-                        @extend .RangeSlider-Pips__Pip;
                         background-color: antimatter-color-scheme.$primary;
                     }
 
@@ -161,7 +157,6 @@
                     transition: color 0.1s linear;
 
                     &--Highlighted {
-                        @extend .RangeSlider-Pips__Label;
                         color: antimatter-color-scheme.$primary;
                     }
                 }

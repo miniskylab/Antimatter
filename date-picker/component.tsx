@@ -1,6 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
+import {bem} from "@miniskylab/antimatter-model";
 import {Char, DateFormat, GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import React, {createRef, RefObject} from "react";
 import {isAllowedKey, isDigit, reformat, removeNonDigitCharacters, tryParseDate} from "./helper";
@@ -53,7 +54,7 @@ export class DatePicker extends React.Component<DatePickerProps, State>
     render(): JSX.Element
     {
         return (
-            <div className={`${this.props.className}${this.state.calendarIsOpen ? "--Active" : String.EMPTY}`}>
+            <div className={bem(this.props.className, null, this.state.calendarIsOpen && "Active")}>
                 {this.renderInputField()}
                 {this.renderAddon()}
                 {this.state.calendarIsOpen && this.renderCalendar()}
@@ -67,14 +68,14 @@ export class DatePicker extends React.Component<DatePickerProps, State>
             <input
                 ref={this.inputFieldRef}
                 type={"text"}
-                className={`${this.props.className}__InputField`}
+                className={bem(this.props.className, "InputField")}
                 value={this.getDateString()}
                 placeholder={this.props.placeholder}
-                onChange={this.onChange.bind(this)}
+                onChange={event => { this.onChange(event); }}
                 onBlur={this.props.onBlur}
                 onFocus={this.props.onFocus}
                 onPointerDown={this.props.onPointerDown}
-                onKeyDown={this.onKeyDown.bind(this)}
+                onKeyDown={event => { this.onKeyDown(event); }}
                 autoFocus={this.props.autoFocus}
                 readOnly={this.props.disableTyping}
             />
@@ -92,9 +93,9 @@ export class DatePicker extends React.Component<DatePickerProps, State>
     {
         return (
             <Button
-                className={`Button-Addon${this.state.calendarIsOpen ? "--Active" : String.EMPTY}`}
+                className={bem("Button-Addon", null, this.state.calendarIsOpen && "Active")}
                 icon={Icomoon.Calendar}
-                onClick={this.onAddonClick.bind(this)}
+                onClick={() => { this.onAddonClick(); }}
                 onPointerDown={event => event.preventDefault()}
             />
         );
@@ -106,15 +107,15 @@ export class DatePicker extends React.Component<DatePickerProps, State>
             <div
                 tabIndex={-1}
                 ref={this.calendarRef}
-                className={`${this.props.className}__CalendarContainer`}
+                className={bem(this.props.className, "CalendarContainer")}
                 onMouseDown={event => event.preventDefault()}
                 onBlur={() => { this.setState({calendarIsOpen: false}); }}
             >
-                <div className={`${this.props.className}__Caret`}/>
+                <div className={bem(this.props.className, "Caret")}/>
                 <Calendar
-                    className={"DatePicker-Calendar"}
+                    className={bem("DatePicker-Calendar")}
                     selectedDate={this.state.selectedDate}
-                    onChange={this.onDateSelectedFromCalendar.bind(this)}
+                    onChange={newlySelectedDate => { this.onDateSelectedFromCalendar(newlySelectedDate); }}
                 />
             </div>
         );

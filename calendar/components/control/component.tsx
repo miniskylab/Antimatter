@@ -1,5 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {Props} from "./model";
 
@@ -19,10 +20,10 @@ export function Component({
     }
 
     return (
-        <div className={className}>
+        <div className={bem(className)}>
             {onTodayButtonClick !== undefined && (
                 <Button
-                    className={"Calendar-Controls-Button"}
+                    className={bem("Calendar-Controls-Button")}
                     disabled={onTodayButtonClick === null}
                     icon={Icomoon.Flag}
                     label={"Today"}
@@ -31,7 +32,7 @@ export function Component({
             )}
             {onSelectionButtonClick !== undefined && (
                 <Button
-                    className={"Calendar-Controls-Button"}
+                    className={bem("Calendar-Controls-Button")}
                     disabled={onSelectionButtonClick === null}
                     icon={Icomoon.Location}
                     label={"Selection"}

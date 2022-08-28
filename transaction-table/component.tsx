@@ -3,6 +3,7 @@ import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import {Enum} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {TransactionRecord} from "./components";
@@ -30,16 +31,16 @@ export function TransactionTable({
 {
     const {modeButton, actionButton, cancelButton} = getControlPanelModel();
     return (
-        <div className={className}>
+        <div className={bem(className)}>
             {renderDateSelector()}
-            <div className={`${className}__TransactionDetails`}>
+            <div className={bem(className, "TransactionDetails")}>
                 {renderControlPanel()}
-                <div className={`${className}__TransactionContainer`}>
-                    <div className={`${className}__TransactionScroll`}>
-                        <div className={`${className}__Hr--Top`}/>
+                <div className={bem(className, "TransactionContainer")}>
+                    <div className={bem(className, "TransactionScroll")}>
+                        <div className={bem(className, "Hr", "Top")}/>
                         {renderTransactions()}
                         {mode !== TransactionRecord.Mode.Draft && renderAddNewButton()}
-                        <div className={`${className}__Hr--Bottom`}/>
+                        <div className={bem(className, "Hr", "Bottom")}/>
                     </div>
                 </div>
                 {renderSummary()}
@@ -53,31 +54,31 @@ export function TransactionTable({
         {
             case TransactionRecord.Mode.Draft:
                 return {
-                    modeButton: {modifier: "--Draft", icon: Icomoon.Quill, text: "Draft-Mode"},
-                    actionButton: {modifier: "--Edit", icon: Icomoon.FloppyDisk, text: "Save", onClick: onSaveTransaction},
+                    modeButton: {modifier: "Draft", icon: Icomoon.Quill, text: "Draft-Mode"},
+                    actionButton: {modifier: "Edit", icon: Icomoon.FloppyDisk, text: "Save", onClick: onSaveTransaction},
                     cancelButton: {modifier: String.EMPTY, icon: Icomoon.XMarkInsideCircle, text: "Cancel", onClick: onCancel}
                 };
 
             case TransactionRecord.Mode.Edit:
                 return {
-                    modeButton: {modifier: "--Edit", icon: Icomoon.Quill, text: "Edit-Mode", onClick: switchMode},
-                    actionButton: {modifier: "--Edit", icon: Icomoon.FloppyDisk, text: "Save", onClick: onSaveTransaction},
+                    modeButton: {modifier: "Edit", icon: Icomoon.Quill, text: "Edit-Mode", onClick: switchMode},
+                    actionButton: {modifier: "Edit", icon: Icomoon.FloppyDisk, text: "Save", onClick: onSaveTransaction},
                     cancelButton: {modifier: String.EMPTY, icon: Icomoon.XMarkInsideCircle, text: "Cancel", onClick: onCancel}
                 };
 
             case TransactionRecord.Mode.Delete:
                 return {
-                    modeButton: {modifier: "--Delete", icon: Icomoon.Fire, text: "Delete-Mode", onClick: switchMode},
-                    actionButton: {modifier: "--Delete", icon: Icomoon.TrashCan, text: "Delete", onClick: onDeleteTransaction},
+                    modeButton: {modifier: "Delete", icon: Icomoon.Fire, text: "Delete-Mode", onClick: switchMode},
+                    actionButton: {modifier: "Delete", icon: Icomoon.TrashCan, text: "Delete", onClick: onDeleteTransaction},
                     cancelButton: {modifier: String.EMPTY, icon: Icomoon.XMarkInsideCircle, text: "Cancel", onClick: onCancel}
                 };
 
             default:
             case TransactionRecord.Mode.ReadOnly:
                 return {
-                    modeButton: {modifier: "--Disabled", icon: Icomoon.Eye, text: "Read-Only"},
-                    actionButton: {modifier: "--Disabled", icon: Icomoon.FloppyDisk, text: "Save"},
-                    cancelButton: {modifier: "--Disabled", icon: Icomoon.XMarkInsideCircle, text: "Cancel"}
+                    modeButton: {modifier: "Disabled", icon: Icomoon.Eye, text: "Read-Only"},
+                    actionButton: {modifier: "Disabled", icon: Icomoon.FloppyDisk, text: "Save"},
+                    cancelButton: {modifier: "Disabled", icon: Icomoon.XMarkInsideCircle, text: "Cancel"}
                 };
         }
     }
@@ -90,7 +91,7 @@ export function TransactionTable({
                 return {modifier: String.EMPTY, icon: Icomoon.PlusCircle, onClick: onAddNewTransaction};
 
             default:
-                return {modifier: "--Disabled", icon: Icomoon.NotAllowed};
+                return {modifier: "Disabled", icon: Icomoon.NotAllowed};
         }
     }
 
@@ -147,17 +148,17 @@ export function TransactionTable({
     {
         return (
             <>
-                <div className={`${className}__CalendarContainer`}>
+                <div className={bem(className, "CalendarContainer")}>
                     <Calendar
-                        className={"TransactionTable-Calendar"}
+                        className={bem("TransactionTable-Calendar")}
                         selectedDate={selectedDate}
                         onChange={onSelectDate}
                     />
                 </div>
-                <div className={`${className}__DatePickerContainer`}>
+                <div className={bem(className, "DatePickerContainer")}>
                     <DatePicker
                         key={selectedDate.getTime()}
-                        className={"TransactionTable-DatePicker"}
+                        className={bem("TransactionTable-DatePicker")}
                         defaultSelectedDate={selectedDate}
                         disableTyping={true}
                         onChange={onSelectDate}
@@ -170,21 +171,21 @@ export function TransactionTable({
     function renderControlPanel(): JSX.Element
     {
         return (
-            <div className={`${className}__ControlPanel`}>
+            <div className={bem(className, "ControlPanel")}>
                 <Button
-                    className={`TransactionTable-ControlButton${actionButton.modifier}`}
+                    className={bem("TransactionTable-ControlButton", null, actionButton.modifier)}
                     icon={actionButton.icon}
                     label={actionButton.text}
                     onClick={actionButton.onClick}
                 />
                 <Button
-                    className={`TransactionTable-ControlButton${modeButton.modifier}`}
+                    className={bem("TransactionTable-ControlButton", null, modeButton.modifier)}
                     icon={modeButton.icon}
                     label={modeButton.text}
                     onClick={modeButton.onClick}
                 />
                 <Button
-                    className={`TransactionTable-ControlButton${cancelButton.modifier}`}
+                    className={bem("TransactionTable-ControlButton", null, cancelButton.modifier)}
                     icon={cancelButton.icon}
                     label={cancelButton.text}
                     onClick={cancelButton.onClick}
@@ -213,7 +214,7 @@ export function TransactionTable({
             return (
                 <TransactionRecord.Component
                     key={transactionId}
-                    className={"TransactionTable-TransactionRecord"}
+                    className={bem("TransactionTable-TransactionRecord")}
                     name={transactionData.name}
                     labelSet={labelSet}
                     labels={transactionData.labels}
@@ -233,7 +234,7 @@ export function TransactionTable({
         const addNewButton = getAddNewButtonModel();
         return (
             <Button
-                className={`TransactionTable-AddNewButton${addNewButton.modifier}`}
+                className={bem("TransactionTable-AddNewButton", null, addNewButton.modifier)}
                 icon={addNewButton.icon}
                 onClick={addNewButton.onClick}
             />
@@ -243,14 +244,14 @@ export function TransactionTable({
     function renderSummary(): JSX.Element
     {
         return (
-            <div className={`${className}__Summary`}>
-                <div className={`${className}__SummaryRecord`}>
-                    <Label className={"TransactionTable-SummaryText"} text={"TOTAL EXPENSES:"}/>
-                    <Label className={"TransactionTable-SummaryAmount--Expense"} text={getTotalExpense().toLocaleString()}/>
+            <div className={bem(className, "Summary")}>
+                <div className={bem(className, "SummaryRecord")}>
+                    <Label className={bem("TransactionTable-SummaryText")} text={"TOTAL EXPENSES:"}/>
+                    <Label className={bem("TransactionTable-SummaryAmount", null, "Expense")} text={getTotalExpense().toLocaleString()}/>
                 </div>
-                <div className={`${className}__SummaryRecord`}>
-                    <Label className={"TransactionTable-SummaryText"} text={"TOTAL INCOME:"}/>
-                    <Label className={"TransactionTable-SummaryAmount--Income"} text={getTotalIncome().toLocaleString()}/>
+                <div className={bem(className, "SummaryRecord")}>
+                    <Label className={bem("TransactionTable-SummaryText")} text={"TOTAL INCOME:"}/>
+                    <Label className={bem("TransactionTable-SummaryAmount", null, "Income")} text={getTotalIncome().toLocaleString()}/>
                 </div>
             </div>
         );

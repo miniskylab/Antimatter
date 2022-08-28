@@ -1,4 +1,5 @@
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {PanelProps} from "./model";
 
@@ -12,9 +13,9 @@ export function Panel({
 }: PanelProps): JSX.Element
 {
     return (
-        <div className={className}>
-            {title && <Label className={"Panel-Title"} text={title}/>}
-            <div className={`${className}__Content`}>{children}</div>
+        <div className={bem(className)}>
+            {title && <Label className={bem("Panel-Title")} text={title}/>}
+            <div className={bem(className, "Content")}>{children}</div>
         </div>
     );
 }

@@ -1,5 +1,6 @@
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {InputFieldProps} from "./model";
 
@@ -20,16 +21,16 @@ export function InputField({
     onKeyDown
 }: InputFieldProps): JSX.Element
 {
-    const shrunkModifier = placeholder && value ? "--Shrunk" : String.EMPTY;
+    const shrunkModifier = placeholder && value ? "Shrunk" : String.EMPTY;
 
     return (
-        <div className={className}>
-            {icon && <Icon className={"InputField-Addon"} name={icon}/>}
-            <div className={`${className}__Container`}>
-                {placeholder && <Label className={`InputField-Placeholder${shrunkModifier}`} text={placeholder}/>}
+        <div className={bem(className)}>
+            {icon && <Icon className={bem("InputField-Addon")} name={icon}/>}
+            <div className={bem(className, "Container")}>
+                {placeholder && <Label className={bem("InputField-Placeholder", null, shrunkModifier)} text={placeholder}/>}
                 <input
                     type={isPasswordField ? "password" : "text"}
-                    className={`${className}__TextBox${shrunkModifier}`}
+                    className={bem(className, "TextBox", shrunkModifier)}
                     value={value}
                     onChange={handleChangeEvent}
                     onBlur={onBlur}

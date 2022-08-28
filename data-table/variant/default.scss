@@ -38,7 +38,6 @@
                 border-top: 1px solid antimatter-color-scheme.$background;
 
                 &--Interactable {
-                    @extend .DataTable-Record;
                     cursor: pointer;
 
                     @media (hover: hover) {
@@ -59,7 +58,6 @@
                     box-sizing: border-box;
 
                     &--Active {
-                        @extend .DataTable-Record__ControlBox;
                         background-color: antimatter-color-scheme.$accent--a10;
                         border-top: 1px solid antimatter-color-scheme.$accent;
                         border-bottom: 1px solid antimatter-color-scheme.$accent;

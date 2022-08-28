@@ -1,4 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
+import {bem} from "@miniskylab/antimatter-model";
 import {Decade, GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {Props} from "./model";
@@ -13,7 +14,7 @@ export class Component extends React.Component<Props>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.className}>
+            <div className={bem(this.props.className)}>
                 {this.renderGrid()}
             </div>
         );
@@ -43,17 +44,17 @@ export class Component extends React.Component<Props>
     {
         const outOfSupportedYearRange = year < GregorianCalendar.MIN_YEAR || GregorianCalendar.MAX_YEAR < year;
         const modifier = outOfSupportedYearRange
-            ? "--Empty"
+            ? "Empty"
             : year === this.props.selectedYear
-                ? "--Selected"
+                ? "Selected"
                 : year < this.props.displayingDecade || nextDecade <= year
-                    ? "--Extraneous"
+                    ? "Extraneous"
                     : String.EMPTY;
 
         return (
             <Button
                 key={year}
-                className={`Calendar-YearView-GridCell${modifier}`}
+                className={bem("Calendar-YearView-GridCell", null, modifier)}
                 label={outOfSupportedYearRange ? String.EMPTY : year.toString()}
                 onClick={outOfSupportedYearRange ? undefined : (): void => { this.props.onYearClick(year); }}
             />

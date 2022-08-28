@@ -4,6 +4,7 @@ import {DropdownMenu, DropdownMenuProps} from "@miniskylab/antimatter-dropdown-m
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {InputField, InputFieldProps} from "@miniskylab/antimatter-input-field";
 import {Label, LabelProps} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import {NumericInputField, NumericInputFieldProps} from "@miniskylab/antimatter-numeric-input-field";
 import React, {Fragment} from "react";
 import {Props} from "./model";
@@ -24,7 +25,7 @@ export function Component({
 {
     return (
         <div
-            className={`${className}${onClick ? "--Interactable" : String.EMPTY}`}
+            className={bem(className, null, onClick && "Interactable")}
             onClick={mouseEvent =>
             {
                 mouseEvent.stopPropagation();
@@ -44,11 +45,11 @@ export function Component({
             }
             {
                 (onSaveButtonClick || onCancelButtonClick || onDeleteButtonClick) &&
-                <div className={`${className}__ControlBox${editable ? "--Active" : String.EMPTY}`}>
+                <div className={bem(className, "ControlBox", editable && "Active")}>
                     {
                         onSaveButtonClick &&
                         <Button
-                            className={"DataTable-Record-OkButton"}
+                            className={bem("DataTable-Record-OkButton")}
                             disabled={!editable}
                             icon={Icomoon.CheckMark}
                             onClick={mouseEvent =>
@@ -61,7 +62,7 @@ export function Component({
                     {
                         onCancelButtonClick &&
                         <Button
-                            className={"DataTable-Record-CancelButton"}
+                            className={bem("DataTable-Record-CancelButton")}
                             disabled={!editable}
                             icon={Icomoon.XMark}
                             onClick={mouseEvent =>
@@ -74,7 +75,7 @@ export function Component({
                     {
                         onDeleteButtonClick &&
                         <Button
-                            className={"DataTable-Record-DeleteButton"}
+                            className={bem("DataTable-Record-DeleteButton")}
                             disabled={!editable}
                             icon={Icomoon.TrashCan}
                             onClick={mouseEvent =>

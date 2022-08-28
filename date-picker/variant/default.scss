@@ -3,6 +3,7 @@
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-calendar/variant/mini" as antimatter-calendar-mini;
 @use "~@miniskylab/antimatter-button/variant/outlined-circular" as antimatter-button-outlined-circular;
+@use "~@miniskylab/antimatter-button/variant/outlined-rectangular" as antimatter-button-outlined-rectangular;
 
 @mixin variant($DatePicker) {
     @at-root {
@@ -11,10 +12,6 @@
             display: inline-flex;
             width: 276px;
             height: 34px;
-
-            &--Active {
-                @extend #{$DatePicker};
-            }
 
             &__InputField {
                 width: 100%;
@@ -56,12 +53,12 @@
 
                         &:active {
                             color: antimatter-color-scheme.$primary;
+                            background-color: antimatter-color-scheme.$transparent;
                         }
                     }
                 }
 
                 &--Active {
-                    @extend #{$Button-Addon};
                     color: antimatter-color-scheme.$primary;
 
                     @media (hover: hover) {
@@ -71,7 +68,6 @@
 
                             &:active {
                                 color: antimatter-color-scheme.$white;
-                                background-color: antimatter-color-scheme.$transparent;
                             }
                         }
                     }
@@ -104,7 +100,56 @@
             }
 
             $DatePicker-Calendar: ".DatePicker-Calendar";
-            @include antimatter-calendar-mini.variant($DatePicker-Calendar);
+            @include antimatter-calendar-mini.variant($DatePicker-Calendar) {
+
+                .Calendar-Header {
+                    $Calendar-Header-Navigator: ".Calendar-Header-Navigator";
+                    @include antimatter-button-outlined-circular.variant($Calendar-Header-Navigator) {
+                        @media (hover: hover) {
+
+                            &:not(&--Disabled):hover {
+                                color: antimatter-color-scheme.$white;
+
+                                &:active {
+                                    color: antimatter-color-scheme.$ambient;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .Calendar-MonthView {
+                    $Calendar-MonthView-GridCell: ".Calendar-MonthView-GridCell";
+                    @include antimatter-button-outlined-rectangular.variant($Calendar-MonthView-GridCell) {
+                        @media (hover: hover) {
+
+                            &:hover {
+                                color: antimatter-color-scheme.$white;
+
+                                &:active {
+                                    color: antimatter-color-scheme.$ambient;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .Calendar-YearView {
+                    $Calendar-YearView-GridCell: ".Calendar-YearView-GridCell";
+                    @include antimatter-button-outlined-rectangular.variant($Calendar-YearView-GridCell) {
+                        @media (hover: hover) {
+
+                            &:hover {
+                                color: antimatter-color-scheme.$white;
+
+                                &:active {
+                                    color: antimatter-color-scheme.$ambient;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 

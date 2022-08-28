@@ -1,4 +1,5 @@
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {FooterProps} from "./model";
 
@@ -11,6 +12,6 @@ export function Footer({
 }: FooterProps): JSX.Element
 {
     return (
-        <Label className={className} text={text}/>
+        <Label className={bem(className)} text={text}/>
     );
 }

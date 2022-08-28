@@ -1,6 +1,7 @@
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import React, {createRef, RefObject} from "react";
 import {DropdownMenuProps, State} from "./model";
 
@@ -43,14 +44,14 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
     {
         return (
             <div
-                className={`${this.props.className}${this.state.isOpen ? "--Open" : "--Closed"}`}
+                className={bem(this.props.className, null, this.state.isOpen ? "Open" : "Closed")}
                 onClick={(): void => { this.setState({isOpen: !this.state.isOpen}); }}
                 onBlur={(): void => { this.setState({isOpen: false}); }}
                 tabIndex={0}
             >
                 {this.renderContainer()}
                 {this.renderMenu()}
-                <div className={`${this.props.className}__Caret`}/>
+                <div className={bem(this.props.className, "Caret")}/>
             </div>
         );
     }
@@ -59,11 +60,11 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
     {
         const hasSelection = this.props.selectedKeys.length > 0;
         return (
-            <div className={`${this.props.className}__${hasSelection ? "BadgeContainer" : "Placeholder"}`}>
+            <div className={bem(this.props.className, hasSelection ? "BadgeContainer" : "Placeholder")}>
                 {
                     hasSelection
                         ? this.props.selectedKeys.map((x, i) => (
-                            <Label key={i} className={"DropdownMenu-Badge"} text={this.props.keyValueSet[x]}/>
+                            <Label key={i} className={bem("DropdownMenu-Badge")} text={this.props.keyValueSet[x]}/>
                         ))
                         : this.props.placeholder
                 }
@@ -84,7 +85,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
             const value = this.props.keyValueSet[key];
             if (value === "---")
             {
-                menuItems.push(<div key={key} className={`${this.props.className}__Divider`}/>);
+                menuItems.push(<div key={key} className={bem(this.props.className, "Divider")}/>);
                 continue;
             }
 
@@ -93,23 +94,23 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
             const menuItemIsDisabled = !menuItemIsSelected && this.canMultiSelect && this.maxSelectionCountReached;
             if (menuItemIsSelected)
             {
-                menuItemModifier = "--Selected";
+                menuItemModifier = "Selected";
             }
             else if (menuItemIsDisabled)
             {
-                menuItemModifier = "--Disabled";
+                menuItemModifier = "Disabled";
             }
 
             menuItems.push(
                 <li
                     key={key}
-                    className={`${this.props.className}__MenuItem${menuItemModifier}`}
+                    className={bem(this.props.className, "MenuItem", menuItemModifier)}
                     onClick={menuItemIsDisabled ? undefined : event => { this.onMenuItemClick(event, key); }}
                 >
                     {value}
                     {menuItemIsSelected && (
                         <Icon
-                            className={"DropdownMenu-SelectionIcon"}
+                            className={bem("DropdownMenu-SelectionIcon")}
                             name={Icomoon.CheckMark}
                         />
                     )}
@@ -120,7 +121,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
         return (
             <ul
                 ref={this.menuRef}
-                className={`${this.props.className}__Menu${this.state.isOpen ? String.EMPTY : "--Hidden"}`}
+                className={bem(this.props.className, "Menu", !this.state.isOpen && "Hidden")}
                 onClick={event => { event.stopPropagation(); }}
                 onWheel={event => { this.onMenuWheel(event); }}
             >

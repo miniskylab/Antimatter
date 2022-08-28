@@ -31,7 +31,6 @@
                 }
 
                 &--Selected {
-                    @extend #{$Paginator-Pager};
                     color: antimatter-color-scheme.$white;
                     background-color: antimatter-color-scheme.$primary--a10;
                     border-color: antimatter-color-scheme.$primary;

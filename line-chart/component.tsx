@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import React, {createRef, RefObject} from "react";
 import {Coordinate, LineChartProps, LineSettings, LineStyle} from "./model";
 
@@ -39,8 +40,8 @@ export class LineChart extends React.Component<LineChartProps>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.className} ref={this.lineChartRef}>
-                <canvas className={`${this.props.className}__Canvas`} ref={this.canvasRef}/>
+            <div className={bem(this.props.className)} ref={this.lineChartRef}>
+                <canvas className={bem(this.props.className, "Canvas")} ref={this.canvasRef}/>
             </div>
         );
     }

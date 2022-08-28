@@ -1,4 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {PaginatorProps} from "./model";
 
@@ -35,7 +36,7 @@ export class Paginator extends React.Component<PaginatorProps>
     private renderPagination(): JSX.Element
     {
         return (
-            <div className={this.props.className}>
+            <div className={bem(this.props.className)}>
                 {this.renderNavigator(-1)}
                 {this.renderPagers()}
                 {this.renderNavigator(1)}
@@ -50,7 +51,7 @@ export class Paginator extends React.Component<PaginatorProps>
 
         return (
             <Button
-                className={`Paginator-Navigator${noMorePage ? "--Disabled" : String.EMPTY}`}
+                className={bem("Paginator-Navigator", null, noMorePage && "Disabled")}
                 label={step > 0 ? this.props.nextLabel : this.props.prevLabel}
                 onClick={noMorePage ? undefined : () => { this.props.onPageChange?.(this.props.selectedPage + step); }}
             />
@@ -79,11 +80,13 @@ export class Paginator extends React.Component<PaginatorProps>
         {
             const isEllipsis = pageNumber <= 0;
             const isSelectedPage = pageNumber > 0 && this.props.selectedPage === pageNumber;
+            const block = isEllipsis ? "Paginator-Ellipsis" : "Paginator-Pager";
+            const modifier = !isEllipsis && isSelectedPage ? "Selected" : String.EMPTY;
 
             return (
                 <Button
                     key={pageNumber}
-                    className={isEllipsis ? "Paginator-Ellipsis" : `Paginator-Pager${isSelectedPage ? "--Selected" : String.EMPTY}`}
+                    className={bem(block, null, modifier)}
                     label={isEllipsis ? "..." : pageNumber.toString()}
                     onClick={isEllipsis || isSelectedPage ? undefined : () => { this.props.onPageChange?.(pageNumber); }}
                 />

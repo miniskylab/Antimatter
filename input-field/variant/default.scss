@@ -39,7 +39,6 @@
                 pointer-events: none;
 
                 &--Shrunk {
-                    @extend #{$InputField-Placeholder};
                     transform: scale(0.72) translateY(-12px);
                 }
             }
@@ -57,7 +56,6 @@
                 transition: padding ease-out 100ms;
 
                 &--Shrunk {
-                    @extend #{$InputField}__TextBox;
                     padding-top: 20px;
                     padding-bottom: 5px;
                 }

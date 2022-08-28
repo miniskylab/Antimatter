@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import React, {createRef, RefObject} from "react";
 import {Props} from "./model";
 
@@ -24,7 +25,7 @@ export class Component extends React.Component<Props>
         this.pipCount = Math.round((this.props.maxValue - this.props.minValue) / this.props.step);
 
         return (
-            <div ref={this.ref} className={this.props.className}>
+            <div ref={this.ref} className={bem(this.props.className)}>
                 {this.renderPips()}
                 {this.renderLabels()}
             </div>
@@ -36,25 +37,25 @@ export class Component extends React.Component<Props>
         const pips: JSX.Element[] = [];
         for (let pipIndex = 0; pipIndex <= this.pipCount; pipIndex++)
         {
-            let pipClassName = `${this.props.className}__Pip`;
+            let modifier = String.EMPTY;
             if (this.isMilestonePip(pipIndex) && this.isHighlightedPip(pipIndex))
             {
-                pipClassName = `${this.props.className}__Pip--HighlightedMilestone`;
+                modifier = "HighlightedMilestone";
             }
             else if (this.isMilestonePip(pipIndex))
             {
-                pipClassName = `${this.props.className}__Pip--Milestone`;
+                modifier = "Milestone";
             }
             else if (this.isHighlightedPip(pipIndex))
             {
-                pipClassName = `${this.props.className}__Pip--Highlighted`;
+                modifier = "Highlighted";
             }
 
             const pctPipValue = this.getPctPipValue(pipIndex);
             pips.push(
                 <div
                     key={pipIndex}
-                    className={pipClassName}
+                    className={bem(this.props.className, "Pip", modifier)}
                     style={{left: `${pctPipValue.ensurePercent()}%`}}
                 />
             );
@@ -73,10 +74,10 @@ export class Component extends React.Component<Props>
                 continue;
             }
 
-            let labelClassName = `${this.props.className}__Label`;
+            let modifier = String.EMPTY;
             if (this.isHighlightedPip(pipIndex))
             {
-                labelClassName = `${this.props.className}__Label--Highlighted`;
+                modifier = "Highlighted";
             }
 
             const pctPipValue = this.getPctPipValue(pipIndex);
@@ -84,7 +85,7 @@ export class Component extends React.Component<Props>
             labels.push(
                 <div
                     key={pipIndex}
-                    className={labelClassName}
+                    className={bem(this.props.className, "Label", modifier)}
                     style={this.isMilestonePip(pipIndex) ? {left: `${pctPipValue.ensurePercent()}%`} : undefined}
                 >
                     {labelText}

@@ -2,6 +2,7 @@ import {Button} from "@miniskylab/antimatter-button";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import React, {useState} from "react";
 import {LoginFormProps} from "./model";
 
@@ -23,19 +24,19 @@ export function LoginForm({
     const [password, setPassword] = useState(String.EMPTY);
 
     return (
-        <div className={className}>
-            <Icon className={"LoginForm-Logo"} name={logo}/>
-            <Label className={"LoginForm-Title"} text={title}/>
-            <Label className={"LoginForm-Description"} text={description}/>
+        <div className={bem(className)}>
+            <Icon className={bem("LoginForm-Logo")} name={logo}/>
+            <Label className={bem("LoginForm-Title")} text={title}/>
+            <Label className={bem("LoginForm-Description")} text={description}/>
             <InputField
-                className={"LoginForm-InputField"}
+                className={bem("LoginForm-InputField")}
                 icon={usernameInputField.icon}
                 placeholder={usernameInputField.placeholder}
                 value={username}
                 onChange={newValue => { setUsername(newValue); }}
             />
             <InputField
-                className={"LoginForm-InputField"}
+                className={bem("LoginForm-InputField")}
                 icon={passwordInputField.icon}
                 placeholder={passwordInputField.placeholder}
                 isPasswordField={true}
@@ -43,7 +44,7 @@ export function LoginForm({
                 onChange={newValue => { setPassword(newValue); }}
             />
             <Button
-                className={"LoginForm-LoginButton"}
+                className={bem("LoginForm-LoginButton")}
                 label={loginButton.label}
                 disabled={!username || !password}
                 onClick={() => { onLogin(username, password); }}

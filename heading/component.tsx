@@ -1,5 +1,6 @@
 import {HighlightedParagraph} from "@miniskylab/antimatter-highlighted-paragraph";
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {HeadingProps} from "./model";
 
@@ -13,9 +14,9 @@ export function Heading({
 }: HeadingProps): JSX.Element
 {
     return (
-        <div className={className}>
-            <Label className={"Heading-Title"} text={title}/>
-            {subTitle && (<HighlightedParagraph className={"Heading-SubTitle"} content={subTitle}/>)}
+        <div className={bem(className)}>
+            <Label className={bem("Heading-Title")} text={title}/>
+            {subTitle && (<HighlightedParagraph className={bem("Heading-SubTitle")} content={subTitle}/>)}
         </div>
     );
 }

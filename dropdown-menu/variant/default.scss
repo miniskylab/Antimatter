@@ -86,7 +86,7 @@
                         box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
 
                         &:active {
-                            color: antimatter-color-scheme.$white;
+                            color: antimatter-color-scheme.$ambient;
                             background-color: antimatter-color-scheme.$primary;
                             box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
                         }
@@ -94,14 +94,12 @@
                 }
 
                 &--Selected {
-                    @extend #{$DropdownMenu}__MenuItem;
-                    color: antimatter-color-scheme.$white;
+                    color: antimatter-color-scheme.$ambient;
                     background-color: antimatter-color-scheme.$primary;
                     box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
                 }
 
                 &--Disabled {
-                    @extend #{$DropdownMenu}__MenuItem;
                     color: antimatter-color-scheme.$gray--a65;
                     cursor: not-allowed;
                     font-style: italic;
@@ -132,13 +130,7 @@
                 background-color: antimatter-color-scheme.$gray--a65;
             }
 
-            &--Open {
-                @extend #{$DropdownMenu};
-            }
-
             &--Closed {
-                @extend #{$DropdownMenu};
-
                 @media (hover: hover) {
 
                     &:hover {

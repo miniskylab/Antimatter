@@ -1,5 +1,6 @@
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {DownloadButtonProps, State} from "./model";
 
@@ -44,14 +45,14 @@ export class DownloadButton extends React.Component<DownloadButtonProps, State>
 
         return (
             <a
-                href={this.state.disabled ? undefined : this.state.href}
-                className={`${this.props.className}${disabled ? "--Disabled" : String.EMPTY}`}
+                href={disabled ? undefined : this.state.href}
+                className={bem(this.props.className, null, disabled && "Disabled")}
                 download={this.props.fileName || true}
                 target={"_self"}
                 draggable={false}
             >
-                {this.props.icon && <Icon className={"DownloadButton-Icon"} name={this.props.icon}/>}
-                {this.props.label && <Label className={"DownloadButton-Label"} text={this.props.label}/>}
+                {this.props.icon && <Icon className={bem("DownloadButton-Icon")} name={this.props.icon}/>}
+                {this.props.label && <Label className={bem("DownloadButton-Label")} text={this.props.label}/>}
             </a>
         );
     }

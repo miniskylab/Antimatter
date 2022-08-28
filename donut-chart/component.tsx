@@ -1,4 +1,5 @@
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import {Radians} from "@miniskylab/antimatter-typescript";
 import React, {createRef, RefObject} from "react";
 import {DonutChartProps} from "./model";
@@ -28,17 +29,17 @@ export class DonutChart extends React.Component<DonutChartProps>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.className} ref={this.ref}>
+            <div className={bem(this.props.className)} ref={this.ref}>
                 <canvas
                     ref={this.canvasRef}
                     width={this.canvasResolution}
                     height={this.canvasResolution}
-                    className={`${this.props.className}__Canvas`}
+                    className={bem(this.props.className, "Canvas")}
                 />
-                <div className={`${this.props.className}__Legend`}>
-                    <Label className={"DonutChart-Value"} text={this.props.pctValue.ensurePercent().toFixed(0)}/>
-                    <Label className={"DonutChart-PercentSymbol"} text={"%"}/>
-                    <Label className={"DonutChart-Description"} text={this.props.description}/>
+                <div className={bem(this.props.className, "Legend")}>
+                    <Label className={bem("DonutChart-Value")} text={this.props.pctValue.ensurePercent().toFixed(0)}/>
+                    <Label className={bem("DonutChart-PercentSymbol")} text={"%"}/>
+                    <Label className={bem("DonutChart-Description")} text={this.props.description}/>
                 </div>
             </div>
         );

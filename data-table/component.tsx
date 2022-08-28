@@ -1,5 +1,6 @@
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
+import {bem} from "@miniskylab/antimatter-model";
 import React, {createRef, RefObject} from "react";
 import {Record} from "./components";
 import {DataTableProps} from "./model";
@@ -24,7 +25,7 @@ export class DataTable extends React.Component<DataTableProps>
     render(): JSX.Element
     {
         return (
-            <div ref={this.ref} className={this.props.className}>
+            <div ref={this.ref} className={bem(this.props.className)}>
                 {this.renderPages()}
             </div>
         );
@@ -79,7 +80,7 @@ export class DataTable extends React.Component<DataTableProps>
         for (let pageIndex = 0; pageIndex < pageCount; pageIndex++)
         {
             pages.push(
-                <div key={pageIndex} className={`${this.props.className}__Page`} style={pageStyles}>
+                <div key={pageIndex} className={bem(this.props.className, "Page")} style={pageStyles}>
                     {this.renderRowsForPage(pageIndex)}
                 </div>
             );
@@ -113,9 +114,9 @@ export class DataTable extends React.Component<DataTableProps>
             if (pageIndex === 0 && props.addNewRowText)
             {
                 rows.push(
-                    <div key={"add-new-row"} className={`${props.className}__AddNewRow`}>
-                        <Icon name={Icomoon.PlusCircle} className={"DataTable-AddNewIcon"}/>
-                        <div className={`${props.className}__AddNewLabel`}>{props.addNewRowText}</div>
+                    <div key={"add-new-row"} className={bem(props.className, "AddNewRow")}>
+                        <Icon name={Icomoon.PlusCircle} className={bem("DataTable-AddNewIcon")}/>
+                        <div className={bem(props.className, "AddNewLabel")}>{props.addNewRowText}</div>
                     </div>
                 );
             }
@@ -146,7 +147,7 @@ export class DataTable extends React.Component<DataTableProps>
                     <Record.Component
                         id={rowRecord.id}
                         key={rowRecord.id}
-                        className={"DataTable-Record"}
+                        className={bem("DataTable-Record")}
                         cells={props.records.find(x => x.id === rowRecord.id).cells}
                         onSaveButtonClick={props.onRecordSave ? () => { props.onRecordSave(rowRecord.id); } : undefined}
                         onCancelButtonClick={props.onRecordSave ? () => { props.onRecordDraftDiscard(rowRecord.id); } : undefined}

@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {SpacerProps} from "./model";
 
@@ -9,5 +10,5 @@ export function Spacer({
     className
 }: SpacerProps): JSX.Element
 {
-    return (<div className={className}/>);
+    return (<div className={bem(className)}/>);
 }

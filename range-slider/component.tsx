@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import React, {createRef, RefObject} from "react";
 import {Pips} from "./components";
 import {RangeSliderProps} from "./model";
@@ -23,34 +24,34 @@ export class RangeSlider extends React.Component<RangeSliderProps>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.className}>
+            <div className={bem(this.props.className)}>
                 <div
-                    className={`${this.props.className}__Track${this.props.canInteractWith ? "--Interactable" : String.EMPTY}`}
+                    className={bem(this.props.className, "Track", this.props.canInteractWith && "Interactable")}
                     onPointerDown={this.props.canInteractWith ? event => this.onPointerDownSlider(event) : undefined}
                 >
-                    <div className={`${this.props.className}__StopperLeft`}/>
-                    <div className={`${this.props.className}__FreeZone`} ref={this.freezoneRef}>
+                    <div className={bem(this.props.className, "StopperLeft")}/>
+                    <div className={bem(this.props.className, "FreeZone")} ref={this.freezoneRef}>
                         <div
-                            className={`${this.props.className}__FillLeft`}
+                            className={bem(this.props.className, "FillLeft")}
                             style={{width: `${this.toPercent(this.props.value)}%`}}
                         />
                         <div
                             style={{left: `${this.toPercent(this.props.value)}%`}}
-                            className={`${this.props.className}__Knob${this.props.canInteractWith ? "--Interactable" : String.EMPTY}`}
+                            className={bem(this.props.className, "Knob", this.props.canInteractWith && "Interactable")}
                             onPointerDown={this.props.canInteractWith ? event => this.onPointerDownKnob(event) : undefined}
                         >
                         </div>
                         <div
-                            className={`${this.props.className}__FillRight`}
+                            className={bem(this.props.className, "FillRight")}
                             style={{width: `${100 - this.toPercent(this.props.value)}%`}}
                         />
                     </div>
-                    <div className={`${this.props.className}__StopperRight`}/>
+                    <div className={bem(this.props.className, "StopperRight")}/>
                 </div>
                 {
                     this.props.pipSettings &&
                     <Pips.Component
-                        className={"RangeSlider-Pips"}
+                        className={bem("RangeSlider-Pips")}
                         minValue={this.props.minValue}
                         maxValue={this.props.maxValue}
                         step={this.props.pipSettings.step}

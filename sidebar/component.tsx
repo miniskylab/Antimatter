@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import React, {Fragment} from "react";
 import {SidebarProps} from "./model";
 
@@ -10,8 +11,8 @@ export function Sidebar({
 }: SidebarProps): JSX.Element
 {
     return (
-        <div className={className}>
-            <div className={`${className}__Background`}/>
+        <div className={bem(className)}>
+            <div className={bem(className, "Background")}/>
             {icons.map((icon, i) => <Fragment key={i}>{icon}</Fragment>)}
         </div>
     );

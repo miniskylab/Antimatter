@@ -74,14 +74,6 @@
                 pointer-events: all;
                 cursor: pointer;
                 touch-action: none;
-
-                &--Start {
-                    @extend #{$CircularSlider}__Knob;
-                }
-
-                &--End {
-                    @extend #{$CircularSlider}__Knob;
-                }
             }
 
             .CircularSlider-Pips {
@@ -103,12 +95,10 @@
                     transition: background-color 0.1s linear;
 
                     &--Milestone {
-                        @extend .CircularSlider-Pips__Pip;
                         height: 16px;
                     }
 
                     &--Highlighted {
-                        @extend .CircularSlider-Pips__Pip;
                         background-color: antimatter-color-scheme.$primary;
                     }
 
@@ -132,7 +122,6 @@
                     transition: color 0.1s linear;
 
                     &--Highlighted {
-                        @extend .CircularSlider-Pips__Label;
                         color: antimatter-color-scheme.$primary;
                     }
                 }

@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import {Transition} from "@miniskylab/antimatter-transition";
 import {Char, Decade, GregorianCalendar} from "@miniskylab/antimatter-typescript";
 import React from "react";
@@ -33,7 +34,7 @@ export class Calendar extends React.Component<CalendarProps, State>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.className} tabIndex={-1} onBlur={this.props.onBlur}>
+            <div className={bem(this.props.className)} tabIndex={-1} onBlur={this.props.onBlur}>
                 {this.renderHeader()}
                 {this.renderView()}
                 {this.renderControl()}
@@ -71,7 +72,7 @@ export class Calendar extends React.Component<CalendarProps, State>
     {
         return (
             <Header.Component
-                className={"Calendar-Header"}
+                className={bem("Calendar-Header")}
                 headline={this.getHeadline()}
                 onPrevClick={
                     canNavigateBackward(this.state.view, this.state.timeFrame)
@@ -96,7 +97,7 @@ export class Calendar extends React.Component<CalendarProps, State>
     {
         return (
             <Transition
-                className={"Calendar-Transition"}
+                className={bem("Calendar-Transition")}
                 childIdentifier={`${this.state.view}-${this.state.timeFrame.monthAndYear}-${this.state.timeFrame.decade}`}
                 classNames={{
                     enter: `Calendar-Transition--${this.state.transitionDirection}InStart`,
@@ -109,7 +110,7 @@ export class Calendar extends React.Component<CalendarProps, State>
                     this.state.view === View.Date &&
                     (
                         <DateView.Component
-                            className={"Calendar-DateView"}
+                            className={bem("Calendar-DateView")}
                             selectedDate={this.props.selectedDate}
                             displayingMonth={this.state.timeFrame.monthAndYear}
                             onDateClick={this.onDateClick.bind(this)}
@@ -117,14 +118,14 @@ export class Calendar extends React.Component<CalendarProps, State>
                     ) || this.state.view === View.Month &&
                     (
                         <MonthView.Component
-                            className={"Calendar-MonthView"}
+                            className={bem("Calendar-MonthView")}
                             displayingYear={this.state.timeFrame.monthAndYear.getFullYear()}
                             onMonthClick={this.onMonthClick.bind(this)}
                         />
                     ) || this.state.view === View.Year &&
                     (
                         <YearView.Component
-                            className={"Calendar-YearView"}
+                            className={bem("Calendar-YearView")}
                             displayingDecade={this.state.timeFrame.decade}
                             onYearClick={this.onYearClick.bind(this)}
                         />
@@ -138,7 +139,7 @@ export class Calendar extends React.Component<CalendarProps, State>
     {
         return (
             <Control.Component
-                className={"Calendar-Controls"}
+                className={bem("Calendar-Controls")}
                 onTodayButtonClick={
                     this.state.view !== View.Date || !this.isWithinTimeFrame(new Date())
                         ? () => { this.goToToday(); }

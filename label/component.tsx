@@ -1,4 +1,5 @@
 import {Html} from "@miniskylab/antimatter-html";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {LabelProps} from "./model";
 
@@ -11,6 +12,6 @@ export function Label({
 }: LabelProps): JSX.Element
 {
     return (
-        <div className={className}>{Html.render(text)}</div>
+        <div className={bem(className)}>{Html.render(text)}</div>
     );
 }

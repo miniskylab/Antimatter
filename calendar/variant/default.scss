@@ -151,12 +151,10 @@
                     cursor: pointer;
 
                     &--Extraneous {
-                        @extend .Calendar-DateView__DateContainer;
                         color: antimatter-color-scheme.$white--a10;
                     }
 
                     &--Highlighted {
-                        @extend .Calendar-DateView__DateContainer;
 
                         .Calendar-DateView__Date {
                             font-weight: antimatter-typography.$font-weight--bold;
@@ -164,7 +162,6 @@
                     }
 
                     &--Selected {
-                        @extend .Calendar-DateView__DateContainer;
 
                         .Calendar-DateView__Date {
                             color: antimatter-color-scheme.$ambient;
@@ -200,7 +197,6 @@
                     cursor: pointer;
 
                     &--Highlighted {
-                        @extend .Calendar-DateView__TodayContainer;
 
                         .Calendar-DateView__Today {
                             font-weight: antimatter-typography.$font-weight--bold;
@@ -208,7 +204,6 @@
                     }
 
                     &--Selected {
-                        @extend .Calendar-DateView__TodayContainer;
 
                         .Calendar-DateView__Today {
                             color: antimatter-color-scheme.$ambient;
@@ -286,12 +281,10 @@
                     }
 
                     &--Extraneous {
-                        @extend #{$Calendar-MonthView-GridCell};
                         color: antimatter-color-scheme.$white--a10;
                     }
 
                     &--Selected {
-                        @extend #{$Calendar-MonthView-GridCell};
                         font-weight: antimatter-typography.$font-weight--bold;
                         border-color: antimatter-color-scheme.$neutral;
                     }
@@ -333,18 +326,15 @@
                     }
 
                     &--Extraneous {
-                        @extend #{$Calendar-YearView-GridCell};
                         color: antimatter-color-scheme.$white--a10;
                     }
 
                     &--Selected {
-                        @extend #{$Calendar-YearView-GridCell};
                         font-weight: antimatter-typography.$font-weight--bold;
                         border-color: antimatter-color-scheme.$neutral;
                     }
 
                     &--Empty {
-                        @extend #{$Calendar-YearView-GridCell};
                         pointer-events: none;
                     }
 

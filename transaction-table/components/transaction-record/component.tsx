@@ -3,6 +3,7 @@ import {Icon} from "@miniskylab/antimatter-icon";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import React from "react";
 import {Mode, TransactionRecordProps} from "./model";
@@ -24,9 +25,9 @@ export function Component({
 }: TransactionRecordProps): JSX.Element
 {
     return (
-        <div className={`${className}${getModeModifier()}`} onClick={onClick}>
-            <Icon className={"TransactionTable-TransactionRecord-Icon"} name={getIcon()}/>
-            <div className={`${className}__NameAndLabelContainer`}>
+        <div className={bem(className, null, getModeModifier())} onClick={onClick}>
+            <Icon className={bem("TransactionTable-TransactionRecord-Icon")} name={getIcon()}/>
+            <div className={bem(className, "NameAndLabelContainer")}>
                 {renderName()}
                 {renderLabels()}
             </div>
@@ -39,17 +40,17 @@ export function Component({
         switch (mode)
         {
             case Mode.Draft:
-                return "--DraftMode";
+                return "DraftMode";
 
             case Mode.Edit:
-                return "--EditMode";
+                return "EditMode";
 
             case Mode.Delete:
-                return "--DeleteMode";
+                return "DeleteMode";
 
             default:
             case Mode.ReadOnly:
-                return onClick ? "--ReadOnlyMode" : String.EMPTY;
+                return onClick ? "ReadOnlyMode" : String.EMPTY;
         }
     }
 
@@ -76,13 +77,13 @@ export function Component({
         return (
             mode === Mode.Draft || mode === Mode.Edit
                 ? <InputField
-                    className={"TransactionTable-TransactionRecord-NameInputField"}
+                    className={bem("TransactionTable-TransactionRecord-NameInputField")}
                     placeholder={"Transaction Name"}
                     autoFocus={true}
                     value={name}
                     onChange={newValue => { onChange({name: newValue, amount, labels, executedDate, modifiedDate}); }}
                 />
-                : <Label className={"TransactionTable-TransactionRecord-Name"} text={name}/>
+                : <Label className={bem("TransactionTable-TransactionRecord-Name")} text={name}/>
         );
     }
 
@@ -92,7 +93,7 @@ export function Component({
         {
             return (
                 <DropdownMenu
-                    className={"TransactionTable-TransactionRecord-LabelSelector"}
+                    className={bem("TransactionTable-TransactionRecord-LabelSelector")}
                     maxSelectionCount={2}
                     keyValueSet={getDropdownMenuKeyValueSet()}
                     selectedKeys={labels}
@@ -103,11 +104,11 @@ export function Component({
         else
         {
             return (
-                <div className={`${className}__LabelContainer`}>
+                <div className={bem(className, "LabelContainer")}>
                     {labels?.map(labelId => (
                         <Label
                             key={labelId}
-                            className={"TransactionTable-TransactionRecord-Label"}
+                            className={bem("TransactionTable-TransactionRecord-Label")}
                             text={labelSet[labelId].name}
                         />
                     ))}
@@ -122,7 +123,7 @@ export function Component({
         return (
             mode === Mode.Draft || mode === Mode.Edit
                 ? <NumericInputField
-                    className={`TransactionTable-TransactionRecord-AmountInputField--${isIncome ? "Income" : "Expense"}`}
+                    className={bem("TransactionTable-TransactionRecord-AmountInputField", null, isIncome ? "Income" : "Expense")}
                     minValue={0}
                     maxValue={999999999}
                     showPlusSymbolForPositiveNumber={isIncome}
@@ -132,7 +133,7 @@ export function Component({
                     onChange={newValue => { onChange({name, amount: newValue, labels, executedDate, modifiedDate}); }}
                 />
                 : <Label
-                    className={`TransactionTable-TransactionRecord-Amount--${isIncome ? "Income" : "Expense"}`}
+                    className={bem("TransactionTable-TransactionRecord-Amount", null, isIncome ? "Income" : "Expense")}
                     text={`${isIncome ? "+" : String.EMPTY}${amount.toLocaleString()}`}
                 />
         );

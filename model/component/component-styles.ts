@@ -1,5 +1,10 @@
 export function bem(selector: string, element: string = String.EMPTY, modifier: string = String.EMPTY): string
 {
+    if (!selector)
+    {
+        return String.EMPTY;
+    }
+
     function validateSelector(
         anySelector: string,
         onTooManyElementError: (elementCount: number, individualSelector: string) => void,
@@ -60,7 +65,7 @@ export function bem(selector: string, element: string = String.EMPTY, modifier: 
 
     if (modifier)
     {
-        bemSelector += `--${modifier}`;
+        bemSelector += ` ${bemSelector}--${modifier}`;
     }
 
     if (!element && supportSelectors && supportSelectors.length > 0)

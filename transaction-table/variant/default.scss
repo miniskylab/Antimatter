@@ -157,10 +157,15 @@
                     margin-top: 3px;
                 }
 
+                &--Disabled {
+                    opacity: 1;
+                    filter: saturate(100%);
+                    color: antimatter-color-scheme.$gray--a65;
+                }
+
                 @media (hover: hover) {
 
-                    &:not(#{$TransactionTable-ControlButton}--Draft):not(#{$TransactionTable-ControlButton}--Disabled):hover {
-                        color: antimatter-color-scheme.$white;
+                    &:not(#{$TransactionTable-ControlButton}--Disabled):hover {
                         background-color: antimatter-color-scheme.$transparent;
 
                         &:active {
@@ -170,25 +175,27 @@
                 }
 
                 &--Draft {
-                    @extend #{$TransactionTable-ControlButton};
                     color: antimatter-color-scheme.$primary--a65;
                     cursor: not-allowed;
+
+                    @media (hover: hover) {
+
+                        &:not(#{$TransactionTable-ControlButton}--Disabled):hover {
+                            color: antimatter-color-scheme.$primary--a65;
+
+                            &:active {
+                                color: antimatter-color-scheme.$primary--a65;
+                            }
+                        }
+                    }
                 }
 
                 &--Edit {
-                    @extend #{$TransactionTable-ControlButton};
                     color: antimatter-color-scheme.$primary;
                 }
 
                 &--Delete {
-                    @extend #{$TransactionTable-ControlButton};
                     color: antimatter-color-scheme.$negative;
-                }
-
-                &--Disabled {
-                    opacity: 1;
-                    filter: saturate(100%);
-                    color: antimatter-color-scheme.$gray--a65;
                 }
             }
 
@@ -244,12 +251,10 @@
                 z-index: antimatter-layer.$lower;
 
                 &--Top {
-                    @extend #{$TransactionTable}__Hr;
                     top: 55px;
                 }
 
                 &--Bottom {
-                    @extend #{$TransactionTable}__Hr;
                     bottom: 55px;
                 }
             }
@@ -359,12 +364,10 @@
                     color: antimatter-color-scheme.$background;
 
                     &--Expense {
-                        @extend #{$TransactionTable-TransactionRecord-Amount};
                         background-color: antimatter-color-scheme.$neutral;
                     }
 
                     &--Income {
-                        @extend #{$TransactionTable-TransactionRecord-Amount};
                         background-color: antimatter-color-scheme.$positive;
                     }
                 }
@@ -437,7 +440,6 @@
                         }
 
                         &--Hidden {
-                            @extend #{$TransactionTable-TransactionRecord-LabelSelector}__Menu;
                             display: flex;
                         }
                     }
@@ -506,18 +508,15 @@
                     color: antimatter-color-scheme.$background;
 
                     &--Expense {
-                        @extend #{$TransactionTable-TransactionRecord-AmountInputField};
                         background-color: antimatter-color-scheme.$neutral;
                     }
 
                     &--Income {
-                        @extend #{$TransactionTable-TransactionRecord-AmountInputField};
                         background-color: antimatter-color-scheme.$positive;
                     }
                 }
 
                 &--ReadOnlyMode {
-                    @extend .TransactionTable-TransactionRecord;
                     cursor: pointer;
 
                     @media (hover: hover) {
@@ -531,21 +530,18 @@
                 }
 
                 &--DraftMode {
-                    @extend .TransactionTable-TransactionRecord;
                     box-shadow: 0 1px 0 antimatter-color-scheme.$primary inset, 0 -1px 0 antimatter-color-scheme.$primary inset, 0 1px 0 antimatter-color-scheme.$primary, 0 -1px 0 antimatter-color-scheme.$primary;
                     background: repeating-linear-gradient(45deg, antimatter-color-scheme.$primary--a10, antimatter-color-scheme.$primary--a10 10px, antimatter-color-scheme.$transparent 10px, antimatter-color-scheme.$transparent 20px);
                     z-index: antimatter-layer.$higher;
                 }
 
                 &--EditMode {
-                    @extend .TransactionTable-TransactionRecord;
                     box-shadow: 0 1px 0 antimatter-color-scheme.$primary inset, 0 -1px 0 antimatter-color-scheme.$primary inset, 0 1px 0 antimatter-color-scheme.$primary, 0 -1px 0 antimatter-color-scheme.$primary;
                     background-color: antimatter-color-scheme.$primary--a10;
                     z-index: antimatter-layer.$higher;
                 }
 
                 &--DeleteMode {
-                    @extend .TransactionTable-TransactionRecord;
                     box-shadow: 0 1px 0 antimatter-color-scheme.$negative inset, 0 -1px 0 antimatter-color-scheme.$negative inset, 0 1px 0 antimatter-color-scheme.$negative, 0 -1px 0 antimatter-color-scheme.$negative;
                     background-color: antimatter-color-scheme.$negative--a10;
                     z-index: antimatter-layer.$higher;
@@ -583,12 +579,10 @@
                 box-sizing: border-box;
 
                 &--Expense {
-                    @extend #{$TransactionTable-SummaryAmount};
                     color: antimatter-color-scheme.$warning;
                 }
 
                 &--Income {
-                    @extend #{$TransactionTable-SummaryAmount};
                     color: antimatter-color-scheme.$positive;
                 }
             }
