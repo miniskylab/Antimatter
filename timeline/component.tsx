@@ -1,8 +1,8 @@
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
-import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
-import {Event} from "./components";
+import {BootstrapEvent, Event} from "./components";
 import {TimelineProps} from "./model";
 
 /**
@@ -26,42 +26,23 @@ export class Timeline extends React.Component<TimelineProps>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.className}>
-                <div className={`${this.props.className}__event-stream`}>
+            <div className={bem(this.props.className)}>
+                <div className={bem(this.props.className, "EventStream")}>
                     {this.props.events.map((event, i) => (
                         <Event.Component
                             key={i}
-                            className={`${this.props.className}__event`}
-                            name={event.name}
-                            image={event.image}
-                            startDate={event.startDate}
-                            endDate={event.endDate}
-                            isOnGoing={event.isOnGoing}
-                            location={event.location}
-                            description={event.description}
-                            icon={event.icon}
-                            minimumTimeUnit={event.minimumTimeUnit}
+                            {...event}
+                            className={bem("Timeline-Event")}
                         />
                     ))}
-                    <div className={`${this.props.className}__vertical-line`}/>
-                    <Icon className={`${this.props.className}__origin`} name={Icomoon.Origin}/>
+                    <div className={bem(this.props.className, "VerticalLine")}/>
+                    <Icon className={bem("Timeline-Origin")} name={Icomoon.Origin}/>
                 </div>
                 {this.props.bootstrapEvent && (
-                    <div className={`${this.props.className}__bootstrap-event`}>
-                        <div className={`${this.props.className}__bootstrap-event__triangle-arrow`}/>
-                        <Icon
-                            className={`${this.props.className}__bootstrap-event__icon`}
-                            name={this.props.bootstrapEvent.icon}
-                        />
-                        <Label
-                            className={`${this.props.className}__bootstrap-event__name`}
-                            text={this.props.bootstrapEvent.name}
-                        />
-                        <Label
-                            className={`${this.props.className}__bootstrap-event__description`}
-                            text={this.props.bootstrapEvent.description}
-                        />
-                    </div>
+                    <BootstrapEvent.Component
+                        {...this.props.bootstrapEvent}
+                        className={bem("Timeline-BootstrapEvent")}
+                    />
                 )}
             </div>
         );

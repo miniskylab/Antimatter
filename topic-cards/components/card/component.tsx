@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
-import {Image} from "@miniskylab/antimatter-model";
+import {bem, Image} from "@miniskylab/antimatter-model";
 import React from "react";
 import {CardProps} from "./model";
 
@@ -17,19 +17,19 @@ export function Component({
 }: CardProps): JSX.Element
 {
     return (
-        <div className={className}>
-            {Image.isAssignableFrom(image) && <img className={`${className}__image`} src={image.url.original} alt={image.altText}/>}
-            {typeof image === "string" && <Icon className={`${className}__image`} name={image}/>}
-            <Label className={`${className}__title`} text={title}/>
-            <Label className={`${className}__description`} text={description}/>
+        <div className={bem(className)}>
+            {Image.isAssignableFrom(image) && <img className={bem(className, "Image")} src={image.url.original} alt={image.altText}/>}
+            {typeof image === "string" && <Icon className={bem("TopicCards-Card-Icon")} name={image}/>}
+            <Label className={bem("TopicCards-Card-Title")} text={title}/>
+            <Label className={bem("TopicCards-Card-Description")} text={description}/>
             {ctaButtons && ctaButtons.length > 0 && (
-                <div className={`${className}__cta-button-container`}>
+                <div className={bem(className, "CtaButtonContainer")}>
                     {ctaButtons.map((buttonProps, i) => (
                         <Button
                             key={i}
-                            className={`${className}__cta-button`}
-                            onClick={undefined}
                             {...buttonProps}
+                            className={bem("TopicCards-Card-CtaButton")}
+                            onClick={undefined}
                         />
                     ))}
                 </div>

@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
 import {Card} from "./components";
 import {TopicCardsProps} from "./model";
@@ -12,12 +13,12 @@ export class TopicCards extends React.Component<TopicCardsProps>
     render(): JSX.Element
     {
         return (
-            <div className={this.props.className}>
+            <div className={bem(this.props.className)}>
                 {this.props.cards.map((cardProps, i) => (
                     <Card.Component
                         key={i}
-                        className={`${this.props.className}__card${cardProps.thisIsPlaceholderCard ? "--placeholder" : String.EMPTY}`}
                         {...cardProps}
+                        className={bem("TopicCards-Card", null, cardProps.thisIsPlaceholderCard && "Placeholder")}
                     />
                 ))}
             </div>

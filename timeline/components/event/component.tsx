@@ -1,6 +1,7 @@
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {Label} from "@miniskylab/antimatter-label";
+import {bem} from "@miniskylab/antimatter-model";
 import {DateFormat, GregorianCalendar, TimeUnit} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {EventProps} from "./model";
@@ -22,44 +23,44 @@ export function Component({
 }: EventProps): JSX.Element
 {
     return (
-        <div className={className}>
-            <Icon className={`${className}__icon`} name={icon}/>
-            <div className={`${className}__triangle-arrow`}/>
-            <Label className={`${className}__name`} text={name}/>
-            <div className={`${className}__hr`}/>
-            {image && <img className={`${className}__image`} src={image.url.original} alt={image.altText}/>}
-            <div className={`${className}__row`}>
-                <Icon className={`${className}__bulletin-icon`} name={Icomoon.Clock}/>
-                <p className={`${className}__start-date`} suppressHydrationWarning={true}>
+        <div className={bem(className)}>
+            <Icon className={bem("Timeline-Event-Icon")} name={icon}/>
+            <div className={bem(className, "TriangleArrow")}/>
+            <Label className={bem("Timeline-Event-Name")} text={name}/>
+            <div className={bem(className, "Hr")}/>
+            {image && <img className={bem(className, "Image")} src={image.url.original} alt={image.altText}/>}
+            <div className={bem(className, "Row")}>
+                <Icon className={bem("Timeline-Event-BulletinIcon")} name={Icomoon.Clock}/>
+                <p className={bem(className, "StartDate")} suppressHydrationWarning={true}>
                     {GregorianCalendar.toString(startDate, DateFormat.Long, minimumTimeUnit)}
                 </p>
-                {(isOnGoing || endDate) && <Icon className={`${className}__arrow-right-icon`} name={Icomoon.ArrowRight}/>}
+                {(isOnGoing || endDate) && <Icon className={bem("Timeline-Event-ArrowRightIcon")} name={Icomoon.ArrowRight}/>}
                 {
                     isOnGoing && <Label text={"Now"}/>
                     ||
                     endDate && (
-                        <p className={`${className}__end-date`} suppressHydrationWarning={true}>
+                        <p className={bem(className, "EndDate")} suppressHydrationWarning={true}>
                             {GregorianCalendar.toString(endDate, DateFormat.Long, minimumTimeUnit)}
                         </p>
                     )
                 }
             </div>
             {(isOnGoing || endDate) && (
-                <div className={`${className}__row`}>
-                    <Icon className={`${className}__bulletin-icon`} name={Icomoon.History}/>
+                <div className={bem(className, "Row")}>
+                    <Icon className={bem("Timeline-Event-BulletinIcon")} name={Icomoon.History}/>
                     <Label
-                        className={`${className}__duration`}
+                        className={bem("Timeline-Event-Duration")}
                         text={GregorianCalendar.getTimeDuration(startDate, isOnGoing ? new Date() : endDate, minimumTimeUnit)}
                     />
                 </div>
             )}
-            <div className={`${className}__row`}>
-                <Icon className={`${className}__bulletin-icon`} name={Icomoon.Location}/>
-                {location && <Label className={`${className}__location`} text={location}/>}
+            <div className={bem(className, "Row")}>
+                <Icon className={bem("Timeline-Event-BulletinIcon")} name={Icomoon.Location}/>
+                {location && <Label className={bem("Timeline-Event-Location")} text={location}/>}
             </div>
-            <div className={`${className}__row`}>
-                <Icon className={`${className}__bulletin-icon--top-aligned`} name={Icomoon.Pen}/>
-                {description && <Label className={`${className}__description`} text={description}/>}
+            <div className={bem(className, "Row")}>
+                <Icon className={bem("Timeline-Event-BulletinIcon", null, "TopAligned")} name={Icomoon.Pen}/>
+                {description && <Label className={bem("Timeline-Event-Description")} text={description}/>}
             </div>
         </div>
     );
