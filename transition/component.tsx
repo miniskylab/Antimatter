@@ -1,3 +1,4 @@
+import {bem} from "@miniskylab/antimatter-model";
 import React, {cloneElement, ReactElement} from "react";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 import {CSSTransitionClassNames} from "react-transition-group/CSSTransition";
@@ -31,7 +32,7 @@ export class Transition extends React.Component<TransitionProps>
     {
         return (
             <TransitionGroup
-                className={this.props.className}
+                className={bem(this.props.className)}
                 childFactory={this.getChildFactory(this.props.classNames)}
             >
                 <CSSTransition<undefined>

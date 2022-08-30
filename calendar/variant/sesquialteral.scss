@@ -1,6 +1,7 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-label/variant/default" as antimatter-label-default;
+@use "~@miniskylab/antimatter-transition/variant/default" as antimatter-transition-default;
 @use "~@miniskylab/antimatter-button/variant/outlined-circular" as antimatter-button-outlined-circular;
 @use "~@miniskylab/antimatter-button/variant/outlined-rectangular" as antimatter-button-outlined-rectangular;
 
@@ -408,10 +409,8 @@
                 }
             }
 
-            .Calendar-Transition {
-                position: relative;
-                clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-
+            $Calendar-Transition: ".Calendar-Transition";
+            @include antimatter-transition-default.variant($Calendar-Transition) {
                 /*# region No Transition */
 
                 &--NoneOutStart {
