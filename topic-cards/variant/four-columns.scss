@@ -92,7 +92,7 @@
                 $TopicCards-Card-Icon: ".TopicCards-Card-Icon";
                 @include antimatter-icon-default.variant($TopicCards-Card-Icon) {
                     height: 150px;
-                    font-size: antimatter-typography.$font-size--150px;
+                    font-size: 150px;
                     color: antimatter-color-scheme.$white;
                     -webkit-backface-visibility: hidden;
                     text-align: center;
@@ -109,7 +109,7 @@
                     width: 100%;
                     margin-top: 30px;
                     color: antimatter-color-scheme.$white;
-                    font-size: antimatter-typography.$font-size--32px;
+                    font-size: 32px;
                     font-weight: antimatter-typography.$font-weight--bold;
                     text-align: center;
                 }
@@ -119,7 +119,7 @@
                     line-height: 28px;
                     margin-top: 20px;
                     color: antimatter-color-scheme.$neutral;
-                    font-size: antimatter-typography.$font-size--16px;
+                    font-size: 16px;
                     text-align: justify;
                 }
 
@@ -142,7 +142,7 @@
                     $Button-Icon: ".Button-Icon";
                     @include antimatter-icon-default.variant($Button-Icon) {
                         min-width: 25px;
-                        font-size: antimatter-typography.$font-size--18px;
+                        font-size: 18px;
                         transition: transform 0.2s linear;
                     }
 
@@ -151,7 +151,7 @@
                         justify-content: flex-start;
                         width: 100%;
                         padding: 0 15px;
-                        font-size: antimatter-typography.$font-size--16px;
+                        font-size: 16px;
                         font-weight: antimatter-typography.$font-weight--bold;
                     }
 

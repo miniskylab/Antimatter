@@ -41,7 +41,7 @@
             @include antimatter-label-default.variant($DonutChart-Value) {
                 align-self: flex-end;
                 font-weight: antimatter-typography.$font-weight--bold;
-                font-size: antimatter-typography.$font-size--22px;
+                font-size: 22px;
             }
 
             $DonutChart-Description: ".DonutChart-Description";
@@ -50,14 +50,14 @@
                 width: 100%;
                 padding-bottom: 5px;
                 margin-top: -2px;
-                font-size: antimatter-typography.$font-size--10px;
+                font-size: 10px;
             }
 
             $DonutChart-PercentSymbol: ".DonutChart-PercentSymbol";
             @include antimatter-label-default.variant($DonutChart-PercentSymbol) {
                 align-self: flex-end;
                 padding-bottom: 3px;
-                font-size: antimatter-typography.$font-size--12px;
+                font-size: 12px;
             }
         }
     }

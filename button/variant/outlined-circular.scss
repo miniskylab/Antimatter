@@ -1,4 +1,3 @@
-@use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
 
@@ -21,7 +20,7 @@
 
             $Button-Icon: ".Button-Icon";
             @include antimatter-icon-default.variant($Button-Icon) {
-                font-size: antimatter-typography.$font-size--14px;
+                font-size: 14px;
             }
 
             .Button-Label {

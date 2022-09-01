@@ -1,5 +1,4 @@
 @use "~@miniskylab/antimatter-layer";
-@use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
 @use "~@miniskylab/antimatter-label/variant/default" as antimatter-label-default;
@@ -36,7 +35,7 @@
                 box-sizing: border-box;
                 color: antimatter-color-scheme.$background;
                 background-color: antimatter-color-scheme.$neutral;
-                font-size: antimatter-typography.$font-size--12px;
+                font-size: 12px;
             }
 
             &__Placeholder {
@@ -45,7 +44,7 @@
                 row-gap: 5px;
                 margin-right: 15px;
                 line-height: 18px;
-                font-size: antimatter-typography.$font-size--14px;
+                font-size: 14px;
                 color: antimatter-color-scheme.$gray--a65;
             }
 
@@ -74,7 +73,7 @@
                 height: 22px;
                 padding: 4px 12px;
                 margin: 5px 0;
-                font-size: antimatter-typography.$font-size--14px;
+                font-size: 14px;
                 color: antimatter-color-scheme.$neutral;
                 cursor: pointer;
 
@@ -83,12 +82,12 @@
                     &:not(&--Disabled):not(&--Selected):hover {
                         color: antimatter-color-scheme.$white;
                         background-color: antimatter-color-scheme.$primary--a10;
-                        box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+                        box-shadow: 1px 1px antimatter-color-scheme.$primary inset, -1px -1px antimatter-color-scheme.$primary inset;
 
                         &:active {
                             color: antimatter-color-scheme.$ambient;
                             background-color: antimatter-color-scheme.$primary;
-                            box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+                            box-shadow: 1px 1px antimatter-color-scheme.$primary inset, -1px -1px antimatter-color-scheme.$primary inset;
                         }
                     }
                 }
@@ -96,7 +95,7 @@
                 &--Selected {
                     color: antimatter-color-scheme.$ambient;
                     background-color: antimatter-color-scheme.$primary;
-                    box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+                    box-shadow: 1px 1px antimatter-color-scheme.$primary inset, -1px -1px antimatter-color-scheme.$primary inset;
                 }
 
                 &--Disabled {
@@ -109,7 +108,7 @@
             $DropdownMenu-SelectionIcon: ".DropdownMenu-SelectionIcon";
             @include antimatter-label-default.variant($DropdownMenu-SelectionIcon) {
                 position: absolute;
-                font-size: antimatter-typography.$font-size--16px;
+                font-size: 16px;
                 right: 7px;
             }
 
@@ -136,7 +135,7 @@
                     &:hover {
                         color: antimatter-color-scheme.$white;
                         background-color: antimatter-color-scheme.$primary--a10;
-                        box-shadow: 1px 1px 0 antimatter-color-scheme.$primary inset, -1px -1px 0 antimatter-color-scheme.$primary inset;
+                        box-shadow: 1px 1px antimatter-color-scheme.$primary inset, -1px -1px antimatter-color-scheme.$primary inset;
 
                         #{$DropdownMenu}__Caret {
                             border-top-color: antimatter-color-scheme.$white;

@@ -28,13 +28,13 @@
             @include antimatter-icon-default.variant($Button-Icon) {
                 min-width: 16px;
                 height: 16px;
-                font-size: antimatter-typography.$font-size--16px;
+                font-size: 16px;
             }
 
             $Button-Label: ".Button-Label";
             @include antimatter-label-default.variant($Button-Label) {
                 padding: 0 10px;
-                font-size: antimatter-typography.$font-size--14px;
+                font-size: 14px;
             }
 
             &--Disabled {

@@ -1,5 +1,4 @@
 @use "~@miniskylab/antimatter-layer";
-@use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-calendar/variant/mini" as antimatter-calendar-mini;
 @use "~@miniskylab/antimatter-button/variant/outlined-circular" as antimatter-button-outlined-circular;
@@ -22,7 +21,7 @@
                 box-sizing: border-box;
                 color: antimatter-color-scheme.$neutral;
                 background-color: antimatter-color-scheme.$mine-shaft;
-                font-size: antimatter-typography.$font-size--14px;
+                font-size: 14px;
                 text-align: inherit;
 
                 &::placeholder {
@@ -43,7 +42,7 @@
                 color: antimatter-color-scheme.$neutral;
 
                 .Button-Icon {
-                    font-size: antimatter-typography.$font-size--16px;
+                    font-size: 16px;
                 }
 
                 @media (hover: hover) {

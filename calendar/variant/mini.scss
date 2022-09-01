@@ -28,7 +28,7 @@
                     color: antimatter-color-scheme.$neutral;
 
                     .Button-Icon {
-                        font-size: antimatter-typography.$font-size--18px;
+                        font-size: 18px;
                     }
 
                     &:first-of-type {
@@ -66,7 +66,7 @@
                     color: antimatter-color-scheme.$gainsboro;
 
                     .Button-Label {
-                        font-size: antimatter-typography.$font-size--18px;
+                        font-size: 18px;
                     }
 
                     &--Disabled {
@@ -109,7 +109,7 @@
                     width: 36px;
                     height: 36px;
                     color: antimatter-color-scheme.$gainsboro;
-                    font-size: antimatter-typography.$font-size--16px;
+                    font-size: 16px;
                     font-weight: antimatter-typography.$font-weight--bold;
                     pointer-events: none;
                 }
@@ -126,7 +126,7 @@
                     border: 3px solid antimatter-color-scheme.$transparent;
                     margin: 1px;
                     box-sizing: border-box;
-                    font-size: antimatter-typography.$font-size--16px;
+                    font-size: 16px;
                 }
 
                 &__Today {
@@ -233,7 +233,7 @@
                     flex-direction: column;
                     height: 15px;
                     padding: 0;
-                    font-size: antimatter-typography.$font-size--16px;
+                    font-size: 16px;
                 }
             }
 
@@ -259,7 +259,7 @@
                     }
 
                     .Button-Label {
-                        font-size: antimatter-typography.$font-size--16px;
+                        font-size: 16px;
                     }
 
                     &--Extraneous {
@@ -308,7 +308,7 @@
                     }
 
                     .Button-Label {
-                        font-size: antimatter-typography.$font-size--16px;
+                        font-size: 16px;
                     }
 
                     &--Extraneous {

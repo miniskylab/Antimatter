@@ -68,7 +68,7 @@
                 &__InputField {
                     padding: 6px 12px 6px 12px;
                     background-color: antimatter-color-scheme.$background;
-                    font-size: antimatter-typography.$font-size--16px;
+                    font-size: 16px;
                     font-weight: antimatter-typography.$font-weight--bold;
                     text-align: center;
                     cursor: pointer;
@@ -145,14 +145,14 @@
                 @include antimatter-icon-default.variant($Button-Icon) {
                     flex-grow: 1;
                     height: auto;
-                    font-size: antimatter-typography.$font-size--28px;
+                    font-size: 28px;
                 }
 
                 $Button-Label: ".Button-Label";
                 @include antimatter-label-default.variant($Button-Label) {
                     padding: 0;
                     line-height: 12px;
-                    font-size: antimatter-typography.$font-size--12px;
+                    font-size: 12px;
                     font-weight: antimatter-typography.$font-weight--bold;
                     margin-top: 3px;
                 }
@@ -269,19 +269,19 @@
                 padding: 0;
                 border: none;
                 color: antimatter-color-scheme.$neutral;
-                box-shadow: 0 1px 0 antimatter-color-scheme.$neutral inset, 0 -1px 0 antimatter-color-scheme.$neutral inset, 0 1px 0 antimatter-color-scheme.$neutral, 0 -1px 0 antimatter-color-scheme.$neutral;
+                box-shadow: 0 1px antimatter-color-scheme.$neutral inset, 0 -1px antimatter-color-scheme.$neutral inset, 0 1px antimatter-color-scheme.$neutral, 0 -1px antimatter-color-scheme.$neutral;
 
                 .Button-Icon {
-                    font-size: antimatter-typography.$font-size--35px;
+                    font-size: 35px;
                 }
 
                 @media (hover: hover) {
 
                     &:not(#{$TransactionTable-AddNewButton}--Disabled):hover {
-                        box-shadow: 0 1px 0 antimatter-color-scheme.$primary inset, 0 -1px 0 antimatter-color-scheme.$primary inset, 0 1px 0 antimatter-color-scheme.$primary, 0 -1px 0 antimatter-color-scheme.$primary;
+                        box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
 
                         &:active {
-                            box-shadow: 0 1px 0 antimatter-color-scheme.$primary inset, 0 -1px 0 antimatter-color-scheme.$primary inset, 0 1px 0 antimatter-color-scheme.$primary, 0 -1px 0 antimatter-color-scheme.$primary;
+                            box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
                         }
                     }
                 }
@@ -300,14 +300,14 @@
                 height: 45px;
                 padding: 10px 0;
                 color: antimatter-color-scheme.$neutral;
-                box-shadow: 0 1px 0 antimatter-color-scheme.$neutral inset, 0 -1px 0 antimatter-color-scheme.$neutral inset, 0 1px 0 antimatter-color-scheme.$neutral, 0 -1px 0 antimatter-color-scheme.$neutral;
+                box-shadow: 0 1px antimatter-color-scheme.$neutral inset, 0 -1px antimatter-color-scheme.$neutral inset, 0 1px antimatter-color-scheme.$neutral, 0 -1px antimatter-color-scheme.$neutral;
 
                 $TransactionTable-TransactionRecord-Icon: ".TransactionTable-TransactionRecord-Icon";
                 @include antimatter-icon-default.variant($TransactionTable-TransactionRecord-Icon) {
                     width: 30px;
                     height: 30px;
                     box-sizing: border-box;
-                    font-size: antimatter-typography.$font-size--28px;
+                    font-size: 28px;
                 }
 
                 &__NameAndLabelContainer {
@@ -335,7 +335,7 @@
                     white-space: nowrap;
                     overflow: hidden;
                     text-overflow: ellipsis;
-                    font-size: antimatter-typography.$font-size--18px;
+                    font-size: 18px;
                     font-weight: antimatter-typography.$font-weight--bold;
                 }
 
@@ -349,7 +349,7 @@
                     border-radius: 3px;
                     color: antimatter-color-scheme.$background;
                     background-color: antimatter-color-scheme.$neutral;
-                    font-size: antimatter-typography.$font-size--12px;
+                    font-size: 12px;
                 }
 
                 $TransactionTable-TransactionRecord-Amount: ".TransactionTable-TransactionRecord-Amount";
@@ -359,7 +359,7 @@
                     height: calc(100% - 8px);
                     padding-top: 1px;
                     box-sizing: border-box;
-                    font-size: antimatter-typography.$font-size--17px;
+                    font-size: 17px;
                     font-weight: antimatter-typography.$font-weight--bold;
                     color: antimatter-color-scheme.$background;
 
@@ -381,7 +381,7 @@
 
                     &__TextBox {
                         padding: 0 0 3px 0;
-                        font-size: antimatter-typography.$font-size--18px;
+                        font-size: 18px;
                         font-weight: antimatter-typography.$font-weight--bold;
                         transition: padding ease-out 100ms;
 
@@ -399,7 +399,7 @@
                         align-items: stretch;
                         padding-top: 1px;
                         box-sizing: border-box;
-                        font-size: antimatter-typography.$font-size--16px;
+                        font-size: 16px;
                         font-weight: antimatter-typography.$font-weight--bold;
                         font-style: italic;
 
@@ -452,8 +452,8 @@
                         border-radius: 3px;
                         box-sizing: border-box;
                         background-color: antimatter-color-scheme.$transparent;
-                        font-size: antimatter-typography.$font-size--12px;
-                        box-shadow: 1px 1px 0 antimatter-color-scheme.$neutral inset, -1px -1px 0 antimatter-color-scheme.$neutral inset;
+                        font-size: 12px;
+                        box-shadow: 1px 1px antimatter-color-scheme.$neutral inset, -1px -1px antimatter-color-scheme.$neutral inset;
 
                         &:last-child {
                             margin-right: 0;
@@ -463,7 +463,7 @@
 
                             &:not(#{$TransactionTable-TransactionRecord-LabelSelector}__MenuItem--Disabled):not(#{$TransactionTable-TransactionRecord-LabelSelector}__MenuItem--Selected):hover {
                                 background-color: antimatter-color-scheme.$neutral--a10;
-                                box-shadow: 1px 1px 0 antimatter-color-scheme.$neutral inset, -1px -1px 0 antimatter-color-scheme.$neutral inset;
+                                box-shadow: 1px 1px antimatter-color-scheme.$neutral inset, -1px -1px antimatter-color-scheme.$neutral inset;
 
                                 &:active {
                                     color: antimatter-color-scheme.$ambient;
@@ -503,7 +503,7 @@
                     height: calc(100% - 8px);
                     padding: 1px 0 0 0;
                     text-align: center;
-                    font-size: antimatter-typography.$font-size--17px;
+                    font-size: 17px;
                     font-weight: antimatter-typography.$font-weight--bold;
                     color: antimatter-color-scheme.$background;
 
@@ -522,7 +522,7 @@
                     @media (hover: hover) {
 
                         &:hover {
-                            box-shadow: 0 1px 0 antimatter-color-scheme.$primary inset, 0 -1px 0 antimatter-color-scheme.$primary inset, 0 1px 0 antimatter-color-scheme.$primary, 0 -1px 0 antimatter-color-scheme.$primary;
+                            box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
                             background-color: antimatter-color-scheme.$primary--a10;
                             z-index: antimatter-layer.$higher;
                         }
@@ -530,19 +530,19 @@
                 }
 
                 &--DraftMode {
-                    box-shadow: 0 1px 0 antimatter-color-scheme.$primary inset, 0 -1px 0 antimatter-color-scheme.$primary inset, 0 1px 0 antimatter-color-scheme.$primary, 0 -1px 0 antimatter-color-scheme.$primary;
+                    box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
                     background: repeating-linear-gradient(45deg, antimatter-color-scheme.$primary--a10, antimatter-color-scheme.$primary--a10 10px, antimatter-color-scheme.$transparent 10px, antimatter-color-scheme.$transparent 20px);
                     z-index: antimatter-layer.$higher;
                 }
 
                 &--EditMode {
-                    box-shadow: 0 1px 0 antimatter-color-scheme.$primary inset, 0 -1px 0 antimatter-color-scheme.$primary inset, 0 1px 0 antimatter-color-scheme.$primary, 0 -1px 0 antimatter-color-scheme.$primary;
+                    box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
                     background-color: antimatter-color-scheme.$primary--a10;
                     z-index: antimatter-layer.$higher;
                 }
 
                 &--DeleteMode {
-                    box-shadow: 0 1px 0 antimatter-color-scheme.$negative inset, 0 -1px 0 antimatter-color-scheme.$negative inset, 0 1px 0 antimatter-color-scheme.$negative, 0 -1px 0 antimatter-color-scheme.$negative;
+                    box-shadow: 0 1px antimatter-color-scheme.$negative inset, 0 -1px antimatter-color-scheme.$negative inset, 0 1px antimatter-color-scheme.$negative, 0 -1px antimatter-color-scheme.$negative;
                     background-color: antimatter-color-scheme.$negative--a10;
                     z-index: antimatter-layer.$higher;
                 }
@@ -554,7 +554,7 @@
                 padding-top: 5px;
                 margin-right: $-scrollbar-box-width;
                 color: antimatter-color-scheme.$neutral;
-                font-size: antimatter-typography.$font-size--16px;
+                font-size: 16px;
                 font-weight: antimatter-typography.$font-weight--bold;
             }
 

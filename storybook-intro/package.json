@@ -1,0 +1,10 @@
+{
+  "name": "@miniskylab/antimatter-storybook-intro",
+  "version": "0.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "7.18.10",
+    "@storybook/addon-docs": "6.5.10",
+    "react": "17.0.2"
+  }
+}

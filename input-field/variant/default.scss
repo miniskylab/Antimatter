@@ -1,4 +1,3 @@
-@use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
 @use "~@miniskylab/antimatter-label/variant/default" as antimatter-label-default;
@@ -16,7 +15,7 @@
                 display: inline-flex;
                 width: 40px;
                 height: 100%;
-                font-size: antimatter-typography.$font-size--20px;
+                font-size: 20px;
                 color: antimatter-color-scheme.$mine-shaft;
                 background-color: antimatter-color-scheme.$gray;
             }
@@ -50,7 +49,7 @@
                 outline: none;
                 padding: 6px 12px;
                 box-sizing: border-box;
-                font-size: antimatter-typography.$font-size--14px;
+                font-size: 14px;
                 color: antimatter-color-scheme.$neutral;
                 background-color: antimatter-color-scheme.$transparent;
                 transition: padding ease-out 100ms;

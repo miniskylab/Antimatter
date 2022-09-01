@@ -1,4 +1,3 @@
-@use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 
 @mixin variant($NumericInputField) {
@@ -11,7 +10,7 @@
             outline: none;
             box-sizing: border-box;
             text-align: inherit;
-            font-size: antimatter-typography.$font-size--14px;
+            font-size: 14px;
             color: antimatter-color-scheme.$neutral;
             background-color: antimatter-color-scheme.$mine-shaft;
 

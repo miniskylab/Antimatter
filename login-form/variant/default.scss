@@ -26,7 +26,7 @@
             @include antimatter-icon-default.variant($LoginForm-Logo) {
                 width: 80px;
                 height: 80px;
-                font-size: antimatter-typography.$font-size--80px;
+                font-size: 80px;
             }
 
             $LoginForm-Title: ".LoginForm-Title";
@@ -34,7 +34,7 @@
                 height: 30px;
                 margin-top: 25px;
                 color: antimatter-color-scheme.$white;
-                font-size: antimatter-typography.$font-size--25px;
+                font-size: 25px;
                 font-weight: antimatter-typography.$font-weight--bold;
             }
 
@@ -42,7 +42,7 @@
             @include antimatter-label-default.variant($LoginForm-Description) {
                 height: 20px;
                 margin: 5px 0;
-                font-size: antimatter-typography.$font-size--16px;
+                font-size: 16px;
                 color: antimatter-color-scheme.$gray;
             }
 
@@ -59,7 +59,7 @@
 
                 $Button-Label: ".Button-Label";
                 @include antimatter-label-default.variant($Button-Label) {
-                    font-size: antimatter-typography.$font-size--16px;
+                    font-size: 16px;
                     font-weight: antimatter-typography.$font-weight--bold;
                 }
             }

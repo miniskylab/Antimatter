@@ -28,13 +28,13 @@
             @include antimatter-icon-default.variant($DownloadButton-Icon) {
                 min-width: 16px;
                 height: 16px;
-                font-size: antimatter-typography.$font-size--14px;
+                font-size: 14px;
             }
 
             $DownloadButton-Label: ".DownloadButton-Label";
             @include antimatter-label-default.variant($DownloadButton-Label) {
                 padding: 0 10px;
-                font-size: antimatter-typography.$font-size--14px;
+                font-size: 14px;
             }
 
             &--Disabled {

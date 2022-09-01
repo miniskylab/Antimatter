@@ -1,1 +1,1 @@
-import "./roboto/index.scss";
+import "./font";

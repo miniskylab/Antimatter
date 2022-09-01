@@ -54,12 +54,12 @@
             @include antimatter-label-default.variant($SelfIntroductionHero-PersonalInfoTitle) {
                 display: flex;
                 height: 37px;
-                font-size: antimatter-typography.$font-size--17px;
+                font-size: 17px;
                 font-weight: antimatter-typography.$font-weight--black;
                 color: antimatter-color-scheme.$neutral;
 
                 @include screen-size.M {
-                    font-size: antimatter-typography.$font-size--20px;
+                    font-size: 20px;
                 }
             }
 
@@ -70,12 +70,12 @@
                 height: 33px;
                 border-bottom: 4px solid antimatter-color-scheme.$primary;
                 box-sizing: border-box;
-                font-size: antimatter-typography.$font-size--17px;
+                font-size: 17px;
                 font-weight: antimatter-typography.$font-weight--black;
                 color: antimatter-color-scheme.$white;
 
                 @include screen-size.M {
-                    font-size: antimatter-typography.$font-size--20px;
+                    font-size: 20px;
                 }
             }
 
@@ -107,13 +107,13 @@
                 width: 100%;
                 height: 50px;
                 margin-top: 45px;
-                font-size: antimatter-typography.$font-size--40px;
+                font-size: 40px;
                 font-weight: antimatter-typography.$font-weight--black;
                 color: antimatter-color-scheme.$white;
 
                 @include screen-size.S {
                     height: 60px;
-                    font-size: antimatter-typography.$font-size--50px;
+                    font-size: 50px;
                 }
             }
 
@@ -122,13 +122,13 @@
                 display: flex;
                 width: 100%;
                 height: 40px;
-                font-size: antimatter-typography.$font-size--28px;
+                font-size: 28px;
                 font-weight: antimatter-typography.$font-weight--black;
                 color: antimatter-color-scheme.$white;
 
                 @include screen-size.S {
                     height: 50px;
-                    font-size: antimatter-typography.$font-size--38px;
+                    font-size: 38px;
                 }
             }
 
@@ -139,7 +139,7 @@
                 line-height: 30px;
                 padding: 20px 15px;
                 box-sizing: border-box;
-                font-size: antimatter-typography.$font-size--20px;
+                font-size: 20px;
                 color: antimatter-color-scheme.$neutral;
                 text-align: justify;
                 text-align-last: center;
@@ -212,7 +212,7 @@
 
                 $HighlightedParagraph-TitleText: ".HighlightedParagraph-TitleText";
                 @include antimatter-label-default.variant($HighlightedParagraph-TitleText) {
-                    font-size: antimatter-typography.$font-size--16px;
+                    font-size: 16px;
                 }
 
                 &__Gap {
@@ -222,7 +222,7 @@
                 $HighlightedParagraph-Content: ".HighlightedParagraph-Content";
                 @include antimatter-label-default.variant($HighlightedParagraph-Content) {
                     justify-content: center;
-                    font-size: antimatter-typography.$font-size--20px;
+                    font-size: 20px;
                     font-weight: antimatter-typography.$font-weight--bold;
                 }
 

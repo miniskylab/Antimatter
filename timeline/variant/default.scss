@@ -21,14 +21,14 @@
                 height: 30px;
                 margin: 80px 0 0 1px;
                 color: antimatter-color-scheme.$gray;
-                font-size: antimatter-typography.$font-size--30px;
+                font-size: 30px;
                 background-color: antimatter-color-scheme.$transparent;
 
                 @include screen-size.L {
                     width: 100%;
                     height: 60px;
                     margin: 200px 0 0;
-                    font-size: antimatter-typography.$font-size--60px;
+                    font-size: 60px;
                 }
             }
 
@@ -65,7 +65,7 @@
                 margin: 20px 0 0 45px;
                 box-sizing: border-box;
                 vertical-align: top;
-                font-size: antimatter-typography.$font-size--16px;
+                font-size: 16px;
                 color: antimatter-color-scheme.$neutral;
                 background-color: antimatter-color-scheme.$ambient;
 
@@ -104,14 +104,14 @@
                     border-radius: 50%;
                     border: 3px solid antimatter-color-scheme.$gray;
                     box-sizing: border-box;
-                    font-size: antimatter-typography.$font-size--14px;
+                    font-size: 14px;
                     background-color: antimatter-color-scheme.$ambient;
 
                     @include screen-size.L {
                         width: 60px;
                         height: 60px;
                         border-width: 5px;
-                        font-size: antimatter-typography.$font-size--28px;
+                        font-size: 28px;
 
                         @at-root .Timeline-Event:nth-child(2n+1) #{$Timeline-Event-Icon} {
                             top: 30px;
@@ -162,7 +162,7 @@
                     width: 100%;
                     line-height: 28px;
                     color: antimatter-color-scheme.$white;
-                    font-size: antimatter-typography.$font-size--20px;
+                    font-size: 20px;
                     font-weight: antimatter-typography.$font-weight--bold;
                 }
 
@@ -194,7 +194,7 @@
                     line-height: 25px;
                     margin-top: 10px;
                     box-sizing: border-box;
-                    font-size: antimatter-typography.$font-size--14px;
+                    font-size: 14px;
                 }
 
                 $Timeline-Event-BulletinIcon: ".Timeline-Event-BulletinIcon";
@@ -203,7 +203,7 @@
                     min-width: 20px;
                     height: 20px;
                     margin-right: 10px;
-                    font-size: antimatter-typography.$font-size--18px;
+                    font-size: 18px;
 
                     &--TopAligned {
                         align-self: baseline;
@@ -286,26 +286,26 @@
                     width: 35px;
                     height: 35px;
                     margin-bottom: 18px;
-                    font-size: antimatter-typography.$font-size--35px;
+                    font-size: 35px;
 
                     @include screen-size.L {
                         width: 45px;
                         height: 45px;
                         margin-bottom: 23px;
-                        font-size: antimatter-typography.$font-size--45px;
+                        font-size: 45px;
                     }
                 }
 
                 $Timeline-BootstrapEvent-Name: ".Timeline-BootstrapEvent-Name";
                 @include antimatter-label-default.variant($Timeline-BootstrapEvent-Name) {
                     line-height: 28px;
-                    font-size: antimatter-typography.$font-size--20px;
+                    font-size: 20px;
                     font-weight: antimatter-typography.$font-weight--bold;
                     text-align: center;
 
                     @include screen-size.L {
                         margin-bottom: 10px;
-                        font-size: antimatter-typography.$font-size--30px;
+                        font-size: 30px;
                     }
                 }
 
@@ -313,11 +313,11 @@
                 @include antimatter-label-default.variant($Timeline-BootstrapEvent-Description) {
                     line-height: 21px;
                     margin-top: 6px;
-                    font-size: antimatter-typography.$font-size--14px;
+                    font-size: 14px;
                     text-align: center;
 
                     @include screen-size.L {
-                        font-size: antimatter-typography.$font-size--17px;
+                        font-size: 17px;
                     }
                 }
             }
