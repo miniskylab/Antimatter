@@ -47,7 +47,7 @@ export function LoginForm({
                 className={bem("LoginForm-LoginButton")}
                 label={loginButton.label}
                 disabled={!username || !password}
-                onClick={() => { onLogin(username, password); }}
+                onClick={() => { onLogin?.(username, password); }}
             />
         </div>
     );
