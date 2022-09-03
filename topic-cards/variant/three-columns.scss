@@ -33,6 +33,7 @@
             justify-content: center;
             min-width: 300px;
             max-width: 1000px;
+            margin: auto;
             z-index: antimatter-layer.$default;
 
             .TopicCards-Card {
@@ -140,7 +141,7 @@
 
                     @media (hover: hover) {
 
-                        &:not(&--disabled):hover {
+                        &:not(&--Disabled):hover {
                             border-color: antimatter-color-scheme.$gray--w25;
                             background-color: antimatter-color-scheme.$gray--w25;
 

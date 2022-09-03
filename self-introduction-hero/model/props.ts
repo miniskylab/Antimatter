@@ -94,5 +94,5 @@ export class SelfIntroductionHeroProps extends ComponentProps
     @IsOptional()
     @ValidateNested()
     @Type(() => DownloadButtonProps)
-    readonly downloadButton?: Omit<DownloadButtonProps, keyof ComponentProps>;
+    readonly downloadButton?: DownloadButtonProps;
 }

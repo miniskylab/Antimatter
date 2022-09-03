@@ -28,7 +28,7 @@ export function Component({
                         <Button
                             key={i}
                             {...buttonProps}
-                            className={bem("TopicCards-Card-CtaButton")}
+                            className={bem(buttonProps.className || "TopicCards-Card-CtaButton")}
                             onClick={undefined}
                         />
                     ))}

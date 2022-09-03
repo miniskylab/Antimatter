@@ -58,8 +58,8 @@ export function SelfIntroductionHero({
             <Label className={bem("SelfIntroductionHero-Description")} text={description}/>
             {downloadButton && (
                 <DownloadButton
-                    className={bem("SelfIntroductionHero-DownloadButton")}
                     {...downloadButton}
+                    className={bem(downloadButton.className || "SelfIntroductionHero-DownloadButton")}
                 />
             )}
             <div className={bem(className, "MobileSection")}>

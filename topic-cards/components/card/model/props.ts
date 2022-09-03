@@ -46,5 +46,5 @@ export class CardProps extends ComponentProps
      */
     @IsArray()
     @IsOptional()
-    readonly ctaButtons?: Pick<ButtonProps, "icon" | "label" | "href" | "target" | "disabled">[];
+    readonly ctaButtons?: Pick<ButtonProps, "className" | "icon" | "label" | "href" | "target" | "disabled">[];
 }
