@@ -1,44 +1,50 @@
 @use "~@miniskylab/antimatter-layer";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-responsive/screen-size";
+@use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
 
 @mixin variant($Topbar) {
     @at-root {
         #{$Topbar} {
             position: fixed;
             top: 0;
-            left: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             width: 100vw;
-            min-width: 1000px;
             height: 50px;
+            min-width: screen-size.$M;
+            font-size: 30px;
+            color: antimatter-color-scheme.$white;
             background: antimatter-color-scheme.$ambient;
-
-            /* box-shadow: 0 1px rgba(255, 255, 255, 0.15), 0 0 0 transparent, 0 0 transparent, 0 0 transparent; */
             box-shadow: 0 1px antimatter-color-scheme.$white--a10, 0 1px 3px antimatter-color-scheme.$white--a10, 0 4px 20px antimatter-color-scheme.$white--a4, 0 1px 1px antimatter-color-scheme.$white--a3;
             z-index: antimatter-layer.$always-on-top;
 
-            &__NotificationArea {
-                display: inline-block;
-                width: calc(100% - 200px);
+            &__Container {
+                position: absolute;
                 height: 100%;
-                text-align: center;
+
+                &--Right {
+                    right: 0;
+                }
             }
 
-            &__Icon {
-                display: inline-block;
+            $Topbar-Icon: ".Topbar-Icon";
+            @include antimatter-icon-default.variant($Topbar-Icon) {
+                display: inline-flex;
                 width: 30px;
                 height: 30px;
                 padding: 10px 20px;
             }
 
-            &__Logo {
-                @extend #{$Topbar}__Icon;
+            $Topbar-Logo: ".Topbar-Logo";
+            @include antimatter-icon-default.variant($Topbar-Logo) {
+                position: absolute;
+                left: 0;
+                display: inline-flex;
+                width: 30px;
+                height: 30px;
                 padding: 10px 15px 10px 15px;
-                vertical-align: top;
-
-                svg {
-                    fill: antimatter-color-scheme.$primary;
-                }
             }
         }
     }
