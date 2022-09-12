@@ -13,9 +13,8 @@ export function Topbar({
 {
     return (
         <div className={bem(className)}>
-            <Icon className={bem("Topbar-Logo")} name={Icomoon.Flag}/>
+            <Icon className={bem("Topbar-Logo")} name={Icomoon.MiniSkyLab}/>
             <div className={bem(className, "Container")}>
-                <Icon className={bem("Topbar-Icon")} name={Icomoon.Sun}/>
                 <Icon className={bem("Topbar-Icon")} name={Icomoon.Sun}/>
                 <Icon className={bem("Topbar-Icon")} name={Icomoon.Sun}/>
                 <Icon className={bem("Topbar-Icon")} name={Icomoon.Sun}/>
@@ -23,7 +22,7 @@ export function Topbar({
                 <Icon className={bem("Topbar-Icon")} name={Icomoon.Sun}/>
             </div>
             <div className={bem(className, "Container", "Right")}>
-                <Icon className={bem("Topbar-Icon")} name={Icomoon.Download}/>
+                <Icon className={bem("Topbar-Icon")} name={Icomoon.Moon}/>
                 <Icon className={bem("Topbar-Icon")} name={Icomoon.User}/>
             </div>
         </div>

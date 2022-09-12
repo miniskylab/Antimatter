@@ -11,9 +11,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100vw;
+            width: 100%;
             height: 50px;
-            min-width: screen-size.$M;
             font-size: 30px;
             color: antimatter-color-scheme.$white;
             background: antimatter-color-scheme.$ambient;
@@ -22,10 +21,23 @@
 
             &__Container {
                 position: absolute;
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
                 height: 100%;
+
+                @include screen-size.S {
+                    width: auto;
+                }
 
                 &--Right {
                     right: 0;
+                    display: none;
+                    margin-right: 5px;
+
+                    @include screen-size.S {
+                        display: flex;
+                    }
                 }
             }
 
@@ -41,10 +53,15 @@
             @include antimatter-icon-default.variant($Topbar-Logo) {
                 position: absolute;
                 left: 0;
-                display: inline-flex;
+                display: none;
                 width: 30px;
                 height: 30px;
                 padding: 10px 15px 10px 15px;
+                margin-left: 10px;
+
+                @include screen-size.S {
+                    display: inline-flex;
+                }
             }
         }
     }

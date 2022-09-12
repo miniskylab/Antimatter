@@ -1,21 +1,101 @@
-@use "~@miniskylab/antimatter-layer";
+@use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-responsive/browser";
+@use "~@miniskylab/antimatter-responsive/screen-size";
+@use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
+@use "~@miniskylab/antimatter-label/variant/default" as antimatter-label-default;
+@use "~@miniskylab/antimatter-button/variant/outlined-rectangular" as antimatter-button-outlined-rectangular;
 
 @mixin variant($Sidebar) {
     @at-root {
         #{$Sidebar} {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 60px;
-            padding: 50px 0;
+            display: none;
+            width: 250px;
+            height: 100vh;
+            min-width: 250px;
+            padding: 75px 0;
+            margin-right: 15px;
+            box-sizing: border-box;
+            font-size: 30px;
+            color: antimatter-color-scheme.$white;
+            background-color: antimatter-color-scheme.$background;
+            overflow-y: scroll;
 
-            &__Background {
-                position: fixed;
-                width: 60px;
-                height: 100%;
-                background-color: antimatter-color-scheme.$black--a35;
-                z-index: antimatter-layer.$background;
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            @include browser.FireFoxOnly {
+                // noinspection CssUnknownProperty
+                scrollbar-width: none;
+            }
+
+            @include screen-size.M {
+                display: block;
+            }
+
+            $Sidebar-Category: ".Sidebar-Category";
+            @include antimatter-label-default.variant($Sidebar-Category) {
+                justify-content: flex-start;
+                width: 100%;
+                height: 36px;
+                margin-top: 10px;
+                padding-left: 25px;
+                box-sizing: border-box;
+                font-size: 14px;
+                font-weight: antimatter-typography.$font-weight--bold;
+            }
+
+            $Sidebar-Link: ".Sidebar-Link";
+            @include antimatter-button-outlined-rectangular.variant($Sidebar-Link) {
+                justify-content: flex-start;
+                width: 100%;
+                height: 36px;
+                padding: 0 0 0 25px;
+                border: none;
+                color: antimatter-color-scheme.$neutral;
+
+                $Button-Icon: ".Button-Icon";
+                @include antimatter-icon-default.variant($Button-Icon) {
+                    height: 100%;
+                    font-size: 14px;
+                }
+
+                $Button-Label: ".Button-Label";
+                @include antimatter-label-default.variant($Button-Label) {
+                    height: 100%;
+                    font-size: 14px;
+                }
+
+                @media (hover: hover) {
+
+                    &:not(&--Disabled):not(&--Selected):hover {
+                        color: antimatter-color-scheme.$white;
+                        background-color: antimatter-color-scheme.$transparent;
+
+                        &:active {
+                            color: antimatter-color-scheme.$ambient;
+                            background-color: antimatter-color-scheme.$primary;
+                        }
+                    }
+                }
+
+                &--Selected {
+                    height: 30px;
+                    padding-left: 20px;
+                    margin: 3px 0;
+                    border-left: 5px solid antimatter-color-scheme.$primary;
+                    color: antimatter-color-scheme.$gainsboro;
+                    cursor: default;
+
+                    @media (hover: hover) {
+
+                        &:not(&--Disabled):not(&--Selected):hover {
+                            color: antimatter-color-scheme.$gainsboro;
+                            background-color: antimatter-color-scheme.$transparent;
+                        }
+                    }
+                }
             }
         }
     }
