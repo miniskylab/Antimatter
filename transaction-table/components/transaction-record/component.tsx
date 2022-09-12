@@ -89,13 +89,14 @@ export function Component({
 
     function renderLabels(): JSX.Element
     {
+        const dropdownMenuKeyValueSet = getDropdownMenuKeyValueSet();
         if (mode === Mode.Draft || mode === Mode.Edit)
         {
             return (
                 <DropdownMenu
                     className={bem("TransactionTable-TransactionRecord-LabelSelector")}
                     maxSelectionCount={2}
-                    keyValueSet={getDropdownMenuKeyValueSet()}
+                    keyValueSet={dropdownMenuKeyValueSet}
                     selectedKeys={labels}
                     onChange={newlySelectedKeys => { onChange({name, amount, labels: newlySelectedKeys, executedDate, modifiedDate}); }}
                 />
@@ -103,15 +104,18 @@ export function Component({
         }
         else
         {
+            const dropdownMenuKeySet = Object.keys(dropdownMenuKeyValueSet);
             return (
                 <div className={bem(className, "LabelContainer")}>
-                    {labels?.map(labelId => (
-                        <Label
-                            key={labelId}
-                            className={bem("TransactionTable-TransactionRecord-Label")}
-                            text={labelSet[labelId].name}
-                        />
-                    ))}
+                    {[...(labels ?? [])]
+                        .sort((a, b) => dropdownMenuKeySet.indexOf(a) - dropdownMenuKeySet.indexOf(b))
+                        .map(labelId => (
+                            <Label
+                                key={labelId}
+                                className={bem("TransactionTable-TransactionRecord-Label")}
+                                text={labelSet[labelId].name}
+                            />
+                        ))}
                 </div>
             );
         }
