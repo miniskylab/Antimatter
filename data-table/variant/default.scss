@@ -1,35 +1,32 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
-@use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
-@use "~@miniskylab/antimatter-button/variant/outlined-circular" as antimatter-button-outlined-circular;
+@use "~@miniskylab/antimatter-label/variant/default" as antimatter-label-default;
 
 @mixin variant($DataTable) {
     @at-root {
         #{$DataTable} {
+            display: flex;
+            flex-direction: column;
+            background-color: antimatter-color-scheme.$background;
+
+            $DataTable-Title: ".DataTable-Title";
+            @include antimatter-label-default.variant($DataTable-Title) {
+                height: 30px;
+                margin: 10px 15px 0;
+                font-size: 20px;
+                font-weight: antimatter-typography.$font-weight--bold;
+                color: antimatter-color-scheme.$white;
+            }
 
             &__Page {
-                display: inline-block;
-                vertical-align: top;
+                display: flex;
+                flex-direction: column;
+                min-width: 570px;
+                margin: 10px 15px 15px 15px;
+                background-color: antimatter-color-scheme.$ambient;
             }
 
-            $DataTable-AddNewIcon: ".DataTable-AddNewIcon";
-            @include antimatter-icon-default.variant($DataTable-AddNewIcon) {
-                width: 34px;
-                height: 34px;
-                padding: 8px 0;
-                box-sizing: border-box;
-                opacity: 0.65;
-            }
-
-            &__AddNewLabel {
-                box-sizing: border-box;
-                font-weight: antimatter-typography.$font-weight--bold;
-                font-size: 14px;
-                padding: 8px 0;
-                opacity: 0.65;
-            }
-
-            .DataTable-Record {
+            .DataTable-DataRow {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -45,126 +42,6 @@
                         &:hover {
                             background-color: antimatter-color-scheme.$background;
                         }
-                    }
-                }
-
-                &__ControlBox {
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    width: 115px;
-                    height: 34px;
-                    padding: 4px 10px 4px 12px;
-                    box-sizing: border-box;
-
-                    &--Active {
-                        background-color: antimatter-color-scheme.$accent--a10;
-                        border-top: 1px solid antimatter-color-scheme.$accent;
-                        border-bottom: 1px solid antimatter-color-scheme.$accent;
-                        padding-top: 3px;
-                        padding-bottom: 3px;
-                    }
-                }
-
-                $DataTable-Record-OkButton: ".DataTable-Record-OkButton";
-                @include antimatter-button-outlined-circular.variant($DataTable-Record-OkButton) {
-                    width: 26px;
-                    height: 26px;
-                    border: 2px solid antimatter-color-scheme.$positive;
-
-                    &--Disabled {
-                        opacity: 0.65;
-                        pointer-events: none;
-                        border-color: antimatter-color-scheme.$background;
-                    }
-
-                    @media (hover: hover) {
-
-                        &:not(&--Disabled):hover {
-                            color: antimatter-color-scheme.$white;
-                            background-color: antimatter-color-scheme.$positive--a10;
-
-                            &:active {
-                                color: antimatter-color-scheme.$white;
-                                background-color: antimatter-color-scheme.$positive;
-                            }
-                        }
-                    }
-
-                    $Button-Icon: ".Button-Icon";
-                    @include antimatter-icon-default.variant($Button-Icon) {
-                        width: 20px;
-                        height: 20px;
-                        padding: 3px;
-                        box-sizing: border-box;
-                    }
-                }
-
-                $DataTable-Record-CancelButton: ".DataTable-Record-CancelButton";
-                @include antimatter-button-outlined-circular.variant($DataTable-Record-CancelButton) {
-                    width: 26px;
-                    height: 26px;
-                    border: 2px solid antimatter-color-scheme.$gray;
-
-                    &--Disabled {
-                        opacity: 0.65;
-                        pointer-events: none;
-                        border-color: antimatter-color-scheme.$background;
-                    }
-
-                    @media (hover: hover) {
-
-                        &:not(&--Disabled):hover {
-                            color: antimatter-color-scheme.$white;
-                            background-color: antimatter-color-scheme.$gray--a10;
-
-                            &:active {
-                                color: antimatter-color-scheme.$white;
-                                background-color: antimatter-color-scheme.$gray;
-                            }
-                        }
-                    }
-
-                    $Button-Icon: ".Button-Icon";
-                    @include antimatter-icon-default.variant($Button-Icon) {
-                        width: 20px;
-                        height: 20px;
-                        padding: 3px;
-                        box-sizing: border-box;
-                    }
-                }
-
-                $DataTable-Record-DeleteButton: ".DataTable-Record-DeleteButton";
-                @include antimatter-button-outlined-circular.variant($DataTable-Record-DeleteButton) {
-                    width: 26px;
-                    height: 26px;
-                    border: 2px solid antimatter-color-scheme.$negative;
-
-                    &--Disabled {
-                        opacity: 0.65;
-                        pointer-events: none;
-                        border-color: antimatter-color-scheme.$background;
-                    }
-
-                    @media (hover: hover) {
-
-                        &:not(&--Disabled):hover {
-                            color: antimatter-color-scheme.$white;
-                            background-color: antimatter-color-scheme.$negative--a10;
-
-                            &:active {
-                                color: antimatter-color-scheme.$white;
-                                background-color: antimatter-color-scheme.$negative;
-                            }
-                        }
-                    }
-
-                    $Button-Icon: ".Button-Icon";
-                    @include antimatter-icon-default.variant($Button-Icon) {
-                        width: 20px;
-                        height: 20px;
-                        padding: 3px;
-                        box-sizing: border-box;
                     }
                 }
             }

@@ -15,10 +15,10 @@ export function Sidebar({
     return (
         <div className={bem(className)}>
             <Label className={bem("Sidebar-Category")} text={"Financial"}/>
-            <Button className={bem("Sidebar-Link", null, "Selected")} icon={Icomoon.Sun} label={"Expense Tracker"}/>
+            <Button className={bem("Sidebar-Link", null, "Selected")} icon={Icomoon.Sun} label={"Expense Tracker"} href={"/expenses"}/>
             <Button className={bem("Sidebar-Link")} icon={Icomoon.Sun} label={"Reports & Statistics"}/>
             <Label className={bem("Sidebar-Category")} text={"System"}/>
-            <Button className={bem("Sidebar-Link")} icon={Icomoon.Sun} label={"Labels"}/>
+            <Button className={bem("Sidebar-Link")} icon={Icomoon.Sun} label={"Labels"} href={"/labels"}/>
             <Button className={bem("Sidebar-Link")} icon={Icomoon.Sun} label={"Table Design"}/>
             <Button className={bem("Sidebar-Link")} icon={Icomoon.Sun} label={"Form Controls"}/>
             <Button className={bem("Sidebar-Link")} icon={Icomoon.Sun} label={"Charts & Graphs"}/>

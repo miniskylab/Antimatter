@@ -1,1 +1,1 @@
-export * as Record from "./record";
+export * as DataTableRow from "./row";

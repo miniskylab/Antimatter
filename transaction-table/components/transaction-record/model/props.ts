@@ -4,7 +4,7 @@ import {IsOptional} from "class-validator";
 import {MouseEventHandler} from "react";
 import {LabelData} from "./label-data";
 import {Mode} from "./mode";
-import {TransactionData} from "./transaction-data";
+import type {TransactionData} from "./transaction-data";
 
 export class TransactionRecordProps extends ComponentProps
 {
