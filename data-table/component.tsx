@@ -1,3 +1,5 @@
+import {Button} from "@miniskylab/antimatter-button";
+import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {Label} from "@miniskylab/antimatter-label";
 import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
@@ -8,6 +10,7 @@ export function DataTable({
     className,
     minRowCount = 15,
     title,
+    subTitle,
     headerRow,
     dataRows,
     selectedRow
@@ -15,9 +18,31 @@ export function DataTable({
 {
     return (
         <div className={bem(className)}>
-            {<Label className={bem("DataTable-Title")} text={title}/>}
-            <div className={bem(className, "Page")}>
-                {renderRows()}
+            <div className={bem(className, "ControlPanel")}>
+                <div className={bem(className, "Title")}>
+                    <Label className={bem("DataTable-MainTitle")} text={title}/>
+                    <Label className={bem("DataTable-SubTitle")} text={subTitle}/>
+                </div>
+                <Button
+                    className={bem("DataTable-ControlButton")}
+                    icon={Icomoon.FloppyDisk}
+                    label={"Save"}
+                />
+                <Button
+                    className={bem("DataTable-ControlButton")}
+                    icon={Icomoon.Eye}
+                    label={"Read-Only"}
+                />
+                <Button
+                    className={bem("DataTable-ControlButton")}
+                    icon={Icomoon.XMarkInsideCircle}
+                    label={"Cancel"}
+                />
+            </div>
+            <div className={bem(className, "Container")}>
+                <div className={bem(className, "Scroll")}>
+                    {renderRows()}
+                </div>
             </div>
         </div>
     );

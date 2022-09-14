@@ -15,7 +15,7 @@
 
 @mixin variant($TransactionTable) {
     @at-root {
-        $-scrollbar-width: 5px;
+        $-scrollbar-width: 3px;
         $-scrollbar-margin-left: 6px;
         $-scrollbar-box-width: $-scrollbar-width + $-scrollbar-margin-left;
         $-transaction-scroll-width: 450px;
@@ -106,15 +106,14 @@
                 margin-top: 12px;
                 mask-image: linear-gradient(to top, antimatter-color-scheme.$transparent, antimatter-color-scheme.$black), linear-gradient(to left, antimatter-color-scheme.$transparent $-scrollbar-width, antimatter-color-scheme.$black $-scrollbar-width);
                 mask-size: 100% 99999px;
-                mask-position: left top;
-                transition: mask-position 0.3s, -webkit-mask-position 0.3s;
+                mask-position: left bottom;
+                transition: mask-position 0.3s;
 
                 @include screen-size.L {
                     height: auto;
                 }
 
                 @media (hover: hover) {
-                    mask-position: left bottom;
 
                     &:hover {
                         mask-position: left top;
@@ -213,15 +212,11 @@
                 }
 
                 &::-webkit-scrollbar-track {
-                    border-right: 2px solid antimatter-color-scheme.$transparent;
                     background-color: antimatter-color-scheme.$white--a10;
-                    background-clip: padding-box;
                 }
 
                 &::-webkit-scrollbar-thumb {
-                    border-right: 2px solid antimatter-color-scheme.$transparent;
                     background-color: antimatter-color-scheme.$white--a50;
-                    background-clip: padding-box;
                 }
 
                 @include browser.FireFoxOnly {

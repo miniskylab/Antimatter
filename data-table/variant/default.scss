@@ -1,38 +1,159 @@
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
+@use "~@miniskylab/antimatter-responsive/browser";
+@use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
 @use "~@miniskylab/antimatter-label/variant/default" as antimatter-label-default;
+@use "~@miniskylab/antimatter-button/variant/outlined-rectangular" as antimatter-button-outlined-rectangular;
 
 @mixin variant($DataTable) {
     @at-root {
         #{$DataTable} {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            min-width: 400px;
+            width: 100%;
+            padding: 10px 12px 15px 15px;
+            box-sizing: border-box;
             background-color: antimatter-color-scheme.$background;
 
-            $DataTable-Title: ".DataTable-Title";
-            @include antimatter-label-default.variant($DataTable-Title) {
-                height: 30px;
-                margin: 10px 15px 0;
+            &__ControlPanel {
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                width: 100%;
+                height: 45px;
+                padding-right: 3px;
+                margin: 5px 0;
+                box-sizing: border-box;
+                user-select: none;
+            }
+
+            &__Title {
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                justify-content: center;
+                height: 100%;
+                color: antimatter-color-scheme.$neutral;
+                overflow: hidden;
+            }
+
+            $DataTable-SubTitle: ".DataTable-SubTitle";
+            @include antimatter-label-default.variant($DataTable-SubTitle) {
+                min-height: 20px;
+                line-height: 20px;
+                font-size: 14px;
+                justify-content: flex-start;
+                align-items: stretch;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            $DataTable-MainTitle: ".DataTable-MainTitle";
+            @include antimatter-label-default.variant($DataTable-MainTitle) {
+                @extend #{$DataTable-SubTitle};
+                min-height: 25px;
+                line-height: 25px;
                 font-size: 20px;
                 font-weight: antimatter-typography.$font-weight--bold;
                 color: antimatter-color-scheme.$white;
             }
 
-            &__Page {
+            $TransactionTable-ControlButton: ".DataTable-ControlButton";
+            @include antimatter-button-outlined-rectangular.variant($TransactionTable-ControlButton) {
                 display: flex;
                 flex-direction: column;
-                min-width: 570px;
-                margin: 10px 15px 15px 15px;
+                min-width: 45px;
+                height: 45px;
+                padding: 0;
+                margin-left: 15px;
+                border: none;
+                color: antimatter-color-scheme.$neutral;
+
+                $Button-Icon: ".Button-Icon";
+                @include antimatter-icon-default.variant($Button-Icon) {
+                    flex-grow: 1;
+                    height: auto;
+                    font-size: 24px;
+                }
+
+                $Button-Label: ".Button-Label";
+                @include antimatter-label-default.variant($Button-Label) {
+                    padding: 0;
+                    width: max-content;
+                    line-height: 12px;
+                    font-size: 12px;
+                    font-weight: antimatter-typography.$font-weight--bold;
+                }
+
+                @media (hover: hover) {
+
+                    &:not(#{$TransactionTable-ControlButton}--Disabled):hover {
+                        background-color: antimatter-color-scheme.$transparent;
+
+                        &:active {
+                            color: antimatter-color-scheme.$gray;
+                        }
+                    }
+                }
+            }
+
+            &__Container {
+                display: flex;
+                width: 100%;
+                height: 560px;
+                margin-top: 5px;
+                overflow-y: scroll;
+                mask-image: linear-gradient(to top, antimatter-color-scheme.$transparent, antimatter-color-scheme.$black), linear-gradient(to left, antimatter-color-scheme.$transparent 2px, antimatter-color-scheme.$black 2px);
+                mask-size: 100% 99999px;
+                mask-position: left calc(100% + 2px);
+                transition: mask-position 0.3s;
+
+                &::-webkit-scrollbar {
+                    width: 3px;
+                }
+
+                &::-webkit-scrollbar-track {
+                    background-color: antimatter-color-scheme.$background;
+                }
+
+                &::-webkit-scrollbar-thumb {
+                    background-color: antimatter-color-scheme.$white--a50;
+                }
+
+                @include browser.FireFoxOnly {
+                    // noinspection CssUnknownProperty
+                    scrollbar-width: none;
+                }
+
+                @media (hover: hover) {
+
+                    &:hover {
+                        mask-position: left -1px;
+                    }
+                }
+            }
+
+            &__Scroll {
+                width: 100%;
+                height: fit-content;
+                margin-right: 3px;
                 background-color: antimatter-color-scheme.$ambient;
             }
 
             .DataTable-DataRow {
                 display: flex;
-                justify-content: center;
+                justify-content: flex-start;
                 align-items: center;
                 width: 100%;
-                height: 34px;
+                min-height: 40px;
+                gap: 10px;
+                padding: 0 12px;
                 border-top: 1px solid antimatter-color-scheme.$background;
+                box-sizing: border-box;
+                color: antimatter-color-scheme.$neutral;
 
                 &--Interactable {
                     cursor: pointer;
@@ -44,6 +165,20 @@
                         }
                     }
                 }
+            }
+
+            .DataTable-HeaderRow {
+                @extend .DataTable-DataRow;
+                position: sticky;
+                top: 0;
+                height: 45px;
+                font-weight: antimatter-typography.$font-weight--bold;
+                color: antimatter-color-scheme.$white;
+                background-color: antimatter-color-scheme.$ambient;
+            }
+
+            .DataTable-Row-Cell {
+                flex: 1;
             }
         }
     }
