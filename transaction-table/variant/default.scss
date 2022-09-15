@@ -105,7 +105,7 @@
                 height: calc(100vh - 95px);
                 margin-top: 12px;
                 mask-image: linear-gradient(to top, antimatter-color-scheme.$transparent, antimatter-color-scheme.$black), linear-gradient(to left, antimatter-color-scheme.$transparent $-scrollbar-width, antimatter-color-scheme.$black $-scrollbar-width);
-                mask-size: 100% 99999px;
+                mask-size: 100% 100000%;
                 mask-position: left bottom;
                 transition: mask-position 0.3s;
 
@@ -154,12 +154,6 @@
                     font-size: 12px;
                     font-weight: antimatter-typography.$font-weight--bold;
                     margin-top: 3px;
-                }
-
-                &--Disabled {
-                    opacity: 1;
-                    filter: saturate(100%);
-                    color: antimatter-color-scheme.$gray--a65;
                 }
 
                 @media (hover: hover) {

@@ -1,7 +1,8 @@
-import {IsString} from "@miniskylab/antimatter-class-validator";
+import {IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 import {MouseEventHandler} from "react";
+import {Mode} from "./mode";
 
 export class DataTableRowProps extends ComponentProps
 {
@@ -11,6 +12,16 @@ export class DataTableRowProps extends ComponentProps
     @IsString({each: true})
     @IsOptional()
     readonly cells?: string[];
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type Mode
+     */
+    @IsEnum(Mode)
+    @IsOptional()
+    readonly mode?: Mode;
 
 
     /**

@@ -213,15 +213,11 @@ export function TransactionTable({
 
             return (
                 <TransactionRecord.Component
+                    {...transactionData}
                     key={transactionId}
                     className={bem("TransactionTable-TransactionRecord")}
-                    name={transactionData.name}
-                    labelSet={labelSet}
-                    labels={transactionData.labels}
-                    executedDate={transactionData.executedDate}
-                    modifiedDate={transactionData.modifiedDate}
-                    amount={transactionData.amount}
                     mode={transactionMode}
+                    labelSet={labelSet}
                     onClick={mode === TransactionRecord.Mode.ReadOnly ? () => { onSelectTransaction(transactionId); } : undefined}
                     onChange={newTransactionData => { onChangeTransaction(newTransactionData); }}
                 />

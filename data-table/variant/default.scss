@@ -1,3 +1,4 @@
+@use "~@miniskylab/antimatter-layer";
 @use "~@miniskylab/antimatter-typography";
 @use "~@miniskylab/antimatter-color-scheme";
 @use "~@miniskylab/antimatter-responsive/browser";
@@ -8,6 +9,7 @@
 @mixin variant($DataTable) {
     @at-root {
         #{$DataTable} {
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -72,6 +74,10 @@
                 border: none;
                 color: antimatter-color-scheme.$neutral;
 
+                &:nth-of-type(2) {
+                    min-width: 70px;
+                }
+
                 $Button-Icon: ".Button-Icon";
                 @include antimatter-icon-default.variant($Button-Icon) {
                     flex-grow: 1;
@@ -82,7 +88,6 @@
                 $Button-Label: ".Button-Label";
                 @include antimatter-label-default.variant($Button-Label) {
                     padding: 0;
-                    width: max-content;
                     line-height: 12px;
                     font-size: 12px;
                     font-weight: antimatter-typography.$font-weight--bold;
@@ -98,17 +103,42 @@
                         }
                     }
                 }
+
+                &--Draft {
+                    color: antimatter-color-scheme.$primary--a65;
+                    cursor: not-allowed;
+
+                    @media (hover: hover) {
+
+                        &:not(#{$TransactionTable-ControlButton}--Disabled):hover {
+                            color: antimatter-color-scheme.$primary--a65;
+
+                            &:active {
+                                color: antimatter-color-scheme.$primary--a65;
+                            }
+                        }
+                    }
+                }
+
+                &--Edit {
+                    color: antimatter-color-scheme.$primary;
+                }
+
+                &--Delete {
+                    color: antimatter-color-scheme.$negative;
+                }
             }
 
             &__Container {
                 display: flex;
                 width: 100%;
-                height: 560px;
+                height: 561px;
+                padding-bottom: 1px;
                 margin-top: 5px;
                 overflow-y: scroll;
                 mask-image: linear-gradient(to top, antimatter-color-scheme.$transparent, antimatter-color-scheme.$black), linear-gradient(to left, antimatter-color-scheme.$transparent 2px, antimatter-color-scheme.$black 2px);
-                mask-size: 100% 99999px;
-                mask-position: left calc(100% + 2px);
+                mask-size: 100% 100000%;
+                mask-position: left calc(100% + 6px);
                 transition: mask-position 0.3s;
 
                 &::-webkit-scrollbar {
@@ -131,7 +161,7 @@
                 @media (hover: hover) {
 
                     &:hover {
-                        mask-position: left -1px;
+                        mask-position: left -5px;
                     }
                 }
             }
@@ -143,38 +173,75 @@
                 background-color: antimatter-color-scheme.$ambient;
             }
 
-            .DataTable-DataRow {
+            &__Hr {
+                position: absolute;
+                top: 110px;
+                width: calc(100% - 33px);
+                height: 2px;
+                background-color: antimatter-color-scheme.$neutral;
+                z-index: antimatter-layer.$higher;
+            }
+
+            .DataTable-HeaderRow {
+                position: sticky;
+                top: 0;
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
                 width: 100%;
-                min-height: 40px;
+                height: 40px;
                 gap: 10px;
                 padding: 0 12px;
-                border-top: 1px solid antimatter-color-scheme.$background;
+                margin-bottom: 1px;
                 box-sizing: border-box;
-                color: antimatter-color-scheme.$neutral;
+                font-weight: antimatter-typography.$font-weight--bold;
+                color: antimatter-color-scheme.$white;
+                background-color: antimatter-color-scheme.$ambient;
+                z-index: antimatter-layer.$always-on-top;
+            }
 
-                &--Interactable {
+            .DataTable-DataRow {
+                @extend .DataTable-HeaderRow;
+                position: relative;
+                margin: 0;
+                color: antimatter-color-scheme.$neutral;
+                box-shadow: 0 1px antimatter-color-scheme.$neutral inset, 0 -1px antimatter-color-scheme.$neutral inset, 0 1px antimatter-color-scheme.$neutral, 0 -1px antimatter-color-scheme.$neutral;
+                z-index: antimatter-layer.$default;
+
+                &:first-of-type {
+                    margin-top: 1px;
+                }
+
+                &--ReadOnlyMode {
                     cursor: pointer;
 
                     @media (hover: hover) {
 
                         &:hover {
-                            background-color: antimatter-color-scheme.$background;
+                            box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
+                            background-color: antimatter-color-scheme.$primary--a10;
+                            z-index: antimatter-layer.$higher;
                         }
                     }
                 }
-            }
 
-            .DataTable-HeaderRow {
-                @extend .DataTable-DataRow;
-                position: sticky;
-                top: 0;
-                height: 45px;
-                font-weight: antimatter-typography.$font-weight--bold;
-                color: antimatter-color-scheme.$white;
-                background-color: antimatter-color-scheme.$ambient;
+                &--DraftMode {
+                    box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
+                    background: repeating-linear-gradient(45deg, antimatter-color-scheme.$primary--a10, antimatter-color-scheme.$primary--a10 10px, antimatter-color-scheme.$transparent 10px, antimatter-color-scheme.$transparent 20px);
+                    z-index: antimatter-layer.$higher;
+                }
+
+                &--EditMode {
+                    box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
+                    background-color: antimatter-color-scheme.$primary--a10;
+                    z-index: antimatter-layer.$higher;
+                }
+
+                &--DeleteMode {
+                    box-shadow: 0 1px antimatter-color-scheme.$negative inset, 0 -1px antimatter-color-scheme.$negative inset, 0 1px antimatter-color-scheme.$negative, 0 -1px antimatter-color-scheme.$negative;
+                    background-color: antimatter-color-scheme.$negative--a10;
+                    z-index: antimatter-layer.$higher;
+                }
             }
 
             .DataTable-Row-Cell {
