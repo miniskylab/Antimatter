@@ -16,6 +16,7 @@ export function DataTable({
     dataRows,
     selectedRow,
     mode = DataTableRow.Mode.ReadOnly,
+    onChangeRow,
     onSwitchMode,
     onSelectRow,
     onSaveRow,
@@ -129,13 +130,21 @@ export function DataTable({
         for (let rowIndex = 0; rowIndex < rowCount; rowIndex++)
         {
             const rowId = rowIds[rowIndex];
+            const rowMode = getRowMode(rowId);
+            const rowData = rowMode === DataTableRow.Mode.Edit || rowMode === DataTableRow.Mode.Draft
+                ? selectedRow.data
+                : rowId
+                    ? dataRows[rowId]
+                    : {};
+
             rowJsxElements.push(
                 <DataTableRow.Component
-                    {...(rowId ? dataRows[rowId] : {})}
+                    {...rowData}
                     key={rowIndex}
-                    mode={getRowMode(rowId)}
+                    mode={rowMode}
                     className={bem("DataTable-DataRow")}
                     onClick={mode === DataTableRow.Mode.ReadOnly ? () => { onSelectRow(rowId); } : undefined}
+                    onChange={newRowData => { onChangeRow(newRowData); }}
                 />
             );
         }

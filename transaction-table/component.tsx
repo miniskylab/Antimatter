@@ -205,9 +205,7 @@ export function TransactionTable({
         return transactionIds.map(transactionId =>
         {
             const transactionMode = getTransactionMode(transactionId);
-            const transactionData = transactionMode === TransactionRecord.Mode.Edit
-                                    ||
-                                    transactionMode === TransactionRecord.Mode.Draft
+            const transactionData = transactionMode === TransactionRecord.Mode.Edit || transactionMode === TransactionRecord.Mode.Draft
                 ? selectedTransaction.data
                 : transactions[transactionId];
 

@@ -76,6 +76,12 @@ export class DataTableProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    readonly onChangeRow: (newRowData: DataTableRow.RowData) => void;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
     readonly onSelectRow: (rowId: string) => void;
 
 

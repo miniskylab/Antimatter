@@ -1,3 +1,4 @@
+import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
 import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
@@ -10,12 +11,32 @@ export function Component({
     className,
     cells = [],
     mode = Mode.ReadOnly,
-    onClick
+    onClick,
+    onChange
 }: DataTableRowProps): JSX.Element
 {
     return (
         <div className={bem(className, null, getModeModifier())} onClick={onClick}>
-            {cells.map((cellData, index) => (<Label key={index} className={bem("DataTable-Row-Cell")} text={cellData}/>))}
+            {cells.map((cell, index) =>
+            {
+                return (
+                    mode === Mode.Draft || mode === Mode.Edit
+                        ? <InputField
+                            key={index}
+                            className={bem("DataTable-DataRow-CellInputField")}
+                            value={cell}
+                            autoFocus={index === 0}
+                            onChange={newValue =>
+                            {
+                                const newRowData = {cells: [...cells]};
+                                newRowData.cells[index] = newValue;
+
+                                onChange(newRowData);
+                            }}
+                        />
+                        : <Label key={index} className={bem("DataTable-Row-Cell")} text={cell}/>
+                );
+            })}
         </div>
     );
 

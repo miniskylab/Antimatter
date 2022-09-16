@@ -4,6 +4,7 @@
 @use "~@miniskylab/antimatter-responsive/browser";
 @use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
 @use "~@miniskylab/antimatter-label/variant/default" as antimatter-label-default;
+@use "~@miniskylab/antimatter-input-field/variant/default" as antimatter-input-field-default;
 @use "~@miniskylab/antimatter-button/variant/outlined-rectangular" as antimatter-button-outlined-rectangular;
 
 @mixin variant($DataTable) {
@@ -198,6 +199,10 @@
                 color: antimatter-color-scheme.$white;
                 background-color: antimatter-color-scheme.$ambient;
                 z-index: antimatter-layer.$always-on-top;
+
+                .DataTable-Row-Cell {
+                    flex: 1;
+                }
             }
 
             .DataTable-DataRow {
@@ -205,6 +210,7 @@
                 position: relative;
                 margin: 0;
                 color: antimatter-color-scheme.$neutral;
+                font-weight: antimatter-typography.$font-weight--regular;
                 box-shadow: 0 1px antimatter-color-scheme.$neutral inset, 0 -1px antimatter-color-scheme.$neutral inset, 0 1px antimatter-color-scheme.$neutral, 0 -1px antimatter-color-scheme.$neutral;
                 z-index: antimatter-layer.$default;
 
@@ -242,10 +248,16 @@
                     background-color: antimatter-color-scheme.$negative--a10;
                     z-index: antimatter-layer.$higher;
                 }
-            }
 
-            .DataTable-Row-Cell {
-                flex: 1;
+                $DataTable-DataRow-CellInputField: ".DataTable-DataRow-CellInputField";
+                @include antimatter-input-field-default.variant($DataTable-DataRow-CellInputField) {
+                    background-color: antimatter-color-scheme.$transparent;
+
+                    &__TextBox {
+                        padding: 0;
+                        font-size: 16px;
+                    }
+                }
             }
         }
     }
