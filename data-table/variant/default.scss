@@ -64,8 +64,8 @@
                 color: antimatter-color-scheme.$white;
             }
 
-            $TransactionTable-ControlButton: ".DataTable-ControlButton";
-            @include antimatter-button-outlined-rectangular.variant($TransactionTable-ControlButton) {
+            $DataTable-ControlButton: ".DataTable-ControlButton";
+            @include antimatter-button-outlined-rectangular.variant($DataTable-ControlButton) {
                 display: flex;
                 flex-direction: column;
                 min-width: 45px;
@@ -96,7 +96,7 @@
 
                 @media (hover: hover) {
 
-                    &:not(#{$TransactionTable-ControlButton}--Disabled):hover {
+                    &:not(#{$DataTable-ControlButton}--Disabled):hover {
                         background-color: antimatter-color-scheme.$transparent;
 
                         &:active {
@@ -111,7 +111,7 @@
 
                     @media (hover: hover) {
 
-                        &:not(#{$TransactionTable-ControlButton}--Disabled):hover {
+                        &:not(#{$DataTable-ControlButton}--Disabled):hover {
                             color: antimatter-color-scheme.$primary--a65;
 
                             &:active {
@@ -183,8 +183,8 @@
                 z-index: antimatter-layer.$higher;
             }
 
-            .DataTable-HeaderRow {
-                position: sticky;
+            .DataTable-Row {
+                position: relative;
                 top: 0;
                 display: flex;
                 justify-content: flex-start;
@@ -193,29 +193,25 @@
                 height: 40px;
                 gap: 10px;
                 padding: 0 12px;
-                margin-bottom: 1px;
-                box-sizing: border-box;
-                font-weight: antimatter-typography.$font-weight--bold;
-                color: antimatter-color-scheme.$white;
-                background-color: antimatter-color-scheme.$ambient;
-                z-index: antimatter-layer.$always-on-top;
-
-                .DataTable-Row-Cell {
-                    flex: 1;
-                }
-            }
-
-            .DataTable-DataRow {
-                @extend .DataTable-HeaderRow;
-                position: relative;
                 margin: 0;
-                color: antimatter-color-scheme.$neutral;
+                box-sizing: border-box;
                 font-weight: antimatter-typography.$font-weight--regular;
-                box-shadow: 0 1px antimatter-color-scheme.$neutral inset, 0 -1px antimatter-color-scheme.$neutral inset, 0 1px antimatter-color-scheme.$neutral, 0 -1px antimatter-color-scheme.$neutral;
+                color: antimatter-color-scheme.$neutral;
+                background-color: antimatter-color-scheme.$ambient;
                 z-index: antimatter-layer.$default;
+                box-shadow: 0 1px antimatter-color-scheme.$neutral inset, 0 -1px antimatter-color-scheme.$neutral inset, 0 1px antimatter-color-scheme.$neutral, 0 -1px antimatter-color-scheme.$neutral;
 
-                &:first-of-type {
+                &:not(&--Header):first-of-type {
                     margin-top: 1px;
+                }
+
+                &--Header {
+                    position: sticky;
+                    margin: 0 0 1px 0;
+                    font-weight: antimatter-typography.$font-weight--bold;
+                    color: antimatter-color-scheme.$white;
+                    z-index: antimatter-layer.$always-on-top;
+                    box-shadow: none;
                 }
 
                 &--ReadOnlyMode {
@@ -249,14 +245,61 @@
                     z-index: antimatter-layer.$higher;
                 }
 
-                $DataTable-DataRow-CellInputField: ".DataTable-DataRow-CellInputField";
-                @include antimatter-input-field-default.variant($DataTable-DataRow-CellInputField) {
+                .DataTable-Row-CellLabel {
+                    flex: 1;
+                }
+
+                $DataTable-Row-CellInputField: ".DataTable-Row-CellInputField";
+                @include antimatter-input-field-default.variant($DataTable-Row-CellInputField) {
                     background-color: antimatter-color-scheme.$transparent;
 
                     &__TextBox {
                         padding: 0;
                         font-size: 16px;
                     }
+
+                    $InputField-Placeholder: ".InputField-Placeholder";
+                    @include antimatter-label-default.variant($InputField-Placeholder) {
+                        left: 0;
+                        font-style: italic;
+
+                        &--Shrunk {
+                            display: none;
+                        }
+                    }
+                }
+            }
+
+            $DataTable-AddNewButton: ".DataTable-AddNewButton";
+            @include antimatter-button-outlined-rectangular.variant($DataTable-AddNewButton) {
+                position: relative;
+                display: flex;
+                width: auto;
+                height: 40px;
+                padding: 0;
+                border: none;
+                color: antimatter-color-scheme.$neutral;
+                box-shadow: 0 1px antimatter-color-scheme.$neutral inset, 0 -1px antimatter-color-scheme.$neutral inset, 0 1px antimatter-color-scheme.$neutral, 0 -1px antimatter-color-scheme.$neutral;
+
+                .Button-Icon {
+                    font-size: 20px;
+                }
+
+                @media (hover: hover) {
+
+                    &:not(#{$DataTable-AddNewButton}--Disabled):hover {
+                        box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
+
+                        &:active {
+                            box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
+                        }
+                    }
+                }
+
+                &--Disabled {
+                    opacity: 1;
+                    filter: saturate(100%);
+                    color: antimatter-color-scheme.$gray--a65;
                 }
             }
         }

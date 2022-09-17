@@ -1,9 +1,10 @@
-import {IsEnum, IsInteger, IsPositive, IsString} from "@miniskylab/antimatter-class-validator";
+import {ArrayNotEmpty, IsArray, IsDefined, IsEnum, IsInteger, IsPositive, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {MouseEventHandler} from "react";
 import {DataTableRow} from "../components";
+import {Column} from "./column";
 import {Row} from "./row";
 
 @ComponentName("Data Table")
@@ -28,15 +29,19 @@ export class DataTableProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsOptional()
-    readonly headerRow?: DataTableRow.RowData;
+    @ArrayNotEmpty()
+    @IsArray()
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => Column)
+    readonly columns: Column[];
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly dataRows?: Record<string, DataTableRow.RowData>;
+    readonly rows?: Record<string, DataTableRow.RowData>;
 
 
     /**
@@ -83,6 +88,12 @@ export class DataTableProps extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     readonly onSelectRow: (rowId: string) => void;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly onAddNewRow: MouseEventHandler;
 
 
     /**

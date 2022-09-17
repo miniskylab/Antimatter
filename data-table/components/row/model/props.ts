@@ -12,7 +12,15 @@ export class DataTableRowProps extends ComponentProps
      */
     @IsString({each: true})
     @IsOptional()
-    readonly cells?: string[];
+    readonly values?: string[];
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsString({each: true})
+    @IsOptional()
+    readonly placeholders?: string[];
 
 
     /**

@@ -9,7 +9,8 @@ import {DataTableRowProps, Mode} from "./model";
  */
 export function Component({
     className,
-    cells = [],
+    values = [],
+    placeholders = [],
     mode = Mode.ReadOnly,
     onClick,
     onChange
@@ -17,24 +18,19 @@ export function Component({
 {
     return (
         <div className={bem(className, null, getModeModifier())} onClick={onClick}>
-            {cells.map((cell, index) =>
+            {values.map((value, index) =>
             {
                 return (
                     mode === Mode.Draft || mode === Mode.Edit
                         ? <InputField
                             key={index}
-                            className={bem("DataTable-DataRow-CellInputField")}
-                            value={cell}
+                            value={value}
+                            className={bem("DataTable-Row-CellInputField")}
+                            placeholder={placeholders[index]}
                             autoFocus={index === 0}
-                            onChange={newValue =>
-                            {
-                                const newRowData = {cells: [...cells]};
-                                newRowData.cells[index] = newValue;
-
-                                onChange(newRowData);
-                            }}
+                            onChange={newValue => { onChange({values: values.map((oldValue, i) => i === index ? newValue : oldValue)}); }}
                         />
-                        : <Label key={index} className={bem("DataTable-Row-Cell")} text={cell}/>
+                        : <Label key={index} className={bem("DataTable-Row-CellLabel")} text={value}/>
                 );
             })}
         </div>

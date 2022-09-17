@@ -5,20 +5,21 @@ import {bem} from "@miniskylab/antimatter-model";
 import {Enum} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {DataTableRow} from "./components";
-import {DataTableProps, IControlPanel} from "./model";
+import {DataTableProps, IControlButton, IControlPanel} from "./model";
 
 export function DataTable({
     className,
     minRowCount = 15,
     title,
     subTitle,
-    headerRow,
-    dataRows,
+    columns,
+    rows,
     selectedRow,
     mode = DataTableRow.Mode.ReadOnly,
     onChangeRow,
     onSwitchMode,
     onSelectRow,
+    onAddNewRow,
     onSaveRow,
     onDeleteRow,
     onCancel
@@ -31,6 +32,7 @@ export function DataTable({
             <div className={bem(className, "Container")}>
                 <div className={bem(className, "Scroll")}>
                     {renderRows()}
+                    {mode !== DataTableRow.Mode.Draft && renderAddNewButton()}
                 </div>
             </div>
         </div>
@@ -71,9 +73,21 @@ export function DataTable({
         }
     }
 
+    function getAddNewButtonModel(): IControlButton
+    {
+        switch (mode)
+        {
+            case DataTableRow.Mode.ReadOnly:
+                return {modifier: String.EMPTY, icon: Icomoon.PlusCircle, onClick: onAddNewRow};
+
+            default:
+                return {modifier: "Disabled", icon: Icomoon.NotAllowed};
+        }
+    }
+
     function getRowMode(rowId: string): DataTableRow.Mode
     {
-        return rowId && rowId === selectedRow?.id
+        return rowId !== undefined && rowId === selectedRow?.id
             ? mode
             : DataTableRow.Mode.ReadOnly;
     }
@@ -111,22 +125,28 @@ export function DataTable({
     function renderRows(): JSX.Element[]
     {
         const rowJsxElements = [];
-        if (headerRow?.cells && headerRow.cells.length > 0)
+
+        const headerValues = columns.map(x => x.name).filter(x => !!x);
+        if (headerValues && headerValues.length > 0)
         {
             rowJsxElements.push(
                 <React.Fragment key={-1}>
                     <DataTableRow.Component
-                        {...headerRow}
-                        className={bem("DataTable-HeaderRow")}
+                        className={bem("DataTable-Row", null, "Header")}
+                        values={headerValues}
                     />
                     <div className={bem(className, "Hr")}/>
                 </React.Fragment>
             );
         }
 
-        const rowIds = dataRows ? Object.keys(dataRows) : [];
-        const rowCount = rowIds.length > minRowCount ? rowIds.length : minRowCount;
+        const rowIds = rows ? Object.keys(rows) : [];
+        if (mode === DataTableRow.Mode.Draft && selectedRow)
+        {
+            rowIds.push(selectedRow.id);
+        }
 
+        const rowCount = rowIds.length > minRowCount ? rowIds.length : minRowCount;
         for (let rowIndex = 0; rowIndex < rowCount; rowIndex++)
         {
             const rowId = rowIds[rowIndex];
@@ -134,7 +154,7 @@ export function DataTable({
             const rowData = rowMode === DataTableRow.Mode.Edit || rowMode === DataTableRow.Mode.Draft
                 ? selectedRow.data
                 : rowId
-                    ? dataRows[rowId]
+                    ? rows[rowId]
                     : {};
 
             rowJsxElements.push(
@@ -142,7 +162,8 @@ export function DataTable({
                     {...rowData}
                     key={rowIndex}
                     mode={rowMode}
-                    className={bem("DataTable-DataRow")}
+                    className={bem("DataTable-Row")}
+                    placeholders={columns.map(x => x.placeholder)}
                     onClick={mode === DataTableRow.Mode.ReadOnly ? () => { onSelectRow(rowId); } : undefined}
                     onChange={newRowData => { onChangeRow(newRowData); }}
                 />
@@ -150,6 +171,18 @@ export function DataTable({
         }
 
         return rowJsxElements;
+    }
+
+    function renderAddNewButton(): JSX.Element
+    {
+        const addNewButton = getAddNewButtonModel();
+        return (
+            <Button
+                className={bem("DataTable-AddNewButton", null, addNewButton.modifier)}
+                icon={addNewButton.icon}
+                onClick={addNewButton.onClick}
+            />
+        );
     }
 
     function switchMode(): void
