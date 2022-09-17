@@ -13,7 +13,7 @@
             align-items: center;
             width: 100%;
             height: 50px;
-            font-size: 30px;
+            font-size: 22px;
             color: antimatter-color-scheme.$white;
             background: antimatter-color-scheme.$ambient;
             box-shadow: 0 1px antimatter-color-scheme.$white--a10, 0 1px 3px antimatter-color-scheme.$white--a10, 0 4px 20px antimatter-color-scheme.$white--a4, 0 1px 1px antimatter-color-scheme.$white--a3;
@@ -25,6 +25,7 @@
                 justify-content: space-between;
                 width: 100%;
                 height: 100%;
+                gap: 40px;
 
                 @include screen-size.S {
                     width: auto;
@@ -33,7 +34,8 @@
                 &--Right {
                     right: 0;
                     display: none;
-                    margin-right: 5px;
+                    margin-right: 15px;
+                    gap: 20px;
 
                     @include screen-size.S {
                         display: flex;
@@ -45,8 +47,6 @@
             @include antimatter-icon-default.variant($Topbar-Icon) {
                 display: inline-flex;
                 width: 30px;
-                height: 30px;
-                padding: 10px 20px;
             }
 
             $Topbar-Logo: ".Topbar-Logo";
@@ -54,10 +54,8 @@
                 position: absolute;
                 left: 0;
                 display: none;
-                width: 30px;
-                height: 30px;
-                padding: 10px 15px 10px 15px;
-                margin-left: 10px;
+                margin-left: 25px;
+                font-size: 36px;
 
                 @include screen-size.S {
                     display: inline-flex;

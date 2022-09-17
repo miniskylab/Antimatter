@@ -63,5 +63,6 @@ export enum Icomoon
     PriceTag = "antimatter-icon__price-tag",
     LockInsideShield = "antimatter-icon__lock-inside-shield",
     User = "antimatter-icon__user",
-    Lock = "antimatter-icon__lock"
+    Lock = "antimatter-icon__lock",
+    Menu = "antimatter-icon__menu"
 }

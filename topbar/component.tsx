@@ -19,7 +19,7 @@ export function Topbar({
                 <Icon className={bem("Topbar-Icon")} name={Icomoon.Sun}/>
                 <Icon className={bem("Topbar-Icon")} name={Icomoon.Sun}/>
                 <Icon className={bem("Topbar-Icon")} name={Icomoon.Sun}/>
-                <Icon className={bem("Topbar-Icon")} name={Icomoon.Sun}/>
+                <Icon className={bem("Topbar-Icon")} name={Icomoon.Menu}/>
             </div>
             <div className={bem(className, "Container", "Right")}>
                 <Icon className={bem("Topbar-Icon")} name={Icomoon.Moon}/>
