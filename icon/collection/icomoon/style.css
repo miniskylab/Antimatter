@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'antimatter';
-  src:  url('fonts/antimatter.eot?2heq4v');
-  src:  url('fonts/antimatter.eot?2heq4v#iefix') format('embedded-opentype'),
-    url('fonts/antimatter.ttf?2heq4v') format('truetype'),
-    url('fonts/antimatter.woff?2heq4v') format('woff'),
-    url('fonts/antimatter.svg?2heq4v#antimatter') format('svg');
+  src:  url('fonts/antimatter.eot?ic8z2c');
+  src:  url('fonts/antimatter.eot?ic8z2c#iefix') format('embedded-opentype'),
+    url('fonts/antimatter.ttf?ic8z2c') format('truetype'),
+    url('fonts/antimatter.woff?ic8z2c') format('woff'),
+    url('fonts/antimatter.svg?ic8z2c#antimatter') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -213,4 +213,10 @@
 }
 .antimatter-icon__menu:before {
   content: "\e93d";
+}
+.antimatter-icon__health:before {
+  content: "\e93e";
+}
+.antimatter-icon__statistics:before {
+  content: "\e93f";
 }

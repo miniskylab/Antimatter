@@ -64,5 +64,7 @@ export enum Icomoon
     LockInsideShield = "antimatter-icon__lock-inside-shield",
     User = "antimatter-icon__user",
     Lock = "antimatter-icon__lock",
-    Menu = "antimatter-icon__menu"
+    Menu = "antimatter-icon__menu",
+    Health = "antimatter-icon__health",
+    Statistics = "antimatter-icon__statistics"
 }
