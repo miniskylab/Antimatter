@@ -3,7 +3,7 @@ class _Enum
     getName(anyEnum: Record<string, number | string>, possiblyValue: unknown): string
     {
         return (typeof possiblyValue === "string" || typeof possiblyValue === "number") && Object.values(anyEnum).includes(possiblyValue)
-            ? anyEnum[possiblyValue] as string
+            ? Object.keys(anyEnum).find(key => anyEnum[key] === possiblyValue)
             : undefined;
     }
 

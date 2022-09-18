@@ -1,7 +1,9 @@
-import {IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
+import {ArrayNotEmpty, IsArray, IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentProps} from "@miniskylab/antimatter-model";
-import {IsOptional} from "class-validator";
+import {Type} from "class-transformer";
+import {IsOptional, ValidateNested} from "class-validator";
 import {MouseEventHandler} from "react";
+import {Column} from "./column";
 import {Mode} from "./mode";
 import type {RowData} from "./row-data";
 
@@ -12,15 +14,18 @@ export class DataTableRowProps extends ComponentProps
      */
     @IsString({each: true})
     @IsOptional()
-    readonly values?: string[];
+    readonly values?: (string | boolean)[];
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsString({each: true})
+    @ArrayNotEmpty()
+    @IsArray()
     @IsOptional()
-    readonly placeholders?: string[];
+    @ValidateNested()
+    @Type(() => Column)
+    readonly columns?: Column[];
 
 
     /**

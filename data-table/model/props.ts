@@ -4,7 +4,6 @@ import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {MouseEventHandler} from "react";
 import {DataTableRow} from "../components";
-import {Column} from "./column";
 import {Row} from "./row";
 
 @ComponentName("Data Table")
@@ -33,8 +32,8 @@ export class DataTableProps extends ComponentProps
     @IsArray()
     @IsDefined()
     @ValidateNested()
-    @Type(() => Column)
-    readonly columns: Column[];
+    @Type(() => DataTableRow.Column)
+    readonly columns: DataTableRow.Column[];
 
 
     /**

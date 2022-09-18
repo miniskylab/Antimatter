@@ -1,6 +1,5 @@
 @use "~@miniskylab/antimatter-layer";
 @use "~@miniskylab/antimatter-color-scheme";
-@use "~@miniskylab/antimatter-icon/variant/default" as antimatter-icon-default;
 @use "~@miniskylab/antimatter-label/variant/default" as antimatter-label-default;
 
 @mixin variant($DropdownMenu) {
@@ -27,7 +26,7 @@
             }
 
             $DropdownMenu-Badge: ".DropdownMenu-Badge";
-            @include antimatter-icon-default.variant($DropdownMenu-Badge) {
+            @include antimatter-label-default.variant($DropdownMenu-Badge) {
                 display: inline-flex;
                 line-height: 18px;
                 padding: 0 8px;
@@ -55,11 +54,16 @@
                 right: 0;
                 width: 100%;
                 padding: 5px 0;
-                margin: 2px 0 0 0;
+                margin: 2px 0;
                 list-style: none;
                 background-color: antimatter-color-scheme.$mine-shaft;
                 z-index: antimatter-layer.$context-menu;
                 cursor: default;
+
+                &--DropUp {
+                    top: auto;
+                    bottom: 100%;
+                }
 
                 &--Hidden {
                     display: none;

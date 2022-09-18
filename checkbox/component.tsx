@@ -14,8 +14,10 @@ export function Checkbox({
 }: CheckboxProps): JSX.Element
 {
     return (
-        <div className={bem(className, null, status === Status.Checked && "Active")} onClick={() => { onChange?.(getNewStatus()); }}>
-            {status === Status.Checked && <Icon className={bem("Checkbox-CheckMark")} name={Icomoon.CheckMark}/>}
+        <div className={bem(className)}>
+            <div className={bem(className, "Box", status === Status.Checked && "Active")} onClick={() => { onChange?.(getNewStatus()); }}>
+                {status === Status.Checked && <Icon className={bem("Checkbox-CheckMark")} name={Icomoon.CheckMark}/>}
+            </div>
         </div>
     );
 

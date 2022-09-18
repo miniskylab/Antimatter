@@ -19,5 +19,5 @@ export class CheckboxProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChange: (newStatus: Status) => void;
+    readonly onChange?: (newStatus: Status) => void;
 }

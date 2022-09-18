@@ -23,5 +23,5 @@ export class Column
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly dataType?: "string" | "number";
+    readonly dataType?: "string" | "boolean" | object;
 }

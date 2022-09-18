@@ -162,8 +162,8 @@ export function DataTable({
                     {...rowData}
                     key={rowIndex}
                     mode={rowMode}
+                    columns={columns}
                     className={bem("DataTable-Row")}
-                    placeholders={columns.map(x => x.placeholder)}
                     onClick={mode === DataTableRow.Mode.ReadOnly ? () => { onSelectRow(rowId); } : undefined}
                     onChange={newRowData => { onChangeRow(newRowData); }}
                 />
