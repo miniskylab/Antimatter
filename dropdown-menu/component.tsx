@@ -206,7 +206,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
         }
         else
         {
-            let containerRect = {top: 0, bottom: window.innerHeight};
+            let containerRect = {top: 0, height: window.innerHeight};
             if (this.props.containerClassName)
             {
                 let container = this.dropdownRef.current.parentElement;
@@ -228,7 +228,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
                 bottom: dropdownRect.bottom - containerRect.top
             };
             const menuHeight = this.getMenuHeight();
-            const enoughSpaceToDropDown = dropdownRelativePosition.bottom + menuHeight + pxBufferSpace < containerRect.bottom;
+            const enoughSpaceToDropDown = dropdownRelativePosition.bottom + menuHeight + pxBufferSpace < containerRect.height;
             const enoughSpaceToDropUp = dropdownRelativePosition.top > menuHeight + pxBufferSpace;
 
             this.setState({
