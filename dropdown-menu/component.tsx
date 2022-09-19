@@ -206,21 +206,29 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
         }
         else
         {
-            let container = this.dropdownRef.current.parentElement;
-            while (container && getComputedStyle(container).overflowY !== "scroll")
+            let containerRect = {top: 0, bottom: window.innerHeight};
+            if (this.props.containerClassName)
             {
-                container = container.parentElement;
+                let container = this.dropdownRef.current.parentElement;
+                while (container && !container.className.includes(this.props.containerClassName))
+                {
+                    container = container.parentElement;
+                }
+
+                if (container)
+                {
+                    containerRect = container.getBoundingClientRect();
+                }
             }
 
             const pxBufferSpace = 10;
-            const containerRect = container ? container.getBoundingClientRect() : {top: 0, height: window.innerHeight};
             const dropdownRect = this.dropdownRef.current.getBoundingClientRect();
             const dropdownRelativePosition = {
                 top: dropdownRect.top - containerRect.top,
                 bottom: dropdownRect.bottom - containerRect.top
             };
-            const menuHeight = Number.parseInt(getComputedStyle(this.menuRef.current).height) || 0;
-            const enoughSpaceToDropDown = dropdownRelativePosition.bottom + menuHeight + pxBufferSpace < containerRect.height;
+            const menuHeight = this.getMenuHeight();
+            const enoughSpaceToDropDown = dropdownRelativePosition.bottom + menuHeight + pxBufferSpace < containerRect.bottom;
             const enoughSpaceToDropUp = dropdownRelativePosition.top > menuHeight + pxBufferSpace;
 
             this.setState({
@@ -235,5 +243,23 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
     private hideMenu(): void
     {
         this.setState({isOpen: false});
+    }
+
+    private getMenuHeight(): number
+    {
+        const menuStyles = getComputedStyle(this.menuRef.current);
+        const height = Number.parseInt(menuStyles.height);
+        if (!height)
+        {
+            return 0;
+        }
+
+        return Number.parseInt(menuStyles.height) +
+               Number.parseInt(menuStyles.paddingTop) +
+               Number.parseInt(menuStyles.paddingBottom) +
+               Number.parseInt(menuStyles.borderTopWidth) +
+               Number.parseInt(menuStyles.borderBottomWidth) +
+               Number.parseInt(menuStyles.marginTop) +
+               Number.parseInt(menuStyles.marginBottom);
     }
 }

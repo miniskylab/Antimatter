@@ -17,6 +17,7 @@ export function Component({
     columns = [],
     mode = Mode.ReadOnly,
     onClick,
+    containerClassName,
     onChange
 }: DataTableRowProps): JSX.Element
 {
@@ -39,6 +40,7 @@ export function Component({
                             <DropdownMenu
                                 key={index}
                                 selectedKeys={[value as string]}
+                                containerClassName={containerClassName}
                                 keyValueSet={dataType as Record<string, string>}
                                 placeholder={columns[index]?.placeholder}
                                 className={bem("DataTable-Row-CellDropdownMenu")}

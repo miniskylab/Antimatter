@@ -25,11 +25,13 @@ export function DataTable({
     onCancel
 }: DataTableProps): JSX.Element
 {
+    const containerClassName = bem(className, "Container");
     const {modeButton, actionButton, cancelButton} = getControlPanelModel();
+
     return (
         <div className={bem(className)}>
             {renderControlPanel()}
-            <div className={bem(className, "Container")}>
+            <div className={containerClassName}>
                 <div className={bem(className, "Scroll")}>
                     {renderRows()}
                     {mode !== DataTableRow.Mode.Draft && renderAddNewButton()}
@@ -163,6 +165,7 @@ export function DataTable({
                     key={rowIndex}
                     mode={rowMode}
                     columns={columns}
+                    containerClassName={containerClassName}
                     className={bem("DataTable-Row")}
                     onClick={mode === DataTableRow.Mode.ReadOnly ? () => { onSelectRow(rowId); } : undefined}
                     onChange={newRowData => { onChangeRow(newRowData); }}
