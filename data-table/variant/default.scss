@@ -17,7 +17,6 @@
             flex-direction: column;
             align-items: center;
             min-width: 400px;
-            width: 100%;
             padding: 10px 12px 15px 15px;
             box-sizing: border-box;
             background-color: antimatter-color-scheme.$background;
@@ -135,7 +134,7 @@
             &__Container {
                 display: flex;
                 width: 100%;
-                height: 561px;
+                height: 521px;
                 padding-bottom: 1px;
                 margin-top: 5px;
                 overflow-y: scroll;
