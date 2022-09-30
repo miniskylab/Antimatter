@@ -31,7 +31,7 @@ export class DataTableProps extends ComponentProps
     @ArrayNotEmpty()
     @IsArray()
     @IsDefined()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => DataTableRow.Column)
     readonly columns: DataTableRow.Column[];
 

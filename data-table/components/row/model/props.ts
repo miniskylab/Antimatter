@@ -23,7 +23,7 @@ export class DataTableRowProps extends ComponentProps
     @ArrayNotEmpty()
     @IsArray()
     @IsOptional()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => Column)
     readonly columns?: Column[];
 

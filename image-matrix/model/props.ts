@@ -11,7 +11,7 @@ export class ImageMatrixProps extends ComponentProps
      */
     @IsArray()
     @IsOptional()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => Image)
     readonly images?: Image[];
 }

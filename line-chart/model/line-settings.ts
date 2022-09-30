@@ -28,7 +28,7 @@ export class LineSettings
     @ArrayNotEmpty()
     @IsArray()
     @IsDefined()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => Coordinate)
     coordinates: Coordinate[];
 }

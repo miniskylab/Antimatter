@@ -27,7 +27,7 @@ export class Props extends ComponentProps
      */
     @IsArray()
     @IsOptional()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => HighlightedDate)
     readonly highlightedDates?: HighlightedDate[];
 

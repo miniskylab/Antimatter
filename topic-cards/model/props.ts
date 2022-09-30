@@ -13,7 +13,7 @@ export class TopicCardsProps extends ComponentProps
     @ArrayNotEmpty()
     @IsArray()
     @IsDefined()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => Card.Props)
     readonly cards: Omit<Card.Props, keyof ComponentProps>[];
 }

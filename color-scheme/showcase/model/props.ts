@@ -11,7 +11,7 @@ export class ColorSchemeProps extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsDefined()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => Swatch)
     readonly swatches: Swatch[];
 }

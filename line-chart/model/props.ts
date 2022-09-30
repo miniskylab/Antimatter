@@ -14,7 +14,7 @@ export class LineChartProps extends ComponentProps
     @ArrayNotEmpty()
     @IsArray()
     @IsDefined()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => DataX)
     readonly dataX: DataX[];
 
@@ -25,7 +25,7 @@ export class LineChartProps extends ComponentProps
     @ArrayNotEmpty()
     @IsArray()
     @IsDefined()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => DataY)
     readonly dataY: DataY[];
 }

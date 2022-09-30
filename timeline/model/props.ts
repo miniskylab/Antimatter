@@ -13,7 +13,7 @@ export class TimelineProps extends ComponentProps
     @ArrayNotEmpty()
     @IsArray()
     @IsDefined()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => Event.Props)
     readonly events: Omit<Event.Props, keyof ComponentProps>[];
 
