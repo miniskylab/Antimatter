@@ -46,10 +46,8 @@
             $DataTable-SubTitle: ".DataTable-SubTitle";
             @include antimatter-label-default.variant($DataTable-SubTitle) {
                 min-height: 20px;
-                line-height: 20px;
                 font-size: 14px;
                 justify-content: flex-start;
-                align-items: stretch;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -246,6 +244,9 @@
 
                 .DataTable-Row-CellLabel {
                     flex: 1;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
                 }
 
                 .DataTable-Row-CellIcon {
@@ -255,6 +256,7 @@
                 $DataTable-Row-CellInputField: ".DataTable-Row-CellInputField";
                 @include antimatter-input-field-default.variant($DataTable-Row-CellInputField) {
                     flex: 1;
+                    width: min-content;
                     background-color: antimatter-color-scheme.$transparent;
 
                     &__TextBox {
@@ -327,7 +329,7 @@
                 @include antimatter-checkbox-default.variant($DataTable-Row-CellCheckbox) {
                     flex: 1;
                     width: 100%;
-                    margin-top: 1px;
+                    margin-top: 3px;
                 }
             }
 

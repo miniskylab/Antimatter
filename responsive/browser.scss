@@ -1,8 +1,6 @@
 @mixin SafariOnly {
-    @media not all and (min-resolution: .001dpcm) {
-        @supports (-webkit-appearance:none) {
-            @content;
-        }
+    @supports (-webkit-hyphens:none) {
+        @content;
     }
 }
 
