@@ -4,6 +4,6 @@
   "license": "MIT",
   "dependencies": {
     "@types/sanitize-html": "2.6.2",
-    "sanitize-html": "2.7.1"
+    "sanitize-html": "2.7.2"
   }
 }
