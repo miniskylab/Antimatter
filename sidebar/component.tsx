@@ -2,6 +2,7 @@ import {Button} from "@miniskylab/antimatter-button";
 import {Label} from "@miniskylab/antimatter-label";
 import {bem} from "@miniskylab/antimatter-model";
 import React from "react";
+import {URL} from "whatwg-url";
 import {SidebarProps} from "./model";
 
 /**
@@ -9,8 +10,8 @@ import {SidebarProps} from "./model";
  */
 export function Sidebar({
     className,
-    selectedUrl = window.location.href,
-    categories,
+    selectedUrl,
+    categories = [],
     onNavigate
 }: SidebarProps): JSX.Element
 {
@@ -20,7 +21,7 @@ export function Sidebar({
             {categories.map((category, categoryIndex) => (
                 <React.Fragment key={categoryIndex}>
                     <Label className={bem("Sidebar-Category")} text={category.label}/>
-                    {category.menuItems.map((menuItem, menuItemIndex) =>
+                    {category.menuItems?.map((menuItem, menuItemIndex) =>
                     {
                         const menuItemUrl = normalize(menuItem.url);
                         const isSelectedUrl = menuItemUrl === selectedUrl;
@@ -43,10 +44,10 @@ export function Sidebar({
 
     function normalize(inputUrl: string): string
     {
-        const outputURL = new URL(inputUrl, window.location.origin);
+        const outputURL = new URL(inputUrl, "http://base");
         outputURL.searchParams.forEach(x => { outputURL.searchParams.delete(x); });
         outputURL.hash = String.EMPTY;
 
-        return outputURL.href;
+        return outputURL.pathname;
     }
 }

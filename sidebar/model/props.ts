@@ -1,4 +1,4 @@
-import {ArrayNotEmpty, IsArray, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsArray, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
@@ -13,19 +13,18 @@ export class SidebarProps extends ComponentProps
      */
     @IsNotEmpty()
     @IsString()
-    @IsOptional()
-    readonly selectedUrl?: string;
+    @IsDefined()
+    readonly selectedUrl: string;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @ArrayNotEmpty()
     @IsArray()
-    @IsDefined()
+    @IsOptional()
     @ValidateNested({each: true})
     @Type(() => Category)
-    readonly categories: Category[];
+    readonly categories?: Category[];
 
 
     /**
