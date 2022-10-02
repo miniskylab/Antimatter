@@ -19,6 +19,7 @@ export function Component({
     amount = 0,
     executedDate,
     modifiedDate,
+    createdDate,
     mode = Mode.ReadOnly,
     onClick,
     onChange
@@ -81,7 +82,17 @@ export function Component({
                     placeholder={"Transaction Name"}
                     autoFocus={true}
                     value={name}
-                    onChange={newValue => { onChange({name: newValue, amount, labels, executedDate, modifiedDate}); }}
+                    onChange={newValue =>
+                    {
+                        onChange({
+                            name: newValue,
+                            amount,
+                            labels,
+                            executedDate,
+                            modifiedDate,
+                            createdDate
+                        });
+                    }}
                 />
                 : <Label className={bem("TransactionTable-TransactionRecord-Name")} text={name}/>
         );
@@ -98,7 +109,17 @@ export function Component({
                     maxSelectionCount={2}
                     keyValueSet={dropdownMenuKeyValueSet}
                     selectedKeys={labels}
-                    onChange={newlySelectedKeys => { onChange({name, amount, labels: newlySelectedKeys, executedDate, modifiedDate}); }}
+                    onChange={newlySelectedKeys =>
+                    {
+                        onChange({
+                            name,
+                            amount,
+                            labels: newlySelectedKeys,
+                            executedDate,
+                            modifiedDate,
+                            createdDate
+                        });
+                    }}
                 />
             );
         }
@@ -134,7 +155,17 @@ export function Component({
                     maximumDigitCount={9}
                     maximumFractionDigits={0}
                     defaultValue={amount}
-                    onChange={newValue => { onChange({name, amount: newValue, labels, executedDate, modifiedDate}); }}
+                    onChange={newValue =>
+                    {
+                        onChange({
+                            name,
+                            amount: newValue,
+                            labels,
+                            executedDate,
+                            modifiedDate,
+                            createdDate
+                        });
+                    }}
                 />
                 : <Label
                     className={bem("TransactionTable-TransactionRecord-Amount", null, isIncome ? "Income" : "Expense")}

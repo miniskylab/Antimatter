@@ -141,7 +141,7 @@ export function TransactionTable({
             return executedDateComparisonResult;
         }
 
-        return transactionA.modifiedDate.getTime() - transactionB.modifiedDate.getTime();
+        return transactionA.createdDate.getTime() - transactionB.createdDate.getTime();
     }
 
     function renderDateSelector(): JSX.Element

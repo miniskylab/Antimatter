@@ -58,6 +58,14 @@ export class TransactionRecordProps extends ComponentProps
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsDate()
+    @IsDefined()
+    readonly createdDate: Date;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
      *
      * @type Mode
      */
