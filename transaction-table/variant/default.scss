@@ -403,7 +403,7 @@
                     width: 95%;
                     height: 18px;
                     min-height: auto;
-                    padding: 0;
+                    padding: 0 1px 0 0;
                     margin: 5px 0 2px;
                     pointer-events: none;
                     background-color: antimatter-color-scheme.$transparent;
@@ -430,7 +430,6 @@
 
                         &--Hidden {
                             display: flex;
-                            padding-right: 2px;
                         }
                     }
 
