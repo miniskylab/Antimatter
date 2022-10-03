@@ -1,4 +1,4 @@
-import {IsString} from "@miniskylab/antimatter-class-validator";
+import {IsBoolean, IsString} from "@miniskylab/antimatter-class-validator";
 import {IsOptional} from "class-validator";
 
 export class Column
@@ -24,4 +24,12 @@ export class Column
      */
     @IsOptional()
     readonly dataType?: "string" | "boolean" | object;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly isEditable?: boolean;
 }

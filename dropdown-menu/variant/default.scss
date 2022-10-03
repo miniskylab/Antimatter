@@ -72,13 +72,16 @@
 
             &__MenuItem {
                 position: relative;
-                display: flex;
-                align-items: center;
+                display: block;
                 height: 22px;
+                line-height: 22px;
                 padding: 4px 12px;
                 margin: 5px 0;
                 font-size: 14px;
                 color: antimatter-color-scheme.$neutral;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
                 cursor: pointer;
 
                 @media (hover: hover) {
@@ -112,7 +115,9 @@
             $DropdownMenu-SelectionIcon: ".DropdownMenu-SelectionIcon";
             @include antimatter-label-default.variant($DropdownMenu-SelectionIcon) {
                 position: absolute;
+                height: 100%;
                 font-size: 16px;
+                top: 0;
                 right: 7px;
             }
 

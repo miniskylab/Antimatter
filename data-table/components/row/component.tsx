@@ -55,7 +55,7 @@ export function Component({
             const value = values[index];
             const column = columns[index];
             rows.push(
-                mode === Mode.Draft || mode === Mode.Edit
+                (mode === Mode.Draft || mode === Mode.Edit) && !!column?.isEditable
                     ? renderEditor()
                     : renderValue()
             );
@@ -122,10 +122,11 @@ export function Component({
             function renderValue(): JSX.Element
             {
                 const dataType = column?.dataType;
+                const modifier = mode === Mode.Draft || mode === Mode.Edit ? "CannotBeEdited" : String.EMPTY;
                 if (typeof dataType === "object")
                 {
                     const dropdownMenuValue = (dataType as Record<string, string>)[value as string];
-                    return (<Label key={index} className={bem("DataTable-Row-CellLabel")} text={dropdownMenuValue}/>);
+                    return (<Label key={index} className={bem("DataTable-Row-CellLabel", null, modifier)} text={dropdownMenuValue}/>);
                 }
 
                 switch (dataType)
@@ -133,13 +134,13 @@ export function Component({
                     case "boolean":
                     {
                         return (value as boolean) === true
-                            ? <Icon key={index} className={bem("DataTable-Row-CellIcon")} name={Icomoon.CheckMark}/>
-                            : <Label key={index} className={bem("DataTable-Row-CellLabel")} text={String.EMPTY}/>;
+                            ? <Icon key={index} className={bem("DataTable-Row-CellIcon", null, modifier)} name={Icomoon.CheckMark}/>
+                            : <Label key={index} className={bem("DataTable-Row-CellLabel", null, modifier)} text={String.EMPTY}/>;
                     }
 
                     default:
                     {
-                        return (<Label key={index} className={bem("DataTable-Row-CellLabel")} text={value as string}/>);
+                        return (<Label key={index} className={bem("DataTable-Row-CellLabel", null, modifier)} text={value as string}/>);
                     }
                 }
             }

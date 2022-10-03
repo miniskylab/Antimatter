@@ -430,11 +430,13 @@
 
                         &--Hidden {
                             display: flex;
+                            padding-right: 2px;
                         }
                     }
 
                     &__MenuItem {
                         display: inline-flex;
+                        min-width: fit-content;
                         height: 18px;
                         line-height: 18px;
                         padding: 0 8px;
@@ -521,7 +523,7 @@
 
                 &--DraftMode {
                     box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
-                    background: repeating-linear-gradient(45deg, antimatter-color-scheme.$primary--a10, antimatter-color-scheme.$primary--a10 10px, antimatter-color-scheme.$transparent 10px, antimatter-color-scheme.$transparent 20px);
+                    background-color: antimatter-color-scheme.$primary--a10;
                     z-index: antimatter-layer.$higher;
                 }
 
