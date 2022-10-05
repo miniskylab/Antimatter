@@ -137,9 +137,9 @@
                 margin-top: 5px;
                 overflow-y: scroll;
                 overscroll-behavior: contain;
-                mask-image: linear-gradient(to top, antimatter-color-scheme.$transparent, antimatter-color-scheme.$black), linear-gradient(to left, antimatter-color-scheme.$transparent 2px, antimatter-color-scheme.$black 2px);
-                mask-size: calc(100% + 3px) 100000%;
-                mask-position: -3px calc(100% + 6px);
+                mask-image: linear-gradient(to top, antimatter-color-scheme.$transparent, antimatter-color-scheme.$black), linear-gradient(to left, antimatter-color-scheme.$transparent 3px, antimatter-color-scheme.$black 3px);
+                mask-size: 100% 100000%;
+                mask-position: left calc(100% + 6px);
                 transition: mask-position 0.3s;
 
                 &::-webkit-scrollbar {
@@ -162,7 +162,7 @@
                 @media (hover: hover) {
 
                     &:hover {
-                        mask-position: -3px -5px;
+                        mask-position: left -5px;
                     }
                 }
             }

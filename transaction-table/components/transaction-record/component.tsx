@@ -58,7 +58,7 @@ export function Component({
     function getIcon(): string
     {
         let icon: string = Icomoon.PriceTag;
-        labels?.forEach(x => { icon = labelSet[x]?.icon ?? icon; });
+        labels?.forEach(x => { icon = (Icomoon as Record<string, string>)[labelSet[x].icon] ?? icon; });
 
         return icon;
     }
