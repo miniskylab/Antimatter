@@ -34,11 +34,25 @@ export function DataTable({
             <div className={containerClassName}>
                 <div className={bem(className, "Scroll")}>
                     {renderRows()}
-                    {mode !== DataTableRow.Mode.Draft && renderAddNewButton()}
                 </div>
             </div>
         </div>
     );
+
+    function isEmptyRow(rowId: string): boolean
+    {
+        return rowId === undefined;
+    }
+
+    function isSelectedRow(rowId: string): boolean
+    {
+        return rowId === selectedRow?.id;
+    }
+
+    function isAddNewButton(rowId: string): boolean
+    {
+        return rowId === null;
+    }
 
     function getControlPanelModel(): IControlPanel
     {
@@ -89,7 +103,7 @@ export function DataTable({
 
     function getRowMode(rowId: string): DataTableRow.Mode
     {
-        return rowId !== undefined && rowId === selectedRow?.id
+        return !isEmptyRow(rowId) && isSelectedRow(rowId)
             ? mode
             : DataTableRow.Mode.ReadOnly;
     }
@@ -143,15 +157,37 @@ export function DataTable({
         }
 
         const rowIds = rows ? Object.keys(rows) : [];
-        if (mode === DataTableRow.Mode.Draft && selectedRow)
+        if (mode === DataTableRow.Mode.Draft)
         {
-            rowIds.push(selectedRow.id);
+            if (selectedRow)
+            {
+                rowIds.push(selectedRow.id);
+            }
+        }
+        else
+        {
+            rowIds.push(null);
         }
 
         const rowCount = rowIds.length > minRowCount ? rowIds.length : minRowCount;
         for (let rowIndex = 0; rowIndex < rowCount; rowIndex++)
         {
             const rowId = rowIds[rowIndex];
+            if (isAddNewButton(rowId))
+            {
+                const addNewButton = getAddNewButtonModel();
+                rowJsxElements.push(
+                    <Button
+                        key={rowIndex}
+                        className={bem("DataTable-AddNewButton", null, addNewButton.modifier)}
+                        icon={addNewButton.icon}
+                        onClick={addNewButton.onClick}
+                    />
+                );
+
+                continue;
+            }
+
             const rowMode = getRowMode(rowId);
             const rowData = rowMode === DataTableRow.Mode.Edit || rowMode === DataTableRow.Mode.Draft
                 ? selectedRow.data
@@ -159,6 +195,8 @@ export function DataTable({
                     ? rows[rowId]
                     : {};
 
+            const canSelect = !isEmptyRow(rowId) && mode === DataTableRow.Mode.ReadOnly;
+            const canEdit = !isEmptyRow(rowId) && (rowMode === DataTableRow.Mode.Edit || rowMode === DataTableRow.Mode.Draft);
             rowJsxElements.push(
                 <DataTableRow.Component
                     {...rowData}
@@ -167,25 +205,13 @@ export function DataTable({
                     columns={columns}
                     containerClassName={containerClassName}
                     className={bem("DataTable-Row")}
-                    onClick={mode === DataTableRow.Mode.ReadOnly ? () => { onSelectRow(rowId); } : undefined}
-                    onChange={newRowData => { onChangeRow(newRowData); }}
+                    onClick={canSelect ? () => { onSelectRow(rowId); } : undefined}
+                    onChange={canEdit ? newRowData => { onChangeRow(newRowData); } : undefined}
                 />
             );
         }
 
         return rowJsxElements;
-    }
-
-    function renderAddNewButton(): JSX.Element
-    {
-        const addNewButton = getAddNewButtonModel();
-        return (
-            <Button
-                className={bem("DataTable-AddNewButton", null, addNewButton.modifier)}
-                icon={addNewButton.icon}
-                onClick={addNewButton.onClick}
-            />
-        );
     }
 
     function switchMode(): void
