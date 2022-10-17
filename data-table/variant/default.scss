@@ -366,6 +366,7 @@
 
                     &:not(#{$DataTable-AddNewButton}--Disabled):hover {
                         box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
+                        z-index: antimatter-layer.$higher;
 
                         &:active {
                             box-shadow: 0 1px antimatter-color-scheme.$primary inset, 0 -1px antimatter-color-scheme.$primary inset, 0 1px antimatter-color-scheme.$primary, 0 -1px antimatter-color-scheme.$primary;
