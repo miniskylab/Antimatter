@@ -1,5 +1,6 @@
-import {IsBoolean, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
 import {IsOptional} from "class-validator";
+import {LabelType} from "./label-type";
 
 export class LabelData
 {
@@ -23,8 +24,10 @@ export class LabelData
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type LabelType
      */
-    @IsBoolean()
+    @IsEnum(LabelType)
     @IsOptional()
-    readonly isIncome?: boolean;
+    readonly type?: LabelType;
 }

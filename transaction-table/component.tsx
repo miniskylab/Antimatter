@@ -14,7 +14,7 @@ import {IControlButton, IControlPanel, TransactionTableProps} from "./model";
  */
 export function TransactionTable({
     className,
-    labelSet = {},
+    labelSelectionOptions = {},
     transactions = {},
     selectedDate = new Date(),
     selectedTransaction,
@@ -102,12 +102,17 @@ export function TransactionTable({
             : TransactionRecord.Mode.ReadOnly;
     }
 
+    function isIncome(transaction: TransactionRecord.TransactionData): boolean
+    {
+        return transaction.labels?.some(labelId => labelSelectionOptions[labelId].type === TransactionRecord.LabelType.Income);
+    }
+
     function getTotalIncome(): number
     {
         return Object.values(transactions)
             .reduce((totalIncome, transaction) =>
             {
-                if (transaction.labels?.some(labelId => labelSet[labelId].isIncome))
+                if (isIncome(transaction))
                 {
                     totalIncome += transaction.amount;
                 }
@@ -121,7 +126,7 @@ export function TransactionTable({
         return Object.values(transactions)
             .reduce((totalExpense, transaction) =>
             {
-                if (transaction.labels?.every(labelId => !labelSet[labelId].isIncome))
+                if (!isIncome(transaction))
                 {
                     totalExpense += transaction.amount;
                 }
@@ -215,7 +220,10 @@ export function TransactionTable({
                     key={transactionId}
                     className={bem("TransactionTable-TransactionRecord")}
                     mode={transactionMode}
-                    labelSet={labelSet}
+                    label={{
+                        selectedValues: transactionData.labels,
+                        selectionOptions: labelSelectionOptions
+                    }}
                     onClick={mode === TransactionRecord.Mode.ReadOnly ? () => { onSelectTransaction(transactionId); } : undefined}
                     onChange={newTransactionData => { onChangeTransaction(newTransactionData); }}
                 />

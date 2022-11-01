@@ -6,7 +6,7 @@ import {Label} from "@miniskylab/antimatter-label";
 import {bem} from "@miniskylab/antimatter-model";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import React from "react";
-import {Mode, TransactionRecordProps} from "./model";
+import {LabelType, Mode, TransactionRecordProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -14,8 +14,7 @@ import {Mode, TransactionRecordProps} from "./model";
 export function Component({
     className,
     name = String.EMPTY,
-    labelSet = {},
-    labels = [],
+    label,
     amount = 0,
     executedDate,
     modifiedDate,
@@ -58,17 +57,17 @@ export function Component({
     function getIcon(): string
     {
         let icon: string = Icomoon.PriceTag;
-        labels?.forEach(x => { icon = (Icomoon as Record<string, string>)[labelSet[x].icon] ?? icon; });
+        label?.selectedValues.forEach(x => { icon = (Icomoon as Record<string, string>)[label?.selectionOptions[x].icon] ?? icon; });
 
         return icon;
     }
 
     function getDropdownMenuKeyValueSet(): Record<string, string>
     {
-        return Object.keys(labelSet)
+        return Object.keys(label?.selectionOptions ?? {})
             .reduce((keyValueSet: Record<string, string>, labelId) =>
             {
-                keyValueSet[labelId] = labelSet[labelId].name;
+                keyValueSet[labelId] = label.selectionOptions[labelId].name;
                 return keyValueSet;
             }, {});
     }
@@ -87,7 +86,7 @@ export function Component({
                         onChange({
                             name: newValue,
                             amount,
-                            labels,
+                            labels: label.selectedValues,
                             executedDate,
                             modifiedDate,
                             createdDate
@@ -108,7 +107,7 @@ export function Component({
                     className={bem("TransactionTable-TransactionRecord-LabelSelector")}
                     maxSelectionCount={2}
                     keyValueSet={dropdownMenuKeyValueSet}
-                    selectedKeys={labels}
+                    selectedKeys={label.selectedValues}
                     onChange={newlySelectedKeys =>
                     {
                         onChange({
@@ -128,13 +127,13 @@ export function Component({
             const dropdownMenuKeySet = Object.keys(dropdownMenuKeyValueSet);
             return (
                 <div className={bem(className, "LabelContainer")}>
-                    {[...(labels ?? [])]
+                    {[...(label?.selectedValues ?? [])]
                         .sort((a, b) => dropdownMenuKeySet.indexOf(a) - dropdownMenuKeySet.indexOf(b))
                         .map(labelId => (
                             <Label
                                 key={labelId}
                                 className={bem("TransactionTable-TransactionRecord-Label")}
-                                text={labelSet[labelId].name}
+                                text={label.selectionOptions[labelId].name}
                             />
                         ))}
                 </div>
@@ -144,7 +143,7 @@ export function Component({
 
     function renderAmount(): JSX.Element
     {
-        const isIncome = labels?.some(labelId => labelSet[labelId].isIncome);
+        const isIncome = label?.selectedValues.some(labelId => label.selectionOptions[labelId].type === LabelType.Income);
         return (
             mode === Mode.Draft || mode === Mode.Edit
                 ? <NumericInputField
@@ -160,7 +159,7 @@ export function Component({
                         onChange({
                             name,
                             amount: newValue,
-                            labels,
+                            labels: label.selectedValues,
                             executedDate,
                             modifiedDate,
                             createdDate

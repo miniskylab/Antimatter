@@ -21,7 +21,7 @@ export class TransactionTableProps extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly labelSet?: Record<string, TransactionRecord.LabelData>;
+    readonly labelSelectionOptions?: Record<string, TransactionRecord.LabelData>;
 
 
     /**

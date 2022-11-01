@@ -1,8 +1,9 @@
 import {IsDate, IsDefined, IsEnum, IsNotEmpty, IsNumber, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentProps} from "@miniskylab/antimatter-model";
-import {IsOptional} from "class-validator";
+import {Type} from "class-transformer";
+import {IsOptional, ValidateNested} from "class-validator";
 import {MouseEventHandler} from "react";
-import {LabelData} from "./label-data";
+import {Label} from "./label";
 import {Mode} from "./mode";
 import type {TransactionData} from "./transaction-data";
 
@@ -21,15 +22,9 @@ export class TransactionRecordProps extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly labelSet?: Record<string, LabelData>;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @IsString({each: true})
-    @IsOptional()
-    readonly labels?: string[];
+    @ValidateNested()
+    @Type(() => Label)
+    readonly label?: Label;
 
 
     /**
