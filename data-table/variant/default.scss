@@ -250,10 +250,6 @@
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
-
-                    &--CannotBeEdited {
-                        background: repeating-linear-gradient(45deg, antimatter-color-scheme.$gray--a10, antimatter-color-scheme.$gray--a10 10px, antimatter-color-scheme.$transparent 10px, antimatter-color-scheme.$transparent 20px);
-                    }
                 }
 
                 .DataTable-Row-CellIcon {
@@ -261,10 +257,6 @@
                     display: flex;
                     align-items: center;
                     height: 100%;
-
-                    &--CannotBeEdited {
-                        background: repeating-linear-gradient(45deg, antimatter-color-scheme.$gray--a10, antimatter-color-scheme.$gray--a10 10px, antimatter-color-scheme.$transparent 10px, antimatter-color-scheme.$transparent 20px);
-                    }
                 }
 
                 $DataTable-Row-CellInputField: ".DataTable-Row-CellInputField";
@@ -310,7 +302,7 @@
                     &__Menu {
                         left: auto;
                         width: calc(100% + 12px);
-                        height: 175px;
+                        max-height: 175px;
                         padding-top: 0;
                         overflow-y: scroll;
                         overscroll-behavior: contain;
