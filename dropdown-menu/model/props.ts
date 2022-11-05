@@ -1,6 +1,7 @@
-import {IsBoolean, IsInteger, IsPositive, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsBoolean, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
+import {MenuItem} from "./menu-item";
 
 @ComponentName("Dropdown Menu")
 export class DropdownMenuProps extends ComponentProps
@@ -9,15 +10,7 @@ export class DropdownMenuProps extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly keyValueSet?: Record<string, string>;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @IsString({each: true})
-    @IsOptional()
-    readonly selectedKeys?: string[];
+    readonly menuItems?: Record<string, MenuItem>;
 
 
     /**
@@ -26,15 +19,6 @@ export class DropdownMenuProps extends ComponentProps
     @IsString()
     @IsOptional()
     readonly placeholder?: string;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @IsInteger()
-    @IsPositive()
-    @IsOptional()
-    readonly maxSelectionCount?: number;
 
 
     /**
@@ -56,5 +40,5 @@ export class DropdownMenuProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChange?: (newlySelectedKeys: string[]) => void;
+    readonly onClick?: (menuItemValue: string) => void;
 }

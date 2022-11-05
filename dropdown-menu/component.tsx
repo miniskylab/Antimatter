@@ -3,7 +3,7 @@ import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {Label} from "@miniskylab/antimatter-label";
 import {bem} from "@miniskylab/antimatter-model";
 import React, {createRef, RefObject} from "react";
-import {Direction, DropdownMenuProps, State} from "./model";
+import {Direction, DropdownMenuProps, State, Status} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -11,10 +11,8 @@ import {Direction, DropdownMenuProps, State} from "./model";
 export class DropdownMenu extends React.Component<DropdownMenuProps, State>
 {
     static defaultProps: Partial<DropdownMenuProps> = {
-        keyValueSet: {},
-        selectedKeys: [],
+        menuItems: {},
         placeholder: String.EMPTY,
-        maxSelectionCount: 1,
         isOpenByDefault: false
     };
 
@@ -31,16 +29,6 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
             isOpen: this.props.isOpenByDefault,
             dropDirection: Direction.Down
         };
-    }
-
-    private get canMultiSelect()
-    {
-        return this.props.maxSelectionCount > 1;
-    }
-
-    private get maxSelectionCountReached()
-    {
-        return this.props.selectedKeys.length >= this.props.maxSelectionCount;
     }
 
     render(): JSX.Element
@@ -62,13 +50,18 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
 
     private renderContainer(): JSX.Element
     {
-        const hasBadge = this.props.selectedKeys.map(key => this.props.keyValueSet[key]).filter(value => !!value).length > 0;
+        const selectedValues = Object.keys(this.props.menuItems).filter(x => this.props.menuItems[x].status === Status.Selected);
+        const hasSelection = selectedValues.length > 0;
         return (
-            <div className={bem(this.props.className, hasBadge ? "BadgeContainer" : "Placeholder")}>
+            <div className={bem(this.props.className, hasSelection ? "BadgeContainer" : "Placeholder")}>
                 {
-                    hasBadge
-                        ? this.props.selectedKeys.map((x, i) => (
-                            <Label key={i} className={bem("DropdownMenu-Badge")} text={this.props.keyValueSet[x]}/>
+                    hasSelection
+                        ? selectedValues.map((selectedValue, index) => (
+                            <Label
+                                key={index}
+                                className={bem("DropdownMenu-Badge")}
+                                text={this.props.menuItems[selectedValue].displayText ?? selectedValue}
+                            />
                         ))
                         : this.props.placeholder
                 }
@@ -78,41 +71,40 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
 
     private renderMenu(): JSX.Element
     {
-        const menuItems: JSX.Element[] = [];
-        for (const key in this.props.keyValueSet)
+        const menuItemJsxElements: JSX.Element[] = [];
+        for (const menuItemValue in this.props.menuItems)
         {
-            if (!this.props.keyValueSet.hasOwnProperty(key))
+            const menuItem = this.props.menuItems[menuItemValue];
+            if (menuItem.status === Status.Divider)
             {
+                menuItemJsxElements.push(<div key={menuItemValue} className={bem(this.props.className, "Divider")}/>);
                 continue;
             }
 
-            const value = this.props.keyValueSet[key];
-            if (value === "---")
-            {
-                menuItems.push(<div key={key} className={bem(this.props.className, "Divider")}/>);
-                continue;
-            }
-
-            let menuItemModifier = String.EMPTY;
-            const menuItemIsSelected = this.props.selectedKeys.includes(key);
-            const menuItemIsDisabled = !menuItemIsSelected && this.canMultiSelect && this.maxSelectionCountReached;
-            if (menuItemIsSelected)
-            {
-                menuItemModifier = "Selected";
-            }
-            else if (menuItemIsDisabled)
-            {
-                menuItemModifier = "Disabled";
-            }
-
-            menuItems.push(
+            menuItemJsxElements.push(
                 <li
-                    key={key}
-                    className={bem(this.props.className, "MenuItem", menuItemModifier)}
-                    onClick={menuItemIsDisabled ? undefined : event => { this.onMenuItemClick(event, key); }}
+                    key={menuItemValue}
+                    className={bem(
+                        this.props.className,
+                        "MenuItem",
+                        menuItem.status === Status.Selected
+                            ? "Selected"
+                            : menuItem.status === Status.Disabled
+                                ? "Disabled"
+                                : String.EMPTY
+                    )}
+                    onClick={
+                        menuItem.status === undefined || menuItem.status === Status.Selected
+                            ? event =>
+                            {
+                                event.stopPropagation();
+                                this.props.onClick?.(menuItemValue);
+                            }
+                            : undefined
+                    }
                 >
-                    {value}
-                    {menuItemIsSelected && (
+                    {menuItem.displayText || menuItemValue}
+                    {menuItem.status === Status.Selected && (
                         <Icon
                             className={bem("DropdownMenu-SelectionIcon")}
                             name={Icomoon.CheckMark}
@@ -122,24 +114,22 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
             );
         }
 
-        let menuModifier = String.EMPTY;
-        if (!this.state.isOpen)
-        {
-            menuModifier = "Hidden";
-        }
-        else if (this.state.dropDirection === Direction.Up)
-        {
-            menuModifier = "DropUp";
-        }
-
         return (
             <ul
                 ref={this.menuRef}
-                className={bem(this.props.className, "Menu", menuModifier)}
+                className={bem(
+                    this.props.className,
+                    "Menu",
+                    !this.state.isOpen
+                        ? "Hidden"
+                        : this.state.dropDirection === Direction.Up
+                            ? "DropUp"
+                            : String.EMPTY
+                )}
                 onClick={event => { event.stopPropagation(); }}
                 onWheel={event => { this.onMenuWheel(event); }}
             >
-                {menuItems}
+                {menuItemJsxElements}
             </ul>
         );
     }
@@ -158,43 +148,6 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
                 left: menuElement.scrollLeft + event.deltaY,
                 behavior: "smooth"
             });
-        }
-    }
-
-    private onMenuItemClick(event: React.MouseEvent<HTMLElement, MouseEvent>, key: string): void
-    {
-        event.stopPropagation();
-
-        const menuItemIsSelected = this.props.selectedKeys.includes(key);
-        if (menuItemIsSelected)
-        {
-            this.props.onChange?.(this.props.selectedKeys.filter(x => x !== key));
-
-            const maxSelectionCountReachedAfterThisClick = (this.props.selectedKeys.length - 1) >= this.props.maxSelectionCount;
-            if (maxSelectionCountReachedAfterThisClick)
-            {
-                this.hideMenu();
-            }
-        }
-        else
-        {
-            if (this.maxSelectionCountReached)
-            {
-                if (!this.canMultiSelect)
-                {
-                    this.props.onChange?.([key]);
-                }
-            }
-            else
-            {
-                this.props.onChange?.([...this.props.selectedKeys, key]);
-            }
-
-            const maxSelectionCountReachedAfterThisClick = (this.props.selectedKeys.length + 1) >= this.props.maxSelectionCount;
-            if (maxSelectionCountReachedAfterThisClick)
-            {
-                this.hideMenu();
-            }
         }
     }
 
