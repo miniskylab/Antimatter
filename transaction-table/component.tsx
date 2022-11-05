@@ -14,7 +14,6 @@ import {IControlButton, IControlPanel, TransactionTableProps} from "./model";
  */
 export function TransactionTable({
     className,
-    labelSelectionOptions = {},
     transactions = {},
     selectedDate = new Date(),
     selectedTransaction,
@@ -104,7 +103,7 @@ export function TransactionTable({
 
     function isIncome(transaction: TransactionRecord.TransactionData): boolean
     {
-        return transaction.labels?.some(labelId => labelSelectionOptions[labelId].type === TransactionRecord.LabelType.Income);
+        return Object.values(transaction.labels).some(label => label.type === TransactionRecord.LabelType.Income);
     }
 
     function getTotalIncome(): number
@@ -220,10 +219,7 @@ export function TransactionTable({
                     key={transactionId}
                     className={bem("TransactionTable-TransactionRecord")}
                     mode={transactionMode}
-                    label={{
-                        selectedValues: transactionData.labels,
-                        selectionOptions: labelSelectionOptions
-                    }}
+                    labels={transactionData.labels}
                     onClick={mode === TransactionRecord.Mode.ReadOnly ? () => { onSelectTransaction(transactionId); } : undefined}
                     onChange={newTransactionData => { onChangeTransaction(newTransactionData); }}
                 />

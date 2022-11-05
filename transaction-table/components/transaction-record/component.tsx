@@ -1,4 +1,4 @@
-import {DropdownMenu} from "@miniskylab/antimatter-dropdown-menu";
+import {DropdownMenu, DropdownMenuProps, Status as DropdownMenuStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {InputField} from "@miniskylab/antimatter-input-field";
@@ -6,7 +6,7 @@ import {Label} from "@miniskylab/antimatter-label";
 import {bem} from "@miniskylab/antimatter-model";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import React from "react";
-import {LabelType, Mode, TransactionRecordProps} from "./model";
+import {LabelStatus, LabelType, Mode, TransactionRecordProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -14,7 +14,7 @@ import {LabelType, Mode, TransactionRecordProps} from "./model";
 export function Component({
     className,
     name = String.EMPTY,
-    label,
+    labels = {},
     amount = 0,
     executedDate,
     modifiedDate,
@@ -57,18 +57,26 @@ export function Component({
     function getIcon(): string
     {
         let icon: string = Icomoon.PriceTag;
-        label?.selectedValues.forEach(x => { icon = (Icomoon as Record<string, string>)[label?.selectionOptions[x].icon] ?? icon; });
+        Object.values(labels)
+            .filter(label => label.status === LabelStatus.Selected)
+            .forEach(selectedLabel => { icon = (Icomoon as Record<string, string>)[selectedLabel.icon] ?? icon; });
 
         return icon;
     }
 
-    function getDropdownMenuKeyValueSet(): Record<string, string>
+    function getDropdownMenuItems(): DropdownMenuProps["menuItems"]
     {
-        return Object.keys(label?.selectionOptions ?? {})
-            .reduce((keyValueSet: Record<string, string>, labelId) =>
+        return Object.keys(labels)
+            .reduce((menuItem: ReturnType<typeof getDropdownMenuItems>, labelId) =>
             {
-                keyValueSet[labelId] = label.selectionOptions[labelId].name;
-                return keyValueSet;
+                menuItem[labelId] = {
+                    displayText: labels[labelId].name,
+                    status: labels[labelId].status === LabelStatus.Selected
+                        ? DropdownMenuStatus.Selected
+                        : undefined
+                };
+
+                return menuItem;
             }, {});
     }
 
@@ -86,7 +94,7 @@ export function Component({
                         onChange({
                             name: newValue,
                             amount,
-                            labels: label.selectedValues,
+                            labels,
                             executedDate,
                             modifiedDate,
                             createdDate
@@ -97,53 +105,9 @@ export function Component({
         );
     }
 
-    function renderLabels(): JSX.Element
-    {
-        const dropdownMenuKeyValueSet = getDropdownMenuKeyValueSet();
-        if (mode === Mode.Draft || mode === Mode.Edit)
-        {
-            return (
-                <DropdownMenu
-                    className={bem("TransactionTable-TransactionRecord-LabelSelector")}
-                    maxSelectionCount={2}
-                    keyValueSet={dropdownMenuKeyValueSet}
-                    selectedKeys={label.selectedValues}
-                    onChange={newlySelectedKeys =>
-                    {
-                        onChange({
-                            name,
-                            amount,
-                            labels: newlySelectedKeys,
-                            executedDate,
-                            modifiedDate,
-                            createdDate
-                        });
-                    }}
-                />
-            );
-        }
-        else
-        {
-            const dropdownMenuKeySet = Object.keys(dropdownMenuKeyValueSet);
-            return (
-                <div className={bem(className, "LabelContainer")}>
-                    {[...(label?.selectedValues ?? [])]
-                        .sort((a, b) => dropdownMenuKeySet.indexOf(a) - dropdownMenuKeySet.indexOf(b))
-                        .map(labelId => (
-                            <Label
-                                key={labelId}
-                                className={bem("TransactionTable-TransactionRecord-Label")}
-                                text={label.selectionOptions[labelId].name}
-                            />
-                        ))}
-                </div>
-            );
-        }
-    }
-
     function renderAmount(): JSX.Element
     {
-        const isIncome = label?.selectedValues.some(labelId => label.selectionOptions[labelId].type === LabelType.Income);
+        const isIncome = Object.values(labels).some(label => label.status === LabelStatus.Selected && label.type === LabelType.Income);
         return (
             mode === Mode.Draft || mode === Mode.Edit
                 ? <NumericInputField
@@ -159,7 +123,7 @@ export function Component({
                         onChange({
                             name,
                             amount: newValue,
-                            labels: label.selectedValues,
+                            labels,
                             executedDate,
                             modifiedDate,
                             createdDate
@@ -171,5 +135,59 @@ export function Component({
                     text={`${isIncome ? "+" : String.EMPTY}${amount.toLocaleString()}`}
                 />
         );
+    }
+
+    function renderLabels(): JSX.Element
+    {
+        const dropdownMenuItems = getDropdownMenuItems();
+        if (mode === Mode.Draft || mode === Mode.Edit)
+        {
+            return (
+                <DropdownMenu
+                    className={bem("TransactionTable-TransactionRecord-LabelSelector")}
+                    menuItems={dropdownMenuItems}
+                    onClick={clickedLabelId =>
+                    {
+                        onChange({
+                            name,
+                            amount,
+                            labels: {
+                                ...labels,
+                                [clickedLabelId]: {
+                                    ...labels[clickedLabelId],
+                                    status: labels[clickedLabelId].status === LabelStatus.Selected
+                                        ? undefined
+                                        : labels[clickedLabelId].status === undefined
+                                            ? LabelStatus.Selected
+                                            : labels[clickedLabelId].status
+                                }
+                            },
+                            executedDate,
+                            modifiedDate,
+                            createdDate
+                        });
+                    }}
+                />
+            );
+        }
+        else
+        {
+            const dropdownMenuItemValues = Object.keys(dropdownMenuItems);
+            return (
+                <div className={bem(className, "LabelContainer")}>
+                    {
+                        [...Object.keys(labels).filter(x => labels[x].status === LabelStatus.Selected)]
+                            .sort((a, b) => dropdownMenuItemValues.indexOf(a) - dropdownMenuItemValues.indexOf(b))
+                            .map(labelId => (
+                                <Label
+                                    key={labelId}
+                                    className={bem("TransactionTable-TransactionRecord-Label")}
+                                    text={labels[labelId].name ?? labelId}
+                                />
+                            ))
+                    }
+                </div>
+            );
+        }
     }
 }
