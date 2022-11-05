@@ -1,5 +1,5 @@
-import {Checkbox, Status} from "@miniskylab/antimatter-checkbox";
-import {DropdownMenu} from "@miniskylab/antimatter-dropdown-menu";
+import {Checkbox, Status as CheckboxStatus} from "@miniskylab/antimatter-checkbox";
+import {DropdownMenu, DropdownMenuProps, Status as DropdownMenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {InputField} from "@miniskylab/antimatter-input-field";
@@ -50,10 +50,10 @@ export function Component({
     {
         const rows = [];
         const columnCount = Math.max(columns.length, values.length);
-        for (let index = 0; index < columnCount; index++)
+        for (let columnIndex = 0; columnIndex < columnCount; columnIndex++)
         {
-            const value = values[index];
-            const column = columns[index];
+            const value = values[columnIndex];
+            const column = columns[columnIndex];
             rows.push(
                 mode === Mode.Draft || mode === Mode.Edit
                     ? renderEditor()
@@ -67,16 +67,23 @@ export function Component({
                 {
                     return (
                         <DropdownMenu
-                            key={index}
-                            selectedKeys={[value as string]}
+                            key={columnIndex}
                             containerClassName={containerClassName}
-                            keyValueSet={dataType as Record<string, string>}
+                            menuItems={Object.keys(dataType).reduce((menuItems: DropdownMenuProps["menuItems"], menuItemValue) =>
+                            {
+                                menuItems[menuItemValue] = {
+                                    displayText: (dataType as Record<string, string>)[menuItemValue],
+                                    status: value === menuItemValue ? DropdownMenuItemStatus.Selected : undefined
+                                };
+
+                                return menuItems;
+                            }, {})}
                             placeholder={column?.placeholder}
                             className={bem("DataTable-Row-CellDropdownMenu")}
-                            onChange={newlySelectedKeys =>
+                            onClick={clickedMenuItemValue =>
                             {
-                                const newValue = newlySelectedKeys[0];
-                                onChange({values: values.map((oldValue, i) => i === index ? newValue : oldValue)});
+                                const newValue = clickedMenuItemValue;
+                                onChange({values: values.map((oldValue, i) => i === columnIndex ? newValue : oldValue)});
                             }}
                         />
                     );
@@ -88,13 +95,13 @@ export function Component({
                     {
                         return (
                             <Checkbox
-                                key={index}
+                                key={columnIndex}
                                 className={bem("DataTable-Row-CellCheckbox")}
-                                status={typeof value === "boolean" && value === true ? Status.Checked : Status.Unchecked}
+                                status={typeof value === "boolean" && value === true ? CheckboxStatus.Checked : CheckboxStatus.Unchecked}
                                 onChange={newStatus =>
                                 {
-                                    const newValue = newStatus === Status.Checked;
-                                    onChange({values: values.map((oldValue, i) => i === index ? newValue : oldValue)});
+                                    const newValue = newStatus === CheckboxStatus.Checked;
+                                    onChange({values: values.map((oldValue, i) => i === columnIndex ? newValue : oldValue)});
                                 }}
                             />
                         );
@@ -104,14 +111,14 @@ export function Component({
                     {
                         return (
                             <InputField
-                                key={index}
+                                key={columnIndex}
                                 value={value as string}
-                                autoFocus={index === 0}
+                                autoFocus={columnIndex === 0}
                                 placeholder={column?.placeholder}
                                 className={bem("DataTable-Row-CellInputField")}
                                 onChange={newValue =>
                                 {
-                                    onChange({values: values.map((oldValue, i) => i === index ? newValue : oldValue)});
+                                    onChange({values: values.map((oldValue, i) => i === columnIndex ? newValue : oldValue)});
                                 }}
                             />
                         );
@@ -124,8 +131,9 @@ export function Component({
                 const dataType = column?.dataType;
                 if (typeof dataType === "object")
                 {
-                    const dropdownMenuValue = (dataType as Record<string, string>)[value as string];
-                    return (<Label key={index} className={bem("DataTable-Row-CellLabel")} text={dropdownMenuValue}/>);
+                    const stringValue = value as string;
+                    const displayText = (dataType as Record<string, string>)[stringValue];
+                    return (<Label key={columnIndex} className={bem("DataTable-Row-CellLabel")} text={displayText || stringValue}/>);
                 }
 
                 switch (dataType)
@@ -133,13 +141,13 @@ export function Component({
                     case "boolean":
                     {
                         return (value as boolean) === true
-                            ? <Icon key={index} className={bem("DataTable-Row-CellIcon")} name={Icomoon.CheckMark}/>
-                            : <Label key={index} className={bem("DataTable-Row-CellLabel")} text={String.EMPTY}/>;
+                            ? <Icon key={columnIndex} className={bem("DataTable-Row-CellIcon")} name={Icomoon.CheckMark}/>
+                            : <Label key={columnIndex} className={bem("DataTable-Row-CellLabel")} text={String.EMPTY}/>;
                     }
 
                     default:
                     {
-                        return (<Label key={index} className={bem("DataTable-Row-CellLabel")} text={value as string}/>);
+                        return (<Label key={columnIndex} className={bem("DataTable-Row-CellLabel")} text={value as string}/>);
                     }
                 }
             }

@@ -40,5 +40,5 @@ export class DropdownMenuProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onClick?: (menuItemValue: string) => void;
+    readonly onClick?: (clickedMenuItemValue: string) => void;
 }
