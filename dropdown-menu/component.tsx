@@ -26,9 +26,17 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
         this.menuRef = createRef<HTMLUListElement>();
         this.dropdownRef = createRef<HTMLDivElement>();
         this.state = {
-            isOpen: this.props.isOpenByDefault,
+            isOpen: false,
             dropDirection: Direction.Down
         };
+    }
+
+    componentDidMount(): void
+    {
+        if (this.props.isOpenByDefault)
+        {
+            this.toggleMenu();
+        }
     }
 
     render(): JSX.Element
@@ -71,6 +79,28 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
 
     private renderMenu(): JSX.Element
     {
+        return (
+            <ul
+                ref={this.menuRef}
+                className={bem(
+                    this.props.className,
+                    "Menu",
+                    !this.state.isOpen
+                        ? "Hidden"
+                        : this.state.dropDirection === Direction.Up
+                            ? "DropUp"
+                            : String.EMPTY
+                )}
+                onClick={event => { event.stopPropagation(); }}
+                onWheel={event => { this.onMenuWheel(event); }}
+            >
+                {this.renderMenuItems()}
+            </ul>
+        );
+    }
+
+    private renderMenuItems(): JSX.Element[]
+    {
         const menuItemJsxElements: JSX.Element[] = [];
         for (const menuItemValue in this.props.menuItems)
         {
@@ -98,7 +128,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
                             ? event =>
                             {
                                 event.stopPropagation();
-                                this.props.onClick?.(menuItemValue);
+                                this.onMenuItemClick(menuItemValue);
                             }
                             : undefined
                     }
@@ -114,24 +144,18 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
             );
         }
 
-        return (
-            <ul
-                ref={this.menuRef}
-                className={bem(
-                    this.props.className,
-                    "Menu",
-                    !this.state.isOpen
-                        ? "Hidden"
-                        : this.state.dropDirection === Direction.Up
-                            ? "DropUp"
-                            : String.EMPTY
-                )}
-                onClick={event => { event.stopPropagation(); }}
-                onWheel={event => { this.onMenuWheel(event); }}
-            >
-                {menuItemJsxElements}
-            </ul>
-        );
+        return menuItemJsxElements;
+    }
+
+    private onMenuItemClick(menuItemValue: string): void
+    {
+        const isSelected = this.props.menuItems[menuItemValue].status === Status.Selected;
+        if (!isSelected && this.props.closeMenuAfterFirstSelection)
+        {
+            this.hideMenu();
+        }
+
+        this.props.onClick?.(menuItemValue);
     }
 
     private onMenuWheel(event: React.WheelEvent): void
@@ -180,15 +204,21 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
                 top: dropdownRect.top - containerRect.top,
                 bottom: dropdownRect.bottom - containerRect.top
             };
+
+            let dropDirection = Direction.Down;
             const menuHeight = this.getMenuHeight();
-            const enoughSpaceToDropDown = dropdownRelativePosition.bottom + menuHeight + pxBufferSpace < containerRect.height;
-            const enoughSpaceToDropUp = dropdownRelativePosition.top > menuHeight + pxBufferSpace;
+            if (menuHeight)
+            {
+                const enoughSpaceToDropDown = dropdownRelativePosition.bottom + menuHeight + pxBufferSpace < containerRect.height;
+                const enoughSpaceToDropUp = dropdownRelativePosition.top > menuHeight + pxBufferSpace;
+                dropDirection = !enoughSpaceToDropDown && enoughSpaceToDropUp
+                    ? Direction.Up
+                    : Direction.Down;
+            }
 
             this.setState({
                 isOpen: true,
-                dropDirection: !enoughSpaceToDropDown && enoughSpaceToDropUp
-                    ? Direction.Up
-                    : Direction.Down
+                dropDirection
             });
         }
     }

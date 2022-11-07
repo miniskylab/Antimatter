@@ -32,6 +32,14 @@ export class DropdownMenuProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsBoolean()
+    @IsOptional()
+    readonly closeMenuAfterFirstSelection?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
     @IsString()
     @IsOptional()
     readonly containerClassName?: string;
