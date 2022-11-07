@@ -299,6 +299,12 @@
                         background-color: antimatter-color-scheme.$transparent;
                     }
 
+                    &__Placeholder {
+                        font-size: 16px;
+                        font-style: italic;
+                        color: antimatter-color-scheme.$gray;
+                    }
+
                     &__Menu {
                         left: auto;
                         width: calc(100% + 12px);
