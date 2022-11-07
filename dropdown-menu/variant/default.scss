@@ -52,8 +52,11 @@
                 top: 100%;
                 left: 0;
                 right: 0;
+                display: flex;
+                flex-direction: column;
+                row-gap: 5px;
                 width: 100%;
-                padding: 5px 0;
+                padding: 10px 0;
                 margin: 2px 0;
                 list-style: none;
                 background-color: antimatter-color-scheme.$mine-shaft;
@@ -73,10 +76,9 @@
             &__MenuItem {
                 position: relative;
                 display: block;
-                height: 22px;
+                min-height: 22px;
                 line-height: 22px;
                 padding: 4px 12px;
-                margin: 5px 0;
                 font-size: 14px;
                 color: antimatter-color-scheme.$neutral;
                 overflow: hidden;
@@ -134,7 +136,6 @@
 
             &__Divider {
                 height: 1px;
-                margin: 5px 0;
                 background-color: antimatter-color-scheme.$gray--a65;
             }
 

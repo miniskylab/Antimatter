@@ -230,14 +230,24 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
 
     private getMenuHeight(): number
     {
-        const menuStyles = getComputedStyle(this.menuRef.current);
-        const height = Number.parseInt(menuStyles.height);
-        if (!height)
+        let menuHeight = 0;
+        for (const menuItem of this.menuRef.current.children)
         {
-            return 0;
+            const menuItemStyles = getComputedStyle(menuItem);
+            const menuItemHeight = Number.parseInt(menuItemStyles.height) +
+                                   Number.parseInt(menuItemStyles.paddingTop) +
+                                   Number.parseInt(menuItemStyles.paddingBottom) +
+                                   Number.parseInt(menuItemStyles.borderTopWidth) +
+                                   Number.parseInt(menuItemStyles.borderBottomWidth);
+            if (menuItemHeight)
+            {
+                menuHeight += menuItemHeight;
+            }
         }
 
-        return Number.parseInt(menuStyles.height) +
+        const menuStyles = getComputedStyle(this.menuRef.current);
+        return menuHeight +
+               Number.parseInt(menuStyles.rowGap) * (this.menuRef.current.children.length - 1) +
                Number.parseInt(menuStyles.paddingTop) +
                Number.parseInt(menuStyles.paddingBottom) +
                Number.parseInt(menuStyles.borderTopWidth) +

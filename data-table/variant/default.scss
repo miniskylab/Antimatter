@@ -302,8 +302,8 @@
                     &__Menu {
                         left: auto;
                         width: calc(100% + 12px);
-                        max-height: 175px;
-                        padding-top: 0;
+                        max-height: 170px;
+                        padding: 4px 0 5px;
                         overflow-y: scroll;
                         overscroll-behavior: contain;
                         box-shadow: 0 15px 30px antimatter-color-scheme.$black;

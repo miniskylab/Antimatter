@@ -63,27 +63,28 @@ export function Component({
             function renderEditor(): JSX.Element
             {
                 const dataType = column?.dataType;
-                const dropdownMenuItems: DropdownMenuProps["menuItems"] = {};
-                Object.keys(dataType).forEach(menuItemValue =>
-                {
-                    dropdownMenuItems[menuItemValue] = {
-                        displayText: (dataType as Record<string, string>)[menuItemValue],
-                        status: value === menuItemValue ? DropdownMenuItemStatus.Selected : undefined
-                    };
-                });
-
                 if (typeof dataType === "object")
                 {
+                    const dropdownMenuItems: DropdownMenuProps["menuItems"] = {};
+                    Object.keys(dataType).forEach(menuItemValue =>
+                    {
+                        dropdownMenuItems[menuItemValue] = {
+                            displayText: (dataType as Record<string, string>)[menuItemValue],
+                            status: value === menuItemValue ? DropdownMenuItemStatus.Selected : undefined
+                        };
+                    });
+
                     return (
                         <DropdownMenu
                             key={columnIndex}
                             containerClassName={containerClassName}
+                            closeMenuAfterFirstSelection={true}
                             menuItems={dropdownMenuItems}
                             placeholder={column?.placeholder}
                             className={bem("DataTable-Row-CellDropdownMenu")}
                             onClick={clickedMenuItemValue =>
                             {
-                                const newValue = clickedMenuItemValue;
+                                const newValue = value === clickedMenuItemValue ? undefined : clickedMenuItemValue;
                                 onChange({values: values.map((oldValue, i) => i === columnIndex ? newValue : oldValue)});
                             }}
                         />
