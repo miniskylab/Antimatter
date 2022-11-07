@@ -63,21 +63,22 @@ export function Component({
             function renderEditor(): JSX.Element
             {
                 const dataType = column?.dataType;
+                const dropdownMenuItems: DropdownMenuProps["menuItems"] = {};
+                Object.keys(dataType).forEach(menuItemValue =>
+                {
+                    dropdownMenuItems[menuItemValue] = {
+                        displayText: (dataType as Record<string, string>)[menuItemValue],
+                        status: value === menuItemValue ? DropdownMenuItemStatus.Selected : undefined
+                    };
+                });
+
                 if (typeof dataType === "object")
                 {
                     return (
                         <DropdownMenu
                             key={columnIndex}
                             containerClassName={containerClassName}
-                            menuItems={Object.keys(dataType).reduce((menuItems: DropdownMenuProps["menuItems"], menuItemValue) =>
-                            {
-                                menuItems[menuItemValue] = {
-                                    displayText: (dataType as Record<string, string>)[menuItemValue],
-                                    status: value === menuItemValue ? DropdownMenuItemStatus.Selected : undefined
-                                };
-
-                                return menuItems;
-                            }, {})}
+                            menuItems={dropdownMenuItems}
                             placeholder={column?.placeholder}
                             className={bem("DataTable-Row-CellDropdownMenu")}
                             onClick={clickedMenuItemValue =>

@@ -66,18 +66,19 @@ export function Component({
 
     function getDropdownMenuItems(): DropdownMenuProps["menuItems"]
     {
-        return Object.keys(labels)
-            .reduce((menuItem: ReturnType<typeof getDropdownMenuItems>, labelId) =>
-            {
-                menuItem[labelId] = {
-                    displayText: labels[labelId].name,
-                    status: labels[labelId].status === LabelStatus.Selected
-                        ? DropdownMenuStatus.Selected
-                        : undefined
-                };
+        const dropdownMenuItems: ReturnType<typeof getDropdownMenuItems> = {};
+        Object.keys(labels).forEach(labelId =>
+        {
+            const label = labels[labelId];
+            dropdownMenuItems[labelId] = {
+                displayText: label.name,
+                status: label.status === LabelStatus.Selected
+                    ? DropdownMenuStatus.Selected
+                    : undefined
+            };
+        });
 
-                return menuItem;
-            }, {});
+        return dropdownMenuItems;
     }
 
     function renderName(): JSX.Element

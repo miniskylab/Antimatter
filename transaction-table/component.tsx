@@ -108,30 +108,22 @@ export function TransactionTable({
 
     function getTotalIncome(): number
     {
-        return Object.values(transactions)
-            .reduce((totalIncome, transaction) =>
-            {
-                if (isIncome(transaction))
-                {
-                    totalIncome += transaction.amount;
-                }
+        let totalIncome = 0;
+        Object.values(transactions)
+            .filter(transaction => isIncome(transaction))
+            .forEach(transaction => { totalIncome += transaction.amount; });
 
-                return totalIncome;
-            }, 0);
+        return totalIncome;
     }
 
     function getTotalExpense(): number
     {
-        return Object.values(transactions)
-            .reduce((totalExpense, transaction) =>
-            {
-                if (!isIncome(transaction))
-                {
-                    totalExpense += transaction.amount;
-                }
+        let totalExpense = 0;
+        Object.values(transactions)
+            .filter(transaction => !isIncome(transaction))
+            .forEach(transaction => { totalExpense += transaction.amount; });
 
-                return totalExpense;
-            }, 0);
+        return totalExpense;
     }
 
     function byDate(transactionIdA: string, transactionIdB: string): number
