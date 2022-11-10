@@ -5,6 +5,7 @@ import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
 import {bem} from "@miniskylab/antimatter-model";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
+import {Enum} from "@miniskylab/antimatter-typescript";
 import React from "react";
 import {LabelStatus, LabelType, Mode, TransactionRecordProps} from "./model";
 
@@ -72,9 +73,7 @@ export function Component({
             const label = labels[labelId];
             dropdownMenuItems[labelId] = {
                 displayText: label.name,
-                status: label.status === LabelStatus.Selected
-                    ? DropdownMenuStatus.Selected
-                    : undefined
+                status: Enum.getValue(DropdownMenuStatus, Enum.getName(LabelStatus, label.status))
             };
         });
 
