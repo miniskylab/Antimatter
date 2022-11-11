@@ -1,4 +1,5 @@
 import {ArrayNotEmpty, IsArray, IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
+import {DropdownMenuProps} from "@miniskylab/antimatter-dropdown-menu";
 import {ComponentProps} from "@miniskylab/antimatter-model";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
@@ -12,9 +13,8 @@ export class DataTableRowProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsString({each: true})
     @IsOptional()
-    readonly values?: (string | boolean)[];
+    readonly values?: (string | boolean | DropdownMenuProps["menuItems"])[];
 
 
     /**

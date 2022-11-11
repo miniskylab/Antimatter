@@ -1,5 +1,5 @@
 import {Checkbox, Status as CheckboxStatus} from "@miniskylab/antimatter-checkbox";
-import {DropdownMenu, DropdownMenuProps, Status as DropdownMenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
+import {DropdownMenu, Status as MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {InputField} from "@miniskylab/antimatter-input-field";
@@ -62,37 +62,49 @@ export function Component({
 
             function renderEditor(): JSX.Element
             {
-                const dataType = column?.dataType;
-                if (typeof dataType === "object")
+                switch (typeof value)
                 {
-                    const dropdownMenuItems: DropdownMenuProps["menuItems"] = {};
-                    Object.keys(dataType).forEach(menuItemValue =>
+                    case "object":
                     {
-                        dropdownMenuItems[menuItemValue] = {
-                            displayText: (dataType as Record<string, string>)[menuItemValue],
-                            status: value === menuItemValue ? DropdownMenuItemStatus.Selected : undefined
-                        };
-                    });
+                        return (
+                            <DropdownMenu
+                                key={columnIndex}
+                                containerClassName={containerClassName}
+                                closeMenuAfterFirstSelection={true}
+                                menuItems={value}
+                                placeholder={column?.placeholder}
+                                className={bem("DataTable-Row-CellDropdownMenu")}
+                                onClick={clickedMenuItemValue =>
+                                {
+                                    const selectedMenuItemValues = Object.keys(value)
+                                        .filter(menuItemValue => value[menuItemValue].status === MenuItemStatus.Selected);
 
-                    return (
-                        <DropdownMenu
-                            key={columnIndex}
-                            containerClassName={containerClassName}
-                            closeMenuAfterFirstSelection={true}
-                            menuItems={dropdownMenuItems}
-                            placeholder={column?.placeholder}
-                            className={bem("DataTable-Row-CellDropdownMenu")}
-                            onClick={clickedMenuItemValue =>
-                            {
-                                const newValue = value === clickedMenuItemValue ? undefined : clickedMenuItemValue;
-                                onChange({values: values.map((oldValue, i) => i === columnIndex ? newValue : oldValue)});
-                            }}
-                        />
-                    );
-                }
+                                    const newValue = {...value};
+                                    selectedMenuItemValues.forEach(selectedMenuItemValue =>
+                                    {
+                                        const selectedMenuItem = newValue[selectedMenuItemValue];
+                                        newValue[selectedMenuItemValue] = {
+                                            ...selectedMenuItem,
+                                            status: undefined
+                                        };
+                                    });
 
-                switch (dataType)
-                {
+                                    const clickedMenuItem = value[clickedMenuItemValue];
+                                    newValue[clickedMenuItemValue] = {
+                                        ...clickedMenuItem,
+                                        status: clickedMenuItem.status === undefined
+                                            ? MenuItemStatus.Selected
+                                            : clickedMenuItem.status === MenuItemStatus.Selected
+                                                ? undefined
+                                                : clickedMenuItem.status
+                                    };
+
+                                    onChange({values: values.map((oldValue, i) => i === columnIndex ? newValue : oldValue)});
+                                }}
+                            />
+                        );
+                    }
+
                     case "boolean":
                     {
                         return (
@@ -109,7 +121,7 @@ export function Component({
                         );
                     }
 
-                    default:
+                    case "string":
                     {
                         return (
                             <InputField
@@ -130,26 +142,27 @@ export function Component({
 
             function renderValue(): JSX.Element
             {
-                const dataType = column?.dataType;
-                if (typeof dataType === "object")
+                switch (typeof value)
                 {
-                    const stringValue = value as string;
-                    const displayText = (dataType as Record<string, string>)[stringValue];
-                    return (<Label key={columnIndex} className={bem("DataTable-Row-CellLabel")} text={displayText || stringValue}/>);
-                }
+                    case "object":
+                    {
+                        const selectedMenuItemValue = Object.keys(value)
+                            .find(menuItemValue => value[menuItemValue].status === MenuItemStatus.Selected);
 
-                switch (dataType)
-                {
+                        const labelText = value[selectedMenuItemValue].displayText || selectedMenuItemValue;
+                        return (<Label key={columnIndex} className={bem("DataTable-Row-CellLabel")} text={labelText}/>);
+                    }
+
                     case "boolean":
                     {
-                        return (value as boolean) === true
+                        return value === true
                             ? <Icon key={columnIndex} className={bem("DataTable-Row-CellIcon")} name={Icomoon.CheckMark}/>
                             : <Label key={columnIndex} className={bem("DataTable-Row-CellLabel")} text={String.EMPTY}/>;
                     }
 
-                    default:
+                    case "string":
                     {
-                        return (<Label key={columnIndex} className={bem("DataTable-Row-CellLabel")} text={value as string}/>);
+                        return (<Label key={columnIndex} className={bem("DataTable-Row-CellLabel")} text={value}/>);
                     }
                 }
             }

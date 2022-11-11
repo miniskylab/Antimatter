@@ -17,11 +17,4 @@ export class Column
     @IsString()
     @IsOptional()
     readonly placeholder?: string;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @IsOptional()
-    readonly dataType?: "string" | "boolean" | object;
 }
