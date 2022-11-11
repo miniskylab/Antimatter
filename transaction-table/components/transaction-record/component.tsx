@@ -25,6 +25,8 @@ export function Component({
     onChange
 }: TransactionRecordProps): JSX.Element
 {
+    const maxSelectedLabelCount = 3;
+
     return (
         <div className={bem(className, null, getModeModifier())} onClick={onClick}>
             <Icon className={bem("TransactionTable-TransactionRecord-Icon")} name={getIcon()}/>
@@ -74,12 +76,18 @@ export function Component({
     function getDropdownMenuItems(): DropdownMenuProps["menuItems"]
     {
         const dropdownMenuItems: ReturnType<typeof getDropdownMenuItems> = {};
+        const selectedLabelCount = Object.values(labels).filter(x => x.status === TransactionLabelStatus.Selected).length;
         Object.keys(labels).forEach(labelId =>
         {
             const label = labels[labelId];
+            const mappedMenuItemStatus = Enum.getValue(MenuItemStatus, Enum.getName(TransactionLabelStatus, label.status));
             dropdownMenuItems[labelId] = {
                 displayText: label.name,
-                status: Enum.getValue(MenuItemStatus, Enum.getName(TransactionLabelStatus, label.status))
+                status: selectedLabelCount < maxSelectedLabelCount
+                    ? mappedMenuItemStatus
+                    : label.status === undefined
+                        ? MenuItemStatus.Disabled
+                        : mappedMenuItemStatus
             };
         });
 
