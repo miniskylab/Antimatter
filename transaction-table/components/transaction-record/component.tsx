@@ -7,7 +7,7 @@ import {bem} from "@miniskylab/antimatter-model";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import {Enum} from "@miniskylab/antimatter-typescript";
 import React from "react";
-import {LabelStatus, LabelType, Mode, TransactionRecordProps} from "./model";
+import {Mode, TransactionLabel, TransactionLabelStatus, TransactionLabelType, TransactionRecordProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -55,11 +55,17 @@ export function Component({
         }
     }
 
+    function byOrder(transactionLabelA: TransactionLabel, transactionLabelB: TransactionLabel): number
+    {
+        return transactionLabelA.order - transactionLabelB.order;
+    }
+
     function getIcon(): string
     {
         let icon: string = Icomoon.PriceTag;
         Object.values(labels)
-            .filter(label => label.status === LabelStatus.Selected)
+            .filter(label => label.status === TransactionLabelStatus.Selected)
+            .sort(byOrder)
             .forEach(selectedLabel => { icon = (Icomoon as Record<string, string>)[selectedLabel.icon] ?? icon; });
 
         return icon;
@@ -73,7 +79,7 @@ export function Component({
             const label = labels[labelId];
             dropdownMenuItems[labelId] = {
                 displayText: label.name,
-                status: Enum.getValue(DropdownMenuStatus, Enum.getName(LabelStatus, label.status))
+                status: Enum.getValue(DropdownMenuStatus, Enum.getName(TransactionLabelStatus, label.status))
             };
         });
 
@@ -107,7 +113,9 @@ export function Component({
 
     function renderAmount(): JSX.Element
     {
-        const isIncome = Object.values(labels).some(label => label.status === LabelStatus.Selected && label.type === LabelType.Income);
+        const isIncome = Object.values(labels)
+            .some(label => label.status === TransactionLabelStatus.Selected && label.type === TransactionLabelType.Income);
+
         return (
             mode === Mode.Draft || mode === Mode.Edit
                 ? <NumericInputField
@@ -148,18 +156,24 @@ export function Component({
                     menuItems={dropdownMenuItems}
                     onClick={clickedLabelId =>
                     {
+                        const clickedLabel = labels[clickedLabelId];
+                        const clickedLabelNewStatus = clickedLabel.status === TransactionLabelStatus.Selected
+                            ? undefined
+                            : clickedLabel.status === undefined
+                                ? TransactionLabelStatus.Selected
+                                : clickedLabel.status;
+
                         onChange({
                             name,
                             amount,
                             labels: {
                                 ...labels,
                                 [clickedLabelId]: {
-                                    ...labels[clickedLabelId],
-                                    status: labels[clickedLabelId].status === LabelStatus.Selected
-                                        ? undefined
-                                        : labels[clickedLabelId].status === undefined
-                                            ? LabelStatus.Selected
-                                            : labels[clickedLabelId].status
+                                    ...clickedLabel,
+                                    status: clickedLabelNewStatus,
+                                    order: clickedLabelNewStatus === TransactionLabelStatus.Selected
+                                        ? Object.values(labels).filter(x => x.status === TransactionLabelStatus.Selected).length + 1
+                                        : undefined
                                 }
                             },
                             executedDate,
@@ -176,7 +190,7 @@ export function Component({
             return (
                 <div className={bem(className, "LabelContainer")}>
                     {
-                        [...Object.keys(labels).filter(x => labels[x].status === LabelStatus.Selected)]
+                        [...Object.keys(labels).filter(x => labels[x].status === TransactionLabelStatus.Selected)]
                             .sort((a, b) => dropdownMenuItemValues.indexOf(a) - dropdownMenuItemValues.indexOf(b))
                             .map(labelId => (
                                 <Label

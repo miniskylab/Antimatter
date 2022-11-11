@@ -2,9 +2,9 @@ import {IsDate, IsDefined, IsEnum, IsNotEmpty, IsNumber, IsString} from "@minisk
 import {ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 import {MouseEventHandler} from "react";
-import {Label} from "./label";
 import {Mode} from "./mode";
 import type {TransactionData} from "./transaction-data";
+import {TransactionLabel} from "./transaction-label";
 
 export class TransactionRecordProps extends ComponentProps
 {
@@ -29,7 +29,7 @@ export class TransactionRecordProps extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly labels?: Record<string, Label>;
+    readonly labels?: Record<string, TransactionLabel>;
 
 
     /**

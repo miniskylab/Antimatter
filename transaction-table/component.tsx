@@ -103,7 +103,7 @@ export function TransactionTable({
 
     function isIncome(transaction: TransactionRecord.TransactionData): boolean
     {
-        return Object.values(transaction.labels).some(label => label.type === TransactionRecord.LabelType.Income);
+        return Object.values(transaction.labels).some(label => label.type === TransactionRecord.TransactionLabelType.Income);
     }
 
     function getTotalIncome(): number
