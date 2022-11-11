@@ -1,4 +1,4 @@
-import {DropdownMenu, DropdownMenuProps, Status as DropdownMenuStatus} from "@miniskylab/antimatter-dropdown-menu";
+import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {InputField} from "@miniskylab/antimatter-input-field";
@@ -79,7 +79,7 @@ export function Component({
             const label = labels[labelId];
             dropdownMenuItems[labelId] = {
                 displayText: label.name,
-                status: Enum.getValue(DropdownMenuStatus, Enum.getName(TransactionLabelStatus, label.status))
+                status: Enum.getValue(MenuItemStatus, Enum.getName(TransactionLabelStatus, label.status))
             };
         });
 

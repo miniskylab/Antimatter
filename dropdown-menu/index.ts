@@ -1,3 +1,3 @@
 export {DropdownMenu} from "./component";
-export {DropdownMenuProps, Status} from "./model";
+export {DropdownMenuProps, MenuItemStatus} from "./model";
 export {Name} from "./name";

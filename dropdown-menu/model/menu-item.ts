@@ -1,17 +1,17 @@
 import {IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
 import {IsOptional} from "class-validator";
-import {Status} from "./status";
+import {MenuItemStatus} from "./menu-item-status";
 
 export class MenuItem
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type Status
+     * @type MenuItemStatus
      */
-    @IsEnum(Status)
+    @IsEnum(MenuItemStatus)
     @IsOptional()
-    readonly status?: Status;
+    readonly status?: MenuItemStatus;
 
 
     /**

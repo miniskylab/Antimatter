@@ -1,7 +1,7 @@
-import {Direction} from "./direction";
+import {DropDirection} from "./drop-direction";
 
 export class State
 {
     readonly isOpen?: boolean;
-    readonly dropDirection?: Direction;
+    readonly dropDirection?: DropDirection;
 }

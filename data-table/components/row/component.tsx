@@ -1,5 +1,5 @@
 import {Checkbox, Status as CheckboxStatus} from "@miniskylab/antimatter-checkbox";
-import {DropdownMenu, Status as MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
+import {DropdownMenu, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {InputField} from "@miniskylab/antimatter-input-field";

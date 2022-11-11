@@ -3,7 +3,7 @@ import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
 import {Label} from "@miniskylab/antimatter-label";
 import {bem} from "@miniskylab/antimatter-model";
 import React, {createRef, RefObject} from "react";
-import {Direction, DropdownMenuProps, State, Status} from "./model";
+import {DropDirection, DropdownMenuProps, MenuItemStatus, State} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -27,7 +27,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
         this.dropdownRef = createRef<HTMLDivElement>();
         this.state = {
             isOpen: false,
-            dropDirection: Direction.Down
+            dropDirection: DropDirection.Down
         };
     }
 
@@ -58,7 +58,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
 
     private renderContainer(): JSX.Element
     {
-        const selectedValues = Object.keys(this.props.menuItems).filter(x => this.props.menuItems[x].status === Status.Selected);
+        const selectedValues = Object.keys(this.props.menuItems).filter(x => this.props.menuItems[x].status === MenuItemStatus.Selected);
         const hasSelection = selectedValues.length > 0;
         return (
             <div className={bem(this.props.className, hasSelection ? "BadgeContainer" : "Placeholder")}>
@@ -87,7 +87,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
                     "Menu",
                     !this.state.isOpen
                         ? "Hidden"
-                        : this.state.dropDirection === Direction.Up
+                        : this.state.dropDirection === DropDirection.Up
                             ? "DropUp"
                             : String.EMPTY
                 )}
@@ -105,7 +105,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
         for (const menuItemValue in this.props.menuItems)
         {
             const menuItem = this.props.menuItems[menuItemValue];
-            if (menuItem.status === Status.Divider)
+            if (menuItem.status === MenuItemStatus.Divider)
             {
                 menuItemJsxElements.push(<div key={menuItemValue} className={bem(this.props.className, "Divider")}/>);
                 continue;
@@ -117,14 +117,14 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
                     className={bem(
                         this.props.className,
                         "MenuItem",
-                        menuItem.status === Status.Selected
+                        menuItem.status === MenuItemStatus.Selected
                             ? "Selected"
-                            : menuItem.status === Status.Disabled
+                            : menuItem.status === MenuItemStatus.Disabled
                                 ? "Disabled"
                                 : String.EMPTY
                     )}
                     onClick={
-                        menuItem.status === undefined || menuItem.status === Status.Selected
+                        menuItem.status === undefined || menuItem.status === MenuItemStatus.Selected
                             ? event =>
                             {
                                 event.stopPropagation();
@@ -134,7 +134,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
                     }
                 >
                     {menuItem.displayText || menuItemValue}
-                    {menuItem.status === Status.Selected && (
+                    {menuItem.status === MenuItemStatus.Selected && (
                         <Icon
                             className={bem("DropdownMenu-SelectionIcon")}
                             name={Icomoon.CheckMark}
@@ -149,7 +149,7 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
 
     private onMenuItemClick(menuItemValue: string): void
     {
-        const isSelected = this.props.menuItems[menuItemValue].status === Status.Selected;
+        const isSelected = this.props.menuItems[menuItemValue].status === MenuItemStatus.Selected;
         if (!isSelected && this.props.closeMenuAfterFirstSelection)
         {
             this.hideMenu();
@@ -205,15 +205,15 @@ export class DropdownMenu extends React.Component<DropdownMenuProps, State>
                 bottom: dropdownRect.bottom - containerRect.top
             };
 
-            let dropDirection = Direction.Down;
+            let dropDirection = DropDirection.Down;
             const menuHeight = this.getMenuHeight();
             if (menuHeight)
             {
                 const enoughSpaceToDropDown = dropdownRelativePosition.bottom + menuHeight + pxBufferSpace < containerRect.height;
                 const enoughSpaceToDropUp = dropdownRelativePosition.top > menuHeight + pxBufferSpace;
                 dropDirection = !enoughSpaceToDropDown && enoughSpaceToDropUp
-                    ? Direction.Up
-                    : Direction.Down;
+                    ? DropDirection.Up
+                    : DropDirection.Down;
             }
 
             this.setState({
