@@ -31,7 +31,7 @@ export function InputField({
                 <input
                     type={isPasswordField ? "password" : "text"}
                     className={bem(className, "TextBox", shrunkModifier)}
-                    value={value}
+                    value={value ?? String.EMPTY}
                     onChange={handleChangeEvent}
                     onBlur={onBlur}
                     onFocus={onFocus}
