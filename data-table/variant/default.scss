@@ -242,20 +242,20 @@
                     z-index: antimatter-layer.$higher;
                 }
 
-                .DataTable-Row-CellLabel {
+                $DataTable-Row-CellLabel: ".DataTable-Row-CellLabel";
+                @include antimatter-label-default.variant($DataTable-Row-CellLabel) {
                     flex: 1;
                     display: flex;
-                    align-items: center;
+                    justify-content: flex-start;
                     height: 100%;
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
 
-                .DataTable-Row-CellIcon {
+                $DataTable-Row-CellIcon: ".DataTable-Row-CellIcon";
+                @include antimatter-icon-default.variant($DataTable-Row-CellIcon) {
                     flex: 1;
-                    display: flex;
-                    align-items: center;
                     height: 100%;
                 }
 
