@@ -1,14 +1,14 @@
-import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {IsOptional} from "class-validator";
+import {ReactNode} from "react";
+import type {LabelStyles} from "./styles";
 
 @ComponentName("Label")
-export class LabelProps extends ComponentProps
+export class LabelProps extends ComponentProps<LabelStyles>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsNotEmpty()
-    @IsString()
-    @IsDefined()
-    readonly text: string;
+    @IsOptional()
+    readonly children?: ReactNode;
 }

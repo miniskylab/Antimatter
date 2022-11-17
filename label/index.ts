@@ -1,3 +1,4 @@
 export {Label} from "./component";
-export {LabelProps} from "./model";
-export {Name} from "./name";
+export {LabelProps, LabelStyles} from "./model";
+export {ComponentName} from "./name";
+export * as LabelVariant from "./variant";

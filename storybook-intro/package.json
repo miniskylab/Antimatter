@@ -1,8 +1,0 @@
-{
-  "name": "@miniskylab/antimatter-storybook-intro",
-  "version": "0.0.0",
-  "license": "MIT",
-  "dependencies": {
-    "@storybook/addon-docs": "6.5.13"
-  }
-}
