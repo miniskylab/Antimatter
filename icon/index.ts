@@ -1,3 +1,4 @@
 export {Icon} from "./component";
-export {IconProps} from "./model";
-export {Name} from "./name";
+export {IconProps, IconStyles, IconName} from "./model";
+export {ComponentName} from "./name";
+export * as IconVariant from "./variant";

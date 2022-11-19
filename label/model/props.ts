@@ -1,7 +1,7 @@
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 import {ReactNode} from "react";
-import type {LabelStyles} from "./styles";
+import {LabelStyles} from "./styles";
 
 @ComponentName("Label")
 export class LabelProps extends ComponentProps<LabelStyles>

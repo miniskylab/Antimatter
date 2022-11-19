@@ -1,5 +1,5 @@
 import {ElementStyle} from "@miniskylab/antimatter-model";
 
-export type LabelStyles = {
+export type IconStyles = {
     Root: ElementStyle
 };
