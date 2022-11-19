@@ -1,5 +1,5 @@
 import {Decorator} from "@miniskylab/antimatter-decorator";
-import {ComponentName} from "@miniskylab/antimatter-model";
+import {ComponentName as ComponentNameDecorator} from "@miniskylab/antimatter-model";
 import {FooterProps} from "./model";
 
-export const Name = Decorator.getValue<string>(ComponentName, FooterProps);
+export const ComponentName = Decorator.getValue<string>(ComponentNameDecorator, FooterProps);
