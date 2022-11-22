@@ -5,7 +5,7 @@ import {plainToClass} from "class-transformer";
 import {validateSync, ValidationError} from "class-validator";
 import {ComponentType, createElement} from "react";
 
-export function withValidation<TProps extends ComponentProps>(
+export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
     component: ComponentType<TProps>,
     PropsType: new () => TProps
 ): ComponentType<TProps>
