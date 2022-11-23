@@ -1,10 +1,14 @@
 const path = require("path");
 const Webpack = require("webpack");
 const ESLintPlugin = require("eslint-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
     applyAntimatterConfiguration(webpackConfiguration, mode)
     {
+        const isProductionMode = mode.toLowerCase() === "production";
+
         webpackConfiguration.resolve = {
             ...webpackConfiguration.resolve,
             extensions: [
@@ -20,13 +24,14 @@ module.exports = {
 
         webpackConfiguration.plugins.push(
             new Webpack.DefinePlugin({
-                __DEV__: mode.toLowerCase() !== "production",
+                __DEV__: !isProductionMode,
                 "process.env.NODE_ENV": JSON.stringify(mode.toLowerCase())
             }),
             new ESLintPlugin({
                 extensions: ["ts", "tsx"],
-                emitWarning: mode.toLowerCase() !== "production"
-            })
+                emitWarning: !isProductionMode
+            }),
+            new MiniCssExtractPlugin({filename: isProductionMode ? "[name].[contenthash].css" : "[name].css"})
         );
 
         webpackConfiguration.module.rules.push(
@@ -48,6 +53,10 @@ module.exports = {
                 ]
             },
             {
+                test: /\.scss$/,
+                use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"]
+            },
+            {
                 test: /\.(ttf|eot|woff|woff2|svg)$/,
                 type: "asset/resource",
                 generator: {
@@ -55,6 +64,27 @@ module.exports = {
                 }
             }
         );
+
+        if (isProductionMode)
+        {
+            webpackConfiguration.optimization = {
+                ...(webpackConfiguration.optimization || {}),
+                minimizer: [
+                    ...(webpackConfiguration.optimization.minimizer || []),
+                    new CssMinimizerPlugin({
+                        minimizerOptions: {
+                            preset: [
+                                "default",
+                                {
+                                    discardComments: {removeAll: true}
+                                }
+                            ]
+                        },
+                        minify: CssMinimizerPlugin.cleanCssMinify
+                    })
+                ]
+            };
+        }
 
         return webpackConfiguration;
     }

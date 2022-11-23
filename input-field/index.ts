@@ -1,3 +1,6 @@
 export {InputField} from "./component";
 export {InputFieldProps} from "./model";
-export {Name} from "./name";
+export {ComponentName} from "./name";
+export * as InputFieldVariant from "./variant";
+
+export type {InputFieldStyles} from "./model";

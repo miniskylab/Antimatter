@@ -1,14 +1,15 @@
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
-import {bem} from "@miniskylab/antimatter-model";
+import {getFontFamily} from "@miniskylab/antimatter-model";
 import React from "react";
+import {TextInput, View} from "react-native";
 import {InputFieldProps} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function InputField({
-    className,
+    style,
     value = String.EMPTY,
     icon,
     placeholder,
@@ -17,35 +18,37 @@ export function InputField({
     onChange,
     onBlur,
     onFocus,
-    onPointerDown,
-    onKeyDown
+    onKeyPress
 }: InputFieldProps): JSX.Element
 {
-    const shrunkModifier = placeholder && value ? "Shrunk" : String.EMPTY;
+    const hasPlaceholderAndHasValue = placeholder && value;
 
     return (
-        <div className={bem(className)}>
-            {icon && <Icon className={bem("InputField-Addon")} name={icon}/>}
-            <div className={bem(className, "Container")}>
-                {placeholder && <Label className={bem("InputField-Placeholder", null, shrunkModifier)} text={placeholder}/>}
-                <input
-                    type={isPasswordField ? "password" : "text"}
-                    className={bem(className, "TextBox", shrunkModifier)}
-                    value={value ?? String.EMPTY}
-                    onChange={handleChangeEvent}
+        <View style={style.Root}>
+            {icon && <Icon style={style.AddOn} name={icon}/>}
+            <View style={style.Container}>
+                {placeholder && (
+                    <Label
+                        style={hasPlaceholderAndHasValue ? style.Placeholder__Shrunk : style.Placeholder}
+                        pointerEvents={"none"}
+                    >
+                        {placeholder}
+                    </Label>
+                )}
+                <TextInput
+                    secureTextEntry={isPasswordField}
+                    style={{
+                        ...hasPlaceholderAndHasValue ? style.TextBox__Shrunk : style.TextBox,
+                        fontFamily: getFontFamily(style.TextBox)
+                    }}
+                    value={value ?? ""}
+                    onChangeText={onChange}
                     onBlur={onBlur}
                     onFocus={onFocus}
-                    onPointerDown={onPointerDown}
-                    onKeyDown={onKeyDown}
+                    onKeyPress={onKeyPress}
                     autoFocus={autoFocus}
                 />
-            </div>
-        </div>
+            </View>
+        </View>
     );
-
-    function handleChangeEvent(changeEvent: React.ChangeEvent<HTMLInputElement>)
-    {
-        const newValue = changeEvent.target.value;
-        onChange?.(newValue);
-    }
 }

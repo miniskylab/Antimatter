@@ -1,5 +1,5 @@
-import {ElementStyle} from "@miniskylab/antimatter-model";
+import {TextStyle} from "react-native";
 
 export type LabelStyles = {
-    Root: ElementStyle
+    Root?: TextStyle
 };

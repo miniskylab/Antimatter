@@ -1,18 +1,21 @@
-import {IsBoolean, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
+import {IconName} from "@miniskylab/antimatter-icon";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
-import {FocusEventHandler, KeyboardEventHandler, PointerEventHandler} from "react";
+import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData} from "react-native";
+import {InputFieldStyles} from "./styles";
 
 @ComponentName("Input Field")
-export class InputFieldProps extends ComponentProps
+export class InputFieldProps extends ComponentProps<InputFieldStyles>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type IconName
      */
-    @IsNotEmpty()
-    @IsString()
+    @IsEnum(IconName)
     @IsOptional()
-    readonly icon?: string;
+    readonly icon?: IconName;
 
 
     /**
@@ -50,25 +53,19 @@ export class InputFieldProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onBlur?: FocusEventHandler<HTMLInputElement>;
+    readonly onBlur?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onFocus?: FocusEventHandler<HTMLInputElement>;
+    readonly onFocus?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onPointerDown?: PointerEventHandler<HTMLInputElement>;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    readonly onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
+    readonly onKeyPress?: (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
 
 
     /**

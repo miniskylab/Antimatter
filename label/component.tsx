@@ -1,5 +1,6 @@
+import {getFontFamily, inheritTextStyleFrom} from "@miniskylab/antimatter-model";
 import React from "react";
-import {Text} from "react-native";
+import {Text, View} from "react-native";
 import {LabelProps} from "./model";
 
 /**
@@ -7,10 +8,22 @@ import {LabelProps} from "./model";
  */
 export function Label({
     style,
-    children
+    children,
+    selectable = true,
+    pointerEvents = "auto"
 }: LabelProps): JSX.Element
 {
     return (
-        <Text style={style.Root}>{children}</Text>
+        <View style={style.Root} pointerEvents={pointerEvents}>
+            <Text
+                selectable={selectable}
+                style={{
+                    ...inheritTextStyleFrom(style.Root),
+                    fontFamily: getFontFamily(style.Root)
+                }}
+            >
+                {children}
+            </Text>
+        </View>
     );
 }
