@@ -1,9 +1,14 @@
-import {LabelStyles} from "../model";
+import {LabelStyle} from "../model";
 
-export const Default: LabelStyles = {};
+export const Default: LabelStyle = function ()
+{
+    const labelStyle: ReturnType<typeof Default> = {};
 
-Default.Root = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
+    labelStyle.Root = {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    };
+
+    return labelStyle;
 };

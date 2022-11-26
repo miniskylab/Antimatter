@@ -3,4 +3,4 @@ export {InputFieldProps} from "./model";
 export {ComponentName} from "./name";
 export * as InputFieldVariant from "./variant";
 
-export type {InputFieldStyles} from "./model";
+export type {InputFieldStyle} from "./model";

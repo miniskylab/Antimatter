@@ -3,10 +3,10 @@ import {IconName} from "@miniskylab/antimatter-icon";
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData} from "react-native";
-import {InputFieldStyles} from "./styles";
+import {InputFieldStyle} from "./style";
 
 @ComponentName("Input Field")
-export class InputFieldProps extends ComponentProps<InputFieldStyles>
+export class InputFieldProps extends ComponentProps<InputFieldStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

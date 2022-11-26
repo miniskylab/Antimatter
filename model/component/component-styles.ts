@@ -1,6 +1,8 @@
 import {Platform, StyleSheet, TextStyle} from "react-native";
+import {ComponentProps} from "./component-props";
 
 export type ElementStyle = StyleSheet.NamedStyles<Record<string, unknown>>[string];
+export type OmitStyle<TProps extends ComponentProps<TProps["style"]>> = Required<Omit<TProps, "style">>;
 
 export function inheritTextStyleFrom<TStyle extends TextStyle>(style: TStyle): TextStyle
 {
@@ -10,6 +12,7 @@ export function inheritTextStyleFrom<TStyle extends TextStyle>(style: TStyle): T
         fontSize: style.fontSize,
         fontStyle: style.fontStyle,
         fontWeight: style.fontWeight,
+        lineHeight: style.lineHeight,
         textDecorationLine: style.textDecorationLine,
         textDecorationStyle: style.textDecorationStyle
     };

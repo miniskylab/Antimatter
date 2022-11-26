@@ -2,16 +2,17 @@ import {createIconSetFromIcoMoon} from "@expo/vector-icons";
 import {inheritTextStyleFrom} from "@miniskylab/antimatter-model";
 import {useFonts} from "expo-font";
 import React from "react";
-import {View} from "react-native";
+import {Animated} from "react-native";
 import icomoonFont from "./asset/antimatter.ttf";
 import icomoonSelection from "./asset/selection.json";
 import {IconProps} from "./model";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Icon({
-    style,
+    style = Variant.Default,
     name
 }: IconProps): JSX.Element
 {
@@ -24,6 +25,7 @@ export function Icon({
         return null;
     }
 
+    const Style = style({name});
     const IconSet = createIconSetFromIcoMoon(
         icomoonSelection,
         "Antimatter",
@@ -31,8 +33,8 @@ export function Icon({
     );
 
     return (
-        <View style={style.Root}>
-            <IconSet name={name} size={style.Root.fontSize} style={inheritTextStyleFrom(style.Root)}/>
-        </View>
+        <Animated.View style={Style.Root}>
+            <IconSet name={name} size={Style.Root.fontSize} style={inheritTextStyleFrom(Style.Root)}/>
+        </Animated.View>
     );
 }

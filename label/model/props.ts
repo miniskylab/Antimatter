@@ -2,10 +2,10 @@ import {IsBoolean, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-vali
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
 import {IsOptional} from "class-validator";
 import {ReactNode} from "react";
-import {LabelStyles} from "./styles";
+import {LabelStyle} from "./style";
 
 @ComponentName("Label")
-export class LabelProps extends ComponentProps<LabelStyles>
+export class LabelProps extends ComponentProps<LabelStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

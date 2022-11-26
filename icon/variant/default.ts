@@ -1,9 +1,14 @@
-import {IconStyles} from "../model";
+import {IconStyle} from "../model";
 
-export const Default: IconStyles = {};
+export const Default: IconStyle = function ()
+{
+    const iconStyle: ReturnType<typeof Default> = {};
 
-Default.Root = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center"
+    iconStyle.Root = {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center"
+    };
+
+    return iconStyle;
 };

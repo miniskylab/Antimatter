@@ -1,2 +1,2 @@
 export * from "./props";
-export * from "./styles";
+export * from "./style";
