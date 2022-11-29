@@ -1,18 +1,19 @@
 import {
+    ComponentName,
+    ComponentProps,
     IsBoolean,
-    IsGreaterThanOrEqualTo,
     IsInteger,
-    IsLessThanOrEqualTo,
     IsNumber,
     IsPositive,
-    IsString
-} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+    IsString,
+    TextInputFocusEventHandler,
+    TextInputKeyPressEventHandler
+} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {FocusEventHandler, KeyboardEventHandler, PointerEventHandler} from "react";
+import {NumericInputFieldStyle} from "./style";
 
 @ComponentName("Numeric Input Field")
-export class NumericInputFieldProps extends ComponentProps
+export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -33,8 +34,6 @@ export class NumericInputFieldProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsLessThanOrEqualTo("maxValue")
-    @IsGreaterThanOrEqualTo("minValue")
     @IsNumber()
     @IsOptional()
     readonly defaultValue?: number;
@@ -43,7 +42,6 @@ export class NumericInputFieldProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsLessThanOrEqualTo("maxValue")
     @IsNumber()
     @IsOptional()
     readonly minValue?: number;
@@ -52,7 +50,6 @@ export class NumericInputFieldProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsGreaterThanOrEqualTo("minValue")
     @IsNumber()
     @IsOptional()
     readonly maxValue?: number;
@@ -87,25 +84,19 @@ export class NumericInputFieldProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onBlur?: FocusEventHandler<HTMLInputElement>;
+    readonly onBlur?: TextInputFocusEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onFocus?: FocusEventHandler<HTMLInputElement>;
+    readonly onFocus?: TextInputFocusEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onPointerDown?: PointerEventHandler<HTMLInputElement>;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    readonly onKeyDown?: KeyboardEventHandler<HTMLInputElement>;
+    readonly onKeyPress?: TextInputKeyPressEventHandler;
 
 
     /**

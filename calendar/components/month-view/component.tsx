@@ -61,7 +61,7 @@ export class Component extends React.Component<Props>
                 key={`${month.getMonth()}${month.getFullYear()}`}
                 className={bem("Calendar-MonthView-GridCell", null, modifier)}
                 label={GregorianCalendar.getShortMonthName(month.getMonth())}
-                onClick={(): void => { this.props.onMonthClick(new Date(month)); }}
+                onClick={() => { this.props.onMonthClick(new Date(month)); }}
             />
         );
     }

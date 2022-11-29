@@ -1,3 +1,6 @@
 export {NumericInputField} from "./component";
 export {NumericInputFieldProps} from "./model";
-export {Name} from "./name";
+export {ComponentName} from "./name";
+export * as NumericInputFieldVariant from "./variant";
+
+export type {NumericInputFieldStyle} from "./model";

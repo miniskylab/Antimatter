@@ -1,9 +1,0 @@
-{
-  "name": "@miniskylab/antimatter-higher-order-component",
-  "version": "0.0.0",
-  "license": "MIT",
-  "dependencies": {
-    "class-transformer": "0.5.1",
-    "class-validator": "0.13.2"
-  }
-}

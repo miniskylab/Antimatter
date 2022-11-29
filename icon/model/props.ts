@@ -1,5 +1,4 @@
-import {IsDefined, IsEnum} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentName, ComponentProps, IsDefined, IsEnum} from "@miniskylab/antimatter-framework";
 import {IconName} from "./icon-name";
 import {IconStyle} from "./style";
 

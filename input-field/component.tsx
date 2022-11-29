@@ -1,6 +1,6 @@
+import {EMPTY_STRING, getFontFamily, inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
-import {getFontFamily, inheritTextStyleFrom} from "@miniskylab/antimatter-model";
 import React from "react";
 import {Animated, TextInput} from "react-native";
 import {InputFieldProps} from "./model";
@@ -11,18 +11,36 @@ import * as Variant from "./variant";
  */
 export function InputField({
     style = Variant.Default,
-    value = String.EMPTY,
+    value = EMPTY_STRING,
     icon,
-    placeholder,
+    placeholder = EMPTY_STRING,
     autoFocus = false,
     isPasswordField = false,
-    onChange,
+    contextMenuHidden = false,
+    keyboardType,
+    selection,
+    onChangeText,
+    onSelectionChange,
     onBlur,
     onFocus,
     onKeyPress
 }: InputFieldProps): JSX.Element
 {
-    const Style = style({value, icon, placeholder, autoFocus, isPasswordField, onChange, onBlur, onFocus, onKeyPress});
+    const Style = style({
+        value,
+        icon,
+        placeholder,
+        autoFocus,
+        isPasswordField,
+        contextMenuHidden,
+        keyboardType,
+        selection,
+        onChangeText,
+        onSelectionChange,
+        onBlur,
+        onFocus,
+        onKeyPress
+    });
 
     return (
         <Animated.View style={Style.Root}>
@@ -45,12 +63,16 @@ export function InputField({
                             width: "100%",
                             height: "100%"
                         }}
-                        value={value ?? ""}
-                        onChangeText={onChange}
+                        value={value ?? EMPTY_STRING}
+                        autoFocus={autoFocus}
+                        contextMenuHidden={contextMenuHidden}
+                        selection={selection}
+                        keyboardType={keyboardType}
+                        onChangeText={onChangeText}
+                        onSelectionChange={onSelectionChange}
                         onBlur={onBlur}
                         onFocus={onFocus}
                         onKeyPress={onKeyPress}
-                        autoFocus={autoFocus}
                     />
                 </Animated.View>
             </Animated.View>

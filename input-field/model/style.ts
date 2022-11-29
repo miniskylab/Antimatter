@@ -1,6 +1,6 @@
+import {ElementStyle, OmitStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle} from "@miniskylab/antimatter-label";
-import {ElementStyle, OmitStyle} from "@miniskylab/antimatter-model";
 import {TextStyle} from "react-native";
 import {InputFieldProps} from "./props";
 

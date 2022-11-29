@@ -66,7 +66,7 @@ export class LineChart extends React.Component<LineChartProps>
     private onBrowserResize(): void
     {
         if (this.browserResizeEventTimerId) return;
-        this.browserResizeEventTimerId = window.setTimeout((): void =>
+        this.browserResizeEventTimerId = window.setTimeout(() =>
         {
             if (!this.componentIsMounted)
             {

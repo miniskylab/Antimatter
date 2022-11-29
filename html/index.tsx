@@ -2,7 +2,7 @@ import React from "react";
 import sanitizeHtml from "sanitize-html";
 import "./html.scss";
 
-class _Html
+export const Html = new class
 {
     render(dangerousHtmlString: string): JSX.Element
     {
@@ -22,6 +22,4 @@ class _Html
             />
         );
     }
-}
-
-export const Html = new _Html();
+};

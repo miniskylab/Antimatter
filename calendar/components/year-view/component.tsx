@@ -56,7 +56,7 @@ export class Component extends React.Component<Props>
                 key={year}
                 className={bem("Calendar-YearView-GridCell", null, modifier)}
                 label={outOfSupportedYearRange ? String.EMPTY : year.toString()}
-                onClick={outOfSupportedYearRange ? undefined : (): void => { this.props.onYearClick(year); }}
+                onClick={outOfSupportedYearRange ? undefined : () => { this.props.onYearClick(year); }}
             />
         );
     }

@@ -1,8 +1,18 @@
-import {IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-class-validator";
+import {
+    ComponentName,
+    ComponentProps,
+    IsBoolean,
+    IsEnum,
+    IsString,
+    Selection,
+    TextInputFocusEventHandler,
+    TextInputKeyPressEventHandler,
+    TextInputSelectionChangeEventHandler
+} from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
-import {IsOptional} from "class-validator";
-import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData} from "react-native";
+import {Type} from "class-transformer";
+import {IsOptional, ValidateNested} from "class-validator";
+import {KeyboardTypeOptions} from "react-native";
 import {InputFieldStyle} from "./style";
 
 @ComponentName("Input Field")
@@ -53,23 +63,53 @@ export class InputFieldProps extends ComponentProps<InputFieldStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onBlur?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+    @IsBoolean()
+    @IsOptional()
+    readonly contextMenuHidden?: boolean;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onFocus?: (event: NativeSyntheticEvent<TextInputFocusEventData>) => void;
+    @IsOptional()
+    readonly keyboardType?: KeyboardTypeOptions;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onKeyPress?: (event: NativeSyntheticEvent<TextInputKeyPressEventData>) => void;
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => Selection)
+    readonly selection?: Selection;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChange?: (newValue: string) => void;
+    readonly onBlur?: TextInputFocusEventHandler;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly onFocus?: TextInputFocusEventHandler;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly onKeyPress?: TextInputKeyPressEventHandler;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly onSelectionChange?: TextInputSelectionChangeEventHandler;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly onChangeText?: (newText: string) => void;
 }

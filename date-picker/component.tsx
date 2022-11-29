@@ -141,7 +141,7 @@ export class DatePicker extends React.Component<DatePickerProps, State>
         this.nextCaretPosition = this.inputFieldRef.current.selectionStart;
         if (this.state.userInput === nextUserInput)
         {
-            const setCaretPositionToTheBeginningOfCurrentForwardSlashToken = (): void =>
+            const setCaretPositionToTheBeginningOfCurrentForwardSlashToken = () =>
             {
                 this.nextCaretPosition = this.caretPositionWhenKeydown;
                 while (!isDigit(this.state.userInput[this.nextCaretPosition]) && this.nextCaretPosition < this.state.userInput.length)
@@ -177,7 +177,7 @@ export class DatePicker extends React.Component<DatePickerProps, State>
         }
         else if (!Char.isBackspace(this.lastKeycodeDown) && !Char.isDelete(this.lastKeycodeDown))
         {
-            const moveCaretForwardIfATokenWasCompleted = (): void =>
+            const moveCaretForwardIfATokenWasCompleted = () =>
             {
                 const monthTokenStartIndex = 2;
                 const yearTokenStartIndex = 7;

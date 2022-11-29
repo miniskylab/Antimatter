@@ -1,5 +1,5 @@
 import {createIconSetFromIcoMoon} from "@expo/vector-icons";
-import {inheritTextStyleFrom} from "@miniskylab/antimatter-model";
+import {inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
 import {useFonts} from "expo-font";
 import React from "react";
 import {Animated} from "react-native";

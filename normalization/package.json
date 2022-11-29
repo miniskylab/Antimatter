@@ -1,8 +1,0 @@
-{
-  "name": "@miniskylab/antimatter-normalization",
-  "version": "0.0.0",
-  "license": "MIT",
-  "dependencies": {
-    "normalize.css": "8.0.1"
-  }
-}

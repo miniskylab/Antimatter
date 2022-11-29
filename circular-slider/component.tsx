@@ -100,7 +100,7 @@ export class CircularSlider extends React.Component<CircularSliderProps>
         const onPointerMove = (pointerMoveEvent: PointerEvent): void =>
         {
             if (pointerMoveEventTimerId) return;
-            pointerMoveEventTimerId = window.setTimeout((): void =>
+            pointerMoveEventTimerId = window.setTimeout(() =>
             {
                 pointerMoveEventTimerId = NaN;
 

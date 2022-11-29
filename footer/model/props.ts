@@ -1,5 +1,4 @@
-import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentName, ComponentProps, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {FooterStyle} from "./style";
 
 @ComponentName("Footer")

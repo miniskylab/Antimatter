@@ -86,7 +86,7 @@ export class RangeSlider extends React.Component<RangeSliderProps>
         const onPointerMove = (pointerMoveEvent: PointerEvent): void =>
         {
             if (pointerMoveEventTimerId) return;
-            pointerMoveEventTimerId = window.setTimeout((): void =>
+            pointerMoveEventTimerId = window.setTimeout(() =>
             {
                 pointerMoveEventTimerId = NaN;
 

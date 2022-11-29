@@ -1,5 +1,4 @@
-import {Decorator} from "@miniskylab/antimatter-decorator";
-import {ComponentName as ComponentNameDecorator} from "@miniskylab/antimatter-model";
+import {ComponentName as ComponentNameDecorator, Decorator} from "@miniskylab/antimatter-framework";
 import {InputFieldProps} from "./model";
 
 export const ComponentName = Decorator.getValue<string>(ComponentNameDecorator, InputFieldProps);

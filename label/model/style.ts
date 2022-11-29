@@ -1,4 +1,4 @@
-import {OmitStyle} from "@miniskylab/antimatter-model";
+import {OmitStyle} from "@miniskylab/antimatter-framework";
 import {TextStyle} from "react-native";
 import {LabelProps} from "./props";
 

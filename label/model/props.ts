@@ -1,5 +1,4 @@
-import {IsBoolean, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentName, ComponentProps, IsBoolean, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {ReactNode} from "react";
 import {LabelStyle} from "./style";
