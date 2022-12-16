@@ -3,6 +3,8 @@ import {
     ComponentProps,
     IsBoolean,
     IsEnum,
+    IsNumber,
+    IsPositive,
     IsString,
     Selection,
     TextInputFocusEventHandler,
@@ -66,6 +68,23 @@ export class InputFieldProps extends ComponentProps<InputFieldStyle>
     @IsBoolean()
     @IsOptional()
     readonly contextMenuHidden?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly autoCorrect?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsPositive()
+    @IsNumber()
+    @IsOptional()
+    readonly maxLength?: number;
 
 
     /**

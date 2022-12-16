@@ -17,6 +17,8 @@ export function InputField({
     autoFocus = false,
     isPasswordField = false,
     contextMenuHidden = false,
+    autoCorrect = true,
+    maxLength,
     keyboardType,
     selection,
     onChangeText,
@@ -33,6 +35,8 @@ export function InputField({
         autoFocus,
         isPasswordField,
         contextMenuHidden,
+        autoCorrect,
+        maxLength,
         keyboardType,
         selection,
         onChangeText,
@@ -56,6 +60,7 @@ export function InputField({
                 )}
                 <Animated.View style={Style.TextBox}>
                     <TextInput
+                        autoCorrect={autoCorrect}
                         secureTextEntry={isPasswordField}
                         style={{
                             ...inheritTextStyleFrom(Style.TextBox),
@@ -64,6 +69,7 @@ export function InputField({
                             height: "100%"
                         }}
                         value={value ?? EMPTY_STRING}
+                        maxLength={maxLength}
                         autoFocus={autoFocus}
                         contextMenuHidden={contextMenuHidden}
                         selection={selection}

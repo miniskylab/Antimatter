@@ -71,6 +71,8 @@ export function NumericInputField({
             selection={selection}
             autoFocus={autoFocus}
             placeholder={placeholder}
+            maxLength={userInput.length + 1}
+            autoCorrect={false}
             contextMenuHidden={true}
             keyboardType={"numbers-and-punctuation"}
             onChangeText={handleChangeEvent}
