@@ -5303,7 +5303,7 @@ test("cannot enter number smaller than 'minValue'", () =>
     {
         expect(getNextNumericInputFieldState(
             "-1,234",
-            {start: 5},
+            {start: 6},
             {keypress: Keypress.Digit, newUserInput: "-1,2345"},
             showPlusSymbolForPositiveNumber,
             -5000
@@ -5312,6 +5312,18 @@ test("cannot enter number smaller than 'minValue'", () =>
             nextUserInput: "-5,000",
             nextSelection: {start: 6}
         });
+
+        expect(getNextNumericInputFieldState(
+            "-1,234",
+            {start: 6},
+            {keypress: Keypress.Digit, newUserInput: "-1,2349"},
+            showPlusSymbolForPositiveNumber,
+            -12345
+        )).toEqual({
+            nextValue: -12345,
+            nextUserInput: "-12,345",
+            nextSelection: {start: 7}
+        });
     });
 });
 
@@ -5319,7 +5331,7 @@ test("cannot enter number greater than 'maxValue'", () =>
 {
     expect(getNextNumericInputFieldState(
         "1,234",
-        {start: 4},
+        {start: 5},
         {keypress: Keypress.Digit, newUserInput: "1,2345"},
         false,
         undefined,
@@ -5332,7 +5344,7 @@ test("cannot enter number greater than 'maxValue'", () =>
 
     expect(getNextNumericInputFieldState(
         "+1,234",
-        {start: 5},
+        {start: 6},
         {keypress: Keypress.Digit, newUserInput: "+1,2345"},
         true,
         undefined,
@@ -5340,6 +5352,19 @@ test("cannot enter number greater than 'maxValue'", () =>
     )).toEqual({
         nextValue: 5000,
         nextUserInput: "+5,000",
+        nextSelection: {start: 6}
+    });
+
+    expect(getNextNumericInputFieldState(
+        "1,234",
+        {start: 5},
+        {keypress: Keypress.Digit, newUserInput: "1,2349"},
+        false,
+        undefined,
+        12345
+    )).toEqual({
+        nextValue: 12345,
+        nextUserInput: "12,345",
         nextSelection: {start: 6}
     });
 });

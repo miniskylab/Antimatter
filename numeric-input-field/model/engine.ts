@@ -168,6 +168,10 @@ export function getNextNumericInputFieldState(
         {
             nextCaretPosition = nextUserInput.indexOf(".") + 1;
         }
+        else if (nextCaretPosition > nextUserInput.length)
+        {
+            nextCaretPosition = nextUserInput.length;
+        }
 
         return {nextValue, nextUserInput, nextSelection: {start: nextCaretPosition}};
     }
