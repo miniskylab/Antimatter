@@ -24,22 +24,10 @@ export function NumericInputField({
     onKeyPress
 }: NumericInputFieldProps): JSX.Element
 {
-    validateAndThrow();
+    const {style: _, ...propsWithoutStyle} = arguments[0] as NumericInputFieldProps;
+    const Style = style(propsWithoutStyle);
 
-    const Style = style({
-        defaultValue,
-        minValue,
-        maxValue,
-        maximumFractionDigits,
-        maximumDigitCount,
-        showPlusSymbolForPositiveNumber,
-        placeholder,
-        autoFocus,
-        onChange,
-        onBlur,
-        onFocus,
-        onKeyPress
-    });
+    validateAndThrow();
 
     const lastKeypressRef = useRef<Keypress>();
     const ignoreNextSelectionChangeEventRef = useRef(false);
@@ -150,6 +138,8 @@ export function NumericInputField({
             default:
                 lastKeypressRef.current = Keypress.NotSupported;
         }
+
+        onKeyPress?.(keypressEvent);
     }
 
     function handleBlurEvent(focusEvent: NativeSyntheticEvent<TextInputFocusEventData>): void

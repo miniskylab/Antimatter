@@ -14,7 +14,8 @@ export function Label({
     pointerEvents = "auto"
 }: LabelProps): JSX.Element
 {
-    const Style = style({children, selectable, pointerEvents});
+    const {style: _, ...propsWithoutStyle} = arguments[0] as LabelProps;
+    const Style = style(propsWithoutStyle);
 
     return (
         <Animated.View style={Style.Root} pointerEvents={pointerEvents}>

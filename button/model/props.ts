@@ -1,20 +1,11 @@
-import {IsBoolean, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentName, ComponentProps, GestureResponderEventHandler, IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-framework";
+import {IconName} from "@miniskylab/antimatter-icon";
 import {IsOptional} from "class-validator";
-import {MouseEventHandler, PointerEventHandler} from "react";
-import {Target} from "./target";
+import {ButtonStyle} from "./style";
 
 @ComponentName("Button")
-export class ButtonProps extends ComponentProps
+export class ButtonProps extends ComponentProps<ButtonStyle>
 {
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @IsString()
-    @IsOptional()
-    readonly href?: string;
-
-
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
@@ -25,21 +16,12 @@ export class ButtonProps extends ComponentProps
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @IsNotEmpty()
-    @IsString()
-    @IsOptional()
-    readonly icon?: string;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type Target
+     * @type IconName
      */
-    @IsEnum(Target)
+    @IsEnum(IconName)
     @IsOptional()
-    readonly target?: Target;
+    readonly icon?: IconName;
 
 
     /**
@@ -53,11 +35,5 @@ export class ButtonProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onClick?: MouseEventHandler;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    readonly onPointerDown?: PointerEventHandler;
+    readonly onClick?: GestureResponderEventHandler;
 }

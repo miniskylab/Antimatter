@@ -6,8 +6,8 @@ export const Default: IconStyle = function ()
 
     iconStyle.Root = {
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "center"
     };
 
     return iconStyle;

@@ -28,23 +28,8 @@ export function InputField({
     onKeyPress
 }: InputFieldProps): JSX.Element
 {
-    const Style = style({
-        value,
-        icon,
-        placeholder,
-        autoFocus,
-        isPasswordField,
-        contextMenuHidden,
-        autoCorrect,
-        maxLength,
-        keyboardType,
-        selection,
-        onChangeText,
-        onSelectionChange,
-        onBlur,
-        onFocus,
-        onKeyPress
-    });
+    const {style: _, ...propsWithoutStyle} = arguments[0] as InputFieldProps;
+    const Style = style(propsWithoutStyle);
 
     return (
         <Animated.View style={Style.Root}>

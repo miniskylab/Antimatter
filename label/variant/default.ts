@@ -6,8 +6,8 @@ export const Default: LabelStyle = function ()
 
     labelStyle.Root = {
         display: "flex",
-        justifyContent: "center",
-        alignItems: "center"
+        alignItems: "center",
+        justifyContent: "center"
     };
 
     return labelStyle;

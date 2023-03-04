@@ -33,6 +33,8 @@ export const Color = {
     Primary__a10: toCssRgba(Primary, 10),
     Primary__a45: toCssRgba(Primary, 45),
     Primary__a65: toCssRgba(Primary, 65),
+    Primary__b10: toCssRgba(shade(Primary, 10)),
+    Primary__w25: toCssRgba(tint(Primary, 25)),
 
     Secondary: toCssRgba(Secondary),
     Secondary__a10: toCssRgba(Secondary, 10),
@@ -46,10 +48,14 @@ export const Color = {
     Positive: toCssRgba(Positive),
     Positive__a10: toCssRgba(Positive, 10),
     Positive__a45: toCssRgba(Positive, 45),
+    Positive__b10: toCssRgba(shade(Positive, 10)),
+    Positive__w25: toCssRgba(tint(Positive, 25)),
 
     Warning: toCssRgba(Warning),
     Warning__a10: toCssRgba(Warning, 10),
     Warning__a45: toCssRgba(Warning, 45),
+    Warning__b10: toCssRgba(shade(Warning, 10)),
+    Warning__w25: toCssRgba(tint(Warning, 25)),
 
     Negative: toCssRgba(Negative),
     Negative__a10: toCssRgba(Negative, 10),
@@ -94,6 +100,24 @@ function complement(color: number[]): number[]
         255 - color[0],
         255 - color[1],
         255 - color[2]
+    ];
+}
+
+function tint(color: number[], factor: number): number[]
+{
+    return [
+        color[0] + (255 - color[0]) * (factor / 100),
+        color[1] + (255 - color[1]) * (factor / 100),
+        color[2] + (255 - color[2]) * (factor / 100)
+    ];
+}
+
+function shade(color: number[], factor: number): number[]
+{
+    return [
+        color[0] * (1 - factor / 100),
+        color[1] * (1 - factor / 100),
+        color[2] * (1 - factor / 100)
     ];
 }
 
