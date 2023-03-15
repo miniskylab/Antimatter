@@ -1,5 +1,4 @@
-import {IsBoolean, IsDefined, IsNumber, Max, Min} from "@miniskylab/antimatter-class-validator";
-import {GregorianCalendar} from "@miniskylab/antimatter-typescript";
+import {GregorianCalendar, IsBoolean, IsDefined, IsNumber, Max, Min} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 
 export class HighlightedDate

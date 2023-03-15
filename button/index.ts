@@ -1,5 +1,5 @@
 export {Button} from "./component";
-export {ButtonProps} from "./model";
+export {ButtonProps, ButtonContext} from "./model";
 export {ComponentName} from "./name";
 export * as ButtonVariant from "./variant";
 

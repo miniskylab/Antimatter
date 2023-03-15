@@ -1,4 +1,4 @@
-import {GregorianCalendar} from "@miniskylab/antimatter-typescript";
+import {GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {TimeFrame, View} from "../model";
 
 export function canNavigateForward(view: View, timeFrame: TimeFrame): boolean

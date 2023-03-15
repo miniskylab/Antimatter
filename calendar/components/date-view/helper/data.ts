@@ -1,4 +1,4 @@
-import {DayOfWeek, GregorianCalendar} from "@miniskylab/antimatter-typescript";
+import {DayOfWeek, GregorianCalendar} from "@miniskylab/antimatter-framework";
 
 export function getData(displayingMonth: Date): Date[][]
 {

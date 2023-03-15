@@ -1,9 +1,8 @@
-import {IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentProps, GestureResponderEventHandler, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {MouseEventHandler} from "react";
+import {Style} from "./style";
 
-export class Props extends ComponentProps
+export class Props extends ComponentProps<Style>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -16,17 +15,17 @@ export class Props extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onPrevClick?: MouseEventHandler;
+    onPrevClick?: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onNextClick?: MouseEventHandler;
+    onNextClick?: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onHeadlineClick?: MouseEventHandler;
+    onHeadlineClick?: GestureResponderEventHandler;
 }

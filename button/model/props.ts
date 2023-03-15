@@ -1,11 +1,19 @@
 import {ComponentName, ComponentProps, GestureResponderEventHandler, IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {IsOptional} from "class-validator";
+import {ReactNode} from "react";
 import {ButtonStyle} from "./style";
 
 @ComponentName("Button")
 export class ButtonProps extends ComponentProps<ButtonStyle>
 {
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsOptional()
+    readonly children?: ReactNode;
+
+
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */

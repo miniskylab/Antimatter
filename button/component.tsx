@@ -1,8 +1,8 @@
 import {AnimatedPressable} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
-import React, {useState} from "react";
-import {ButtonProps} from "./model";
+import React, {useMemo, useState} from "react";
+import {ButtonContext, ButtonProps} from "./model";
 import * as Variant from "./variant";
 
 /**
@@ -10,6 +10,7 @@ import * as Variant from "./variant";
  */
 export function Button({
     style,
+    children,
     label,
     icon,
     disabled = false,
@@ -24,13 +25,13 @@ export function Button({
         if (pressed) setPressed(false);
     }
 
-    if (!style)
+    if (!children && !style)
     {
         style = label ? Variant.OutlinedRectangular : Variant.OutlinedCircular;
     }
 
-    const {style: _, ...propsWithoutStyle} = arguments[0] as ButtonProps;
-    const Style = style(propsWithoutStyle, {hovered, pressed});
+    const state = useMemo(() => ({hovered, pressed}), [hovered, pressed]);
+    const Style = style({children, label, icon, disabled, onClick}, state);
 
     return (
         <AnimatedPressable
@@ -41,8 +42,20 @@ export function Button({
             onPressOut={() => { setPressed(false); }}
             onPress={!disabled && onClick ? onClick : undefined}
         >
-            {icon && <Icon style={Style.Icon} name={icon} pointerEvents={"none"}/>}
-            {label && <Label style={Style.Label} pointerEvents={"none"} selectable={false}>{label}</Label>}
+            {
+                children
+                    ? (
+                        <ButtonContext.Provider value={state}>
+                            {children}
+                        </ButtonContext.Provider>
+                    )
+                    : (
+                        <>
+                            {icon && <Icon style={Style.Icon} name={icon} pointerEvents={"none"}/>}
+                            {label && <Label style={Style.Label} pointerEvents={"none"} selectable={false}>{label}</Label>}
+                        </>
+                    )
+            }
         </AnimatedPressable>
     );
 }

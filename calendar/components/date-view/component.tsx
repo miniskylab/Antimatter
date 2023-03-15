@@ -1,48 +1,44 @@
+import {Button} from "@miniskylab/antimatter-button";
+import {GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
-import {bem} from "@miniskylab/antimatter-model";
-import {GregorianCalendar, LunarCalendarVn} from "@miniskylab/antimatter-typescript";
 import React from "react";
+import {Animated} from "react-native";
 import {getData} from "./helper";
-import {HighlightedDate, Props} from "./model";
+import {Props} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Component extends React.Component<Props>
+export function Component({
+    style,
+    today,
+    displayingMonth,
+    onDateClick
+}: Props): JSX.Element
 {
-    static defaultProps: Partial<Props> = {
-        highlightedDates: []
-    };
+    const Style = style({today, displayingMonth, onDateClick});
+    return (
+        <Animated.View style={Style.Root}>
+            <Label style={Style.WeekNo} pointerEvents={"none"} selectable={false}>#</Label>
+            {renderDaysOfWeek()}
+            {renderDates()}
+        </Animated.View>
+    );
 
-    private today: Date;
-
-    render(): JSX.Element
-    {
-        this.today = new Date();
-
-        return (
-            <div className={bem(this.props.className)}>
-                <Label className={bem("Calendar-DateView-WeekNo")} text={"#"}/>
-                {this.renderDaysOfWeek()}
-                {this.renderDates()}
-            </div>
-        );
-    }
-
-    private renderDaysOfWeek(): JSX.Element[]
+    function renderDaysOfWeek(): JSX.Element[]
     {
         return (
             ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map(shortDayName => (
-                <Label key={shortDayName} className={bem("Calendar-DateView-DayOfWeek")} text={shortDayName}/>
+                <Label key={shortDayName} style={Style.DayOfWeek} pointerEvents={"none"} selectable={false}>{shortDayName}</Label>
             ))
         );
     }
 
-    private renderDates(): JSX.Element[][]
+    function renderDates(): JSX.Element[][]
     {
         let week: JSX.Element[];
         const dateView: JSX.Element[][] = [];
-        const dateViewData = getData(this.props.displayingMonth);
+        const dateViewData = getData(displayingMonth);
         const weekCountInDateView = 6;
         for (let weekNo = 0; weekNo < weekCountInDateView; weekNo++)
         {
@@ -56,33 +52,26 @@ export class Component extends React.Component<Props>
              */
             const thursday = 3;
             week = [
-                <Label
-                    key={"#"}
-                    className={bem("Calendar-DateView-WeekOfYear")}
-                    text={GregorianCalendar.getWeekNumber(dateViewData[weekNo][thursday]).toString()}
-                />
+                <Label key={"#"} style={Style.WeekOfYear} selectable={false}>
+                    {GregorianCalendar.getWeekNumber(dateViewData[weekNo][thursday]).toString()}
+                </Label>
             ];
 
             for (let dayNo = 0; dayNo < GregorianCalendar.DAY_COUNT_IN_WEEK; dayNo++)
             {
                 const date = dateViewData[weekNo][dayNo];
-                const isToday = GregorianCalendar.isEqualDate(date, this.today);
+                const isToday = GregorianCalendar.isEqualDate(date, today);
+                const dateContainerStyle = Style.DateContainer(date);
 
                 week.push(
-                    <div
+                    <Button
                         key={dayNo.toString()}
-                        className={this.getDateClassName(date)}
-                        onClick={() => { this.props.onDateClick?.(date); }}
+                        style={dateContainerStyle.Container}
+                        onClick={() => { onDateClick?.(date); }}
                     >
-                        {
-                            isToday
-                                ? <div className={bem(this.props.className, "Today")}>
-                                    <Label className={bem("Calendar-DateView-TodayText")} text={"Today"}/>
-                                    <Label className={bem("Calendar-DateView-TodayNumber")} text={date.getDate().toString()}/>
-                                </div>
-                                : <div className={bem(this.props.className, "Date")}>{date.getDate().toString()}</div>
-                        }
-                    </div>
+                        {isToday && <Label style={dateContainerStyle.TodayText} selectable={false}>Today</Label>}
+                        <Label style={dateContainerStyle.DateNumber} selectable={false}>{date.getDate().toString()}</Label>
+                    </Button>
                 );
             }
 
@@ -90,63 +79,5 @@ export class Component extends React.Component<Props>
         }
 
         return dateView;
-    }
-
-    private getDateClassName(date: Date): string
-    {
-        const element = GregorianCalendar.isEqualDate(date, this.today)
-            ? "TodayContainer"
-            : "DateContainer";
-
-        let modifier = String.EMPTY;
-        if (GregorianCalendar.isEqualDate(date, this.props.selectedDate))
-        {
-            modifier = "Selected";
-        }
-        else if (this.isHighlightedDate(date))
-        {
-            modifier = "Highlighted";
-        }
-        else if (!GregorianCalendar.isEqualMonth(date, this.props.displayingMonth))
-        {
-            modifier = "Extraneous";
-        }
-
-        return bem(this.props.className, element, modifier);
-    }
-
-    private isHighlightedDate(date: Date): boolean { return !!this.getHighlightedDate(date); }
-
-    private getHighlightedDate(date: Date): HighlightedDate
-    {
-        for (const highlightedDate of this.props.highlightedDates)
-        {
-            let _date = highlightedDate.day;
-            let month = highlightedDate.month;
-            let year = highlightedDate.year;
-            if (highlightedDate.useLunarCalendar)
-            {
-                const lunarYear = LunarCalendarVn.getLunarDate(date)[0];
-                const gregorianDate = LunarCalendarVn.getGregorianDate(year || lunarYear, month + 1, _date);
-                if (!gregorianDate)
-                {
-                    return null;
-                }
-
-                _date = gregorianDate.getDate();
-                month = gregorianDate.getMonth();
-                year = year && gregorianDate.getFullYear();
-            }
-
-            const matchDate = _date === date.getDate();
-            const matchMonth = month !== undefined && month !== null ? month === date.getMonth() : true;
-            const matchYear = year ? year === date.getFullYear() : true;
-            if (matchDate && matchMonth && matchYear)
-            {
-                return highlightedDate;
-            }
-        }
-
-        return null;
     }
 }

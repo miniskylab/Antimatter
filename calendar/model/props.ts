@@ -1,10 +1,11 @@
-import {IsDate} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
-import {IsOptional} from "class-validator";
-import {FocusEventHandler} from "react";
+import {ComponentName, ComponentProps, IsArray, IsDate} from "@miniskylab/antimatter-framework";
+import {Type} from "class-transformer";
+import {IsOptional, ValidateNested} from "class-validator";
+import {HighlightedDate} from "./highlighted-date";
+import {CalendarStyle} from "./style";
 
 @ComponentName("Calendar")
-export class CalendarProps extends ComponentProps
+export class CalendarProps extends ComponentProps<CalendarStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -17,11 +18,15 @@ export class CalendarProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChange?: (newlySelectedDate: Date) => void;
+    @IsArray()
+    @IsOptional()
+    @ValidateNested({each: true})
+    @Type(() => HighlightedDate)
+    readonly highlightedDates?: HighlightedDate[];
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onBlur?: FocusEventHandler;
+    readonly onChange?: (newlySelectedDate: Date) => void;
 }

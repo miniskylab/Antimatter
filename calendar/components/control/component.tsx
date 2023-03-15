@@ -1,18 +1,21 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Icomoon} from "@miniskylab/antimatter-icon/collection/icomoon";
-import {bem} from "@miniskylab/antimatter-model";
+import {IconName} from "@miniskylab/antimatter-icon";
 import React from "react";
+import {Animated} from "react-native";
 import {Props} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Component({
-    className,
+    style,
     onTodayButtonClick,
     onSelectionButtonClick
 }: Props): JSX.Element
 {
+    const {style: _, ...propsWithoutStyle} = arguments[0] as Props;
+    const Style = style(propsWithoutStyle);
+
     const thereAreNoControlButtons = onTodayButtonClick === undefined && onSelectionButtonClick === undefined;
     if (thereAreNoControlButtons)
     {
@@ -20,25 +23,25 @@ export function Component({
     }
 
     return (
-        <div className={bem(className)}>
+        <Animated.View style={Style.Root}>
             {onTodayButtonClick !== undefined && (
                 <Button
-                    className={bem("Calendar-Controls-Button")}
+                    style={Style.Button}
                     disabled={onTodayButtonClick === null}
-                    icon={Icomoon.Flag}
+                    icon={IconName.Flag}
                     label={"Today"}
                     onClick={onTodayButtonClick}
                 />
             )}
             {onSelectionButtonClick !== undefined && (
                 <Button
-                    className={bem("Calendar-Controls-Button")}
+                    style={Style.Button}
                     disabled={onSelectionButtonClick === null}
-                    icon={Icomoon.Location}
+                    icon={IconName.Location}
                     label={"Selection"}
                     onClick={onSelectionButtonClick}
                 />
             )}
-        </div>
+        </Animated.View>
     );
 }

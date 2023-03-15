@@ -1,9 +1,8 @@
-import {IsInteger} from "@miniskylab/antimatter-class-validator";
-import {ComponentProps} from "@miniskylab/antimatter-model";
-import {Decade} from "@miniskylab/antimatter-typescript";
+import {ComponentProps, Decade, IsInteger} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
+import {Style} from "./style";
 
-export class Props extends ComponentProps
+export class Props extends ComponentProps<Style>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

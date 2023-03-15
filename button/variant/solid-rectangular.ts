@@ -9,16 +9,20 @@ export const SolidRectangular: ButtonStyle = function (buttonProps, buttonState)
 
     buttonStyle.Root = {
         ...outlinedRectangularButtonStyle.Root,
-        borderColor: buttonState.pressed
-            ? Color.Primary__b10
+        ...buttonState.pressed
+            ? {
+                borderColor: Color.Primary__b10,
+                backgroundColor: Color.Primary__b10
+            }
             : buttonState.hovered
-                ? Color.Primary__w25
-                : Color.Primary,
-        backgroundColor: buttonState.pressed
-            ? Color.Primary__b10
-            : buttonState.hovered
-                ? Color.Primary__w25
-                : Color.Primary
+                ? {
+                    borderColor: Color.Primary__w25,
+                    backgroundColor: Color.Primary__w25
+                }
+                : {
+                    borderColor: Color.Primary,
+                    backgroundColor: Color.Primary
+                }
     };
 
     buttonStyle.Icon = function (iconProps)
@@ -28,11 +32,7 @@ export const SolidRectangular: ButtonStyle = function (buttonProps, buttonState)
 
         iconStyle.Root = {
             ...inheritedIconStyle.Root,
-            color: buttonState.pressed
-                ? Color.Ambient
-                : buttonState.hovered
-                    ? Color.Ambient
-                    : Color.Ambient
+            color: Color.Ambient
         };
 
         return iconStyle;
@@ -45,11 +45,7 @@ export const SolidRectangular: ButtonStyle = function (buttonProps, buttonState)
 
         labelStyle.Root = {
             ...inheritedLabelStyle.Root,
-            color: buttonState.pressed
-                ? Color.Ambient
-                : buttonState.hovered
-                    ? Color.Ambient
-                    : Color.Ambient
+            color: Color.Ambient
         };
 
         return labelStyle;

@@ -1,66 +1,67 @@
-import {bem} from "@miniskylab/antimatter-model";
-import {Transition} from "@miniskylab/antimatter-transition";
-import {Char, Decade, GregorianCalendar} from "@miniskylab/antimatter-typescript";
-import React from "react";
+import {Decade, GregorianCalendar, whitespace} from "@miniskylab/antimatter-framework";
+import React, {useState} from "react";
+import {Animated} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "./components";
 import {canNavigateBackward, canNavigateForward} from "./helper";
-import {CalendarProps, State, TimeFrame, TransitionDirection, View} from "./model";
+import {CalendarProps, TimeFrame, TransitionDirection, View} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export class Calendar extends React.Component<CalendarProps, State>
+export function Calendar({
+    style,
+    selectedDate,
+    highlightedDates = [],
+    onChange
+}: CalendarProps): JSX.Element
 {
-    static defaultProps: Partial<CalendarProps> = {};
-
-    constructor(props: CalendarProps)
+    const today = new Date();
+    const [view, setView] = useState(View.Date);
+    const [transitionDirection, setTransitionDirection] = useState(TransitionDirection.None);
+    const [timeFrame, setTimeFrame] = useState<TimeFrame>(() =>
     {
-        super(props);
+        const initialSelectedDate = new Date(selectedDate ?? today);
+        initialSelectedDate.setDate(1);
+        initialSelectedDate.setHours(0, 0, 0, 0);
 
-        const selectedDate = props.selectedDate ? new Date(props.selectedDate) : new Date();
-        selectedDate.setDate(1);
-        selectedDate.setHours(0, 0, 0, 0);
-
-        this.state = {
-            view: View.Date,
-            transitionDirection: TransitionDirection.None,
-            timeFrame: {
-                monthAndYear: selectedDate,
-                decade: GregorianCalendar.getDecade(selectedDate.getFullYear())
-            }
+        return {
+            monthAndYear: initialSelectedDate,
+            decade: GregorianCalendar.getDecade(initialSelectedDate.getFullYear())
         };
-    }
+    });
 
-    render(): JSX.Element
-    {
-        return (
-            <div className={bem(this.props.className)} tabIndex={-1} onBlur={this.props.onBlur}>
-                {this.renderHeader()}
-                {this.renderView()}
-                {this.renderControl()}
-            </div>
-        );
-    }
+    const Style = style(
+        {selectedDate, highlightedDates, onChange},
+        {view, today, timeFrame, transitionDirection}
+    );
 
-    private getHeadline(): string
+    return (
+        <Animated.View style={Style.Root}>
+            {renderHeader()}
+            {renderView()}
+            {renderControl()}
+        </Animated.View>
+    );
+
+    function getHeadline(): string
     {
-        switch (this.state.view)
+        switch (view)
         {
             case View.Date:
             {
-                const date = this.state.timeFrame.monthAndYear;
+                const date = timeFrame.monthAndYear;
 
-                return `${GregorianCalendar.getFullMonthName(date.getMonth())}${Char.space}${Char.space}${date.getFullYear()}`;
+                return `${GregorianCalendar.getFullMonthName(date.getMonth())}${whitespace(2)}${date.getFullYear()}`;
             }
 
             case View.Month:
             {
-                return `${this.state.timeFrame.monthAndYear.getFullYear()}`;
+                return `${timeFrame.monthAndYear.getFullYear()}`;
             }
 
             case View.Year:
             {
-                const decadeFirstYear = this.state.timeFrame.decade;
+                const decadeFirstYear = timeFrame.decade;
                 const decadeLastYear = decadeFirstYear + GregorianCalendar.YEAR_COUNT_IN_DECADE - 1;
 
                 return `${decadeFirstYear} - ${decadeLastYear}`;
@@ -68,125 +69,108 @@ export class Calendar extends React.Component<CalendarProps, State>
         }
     }
 
-    private renderHeader(): JSX.Element
+    function renderHeader(): JSX.Element
     {
         return (
             <Header.Component
-                className={bem("Calendar-Header")}
-                headline={this.getHeadline()}
+                style={Style.Header}
+                headline={getHeadline()}
                 onPrevClick={
-                    canNavigateBackward(this.state.view, this.state.timeFrame)
-                        ? () => { this.navigate(TransitionDirection.Backward); }
+                    canNavigateBackward(view, timeFrame)
+                        ? () => { navigate(TransitionDirection.Backward); }
                         : undefined
                 }
                 onHeadlineClick={
-                    this.state.view < View.Year
-                        ? () => { this.zoomOut(); }
+                    view < View.Year
+                        ? () => { zoomOut(); }
                         : undefined
                 }
                 onNextClick={
-                    canNavigateForward(this.state.view, this.state.timeFrame)
-                        ? () => { this.navigate(TransitionDirection.Forward); }
+                    canNavigateForward(view, timeFrame)
+                        ? () => { navigate(TransitionDirection.Forward); }
                         : undefined
                 }
             />
         );
     }
 
-    private renderView(): JSX.Element
+    function renderView(): JSX.Element
     {
         return (
-            <Transition
-                className={bem("Calendar-Transition")}
-                childIdentifier={`${this.state.view}-${this.state.timeFrame.monthAndYear}-${this.state.timeFrame.decade}`}
-                classNames={{
-                    enter: `Calendar-Transition--${this.state.transitionDirection}InStart`,
-                    enterActive: `Calendar-Transition--${this.state.transitionDirection}InInProgress`,
-                    exit: `Calendar-Transition--${this.state.transitionDirection}OutStart`,
-                    exitActive: `Calendar-Transition--${this.state.transitionDirection}OutInProgress`
-                }}
-            >
-                {
-                    this.state.view === View.Date &&
-                    (
-                        <DateView.Component
-                            className={bem("Calendar-DateView")}
-                            selectedDate={this.props.selectedDate}
-                            displayingMonth={this.state.timeFrame.monthAndYear}
-                            onDateClick={this.onDateClick.bind(this)}
-                        />
-                    ) || this.state.view === View.Month &&
-                    (
-                        <MonthView.Component
-                            className={bem("Calendar-MonthView")}
-                            displayingYear={this.state.timeFrame.monthAndYear.getFullYear()}
-                            onMonthClick={this.onMonthClick.bind(this)}
-                        />
-                    ) || this.state.view === View.Year &&
-                    (
-                        <YearView.Component
-                            className={bem("Calendar-YearView")}
-                            displayingDecade={this.state.timeFrame.decade}
-                            onYearClick={this.onYearClick.bind(this)}
-                        />
-                    )
-                }
-            </Transition>
+            view === View.Date &&
+            (
+                <DateView.Component
+                    style={Style.DateView}
+                    today={today}
+                    displayingMonth={timeFrame.monthAndYear}
+                    onDateClick={onDateClick}
+                />
+            ) || view === View.Month &&
+            (
+                <MonthView.Component
+                    style={Style.MonthView}
+                    displayingYear={timeFrame.monthAndYear.getFullYear()}
+                    onMonthClick={onMonthClick}
+                />
+            ) || view === View.Year &&
+            (
+                <YearView.Component
+                    style={Style.YearView}
+                    displayingDecade={timeFrame.decade}
+                    onYearClick={onYearClick}
+                />
+            )
         );
     }
 
-    private renderControl(): JSX.Element
+    function renderControl(): JSX.Element
     {
         return (
             <Control.Component
-                className={bem("Calendar-Controls")}
+                style={Style.Control}
                 onTodayButtonClick={
-                    this.state.view !== View.Date || !this.isWithinTimeFrame(new Date())
-                        ? () => { this.goToToday(); }
+                    view !== View.Date || !isWithinTimeFrame(today)
+                        ? () => { goToToday(); }
                         : null
                 }
                 onSelectionButtonClick={
-                    this.props.selectedDate && (this.state.view !== View.Date || !this.isWithinTimeFrame(this.props.selectedDate))
-                        ? () => { this.goToSelectedDate(); }
+                    selectedDate && (view !== View.Date || !isWithinTimeFrame(selectedDate))
+                        ? () => { goToSelectedDate(); }
                         : null
                 }
             />
         );
     }
 
-    private zoomIn(timeFrame: TimeFrame): void
+    function zoomIn(timeFrame: TimeFrame): void
     {
-        if (this.state.view === View.Date)
+        if (view === View.Date)
         {
             return;
         }
 
-        this.setState({
-            transitionDirection: TransitionDirection.Outward,
-            view: this.state.view - 1,
-            timeFrame
-        });
+        setTransitionDirection(TransitionDirection.Outward);
+        setView(view - 1);
+        setTimeFrame(timeFrame);
     }
 
-    private zoomOut(): void
+    function zoomOut(): void
     {
-        if (this.state.view === View.Year)
+        if (view === View.Year)
         {
             return;
         }
 
-        this.setState({
-            transitionDirection: TransitionDirection.Inward,
-            view: this.state.view + 1
-        });
+        setTransitionDirection(TransitionDirection.Inward);
+        setView(view + 1);
     }
 
-    private navigate(direction: TransitionDirection): void
+    function navigate(direction: TransitionDirection): void
     {
         const canNavigate = (
-            (direction === TransitionDirection.Forward && canNavigateForward(this.state.view, this.state.timeFrame))
+            (direction === TransitionDirection.Forward && canNavigateForward(view, timeFrame))
             ||
-            (direction === TransitionDirection.Backward && canNavigateBackward(this.state.view, this.state.timeFrame))
+            (direction === TransitionDirection.Backward && canNavigateBackward(view, timeFrame))
         );
 
         if (!canNavigate)
@@ -195,9 +179,9 @@ export class Calendar extends React.Component<CalendarProps, State>
         }
 
         let decade: Decade;
-        const monthAndYear = new Date(this.state.timeFrame.monthAndYear);
+        const monthAndYear = new Date(timeFrame.monthAndYear);
 
-        switch (this.state.view)
+        switch (view)
         {
             case View.Date:
             {
@@ -230,80 +214,70 @@ export class Calendar extends React.Component<CalendarProps, State>
             }
         }
 
-        this.setState({
-            transitionDirection: direction,
-            timeFrame: {monthAndYear, decade}
-        });
+        setTransitionDirection(direction);
+        setTimeFrame({monthAndYear, decade});
     }
 
-    private goToToday(): void
+    function goToToday(): void
     {
-        const thisMonth = new Date();
+        const thisMonth = new Date(today);
         thisMonth.setDate(1);
         thisMonth.setHours(0, 0, 0, 0);
 
-        this.setState({
-            view: View.Date,
-            transitionDirection: this.getTransitionDirection(thisMonth),
-            timeFrame: {
-                monthAndYear: thisMonth,
-                decade: GregorianCalendar.getDecade(thisMonth.getFullYear())
-            }
+        setView(View.Date);
+        setTransitionDirection(getTransitionDirection(thisMonth));
+        setTimeFrame({
+            monthAndYear: thisMonth,
+            decade: GregorianCalendar.getDecade(thisMonth.getFullYear())
         });
     }
 
-    private goToSelectedDate(): void
+    function goToSelectedDate(): void
     {
-        if (!this.props.selectedDate)
+        if (!selectedDate)
         {
             return;
         }
 
-        this.setState({
-            view: View.Date,
-            transitionDirection: this.getTransitionDirection(this.props.selectedDate),
-            timeFrame: {
-                monthAndYear: this.props.selectedDate,
-                decade: GregorianCalendar.getDecade(this.props.selectedDate.getFullYear())
-            }
+        setView(View.Date);
+        setTransitionDirection(getTransitionDirection(selectedDate));
+        setTimeFrame({
+            monthAndYear: selectedDate,
+            decade: GregorianCalendar.getDecade(selectedDate.getFullYear())
         });
     }
 
-    private getTransitionDirection(toDate: Date): TransitionDirection
+    function getTransitionDirection(toDate: Date): TransitionDirection
     {
-        return this.state.view > View.Date
+        return view > View.Date
             ? TransitionDirection.Outward
-            : toDate < this.state.timeFrame.monthAndYear
+            : toDate < timeFrame.monthAndYear
                 ? TransitionDirection.Backward
                 : TransitionDirection.Forward;
     }
 
-    private isWithinTimeFrame(date: Date): boolean
+    function isWithinTimeFrame(date: Date): boolean
     {
-        const dateViewData = DateView.getData(this.state.timeFrame.monthAndYear);
+        const dateViewData = DateView.getData(timeFrame.monthAndYear);
         return dateViewData.flat().filter(x => GregorianCalendar.isEqualDate(x, date))?.length > 0;
     }
 
-    private onDateClick(date: Date): void
+    function onDateClick(date: Date): void
     {
-        this.props.onChange?.(
-            GregorianCalendar.isEqualDate(date, this.props.selectedDate)
-                ? undefined
-                : date
-        );
+        onChange?.(GregorianCalendar.isEqualDate(date, selectedDate) ? undefined : date);
     }
 
-    private onMonthClick(month: Date): void
+    function onMonthClick(month: Date): void
     {
-        this.zoomIn({
+        zoomIn({
             monthAndYear: month,
             decade: GregorianCalendar.getDecade(month.getFullYear())
         });
     }
 
-    private onYearClick(year: number): void
+    function onYearClick(year: number): void
     {
-        this.zoomIn({
+        zoomIn({
             monthAndYear: new Date(year, 0, 1),
             decade: GregorianCalendar.getDecade(year)
         });

@@ -1,7 +1,6 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconVariant} from "@miniskylab/antimatter-icon";
 import {LabelVariant} from "@miniskylab/antimatter-label";
-import {Platform} from "react-native";
 import {ButtonStyle} from "../model";
 
 export const OutlinedRectangular: ButtonStyle = function (buttonProps, buttonState)
@@ -22,17 +21,16 @@ export const OutlinedRectangular: ButtonStyle = function (buttonProps, buttonSta
         borderWidth: 1,
         borderStyle: "solid",
         borderColor: Color.Primary,
-        opacity: buttonProps.disabled ? .2 : 1,
+        cursor: "pointer",
         backgroundColor: buttonState.pressed
             ? Color.Primary
             : buttonState.hovered
                 ? Color.Primary__a10
                 : Color.Transparent,
-        ...Platform.select({
-            web: {
-                cursor: buttonProps.disabled ? "not-allowed" : "pointer"
-            }
-        })
+        ...buttonProps.disabled && {
+            opacity: .2,
+            cursor: "not-allowed"
+        }
     };
 
     buttonStyle.Icon = function (iconProps)

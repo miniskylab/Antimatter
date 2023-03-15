@@ -1,5 +1,10 @@
 export const EMPTY_STRING = "";
 
+export function whitespace(length: number)
+{
+    return " ".repeat(length);
+}
+
 export function formatString(anyString: string, ...replacements: string[]): string
 {
     if (!replacements)

@@ -1,7 +1,6 @@
-import {Decade} from "@miniskylab/antimatter-typescript";
+import {Decade} from "@miniskylab/antimatter-framework";
 
-export class TimeFrame
-{
-    monthAndYear: Date;
-    decade: Decade;
+export type TimeFrame = {
+    readonly monthAndYear: Date;
+    readonly decade: Decade;
 }
