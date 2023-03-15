@@ -1,13 +1,13 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {IconVariant} from "@miniskylab/antimatter-icon";
-import {LabelVariant} from "@miniskylab/antimatter-label";
+import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {useRef} from "react";
 import {Animated, Easing} from "react-native";
 import {InputFieldStyle} from "../model";
 
 export const Default: InputFieldStyle = function (inputFieldProps)
 {
-    const inputFieldStyle: ReturnType<typeof Default> = {};
+    const inputFieldStyle: ReturnType<InputFieldStyle> = {};
 
     inputFieldStyle.Root = {
         display: "flex",
@@ -20,7 +20,7 @@ export const Default: InputFieldStyle = function (inputFieldProps)
     inputFieldStyle.AddOn = function (iconProps)
     {
         const defaultIconStyle = IconVariant.Default(iconProps);
-        const iconStyle: ReturnType<typeof inputFieldStyle.AddOn> = {...defaultIconStyle};
+        const iconStyle: ReturnType<IconStyle> = {...defaultIconStyle};
 
         iconStyle.Root = {
             ...defaultIconStyle.Root,
@@ -65,7 +65,7 @@ export const Default: InputFieldStyle = function (inputFieldProps)
         ]).start();
 
         const defaultLabelStyle = LabelVariant.Default(labelProps);
-        const labelStyle: ReturnType<typeof inputFieldStyle.Placeholder> = {...defaultLabelStyle};
+        const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
 
         labelStyle.Root = {
             ...defaultLabelStyle.Root,

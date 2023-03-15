@@ -9,13 +9,12 @@ import {Props} from "./model";
  */
 export function Component({
     style,
+    selectedYear,
     displayingDecade,
     onYearClick
 }: Props): JSX.Element
 {
-    const {style: _, ...propsWithoutStyle} = arguments[0] as Props;
-    const Style = style(propsWithoutStyle);
-
+    const Style = style({selectedYear, displayingDecade, onYearClick});
     return (
         <Animated.View style={Style.Root}>
             {renderGrid()}

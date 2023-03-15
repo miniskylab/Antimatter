@@ -15,9 +15,7 @@ export function Component({
     onHeadlineClick
 }: Props): JSX.Element
 {
-    const {style: _, ...propsWithoutStyle} = arguments[0] as Props;
-    const Style = style(propsWithoutStyle);
-
+    const Style = style({headline, onPrevClick, onNextClick, onHeadlineClick});
     return (
         <Animated.View style={Style.Root}>
             <Button

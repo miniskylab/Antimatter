@@ -2,7 +2,7 @@ import {LabelStyle} from "../model";
 
 export const Default: LabelStyle = function ()
 {
-    const labelStyle: ReturnType<typeof Default> = {};
+    const labelStyle: ReturnType<LabelStyle> = {};
 
     labelStyle.Root = {
         display: "flex",

@@ -75,7 +75,7 @@ export function Component({
 
     function getDropdownMenuItems(): DropdownMenuProps["menuItems"]
     {
-        const dropdownMenuItems: ReturnType<typeof getDropdownMenuItems> = {};
+        const dropdownMenuItems: DropdownMenuProps["menuItems"] = {};
         const selectedLabelCount = Object.values(labels).filter(x => x.status === TransactionLabelStatus.Selected).length;
         Object.keys(labels).forEach(labelId =>
         {

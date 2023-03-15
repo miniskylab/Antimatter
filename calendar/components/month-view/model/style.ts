@@ -1,9 +1,9 @@
 import {ButtonStyle} from "@miniskylab/antimatter-button";
-import {OmitStyle} from "@miniskylab/antimatter-framework";
+import {Styled} from "@miniskylab/antimatter-framework";
 import {ViewStyle} from "react-native";
 import {Props} from "./props";
 
-export type Style = (monthViewProps: OmitStyle<Props>) => {
+export type Style = (monthViewProps: Styled<Props>) => {
     Root?: ViewStyle;
     GridCell?: (month: Date) => ButtonStyle;
 };

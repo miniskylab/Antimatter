@@ -1,15 +1,15 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {LabelVariant} from "@miniskylab/antimatter-label";
+import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {FooterStyle} from "../model";
 
 export const Default: FooterStyle = function ()
 {
-    const footerStyle: ReturnType<typeof Default> = {};
+    const footerStyle: ReturnType<FooterStyle> = {};
 
     footerStyle.Root = function (labelProps)
     {
         const defaultLabelStyle = LabelVariant.Default(labelProps);
-        const labelStyle: ReturnType<typeof footerStyle.Root> = {...defaultLabelStyle};
+        const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
 
         labelStyle.Root = {
             ...defaultLabelStyle.Root,

@@ -1,11 +1,11 @@
-import {OmitStyle} from "@miniskylab/antimatter-framework";
+import {Styled} from "@miniskylab/antimatter-framework";
 import {ViewStyle} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "../components";
 import {CalendarProps} from "./props";
 import {CalendarState} from "./state";
 
 export type CalendarStyle = (
-    calendarProps: OmitStyle<CalendarProps>,
+    calendarProps: Styled<CalendarProps>,
     calendarState: CalendarState
 ) => {
     Root?: ViewStyle;

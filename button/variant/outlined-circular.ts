@@ -1,10 +1,10 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {IconVariant} from "@miniskylab/antimatter-icon";
+import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ButtonStyle} from "../model";
 
 export const OutlinedCircular: ButtonStyle = function (buttonProps, buttonState)
 {
-    const buttonStyle: ReturnType<typeof OutlinedCircular> = {};
+    const buttonStyle: ReturnType<ButtonStyle> = {};
 
     buttonStyle.Root = {
         display: "flex",
@@ -31,7 +31,7 @@ export const OutlinedCircular: ButtonStyle = function (buttonProps, buttonState)
     buttonStyle.Icon = function (iconProps)
     {
         const defaultIconStyle = IconVariant.Default(iconProps);
-        const iconStyle: ReturnType<typeof buttonStyle.Icon> = {...defaultIconStyle};
+        const iconStyle: ReturnType<IconStyle> = {...defaultIconStyle};
 
         iconStyle.Root = {
             ...defaultIconStyle.Root,

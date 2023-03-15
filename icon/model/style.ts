@@ -1,7 +1,7 @@
-import {OmitStyle} from "@miniskylab/antimatter-framework";
+import {Styled} from "@miniskylab/antimatter-framework";
 import {TextStyle} from "react-native";
 import {IconProps} from "./props";
 
-export type IconStyle = (iconProps: OmitStyle<IconProps>) => {
+export type IconStyle = (iconProps: Styled<IconProps>) => {
     Root?: TextStyle
 };

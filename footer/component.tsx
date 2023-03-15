@@ -11,9 +11,7 @@ export function Footer({
     text
 }: FooterProps): JSX.Element
 {
-    const {style: _, ...propsWithoutStyle} = arguments[0] as FooterProps;
-    const Style = style(propsWithoutStyle);
-
+    const Style = style({text});
     return (
         <Label style={Style.Root}>{text}</Label>
     );

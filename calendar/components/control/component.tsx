@@ -13,8 +13,7 @@ export function Component({
     onSelectionButtonClick
 }: Props): JSX.Element
 {
-    const {style: _, ...propsWithoutStyle} = arguments[0] as Props;
-    const Style = style(propsWithoutStyle);
+    const Style = style({onTodayButtonClick, onSelectionButtonClick});
 
     const thereAreNoControlButtons = onTodayButtonClick === undefined && onSelectionButtonClick === undefined;
     if (thereAreNoControlButtons)

@@ -1,11 +1,13 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {IconStyle} from "@miniskylab/antimatter-icon";
+import {LabelStyle} from "@miniskylab/antimatter-label";
 import {ButtonStyle} from "../model";
 import {OutlinedRectangular} from "./outlined-rectangular";
 
 export const SolidRectangular: ButtonStyle = function (buttonProps, buttonState)
 {
     const outlinedRectangularButtonStyle = OutlinedRectangular(buttonProps, buttonState);
-    const buttonStyle: ReturnType<typeof SolidRectangular> = {...outlinedRectangularButtonStyle};
+    const buttonStyle: ReturnType<ButtonStyle> = {...outlinedRectangularButtonStyle};
 
     buttonStyle.Root = {
         ...outlinedRectangularButtonStyle.Root,
@@ -28,7 +30,7 @@ export const SolidRectangular: ButtonStyle = function (buttonProps, buttonState)
     buttonStyle.Icon = function (iconProps)
     {
         const inheritedIconStyle = outlinedRectangularButtonStyle.Icon(iconProps);
-        const iconStyle: ReturnType<typeof buttonStyle.Icon> = {...inheritedIconStyle};
+        const iconStyle: ReturnType<IconStyle> = {...inheritedIconStyle};
 
         iconStyle.Root = {
             ...inheritedIconStyle.Root,
@@ -41,7 +43,7 @@ export const SolidRectangular: ButtonStyle = function (buttonProps, buttonState)
     buttonStyle.Label = function (labelProps)
     {
         const inheritedLabelStyle = outlinedRectangularButtonStyle.Label(labelProps);
-        const labelStyle: ReturnType<typeof buttonStyle.Label> = {...inheritedLabelStyle};
+        const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};
 
         labelStyle.Root = {
             ...inheritedLabelStyle.Root,

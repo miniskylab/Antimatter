@@ -2,7 +2,7 @@ import {IconStyle} from "../model";
 
 export const Default: IconStyle = function ()
 {
-    const iconStyle: ReturnType<typeof Default> = {};
+    const iconStyle: ReturnType<IconStyle> = {};
 
     iconStyle.Root = {
         display: "flex",

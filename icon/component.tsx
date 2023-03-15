@@ -17,9 +17,7 @@ export function Icon({
     name
 }: IconProps): JSX.Element
 {
-    const {style: _, ...propsWithoutStyle} = arguments[0] as IconProps;
-    const Style = style(propsWithoutStyle);
-
+    const Style = style({pointerEvents, name});
     const [fontsLoaded] = useFonts({
         Antimatter: icomoonFont
     });

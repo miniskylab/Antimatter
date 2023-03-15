@@ -1,9 +1,9 @@
 import {ButtonStyle} from "@miniskylab/antimatter-button";
-import {OmitStyle} from "@miniskylab/antimatter-framework";
+import {Styled} from "@miniskylab/antimatter-framework";
 import {ViewStyle} from "react-native";
 import {Props} from "./props";
 
-export type Style = (headerProps: OmitStyle<Props>) => {
+export type Style = (headerProps: Styled<Props>) => {
     Root?: ViewStyle;
     Headline?: ButtonStyle;
     Navigator?: (position: "left" | "right") => ButtonStyle;

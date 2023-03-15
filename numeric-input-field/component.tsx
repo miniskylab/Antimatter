@@ -24,8 +24,10 @@ export function NumericInputField({
     onKeyPress
 }: NumericInputFieldProps): JSX.Element
 {
-    const {style: _, ...propsWithoutStyle} = arguments[0] as NumericInputFieldProps;
-    const Style = style(propsWithoutStyle);
+    const Style = style({
+        defaultValue, minValue, maxValue, maximumFractionDigits, maximumDigitCount, showPlusSymbolForPositiveNumber,
+        placeholder, autoFocus, onChange, onBlur, onFocus, onKeyPress
+    });
 
     validateAndThrow();
 

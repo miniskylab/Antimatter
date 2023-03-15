@@ -1,11 +1,11 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {IconVariant} from "@miniskylab/antimatter-icon";
-import {LabelVariant} from "@miniskylab/antimatter-label";
+import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {ButtonStyle} from "../model";
 
 export const OutlinedRectangular: ButtonStyle = function (buttonProps, buttonState)
 {
-    const buttonStyle: ReturnType<typeof OutlinedRectangular> = {};
+    const buttonStyle: ReturnType<ButtonStyle> = {};
 
     buttonStyle.Root = {
         display: "flex",
@@ -36,7 +36,7 @@ export const OutlinedRectangular: ButtonStyle = function (buttonProps, buttonSta
     buttonStyle.Icon = function (iconProps)
     {
         const defaultIconStyle = IconVariant.Default(iconProps);
-        const iconStyle: ReturnType<typeof buttonStyle.Icon> = {...defaultIconStyle};
+        const iconStyle: ReturnType<IconStyle> = {...defaultIconStyle};
 
         iconStyle.Root = {
             ...defaultIconStyle.Root,
@@ -56,7 +56,7 @@ export const OutlinedRectangular: ButtonStyle = function (buttonProps, buttonSta
     buttonStyle.Label = function (labelProps)
     {
         const defaultLabelStyle = LabelVariant.Default(labelProps);
-        const labelStyle: ReturnType<typeof buttonStyle.Label> = {...defaultLabelStyle};
+        const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
 
         labelStyle.Root = {
             ...defaultLabelStyle.Root,
