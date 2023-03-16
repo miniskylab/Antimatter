@@ -28,5 +28,5 @@ export class CalendarProps extends ComponentProps<CalendarStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChange?: (newlySelectedDate: Date) => void;
+    readonly onSelectedDateChange?: (newlySelectedDate: Date) => void;
 }

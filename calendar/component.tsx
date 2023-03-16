@@ -12,7 +12,7 @@ export function Calendar({
     style,
     selectedDate,
     highlightedDates = [],
-    onChange
+    onSelectedDateChange
 }: CalendarProps): JSX.Element
 {
     const today = new Date();
@@ -31,7 +31,7 @@ export function Calendar({
     });
 
     const Style = style(
-        {selectedDate, highlightedDates, onChange},
+        {selectedDate, highlightedDates, onSelectedDateChange},
         {view, today, timeFrame, transitionDirection}
     );
 
@@ -264,7 +264,7 @@ export function Calendar({
 
     function onDateClick(date: Date): void
     {
-        onChange?.(GregorianCalendar.isEqualDate(date, selectedDate) ? undefined : date);
+        onSelectedDateChange?.(GregorianCalendar.isEqualDate(date, selectedDate) ? undefined : date);
     }
 
     function onMonthClick(month: Date): void
