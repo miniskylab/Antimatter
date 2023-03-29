@@ -1,67 +1,96 @@
 import {Decade, GregorianCalendar, whitespace} from "@miniskylab/antimatter-framework";
-import React, {useState} from "react";
+import React, {useMemo, useRef, useState} from "react";
 import {Animated} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "./components";
-import {canNavigateBackward, canNavigateForward} from "./helper";
-import {CalendarProps, TimeFrame, TransitionDirection, View} from "./model";
+import {Cache, CalendarContext, CalendarProps, CalendarState, TimeFrame, TransitionDirection, View, ViewType} from "./model";
+import {canNavigateBackward, canNavigateForward, getDateViewData, getMonthViewData, getViewId, getYearViewData} from "./service";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Calendar({
+    id,
     style,
+    onReadyToUnmount,
     selectedDate,
-    highlightedDates = [],
     onSelectedDateChange
 }: CalendarProps): JSX.Element
 {
-    const today = new Date();
-    const [view, setView] = useState(View.Date);
-    const [transitionDirection, setTransitionDirection] = useState(TransitionDirection.None);
-    const [timeFrame, setTimeFrame] = useState<TimeFrame>(() =>
+    const props: Required<CalendarProps> = {
+        id, style, onReadyToUnmount, selectedDate, onSelectedDateChange
+    };
+
+    const [state, setState] = useState<CalendarState>(() =>
     {
+        const today = new Date();
         const initialSelectedDate = new Date(selectedDate ?? today);
         initialSelectedDate.setDate(1);
         initialSelectedDate.setHours(0, 0, 0, 0);
 
-        return {
+        const timeFrame = {
             monthAndYear: initialSelectedDate,
             decade: GregorianCalendar.getDecade(initialSelectedDate.getFullYear())
         };
+
+        return {
+            today,
+            activeView: {
+                type: ViewType.Date,
+                timeFrame
+            },
+            transitioningOutViews: [],
+            transitionDirection: TransitionDirection.None
+        };
     });
 
-    const Style = style(
-        {selectedDate, highlightedDates, onSelectedDateChange},
-        {view, today, timeFrame, transitionDirection}
+    const context = useMemo<CalendarContext>(
+        () => ({props, state}),
+        [...Object.values(props), ...Object.values(state)]
     );
 
+    const cache = useRef<Cache>({
+        dateViewData: new Map(),
+        monthViewData: new Map(),
+        yearViewData: new Map()
+    });
+
+    const {style: _, ...propsWithoutStyle} = props;
+    const computedStyle = style(propsWithoutStyle, state);
+
     return (
-        <Animated.View style={Style.Root}>
-            {renderHeader()}
-            {renderView()}
-            {renderControl()}
-        </Animated.View>
+        <CalendarContext.Provider value={context}>
+            <Animated.View style={computedStyle.Root}>
+                {renderHeader()}
+                <Animated.View style={computedStyle.ViewContainer}>
+                    {[
+                        renderView(state.activeView),
+                        ...state.transitioningOutViews.map(renderView)
+                    ]}
+                </Animated.View>
+                {renderControl()}
+            </Animated.View>
+        </CalendarContext.Provider>
     );
 
     function getHeadline(): string
     {
-        switch (view)
+        switch (state.activeView.type)
         {
-            case View.Date:
+            case ViewType.Date:
             {
-                const date = timeFrame.monthAndYear;
+                const date = state.activeView.timeFrame.monthAndYear;
 
                 return `${GregorianCalendar.getFullMonthName(date.getMonth())}${whitespace(2)}${date.getFullYear()}`;
             }
 
-            case View.Month:
+            case ViewType.Month:
             {
-                return `${timeFrame.monthAndYear.getFullYear()}`;
+                return `${state.activeView.timeFrame.monthAndYear.getFullYear()}`;
             }
 
-            case View.Year:
+            case ViewType.Year:
             {
-                const decadeFirstYear = timeFrame.decade;
+                const decadeFirstYear = state.activeView.timeFrame.decade;
                 const decadeLastYear = decadeFirstYear + GregorianCalendar.YEAR_COUNT_IN_DECADE - 1;
 
                 return `${decadeFirstYear} - ${decadeLastYear}`;
@@ -73,20 +102,20 @@ export function Calendar({
     {
         return (
             <Header.Component
-                style={Style.Header}
+                style={computedStyle.Header}
                 headline={getHeadline()}
                 onPrevClick={
-                    canNavigateBackward(view, timeFrame)
+                    canNavigateBackward(state.activeView)
                         ? () => { navigate(TransitionDirection.Backward); }
                         : undefined
                 }
                 onHeadlineClick={
-                    view < View.Year
+                    state.activeView.type < ViewType.Year
                         ? () => { zoomOut(); }
                         : undefined
                 }
                 onNextClick={
-                    canNavigateForward(view, timeFrame)
+                    canNavigateForward(state.activeView)
                         ? () => { navigate(TransitionDirection.Forward); }
                         : undefined
                 }
@@ -94,83 +123,132 @@ export function Calendar({
         );
     }
 
-    function renderView(): JSX.Element
+    function renderView(view: View): JSX.Element
     {
-        return (
-            view === View.Date &&
-            (
-                <DateView.Component
-                    style={Style.DateView}
-                    today={today}
-                    displayingMonth={timeFrame.monthAndYear}
-                    onDateClick={onDateClick}
-                />
-            ) || view === View.Month &&
-            (
-                <MonthView.Component
-                    style={Style.MonthView}
-                    displayingYear={timeFrame.monthAndYear.getFullYear()}
-                    onMonthClick={onMonthClick}
-                />
-            ) || view === View.Year &&
-            (
-                <YearView.Component
-                    style={Style.YearView}
-                    displayingDecade={timeFrame.decade}
-                    onYearClick={onYearClick}
-                />
-            )
-        );
+        switch (view.type)
+        {
+            case ViewType.Date:
+            {
+                return (
+                    <DateView.Component
+                        key={getViewId(view)}
+                        id={getViewId(view)}
+                        style={computedStyle.DateView}
+                        today={state.today}
+                        data={getDateViewDataWithCache(view.timeFrame.monthAndYear)}
+                        onDateClick={onDateClick}
+                        onReadyToUnmount={onViewIsReadyToUnmount}
+                    />
+                );
+            }
+
+            case ViewType.Month:
+            {
+                return (
+                    <MonthView.Component
+                        key={getViewId(view)}
+                        id={getViewId(view)}
+                        style={computedStyle.MonthView}
+                        data={getMonthViewDataWithCache(view.timeFrame.monthAndYear.getFullYear())}
+                        onMonthClick={onMonthClick}
+                        onReadyToUnmount={onViewIsReadyToUnmount}
+                    />
+                );
+            }
+
+            case ViewType.Year:
+            {
+                return (
+                    <YearView.Component
+                        key={getViewId(view)}
+                        id={getViewId(view)}
+                        style={computedStyle.YearView}
+                        data={getYearViewDataWithCache(view.timeFrame.decade)}
+                        onYearClick={onYearClick}
+                        onReadyToUnmount={onViewIsReadyToUnmount}
+                    />
+                );
+            }
+        }
     }
 
     function renderControl(): JSX.Element
     {
+        let dateViewData;
+        if (state.activeView.type === ViewType.Date)
+        {
+            dateViewData = getDateViewData(state.activeView.timeFrame.monthAndYear).flat();
+        }
+
+        let todayIsVisible = state.activeView.type === ViewType.Date;
+        if (todayIsVisible)
+        {
+            todayIsVisible = dateViewData.some(dateInfo => GregorianCalendar.isEqualDate(dateInfo.value, state.today));
+        }
+
+        let selectedDateIsVisible = selectedDate && state.activeView.type === ViewType.Date;
+        if (selectedDateIsVisible)
+        {
+            selectedDateIsVisible = dateViewData.some(dateInfo => GregorianCalendar.isEqualDate(dateInfo.value, selectedDate));
+        }
+
         return (
             <Control.Component
-                style={Style.Control}
-                onTodayButtonClick={
-                    view !== View.Date || !isWithinTimeFrame(today)
-                        ? () => { goToToday(); }
-                        : null
-                }
-                onSelectionButtonClick={
-                    selectedDate && (view !== View.Date || !isWithinTimeFrame(selectedDate))
-                        ? () => { goToSelectedDate(); }
-                        : null
-                }
+                style={computedStyle.Control}
+                onTodayButtonClick={!todayIsVisible ? () => { goToToday(); } : null}
+                onSelectionButtonClick={!selectedDateIsVisible ? () => { goToSelectedDate(); } : null}
             />
         );
     }
 
     function zoomIn(timeFrame: TimeFrame): void
     {
-        if (view === View.Date)
+        if (state.activeView.type === ViewType.Date)
         {
             return;
         }
 
-        setTransitionDirection(TransitionDirection.Outward);
-        setView(view - 1);
-        setTimeFrame(timeFrame);
+        setState(prevState =>
+        {
+            const nextViewType = prevState.activeView.type - 1;
+            return {
+                ...prevState,
+                transitionDirection: TransitionDirection.Outward,
+                view: {
+                    type: nextViewType,
+                    timeFrame
+                }
+            };
+        });
     }
 
     function zoomOut(): void
     {
-        if (view === View.Year)
+        if (state.activeView.type === ViewType.Year)
         {
             return;
         }
 
-        setTransitionDirection(TransitionDirection.Inward);
-        setView(view + 1);
+        setState(prevState =>
+        {
+            const nextViewType = prevState.activeView.type + 1;
+            return {
+                ...prevState,
+                transitionDirection: TransitionDirection.Inward,
+                view: {
+                    ...prevState.activeView,
+                    type: nextViewType
+                }
+            };
+        });
     }
 
     function navigate(direction: TransitionDirection): void
     {
         const canNavigate = (
-            (direction === TransitionDirection.Forward && canNavigateForward(view, timeFrame))
+            (direction === TransitionDirection.Forward && canNavigateForward(state.activeView))
             ||
-            (direction === TransitionDirection.Backward && canNavigateBackward(view, timeFrame))
+            (direction === TransitionDirection.Backward && canNavigateBackward(state.activeView))
         );
 
         if (!canNavigate)
@@ -179,11 +257,11 @@ export function Calendar({
         }
 
         let decade: Decade;
-        const monthAndYear = new Date(timeFrame.monthAndYear);
+        const monthAndYear = new Date(state.activeView.timeFrame.monthAndYear);
 
-        switch (view)
+        switch (state.activeView.type)
         {
-            case View.Date:
+            case ViewType.Date:
             {
                 const monthStep = direction === TransitionDirection.Forward ? 1 : -1;
                 monthAndYear.setMonth(monthAndYear.getMonth() + monthStep);
@@ -192,7 +270,7 @@ export function Calendar({
                 break;
             }
 
-            case View.Month:
+            case ViewType.Month:
             {
                 const yearStep = direction === TransitionDirection.Forward ? 1 : -1;
                 monthAndYear.setFullYear(monthAndYear.getFullYear() + yearStep);
@@ -201,7 +279,7 @@ export function Calendar({
                 break;
             }
 
-            case View.Year:
+            case ViewType.Year:
             {
                 const decadeStep = direction === TransitionDirection.Forward
                     ? GregorianCalendar.YEAR_COUNT_IN_DECADE
@@ -214,22 +292,42 @@ export function Calendar({
             }
         }
 
-        setTransitionDirection(direction);
-        setTimeFrame({monthAndYear, decade});
+        setState(prevState => ({
+            ...prevState,
+            transitionDirection: direction,
+            activeView: {
+                ...prevState.activeView,
+                timeFrame: {monthAndYear, decade}
+            },
+            transitioningOutViews: [
+                ...prevState.transitioningOutViews,
+                {
+                    type: prevState.activeView.type,
+                    timeFrame: prevState.activeView.timeFrame
+                }
+            ]
+        }));
     }
 
     function goToToday(): void
     {
-        const thisMonth = new Date(today);
+        const thisMonth = new Date(state.today);
         thisMonth.setDate(1);
         thisMonth.setHours(0, 0, 0, 0);
 
-        setView(View.Date);
-        setTransitionDirection(getTransitionDirection(thisMonth));
-        setTimeFrame({
+        const todayTimeFrame = {
             monthAndYear: thisMonth,
             decade: GregorianCalendar.getDecade(thisMonth.getFullYear())
-        });
+        };
+
+        setState(prevState => ({
+            ...prevState,
+            transitionDirection: getTransitionDirection(thisMonth),
+            view: {
+                type: ViewType.Date,
+                timeFrame: todayTimeFrame
+            }
+        }));
     }
 
     function goToSelectedDate(): void
@@ -239,27 +337,52 @@ export function Calendar({
             return;
         }
 
-        setView(View.Date);
-        setTransitionDirection(getTransitionDirection(selectedDate));
-        setTimeFrame({
+        const selectedDateTimeFrame = {
             monthAndYear: selectedDate,
             decade: GregorianCalendar.getDecade(selectedDate.getFullYear())
-        });
+        };
+
+        setState(prevState => ({
+            ...prevState,
+            transitionDirection: getTransitionDirection(selectedDate),
+            view: {
+                type: ViewType.Date,
+                timeFrame: selectedDateTimeFrame
+            }
+        }));
     }
 
     function getTransitionDirection(toDate: Date): TransitionDirection
     {
-        return view > View.Date
+        return state.activeView.type > ViewType.Date
             ? TransitionDirection.Outward
-            : toDate < timeFrame.monthAndYear
+            : toDate < state.activeView.timeFrame.monthAndYear
                 ? TransitionDirection.Backward
                 : TransitionDirection.Forward;
     }
 
-    function isWithinTimeFrame(date: Date): boolean
+    function getDateViewDataWithCache(month: Date): DateView.DateInfo[][]
     {
-        const dateViewData = DateView.getData(timeFrame.monthAndYear);
-        return dateViewData.flat().filter(x => GregorianCalendar.isEqualDate(x, date))?.length > 0;
+        const cacheKey = `${month.getMonth()}${month.getFullYear()}`;
+        return cache.current.dateViewData.has(cacheKey)
+            ? cache.current.dateViewData.get(cacheKey)
+            : cache.current.dateViewData.set(cacheKey, getDateViewData(month)) && cache.current.dateViewData.get(cacheKey);
+    }
+
+    function getMonthViewDataWithCache(year: number): MonthView.MonthInfo[]
+    {
+        const cacheKey = `${year}`;
+        return cache.current.monthViewData.has(cacheKey)
+            ? cache.current.monthViewData.get(cacheKey)
+            : cache.current.monthViewData.set(cacheKey, getMonthViewData(year)) && cache.current.monthViewData.get(cacheKey);
+    }
+
+    function getYearViewDataWithCache(decade: Decade): YearView.YearInfo[]
+    {
+        const cacheKey = `${decade}`;
+        return cache.current.yearViewData.has(cacheKey)
+            ? cache.current.yearViewData.get(cacheKey)
+            : cache.current.yearViewData.set(cacheKey, getYearViewData(decade)) && cache.current.yearViewData.get(cacheKey);
     }
 
     function onDateClick(date: Date): void
@@ -281,5 +404,13 @@ export function Calendar({
             monthAndYear: new Date(year, 0, 1),
             decade: GregorianCalendar.getDecade(year)
         });
+    }
+
+    function onViewIsReadyToUnmount(viewId: string): void
+    {
+        setState(prevState => ({
+            ...prevState,
+            transitioningOutViews: prevState.transitioningOutViews.filter(x => getViewId(x) !== viewId)
+        }));
     }
 }

@@ -1,7 +1,52 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {useButtonContext} from "../hook";
 import {ButtonStyle} from "../model";
+
+const Button__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = useButtonContext();
+
+    const defaultIconStyle = IconVariant.Default(iconProps);
+    const iconStyle: ReturnType<IconStyle> = {...defaultIconStyle};
+
+    iconStyle.Root = {
+        ...defaultIconStyle.Root,
+        minWidth: 16,
+        height: 16,
+        fontSize: 16,
+        color: buttonContext.state.pressed
+            ? Color.Ambient
+            : buttonContext.state.hovered
+                ? Color.White
+                : Color.Primary
+    };
+
+    return iconStyle;
+};
+
+const Button__Label: LabelStyle = function (labelProps)
+{
+    const buttonContext = useButtonContext();
+
+    const defaultLabelStyle = LabelVariant.Default(labelProps);
+    const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
+
+    labelStyle.Root = {
+        ...defaultLabelStyle.Root,
+        fontSize: 14,
+        paddingVertical: 0,
+        paddingHorizontal: 10,
+        color: buttonContext.state.pressed
+            ? Color.Ambient
+            : buttonContext.state.hovered
+                ? Color.White
+                : Color.Primary
+    };
+
+    return labelStyle;
+};
 
 export const OutlinedRectangular: ButtonStyle = function (buttonProps, buttonState)
 {
@@ -33,45 +78,8 @@ export const OutlinedRectangular: ButtonStyle = function (buttonProps, buttonSta
         }
     };
 
-    buttonStyle.Icon = function (iconProps)
-    {
-        const defaultIconStyle = IconVariant.Default(iconProps);
-        const iconStyle: ReturnType<IconStyle> = {...defaultIconStyle};
-
-        iconStyle.Root = {
-            ...defaultIconStyle.Root,
-            minWidth: 16,
-            height: 16,
-            fontSize: 16,
-            color: buttonState.pressed
-                ? Color.Ambient
-                : buttonState.hovered
-                    ? Color.White
-                    : Color.Primary
-        };
-
-        return iconStyle;
-    };
-
-    buttonStyle.Label = function (labelProps)
-    {
-        const defaultLabelStyle = LabelVariant.Default(labelProps);
-        const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
-
-        labelStyle.Root = {
-            ...defaultLabelStyle.Root,
-            fontSize: 14,
-            paddingVertical: 0,
-            paddingHorizontal: 10,
-            color: buttonState.pressed
-                ? Color.Ambient
-                : buttonState.hovered
-                    ? Color.White
-                    : Color.Primary
-        };
-
-        return labelStyle;
-    };
+    buttonStyle.Icon = Button__Icon;
+    buttonStyle.Label = Button__Label;
 
     return buttonStyle;
 };

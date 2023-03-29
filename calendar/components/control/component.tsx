@@ -8,12 +8,19 @@ import {Props} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Component({
+    id,
     style,
+    onReadyToUnmount,
     onTodayButtonClick,
     onSelectionButtonClick
 }: Props): JSX.Element
 {
-    const Style = style({onTodayButtonClick, onSelectionButtonClick});
+    const props: Required<Props> = {
+        id, style, onReadyToUnmount, onTodayButtonClick, onSelectionButtonClick
+    };
+
+    const {style: _, ...propsWithoutStyle} = props;
+    const computedStyle = style(propsWithoutStyle);
 
     const thereAreNoControlButtons = onTodayButtonClick === undefined && onSelectionButtonClick === undefined;
     if (thereAreNoControlButtons)
@@ -22,10 +29,10 @@ export function Component({
     }
 
     return (
-        <Animated.View style={Style.Root}>
+        <Animated.View style={computedStyle.Root}>
             {onTodayButtonClick !== undefined && (
                 <Button
-                    style={Style.Button}
+                    style={computedStyle.Button}
                     disabled={onTodayButtonClick === null}
                     icon={IconName.Flag}
                     label={"Today"}
@@ -34,7 +41,7 @@ export function Component({
             )}
             {onSelectionButtonClick !== undefined && (
                 <Button
-                    style={Style.Button}
+                    style={computedStyle.Button}
                     disabled={onSelectionButtonClick === null}
                     icon={IconName.Location}
                     label={"Selection"}

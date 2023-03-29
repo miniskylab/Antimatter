@@ -1,15 +1,18 @@
 import {EMPTY_STRING, MAX, MIN} from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
-import {getNextNumericInputFieldState, Keypress, NumericInputFieldProps} from "./model";
+import {Keypress, NumericInputFieldContext, NumericInputFieldProps, NumericInputFieldState} from "./model";
+import {getNextNumericInputFieldState} from "./service";
 import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function NumericInputField({
+    id,
     style = Variant.Default,
+    onReadyToUnmount,
     defaultValue,
     minValue = MIN,
     maxValue = MAX,
@@ -24,23 +27,32 @@ export function NumericInputField({
     onKeyPress
 }: NumericInputFieldProps): JSX.Element
 {
-    const Style = style({
-        defaultValue, minValue, maxValue, maximumFractionDigits, maximumDigitCount, showPlusSymbolForPositiveNumber,
-        placeholder, autoFocus, onChange, onBlur, onFocus, onKeyPress
+    const props: Required<NumericInputFieldProps> = {
+        id, style, onReadyToUnmount, defaultValue, minValue, maxValue, maximumFractionDigits, maximumDigitCount, placeholder, autoFocus,
+        showPlusSymbolForPositiveNumber, onChange, onBlur, onFocus, onKeyPress
+    };
+
+    const [state, setState] = useState<NumericInputFieldState>({
+        selection: {start: 0},
+        userInput: getDefaultUserInput()
     });
 
-    validateAndThrow();
+    const context = useMemo<NumericInputFieldContext>(
+        () => ({props, state}),
+        [...Object.values(props), ...Object.values(state)]
+    );
 
     const lastKeypressRef = useRef<Keypress>();
     const ignoreNextSelectionChangeEventRef = useRef(false);
-    const [selection, setSelection] = useState({start: 0});
-    const [userInput, setUserInput] = useState(getDefaultUserInput());
+
+    const {style: _, ...propsWithoutStyle} = props;
+    const computedStyle = style(propsWithoutStyle);
 
     useEffect(() =>
     {
         const {nextUserInput, nextSelection} = getNextNumericInputFieldState(
-            userInput,
-            selection,
+            state.userInput,
+            state.selection,
             "SyncEvent",
             showPlusSymbolForPositiveNumber,
             minValue,
@@ -49,35 +61,41 @@ export function NumericInputField({
             maximumDigitCount
         );
 
-        setUserInput(nextUserInput);
-        setSelection(nextSelection);
         ignoreNextSelectionChangeEventRef.current = true;
+        setState(prevState => ({
+            ...prevState,
+            selection: nextSelection,
+            userInput: nextUserInput
+        }));
     }, [showPlusSymbolForPositiveNumber, minValue, maxValue, maximumFractionDigits, maximumDigitCount]);
 
+    validateAndThrow();
     return (
-        <InputField
-            style={Style.Root}
-            value={userInput}
-            selection={selection}
-            autoFocus={autoFocus}
-            placeholder={placeholder}
-            maxLength={userInput.length + 1}
-            autoCorrect={false}
-            contextMenuHidden={true}
-            keyboardType={"numbers-and-punctuation"}
-            onChangeText={handleChangeEvent}
-            onSelectionChange={handleSelectionChangeEvent}
-            onKeyPress={handleKeypressEvent}
-            onBlur={handleBlurEvent}
-            onFocus={onFocus}
-        />
+        <NumericInputFieldContext.Provider value={context}>
+            <InputField
+                style={computedStyle.Root}
+                value={state.userInput}
+                selection={state.selection}
+                autoFocus={autoFocus}
+                placeholder={placeholder}
+                maxLength={state.userInput.length + 1}
+                autoCorrect={false}
+                contextMenuHidden={true}
+                keyboardType={"numbers-and-punctuation"}
+                onChangeText={handleChangeEvent}
+                onSelectionChange={handleSelectionChangeEvent}
+                onKeyPress={handleKeypressEvent}
+                onBlur={handleBlurEvent}
+                onFocus={onFocus}
+            />
+        </NumericInputFieldContext.Provider>
     );
 
     function handleChangeEvent(newUserInput: string): void
     {
         const {nextValue, nextUserInput, nextSelection} = getNextNumericInputFieldState(
-            userInput,
-            selection,
+            state.userInput,
+            state.selection,
             {keypress: lastKeypressRef.current, newUserInput},
             showPlusSymbolForPositiveNumber,
             minValue,
@@ -86,9 +104,12 @@ export function NumericInputField({
             maximumDigitCount
         );
 
-        setUserInput(nextUserInput);
-        setSelection(nextSelection);
         ignoreNextSelectionChangeEventRef.current = true;
+        setState(prevState => ({
+            ...prevState,
+            selection: nextSelection,
+            userInput: nextUserInput
+        }));
 
         onChange?.(nextValue);
     }
@@ -101,7 +122,10 @@ export function NumericInputField({
             return;
         }
 
-        setSelection(selectionChangeEvent.nativeEvent.selection);
+        setState(prevState => ({
+            ...prevState,
+            selection: selectionChangeEvent.nativeEvent.selection
+        }));
     }
 
     function handleKeypressEvent(keypressEvent: NativeSyntheticEvent<TextInputKeyPressEventData>): void
@@ -147,8 +171,8 @@ export function NumericInputField({
     function handleBlurEvent(focusEvent: NativeSyntheticEvent<TextInputFocusEventData>): void
     {
         const {nextUserInput} = getNextNumericInputFieldState(
-            userInput,
-            selection,
+            state.userInput,
+            state.selection,
             "BlurEvent",
             showPlusSymbolForPositiveNumber,
             minValue,
@@ -157,7 +181,11 @@ export function NumericInputField({
             maximumDigitCount
         );
 
-        setUserInput(nextUserInput);
+        setState(prevState => ({
+            ...prevState,
+            userInput: nextUserInput
+        }));
+
         onBlur?.(focusEvent);
     }
 

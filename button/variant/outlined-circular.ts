@@ -1,6 +1,37 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {LabelStyle} from "@miniskylab/antimatter-label";
+import {useButtonContext} from "../hook";
 import {ButtonStyle} from "../model";
+
+const Button__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = useButtonContext();
+
+    const defaultIconStyle = IconVariant.Default(iconProps);
+    const iconStyle: ReturnType<IconStyle> = {...defaultIconStyle};
+
+    iconStyle.Root = {
+        ...defaultIconStyle.Root,
+        fontSize: 14,
+        color: buttonContext.state.pressed
+            ? Color.Ambient
+            : buttonContext.state.hovered
+                ? Color.White
+                : Color.Primary
+    };
+
+    return iconStyle;
+};
+
+const Button__Label: LabelStyle = function ()
+{
+    return {
+        Root: {
+            display: "none"
+        }
+    };
+};
 
 export const OutlinedCircular: ButtonStyle = function (buttonProps, buttonState)
 {
@@ -28,32 +59,8 @@ export const OutlinedCircular: ButtonStyle = function (buttonProps, buttonState)
         }
     };
 
-    buttonStyle.Icon = function (iconProps)
-    {
-        const defaultIconStyle = IconVariant.Default(iconProps);
-        const iconStyle: ReturnType<IconStyle> = {...defaultIconStyle};
-
-        iconStyle.Root = {
-            ...defaultIconStyle.Root,
-            fontSize: 14,
-            color: buttonState.pressed
-                ? Color.Ambient
-                : buttonState.hovered
-                    ? Color.White
-                    : Color.Primary
-        };
-
-        return iconStyle;
-    };
-
-    buttonStyle.Label = function ()
-    {
-        return {
-            Root: {
-                display: "none"
-            }
-        };
-    };
+    buttonStyle.Icon = Button__Icon;
+    buttonStyle.Label = Button__Label;
 
     return buttonStyle;
 };

@@ -6,5 +6,5 @@ import {Props} from "./props";
 export type Style = (headerProps: Styled<Props>) => {
     Root?: ViewStyle;
     Headline?: ButtonStyle;
-    Navigator?: (position: "left" | "right") => ButtonStyle;
+    Navigator?: ButtonStyle;
 };

@@ -1,5 +1,6 @@
 import {ComponentProps, IsDate} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
+import {DateInfo} from "./date-info";
 import {Style} from "./style";
 
 export class Props extends ComponentProps<Style>
@@ -15,9 +16,8 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsDate()
     @IsOptional()
-    readonly displayingMonth?: Date;
+    readonly data?: DateInfo[][];
 
 
     /**

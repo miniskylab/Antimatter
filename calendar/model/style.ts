@@ -10,6 +10,7 @@ export type CalendarStyle = (
 ) => {
     Root?: ViewStyle;
     Header?: Header.Style;
+    ViewContainer?: ViewStyle;
     DateView?: DateView.Style;
     MonthView?: MonthView.Style;
     YearView?: YearView.Style;

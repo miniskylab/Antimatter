@@ -1,7 +1,7 @@
-import {isEnum, isString, registerDecorator} from "class-validator";
+import {isEnum, isString, registerDecorator, ValidationOptions} from "class-validator";
 import {ValidationMessageTemplate} from "../validation-message-template";
 
-export function IsEnum(anyEnum: unknown)
+export function IsEnum(anyEnum: unknown, validationOptions?: Omit<ValidationOptions, "message">)
 {
     return function (classContainingThisProperty: unknown, thisPropertyName: string): void
     {
@@ -9,6 +9,7 @@ export function IsEnum(anyEnum: unknown)
             name: "IsEnum",
             target: classContainingThisProperty.constructor,
             propertyName: thisPropertyName,
+            options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown)
                 {

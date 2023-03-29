@@ -1,5 +1,5 @@
+import {Keypress} from "../model";
 import {getNextNumericInputFieldState} from "./engine";
-import {Keypress} from "./keypress";
 
 describe("enter single digit continuously", () =>
 {

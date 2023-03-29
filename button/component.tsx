@@ -2,14 +2,16 @@ import {AnimatedPressable} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import React, {useMemo, useState} from "react";
-import {ButtonContext, ButtonProps} from "./model";
+import {ButtonContext, ButtonProps, ButtonState} from "./model";
 import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Button({
+    id,
     style,
+    onReadyToUnmount,
     children,
     label,
     icon,
@@ -17,45 +19,58 @@ export function Button({
     onClick
 }: ButtonProps): JSX.Element
 {
-    const [hovered, setHovered] = useState(false);
-    const [pressed, setPressed] = useState(false);
-    if (disabled)
-    {
-        if (hovered) setHovered(false);
-        if (pressed) setPressed(false);
-    }
+    const props: Required<ButtonProps> = {
+        id, style, onReadyToUnmount, children, label, icon, disabled, onClick
+    };
+
+    const [state, setState] = useState<ButtonState>({
+        hovered: false,
+        pressed: false
+    });
+
+    const context = useMemo<ButtonContext>(
+        () => ({props, state}),
+        [...Object.values(props), ...Object.values(state)]
+    );
 
     if (!children && !style)
     {
         style = label ? Variant.OutlinedRectangular : Variant.OutlinedCircular;
     }
 
-    const state = useMemo(() => ({hovered, pressed}), [hovered, pressed]);
-    const Style = style({children, label, icon, disabled, onClick}, state);
+    const {style: _, ...propsWithoutStyle} = props;
+    const computedStyle = style(propsWithoutStyle, state);
+
+    if (disabled && (state.hovered || state.pressed))
+    {
+        setState(prevState => ({
+            ...prevState,
+            hovered: false,
+            pressed: false
+        }));
+    }
 
     return (
-        <AnimatedPressable
-            style={Style.Root}
-            onHoverIn={() => { setHovered(!disabled); }}
-            onHoverOut={() => { setHovered(false); }}
-            onPressIn={() => { setPressed(!disabled); }}
-            onPressOut={() => { setPressed(false); }}
-            onPress={!disabled && onClick ? onClick : undefined}
-        >
-            {
-                children
-                    ? (
-                        <ButtonContext.Provider value={state}>
-                            {children}
-                        </ButtonContext.Provider>
-                    )
-                    : (
-                        <>
-                            {icon && <Icon style={Style.Icon} name={icon} pointerEvents={"none"}/>}
-                            {label && <Label style={Style.Label} pointerEvents={"none"} selectable={false}>{label}</Label>}
-                        </>
-                    )
-            }
-        </AnimatedPressable>
+        <ButtonContext.Provider value={context}>
+            <AnimatedPressable
+                style={computedStyle.Root}
+                onHoverIn={() => { setState(prevState => ({...prevState, hovered: !disabled})); }}
+                onHoverOut={() => { setState(prevState => ({...prevState, hovered: false})); }}
+                onPressIn={() => { setState(prevState => ({...prevState, pressed: !disabled})); }}
+                onPressOut={() => { setState(prevState => ({...prevState, pressed: false})); }}
+                onPress={!disabled && onClick ? onClick : undefined}
+            >
+                {
+                    children
+                        ? children
+                        : (
+                            <>
+                                {icon && <Icon style={computedStyle.Icon} name={icon} pointerEvents={"none"}/>}
+                                {label && <Label style={computedStyle.Label} pointerEvents={"none"} selectable={false}>{label}</Label>}
+                            </>
+                        )
+                }
+            </AnimatedPressable>
+        </ButtonContext.Provider>
     );
 }

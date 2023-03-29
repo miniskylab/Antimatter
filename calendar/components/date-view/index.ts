@@ -1,5 +1,5 @@
-export {Props} from "./model";
+export {Props, DateInfo} from "./model";
 export {Component} from "./component";
-export {getData} from "./helper";
+export * as Hook from "./hook";
 
 export type {Style} from "./model";

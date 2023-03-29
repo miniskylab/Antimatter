@@ -1,5 +1,7 @@
-import {ComponentProps, IsDate, IsInteger} from "@miniskylab/antimatter-framework";
-import {IsOptional} from "class-validator";
+import {ComponentProps, IsArray, IsDate} from "@miniskylab/antimatter-framework";
+import {Type} from "class-transformer";
+import {IsOptional, ValidateNested} from "class-validator";
+import {MonthInfo} from "./month-info";
 import {Style} from "./style";
 
 export class Props extends ComponentProps<Style>
@@ -15,9 +17,11 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsInteger()
+    @IsArray()
     @IsOptional()
-    displayingYear?: number;
+    @ValidateNested({each: true})
+    @Type(() => MonthInfo)
+    data?: MonthInfo[];
 
 
     /**

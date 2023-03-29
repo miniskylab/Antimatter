@@ -9,9 +9,7 @@ export type Style = (dateViewProps: Styled<Props>) => {
     WeekNo?: LabelStyle;
     DayOfWeek?: LabelStyle;
     WeekOfYear?: LabelStyle;
-    DateContainer?: (date: Date) => {
-        Container?: ButtonStyle;
-        DateNumber?: LabelStyle;
-        TodayText?: LabelStyle;
-    };
+    DateContainer?: ButtonStyle;
+    DateNumber?: LabelStyle;
+    TodayText?: LabelStyle;
 };

@@ -1,57 +1,57 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Decade, EMPTY_STRING, GregorianCalendar} from "@miniskylab/antimatter-framework";
-import React from "react";
+import {EMPTY_STRING, GregorianCalendar} from "@miniskylab/antimatter-framework";
+import React, {useMemo} from "react";
 import {Animated} from "react-native";
-import {Props} from "./model";
+import {Props, YearContext, YearViewContext} from "./model";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Component({
+    id,
     style,
+    onReadyToUnmount,
     selectedYear,
-    displayingDecade,
+    data,
     onYearClick
 }: Props): JSX.Element
 {
-    const Style = style({selectedYear, displayingDecade, onYearClick});
-    return (
-        <Animated.View style={Style.Root}>
-            {renderGrid()}
-        </Animated.View>
+    const props: Required<Props> = {
+        id, style, onReadyToUnmount, selectedYear, data, onYearClick
+    };
+
+    const context = useMemo<YearViewContext>(
+        () => ({props}),
+        [...Object.values(props)]
     );
 
-    function renderGrid(): JSX.Element[]
-    {
-        const yearGrid: JSX.Element[] = [];
-        const nextDecade = (displayingDecade + GregorianCalendar.YEAR_COUNT_IN_DECADE) as Decade;
-        for (let year = displayingDecade; year < nextDecade; year++)
-        {
-            yearGrid.push(renderGridCell(year, nextDecade));
-        }
+    const {style: _, ...propsWithoutStyle} = props;
+    const computedStyle = style(propsWithoutStyle);
 
-        yearGrid.unshift(renderGridCell(displayingDecade - 1, nextDecade));
-        yearGrid.unshift(renderGridCell(displayingDecade - 2, nextDecade));
-        yearGrid.unshift(renderGridCell(displayingDecade - 3, nextDecade));
+    return (
+        <YearViewContext.Provider value={context}>
+            <Animated.View style={computedStyle.Root}>
+                {data.map(yearInfo =>
+                {
+                    const outOfSupportedYearRange = yearInfo.value < GregorianCalendar.MIN_YEAR
+                                                    ||
+                                                    yearInfo.value > GregorianCalendar.MAX_YEAR;
 
-        yearGrid.push(renderGridCell(nextDecade, nextDecade));
-        yearGrid.push(renderGridCell(nextDecade + 1, nextDecade));
-        yearGrid.push(renderGridCell(nextDecade + 2, nextDecade));
-
-        return yearGrid;
-    }
-
-    function renderGridCell(year: number, nextDecade: Decade): JSX.Element
-    {
-        const outOfSupportedYearRange = year < GregorianCalendar.MIN_YEAR || GregorianCalendar.MAX_YEAR < year;
-        return (
-            <Button
-                key={year}
-                style={Style.GridCell(year, nextDecade)}
-                label={outOfSupportedYearRange ? EMPTY_STRING : year.toString()}
-                onClick={outOfSupportedYearRange ? undefined : () => { onYearClick(year); }}
-                disabled={outOfSupportedYearRange}
-            />
-        );
-    }
+                    return (
+                        <YearContext.Provider
+                            key={yearInfo.value}
+                            value={useMemo(() => yearInfo, [...Object.values(yearInfo)])}
+                        >
+                            <Button
+                                style={computedStyle.GridCell}
+                                label={outOfSupportedYearRange ? EMPTY_STRING : yearInfo.value.toString()}
+                                onClick={outOfSupportedYearRange ? undefined : () => { onYearClick(yearInfo.value); }}
+                                disabled={outOfSupportedYearRange}
+                            />
+                        </YearContext.Provider>
+                    );
+                })}
+            </Animated.View>
+        </YearViewContext.Provider>
+    );
 }

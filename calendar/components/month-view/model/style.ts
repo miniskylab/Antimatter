@@ -5,5 +5,5 @@ import {Props} from "./props";
 
 export type Style = (monthViewProps: Styled<Props>) => {
     Root?: ViewStyle;
-    GridCell?: (month: Date) => ButtonStyle;
+    GridCell?: ButtonStyle;
 };

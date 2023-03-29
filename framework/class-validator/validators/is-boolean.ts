@@ -1,7 +1,7 @@
-import {isBoolean, registerDecorator} from "class-validator";
+import {isBoolean, registerDecorator, ValidationOptions} from "class-validator";
 import {ValidationMessageTemplate} from "../validation-message-template";
 
-export function IsBoolean()
+export function IsBoolean(validationOptions?: Omit<ValidationOptions, "message">)
 {
     return function (classContainingThisProperty: unknown, thisPropertyName: string): void
     {
@@ -9,6 +9,7 @@ export function IsBoolean()
             name: "IsBoolean",
             target: classContainingThisProperty.constructor,
             propertyName: thisPropertyName,
+            options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isBoolean(thisPropertyValue); },
                 defaultMessage() { return ValidationMessageTemplate.MustBeBoolean; }

@@ -12,12 +12,20 @@ import * as Variant from "./variant";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Icon({
+    id,
     style = Variant.Default,
+    onReadyToUnmount,
     pointerEvents = "auto",
     name
 }: IconProps): JSX.Element
 {
-    const Style = style({pointerEvents, name});
+    const props: Required<IconProps> = {
+        id, style, onReadyToUnmount, pointerEvents, name
+    };
+
+    const {style: _, ...propsWithoutStyle} = props;
+    const computedStyle = style(propsWithoutStyle);
+
     const [fontsLoaded] = useFonts({
         Antimatter: icomoonFont
     });
@@ -34,8 +42,8 @@ export function Icon({
     );
 
     return (
-        <Animated.View style={Style.Root} pointerEvents={pointerEvents}>
-            <IconSet name={name} size={Style.Root.fontSize} style={inheritTextStyleFrom(Style.Root)}/>
+        <Animated.View style={computedStyle.Root} pointerEvents={pointerEvents}>
+            <IconSet name={name} size={computedStyle.Root.fontSize} style={inheritTextStyleFrom(computedStyle.Root)}/>
         </Animated.View>
     );
 }
