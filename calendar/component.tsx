@@ -48,7 +48,7 @@ export function Calendar({
         [...Object.values(props), ...Object.values(state)]
     );
 
-    const cache = useRef<Cache>({
+    const cacheRef = useRef<Cache>({
         dateViewData: new Map(),
         monthViewData: new Map(),
         yearViewData: new Map()
@@ -364,25 +364,25 @@ export function Calendar({
     function getDateViewDataWithCache(month: Date): DateView.DateInfo[][]
     {
         const cacheKey = `${month.getMonth()}${month.getFullYear()}`;
-        return cache.current.dateViewData.has(cacheKey)
-            ? cache.current.dateViewData.get(cacheKey)
-            : cache.current.dateViewData.set(cacheKey, getDateViewData(month)) && cache.current.dateViewData.get(cacheKey);
+        return cacheRef.current.dateViewData.has(cacheKey)
+            ? cacheRef.current.dateViewData.get(cacheKey)
+            : cacheRef.current.dateViewData.set(cacheKey, getDateViewData(month)) && cacheRef.current.dateViewData.get(cacheKey);
     }
 
     function getMonthViewDataWithCache(year: number): MonthView.MonthInfo[]
     {
         const cacheKey = `${year}`;
-        return cache.current.monthViewData.has(cacheKey)
-            ? cache.current.monthViewData.get(cacheKey)
-            : cache.current.monthViewData.set(cacheKey, getMonthViewData(year)) && cache.current.monthViewData.get(cacheKey);
+        return cacheRef.current.monthViewData.has(cacheKey)
+            ? cacheRef.current.monthViewData.get(cacheKey)
+            : cacheRef.current.monthViewData.set(cacheKey, getMonthViewData(year)) && cacheRef.current.monthViewData.get(cacheKey);
     }
 
     function getYearViewDataWithCache(decade: Decade): YearView.YearInfo[]
     {
         const cacheKey = `${decade}`;
-        return cache.current.yearViewData.has(cacheKey)
-            ? cache.current.yearViewData.get(cacheKey)
-            : cache.current.yearViewData.set(cacheKey, getYearViewData(decade)) && cache.current.yearViewData.get(cacheKey);
+        return cacheRef.current.yearViewData.has(cacheKey)
+            ? cacheRef.current.yearViewData.get(cacheKey)
+            : cacheRef.current.yearViewData.set(cacheKey, getYearViewData(decade)) && cacheRef.current.yearViewData.get(cacheKey);
     }
 
     function onDateClick(date: Date): void
