@@ -9,23 +9,23 @@ export class Props extends ComponentProps<Style>
      */
     @IsString()
     @IsOptional()
-    headline?: string;
+    readonly headline?: string;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onPrevClick?: GestureResponderEventHandler;
+    readonly onPrevClick?: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onNextClick?: GestureResponderEventHandler;
+    readonly onNextClick?: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onHeadlineClick?: GestureResponderEventHandler;
+    readonly onHeadlineClick?: GestureResponderEventHandler;
 }

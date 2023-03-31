@@ -27,16 +27,14 @@ export function Calendar({
         initialSelectedDate.setDate(1);
         initialSelectedDate.setHours(0, 0, 0, 0);
 
-        const timeFrame = {
-            monthAndYear: initialSelectedDate,
-            decade: GregorianCalendar.getDecade(initialSelectedDate.getFullYear())
-        };
-
         return {
             today,
             activeView: {
                 type: ViewType.Date,
-                timeFrame
+                timeFrame: {
+                    monthAndYear: initialSelectedDate,
+                    decade: GregorianCalendar.getDecade(initialSelectedDate.getFullYear())
+                }
             },
             transitioningOutViews: [],
             transitionDirection: TransitionDirection.None
@@ -180,23 +178,23 @@ export function Calendar({
             dateViewData = getDateViewData(state.activeView.timeFrame.monthAndYear).flat();
         }
 
-        let todayIsVisible = state.activeView.type === ViewType.Date;
-        if (todayIsVisible)
+        let canNavigateToToday = false;
+        if (state.activeView.type === ViewType.Date)
         {
-            todayIsVisible = dateViewData.some(dateInfo => GregorianCalendar.isEqualDate(dateInfo.value, state.today));
+            canNavigateToToday = !dateViewData.some(dateInfo => GregorianCalendar.isEqualDate(dateInfo.value, state.today));
         }
 
-        let selectedDateIsVisible = selectedDate && state.activeView.type === ViewType.Date;
-        if (selectedDateIsVisible)
+        let canNavigateToSelectedDate = false;
+        if (selectedDate && state.activeView.type === ViewType.Date)
         {
-            selectedDateIsVisible = dateViewData.some(dateInfo => GregorianCalendar.isEqualDate(dateInfo.value, selectedDate));
+            canNavigateToSelectedDate = !dateViewData.some(dateInfo => GregorianCalendar.isEqualDate(dateInfo.value, selectedDate));
         }
 
         return (
             <Control.Component
                 style={computedStyle.Control}
-                onTodayButtonClick={!todayIsVisible ? () => { goToToday(); } : null}
-                onSelectionButtonClick={!selectedDateIsVisible ? () => { goToSelectedDate(); } : null}
+                onTodayButtonClick={canNavigateToToday ? () => { goToToday(); } : null}
+                onSelectionButtonClick={canNavigateToSelectedDate ? () => { goToSelectedDate(); } : null}
             />
         );
     }
@@ -208,18 +206,19 @@ export function Calendar({
             return;
         }
 
-        setState(prevState =>
-        {
-            const nextViewType = prevState.activeView.type - 1;
-            return {
-                ...prevState,
-                transitionDirection: TransitionDirection.Outward,
-                view: {
-                    type: nextViewType,
-                    timeFrame
-                }
-            };
-        });
+        setState(prevState => ({
+            ...prevState,
+            transitionDirection: TransitionDirection.Outward,
+            activeView: {
+                ...prevState.activeView,
+                type: prevState.activeView.type - 1,
+                timeFrame
+            },
+            transitioningOutViews: [
+                ...prevState.transitioningOutViews,
+                prevState.activeView
+            ]
+        }));
     }
 
     function zoomOut(): void
@@ -229,18 +228,18 @@ export function Calendar({
             return;
         }
 
-        setState(prevState =>
-        {
-            const nextViewType = prevState.activeView.type + 1;
-            return {
-                ...prevState,
-                transitionDirection: TransitionDirection.Inward,
-                view: {
-                    ...prevState.activeView,
-                    type: nextViewType
-                }
-            };
-        });
+        setState(prevState => ({
+            ...prevState,
+            transitionDirection: TransitionDirection.Inward,
+            activeView: {
+                ...prevState.activeView,
+                type: prevState.activeView.type + 1
+            },
+            transitioningOutViews: [
+                ...prevState.transitioningOutViews,
+                prevState.activeView
+            ]
+        }));
     }
 
     function navigate(direction: TransitionDirection): void
@@ -256,55 +255,16 @@ export function Calendar({
             return;
         }
 
-        let decade: Decade;
-        const monthAndYear = new Date(state.activeView.timeFrame.monthAndYear);
-
-        switch (state.activeView.type)
-        {
-            case ViewType.Date:
-            {
-                const monthStep = direction === TransitionDirection.Forward ? 1 : -1;
-                monthAndYear.setMonth(monthAndYear.getMonth() + monthStep);
-                decade = GregorianCalendar.getDecade(monthAndYear.getFullYear());
-
-                break;
-            }
-
-            case ViewType.Month:
-            {
-                const yearStep = direction === TransitionDirection.Forward ? 1 : -1;
-                monthAndYear.setFullYear(monthAndYear.getFullYear() + yearStep);
-                decade = GregorianCalendar.getDecade(monthAndYear.getFullYear());
-
-                break;
-            }
-
-            case ViewType.Year:
-            {
-                const decadeStep = direction === TransitionDirection.Forward
-                    ? GregorianCalendar.YEAR_COUNT_IN_DECADE
-                    : -1 * GregorianCalendar.YEAR_COUNT_IN_DECADE;
-
-                decade = (GregorianCalendar.getDecade(monthAndYear.getFullYear()) + decadeStep) as Decade;
-                monthAndYear.setFullYear(decade, 0, 1);
-
-                break;
-            }
-        }
-
         setState(prevState => ({
             ...prevState,
             transitionDirection: direction,
             activeView: {
                 ...prevState.activeView,
-                timeFrame: {monthAndYear, decade}
+                timeFrame: getNextTimeFrame(direction)
             },
             transitioningOutViews: [
                 ...prevState.transitioningOutViews,
-                {
-                    type: prevState.activeView.type,
-                    timeFrame: prevState.activeView.timeFrame
-                }
+                prevState.activeView
             ]
         }));
     }
@@ -323,10 +283,15 @@ export function Calendar({
         setState(prevState => ({
             ...prevState,
             transitionDirection: getTransitionDirection(thisMonth),
-            view: {
+            activeView: {
+                ...prevState.activeView,
                 type: ViewType.Date,
                 timeFrame: todayTimeFrame
-            }
+            },
+            transitioningOutViews: [
+                ...prevState.transitioningOutViews,
+                prevState.activeView
+            ]
         }));
     }
 
@@ -345,11 +310,59 @@ export function Calendar({
         setState(prevState => ({
             ...prevState,
             transitionDirection: getTransitionDirection(selectedDate),
-            view: {
+            activeView: {
+                ...prevState.activeView,
                 type: ViewType.Date,
                 timeFrame: selectedDateTimeFrame
-            }
+            },
+            transitioningOutViews: [
+                ...prevState.transitioningOutViews,
+                prevState.activeView
+            ]
         }));
+    }
+
+    function getNextTimeFrame(direction: TransitionDirection): TimeFrame
+    {
+        const timeFrame: TimeFrame = {
+            decade: undefined,
+            monthAndYear: new Date(state.activeView.timeFrame.monthAndYear)
+        };
+
+        switch (state.activeView.type)
+        {
+            case ViewType.Date:
+            {
+                const monthStep = direction === TransitionDirection.Forward ? 1 : -1;
+                timeFrame.monthAndYear.setMonth(timeFrame.monthAndYear.getMonth() + monthStep);
+                timeFrame.decade = GregorianCalendar.getDecade(timeFrame.monthAndYear.getFullYear());
+
+                break;
+            }
+
+            case ViewType.Month:
+            {
+                const yearStep = direction === TransitionDirection.Forward ? 1 : -1;
+                timeFrame.monthAndYear.setFullYear(timeFrame.monthAndYear.getFullYear() + yearStep);
+                timeFrame.decade = GregorianCalendar.getDecade(timeFrame.monthAndYear.getFullYear());
+
+                break;
+            }
+
+            case ViewType.Year:
+            {
+                const decadeStep = direction === TransitionDirection.Forward
+                    ? GregorianCalendar.YEAR_COUNT_IN_DECADE
+                    : -1 * GregorianCalendar.YEAR_COUNT_IN_DECADE;
+
+                timeFrame.decade = (GregorianCalendar.getDecade(timeFrame.monthAndYear.getFullYear()) + decadeStep) as Decade;
+                timeFrame.monthAndYear.setFullYear(timeFrame.decade, 0, 1);
+
+                break;
+            }
+        }
+
+        return timeFrame;
     }
 
     function getTransitionDirection(toDate: Date): TransitionDirection

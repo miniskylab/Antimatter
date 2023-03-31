@@ -82,7 +82,7 @@ export function Component({
                 const isToday = GregorianCalendar.isEqualDate(dateInfo.value, today);
 
                 week.push(
-                    <DateContext.Provider key={dayNo.toString()} value={dateInfo}>
+                    <DateContext.Provider key={data[weekNo][dayNo].value.getTime()} value={dateInfo}>
                         <Button style={computedStyle.DateContainer} onClick={() => { onDateClick?.(dateInfo.value); }}>
                             {isToday && <Label style={computedStyle.TodayText} selectable={false}>Today</Label>}
                             <Label style={computedStyle.DateNumber} selectable={false}>{dateInfo.value.getDate().toString()}</Label>

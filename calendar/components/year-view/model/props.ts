@@ -11,7 +11,7 @@ export class Props extends ComponentProps<Style>
      */
     @IsInteger()
     @IsOptional()
-    selectedYear?: number;
+    readonly selectedYear?: number;
 
 
     /**
@@ -21,11 +21,11 @@ export class Props extends ComponentProps<Style>
     @IsOptional()
     @ValidateNested({each: true})
     @Type(() => YearInfo)
-    data?: YearInfo[];
+    readonly data?: YearInfo[];
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onYearClick?: (year: number) => void;
+    readonly onYearClick?: (year: number) => void;
 }

@@ -11,7 +11,7 @@ export class Props extends ComponentProps<Style>
      */
     @IsDate()
     @IsOptional()
-    selectedMonth?: Date;
+    readonly selectedMonth?: Date;
 
 
     /**
@@ -21,11 +21,11 @@ export class Props extends ComponentProps<Style>
     @IsOptional()
     @ValidateNested({each: true})
     @Type(() => MonthInfo)
-    data?: MonthInfo[];
+    readonly data?: MonthInfo[];
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    onMonthClick?: (month: Date) => void;
+    readonly onMonthClick?: (month: Date) => void;
 }
