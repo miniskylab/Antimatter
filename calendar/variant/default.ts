@@ -177,10 +177,11 @@ const Calendar__DateView__DayOfWeek: LabelStyle = function (labelProps)
 const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, buttonState)
 {
     const calendarContext = useCalendarContext();
-    const dateInfo = DateView.Hook.useDateContext();
+    const dateContext = DateView.Hook.useDateContext();
+    const dateViewContext = DateView.Hook.useDateViewContext();
 
-    const isToday = GregorianCalendar.isEqualDate(dateInfo.value, calendarContext.state.today);
-    const isSelectedDate = GregorianCalendar.isEqualDate(dateInfo.value, calendarContext.props.selectedDate);
+    const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
+    const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
     const outlinedCircularButtonStyle = ButtonVariant.OutlinedCircular(buttonProps, buttonState);
     const buttonStyle: ReturnType<ButtonStyle> = {...outlinedCircularButtonStyle};
@@ -196,7 +197,7 @@ const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, bu
         borderWidth: 3,
         borderStyle: "solid",
         borderColor: isToday
-            ? dateInfo.isExtraneous
+            ? dateContext.isExtraneous
                 ? Color.White__a10
                 : Color.Neutral
             : Color.Transparent,
@@ -220,11 +221,12 @@ const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, bu
 const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
 {
     const calendarContext = useCalendarContext();
-    const dateInfo = DateView.Hook.useDateContext();
+    const dateContext = DateView.Hook.useDateContext();
     const buttonContext = ButtonHook.useButtonContext();
+    const dateViewContext = DateView.Hook.useDateViewContext();
 
-    const isToday = GregorianCalendar.isEqualDate(dateInfo.value, calendarContext.state.today);
-    const isSelectedDate = GregorianCalendar.isEqualDate(dateInfo.value, calendarContext.props.selectedDate);
+    const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
+    const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
     const defaultLabelStyle = LabelVariant.Default(labelProps);
     const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
@@ -237,7 +239,7 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
             ? Color.Ambient
             : buttonContext.state.hovered
                 ? Color.White
-                : dateInfo.isExtraneous
+                : dateContext.isExtraneous
                     ? Color.White__a10
                     : Color.Neutral,
         ...isToday && {
@@ -253,10 +255,10 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
 const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
 {
     const calendarContext = useCalendarContext();
-    const dateInfo = DateView.Hook.useDateContext();
+    const dateContext = DateView.Hook.useDateContext();
     const buttonContext = ButtonHook.useButtonContext();
 
-    const isSelectedDate = GregorianCalendar.isEqualDate(dateInfo.value, calendarContext.props.selectedDate);
+    const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
     const defaultLabelStyle = LabelVariant.Default(labelProps);
     const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
@@ -272,7 +274,7 @@ const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
             ? Color.Ambient
             : buttonContext.state.hovered
                 ? Color.White
-                : dateInfo.isExtraneous
+                : dateContext.isExtraneous
                     ? Color.White__a10
                     : Color.Neutral
     };
@@ -445,6 +447,7 @@ const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
     const yearContext = YearView.Hook.useYearContext();
     const buttonContext = ButtonHook.useButtonContext();
     const yearViewContext = YearView.Hook.useYearViewContext();
+
     const isSelectedYear = yearContext.value === yearViewContext.props.selectedYear;
 
     const defaultLabelStyle = LabelVariant.Default(labelProps);
@@ -470,6 +473,7 @@ const Calendar__YearView__GridCell: ButtonStyle = function (buttonProps, buttonS
 {
     const yearContext = YearView.Hook.useYearContext();
     const yearViewContext = YearView.Hook.useYearViewContext();
+
     const isSelectedYear = yearContext.value === yearViewContext.props.selectedYear;
 
     const outlinedRectangularButtonStyle = ButtonVariant.OutlinedRectangular(buttonProps, buttonState);
