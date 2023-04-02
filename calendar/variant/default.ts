@@ -8,7 +8,7 @@ import {Animated, Easing} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "../components";
 import {useCalendarContext} from "../hook";
 import {CalendarStyle} from "../model";
-import {getViewId} from "../service";
+import {getViewId, getViewPosition} from "../service";
 
 const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
 {
@@ -286,35 +286,45 @@ const Calendar__DateView: DateView.Style = function (dateViewProps)
 {
     const calendarContext = useCalendarContext();
 
-    const isActiveDateView = dateViewProps.id === getViewId(calendarContext.state.activeView);
-
-    const avTranslateX = useRef(new Animated.Value(isActiveDateView ? 320 : 0)).current;
-    const avOpacity = useRef(new Animated.Value(isActiveDateView ? 0 : 1)).current;
+    const isActiveView = dateViewProps.id === getViewId(calendarContext.state.activeView);
+    const dateViewTranslateXRef = useRef(getViewPosition(calendarContext, dateViewProps.id, 320, true));
+    const avDateViewTranslateX = useRef(new Animated.Value(dateViewTranslateXRef.current)).current;
+    const avDateViewOpacity = useRef(new Animated.Value(isActiveView ? 1 : 0)).current;
 
     useEffect(() =>
     {
-        Animated.parallel([
-            Animated.timing(avTranslateX, {
-                toValue: isActiveDateView
-                    ? 0
-                    : -320,
-                duration: 500,
-                easing: Easing.out(Easing.ease),
-                useNativeDriver: false
-            }),
-            Animated.timing(avOpacity, {
-                toValue: isActiveDateView ? 1 : 0,
-                duration: 500,
-                easing: Easing.bezier(0, 0, 0, 1),
-                useNativeDriver: false
-            })
-        ]).start(endResult =>
+        const transitionInProgress = Object.entries(calendarContext.state.transitioningOutViews).length > 0;
+        if (transitionInProgress)
         {
-            if (endResult.finished && !isActiveDateView)
+            avDateViewTranslateX.setValue(dateViewTranslateXRef.current);
+
+            const nextDateViewTranslateX = getViewPosition(calendarContext, dateViewProps.id, 320, false);
+            if (nextDateViewTranslateX !== dateViewTranslateXRef.current)
             {
-                dateViewProps?.onReadyToUnmount(dateViewProps.id);
+                dateViewTranslateXRef.current = nextDateViewTranslateX;
+
+                Animated.parallel([
+                    Animated.timing(avDateViewTranslateX, {
+                        toValue: nextDateViewTranslateX,
+                        duration: 300,
+                        easing: Easing.out(Easing.ease),
+                        useNativeDriver: false
+                    }),
+                    Animated.timing(avDateViewOpacity, {
+                        toValue: isActiveView ? 1 : 0,
+                        duration: 300,
+                        easing: Easing.in(Easing.ease),
+                        useNativeDriver: false
+                    })
+                ]).start(() =>
+                {
+                    if (!isActiveView)
+                    {
+                        dateViewProps?.onReadyToUnmount(dateViewProps.id);
+                    }
+                });
             }
-        });
+        }
     }, [calendarContext.state.activeView]);
 
     const dateViewStyle: ReturnType<DateView.Style> = {};
@@ -323,8 +333,9 @@ const Calendar__DateView: DateView.Style = function (dateViewProps)
         flexWrap: "wrap",
         flexDirection: "row",
         position: "absolute",
+        opacity: avDateViewOpacity as unknown as number,
         transform: [{
-            translateX: avTranslateX as unknown as number
+            translateX: avDateViewTranslateX as unknown as number
         }]
     };
 
@@ -615,8 +626,8 @@ export const Default: CalendarStyle = function ()
     };
 
     calendarStyle.ViewContainer = {
-        height: 280
-        // TODO: overflow: "hidden"
+        height: 280,
+        overflow: "hidden"
     };
 
     calendarStyle.Header = Calendar__Header;

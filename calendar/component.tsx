@@ -36,7 +36,7 @@ export function Calendar({
                     decade: GregorianCalendar.getDecade(initialSelectedDate.getFullYear())
                 }
             },
-            transitioningOutViews: [],
+            transitioningOutViews: {},
             transitionDirection: TransitionDirection.None
         };
     });
@@ -62,7 +62,7 @@ export function Calendar({
                 <Animated.View style={computedStyle.ViewContainer}>
                     {[
                         renderView(state.activeView),
-                        ...state.transitioningOutViews.map(renderView)
+                        ...Object.values(state.transitioningOutViews).map(renderView)
                     ]}
                 </Animated.View>
                 {renderControl()}
@@ -206,19 +206,19 @@ export function Calendar({
             return;
         }
 
-        setState(prevState => ({
-            ...prevState,
-            transitionDirection: TransitionDirection.Outward,
-            activeView: {
-                ...prevState.activeView,
-                type: prevState.activeView.type - 1,
-                timeFrame
-            },
-            transitioningOutViews: [
-                ...prevState.transitioningOutViews,
-                prevState.activeView
-            ]
-        }));
+        setState(prevState =>
+        {
+            const activeView = {...prevState.activeView, type: prevState.activeView.type - 1, timeFrame};
+            const transitioningOutViews = {...prevState.transitioningOutViews, [getViewId(prevState.activeView)]: prevState.activeView};
+            delete transitioningOutViews[getViewId(activeView)];
+
+            return {
+                ...prevState,
+                activeView,
+                transitioningOutViews,
+                transitionDirection: TransitionDirection.Outward
+            };
+        });
     }
 
     function zoomOut(): void
@@ -228,18 +228,19 @@ export function Calendar({
             return;
         }
 
-        setState(prevState => ({
-            ...prevState,
-            transitionDirection: TransitionDirection.Inward,
-            activeView: {
-                ...prevState.activeView,
-                type: prevState.activeView.type + 1
-            },
-            transitioningOutViews: [
-                ...prevState.transitioningOutViews,
-                prevState.activeView
-            ]
-        }));
+        setState(prevState =>
+        {
+            const activeView = {...prevState.activeView, type: prevState.activeView.type + 1};
+            const transitioningOutViews = {...prevState.transitioningOutViews, [getViewId(prevState.activeView)]: prevState.activeView};
+            delete transitioningOutViews[getViewId(activeView)];
+
+            return {
+                ...prevState,
+                activeView,
+                transitioningOutViews,
+                transitionDirection: TransitionDirection.Inward
+            };
+        });
     }
 
     function navigate(direction: TransitionDirection): void
@@ -255,18 +256,19 @@ export function Calendar({
             return;
         }
 
-        setState(prevState => ({
-            ...prevState,
-            transitionDirection: direction,
-            activeView: {
-                ...prevState.activeView,
-                timeFrame: getNextTimeFrame(direction)
-            },
-            transitioningOutViews: [
-                ...prevState.transitioningOutViews,
-                prevState.activeView
-            ]
-        }));
+        setState(prevState =>
+        {
+            const activeView = {...prevState.activeView, timeFrame: getNextTimeFrame(direction)};
+            const transitioningOutViews = {...prevState.transitioningOutViews, [getViewId(prevState.activeView)]: prevState.activeView};
+            delete transitioningOutViews[getViewId(activeView)];
+
+            return {
+                ...prevState,
+                activeView,
+                transitioningOutViews,
+                transitionDirection: direction
+            };
+        });
     }
 
     function goToToday(): void
@@ -280,19 +282,19 @@ export function Calendar({
             decade: GregorianCalendar.getDecade(thisMonth.getFullYear())
         };
 
-        setState(prevState => ({
-            ...prevState,
-            transitionDirection: getTransitionDirection(thisMonth),
-            activeView: {
-                ...prevState.activeView,
-                type: ViewType.Date,
-                timeFrame: todayTimeFrame
-            },
-            transitioningOutViews: [
-                ...prevState.transitioningOutViews,
-                prevState.activeView
-            ]
-        }));
+        setState(prevState =>
+        {
+            const activeView = {...prevState.activeView, type: ViewType.Date, timeFrame: todayTimeFrame};
+            const transitioningOutViews = {...prevState.transitioningOutViews, [getViewId(prevState.activeView)]: prevState.activeView};
+            delete transitioningOutViews[getViewId(activeView)];
+
+            return {
+                ...prevState,
+                activeView,
+                transitioningOutViews,
+                transitionDirection: getTransitionDirection(thisMonth)
+            };
+        });
     }
 
     function goToSelectedDate(): void
@@ -307,19 +309,19 @@ export function Calendar({
             decade: GregorianCalendar.getDecade(selectedDate.getFullYear())
         };
 
-        setState(prevState => ({
-            ...prevState,
-            transitionDirection: getTransitionDirection(selectedDate),
-            activeView: {
-                ...prevState.activeView,
-                type: ViewType.Date,
-                timeFrame: selectedDateTimeFrame
-            },
-            transitioningOutViews: [
-                ...prevState.transitioningOutViews,
-                prevState.activeView
-            ]
-        }));
+        setState(prevState =>
+        {
+            const activeView = {...prevState.activeView, type: ViewType.Date, timeFrame: selectedDateTimeFrame};
+            const transitioningOutViews = {...prevState.transitioningOutViews, [getViewId(prevState.activeView)]: prevState.activeView};
+            delete transitioningOutViews[getViewId(activeView)];
+
+            return {
+                ...prevState,
+                activeView,
+                transitioningOutViews,
+                transitionDirection: getTransitionDirection(selectedDate)
+            };
+        });
     }
 
     function getNextTimeFrame(direction: TransitionDirection): TimeFrame
@@ -423,7 +425,7 @@ export function Calendar({
     {
         setState(prevState => ({
             ...prevState,
-            transitioningOutViews: prevState.transitioningOutViews.filter(x => getViewId(x) !== viewId)
+            transitioningOutViews: Object.fromEntries(Object.entries(prevState.transitioningOutViews).filter(entry => entry[0] !== viewId))
         }));
     }
 }
