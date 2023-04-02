@@ -1,5 +1,5 @@
 import {DayOfWeek, Decade, GregorianCalendar} from "@miniskylab/antimatter-framework";
-import {DateView, MonthView, YearView} from "../components";
+import {DateView, MonthView, YearView} from "../component";
 import {ViewType} from "../enum";
 import {View} from "../type";
 

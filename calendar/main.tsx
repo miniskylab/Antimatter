@@ -1,7 +1,7 @@
 import {Decade, GregorianCalendar, whitespace} from "@miniskylab/antimatter-framework";
 import React, {useMemo, useRef, useState} from "react";
 import {Animated} from "react-native";
-import {Control, DateView, Header, MonthView, YearView} from "./components";
+import {Control, DateView, Header, MonthView, YearView} from "./component";
 import {TransitionDirection, ViewType} from "./enum";
 import {CalendarContext, CalendarProps, CalendarState} from "./model";
 import {canNavigateBackward, canNavigateForward, getDateViewData, getMonthViewData, getViewId, getYearViewData} from "./service";

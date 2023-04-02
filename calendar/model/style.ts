@@ -1,6 +1,6 @@
 import {Styled} from "@miniskylab/antimatter-framework";
 import {ViewStyle} from "react-native";
-import {Control, DateView, Header, MonthView, YearView} from "../components";
+import {Control, DateView, Header, MonthView, YearView} from "../component";
 import {CalendarProps} from "./props";
 import {CalendarState} from "./state";
 

@@ -1,4 +1,4 @@
-import {DateView, MonthView, YearView} from "../components";
+import {DateView, MonthView, YearView} from "../component";
 
 export type Cache = {
     readonly dateViewData: Map<string, DateView.DateInfo[][]>;

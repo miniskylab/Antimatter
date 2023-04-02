@@ -3,12 +3,10 @@ import {Color} from "@miniskylab/antimatter-color-scheme";
 import {GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
-import {useEffect, useRef} from "react";
-import {Animated, Easing} from "react-native";
-import {Control, DateView, Header, MonthView, YearView} from "../components";
-import {Context} from "../hook";
+import {Control, DateView, Header, MonthView, YearView} from "../component";
+import {Animation, Context} from "../hook";
 import {CalendarStyle} from "../model";
-import {getViewId, getViewPosition} from "../service";
+import {getViewId} from "../service";
 
 const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
 {
@@ -286,46 +284,14 @@ const Calendar__DateView: DateView.Style = function (dateViewProps)
 {
     const calendarContext = Context.useCalendarContext();
 
-    const isActiveView = dateViewProps.id === getViewId(calendarContext.state.activeView);
-    const dateViewTranslateXRef = useRef(getViewPosition(calendarContext, dateViewProps.id, 320, true));
-    const avDateViewTranslateX = useRef(new Animated.Value(dateViewTranslateXRef.current)).current;
-    const avDateViewOpacity = useRef(new Animated.Value(isActiveView ? 1 : 0)).current;
-
-    useEffect(() =>
+    const animation = Animation.useViewTransitionAnimation(dateViewProps.id, 320, () =>
     {
-        const transitionInProgress = Object.entries(calendarContext.state.transitioningOutViews).length > 0;
-        if (transitionInProgress)
+        const isActiveView = dateViewProps.id === getViewId(calendarContext.state.activeView);
+        if (!isActiveView)
         {
-            avDateViewTranslateX.setValue(dateViewTranslateXRef.current);
-
-            const nextDateViewTranslateX = getViewPosition(calendarContext, dateViewProps.id, 320, false);
-            if (nextDateViewTranslateX !== dateViewTranslateXRef.current)
-            {
-                dateViewTranslateXRef.current = nextDateViewTranslateX;
-
-                Animated.parallel([
-                    Animated.timing(avDateViewTranslateX, {
-                        toValue: nextDateViewTranslateX,
-                        duration: 300,
-                        easing: Easing.out(Easing.ease),
-                        useNativeDriver: false
-                    }),
-                    Animated.timing(avDateViewOpacity, {
-                        toValue: isActiveView ? 1 : 0,
-                        duration: 300,
-                        easing: Easing.in(Easing.ease),
-                        useNativeDriver: false
-                    })
-                ]).start(() =>
-                {
-                    if (!isActiveView)
-                    {
-                        dateViewProps?.onReadyToUnmount(dateViewProps.id);
-                    }
-                });
-            }
+            dateViewProps?.onReadyToUnmount(dateViewProps.id);
         }
-    }, [calendarContext.state.activeView]);
+    });
 
     const dateViewStyle: ReturnType<DateView.Style> = {};
 
@@ -333,10 +299,7 @@ const Calendar__DateView: DateView.Style = function (dateViewProps)
         flexWrap: "wrap",
         flexDirection: "row",
         position: "absolute",
-        opacity: avDateViewOpacity as unknown as number,
-        transform: [{
-            translateX: avDateViewTranslateX as unknown as number
-        }]
+        ...animation
     };
 
     dateViewStyle.WeekNo = Calendar__DateView__WeekNo;
