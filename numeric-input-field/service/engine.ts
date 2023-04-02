@@ -1,5 +1,5 @@
 import {clampNumber, EMPTY_STRING, isNullOrUndefined, MAX, MIN, Selection} from "@miniskylab/antimatter-framework";
-import {Keypress} from "../model";
+import {Keypress} from "../enum";
 
 type KeypressEvent = { keypress: Keypress; newUserInput: string };
 export function getNextNumericInputFieldState(

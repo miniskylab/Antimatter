@@ -1,4 +1,5 @@
-import {CalendarContext, TransitionDirection} from "../model";
+import {TransitionDirection} from "../enum";
+import {CalendarContext} from "../model";
 import {getViewId} from "./view";
 
 export function getViewPosition(

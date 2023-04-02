@@ -3,7 +3,7 @@ import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {useEffect, useRef} from "react";
 import {Animated, Easing} from "react-native";
-import {useInputFieldContext} from "../hook";
+import {Context} from "../hook";
 import {InputFieldStyle} from "../model";
 
 const InputField__AddOn: IconStyle = function (iconProps)
@@ -25,7 +25,7 @@ const InputField__AddOn: IconStyle = function (iconProps)
 
 const InputField__Placeholder: LabelStyle = function (labelProps)
 {
-    const inputFieldContext = useInputFieldContext();
+    const inputFieldContext = Context.useInputFieldContext();
 
     const labelFontSize = useRef(new Animated.Value(16)).current;
     const labelHeight = useRef(new Animated.Value(100)).current;

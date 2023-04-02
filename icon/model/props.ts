@@ -1,6 +1,6 @@
 import {ComponentName, ComponentProps, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {IconName} from "./icon-name";
+import {IconName} from "../enum";
 import {IconStyle} from "./style";
 
 @ComponentName("Icon")

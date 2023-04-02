@@ -6,14 +6,14 @@ import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {useEffect, useRef} from "react";
 import {Animated, Easing} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "../components";
-import {useCalendarContext} from "../hook";
+import {Context} from "../hook";
 import {CalendarStyle} from "../model";
 import {getViewId, getViewPosition} from "../service";
 
 const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
 {
-    const buttonContext = ButtonHook.useButtonContext();
-    const navigatorDirectionContext = Header.Hook.useNavigatorDirectionContext();
+    const buttonContext = ButtonHook.Context.useButtonContext();
+    const navigatorDirectionContext = Header.Hook.Context.useNavigatorDirectionContext();
 
     const inheritedIconStyle = ButtonVariant.OutlinedCircular(buttonContext.props, buttonContext.state).Icon(iconProps);
     const iconStyle: ReturnType<IconStyle> = {...inheritedIconStyle};
@@ -68,7 +68,7 @@ const Calendar__Header__Navigator: ButtonStyle = function (buttonProps, buttonSt
 
 const Calendar__Header__Headline__Label: LabelStyle = function (labelProps)
 {
-    const buttonContext = ButtonHook.useButtonContext();
+    const buttonContext = ButtonHook.Context.useButtonContext();
 
     const inheritedLabelStyle = ButtonVariant.OutlinedRectangular(buttonContext.props, buttonContext.state).Label(labelProps);
     const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};
@@ -176,9 +176,9 @@ const Calendar__DateView__DayOfWeek: LabelStyle = function (labelProps)
 
 const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, buttonState)
 {
-    const calendarContext = useCalendarContext();
-    const dateContext = DateView.Hook.useDateContext();
-    const dateViewContext = DateView.Hook.useDateViewContext();
+    const calendarContext = Context.useCalendarContext();
+    const dateContext = DateView.Hook.Context.useDateContext();
+    const dateViewContext = DateView.Hook.Context.useDateViewContext();
 
     const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
     const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
@@ -220,10 +220,10 @@ const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, bu
 
 const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
 {
-    const calendarContext = useCalendarContext();
-    const dateContext = DateView.Hook.useDateContext();
-    const buttonContext = ButtonHook.useButtonContext();
-    const dateViewContext = DateView.Hook.useDateViewContext();
+    const calendarContext = Context.useCalendarContext();
+    const dateContext = DateView.Hook.Context.useDateContext();
+    const buttonContext = ButtonHook.Context.useButtonContext();
+    const dateViewContext = DateView.Hook.Context.useDateViewContext();
 
     const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
     const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
@@ -254,9 +254,9 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
 
 const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
 {
-    const calendarContext = useCalendarContext();
-    const dateContext = DateView.Hook.useDateContext();
-    const buttonContext = ButtonHook.useButtonContext();
+    const calendarContext = Context.useCalendarContext();
+    const dateContext = DateView.Hook.Context.useDateContext();
+    const buttonContext = ButtonHook.Context.useButtonContext();
 
     const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
@@ -284,7 +284,7 @@ const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
 
 const Calendar__DateView: DateView.Style = function (dateViewProps)
 {
-    const calendarContext = useCalendarContext();
+    const calendarContext = Context.useCalendarContext();
 
     const isActiveView = dateViewProps.id === getViewId(calendarContext.state.activeView);
     const dateViewTranslateXRef = useRef(getViewPosition(calendarContext, dateViewProps.id, 320, true));
@@ -362,9 +362,9 @@ const Calendar__MonthView__GridCell__Icon: IconStyle = function ()
 
 const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
 {
-    const buttonContext = ButtonHook.useButtonContext();
-    const monthContext = MonthView.Hook.useMonthContext();
-    const monthViewContext = MonthView.Hook.useMonthViewContext();
+    const buttonContext = ButtonHook.Context.useButtonContext();
+    const monthContext = MonthView.Hook.Context.useMonthContext();
+    const monthViewContext = MonthView.Hook.Context.useMonthViewContext();
 
     const isSelectedMonth = GregorianCalendar.isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
 
@@ -389,8 +389,8 @@ const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
 
 const Calendar__MonthView__GridCell: ButtonStyle = function (buttonProps, buttonState)
 {
-    const monthContext = MonthView.Hook.useMonthContext();
-    const monthViewContext = MonthView.Hook.useMonthViewContext();
+    const monthContext = MonthView.Hook.Context.useMonthContext();
+    const monthViewContext = MonthView.Hook.Context.useMonthViewContext();
 
     const isSelectedMonth = GregorianCalendar.isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
 
@@ -455,9 +455,9 @@ const Calendar__YearView__GridCell__Icon: IconStyle = function ()
 
 const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
 {
-    const yearContext = YearView.Hook.useYearContext();
-    const buttonContext = ButtonHook.useButtonContext();
-    const yearViewContext = YearView.Hook.useYearViewContext();
+    const yearContext = YearView.Hook.Context.useYearContext();
+    const buttonContext = ButtonHook.Context.useButtonContext();
+    const yearViewContext = YearView.Hook.Context.useYearViewContext();
 
     const isSelectedYear = yearContext.value === yearViewContext.props.selectedYear;
 
@@ -482,8 +482,8 @@ const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
 
 const Calendar__YearView__GridCell: ButtonStyle = function (buttonProps, buttonState)
 {
-    const yearContext = YearView.Hook.useYearContext();
-    const yearViewContext = YearView.Hook.useYearViewContext();
+    const yearContext = YearView.Hook.Context.useYearContext();
+    const yearViewContext = YearView.Hook.Context.useYearViewContext();
 
     const isSelectedYear = yearContext.value === yearViewContext.props.selectedYear;
 
@@ -537,7 +537,7 @@ const Calendar__YearView: YearView.Style = function ()
 
 const Calendar__Control__Button__Icon: IconStyle = function (iconProps)
 {
-    const buttonContext = ButtonHook.useButtonContext();
+    const buttonContext = ButtonHook.Context.useButtonContext();
 
     const inheritedIconStyle = ButtonVariant.OutlinedRectangular(buttonContext.props, buttonContext.state).Icon(iconProps);
     const iconStyle: ReturnType<IconStyle> = {...inheritedIconStyle};
@@ -560,7 +560,7 @@ const Calendar__Control__Button__Icon: IconStyle = function (iconProps)
 
 const Calendar__Control__Button__Label: LabelStyle = function (labelProps)
 {
-    const buttonContext = ButtonHook.useButtonContext();
+    const buttonContext = ButtonHook.Context.useButtonContext();
 
     const inheritedLabelStyle = ButtonVariant.OutlinedRectangular(buttonContext.props, buttonContext.state).Label(labelProps);
     const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};

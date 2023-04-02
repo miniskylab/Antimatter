@@ -1,12 +1,12 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {LabelStyle} from "@miniskylab/antimatter-label";
-import {useButtonContext} from "../hook";
+import {Context} from "../hook";
 import {ButtonStyle} from "../model";
 
 const Button__Icon: IconStyle = function (iconProps)
 {
-    const buttonContext = useButtonContext();
+    const buttonContext = Context.useButtonContext();
 
     const defaultIconStyle = IconVariant.Default(iconProps);
     const iconStyle: ReturnType<IconStyle> = {...defaultIconStyle};

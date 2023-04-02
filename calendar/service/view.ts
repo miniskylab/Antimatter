@@ -1,6 +1,7 @@
 import {DayOfWeek, Decade, GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {DateView, MonthView, YearView} from "../components";
-import {View, ViewType} from "../model";
+import {ViewType} from "../enum";
+import {View} from "../type";
 
 export function canNavigateForward(view: View): boolean
 {

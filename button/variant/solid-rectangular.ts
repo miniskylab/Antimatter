@@ -1,13 +1,13 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle} from "@miniskylab/antimatter-label";
-import {useButtonContext} from "../hook";
+import {Context} from "../hook";
 import {ButtonStyle} from "../model";
 import {OutlinedRectangular} from "./outlined-rectangular";
 
 const Button__Icon: IconStyle = function (iconProps)
 {
-    const buttonContext = useButtonContext();
+    const buttonContext = Context.useButtonContext();
 
     const inheritedIconStyle = OutlinedRectangular(buttonContext.props, buttonContext.state).Icon(iconProps);
     const iconStyle: ReturnType<IconStyle> = {...inheritedIconStyle};
@@ -22,7 +22,7 @@ const Button__Icon: IconStyle = function (iconProps)
 
 const Button__Label: LabelStyle = function (labelProps)
 {
-    const buttonContext = useButtonContext();
+    const buttonContext = Context.useButtonContext();
 
     const inheritedLabelStyle = OutlinedRectangular(buttonContext.props, buttonContext.state).Label(labelProps);
     const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};
