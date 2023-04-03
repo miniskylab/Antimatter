@@ -1,12 +1,12 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
-import {Context} from "../hook";
+import {ButtonContextHook} from "../hook";
 import {ButtonStyle} from "../model";
 
 const Button__Icon: IconStyle = function (iconProps)
 {
-    const buttonContext = Context.useButtonContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
 
     const defaultIconStyle = IconVariant.Default(iconProps);
     const iconStyle: ReturnType<IconStyle> = {...defaultIconStyle};
@@ -28,7 +28,7 @@ const Button__Icon: IconStyle = function (iconProps)
 
 const Button__Label: LabelStyle = function (labelProps)
 {
-    const buttonContext = Context.useButtonContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
 
     const defaultLabelStyle = LabelVariant.Default(labelProps);
     const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};

@@ -1,17 +1,17 @@
-import {ButtonHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {Control, DateView, Header, MonthView, YearView} from "../component";
-import {Animation, Context} from "../hook";
+import {CalendarAnimationHook, CalendarContextHook} from "../hook";
 import {CalendarStyle} from "../model";
 import {getViewId} from "../service";
 
 const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
 {
-    const buttonContext = ButtonHook.Context.useButtonContext();
-    const navigatorDirectionContext = Header.Hook.Context.useNavigatorDirectionContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const navigatorDirectionContext = Header.ContextHook.useNavigatorDirectionContext();
 
     const inheritedIconStyle = ButtonVariant.OutlinedCircular(buttonContext.props, buttonContext.state).Icon(iconProps);
     const iconStyle: ReturnType<IconStyle> = {...inheritedIconStyle};
@@ -66,7 +66,7 @@ const Calendar__Header__Navigator: ButtonStyle = function (buttonProps, buttonSt
 
 const Calendar__Header__Headline__Label: LabelStyle = function (labelProps)
 {
-    const buttonContext = ButtonHook.Context.useButtonContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
 
     const inheritedLabelStyle = ButtonVariant.OutlinedRectangular(buttonContext.props, buttonContext.state).Label(labelProps);
     const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};
@@ -174,9 +174,9 @@ const Calendar__DateView__DayOfWeek: LabelStyle = function (labelProps)
 
 const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, buttonState)
 {
-    const calendarContext = Context.useCalendarContext();
-    const dateContext = DateView.Hook.Context.useDateContext();
-    const dateViewContext = DateView.Hook.Context.useDateViewContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+    const dateContext = DateView.ContextHook.useDateContext();
+    const dateViewContext = DateView.ContextHook.useDateViewContext();
 
     const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
     const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
@@ -218,10 +218,10 @@ const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, bu
 
 const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
 {
-    const calendarContext = Context.useCalendarContext();
-    const dateContext = DateView.Hook.Context.useDateContext();
-    const buttonContext = ButtonHook.Context.useButtonContext();
-    const dateViewContext = DateView.Hook.Context.useDateViewContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+    const dateContext = DateView.ContextHook.useDateContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const dateViewContext = DateView.ContextHook.useDateViewContext();
 
     const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
     const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
@@ -252,9 +252,9 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
 
 const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
 {
-    const calendarContext = Context.useCalendarContext();
-    const dateContext = DateView.Hook.Context.useDateContext();
-    const buttonContext = ButtonHook.Context.useButtonContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+    const dateContext = DateView.ContextHook.useDateContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
 
     const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
@@ -282,9 +282,9 @@ const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
 
 const Calendar__DateView: DateView.Style = function (dateViewProps)
 {
-    const calendarContext = Context.useCalendarContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
 
-    const animation = Animation.useViewTransitionAnimation(dateViewProps.id, 320, () =>
+    const animation = CalendarAnimationHook.useViewTransitionAnimation(dateViewProps.id, 320, () =>
     {
         const isActiveView = dateViewProps.id === getViewId(calendarContext.state.activeView);
         if (!isActiveView)
@@ -325,9 +325,9 @@ const Calendar__MonthView__GridCell__Icon: IconStyle = function ()
 
 const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
 {
-    const buttonContext = ButtonHook.Context.useButtonContext();
-    const monthContext = MonthView.Hook.Context.useMonthContext();
-    const monthViewContext = MonthView.Hook.Context.useMonthViewContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const monthContext = MonthView.ContextHook.useMonthContext();
+    const monthViewContext = MonthView.ContextHook.useMonthViewContext();
 
     const isSelectedMonth = GregorianCalendar.isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
 
@@ -352,8 +352,8 @@ const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
 
 const Calendar__MonthView__GridCell: ButtonStyle = function (buttonProps, buttonState)
 {
-    const monthContext = MonthView.Hook.Context.useMonthContext();
-    const monthViewContext = MonthView.Hook.Context.useMonthViewContext();
+    const monthContext = MonthView.ContextHook.useMonthContext();
+    const monthViewContext = MonthView.ContextHook.useMonthViewContext();
 
     const isSelectedMonth = GregorianCalendar.isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
 
@@ -418,9 +418,9 @@ const Calendar__YearView__GridCell__Icon: IconStyle = function ()
 
 const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
 {
-    const yearContext = YearView.Hook.Context.useYearContext();
-    const buttonContext = ButtonHook.Context.useButtonContext();
-    const yearViewContext = YearView.Hook.Context.useYearViewContext();
+    const yearContext = YearView.ContextHook.useYearContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const yearViewContext = YearView.ContextHook.useYearViewContext();
 
     const isSelectedYear = yearContext.value === yearViewContext.props.selectedYear;
 
@@ -445,8 +445,8 @@ const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
 
 const Calendar__YearView__GridCell: ButtonStyle = function (buttonProps, buttonState)
 {
-    const yearContext = YearView.Hook.Context.useYearContext();
-    const yearViewContext = YearView.Hook.Context.useYearViewContext();
+    const yearContext = YearView.ContextHook.useYearContext();
+    const yearViewContext = YearView.ContextHook.useYearViewContext();
 
     const isSelectedYear = yearContext.value === yearViewContext.props.selectedYear;
 
@@ -500,7 +500,7 @@ const Calendar__YearView: YearView.Style = function ()
 
 const Calendar__Control__Button__Icon: IconStyle = function (iconProps)
 {
-    const buttonContext = ButtonHook.Context.useButtonContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
 
     const inheritedIconStyle = ButtonVariant.OutlinedRectangular(buttonContext.props, buttonContext.state).Icon(iconProps);
     const iconStyle: ReturnType<IconStyle> = {...inheritedIconStyle};
@@ -523,7 +523,7 @@ const Calendar__Control__Button__Icon: IconStyle = function (iconProps)
 
 const Calendar__Control__Button__Label: LabelStyle = function (labelProps)
 {
-    const buttonContext = ButtonHook.Context.useButtonContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
 
     const inheritedLabelStyle = ButtonVariant.OutlinedRectangular(buttonContext.props, buttonContext.state).Label(labelProps);
     const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};

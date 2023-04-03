@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
-import {Animation} from "../hook";
+import {InputFieldAnimationHook} from "../hook";
 import {InputFieldStyle} from "../model";
 
 const InputField__AddOn: IconStyle = function (iconProps)
@@ -33,7 +33,7 @@ const InputField__Placeholder: LabelStyle = function (labelProps)
         width: "100%",
         paddingLeft: 12,
         color: Color.Gray,
-        ...Animation.usePlaceholderAnimation()
+        ...InputFieldAnimationHook.usePlaceholderAnimation()
     };
 
     return labelStyle;
@@ -63,7 +63,7 @@ export const Default: InputFieldStyle = function (inputFieldProps)
         fontSize: 14,
         color: Color.Neutral,
         backgroundColor: Color.Transparent,
-        ...Animation.useTextBoxAnimation(inputFieldProps)
+        ...InputFieldAnimationHook.useTextBoxAnimation(inputFieldProps)
     };
 
     inputFieldStyle.AddOn = InputField__AddOn;

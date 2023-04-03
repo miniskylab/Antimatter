@@ -1,1 +1,1 @@
-export * as Context from "./context";
+export * as FooterContextHook from "./context";

@@ -1,1 +1,1 @@
-export * as Context from "./context";
+export * as ButtonContextHook from "./context";

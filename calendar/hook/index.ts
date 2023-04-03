@@ -1,2 +1,2 @@
-export * as Animation from "./animation";
-export * as Context from "./context";
+export * as CalendarAnimationHook from "./animation";
+export * as CalendarContextHook from "./context";
