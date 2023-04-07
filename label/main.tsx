@@ -8,16 +8,14 @@ import * as Variant from "./variant";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Label({
-    id,
     style = Variant.Default,
-    onReadyToUnmount,
     children,
     selectable = true,
     pointerEvents = "auto"
 }: LabelProps): JSX.Element
 {
     const props: Required<LabelProps> = {
-        id, style, onReadyToUnmount, children, selectable, pointerEvents
+        style, children, selectable, pointerEvents
     };
 
     const {style: _, ...propsWithoutStyle} = props;

@@ -9,16 +9,14 @@ import {DateContext, DateViewContext, Props} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Component({
-    id,
     style,
-    onReadyToUnmount,
     today,
     data,
     onDateClick
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        id, style, onReadyToUnmount, today, data, onDateClick
+        style, today, data, onDateClick
     };
 
     const context = useMemo<DateViewContext>(

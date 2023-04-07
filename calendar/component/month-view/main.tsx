@@ -8,16 +8,14 @@ import {MonthContext, MonthViewContext, Props} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Component({
-    id,
     style,
-    onReadyToUnmount,
     selectedMonth,
     data,
     onMonthClick
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        id, style, onReadyToUnmount, selectedMonth, data, onMonthClick
+        style, selectedMonth, data, onMonthClick
     };
 
     const context = useMemo<MonthViewContext>(

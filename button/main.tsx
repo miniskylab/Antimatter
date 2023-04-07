@@ -9,9 +9,7 @@ import * as Variant from "./variant";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Button({
-    id,
     style,
-    onReadyToUnmount,
     children,
     label,
     icon,
@@ -20,7 +18,7 @@ export function Button({
 }: ButtonProps): JSX.Element
 {
     const props: Required<ButtonProps> = {
-        id, style, onReadyToUnmount, children, label, icon, disabled, onClick
+        style, children, label, icon, disabled, onClick
     };
 
     const [state, setState] = useState<ButtonState>({

@@ -3,10 +3,10 @@ import {Color} from "@miniskylab/antimatter-color-scheme";
 import {GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {TransitionStyle, TransitionVariant} from "@miniskylab/antimatter-transition";
 import {Control, DateView, Header, MonthView, YearView} from "../component";
-import {CalendarAnimationHook, CalendarContextHook} from "../hook";
+import {CalendarContextHook} from "../hook";
 import {CalendarStyle} from "../model";
-import {getViewId} from "../service";
 
 const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
 {
@@ -122,6 +122,19 @@ const Calendar__Header: Header.Style = function ()
     headerStyle.Headline = Calendar__Header__Headline;
 
     return headerStyle;
+};
+
+const Calendar__ViewTransition: TransitionStyle = function (transitionProps, transitionState)
+{
+    const defaultTransitionStyle = TransitionVariant.Default(transitionProps, transitionState);
+    const transitionStyle: ReturnType<ButtonStyle> = {...defaultTransitionStyle};
+
+    transitionStyle.Root = {
+        ...defaultTransitionStyle.Root,
+        height: 280
+    };
+
+    return transitionStyle;
 };
 
 const Calendar__DateView__WeekNo: LabelStyle = function (labelProps)
@@ -280,26 +293,14 @@ const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
     return labelStyle;
 };
 
-const Calendar__DateView: DateView.Style = function (dateViewProps)
+const Calendar__DateView: DateView.Style = function ()
 {
-    const calendarContext = CalendarContextHook.useCalendarContext();
-
-    const animation = CalendarAnimationHook.useViewTransitionAnimation(dateViewProps.id, 320, () =>
-    {
-        const isActiveView = dateViewProps.id === getViewId(calendarContext.state.activeView);
-        if (!isActiveView)
-        {
-            dateViewProps?.onReadyToUnmount(dateViewProps.id);
-        }
-    });
-
     const dateViewStyle: ReturnType<DateView.Style> = {};
 
     dateViewStyle.Root = {
         flexWrap: "wrap",
         flexDirection: "row",
-        position: "absolute",
-        ...animation
+        position: "absolute"
     };
 
     dateViewStyle.WeekNo = Calendar__DateView__WeekNo;
@@ -371,6 +372,9 @@ const Calendar__MonthView__GridCell: ButtonStyle = function (buttonProps, button
         borderStyle: "solid",
         borderColor: Color.Transparent,
         margin: 5,
+        ...isSelectedMonth && {
+            borderColor: Color.Neutral
+        },
         ...buttonState.hovered && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary__a10
@@ -378,9 +382,6 @@ const Calendar__MonthView__GridCell: ButtonStyle = function (buttonProps, button
         ...buttonState.pressed && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary
-        },
-        ...isSelectedMonth && {
-            borderColor: Color.Neutral
         }
     };
 
@@ -464,6 +465,9 @@ const Calendar__YearView__GridCell: ButtonStyle = function (buttonProps, buttonS
         borderStyle: "solid",
         borderColor: Color.Transparent,
         margin: 5,
+        ...isSelectedYear && {
+            borderColor: Color.Neutral
+        },
         ...buttonState.hovered && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary__a10
@@ -471,9 +475,6 @@ const Calendar__YearView__GridCell: ButtonStyle = function (buttonProps, buttonS
         ...buttonState.pressed && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary
-        },
-        ...isSelectedYear && {
-            borderColor: Color.Neutral
         }
     };
 
@@ -588,12 +589,8 @@ export const Default: CalendarStyle = function ()
         width: 320
     };
 
-    calendarStyle.ViewContainer = {
-        height: 280,
-        overflow: "hidden"
-    };
-
     calendarStyle.Header = Calendar__Header;
+    calendarStyle.ViewTransition = Calendar__ViewTransition;
     calendarStyle.DateView = Calendar__DateView;
     calendarStyle.MonthView = Calendar__MonthView;
     calendarStyle.YearView = Calendar__YearView;

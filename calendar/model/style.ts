@@ -1,4 +1,5 @@
 import {Styled} from "@miniskylab/antimatter-framework";
+import {TransitionStyle} from "@miniskylab/antimatter-transition";
 import {ViewStyle} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "../component";
 import {CalendarProps} from "./props";
@@ -10,7 +11,7 @@ export type CalendarStyle = (
 ) => {
     Root?: ViewStyle;
     Header?: Header.Style;
-    ViewContainer?: ViewStyle;
+    ViewTransition?: TransitionStyle;
     DateView?: DateView.Style;
     MonthView?: MonthView.Style;
     YearView?: YearView.Style;

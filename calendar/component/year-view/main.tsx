@@ -8,16 +8,14 @@ import {Props, YearContext, YearViewContext} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Component({
-    id,
     style,
-    onReadyToUnmount,
     selectedYear,
     data,
     onYearClick
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        id, style, onReadyToUnmount, selectedYear, data, onYearClick
+        style, selectedYear, data, onYearClick
     };
 
     const context = useMemo<YearViewContext>(

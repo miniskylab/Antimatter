@@ -11,9 +11,7 @@ import * as Variant from "./variant";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function NumericInputField({
-    id,
     style = Variant.Default,
-    onReadyToUnmount,
     defaultValue,
     minValue = MIN,
     maxValue = MAX,
@@ -29,7 +27,7 @@ export function NumericInputField({
 }: NumericInputFieldProps): JSX.Element
 {
     const props: Required<NumericInputFieldProps> = {
-        id, style, onReadyToUnmount, defaultValue, minValue, maxValue, maximumFractionDigits, maximumDigitCount, placeholder, autoFocus,
+        style, defaultValue, minValue, maxValue, maximumFractionDigits, maximumDigitCount, placeholder, autoFocus,
         showPlusSymbolForPositiveNumber, onChange, onBlur, onFocus, onKeyPress
     };
 

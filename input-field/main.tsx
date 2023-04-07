@@ -10,9 +10,7 @@ import * as Variant from "./variant";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function InputField({
-    id,
     style = Variant.Default,
-    onReadyToUnmount,
     value = EMPTY_STRING,
     icon,
     placeholder = EMPTY_STRING,
@@ -31,8 +29,8 @@ export function InputField({
 }: InputFieldProps): JSX.Element
 {
     const props: Required<InputFieldProps> = {
-        id, style, onReadyToUnmount, value, icon, placeholder, autoFocus, isPasswordField, contextMenuHidden, autoCorrect, maxLength,
-        keyboardType, selection, onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
+        style, value, icon, placeholder, autoFocus, isPasswordField, contextMenuHidden, autoCorrect, maxLength, keyboardType,
+        selection, onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
     };
 
     const context = useMemo<InputFieldContext>(

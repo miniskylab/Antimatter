@@ -8,15 +8,13 @@ import {Props} from "./model";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Component({
-    id,
     style,
-    onReadyToUnmount,
     onTodayButtonClick,
     onSelectionButtonClick
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        id, style, onReadyToUnmount, onTodayButtonClick, onSelectionButtonClick
+        style, onTodayButtonClick, onSelectionButtonClick
     };
 
     const {style: _, ...propsWithoutStyle} = props;

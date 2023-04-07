@@ -12,15 +12,13 @@ import * as Variant from "./variant";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Icon({
-    id,
     style = Variant.Default,
-    onReadyToUnmount,
     pointerEvents = "auto",
     name
 }: IconProps): JSX.Element
 {
     const props: Required<IconProps> = {
-        id, style, onReadyToUnmount, pointerEvents, name
+        style, pointerEvents, name
     };
 
     const {style: _, ...propsWithoutStyle} = props;

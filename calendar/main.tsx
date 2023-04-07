@@ -1,25 +1,24 @@
 import {Decade, GregorianCalendar, whitespace} from "@miniskylab/antimatter-framework";
+import {Animation, CompositeTransitionSettings, SlideDirection, Transition, ZoomDirection} from "@miniskylab/antimatter-transition";
 import React, {useMemo, useRef, useState} from "react";
 import {Animated} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "./component";
-import {TransitionDirection, ViewType} from "./enum";
+import {ViewType} from "./enum";
 import {CalendarContext, CalendarProps, CalendarState} from "./model";
 import {canNavigateBackward, canNavigateForward, getDateViewData, getMonthViewData, getViewId, getYearViewData} from "./service";
-import {Cache, TimeFrame, View} from "./type";
+import {Cache, TimeFrame} from "./type";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Calendar({
-    id,
     style,
-    onReadyToUnmount,
     selectedDate,
     onSelectedDateChange
 }: CalendarProps): JSX.Element
 {
     const props: Required<CalendarProps> = {
-        id, style, onReadyToUnmount, selectedDate, onSelectedDateChange
+        style, selectedDate, onSelectedDateChange
     };
 
     const [state, setState] = useState<CalendarState>(() =>
@@ -31,15 +30,16 @@ export function Calendar({
 
         return {
             today,
-            activeView: {
+            view: {
                 type: ViewType.Date,
                 timeFrame: {
                     monthAndYear: initialSelectedDate,
                     decade: GregorianCalendar.getDecade(initialSelectedDate.getFullYear())
                 }
             },
-            transitioningOutViews: {},
-            transitionDirection: TransitionDirection.None
+            transitionSettings: {
+                animation: Animation.None
+            }
         };
     });
 
@@ -61,12 +61,9 @@ export function Calendar({
         <CalendarContext.Provider value={context}>
             <Animated.View style={computedStyle.Root}>
                 {renderHeader()}
-                <Animated.View style={computedStyle.ViewContainer}>
-                    {[
-                        renderView(state.activeView),
-                        ...Object.values(state.transitioningOutViews).map(renderView)
-                    ]}
-                </Animated.View>
+                <Transition style={computedStyle.ViewTransition} settings={state.transitionSettings}>
+                    {renderView()}
+                </Transition>
                 {renderControl()}
             </Animated.View>
         </CalendarContext.Provider>
@@ -74,23 +71,23 @@ export function Calendar({
 
     function getHeadline(): string
     {
-        switch (state.activeView.type)
+        switch (state.view.type)
         {
             case ViewType.Date:
             {
-                const date = state.activeView.timeFrame.monthAndYear;
+                const date = state.view.timeFrame.monthAndYear;
 
                 return `${GregorianCalendar.getFullMonthName(date.getMonth())}${whitespace(2)}${date.getFullYear()}`;
             }
 
             case ViewType.Month:
             {
-                return `${state.activeView.timeFrame.monthAndYear.getFullYear()}`;
+                return `${state.view.timeFrame.monthAndYear.getFullYear()}`;
             }
 
             case ViewType.Year:
             {
-                const decadeFirstYear = state.activeView.timeFrame.decade;
+                const decadeFirstYear = state.view.timeFrame.decade;
                 const decadeLastYear = decadeFirstYear + GregorianCalendar.YEAR_COUNT_IN_DECADE - 1;
 
                 return `${decadeFirstYear} - ${decadeLastYear}`;
@@ -105,39 +102,37 @@ export function Calendar({
                 style={computedStyle.Header}
                 headline={getHeadline()}
                 onPrevClick={
-                    canNavigateBackward(state.activeView)
-                        ? () => { navigate(TransitionDirection.Backward); }
+                    canNavigateBackward(state.view)
+                        ? () => { slide(SlideDirection.Left); }
                         : undefined
                 }
                 onHeadlineClick={
-                    state.activeView.type < ViewType.Year
+                    state.view.type < ViewType.Year
                         ? () => { zoomOut(); }
                         : undefined
                 }
                 onNextClick={
-                    canNavigateForward(state.activeView)
-                        ? () => { navigate(TransitionDirection.Forward); }
+                    canNavigateForward(state.view)
+                        ? () => { slide(SlideDirection.Right); }
                         : undefined
                 }
             />
         );
     }
 
-    function renderView(view: View): JSX.Element
+    function renderView(): JSX.Element
     {
-        switch (view.type)
+        switch (state.view.type)
         {
             case ViewType.Date:
             {
                 return (
                     <DateView.Component
-                        key={getViewId(view)}
-                        id={getViewId(view)}
+                        key={getViewId(state.view)}
                         style={computedStyle.DateView}
                         today={state.today}
-                        data={getDateViewDataWithCache(view.timeFrame.monthAndYear)}
+                        data={getDateViewDataWithCache(state.view.timeFrame.monthAndYear)}
                         onDateClick={onDateClick}
-                        onReadyToUnmount={onViewIsReadyToUnmount}
                     />
                 );
             }
@@ -146,12 +141,11 @@ export function Calendar({
             {
                 return (
                     <MonthView.Component
-                        key={getViewId(view)}
-                        id={getViewId(view)}
+                        key={getViewId(state.view)}
                         style={computedStyle.MonthView}
-                        data={getMonthViewDataWithCache(view.timeFrame.monthAndYear.getFullYear())}
+                        selectedMonth={state.today}
+                        data={getMonthViewDataWithCache(state.view.timeFrame.monthAndYear.getFullYear())}
                         onMonthClick={onMonthClick}
-                        onReadyToUnmount={onViewIsReadyToUnmount}
                     />
                 );
             }
@@ -160,12 +154,11 @@ export function Calendar({
             {
                 return (
                     <YearView.Component
-                        key={getViewId(view)}
-                        id={getViewId(view)}
+                        key={getViewId(state.view)}
                         style={computedStyle.YearView}
-                        data={getYearViewDataWithCache(view.timeFrame.decade)}
+                        selectedYear={state.today.getFullYear()}
+                        data={getYearViewDataWithCache(state.view.timeFrame.decade)}
                         onYearClick={onYearClick}
-                        onReadyToUnmount={onViewIsReadyToUnmount}
                     />
                 );
             }
@@ -175,19 +168,19 @@ export function Calendar({
     function renderControl(): JSX.Element
     {
         let dateViewData;
-        if (state.activeView.type === ViewType.Date)
+        if (state.view.type === ViewType.Date)
         {
-            dateViewData = getDateViewData(state.activeView.timeFrame.monthAndYear).flat();
+            dateViewData = getDateViewData(state.view.timeFrame.monthAndYear).flat();
         }
 
-        let canNavigateToToday = false;
-        if (state.activeView.type === ViewType.Date)
+        let canNavigateToToday = true;
+        if (state.view.type === ViewType.Date)
         {
             canNavigateToToday = !dateViewData.some(dateInfo => GregorianCalendar.isEqualDate(dateInfo.value, state.today));
         }
 
-        let canNavigateToSelectedDate = false;
-        if (selectedDate && state.activeView.type === ViewType.Date)
+        let canNavigateToSelectedDate = !!selectedDate;
+        if (selectedDate && state.view.type === ViewType.Date)
         {
             canNavigateToSelectedDate = !dateViewData.some(dateInfo => GregorianCalendar.isEqualDate(dateInfo.value, selectedDate));
         }
@@ -203,74 +196,70 @@ export function Calendar({
 
     function zoomIn(timeFrame: TimeFrame): void
     {
-        if (state.activeView.type === ViewType.Date)
+        if (state.view.type === ViewType.Date)
         {
             return;
         }
 
-        setState(prevState =>
-        {
-            const activeView = {...prevState.activeView, type: prevState.activeView.type - 1, timeFrame};
-            const transitioningOutViews = {...prevState.transitioningOutViews, [getViewId(prevState.activeView)]: prevState.activeView};
-            delete transitioningOutViews[getViewId(activeView)];
-
-            return {
-                ...prevState,
-                activeView,
-                transitioningOutViews,
-                transitionDirection: TransitionDirection.Outward
-            };
-        });
+        setState(prevState => ({
+            ...prevState,
+            view: {
+                ...prevState.view,
+                type: prevState.view.type - 1,
+                timeFrame
+            },
+            transitionSettings: {
+                animation: Animation.Zoom,
+                zoomDirection: ZoomDirection.Inward
+            }
+        }));
     }
 
     function zoomOut(): void
     {
-        if (state.activeView.type === ViewType.Year)
+        if (state.view.type === ViewType.Year)
         {
             return;
         }
 
-        setState(prevState =>
-        {
-            const activeView = {...prevState.activeView, type: prevState.activeView.type + 1};
-            const transitioningOutViews = {...prevState.transitioningOutViews, [getViewId(prevState.activeView)]: prevState.activeView};
-            delete transitioningOutViews[getViewId(activeView)];
-
-            return {
-                ...prevState,
-                activeView,
-                transitioningOutViews,
-                transitionDirection: TransitionDirection.Inward
-            };
-        });
+        setState(prevState => ({
+            ...prevState,
+            view: {
+                ...prevState.view,
+                type: prevState.view.type + 1
+            },
+            transitionSettings: {
+                animation: Animation.Zoom,
+                zoomDirection: ZoomDirection.Outward
+            }
+        }));
     }
 
-    function navigate(direction: TransitionDirection): void
+    function slide(slideDirection: SlideDirection): void
     {
-        const canNavigate = (
-            (direction === TransitionDirection.Forward && canNavigateForward(state.activeView))
+        const canSlide = (
+            (slideDirection === SlideDirection.Right && canNavigateForward(state.view))
             ||
-            (direction === TransitionDirection.Backward && canNavigateBackward(state.activeView))
+            (slideDirection === SlideDirection.Left && canNavigateBackward(state.view))
         );
 
-        if (!canNavigate)
+        if (!canSlide)
         {
             return;
         }
 
-        setState(prevState =>
-        {
-            const activeView = {...prevState.activeView, timeFrame: getNextTimeFrame(direction)};
-            const transitioningOutViews = {...prevState.transitioningOutViews, [getViewId(prevState.activeView)]: prevState.activeView};
-            delete transitioningOutViews[getViewId(activeView)];
-
-            return {
-                ...prevState,
-                activeView,
-                transitioningOutViews,
-                transitionDirection: direction
-            };
-        });
+        setState(prevState => ({
+            ...prevState,
+            view: {
+                ...prevState.view,
+                timeFrame: getNextTimeFrame(slideDirection)
+            },
+            transitionSettings: {
+                animation: Animation.Slide,
+                pxSlideDistance: computedStyle.Root.width as number,
+                slideDirection
+            }
+        }));
     }
 
     function goToToday(): void
@@ -279,24 +268,18 @@ export function Calendar({
         thisMonth.setDate(1);
         thisMonth.setHours(0, 0, 0, 0);
 
-        const todayTimeFrame = {
-            monthAndYear: thisMonth,
-            decade: GregorianCalendar.getDecade(thisMonth.getFullYear())
-        };
-
-        setState(prevState =>
-        {
-            const activeView = {...prevState.activeView, type: ViewType.Date, timeFrame: todayTimeFrame};
-            const transitioningOutViews = {...prevState.transitioningOutViews, [getViewId(prevState.activeView)]: prevState.activeView};
-            delete transitioningOutViews[getViewId(activeView)];
-
-            return {
-                ...prevState,
-                activeView,
-                transitioningOutViews,
-                transitionDirection: getTransitionDirection(thisMonth)
-            };
-        });
+        setState(prevState => ({
+            ...prevState,
+            view: {
+                ...prevState.view,
+                type: ViewType.Date,
+                timeFrame: {
+                    monthAndYear: thisMonth,
+                    decade: GregorianCalendar.getDecade(thisMonth.getFullYear())
+                }
+            },
+            transitionSettings: getTransitionSettings(thisMonth)
+        }));
     }
 
     function goToSelectedDate(): void
@@ -306,76 +289,77 @@ export function Calendar({
             return;
         }
 
-        const selectedDateTimeFrame = {
-            monthAndYear: selectedDate,
-            decade: GregorianCalendar.getDecade(selectedDate.getFullYear())
-        };
-
-        setState(prevState =>
-        {
-            const activeView = {...prevState.activeView, type: ViewType.Date, timeFrame: selectedDateTimeFrame};
-            const transitioningOutViews = {...prevState.transitioningOutViews, [getViewId(prevState.activeView)]: prevState.activeView};
-            delete transitioningOutViews[getViewId(activeView)];
-
-            return {
-                ...prevState,
-                activeView,
-                transitioningOutViews,
-                transitionDirection: getTransitionDirection(selectedDate)
-            };
-        });
+        setState(prevState => ({
+            ...prevState,
+            view: {
+                ...prevState.view,
+                type: ViewType.Date,
+                timeFrame: {
+                    monthAndYear: selectedDate,
+                    decade: GregorianCalendar.getDecade(selectedDate.getFullYear())
+                }
+            },
+            transitionSettings: getTransitionSettings(selectedDate)
+        }));
     }
 
-    function getNextTimeFrame(direction: TransitionDirection): TimeFrame
+    function getNextTimeFrame(slideDirection: SlideDirection): TimeFrame
     {
-        const timeFrame: TimeFrame = {
+        const nextTimeFrame: TimeFrame = {
             decade: undefined,
-            monthAndYear: new Date(state.activeView.timeFrame.monthAndYear)
+            monthAndYear: new Date(state.view.timeFrame.monthAndYear)
         };
 
-        switch (state.activeView.type)
+        switch (state.view.type)
         {
             case ViewType.Date:
             {
-                const monthStep = direction === TransitionDirection.Forward ? 1 : -1;
-                timeFrame.monthAndYear.setMonth(timeFrame.monthAndYear.getMonth() + monthStep);
-                timeFrame.decade = GregorianCalendar.getDecade(timeFrame.monthAndYear.getFullYear());
+                const monthStep = slideDirection === SlideDirection.Right ? 1 : -1;
+                nextTimeFrame.monthAndYear.setMonth(nextTimeFrame.monthAndYear.getMonth() + monthStep);
+                nextTimeFrame.decade = GregorianCalendar.getDecade(nextTimeFrame.monthAndYear.getFullYear());
 
                 break;
             }
 
             case ViewType.Month:
             {
-                const yearStep = direction === TransitionDirection.Forward ? 1 : -1;
-                timeFrame.monthAndYear.setFullYear(timeFrame.monthAndYear.getFullYear() + yearStep);
-                timeFrame.decade = GregorianCalendar.getDecade(timeFrame.monthAndYear.getFullYear());
+                const yearStep = slideDirection === SlideDirection.Right ? 1 : -1;
+                nextTimeFrame.monthAndYear.setFullYear(nextTimeFrame.monthAndYear.getFullYear() + yearStep);
+                nextTimeFrame.decade = GregorianCalendar.getDecade(nextTimeFrame.monthAndYear.getFullYear());
 
                 break;
             }
 
             case ViewType.Year:
             {
-                const decadeStep = direction === TransitionDirection.Forward
+                const decadeStep = slideDirection === SlideDirection.Right
                     ? GregorianCalendar.YEAR_COUNT_IN_DECADE
                     : -1 * GregorianCalendar.YEAR_COUNT_IN_DECADE;
 
-                timeFrame.decade = (GregorianCalendar.getDecade(timeFrame.monthAndYear.getFullYear()) + decadeStep) as Decade;
-                timeFrame.monthAndYear.setFullYear(timeFrame.decade, 0, 1);
+                nextTimeFrame.decade = (GregorianCalendar.getDecade(nextTimeFrame.monthAndYear.getFullYear()) + decadeStep) as Decade;
+                nextTimeFrame.monthAndYear.setFullYear(nextTimeFrame.decade, 0, 1);
 
                 break;
             }
         }
 
-        return timeFrame;
+        return nextTimeFrame;
     }
 
-    function getTransitionDirection(toDate: Date): TransitionDirection
+    function getTransitionSettings(toDate: Date): CompositeTransitionSettings
     {
-        return state.activeView.type > ViewType.Date
-            ? TransitionDirection.Outward
-            : toDate < state.activeView.timeFrame.monthAndYear
-                ? TransitionDirection.Backward
-                : TransitionDirection.Forward;
+        return state.view.type > ViewType.Date
+            ? {
+                animation: Animation.Zoom,
+                zoomDirection: ZoomDirection.Inward
+            }
+            : {
+                animation: Animation.Slide,
+                pxSlideDistance: computedStyle.Root.width as number,
+                slideDirection: toDate < state.view.timeFrame.monthAndYear
+                    ? SlideDirection.Left
+                    : SlideDirection.Right
+            };
     }
 
     function getDateViewDataWithCache(month: Date): DateView.DateInfo[][]
@@ -421,13 +405,5 @@ export function Calendar({
             monthAndYear: new Date(year, 0, 1),
             decade: GregorianCalendar.getDecade(year)
         });
-    }
-
-    function onViewIsReadyToUnmount(viewId: string): void
-    {
-        setState(prevState => ({
-            ...prevState,
-            transitioningOutViews: Object.fromEntries(Object.entries(prevState.transitioningOutViews).filter(entry => entry[0] !== viewId))
-        }));
     }
 }

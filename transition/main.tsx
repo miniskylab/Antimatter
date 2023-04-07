@@ -1,0 +1,96 @@
+import React, {useMemo, useState} from "react";
+import {Animated} from "react-native";
+import {Transitionable} from "./component";
+import {Stage} from "./enum";
+import {TransitionAnimationHook} from "./hook";
+import {useTransitionContext} from "./hook/context";
+import {TransitionContext, TransitionProps, TransitionState} from "./model";
+
+/**
+ * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ */
+export function Transition({
+    style,
+    settings,
+    children
+}: TransitionProps): JSX.Element
+{
+    const props: Required<TransitionProps> = {
+        style, settings, children
+    };
+
+    const [state, setState] = useState<TransitionState>({
+        children: {}
+    });
+
+    const context = useMemo<TransitionContext>(
+        () => ({props, state}),
+        [...Object.values(props), ...Object.values(state)]
+    );
+
+    const {style: _, ...propsWithoutStyle} = props;
+    const computedStyle = style(propsWithoutStyle, state);
+
+    if (!Object.values(state.children).some(x => x === children))
+    {
+        setState(prevState => ({
+            ...prevState,
+            children: {
+                ...prevState.children,
+                [children.key]: children
+            }
+        }));
+    }
+
+    return (
+        <TransitionContext.Provider value={context}>
+            <Animated.View style={computedStyle.Root}>
+                {Object.values(state.children).map(child => (
+                    <Transitionable.Component
+                        key={child.key}
+                        id={`${child.key}`}
+                        style={getTransitionableStyle}
+                        onReadyToUnmount={onTransitionableIsReadyToUnmount}
+                    >
+                        {child}
+                    </Transitionable.Component>
+                ))}
+            </Animated.View>
+        </TransitionContext.Provider>
+    );
+
+    function getTransitionableStyle(transitionableProps: Transitionable.Props): ReturnType<Transitionable.Style>
+    {
+        const transitionContext = useTransitionContext();
+
+        const isActiveTransitionable = transitionableProps.id === transitionContext.props.children.key;
+        const transitionStage = isActiveTransitionable ? Stage.Enter : Stage.Exit;
+
+        return {
+            Root: {
+                position: "absolute",
+                width: "100%",
+                height: "100%",
+                ...TransitionAnimationHook.useAnimation(transitionStage, onTransitionFinished)
+            }
+        };
+
+        function onTransitionFinished()
+        {
+            if (!isActiveTransitionable)
+            {
+                transitionableProps?.onReadyToUnmount(transitionableProps.id);
+            }
+        }
+    }
+
+    function onTransitionableIsReadyToUnmount(transitionableId: string): void
+    {
+        setState(prevState => ({
+            ...prevState,
+            children: Object.fromEntries(
+                Object.entries(prevState.children).filter(x => x[0] !== transitionableId)
+            )
+        }));
+    }
+}
