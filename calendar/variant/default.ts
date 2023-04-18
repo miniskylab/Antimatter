@@ -187,8 +187,8 @@ const Calendar__DateView__DayOfWeek: LabelStyle = function (labelProps)
 
 const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, buttonState)
 {
-    const calendarContext = CalendarContextHook.useCalendarContext();
     const dateContext = DateView.ContextHook.useDateContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
     const dateViewContext = DateView.ContextHook.useDateViewContext();
 
     const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
