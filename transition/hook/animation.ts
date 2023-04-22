@@ -83,7 +83,7 @@ export function useAnimation(transitionStage: Stage, onFinished: AnimationFinish
     function getOpacity(transitionStage: Stage): number
     {
         if (
-            (transitionStage === Stage.Mount && transitionInProgress && transitionContext.props.settings.animation !== Animation.None)
+            (transitionStage === Stage.Mount && transitionInProgress && transitionContext.props.settings.animation === Animation.Zoom)
             ||
             transitionStage === Stage.Exit
         )
@@ -128,36 +128,24 @@ export function useAnimation(transitionStage: Stage, onFinished: AnimationFinish
     function doSlideAnimation(): void
     {
         animatedTranslateX.setValue(translateXRef.current);
-        animatedOpacity.setValue(opacityRef.current);
 
         const nextTranslateX = getPosition(transitionStage);
-        const nextOpacity = getOpacity(transitionStage);
-        if (nextTranslateX !== translateXRef.current && nextOpacity !== opacityRef.current)
+        if (nextTranslateX !== translateXRef.current)
         {
             translateXRef.current = nextTranslateX;
-            opacityRef.current = nextOpacity;
 
-            Animated.parallel([
-                Animated.timing(animatedTranslateX, {
-                    toValue: nextTranslateX,
-                    duration: 300,
-                    easing: Easing.out(Easing.ease),
-                    useNativeDriver: false
-                }),
-                Animated.timing(animatedOpacity, {
-                    toValue: nextOpacity,
-                    duration: 300,
-                    easing: Easing.in(Easing.ease),
-                    useNativeDriver: false
-                })
-            ]).start(onFinished);
+            Animated.timing(animatedTranslateX, {
+                toValue: nextTranslateX,
+                duration: 200,
+                easing: Easing.out(Easing.ease),
+                useNativeDriver: false
+            }).start(onFinished);
         }
     }
 
     function getSlideAnimation(): ViewStyle
     {
         return {
-            opacity: animatedOpacity as unknown as number,
             transform: [{
                 translateX: animatedTranslateX as unknown as number
             }]

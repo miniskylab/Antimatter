@@ -1,6 +1,8 @@
 import {ButtonContextHook, ButtonStyle} from "@miniskylab/antimatter-button";
+import {GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle} from "@miniskylab/antimatter-label";
+import {TransitionStyle} from "@miniskylab/antimatter-transition";
 import {Control, DateView, Header, MonthView, YearView} from "../component";
 import {CalendarContextHook} from "../hook";
 import {CalendarStyle} from "../model";
@@ -11,6 +13,7 @@ const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
     const buttonContext = ButtonContextHook.useButtonContext();
     const headerContext = Header.ContextHook.useHeaderContext();
     const calendarContext = CalendarContextHook.useCalendarContext();
+    const navigatorDirectionContext = Header.ContextHook.useNavigatorDirectionContext();
 
     const inheritedIconStyle = Default(calendarContext.props, calendarContext.state)
         .Header(headerContext.props)
@@ -21,7 +24,9 @@ const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
 
     iconStyle.Root = {
         ...inheritedIconStyle.Root,
-        fontSize: 18
+        fontSize: 24,
+        ...navigatorDirectionContext === "backward" && {paddingRight: 3},
+        ...navigatorDirectionContext === "forward" && {paddingLeft: 3}
     };
 
     return iconStyle;
@@ -40,9 +45,10 @@ const Calendar__Header__Navigator: ButtonStyle = function (buttonProps, buttonSt
 
     buttonStyle.Root = {
         ...inheritedButtonStyle.Root,
-        width: 36,
-        height: 36,
-        borderRadius: 18
+        width: 60,
+        height: 60,
+        borderWidth: 5,
+        borderRadius: 30
     };
 
     buttonStyle.Icon = Calendar__Header__Navigator__Icon;
@@ -65,7 +71,7 @@ const Calendar__Header__Headline__Label: LabelStyle = function (labelProps)
 
     labelStyle.Root = {
         ...inheritedLabelStyle.Root,
-        fontSize: 18
+        fontSize: 24
     };
 
     return labelStyle;
@@ -100,22 +106,53 @@ const Calendar__Header: Header.Style = function (headerProps)
     return headerStyle;
 };
 
-const Calendar__DateView__WeekNo: LabelStyle = function ()
+const Calendar__ViewTransition: TransitionStyle = function (transitionProps, transitionState)
 {
-    return {
-        Root: {
-            display: "none"
-        }
+    const calendarContext = CalendarContextHook.useCalendarContext();
+
+    const inheritedTransitionStyle = Default(calendarContext.props, calendarContext.state).ViewTransition(transitionProps, transitionState);
+    const transitionStyle: ReturnType<ButtonStyle> = {...inheritedTransitionStyle};
+
+    transitionStyle.Root = {
+        ...inheritedTransitionStyle.Root,
+        height: 420
     };
+
+    return transitionStyle;
 };
 
-const Calendar__DateView__WeekOfYear: LabelStyle = function ()
+const Calendar__DateView__WeekNo: LabelStyle = function (labelProps)
 {
-    return {
-        Root: {
-            display: "none"
-        }
+    const calendarContext = CalendarContextHook.useCalendarContext();
+    const dateViewContext = DateView.ContextHook.useDateViewContext();
+
+    const inheritedLabelStyle = Default(calendarContext.props, calendarContext.state)
+        .DateView(dateViewContext.props)
+        .WeekNo(labelProps);
+
+    const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};
+
+    labelStyle.Root = {
+        ...inheritedLabelStyle.Root,
+        width: 60,
+        height: 60,
+        fontSize: 20
     };
+
+    return labelStyle;
+};
+
+const Calendar__DateView__WeekOfYear: LabelStyle = function (labelProps)
+{
+    const weekNoStyle = Calendar__DateView__WeekNo(labelProps);
+    const labelStyle: ReturnType<LabelStyle> = {...weekNoStyle};
+
+    labelStyle.Root = {
+        ...weekNoStyle.Root,
+        fontSize: 15
+    };
+
+    return labelStyle;
 };
 
 const Calendar__DateView__DayOfWeek: LabelStyle = function (labelProps)
@@ -131,9 +168,9 @@ const Calendar__DateView__DayOfWeek: LabelStyle = function (labelProps)
 
     labelStyle.Root = {
         ...inheritedLabelStyle.Root,
-        width: 36,
-        height: 36,
-        fontSize: 16
+        width: 60,
+        height: 60,
+        fontSize: 21
     };
 
     return labelStyle;
@@ -152,9 +189,10 @@ const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, bu
 
     buttonStyle.Root = {
         ...inheritedButtonStyle.Root,
-        width: 34,
-        height: 34,
-        borderRadius: 17
+        width: 58,
+        height: 58,
+        borderWidth: 4,
+        borderRadius: 29
     };
 
     return buttonStyle;
@@ -162,8 +200,11 @@ const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, bu
 
 const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
 {
+    const dateContext = DateView.ContextHook.useDateContext();
     const calendarContext = CalendarContextHook.useCalendarContext();
     const dateViewContext = DateView.ContextHook.useDateViewContext();
+
+    const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
 
     const inheritedLabelStyle = Default(calendarContext.props, calendarContext.state)
         .DateView(dateViewContext.props)
@@ -173,21 +214,34 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
 
     labelStyle.Root = {
         ...inheritedLabelStyle.Root,
-        height: "auto",
-        fontSize: 16,
-        paddingTop: 0
+        fontSize: 18,
+        ...isToday && {
+            fontSize: 17
+        }
     };
 
     return labelStyle;
 };
 
-const Calendar__DateView__TodayText: LabelStyle = function ()
+const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
 {
-    return {
-        Root: {
-            display: "none"
-        }
+    const calendarContext = CalendarContextHook.useCalendarContext();
+    const dateViewContext = DateView.ContextHook.useDateViewContext();
+
+    const inheritedLabelStyle = Default(calendarContext.props, calendarContext.state)
+        .DateView(dateViewContext.props)
+        .TodayText(labelProps);
+
+    const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};
+
+    labelStyle.Root = {
+        ...inheritedLabelStyle.Root,
+        height: 20,
+        marginTop: 6,
+        fontSize: 15
     };
+
+    return labelStyle;
 };
 
 const Calendar__DateView: DateView.Style = function (dateViewProps)
@@ -222,7 +276,7 @@ const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
 
     labelStyle.Root = {
         ...inheritedLabelStyle.Root,
-        fontSize: 16
+        fontSize: 21
     };
 
     return labelStyle;
@@ -241,9 +295,10 @@ const Calendar__MonthView__GridCell: ButtonStyle = function (buttonProps, button
 
     buttonStyle.Root = {
         ...inheritedButtonStyle.Root,
-        width: 55,
-        height: 55,
-        margin: 4
+        width: 106,
+        height: 91,
+        borderWidth: 4,
+        margin: 7
     };
 
     buttonStyle.Label = Calendar__MonthView__GridCell__Label;
@@ -278,7 +333,7 @@ const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
 
     labelStyle.Root = {
         ...inheritedLabelStyle.Root,
-        fontSize: 16
+        fontSize: 21
     };
 
     return labelStyle;
@@ -297,9 +352,10 @@ const Calendar__YearView__GridCell: ButtonStyle = function (buttonProps, buttonS
 
     buttonStyle.Root = {
         ...inheritedButtonStyle.Root,
-        width: 55,
-        height: 55,
-        margin: 4
+        width: 106,
+        height: 91,
+        borderWidth: 4,
+        margin: 7
     };
 
     buttonStyle.Label = Calendar__YearView__GridCell__Label;
@@ -319,26 +375,100 @@ const Calendar__YearView: YearView.Style = function (yearViewProps)
     return yearViewStyle;
 };
 
-const Calendar__Control: Control.Style = function ()
+const Calendar__Control__Button__Icon: IconStyle = function (iconProps)
 {
-    return {
-        Root: {
-            display: "none"
-        }
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const controlContext = Control.ContextHook.useControlContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+
+    const inheritedIconStyle = Default(calendarContext.props, calendarContext.state)
+        .Control(controlContext.props)
+        .Button(buttonContext.props, buttonContext.state)
+        .Icon(iconProps);
+
+    const iconStyle: ReturnType<IconStyle> = {...inheritedIconStyle};
+
+    iconStyle.Root = {
+        ...inheritedIconStyle.Root,
+        minWidth: 18,
+        height: 18,
+        fontSize: 18
     };
+
+    return iconStyle;
 };
 
-export const Mini: CalendarStyle = function (calendarProps, calendarState)
+const Calendar__Control__Button__Label: LabelStyle = function (labelProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+    const controlContext = Control.ContextHook.useControlContext();
+
+    const inheritedLabelStyle = Default(calendarContext.props, calendarContext.state)
+        .Control(controlContext.props)
+        .Button(buttonContext.props, buttonContext.state)
+        .Label(labelProps);
+
+    const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};
+
+    labelStyle.Root = {
+        ...inheritedLabelStyle.Root,
+        marginLeft: 8,
+        fontSize: 18
+    };
+
+    return labelStyle;
+};
+
+const Calendar__Control__Button: ButtonStyle = function (buttonProps, buttonState)
+{
+    const controlContext = Control.ContextHook.useControlContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+
+    const inheritedButtonStyle = Default(calendarContext.props, calendarContext.state)
+        .Control(controlContext.props)
+        .Button(buttonProps, buttonState);
+
+    const buttonStyle: ReturnType<ButtonStyle> = {...inheritedButtonStyle};
+
+    buttonStyle.Root = {
+        ...inheritedButtonStyle.Root,
+        minWidth: 120,
+        width: 120,
+        height: 51,
+        borderWidth: 3
+    };
+
+    buttonStyle.Icon = Calendar__Control__Button__Icon;
+    buttonStyle.Label = Calendar__Control__Button__Label;
+
+    return buttonStyle;
+};
+
+const Calendar__Control: Control.Style = function (controlProps)
+{
+    const calendarContext = CalendarContextHook.useCalendarContext();
+
+    const inheritedControlStyle = Default(calendarContext.props, calendarContext.state).Control(controlProps);
+    const controlStyle: ReturnType<Control.Style> = {...inheritedControlStyle};
+
+    controlStyle.Button = Calendar__Control__Button;
+
+    return controlStyle;
+};
+
+export const Sesquialteral: CalendarStyle = function (calendarProps, calendarState)
 {
     const defaultCalendarStyle = Default(calendarProps, calendarState);
     const calendarStyle: ReturnType<CalendarStyle> = {...defaultCalendarStyle};
 
     calendarStyle.Root = {
         ...defaultCalendarStyle.Root,
-        width: 252
+        width: 480
     };
 
     calendarStyle.Header = Calendar__Header;
+    calendarStyle.ViewTransition = Calendar__ViewTransition;
     calendarStyle.DateView = Calendar__DateView;
     calendarStyle.MonthView = Calendar__MonthView;
     calendarStyle.YearView = Calendar__YearView;

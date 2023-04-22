@@ -231,9 +231,9 @@ const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, bu
 
 const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
 {
-    const calendarContext = CalendarContextHook.useCalendarContext();
     const dateContext = DateView.ContextHook.useDateContext();
     const buttonContext = ButtonContextHook.useButtonContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
     const dateViewContext = DateView.ContextHook.useDateViewContext();
 
     const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
@@ -254,8 +254,6 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
                     ? Color.White__a10
                     : Color.Neutral,
         ...isToday && {
-            height: 15,
-            paddingTop: 3,
             fontSize: 11
         }
     };
@@ -277,8 +275,9 @@ const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
     labelStyle.Root = {
         ...defaultLabelStyle.Root,
         flexDirection: "column",
-        height: 9,
-        paddingTop: 4,
+        height: 15,
+        marginTop: 3,
+        marginBottom: -2,
         fontSize: 10,
         fontWeight: buttonContext.state.pressed || isSelectedDate ? "bold" : "normal",
         color: buttonContext.state.pressed || isSelectedDate
@@ -367,7 +366,10 @@ const Calendar__MonthView__GridCell: ButtonStyle = function (buttonProps, button
         minWidth: "auto",
         width: 70,
         height: 60,
-        padding: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
         borderWidth: 3,
         borderStyle: "solid",
         borderColor: Color.Transparent,
@@ -460,7 +462,10 @@ const Calendar__YearView__GridCell: ButtonStyle = function (buttonProps, buttonS
         minWidth: "auto",
         width: 70,
         height: 60,
-        padding: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
         borderWidth: 3,
         borderStyle: "solid",
         borderColor: Color.Transparent,
