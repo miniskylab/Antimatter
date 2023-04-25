@@ -42,9 +42,9 @@ export function Component({
                         >
                             <Button
                                 style={computedStyle.GridCell}
+                                disabled={outOfSupportedYearRange}
                                 label={outOfSupportedYearRange ? EMPTY_STRING : yearInfo.value.toString()}
                                 onClick={outOfSupportedYearRange ? undefined : () => { onYearClick(yearInfo.value); }}
-                                disabled={outOfSupportedYearRange}
                             />
                         </YearContext.Provider>
                     );

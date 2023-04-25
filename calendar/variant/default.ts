@@ -92,11 +92,14 @@ const Calendar__Header__Headline: ButtonStyle = function (buttonProps, buttonSta
 
     buttonStyle.Root = {
         ...outlinedRectangularButtonStyle.Root,
+        alignSelf: "stretch",
         flexGrow: 1,
         minWidth: "auto",
-        width: "auto",
         height: "auto",
-        padding: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
         borderWidth: 0,
         backgroundColor: Color.Transparent,
         ...buttonProps.disabled && {

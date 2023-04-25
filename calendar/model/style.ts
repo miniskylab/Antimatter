@@ -5,10 +5,7 @@ import {Control, DateView, Header, MonthView, YearView} from "../component";
 import {CalendarProps} from "./props";
 import {CalendarState} from "./state";
 
-export type CalendarStyle = (
-    calendarProps: Styled<CalendarProps>,
-    calendarState: CalendarState
-) => {
+export type CalendarStyle = (calendarProps: Styled<CalendarProps>, calendarState: CalendarState) => {
     Root?: ViewStyle;
     Header?: Header.Style;
     ViewTransition?: TransitionStyle;

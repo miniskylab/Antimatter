@@ -1,6 +1,7 @@
 import {ButtonContextHook, ButtonStyle} from "@miniskylab/antimatter-button";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle} from "@miniskylab/antimatter-label";
+import {TransitionStyle} from "@miniskylab/antimatter-transition";
 import {Control, DateView, Header, MonthView, YearView} from "../component";
 import {CalendarContextHook} from "../hook";
 import {CalendarStyle} from "../model";
@@ -98,6 +99,21 @@ const Calendar__Header: Header.Style = function (headerProps)
     headerStyle.Headline = Calendar__Header__Headline;
 
     return headerStyle;
+};
+
+const Calendar__ViewTransition: TransitionStyle = function (transitionProps, transitionState)
+{
+    const calendarContext = CalendarContextHook.useCalendarContext();
+
+    const inheritedTransitionStyle = Default(calendarContext.props, calendarContext.state).ViewTransition(transitionProps, transitionState);
+    const transitionStyle: ReturnType<ButtonStyle> = {...inheritedTransitionStyle};
+
+    transitionStyle.Root = {
+        ...inheritedTransitionStyle.Root,
+        height: 252
+    };
+
+    return transitionStyle;
 };
 
 const Calendar__DateView__WeekNo: LabelStyle = function ()
@@ -339,6 +355,7 @@ export const Mini: CalendarStyle = function (calendarProps, calendarState)
     };
 
     calendarStyle.Header = Calendar__Header;
+    calendarStyle.ViewTransition = Calendar__ViewTransition;
     calendarStyle.DateView = Calendar__DateView;
     calendarStyle.MonthView = Calendar__MonthView;
     calendarStyle.YearView = Calendar__YearView;

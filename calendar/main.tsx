@@ -1,18 +1,19 @@
 import {Decade, GregorianCalendar, whitespace} from "@miniskylab/antimatter-framework";
 import {Animation, CompositeTransitionSettings, SlideDirection, Transition, ZoomDirection} from "@miniskylab/antimatter-transition";
 import React, {useMemo, useRef, useState} from "react";
-import {Animated} from "react-native";
+import {Animated, LayoutChangeEvent} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "./component";
 import {ViewType} from "./enum";
 import {CalendarContext, CalendarProps, CalendarState} from "./model";
 import {canNavigateBackward, canNavigateForward, getDateViewData, getMonthViewData, getViewId, getYearViewData} from "./service";
 import {Cache, TimeFrame} from "./type";
+import * as Variant from "./variant";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Calendar({
-    style,
+    style = Variant.Default,
     selectedDate,
     onSelectedDateChange
 }: CalendarProps): JSX.Element
@@ -48,6 +49,7 @@ export function Calendar({
         [...Object.values(props), ...Object.values(state)]
     );
 
+    const calendarWidthRef = useRef<number>();
     const cacheRef = useRef<Cache>({
         dateViewData: new Map(),
         monthViewData: new Map(),
@@ -59,7 +61,7 @@ export function Calendar({
 
     return (
         <CalendarContext.Provider value={context}>
-            <Animated.View style={computedStyle.Root}>
+            <Animated.View style={computedStyle.Root} onLayout={onCalendarLayout}>
                 {renderHeader()}
                 <Transition style={computedStyle.ViewTransition} settings={state.transitionSettings}>
                     {renderView()}
@@ -256,7 +258,7 @@ export function Calendar({
             },
             transitionSettings: {
                 animation: Animation.Slide,
-                pxSlideDistance: computedStyle.Root.width as number,
+                pxSlideDistance: calendarWidthRef.current,
                 slideDirection
             }
         }));
@@ -355,7 +357,7 @@ export function Calendar({
             }
             : {
                 animation: Animation.Slide,
-                pxSlideDistance: computedStyle.Root.width as number,
+                pxSlideDistance: calendarWidthRef.current,
                 slideDirection: toDate < state.view.timeFrame.monthAndYear
                     ? SlideDirection.Left
                     : SlideDirection.Right
@@ -405,5 +407,10 @@ export function Calendar({
             monthAndYear: new Date(year, 0, 1),
             decade: GregorianCalendar.getDecade(year)
         });
+    }
+
+    function onCalendarLayout(layoutChangeEvent: LayoutChangeEvent): void
+    {
+        calendarWidthRef.current = layoutChangeEvent.nativeEvent.layout.width;
     }
 }

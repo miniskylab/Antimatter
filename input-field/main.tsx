@@ -14,7 +14,9 @@ export function InputField({
     value = EMPTY_STRING,
     icon,
     placeholder = EMPTY_STRING,
+    focusable = true,
     autoFocus = false,
+    editable = true,
     isPasswordField = false,
     contextMenuHidden = false,
     autoCorrect = true,
@@ -29,8 +31,8 @@ export function InputField({
 }: InputFieldProps): JSX.Element
 {
     const props: Required<InputFieldProps> = {
-        style, value, icon, placeholder, autoFocus, isPasswordField, contextMenuHidden, autoCorrect, maxLength, keyboardType,
-        selection, onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
+        style, value, icon, placeholder, focusable, autoFocus, editable, isPasswordField, contextMenuHidden, autoCorrect, maxLength,
+        keyboardType, selection, onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
     };
 
     const context = useMemo<InputFieldContext>(
@@ -53,6 +55,8 @@ export function InputField({
                     )}
                     <Animated.View style={computedStyle.TextBox}>
                         <TextInput
+                            editable={editable}
+                            focusable={focusable}
                             autoCorrect={autoCorrect}
                             secureTextEntry={isPasswordField}
                             style={{

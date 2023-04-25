@@ -51,7 +51,23 @@ export class InputFieldProps extends ComponentProps<InputFieldStyle>
      */
     @IsBoolean()
     @IsOptional()
+    readonly focusable?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
     readonly autoFocus?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly editable?: boolean;
 
 
     /**
