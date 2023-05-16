@@ -1,4 +1,4 @@
-import {Selection} from "@miniskylab/antimatter-framework";
+import {Selection} from "@miniskylab/antimatter-text-input";
 
 export type NumericInputFieldState = {
     readonly selection: Selection;

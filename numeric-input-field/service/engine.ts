@@ -1,4 +1,5 @@
-import {clampNumber, EMPTY_STRING, isNullOrUndefined, MAX, MIN, Selection} from "@miniskylab/antimatter-framework";
+import {clampNumber, EMPTY_STRING, isNullOrUndefined, MAX, MIN} from "@miniskylab/antimatter-framework";
+import {Selection} from "@miniskylab/antimatter-text-input";
 import {Keypress} from "../enum";
 
 type KeypressEvent = { keypress: Keypress; newUserInput: string };

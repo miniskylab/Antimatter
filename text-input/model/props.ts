@@ -5,7 +5,6 @@ import {
     IsNumber,
     IsPositive,
     IsString,
-    Selection,
     TextInputFocusEventHandler,
     TextInputKeyPressEventHandler,
     TextInputSelectionChangeEventHandler
@@ -13,6 +12,7 @@ import {
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {KeyboardTypeOptions} from "react-native";
+import {Selection} from "../type";
 import {TextInputStyle} from "./style";
 
 @ComponentName("Text Input")

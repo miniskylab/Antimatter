@@ -1,5 +1,5 @@
+import {IsDefined, IsNumber} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {IsDefined, IsNumber} from "../class-validator";
 
 export class Selection
 {

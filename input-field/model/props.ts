@@ -6,12 +6,12 @@ import {
     IsNumber,
     IsPositive,
     IsString,
-    Selection,
     TextInputFocusEventHandler,
     TextInputKeyPressEventHandler,
     TextInputSelectionChangeEventHandler
 } from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
+import {Selection} from "@miniskylab/antimatter-text-input";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {KeyboardTypeOptions} from "react-native";
