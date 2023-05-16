@@ -1,6 +1,6 @@
-import {IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {MenuItemStatus} from "./menu-item-status";
+import {MenuItemStatus} from "../enum";
 
 export class MenuItem
 {

@@ -56,7 +56,7 @@ export class DatePickerProps extends ComponentProps<DatePickerStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onAddonClick?: () => void;
+    readonly onAddonPress?: () => void;
 
 
     /**

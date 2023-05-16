@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {IconName} from "@miniskylab/antimatter-icon";
+import {View} from "@miniskylab/antimatter-view";
 import React, {useMemo} from "react";
-import {Animated} from "react-native";
 import {ControlContext, Props} from "./model";
 
 /**
@@ -9,12 +9,12 @@ import {ControlContext, Props} from "./model";
  */
 export function Component({
     style,
-    onTodayButtonClick,
-    onSelectionButtonClick
+    onTodayButtonPress,
+    onSelectionButtonPress
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        style, onTodayButtonClick, onSelectionButtonClick
+        style, onTodayButtonPress, onSelectionButtonPress
     };
 
     const context = useMemo<ControlContext>(
@@ -25,7 +25,7 @@ export function Component({
     const {style: _, ...propsWithoutStyle} = props;
     const computedStyle = style(propsWithoutStyle);
 
-    const thereAreNoControlButtons = onTodayButtonClick === undefined && onSelectionButtonClick === undefined;
+    const thereAreNoControlButtons = onTodayButtonPress === undefined && onSelectionButtonPress === undefined;
     if (thereAreNoControlButtons)
     {
         return null;
@@ -33,26 +33,26 @@ export function Component({
 
     return (
         <ControlContext.Provider value={context}>
-            <Animated.View style={computedStyle.Root}>
-                {onTodayButtonClick !== undefined && (
+            <View style={computedStyle.Root}>
+                {onTodayButtonPress !== undefined && (
                     <Button
                         style={computedStyle.Button}
-                        disabled={onTodayButtonClick === null}
+                        disabled={onTodayButtonPress === null}
                         icon={IconName.Flag}
                         label={"Today"}
-                        onClick={onTodayButtonClick}
+                        onPress={onTodayButtonPress}
                     />
                 )}
-                {onSelectionButtonClick !== undefined && (
+                {onSelectionButtonPress !== undefined && (
                     <Button
                         style={computedStyle.Button}
-                        disabled={onSelectionButtonClick === null}
+                        disabled={onSelectionButtonPress === null}
                         icon={IconName.Location}
                         label={"Selection"}
-                        onClick={onSelectionButtonClick}
+                        onPress={onSelectionButtonPress}
                     />
                 )}
-            </Animated.View>
+            </View>
         </ControlContext.Provider>
     );
 }

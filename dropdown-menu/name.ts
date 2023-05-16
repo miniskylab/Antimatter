@@ -1,5 +1,4 @@
-import {Decorator} from "@miniskylab/antimatter-decorator";
-import {ComponentName} from "@miniskylab/antimatter-model";
+import {ComponentName as ComponentNameDecorator, Decorator} from "@miniskylab/antimatter-framework";
 import {DropdownMenuProps} from "./model";
 
-export const Name = Decorator.getValue<string>(ComponentName, DropdownMenuProps);
+export const ComponentName = Decorator.getValue<string>(ComponentNameDecorator, DropdownMenuProps);

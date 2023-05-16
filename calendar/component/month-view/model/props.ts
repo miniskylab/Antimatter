@@ -27,5 +27,5 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onMonthClick?: (month: Date) => void;
+    readonly onMonthPress?: (month: Date) => void;
 }

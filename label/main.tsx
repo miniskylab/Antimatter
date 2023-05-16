@@ -1,4 +1,5 @@
 import {getFontFamily, inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
+import {View} from "@miniskylab/antimatter-view";
 import React from "react";
 import {Animated} from "react-native";
 import {LabelProps} from "./model";
@@ -11,27 +12,29 @@ export function Label({
     style = Variant.Default,
     children,
     selectable = true,
+    numberOfLines = 0,
     pointerEvents = "auto"
 }: LabelProps): JSX.Element
 {
     const props: Required<LabelProps> = {
-        style, children, selectable, pointerEvents
+        style, children, selectable, numberOfLines, pointerEvents
     };
 
     const {style: _, ...propsWithoutStyle} = props;
     const computedStyle = style(propsWithoutStyle);
 
     return (
-        <Animated.View style={computedStyle.Root} pointerEvents={pointerEvents}>
+        <View style={() => (computedStyle)} pointerEvents={pointerEvents}>
             <Animated.Text
                 selectable={selectable}
+                numberOfLines={numberOfLines}
                 style={{
-                    ...inheritTextStyleFrom(computedStyle.Root),
-                    fontFamily: getFontFamily(computedStyle.Root)
+                    ...inheritTextStyleFrom(computedStyle),
+                    fontFamily: getFontFamily(computedStyle)
                 }}
             >
                 {children}
             </Animated.Text>
-        </Animated.View>
+        </View>
     );
 }

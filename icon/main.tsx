@@ -1,8 +1,8 @@
 import {createIconSetFromIcoMoon} from "@expo/vector-icons";
 import {inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
+import {View} from "@miniskylab/antimatter-view";
 import {useFonts} from "expo-font";
 import React from "react";
-import {Animated} from "react-native";
 import icomoonFont from "./asset/antimatter.ttf";
 import icomoonSelection from "./asset/selection.json";
 import {IconProps} from "./model";
@@ -13,12 +13,13 @@ import * as Variant from "./variant";
  */
 export function Icon({
     style = Variant.Default,
-    pointerEvents = "auto",
-    name
+    name,
+    selectable = true,
+    pointerEvents = "auto"
 }: IconProps): JSX.Element
 {
     const props: Required<IconProps> = {
-        style, pointerEvents, name
+        style, name, selectable, pointerEvents
     };
 
     const {style: _, ...propsWithoutStyle} = props;
@@ -40,8 +41,8 @@ export function Icon({
     );
 
     return (
-        <Animated.View style={computedStyle.Root} pointerEvents={pointerEvents}>
-            <IconSet name={name} size={computedStyle.Root.fontSize} style={inheritTextStyleFrom(computedStyle.Root)}/>
-        </Animated.View>
+        <View style={() => computedStyle} pointerEvents={pointerEvents}>
+            <IconSet name={name} size={computedStyle.fontSize} style={inheritTextStyleFrom(computedStyle)} selectable={selectable}/>
+        </View>
     );
 }

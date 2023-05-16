@@ -1,6 +1,14 @@
-import {ComponentName, ComponentProps, IsBoolean, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
+import {
+    ComponentName,
+    ComponentProps,
+    IsBoolean,
+    IsNotEmpty,
+    IsNumber,
+    IsPositive,
+    IsString,
+    PointerEvents
+} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {ReactNode} from "react";
 import {LabelStyle} from "./style";
 
 @ComponentName("Label")
@@ -9,8 +17,9 @@ export class LabelProps extends ComponentProps<LabelStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsString()
     @IsOptional()
-    readonly children?: ReactNode;
+    readonly children?: string;
 
 
     /**
@@ -24,8 +33,17 @@ export class LabelProps extends ComponentProps<LabelStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsPositive()
+    @IsNumber()
+    @IsOptional()
+    readonly numberOfLines?: number;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
     @IsNotEmpty()
     @IsString()
     @IsOptional()
-    readonly pointerEvents?: "none" | "auto";
+    readonly pointerEvents?: PointerEvents;
 }

@@ -1,5 +1,5 @@
+import {View} from "@miniskylab/antimatter-view";
 import React from "react";
-import {Animated} from "react-native";
 import {Props} from "./model";
 
 /**
@@ -20,8 +20,8 @@ export function Component({
     const computedStyle = style(propsWithoutStyle);
 
     return (
-        <Animated.View style={computedStyle.Root}>
+        <View style={computedStyle}>
             {children}
-        </Animated.View>
+        </View>
     );
 }

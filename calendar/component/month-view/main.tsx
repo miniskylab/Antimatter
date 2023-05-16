@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {GregorianCalendar} from "@miniskylab/antimatter-framework";
+import {View} from "@miniskylab/antimatter-view";
 import React, {useMemo} from "react";
-import {Animated} from "react-native";
 import {MonthContext, MonthViewContext, Props} from "./model";
 
 /**
@@ -11,11 +11,11 @@ export function Component({
     style,
     selectedMonth,
     data,
-    onMonthClick
+    onMonthPress
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        style, selectedMonth, data, onMonthClick
+        style, selectedMonth, data, onMonthPress
     };
 
     const context = useMemo<MonthViewContext>(
@@ -28,7 +28,7 @@ export function Component({
 
     return (
         <MonthViewContext.Provider value={context}>
-            <Animated.View style={computedStyle.Root}>
+            <View style={computedStyle.Root}>
                 {data.map(monthInfo => (
                     <MonthContext.Provider
                         key={`${monthInfo.value.getMonth()}${monthInfo.value.getFullYear()}`}
@@ -37,11 +37,11 @@ export function Component({
                         <Button
                             style={computedStyle.GridCell}
                             label={GregorianCalendar.getShortMonthName(monthInfo.value.getMonth())}
-                            onClick={() => { onMonthClick(new Date(monthInfo.value)); }}
+                            onPress={() => { onMonthPress(new Date(monthInfo.value)); }}
                         />
                     </MonthContext.Provider>
                 ))}
-            </Animated.View>
+            </View>
         </MonthViewContext.Provider>
     );
 }

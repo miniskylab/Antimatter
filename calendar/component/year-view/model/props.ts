@@ -27,5 +27,5 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onYearClick?: (year: number) => void;
+    readonly onYearPress?: (year: number) => void;
 }

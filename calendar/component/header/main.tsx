@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {IconName} from "@miniskylab/antimatter-icon";
+import {View} from "@miniskylab/antimatter-view";
 import React, {useMemo} from "react";
-import {Animated} from "react-native";
 import {HeaderContext, NavigatorDirectionContext, Props} from "./model";
 
 /**
@@ -10,13 +10,13 @@ import {HeaderContext, NavigatorDirectionContext, Props} from "./model";
 export function Component({
     style,
     headline,
-    onPrevClick,
-    onNextClick,
-    onHeadlineClick
+    onPrevPress,
+    onNextPress,
+    onHeadlinePress
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        style, headline, onPrevClick, onNextClick, onHeadlineClick
+        style, headline, onPrevPress, onNextPress, onHeadlinePress
     };
 
     const context = useMemo<HeaderContext>(
@@ -29,30 +29,30 @@ export function Component({
 
     return (
         <HeaderContext.Provider value={context}>
-            <Animated.View style={computedStyle.Root}>
+            <View style={computedStyle.Root}>
                 <NavigatorDirectionContext.Provider value={"backward"}>
                     <Button
                         style={computedStyle.Navigator}
                         icon={IconName.ChevronLeft}
-                        disabled={!onPrevClick}
-                        onClick={onPrevClick}
+                        disabled={!onPrevPress}
+                        onPress={onPrevPress}
                     />
                 </NavigatorDirectionContext.Provider>
                 <Button
                     style={computedStyle.Headline}
                     label={headline}
-                    disabled={!onHeadlineClick}
-                    onClick={onHeadlineClick}
+                    disabled={!onHeadlinePress}
+                    onPress={onHeadlinePress}
                 />
                 <NavigatorDirectionContext.Provider value={"forward"}>
                     <Button
                         style={computedStyle.Navigator}
                         icon={IconName.ChevronRight}
-                        disabled={!onNextClick}
-                        onClick={onNextClick}
+                        disabled={!onNextPress}
+                        onPress={onNextPress}
                     />
                 </NavigatorDirectionContext.Provider>
-            </Animated.View>
+            </View>
         </HeaderContext.Provider>
     );
 }

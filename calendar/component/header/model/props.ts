@@ -15,17 +15,17 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onPrevClick?: GestureResponderEventHandler;
+    readonly onPrevPress?: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onNextClick?: GestureResponderEventHandler;
+    readonly onNextPress?: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onHeadlineClick?: GestureResponderEventHandler;
+    readonly onHeadlinePress?: GestureResponderEventHandler;
 }

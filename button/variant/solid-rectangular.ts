@@ -1,53 +1,25 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle} from "@miniskylab/antimatter-label";
+import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ButtonContextHook} from "../hook";
 import {ButtonStyle} from "../model";
 import {OutlinedRectangular} from "./outlined-rectangular";
 
-const Button__Icon: IconStyle = function (iconProps)
+const Button__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
 
-    const inheritedIconStyle = OutlinedRectangular(buttonContext.props, buttonContext.state).Icon(iconProps);
-    const iconStyle: ReturnType<IconStyle> = {...inheritedIconStyle};
+    const inheritedStyle = OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
-    iconStyle.Root = {
-        ...inheritedIconStyle.Root,
-        color: Color.Ambient
-    };
-
-    return iconStyle;
-};
-
-const Button__Label: LabelStyle = function (labelProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const inheritedLabelStyle = OutlinedRectangular(buttonContext.props, buttonContext.state).Label(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};
-
-    labelStyle.Root = {
-        ...inheritedLabelStyle.Root,
-        color: Color.Ambient
-    };
-
-    return labelStyle;
-};
-
-export const SolidRectangular: ButtonStyle = function (buttonProps, buttonState)
-{
-    const outlinedRectangularButtonStyle = OutlinedRectangular(buttonProps, buttonState);
-    const buttonStyle: ReturnType<ButtonStyle> = {...outlinedRectangularButtonStyle};
-
-    buttonStyle.Root = {
-        ...outlinedRectangularButtonStyle.Root,
-        ...buttonState.pressed
+    return {
+        ...inheritedStyle,
+        ...pressableState.pressed
             ? {
                 borderColor: Color.Primary__b10,
                 backgroundColor: Color.Primary__b10
             }
-            : buttonState.hovered
+            : pressableState.hovered
                 ? {
                     borderColor: Color.Primary__w25,
                     backgroundColor: Color.Primary__w25
@@ -57,7 +29,38 @@ export const SolidRectangular: ButtonStyle = function (buttonProps, buttonState)
                     backgroundColor: Color.Primary
                 }
     };
+};
 
+const Button__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+
+    const inheritedStyle = OutlinedRectangular(buttonContext.props).Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        color: Color.Ambient
+    };
+};
+
+const Button__Label: LabelStyle = function (labelProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+
+    const inheritedStyle = OutlinedRectangular(buttonContext.props).Label(labelProps);
+
+    return {
+        ...inheritedStyle,
+        color: Color.Ambient
+    };
+};
+
+export const SolidRectangular: ButtonStyle = function (buttonProps)
+{
+    const outlinedRectangularButtonStyle = OutlinedRectangular(buttonProps);
+    const buttonStyle: ReturnType<ButtonStyle> = {...outlinedRectangularButtonStyle};
+
+    buttonStyle.Root = Button__Root;
     buttonStyle.Icon = Button__Icon;
     buttonStyle.Label = Button__Label;
 

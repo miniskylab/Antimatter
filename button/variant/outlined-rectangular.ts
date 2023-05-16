@@ -1,63 +1,15 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
-import {ButtonContextHook} from "../hook";
+import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {ButtonStyle} from "../model";
 
-const Button__Icon: IconStyle = function (iconProps)
+const Button__Root: PressableStyle = function (pressableProps, pressableState)
 {
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const defaultIconStyle = IconVariant.Default(iconProps);
-    const iconStyle: ReturnType<IconStyle> = {...defaultIconStyle};
-
-    iconStyle.Root = {
-        ...defaultIconStyle.Root,
-        minWidth: 16,
-        height: 16,
-        fontSize: 16,
-        color: buttonContext.state.pressed
-            ? Color.Ambient
-            : buttonContext.state.hovered
-                ? Color.White
-                : Color.Primary
-    };
-
-    return iconStyle;
-};
-
-const Button__Label: LabelStyle = function (labelProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const defaultLabelStyle = LabelVariant.Default(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
-
-    labelStyle.Root = {
-        ...defaultLabelStyle.Root,
-        fontSize: 14,
-        paddingVertical: 0,
-        paddingHorizontal: 10,
-        color: buttonContext.state.pressed
-            ? Color.Ambient
-            : buttonContext.state.hovered
-                ? Color.White
-                : Color.Primary
-    };
-
-    return labelStyle;
-};
-
-export const OutlinedRectangular: ButtonStyle = function (buttonProps, buttonState)
-{
-    const buttonStyle: ReturnType<ButtonStyle> = {};
-
-    buttonStyle.Root = {
-        display: "flex",
+    return {
+        ...PressableVariant.Default(pressableProps, pressableState),
         flexDirection: "row",
         alignSelf: "center",
-        alignItems: "center",
-        justifyContent: "center",
         minWidth: 120,
         height: 34,
         paddingVertical: 6,
@@ -67,19 +19,57 @@ export const OutlinedRectangular: ButtonStyle = function (buttonProps, buttonSta
         borderStyle: "solid",
         borderColor: Color.Primary,
         cursor: "pointer",
-        backgroundColor: buttonState.pressed
+        backgroundColor: pressableState.pressed
             ? Color.Primary
-            : buttonState.hovered
+            : pressableState.hovered
                 ? Color.Primary__a10
                 : Color.Transparent,
-        ...buttonProps.disabled && {
+        ...pressableProps.disabled && {
             opacity: .2,
             cursor: "not-allowed"
         }
     };
+};
 
-    buttonStyle.Icon = Button__Icon;
-    buttonStyle.Label = Button__Label;
+const Button__Icon: IconStyle = function (iconProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
 
-    return buttonStyle;
+    return {
+        ...IconVariant.Default(iconProps),
+        minWidth: 16,
+        height: 16,
+        fontSize: 16,
+        color: pressableContext.state.pressed
+            ? Color.Ambient
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Primary
+    };
+};
+
+const Button__Label: LabelStyle = function (labelProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    return {
+        ...LabelVariant.Default(labelProps),
+        fontSize: 14,
+        paddingVertical: 0,
+        paddingHorizontal: 10,
+        color: pressableContext.state.pressed
+            ? Color.Ambient
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Primary
+    };
+};
+
+export const OutlinedRectangular: ButtonStyle = function ()
+{
+    return {
+        Root: Button__Root,
+        Icon: Button__Icon,
+        Label: Button__Label
+    };
 };

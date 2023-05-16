@@ -72,7 +72,7 @@ export function NumericInputField({
     return (
         <NumericInputFieldContext.Provider value={context}>
             <InputField
-                style={computedStyle.Root}
+                style={computedStyle}
                 value={state.userInput}
                 selection={state.selection}
                 autoFocus={autoFocus}

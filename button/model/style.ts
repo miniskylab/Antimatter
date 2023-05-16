@@ -1,12 +1,11 @@
 import {Styled} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle} from "@miniskylab/antimatter-label";
-import {ViewStyle} from "react-native";
+import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ButtonProps} from "./props";
-import {ButtonState} from "./state";
 
-export type ButtonStyle = (buttonProps: Styled<ButtonProps>, buttonState: ButtonState) => {
-    Root?: ViewStyle;
+export type ButtonStyle = (buttonProps: Styled<ButtonProps>) => {
+    Root?: PressableStyle;
     Icon?: IconStyle;
     Label?: LabelStyle;
 };

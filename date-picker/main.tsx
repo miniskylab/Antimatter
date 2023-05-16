@@ -3,8 +3,8 @@ import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DateFormat, GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
+import {View} from "@miniskylab/antimatter-view";
 import React, {useMemo} from "react";
-import {Animated} from "react-native";
 import {DatePickerContext, DatePickerProps} from "./model";
 import * as Variant from "./variant";
 
@@ -19,12 +19,12 @@ export function DatePicker({
     focusable = false,
     autoFocus = false,
     editable = false,
-    onAddonClick,
+    onAddonPress,
     onSelectedDateChange
 }: DatePickerProps): JSX.Element
 {
     const props: Required<DatePickerProps> = {
-        style, selectedDate, placeholder, calendarIsOpen, focusable, autoFocus, editable, onAddonClick, onSelectedDateChange
+        style, selectedDate, placeholder, calendarIsOpen, focusable, autoFocus, editable, onAddonPress, onSelectedDateChange
     };
 
     const context = useMemo<DatePickerContext>(
@@ -37,7 +37,7 @@ export function DatePicker({
 
     return (
         <DatePickerContext.Provider value={context}>
-            <Animated.View style={computedStyle.Root}>
+            <View style={computedStyle.Root}>
                 <InputField
                     style={computedStyle.InputField}
                     value={GregorianCalendar.toString(selectedDate, DateFormat.Short)}
@@ -49,11 +49,11 @@ export function DatePicker({
                 <Button
                     style={computedStyle.Addon}
                     icon={IconName.Calendar}
-                    onClick={onAddonClick}
+                    onPress={onAddonPress}
                 />
                 {calendarIsOpen && (
                     <>
-                        <Animated.View style={computedStyle.Caret} pointerEvents={"none"}/>
+                        <View style={computedStyle.Caret} pointerEvents={"none"}/>
                         <Calendar
                             style={computedStyle.Calendar}
                             selectedDate={selectedDate}
@@ -61,7 +61,7 @@ export function DatePicker({
                         />
                     </>
                 )}
-            </Animated.View>
+            </View>
         </DatePickerContext.Provider>
     );
 }

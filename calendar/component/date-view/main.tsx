@@ -1,8 +1,8 @@
-import {Button} from "@miniskylab/antimatter-button";
 import {GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
+import {Pressable} from "@miniskylab/antimatter-pressable";
+import {View} from "@miniskylab/antimatter-view";
 import React, {useMemo} from "react";
-import {Animated} from "react-native";
 import {DateContext, DateViewContext, Props} from "./model";
 
 /**
@@ -12,11 +12,11 @@ export function Component({
     style,
     today,
     data,
-    onDateClick
+    onDatePress
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        style, today, data, onDateClick
+        style, today, data, onDatePress
     };
 
     const context = useMemo<DateViewContext>(
@@ -29,11 +29,11 @@ export function Component({
 
     return (
         <DateViewContext.Provider value={context}>
-            <Animated.View style={computedStyle.Root}>
+            <View style={computedStyle.Root}>
                 <Label style={computedStyle.WeekNo} pointerEvents={"none"} selectable={false}>#</Label>
                 {renderDaysOfWeek()}
                 {renderDates()}
-            </Animated.View>
+            </View>
         </DateViewContext.Provider>
     );
 
@@ -81,10 +81,10 @@ export function Component({
 
                 week.push(
                     <DateContext.Provider key={data[weekNo][dayNo].value.getTime()} value={dateInfo}>
-                        <Button style={computedStyle.DateContainer} onClick={() => { onDateClick?.(dateInfo.value); }}>
+                        <Pressable style={computedStyle.DateContainer} onPress={() => { onDatePress?.(dateInfo.value); }}>
                             {isToday && <Label style={computedStyle.TodayText} selectable={false}>Today</Label>}
                             <Label style={computedStyle.DateNumber} selectable={false}>{dateInfo.value.getDate().toString()}</Label>
-                        </Button>
+                        </Pressable>
                     </DateContext.Provider>
                 );
             }

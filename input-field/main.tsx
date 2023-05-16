@@ -1,8 +1,9 @@
-import {EMPTY_STRING, getFontFamily, inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
+import {TextInput} from "@miniskylab/antimatter-text-input";
+import {View} from "@miniskylab/antimatter-view";
 import React, {useMemo} from "react";
-import {Animated, TextInput} from "react-native";
 import {InputFieldContext, InputFieldProps} from "./model";
 import * as Variant from "./variant";
 
@@ -45,41 +46,34 @@ export function InputField({
 
     return (
         <InputFieldContext.Provider value={context}>
-            <Animated.View style={computedStyle.Root}>
+            <View style={computedStyle.Root}>
                 {icon && <Icon style={computedStyle.AddOn} name={icon}/>}
-                <Animated.View style={computedStyle.Container}>
+                <View style={computedStyle.Container}>
                     {!!placeholder && (
                         <Label style={computedStyle.Placeholder} pointerEvents={"none"}>
                             {placeholder}
                         </Label>
                     )}
-                    <Animated.View style={computedStyle.TextBox}>
-                        <TextInput
-                            editable={editable}
-                            focusable={focusable}
-                            autoCorrect={autoCorrect}
-                            secureTextEntry={isPasswordField}
-                            style={{
-                                ...inheritTextStyleFrom(computedStyle.TextBox),
-                                fontFamily: getFontFamily(computedStyle.TextBox),
-                                width: "100%",
-                                height: "100%"
-                            }}
-                            value={value ?? EMPTY_STRING}
-                            maxLength={maxLength}
-                            autoFocus={autoFocus}
-                            contextMenuHidden={contextMenuHidden}
-                            selection={selection}
-                            keyboardType={keyboardType}
-                            onChangeText={onChangeText}
-                            onSelectionChange={onSelectionChange}
-                            onBlur={onBlur}
-                            onFocus={onFocus}
-                            onKeyPress={onKeyPress}
-                        />
-                    </Animated.View>
-                </Animated.View>
-            </Animated.View>
+                    <TextInput
+                        style={computedStyle.TextBox}
+                        editable={editable}
+                        focusable={focusable}
+                        autoCorrect={autoCorrect}
+                        secureTextEntry={isPasswordField}
+                        value={value}
+                        maxLength={maxLength}
+                        autoFocus={autoFocus}
+                        contextMenuHidden={contextMenuHidden}
+                        selection={selection}
+                        keyboardType={keyboardType}
+                        onChangeText={onChangeText}
+                        onSelectionChange={onSelectionChange}
+                        onBlur={onBlur}
+                        onFocus={onFocus}
+                        onKeyPress={onKeyPress}
+                    />
+                </View>
+            </View>
         </InputFieldContext.Provider>
     );
 }

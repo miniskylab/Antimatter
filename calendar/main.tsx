@@ -1,7 +1,8 @@
 import {Decade, GregorianCalendar, whitespace} from "@miniskylab/antimatter-framework";
 import {Animation, CompositeTransitionSettings, SlideDirection, Transition, ZoomDirection} from "@miniskylab/antimatter-transition";
+import {View} from "@miniskylab/antimatter-view";
 import React, {useMemo, useRef, useState} from "react";
-import {Animated, LayoutChangeEvent} from "react-native";
+import {LayoutChangeEvent} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "./component";
 import {ViewType} from "./enum";
 import {CalendarContext, CalendarProps, CalendarState} from "./model";
@@ -61,13 +62,13 @@ export function Calendar({
 
     return (
         <CalendarContext.Provider value={context}>
-            <Animated.View style={computedStyle.Root} onLayout={onCalendarLayout}>
+            <View style={computedStyle.Root} onLayout={onCalendarLayout}>
                 {renderHeader()}
                 <Transition style={computedStyle.ViewTransition} settings={state.transitionSettings}>
                     {renderView()}
                 </Transition>
                 {renderControl()}
-            </Animated.View>
+            </View>
         </CalendarContext.Provider>
     );
 
@@ -103,17 +104,17 @@ export function Calendar({
             <Header.Component
                 style={computedStyle.Header}
                 headline={getHeadline()}
-                onPrevClick={
+                onPrevPress={
                     canNavigateBackward(state.view)
                         ? () => { slide(SlideDirection.Left); }
                         : undefined
                 }
-                onHeadlineClick={
+                onHeadlinePress={
                     state.view.type < ViewType.Year
                         ? () => { zoomOut(); }
                         : undefined
                 }
-                onNextClick={
+                onNextPress={
                     canNavigateForward(state.view)
                         ? () => { slide(SlideDirection.Right); }
                         : undefined
@@ -134,7 +135,7 @@ export function Calendar({
                         style={computedStyle.DateView}
                         today={state.today}
                         data={getDateViewDataWithCache(state.view.timeFrame.monthAndYear)}
-                        onDateClick={onDateClick}
+                        onDatePress={onDatePress}
                     />
                 );
             }
@@ -147,7 +148,7 @@ export function Calendar({
                         style={computedStyle.MonthView}
                         selectedMonth={state.today}
                         data={getMonthViewDataWithCache(state.view.timeFrame.monthAndYear.getFullYear())}
-                        onMonthClick={onMonthClick}
+                        onMonthPress={onMonthPress}
                     />
                 );
             }
@@ -160,7 +161,7 @@ export function Calendar({
                         style={computedStyle.YearView}
                         selectedYear={state.today.getFullYear()}
                         data={getYearViewDataWithCache(state.view.timeFrame.decade)}
-                        onYearClick={onYearClick}
+                        onYearPress={onYearPress}
                     />
                 );
             }
@@ -190,8 +191,8 @@ export function Calendar({
         return (
             <Control.Component
                 style={computedStyle.Control}
-                onTodayButtonClick={canNavigateToToday ? () => { goToToday(); } : null}
-                onSelectionButtonClick={canNavigateToSelectedDate ? () => { goToSelectedDate(); } : null}
+                onTodayButtonPress={canNavigateToToday ? () => { goToToday(); } : null}
+                onSelectionButtonPress={canNavigateToSelectedDate ? () => { goToSelectedDate(); } : null}
             />
         );
     }
@@ -388,12 +389,12 @@ export function Calendar({
             : cacheRef.current.yearViewData.set(cacheKey, getYearViewData(decade)) && cacheRef.current.yearViewData.get(cacheKey);
     }
 
-    function onDateClick(date: Date): void
+    function onDatePress(date: Date): void
     {
         onSelectedDateChange?.(GregorianCalendar.isEqualDate(date, selectedDate) ? undefined : date);
     }
 
-    function onMonthClick(month: Date): void
+    function onMonthPress(month: Date): void
     {
         zoomIn({
             monthAndYear: month,
@@ -401,7 +402,7 @@ export function Calendar({
         });
     }
 
-    function onYearClick(year: number): void
+    function onYearPress(year: number): void
     {
         zoomIn({
             monthAndYear: new Date(year, 0, 1),

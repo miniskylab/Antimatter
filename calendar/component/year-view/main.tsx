@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {EMPTY_STRING, GregorianCalendar} from "@miniskylab/antimatter-framework";
+import {View} from "@miniskylab/antimatter-view";
 import React, {useMemo} from "react";
-import {Animated} from "react-native";
 import {Props, YearContext, YearViewContext} from "./model";
 
 /**
@@ -11,11 +11,11 @@ export function Component({
     style,
     selectedYear,
     data,
-    onYearClick
+    onYearPress
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        style, selectedYear, data, onYearClick
+        style, selectedYear, data, onYearPress
     };
 
     const context = useMemo<YearViewContext>(
@@ -28,7 +28,7 @@ export function Component({
 
     return (
         <YearViewContext.Provider value={context}>
-            <Animated.View style={computedStyle.Root}>
+            <View style={computedStyle.Root}>
                 {data.map(yearInfo =>
                 {
                     const outOfSupportedYearRange = yearInfo.value < GregorianCalendar.MIN_YEAR
@@ -44,12 +44,12 @@ export function Component({
                                 style={computedStyle.GridCell}
                                 disabled={outOfSupportedYearRange}
                                 label={outOfSupportedYearRange ? EMPTY_STRING : yearInfo.value.toString()}
-                                onClick={outOfSupportedYearRange ? undefined : () => { onYearClick(yearInfo.value); }}
+                                onPress={outOfSupportedYearRange ? undefined : () => { onYearPress(yearInfo.value); }}
                             />
                         </YearContext.Provider>
                     );
                 })}
-            </Animated.View>
+            </View>
         </YearViewContext.Provider>
     );
 }

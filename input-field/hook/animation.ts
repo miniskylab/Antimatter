@@ -44,8 +44,8 @@ export function usePlaceholderAnimation()
 
 export function useTextBoxAnimation(inputFieldProps: Styled<InputFieldProps>)
 {
-    const animatedPaddingTop = useRef(new Animated.Value(6)).current;
-    const animatedPaddingBottom = useRef(new Animated.Value(6)).current;
+    const animatedPaddingTop = useRef(new Animated.Value(12)).current;
+    const animatedPaddingBottom = useRef(new Animated.Value(12)).current;
 
     useEffect(() =>
     {
@@ -53,14 +53,13 @@ export function useTextBoxAnimation(inputFieldProps: Styled<InputFieldProps>)
         {
             Animated.parallel([
                 Animated.timing(animatedPaddingTop, {
-                    toValue: inputFieldProps.value ? 20 : 6,
+                    toValue: inputFieldProps.value ? 20 : 12,
                     duration: 100,
                     easing: Easing.out(Easing.ease),
                     useNativeDriver: false
                 }),
-
                 Animated.timing(animatedPaddingBottom, {
-                    toValue: inputFieldProps.value ? 5 : 6,
+                    toValue: inputFieldProps.value ? 5 : 12,
                     duration: 100,
                     easing: Easing.out(Easing.ease),
                     useNativeDriver: false

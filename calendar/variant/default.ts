@@ -3,52 +3,49 @@ import {Color} from "@miniskylab/antimatter-color-scheme";
 import {GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {TransitionStyle, TransitionVariant} from "@miniskylab/antimatter-transition";
+import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {Control, DateView, Header, MonthView, YearView} from "../component";
 import {CalendarContextHook} from "../hook";
 import {CalendarStyle} from "../model";
 
-const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
+const Calendar__Root: ViewStyle = function (viewProps)
 {
-    const buttonContext = ButtonContextHook.useButtonContext();
-    const navigatorDirectionContext = Header.ContextHook.useNavigatorDirectionContext();
-
-    const inheritedIconStyle = ButtonVariant.OutlinedCircular(buttonContext.props, buttonContext.state).Icon(iconProps);
-    const iconStyle: ReturnType<IconStyle> = {...inheritedIconStyle};
-
-    iconStyle.Root = {
-        ...inheritedIconStyle.Root,
-        fontSize: 16,
-        color: buttonContext.state.pressed
-            ? Color.Ambient
-            : buttonContext.state.hovered
-                ? Color.White
-                : Color.Neutral,
-        ...navigatorDirectionContext === "backward" && {paddingRight: 2},
-        ...navigatorDirectionContext === "forward" && {paddingLeft: 2}
+    return {
+        ...ViewVariant.Default(viewProps),
+        alignItems: "stretch",
+        width: 320
     };
-
-    return iconStyle;
 };
 
-const Calendar__Header__Navigator: ButtonStyle = function (buttonProps, buttonState)
+const Calendar__Header__Root: ViewStyle = function (viewProps)
 {
-    const outlinedCircularButtonStyle = ButtonVariant.OutlinedCircular(buttonProps, buttonState);
-    const buttonStyle: ReturnType<ButtonStyle> = {...outlinedCircularButtonStyle};
+    return {
+        ...ViewVariant.Default(viewProps),
+        flexDirection: "row"
+    };
+};
 
-    buttonStyle.Root = {
-        ...outlinedCircularButtonStyle.Root,
+const Calendar__Header__Navigator__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+
+    const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Root(pressableProps, pressableState);
+
+    return {
+        ...inheritedStyle,
         width: 40,
         height: 40,
         borderRadius: 20,
         borderWidth: 3,
         borderStyle: "solid",
-        ...buttonState.pressed
+        ...pressableState.pressed
             ? {
                 borderColor: Color.Primary,
                 backgroundColor: Color.Primary
             }
-            : buttonState.hovered
+            : pressableState.hovered
                 ? {
                     borderColor: Color.Primary,
                     backgroundColor: Color.Primary__a10
@@ -58,40 +55,46 @@ const Calendar__Header__Navigator: ButtonStyle = function (buttonProps, buttonSt
                     backgroundColor: Color.Transparent
                 }
     };
-
-    buttonStyle.Icon = Calendar__Header__Navigator__Icon;
-
-    return buttonStyle;
 };
 
-const Calendar__Header__Headline__Label: LabelStyle = function (labelProps)
+const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+    const navigatorDirectionContext = Header.ContextHook.useNavigatorDirectionContext();
+
+    const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        fontSize: 16,
+        color: pressableContext.state.pressed
+            ? Color.Ambient
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral,
+        ...navigatorDirectionContext === "backward" && {paddingRight: 2},
+        ...navigatorDirectionContext === "forward" && {paddingLeft: 2}
+    };
+};
+
+const Calendar__Header__Navigator: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...ButtonVariant.OutlinedCircular(buttonProps),
+        Root: Calendar__Header__Navigator__Root,
+        Icon: Calendar__Header__Navigator__Icon
+    };
+};
+
+const Calendar__Header__Headline__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
 
-    const inheritedLabelStyle = ButtonVariant.OutlinedRectangular(buttonContext.props, buttonContext.state).Label(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
-    labelStyle.Root = {
-        ...inheritedLabelStyle.Root,
-        fontSize: 16,
-        fontWeight: "bold",
-        color: buttonContext.state.pressed
-            ? Color.Neutral
-            : buttonContext.state.hovered
-                ? Color.White
-                : Color.Gainsboro
-    };
-
-    return labelStyle;
-};
-
-const Calendar__Header__Headline: ButtonStyle = function (buttonProps, buttonState)
-{
-    const outlinedRectangularButtonStyle = ButtonVariant.OutlinedRectangular(buttonProps, buttonState);
-    const buttonStyle: ReturnType<ButtonStyle> = {...outlinedRectangularButtonStyle};
-
-    buttonStyle.Root = {
-        ...outlinedRectangularButtonStyle.Root,
+    return {
+        ...inheritedStyle,
         alignSelf: "stretch",
         flexGrow: 1,
         minWidth: "auto",
@@ -102,81 +105,95 @@ const Calendar__Header__Headline: ButtonStyle = function (buttonProps, buttonSta
         paddingBottom: 0,
         borderWidth: 0,
         backgroundColor: Color.Transparent,
-        ...buttonProps.disabled && {
+        ...pressableProps.disabled && {
             opacity: 1,
             cursor: "default"
         }
     };
+};
 
-    buttonStyle.Label = Calendar__Header__Headline__Label;
+const Calendar__Header__Headline__Label: LabelStyle = function (labelProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
 
-    return buttonStyle;
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+
+    return {
+        ...inheritedStyle,
+        fontSize: 16,
+        fontWeight: "bold",
+        color: pressableContext.state.pressed
+            ? Color.Neutral
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Gainsboro
+    };
+};
+
+const Calendar__Header__Headline: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...ButtonVariant.OutlinedRectangular(buttonProps),
+        Root: Calendar__Header__Headline__Root,
+        Label: Calendar__Header__Headline__Label
+    };
 };
 
 const Calendar__Header: Header.Style = function ()
 {
-    const headerStyle: ReturnType<Header.Style> = {};
-
-    headerStyle.Root = {
-        flexDirection: "row"
+    return {
+        Root: Calendar__Header__Root,
+        Navigator: Calendar__Header__Navigator,
+        Headline: Calendar__Header__Headline
     };
-
-    headerStyle.Navigator = Calendar__Header__Navigator;
-    headerStyle.Headline = Calendar__Header__Headline;
-
-    return headerStyle;
 };
 
 const Calendar__ViewTransition: TransitionStyle = function (transitionProps, transitionState)
 {
-    const defaultTransitionStyle = TransitionVariant.Default(transitionProps, transitionState);
-    const transitionStyle: ReturnType<ButtonStyle> = {...defaultTransitionStyle};
-
-    transitionStyle.Root = {
-        ...defaultTransitionStyle.Root,
-        height: 280
+    return function (viewProps)
+    {
+        return {
+            ...TransitionVariant.Default(transitionProps, transitionState)(viewProps),
+            height: 280
+        };
     };
+};
 
-    return transitionStyle;
+const Calendar__DateView__Root: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        flexWrap: "wrap",
+        flexDirection: "row",
+        position: "absolute"
+    };
 };
 
 const Calendar__DateView__WeekNo: LabelStyle = function (labelProps)
 {
-    const defaultLabelStyle = LabelVariant.Default(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
-
-    labelStyle.Root = {
-        ...defaultLabelStyle.Root,
+    return {
+        ...LabelVariant.Default(labelProps),
         width: 40,
         height: 40,
         color: Color.White__a10,
         fontSize: 13,
         fontWeight: "bold"
     };
-
-    return labelStyle;
 };
 
 const Calendar__DateView__WeekOfYear: LabelStyle = function (labelProps)
 {
-    const weekNoStyle = Calendar__DateView__WeekNo(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...weekNoStyle};
-
-    labelStyle.Root = {
-        ...weekNoStyle.Root,
+    return {
+        ...Calendar__DateView__WeekNo(labelProps),
         fontSize: 10
     };
-
-    return labelStyle;
 };
 
 const Calendar__DateView__DayOfWeek: LabelStyle = function (labelProps)
 {
-    const defaultLabelStyle = LabelVariant.Default(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
-
-    labelStyle.Root = {
-        ...defaultLabelStyle.Root,
+    return {
+        ...LabelVariant.Default(labelProps),
         flexDirection: "column",
         width: 40,
         height: 40,
@@ -184,11 +201,9 @@ const Calendar__DateView__DayOfWeek: LabelStyle = function (labelProps)
         fontSize: 14,
         fontWeight: "bold"
     };
-
-    return labelStyle;
 };
 
-const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, buttonState)
+const Calendar__DateView__DateContainer: PressableStyle = function (pressableProps, pressableState)
 {
     const dateContext = DateView.ContextHook.useDateContext();
     const calendarContext = CalendarContextHook.useCalendarContext();
@@ -197,11 +212,8 @@ const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, bu
     const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
     const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
-    const outlinedCircularButtonStyle = ButtonVariant.OutlinedCircular(buttonProps, buttonState);
-    const buttonStyle: ReturnType<ButtonStyle> = {...outlinedCircularButtonStyle};
-
-    buttonStyle.Root = {
-        ...outlinedCircularButtonStyle.Root,
+    return {
+        ...PressableVariant.Default(pressableProps, pressableState),
         flexDirection: "column",
         flexWrap: "nowrap",
         width: 38,
@@ -215,11 +227,11 @@ const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, bu
                 ? Color.White__a10
                 : Color.Neutral
             : Color.Transparent,
-        ...buttonState.hovered && {
+        ...pressableState.hovered && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary__a10
         },
-        ...buttonState.pressed && {
+        ...pressableState.pressed && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary
         },
@@ -228,30 +240,25 @@ const Calendar__DateView__DateContainer: ButtonStyle = function (buttonProps, bu
             backgroundColor: Color.Primary
         }
     };
-
-    return buttonStyle;
 };
 
 const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
 {
     const dateContext = DateView.ContextHook.useDateContext();
-    const buttonContext = ButtonContextHook.useButtonContext();
     const calendarContext = CalendarContextHook.useCalendarContext();
     const dateViewContext = DateView.ContextHook.useDateViewContext();
+    const pressableContext = PressableContextHook.usePressableContext();
 
     const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
     const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
-    const defaultLabelStyle = LabelVariant.Default(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
-
-    labelStyle.Root = {
-        ...defaultLabelStyle.Root,
+    return {
+        ...LabelVariant.Default(labelProps),
         fontSize: 12,
-        fontWeight: buttonContext.state.pressed || isSelectedDate ? "bold" : "normal",
-        color: buttonContext.state.pressed || isSelectedDate
+        fontWeight: pressableContext.state.pressed || isSelectedDate ? "bold" : "normal",
+        color: pressableContext.state.pressed || isSelectedDate
             ? Color.Ambient
-            : buttonContext.state.hovered
+            : pressableContext.state.hovered
                 ? Color.White
                 : dateContext.isExtraneous
                     ? Color.White__a10
@@ -260,73 +267,58 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
             fontSize: 11
         }
     };
-
-    return labelStyle;
 };
 
 const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
 {
-    const calendarContext = CalendarContextHook.useCalendarContext();
     const dateContext = DateView.ContextHook.useDateContext();
-    const buttonContext = ButtonContextHook.useButtonContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+    const pressableContext = PressableContextHook.usePressableContext();
 
     const isSelectedDate = GregorianCalendar.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
-    const defaultLabelStyle = LabelVariant.Default(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
-
-    labelStyle.Root = {
-        ...defaultLabelStyle.Root,
+    return {
+        ...LabelVariant.Default(labelProps),
         flexDirection: "column",
         height: 15,
         marginTop: 3,
         marginBottom: -2,
         fontSize: 10,
-        fontWeight: buttonContext.state.pressed || isSelectedDate ? "bold" : "normal",
-        color: buttonContext.state.pressed || isSelectedDate
+        fontWeight: pressableContext.state.pressed || isSelectedDate ? "bold" : "normal",
+        color: pressableContext.state.pressed || isSelectedDate
             ? Color.Ambient
-            : buttonContext.state.hovered
+            : pressableContext.state.hovered
                 ? Color.White
                 : dateContext.isExtraneous
                     ? Color.White__a10
                     : Color.Neutral
     };
-
-    return labelStyle;
 };
 
 const Calendar__DateView: DateView.Style = function ()
 {
-    const dateViewStyle: ReturnType<DateView.Style> = {};
+    return {
+        Root: Calendar__DateView__Root,
+        WeekNo: Calendar__DateView__WeekNo,
+        WeekOfYear: Calendar__DateView__WeekOfYear,
+        DayOfWeek: Calendar__DateView__DayOfWeek,
+        DateContainer: Calendar__DateView__DateContainer,
+        DateNumber: Calendar__DateView__DateNumber,
+        TodayText: Calendar__DateView__TodayText
+    };
+};
 
-    dateViewStyle.Root = {
+const Calendar__MonthView__Root: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
         flexWrap: "wrap",
         flexDirection: "row",
-        position: "absolute"
+        justifyContent: "space-between"
     };
-
-    dateViewStyle.WeekNo = Calendar__DateView__WeekNo;
-    dateViewStyle.WeekOfYear = Calendar__DateView__WeekOfYear;
-    dateViewStyle.DayOfWeek = Calendar__DateView__DayOfWeek;
-    dateViewStyle.DateContainer = Calendar__DateView__DateContainer;
-    dateViewStyle.DateNumber = Calendar__DateView__DateNumber;
-    dateViewStyle.TodayText = Calendar__DateView__TodayText;
-
-    return dateViewStyle;
 };
 
-const Calendar__MonthView__GridCell__Icon: IconStyle = function ()
-{
-    const iconStyle: ReturnType<IconStyle> = {};
-
-    iconStyle.Root = {
-        display: "none"
-    };
-
-    return iconStyle;
-};
-
-const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
+const Calendar__MonthView__GridCell__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const monthContext = MonthView.ContextHook.useMonthContext();
@@ -334,37 +326,10 @@ const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
 
     const isSelectedMonth = GregorianCalendar.isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
 
-    const defaultLabelStyle = LabelVariant.Default(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
-    labelStyle.Root = {
-        ...defaultLabelStyle.Root,
-        fontSize: 14,
-        fontWeight: isSelectedMonth ? "bold" : "normal",
-        color: buttonContext.state.pressed
-            ? Color.Ambient
-            : buttonContext.state.hovered
-                ? Color.White
-                : monthContext.isExtraneous
-                    ? Color.White__a10
-                    : Color.Neutral
-    };
-
-    return labelStyle;
-};
-
-const Calendar__MonthView__GridCell: ButtonStyle = function (buttonProps, buttonState)
-{
-    const monthContext = MonthView.ContextHook.useMonthContext();
-    const monthViewContext = MonthView.ContextHook.useMonthViewContext();
-
-    const isSelectedMonth = GregorianCalendar.isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
-
-    const outlinedRectangularButtonStyle = ButtonVariant.OutlinedRectangular(buttonProps, buttonState);
-    const buttonStyle: ReturnType<ButtonStyle> = {...outlinedRectangularButtonStyle};
-
-    buttonStyle.Root = {
-        ...outlinedRectangularButtonStyle.Root,
+    return {
+        ...inheritedStyle,
         flexDirection: "column",
         minWidth: "auto",
         width: 70,
@@ -380,49 +345,78 @@ const Calendar__MonthView__GridCell: ButtonStyle = function (buttonProps, button
         ...isSelectedMonth && {
             borderColor: Color.Neutral
         },
-        ...buttonState.hovered && {
+        ...pressableState.hovered && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary__a10
         },
-        ...buttonState.pressed && {
+        ...pressableState.pressed && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary
         }
     };
+};
 
-    buttonStyle.Icon = Calendar__MonthView__GridCell__Icon;
-    buttonStyle.Label = Calendar__MonthView__GridCell__Label;
+const Calendar__MonthView__GridCell__Icon: IconStyle = function ()
+{
+    return {
+        display: "none"
+    };
+};
 
-    return buttonStyle;
+const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const monthContext = MonthView.ContextHook.useMonthContext();
+    const monthViewContext = MonthView.ContextHook.useMonthViewContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    const isSelectedMonth = GregorianCalendar.isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
+
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+
+    return {
+        ...inheritedStyle,
+        fontSize: 14,
+        fontWeight: isSelectedMonth ? "bold" : "normal",
+        color: pressableContext.state.pressed
+            ? Color.Ambient
+            : pressableContext.state.hovered
+                ? Color.White
+                : monthContext.isExtraneous
+                    ? Color.White__a10
+                    : Color.Neutral
+    };
+};
+
+const Calendar__MonthView__GridCell: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...ButtonVariant.OutlinedRectangular(buttonProps),
+        Root: Calendar__MonthView__GridCell__Root,
+        Icon: Calendar__MonthView__GridCell__Icon,
+        Label: Calendar__MonthView__GridCell__Label
+    };
 };
 
 const Calendar__MonthView: MonthView.Style = function ()
 {
-    const monthViewStyle: ReturnType<MonthView.Style> = {};
+    return {
+        Root: Calendar__MonthView__Root,
+        GridCell: Calendar__MonthView__GridCell
+    };
+};
 
-    monthViewStyle.Root = {
+const Calendar__YearView__Root: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
         flexWrap: "wrap",
         flexDirection: "row",
         justifyContent: "space-between"
     };
-
-    monthViewStyle.GridCell = Calendar__MonthView__GridCell;
-
-    return monthViewStyle;
 };
 
-const Calendar__YearView__GridCell__Icon: IconStyle = function ()
-{
-    const iconStyle: ReturnType<IconStyle> = {};
-
-    iconStyle.Root = {
-        display: "none"
-    };
-
-    return iconStyle;
-};
-
-const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
+const Calendar__YearView__GridCell__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const yearContext = YearView.ContextHook.useYearContext();
     const buttonContext = ButtonContextHook.useButtonContext();
@@ -430,37 +424,10 @@ const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
 
     const isSelectedYear = yearContext.value === yearViewContext.props.selectedYear;
 
-    const defaultLabelStyle = LabelVariant.Default(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...defaultLabelStyle};
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
-    labelStyle.Root = {
-        ...defaultLabelStyle.Root,
-        fontSize: 14,
-        fontWeight: isSelectedYear ? "bold" : "normal",
-        color: buttonContext.state.pressed
-            ? Color.Ambient
-            : buttonContext.state.hovered
-                ? Color.White
-                : yearContext.isExtraneous
-                    ? Color.White__a10
-                    : Color.Neutral
-    };
-
-    return labelStyle;
-};
-
-const Calendar__YearView__GridCell: ButtonStyle = function (buttonProps, buttonState)
-{
-    const yearContext = YearView.ContextHook.useYearContext();
-    const yearViewContext = YearView.ContextHook.useYearViewContext();
-
-    const isSelectedYear = yearContext.value === yearViewContext.props.selectedYear;
-
-    const outlinedRectangularButtonStyle = ButtonVariant.OutlinedRectangular(buttonProps, buttonState);
-    const buttonStyle: ReturnType<ButtonStyle> = {...outlinedRectangularButtonStyle};
-
-    buttonStyle.Root = {
-        ...outlinedRectangularButtonStyle.Root,
+    return {
+        ...inheritedStyle,
         flexDirection: "column",
         minWidth: "auto",
         width: 70,
@@ -476,90 +443,84 @@ const Calendar__YearView__GridCell: ButtonStyle = function (buttonProps, buttonS
         ...isSelectedYear && {
             borderColor: Color.Neutral
         },
-        ...buttonState.hovered && {
+        ...pressableState.hovered && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary__a10
         },
-        ...buttonState.pressed && {
+        ...pressableState.pressed && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary
         }
     };
+};
 
-    buttonStyle.Icon = Calendar__YearView__GridCell__Icon;
-    buttonStyle.Label = Calendar__YearView__GridCell__Label;
+const Calendar__YearView__GridCell__Icon: IconStyle = function ()
+{
+    return {
+        display: "none"
+    };
+};
 
-    return buttonStyle;
+const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
+{
+    const yearContext = YearView.ContextHook.useYearContext();
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const yearViewContext = YearView.ContextHook.useYearViewContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    const isSelectedYear = yearContext.value === yearViewContext.props.selectedYear;
+
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+
+    return {
+        ...inheritedStyle,
+        fontSize: 14,
+        fontWeight: isSelectedYear ? "bold" : "normal",
+        color: pressableContext.state.pressed
+            ? Color.Ambient
+            : pressableContext.state.hovered
+                ? Color.White
+                : yearContext.isExtraneous
+                    ? Color.White__a10
+                    : Color.Neutral
+    };
+};
+
+const Calendar__YearView__GridCell: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...ButtonVariant.OutlinedRectangular(buttonProps),
+        Root: Calendar__YearView__GridCell__Root,
+        Icon: Calendar__YearView__GridCell__Icon,
+        Label: Calendar__YearView__GridCell__Label
+    };
 };
 
 const Calendar__YearView: YearView.Style = function ()
 {
-    const yearViewStyle: ReturnType<YearView.Style> = {};
+    return {
+        Root: Calendar__YearView__Root,
+        GridCell: Calendar__YearView__GridCell
+    };
+};
 
-    yearViewStyle.Root = {
-        flexWrap: "wrap",
+const Calendar__Control__Root: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-around"
     };
-
-    yearViewStyle.GridCell = Calendar__YearView__GridCell;
-
-    return yearViewStyle;
 };
 
-const Calendar__Control__Button__Icon: IconStyle = function (iconProps)
+const Calendar__Control__Button__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
 
-    const inheritedIconStyle = ButtonVariant.OutlinedRectangular(buttonContext.props, buttonContext.state).Icon(iconProps);
-    const iconStyle: ReturnType<IconStyle> = {...inheritedIconStyle};
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
-    iconStyle.Root = {
-        ...inheritedIconStyle.Root,
-        minWidth: 12,
-        height: 12,
-        fontSize: 12,
-        fontWeight: "bold",
-        color: buttonContext.state.pressed
-            ? Color.Gray
-            : buttonContext.state.hovered
-                ? Color.Gainsboro
-                : Color.Neutral
-    };
-
-    return iconStyle;
-};
-
-const Calendar__Control__Button__Label: LabelStyle = function (labelProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const inheritedLabelStyle = ButtonVariant.OutlinedRectangular(buttonContext.props, buttonContext.state).Label(labelProps);
-    const labelStyle: ReturnType<LabelStyle> = {...inheritedLabelStyle};
-
-    labelStyle.Root = {
-        ...inheritedLabelStyle.Root,
-        paddingHorizontal: 0,
-        marginLeft: 5,
-        fontSize: 12,
-        fontWeight: "bold",
-        color: buttonContext.state.pressed
-            ? Color.Gray
-            : buttonContext.state.hovered
-                ? Color.Gainsboro
-                : Color.Neutral
-    };
-
-    return labelStyle;
-};
-
-const Calendar__Control__Button: ButtonStyle = function (buttonProps, buttonState)
-{
-    const outlinedRectangularButtonStyle = ButtonVariant.OutlinedRectangular(buttonProps, buttonState);
-    const buttonStyle: ReturnType<ButtonStyle> = {...outlinedRectangularButtonStyle};
-
-    buttonStyle.Root = {
-        ...outlinedRectangularButtonStyle.Root,
+    return {
+        ...inheritedStyle,
         minWidth: 80,
         width: 80,
         padding: 0,
@@ -568,41 +529,77 @@ const Calendar__Control__Button: ButtonStyle = function (buttonProps, buttonStat
         borderColor: Color.Transparent,
         backgroundColor: Color.Transparent
     };
+};
 
-    buttonStyle.Icon = Calendar__Control__Button__Icon;
-    buttonStyle.Label = Calendar__Control__Button__Label;
+const Calendar__Control__Button__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
 
-    return buttonStyle;
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        minWidth: 12,
+        height: 12,
+        fontSize: 12,
+        fontWeight: "bold",
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.Gainsboro
+                : Color.Neutral
+    };
+};
+
+const Calendar__Control__Button__Label: LabelStyle = function (labelProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+
+    return {
+        ...inheritedStyle,
+        paddingHorizontal: 0,
+        marginLeft: 5,
+        fontSize: 12,
+        fontWeight: "bold",
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.Gainsboro
+                : Color.Neutral
+    };
+};
+
+const Calendar__Control__Button: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...ButtonVariant.OutlinedRectangular(buttonProps),
+        Root: Calendar__Control__Button__Root,
+        Icon: Calendar__Control__Button__Icon,
+        Label: Calendar__Control__Button__Label
+    };
 };
 
 const Calendar__Control: Control.Style = function ()
 {
-    const controlStyle: ReturnType<Control.Style> = {};
-
-    controlStyle.Root = {
-        flexDirection: "row",
-        justifyContent: "space-around"
+    return {
+        Root: Calendar__Control__Root,
+        Button: Calendar__Control__Button
     };
-
-    controlStyle.Button = Calendar__Control__Button;
-
-    return controlStyle;
 };
 
 export const Default: CalendarStyle = function ()
 {
-    const calendarStyle: ReturnType<CalendarStyle> = {};
-
-    calendarStyle.Root = {
-        width: 320
+    return {
+        Root: Calendar__Root,
+        Header: Calendar__Header,
+        ViewTransition: Calendar__ViewTransition,
+        DateView: Calendar__DateView,
+        MonthView: Calendar__MonthView,
+        YearView: Calendar__YearView,
+        Control: Calendar__Control
     };
-
-    calendarStyle.Header = Calendar__Header;
-    calendarStyle.ViewTransition = Calendar__ViewTransition;
-    calendarStyle.DateView = Calendar__DateView;
-    calendarStyle.MonthView = Calendar__MonthView;
-    calendarStyle.YearView = Calendar__YearView;
-    calendarStyle.Control = Calendar__Control;
-
-    return calendarStyle;
 };

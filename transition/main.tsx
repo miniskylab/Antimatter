@@ -1,5 +1,5 @@
+import {View, ViewStyle} from "@miniskylab/antimatter-view";
 import React, {useMemo, useState} from "react";
-import {Animated} from "react-native";
 import {Transitionable} from "./component";
 import {Stage} from "./enum";
 import {TransitionAnimationHook} from "./hook";
@@ -30,6 +30,28 @@ export function Transition({
 
     const {style: _, ...propsWithoutStyle} = props;
     const computedStyle = style(propsWithoutStyle, state);
+    const transitionableStyle: Transitionable.Style = function (transitionableProps: Transitionable.Props): ViewStyle
+    {
+        const transitionContext = useTransitionContext();
+
+        const isActiveTransitionable = transitionableProps.id === transitionContext.props.children.key;
+        const transitionStage = isActiveTransitionable ? Stage.Enter : Stage.Exit;
+
+        return () => ({
+            position: "absolute",
+            width: "100%",
+            height: "100%",
+            ...TransitionAnimationHook.useAnimation(transitionStage, onTransitionFinished)
+        });
+
+        function onTransitionFinished()
+        {
+            if (!isActiveTransitionable)
+            {
+                transitionableProps?.onReadyToUnmount(transitionableProps.id);
+            }
+        }
+    };
 
     if (!Object.values(state.children).some(x => x === children))
     {
@@ -44,45 +66,20 @@ export function Transition({
 
     return (
         <TransitionContext.Provider value={context}>
-            <Animated.View style={computedStyle.Root}>
+            <View style={computedStyle}>
                 {Object.values(state.children).map(child => (
                     <Transitionable.Component
                         key={child.key}
                         id={`${child.key}`}
-                        style={getTransitionableStyle}
+                        style={transitionableStyle}
                         onReadyToUnmount={onTransitionableIsReadyToUnmount}
                     >
                         {child}
                     </Transitionable.Component>
                 ))}
-            </Animated.View>
+            </View>
         </TransitionContext.Provider>
     );
-
-    function getTransitionableStyle(transitionableProps: Transitionable.Props): ReturnType<Transitionable.Style>
-    {
-        const transitionContext = useTransitionContext();
-
-        const isActiveTransitionable = transitionableProps.id === transitionContext.props.children.key;
-        const transitionStage = isActiveTransitionable ? Stage.Enter : Stage.Exit;
-
-        return {
-            Root: {
-                position: "absolute",
-                width: "100%",
-                height: "100%",
-                ...TransitionAnimationHook.useAnimation(transitionStage, onTransitionFinished)
-            }
-        };
-
-        function onTransitionFinished()
-        {
-            if (!isActiveTransitionable)
-            {
-                transitionableProps?.onReadyToUnmount(transitionableProps.id);
-            }
-        }
-    }
 
     function onTransitionableIsReadyToUnmount(transitionableId: string): void
     {

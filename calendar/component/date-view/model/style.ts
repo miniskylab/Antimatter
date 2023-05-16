@@ -1,7 +1,7 @@
-import {ButtonStyle} from "@miniskylab/antimatter-button";
 import {Styled} from "@miniskylab/antimatter-framework";
 import {LabelStyle} from "@miniskylab/antimatter-label";
-import {ViewStyle} from "react-native";
+import {PressableStyle} from "@miniskylab/antimatter-pressable";
+import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Props} from "./props";
 
 export type Style = (dateViewProps: Styled<Props>) => {
@@ -9,7 +9,7 @@ export type Style = (dateViewProps: Styled<Props>) => {
     WeekNo?: LabelStyle;
     DayOfWeek?: LabelStyle;
     WeekOfYear?: LabelStyle;
-    DateContainer?: ButtonStyle;
+    DateContainer?: PressableStyle;
     DateNumber?: LabelStyle;
     TodayText?: LabelStyle;
 };
