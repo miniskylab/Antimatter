@@ -11,7 +11,7 @@ export function Min(minValue: number)
             propertyName: thisPropertyName,
             validator: {
                 validate(thisPropertyValue: unknown) { return min(thisPropertyValue, minValue); },
-                defaultMessage() { return ValidationMessageTemplate.CannotBeLessThanValue; }
+                defaultMessage() { return ValidationMessageTemplate.CannotBeLessThanValue(minValue); }
             }
         });
     };

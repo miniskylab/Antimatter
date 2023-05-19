@@ -2,7 +2,7 @@ import {createIconSetFromIcoMoon} from "@expo/vector-icons";
 import {inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import {useFonts} from "expo-font";
-import React from "react";
+import React, {JSX} from "react";
 import icomoonFont from "./asset/antimatter.ttf";
 import icomoonSelection from "./asset/selection.json";
 import {IconProps} from "./model";

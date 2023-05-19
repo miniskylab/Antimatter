@@ -23,75 +23,75 @@ const Ambient = [30, 30, 30];
 const Black = [0, 0, 0];
 
 export const Color = {
-    Blue: toCssRgba(Blue),
-    Green: toCssRgba(Green),
-    Gold: toCssRgba(Gold),
-    Tomato: toCssRgba(Tomato),
-    Purple: toCssRgba(Purple),
+    Blue: toHex(Blue),
+    Green: toHex(Green),
+    Gold: toHex(Gold),
+    Tomato: toHex(Tomato),
+    Purple: toHex(Purple),
 
-    Primary: toCssRgba(Primary),
-    Primary__a10: toCssRgba(Primary, 10),
-    Primary__a45: toCssRgba(Primary, 45),
-    Primary__a65: toCssRgba(Primary, 65),
-    Primary__b10: toCssRgba(shade(Primary, 10)),
-    Primary__w25: toCssRgba(tint(Primary, 25)),
+    Primary: toHex(Primary),
+    Primary__a10: toHex(Primary, 10),
+    Primary__a45: toHex(Primary, 45),
+    Primary__a65: toHex(Primary, 65),
+    Primary__b10: toHex(shade(Primary, 10)),
+    Primary__w25: toHex(tint(Primary, 25)),
 
-    Secondary: toCssRgba(Secondary),
-    Secondary__a10: toCssRgba(Secondary, 10),
+    Secondary: toHex(Secondary),
+    Secondary__a10: toHex(Secondary, 10),
 
-    Tertiary: toCssRgba(Tertiary),
+    Tertiary: toHex(Tertiary),
 
-    Complementary: toCssRgba(Complementary),
-    Complementary__a10: toCssRgba(Complementary, 10),
-    Complementary__a45: toCssRgba(Complementary, 45),
+    Complementary: toHex(Complementary),
+    Complementary__a10: toHex(Complementary, 10),
+    Complementary__a45: toHex(Complementary, 45),
 
-    Positive: toCssRgba(Positive),
-    Positive__a10: toCssRgba(Positive, 10),
-    Positive__a45: toCssRgba(Positive, 45),
-    Positive__b10: toCssRgba(shade(Positive, 10)),
-    Positive__w25: toCssRgba(tint(Positive, 25)),
+    Positive: toHex(Positive),
+    Positive__a10: toHex(Positive, 10),
+    Positive__a45: toHex(Positive, 45),
+    Positive__b10: toHex(shade(Positive, 10)),
+    Positive__w25: toHex(tint(Positive, 25)),
 
-    Warning: toCssRgba(Warning),
-    Warning__a10: toCssRgba(Warning, 10),
-    Warning__a45: toCssRgba(Warning, 45),
-    Warning__b10: toCssRgba(shade(Warning, 10)),
-    Warning__w25: toCssRgba(tint(Warning, 25)),
+    Warning: toHex(Warning),
+    Warning__a10: toHex(Warning, 10),
+    Warning__a45: toHex(Warning, 45),
+    Warning__b10: toHex(shade(Warning, 10)),
+    Warning__w25: toHex(tint(Warning, 25)),
 
-    Negative: toCssRgba(Negative),
-    Negative__a10: toCssRgba(Negative, 10),
-    Negative__a45: toCssRgba(Negative, 45),
+    Negative: toHex(Negative),
+    Negative__a10: toHex(Negative, 10),
+    Negative__a45: toHex(Negative, 45),
 
-    Accent: toCssRgba(Accent),
-    Accent__a10: toCssRgba(Accent, 10),
+    Accent: toHex(Accent),
+    Accent__a10: toHex(Accent, 10),
 
-    White: toCssRgba(White),
-    White__a3: toCssRgba(White, 3),
-    White__a4: toCssRgba(White, 4),
-    White__a5: toCssRgba(White, 5),
-    White__a8: toCssRgba(White, 8),
-    White__a10: toCssRgba(White, 10),
-    White__a30: toCssRgba(White, 30),
-    White__a50: toCssRgba(White, 50),
+    White: toHex(White),
+    White__a3: toHex(White, 3),
+    White__a4: toHex(White, 4),
+    White__a5: toHex(White, 5),
+    White__a8: toHex(White, 8),
+    White__a10: toHex(White, 10),
+    White__a30: toHex(White, 30),
+    White__a50: toHex(White, 50),
 
-    Gainsboro: toCssRgba(Gainsboro),
+    Gainsboro: toHex(Gainsboro),
 
-    Neutral: toCssRgba(Neutral),
-    Neutral__a10: toCssRgba(Neutral, 10),
+    Neutral: toHex(Neutral),
+    Neutral__a10: toHex(Neutral, 10),
 
-    Gray: toCssRgba(Gray),
-    Gray__a10: toCssRgba(Gray, 10),
-    Gray__a65: toCssRgba(Gray, 65),
+    Gray: toHex(Gray),
+    Gray__a10: toHex(Gray, 10),
+    Gray__a65: toHex(Gray, 65),
 
-    Background: toCssRgba(Background),
-    Mineshaft: toCssRgba(Mineshaft),
-    Ambient: toCssRgba(Ambient),
+    Background: toHex(Background),
+    Mineshaft: toHex(Mineshaft),
+    Ambient: toHex(Ambient),
 
-    Black: toCssRgba(Black),
-    Black__a15: toCssRgba(Black, 15),
-    Black__a25: toCssRgba(Black, 25),
-    Black__a35: toCssRgba(Black, 35),
+    Black: toHex(Black),
+    Black__a15: toHex(Black, 15),
+    Black__a25: toHex(Black, 25),
+    Black__a35: toHex(Black, 35),
 
-    Transparent: toCssRgba(Black, 0)
+    Transparent: toHex(Black, 0)
 };
 
 function complement(color: number[]): number[]
@@ -121,7 +121,13 @@ function shade(color: number[], factor: number): number[]
     ];
 }
 
-function toCssRgba(color: number[], alpha = 100): string
+function toHex(color: number[], alpha = 100): string
 {
-    return `rgba(${color.join(", ")}, ${alpha / 100})`;
+    return (
+        "#" +
+        (color[0] | 1 << 8).toString(16).slice(1) +
+        (color[1] | 1 << 8).toString(16).slice(1) +
+        (color[2] | 1 << 8).toString(16).slice(1) +
+        ((alpha / 100 * 255) | 1 << 8).toString(16).slice(1)
+    ).toUpperCase();
 }

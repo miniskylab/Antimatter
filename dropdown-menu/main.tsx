@@ -1,9 +1,10 @@
 import {Button} from "@miniskylab/antimatter-button";
+import {EMPTY_STRING} from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {View} from "@miniskylab/antimatter-view";
-import React, {useMemo} from "react";
+import React, {JSX, useMemo} from "react";
 import {DropDirection, MenuItemStatus} from "./enum";
 import {DropdownMenuContext, DropdownMenuProps, MenuItemContext} from "./model";
 import * as Variant from "./variant";
@@ -14,7 +15,7 @@ import * as Variant from "./variant";
 export function DropdownMenu({
     style = Variant.Default,
     menuItems = {},
-    placeholder,
+    placeholder = EMPTY_STRING,
     isOpen = false,
     dropDirection = DropDirection.Down,
     onDropdownMenuPress,

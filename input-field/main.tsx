@@ -3,7 +3,7 @@ import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {TextInput} from "@miniskylab/antimatter-text-input";
 import {View} from "@miniskylab/antimatter-view";
-import React, {useMemo} from "react";
+import React, {JSX, useMemo} from "react";
 import {InputFieldContext, InputFieldProps} from "./model";
 import * as Variant from "./variant";
 
@@ -22,7 +22,7 @@ export function InputField({
     contextMenuHidden = false,
     autoCorrect = true,
     maxLength,
-    keyboardType,
+    keyboardType = "default",
     selection,
     onChangeText,
     onSelectionChange,

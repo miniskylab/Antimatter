@@ -2,10 +2,11 @@ import {
     ComponentName,
     ComponentProps,
     IsBoolean,
+    IsInteger,
     IsNotEmpty,
     IsNumber,
-    IsPositive,
     IsString,
+    Min,
     PointerEvents
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
@@ -33,7 +34,8 @@ export class LabelProps extends ComponentProps<LabelStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsPositive()
+    @Min(0)
+    @IsInteger()
     @IsNumber()
     @IsOptional()
     readonly numberOfLines?: number;

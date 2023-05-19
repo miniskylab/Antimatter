@@ -3,9 +3,10 @@ import {
     ComponentProps,
     IsBoolean,
     IsEnum,
+    IsInteger,
     IsNumber,
-    IsPositive,
     IsString,
+    Min,
     TextInputFocusEventHandler,
     TextInputKeyPressEventHandler,
     TextInputSelectionChangeEventHandler
@@ -97,7 +98,8 @@ export class InputFieldProps extends ComponentProps<InputFieldStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsPositive()
+    @Min(0)
+    @IsInteger()
     @IsNumber()
     @IsOptional()
     readonly maxLength?: number;

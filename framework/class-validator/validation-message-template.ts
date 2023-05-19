@@ -14,8 +14,8 @@ export const ValidationMessageTemplate = {
     MustBeEmail: "Property \"{0}\" must be an email address. Received value: {0} = {1}",
     CannotBeEmptyString: "Property \"{0}\" cannot be empty string. Received value: {0} = {1}",
     CannotBeEmptyArray: "Property \"{0}\" cannot be an empty array. Received value: {0} = {1}",
-    CannotBeGreaterThanValue: "Property \"{0}\" cannot be greater than {1}. Received value: {0} = {2}",
-    CannotBeLessThanValue: "Property \"{0}\" cannot be less than {1}. Received value: {0} = {2}",
-    CannotBeGreaterThanOrEqualToValue: "Property \"{0}\" cannot be greater than or equal to {1}. Received value: {0} = {2}",
-    CannotBeLessThanOrEqualToValue: "Property \"{0}\" cannot be less than or equal to {1}. Received value: {0} = {2}"
+    CannotBeGreaterThanValue: (value: number) => `Property \"{0}\" cannot be greater than ${value}. Received value: {0} = {1}`,
+    CannotBeLessThanValue: (value: number) => `Property \"{0}\" cannot be less than ${value}. Received value: {0} = {1}`,
+    CannotBeGreaterThanOrEqualToValue: (value: number) => `Property \"{0}\" cannot be greater than or equal to ${value}. Received value: {0} = {1}`,
+    CannotBeLessThanOrEqualToValue: (value: number) => `Property \"{0}\" cannot be less than or equal to ${value}. Received value: {0} = {1}`
 };

@@ -1,6 +1,6 @@
 import {EMPTY_STRING, getFontFamily, inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
-import React from "react";
+import React, {JSX} from "react";
 import * as ReactNative from "react-native";
 import {TextInputProps} from "./model";
 import * as Variant from "./variant";
@@ -18,7 +18,7 @@ export function TextInput({
     contextMenuHidden = false,
     autoCorrect = true,
     maxLength,
-    keyboardType,
+    keyboardType = "default",
     selection,
     onChangeText,
     onSelectionChange,

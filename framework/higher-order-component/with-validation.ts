@@ -1,6 +1,6 @@
 import {plainToClass} from "class-transformer";
 import {validateSync, ValidationError} from "class-validator";
-import {ComponentType, createElement} from "react";
+import {ComponentType, createElement, JSX} from "react";
 import {ValidationMessageTemplate} from "../class-validator";
 import {ComponentName, ComponentProps} from "../component";
 import {EMPTY_STRING, formatString, getRepresentationString} from "../data-type";

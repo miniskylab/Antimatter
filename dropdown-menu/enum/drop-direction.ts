@@ -1,5 +1,5 @@
 export enum DropDirection
 {
-    Down,
-    Up
+    Down = "Down",
+    Up = "Up"
 }

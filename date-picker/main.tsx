@@ -1,6 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
-import {DateFormat, GregorianCalendar} from "@miniskylab/antimatter-framework";
+import {DateFormat, EMPTY_STRING, GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {View} from "@miniskylab/antimatter-view";
@@ -14,7 +14,7 @@ import * as Variant from "./variant";
 export function DatePicker({
     style = Variant.Default,
     selectedDate,
-    placeholder,
+    placeholder = EMPTY_STRING,
     calendarIsOpen = false,
     focusable = false,
     autoFocus = false,

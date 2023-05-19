@@ -12,7 +12,7 @@ export function IsPositive(validationOptions?: Omit<ValidationOptions, "message"
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isPositive(thisPropertyValue); },
-                defaultMessage() { return ValidationMessageTemplate.CannotBeLessThanOrEqualToValue; }
+                defaultMessage() { return ValidationMessageTemplate.CannotBeLessThanOrEqualToValue(0); }
             }
         });
     };
