@@ -40,7 +40,9 @@ export function DropdownMenu({
     return (
         <DropdownMenuContext.Provider value={context}>
             <Pressable style={computedStyle.Root} onPress={onDropdownMenuPress}>
-                {hasSelection ? renderSelectedItems() : renderPlaceholder()}
+                <View style={computedStyle.SelectedItemContainer}>
+                    {hasSelection ? renderSelectedItems() : renderPlaceholder()}
+                </View>
                 <View style={computedStyle.Caret}/>
                 <View style={computedStyle.Menu} pointerEvents={"box-none"}>
                     {renderMenuItems()}

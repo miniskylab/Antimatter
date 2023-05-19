@@ -7,6 +7,7 @@ import {DropdownMenuProps} from "./props";
 
 export type DropdownMenuStyle = (dropdownMenuProps: Styled<DropdownMenuProps>) => {
     Root?: PressableStyle;
+    SelectedItemContainer?: ViewStyle;
     SelectedItem?: LabelStyle;
     Placeholder?: LabelStyle;
     Caret?: ViewStyle;

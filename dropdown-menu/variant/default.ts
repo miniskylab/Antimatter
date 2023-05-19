@@ -11,25 +11,34 @@ import {DropdownMenuStyle} from "../model";
 
 const DropdownMenu__Root: PressableStyle = function (pressableProps, pressableState)
 {
+    return {
+        ...PressableVariant.Default(pressableProps, pressableState),
+        width: 220,
+        minHeight: 34
+    };
+};
+
+const DropdownMenu__SelectedItemContainer: ViewStyle = function (viewProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
     return {
-        ...PressableVariant.Default(pressableProps, pressableState),
+        ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         alignItems: "flex-start",
         justifyContent: "flex-start",
         flexWrap: "wrap",
         gap: 5,
-        width: 220,
-        minHeight: 34,
+        width: "100%",
         paddingVertical: 8,
         paddingHorizontal: 12,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: !dropdownMenuContext.props.isOpen && pressableState.hovered
+        borderColor: !dropdownMenuContext.props.isOpen && pressableContext.state.hovered
             ? Color.Primary
             : Color.Transparent,
-        backgroundColor: !dropdownMenuContext.props.isOpen && pressableState.hovered
+        backgroundColor: !dropdownMenuContext.props.isOpen && pressableContext.state.hovered
             ? Color.Primary__a10
             : Color.Mineshaft
     };
@@ -40,7 +49,8 @@ const DropdownMenu__SelectedItem: LabelStyle = function (labelProps)
     return {
         ...LabelVariant.Default(labelProps),
         maxWidth: "90%",
-        lineHeight: 18,
+        lineHeight: 16,
+        paddingVertical: 1,
         paddingHorizontal: 8,
         fontSize: 12,
         color: Color.Background,
@@ -97,9 +107,8 @@ const DropdownMenu__Menu: ViewStyle = function (viewProps)
         flexDirection: "column",
         position: "absolute",
         top: "100%",
-        left: -1,
         rowGap: 5,
-        width: 220,
+        width: "100%",
         paddingVertical: 10,
         marginVertical: 4,
         backgroundColor: Color.Mineshaft,
@@ -206,6 +215,7 @@ export const Default: DropdownMenuStyle = function ()
 {
     return {
         Root: DropdownMenu__Root,
+        SelectedItemContainer: DropdownMenu__SelectedItemContainer,
         SelectedItem: DropdownMenu__SelectedItem,
         Placeholder: DropdownMenu__Placeholder,
         Caret: DropdownMenu__Caret,
