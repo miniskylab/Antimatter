@@ -1,6 +1,6 @@
 export enum MenuItemStatus
 {
-    Selected,
-    Disabled,
-    Divider
+    Selected = "Selected",
+    Disabled = "Disabled",
+    Divider = "Divider"
 }
