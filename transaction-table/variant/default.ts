@@ -713,7 +713,7 @@ const TransactionTable__Hr: ViewStyle = function (viewProps)
         height: 2,
         zIndex: Layer.Lower,
         backgroundColor: Color.Neutral,
-        ...hrPosition === "top" && {top: 57},
+        ...hrPosition === "top" && {top: 57.2},
         ...hrPosition === "bottom" && {bottom: isMobileDevice ? 55 : 54.8}
     };
 };
