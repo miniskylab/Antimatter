@@ -1,7 +1,7 @@
 import {Decade, GregorianCalendar, whitespace} from "@miniskylab/antimatter-framework";
 import {Animation, CompositeTransitionSettings, SlideDirection, Transition, ZoomDirection} from "@miniskylab/antimatter-transition";
 import {View} from "@miniskylab/antimatter-view";
-import React, {useMemo, useRef, useState} from "react";
+import React, {JSX, useMemo, useRef, useState} from "react";
 import {LayoutChangeEvent} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "./component";
 import {ViewType} from "./enum";

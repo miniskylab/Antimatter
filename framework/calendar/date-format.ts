@@ -1,6 +1,6 @@
 export enum DateFormat
 {
-    Short,
-    Long,
-    Full
+    Short = "Short",
+    Long = "Long",
+    Full = "Full"
 }

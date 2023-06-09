@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {View} from "@miniskylab/antimatter-view";
-import React, {useMemo} from "react";
+import React, {JSX, useMemo} from "react";
 import {ControlContext, Props} from "./model";
 
 /**

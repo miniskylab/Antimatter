@@ -59,6 +59,8 @@ const DatePicker__InputField__TextBox: TextInputStyle = function (textInputProps
 
     return {
         ...inheritedStyle,
+        paddingTop: 6,
+        paddingBottom: 6,
         paddingRight: 36
     };
 };

@@ -3,6 +3,7 @@ import {EMPTY_STRING} from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
+import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {DropDirection, MenuItemStatus} from "./enum";
@@ -17,13 +18,14 @@ export function DropdownMenu({
     menuItems = {},
     placeholder = EMPTY_STRING,
     isOpen = false,
+    enableMenuHorizontalScrolling = false,
     dropDirection = DropDirection.Down,
-    onDropdownMenuPress,
+    onSelectedItemContainerPress,
     onMenuItemPress
 }: DropdownMenuProps): JSX.Element
 {
     const props: Required<DropdownMenuProps> = {
-        style, menuItems, placeholder, isOpen, dropDirection, onDropdownMenuPress, onMenuItemPress
+        style, menuItems, placeholder, isOpen, enableMenuHorizontalScrolling, dropDirection, onSelectedItemContainerPress, onMenuItemPress
     };
 
     const context = useMemo<DropdownMenuContext>(
@@ -39,15 +41,20 @@ export function DropdownMenu({
 
     return (
         <DropdownMenuContext.Provider value={context}>
-            <Pressable style={computedStyle.Root} onPress={onDropdownMenuPress}>
-                <View style={computedStyle.SelectedItemContainer}>
+            <View style={computedStyle.Root}>
+                <Pressable style={computedStyle.SelectedItemContainer} onPress={onSelectedItemContainerPress}>
                     {hasSelection ? renderSelectedItems() : renderPlaceholder()}
-                </View>
-                <View style={computedStyle.Caret}/>
-                <View style={computedStyle.Menu} pointerEvents={"box-none"}>
+                    <View style={computedStyle.Caret}/>
+                </Pressable>
+                <ScrollView
+                    style={computedStyle.Menu}
+                    horizontal={enableMenuHorizontalScrolling}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                >
                     {renderMenuItems()}
-                </View>
-            </Pressable>
+                </ScrollView>
+            </View>
         </DropdownMenuContext.Provider>
     );
 

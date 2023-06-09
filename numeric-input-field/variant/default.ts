@@ -1,10 +1,24 @@
-import {InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
+import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
+import {ViewStyle} from "@miniskylab/antimatter-view";
 import {NumericInputFieldStyle} from "../model";
+
+const NumericInputField__InputField__Container: ViewStyle = function (viewProps)
+{
+    const inputFieldContext = InputFieldContextHook.useInputFieldContext();
+
+    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Container(viewProps);
+
+    return {
+        ...inheritedStyle,
+        width: "100%"
+    };
+};
 
 const NumericInputField__InputField: InputFieldStyle = function (inputFieldProps)
 {
     return {
-        ...InputFieldVariant.Default(inputFieldProps)
+        ...InputFieldVariant.Default(inputFieldProps),
+        Container: NumericInputField__InputField__Container
     };
 };
 

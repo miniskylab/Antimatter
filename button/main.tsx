@@ -1,7 +1,8 @@
+import {EMPTY_STRING} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
-import React, {useMemo} from "react";
+import React, {JSX, useMemo} from "react";
 import {ButtonContext, ButtonProps} from "./model";
 import * as Variant from "./variant";
 
@@ -10,7 +11,7 @@ import * as Variant from "./variant";
  */
 export function Button({
     style,
-    label,
+    label = EMPTY_STRING,
     icon,
     disabled = false,
     onPress
@@ -36,8 +37,8 @@ export function Button({
     return (
         <ButtonContext.Provider value={context}>
             <Pressable style={computedStyle.Root} disabled={disabled} onPress={onPress}>
-                {icon && <Icon style={computedStyle.Icon} name={icon} pointerEvents={"none"}/>}
-                {label && (
+                {icon && <Icon style={computedStyle.Icon} name={icon} pointerEvents={"none"} selectable={false}/>}
+                {!!label && (
                     <Label
                         style={computedStyle.Label}
                         pointerEvents={"none"}

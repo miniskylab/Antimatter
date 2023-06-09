@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {EMPTY_STRING, GregorianCalendar} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
-import React, {useMemo} from "react";
+import React, {JSX, useMemo} from "react";
 import {Props, YearContext, YearViewContext} from "./model";
 
 /**

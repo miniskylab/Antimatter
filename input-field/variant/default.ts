@@ -22,7 +22,7 @@ const InputField__Container: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flexGrow: 1,
-        position: "relative"
+        height: "100%"
     };
 };
 
@@ -33,7 +33,7 @@ const InputField__TextBox: TextInputStyle = function (textInputProps)
     return {
         ...TextInputVariant.Default(textInputProps),
         width: "100%",
-        height: 40,
+        height: "100%",
         paddingHorizontal: 12,
         fontSize: 14,
         color: Color.Neutral,

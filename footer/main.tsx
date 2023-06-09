@@ -1,5 +1,5 @@
 import {Label} from "@miniskylab/antimatter-label";
-import React, {useMemo} from "react";
+import React, {JSX, useMemo} from "react";
 import {FooterContext, FooterProps} from "./model";
 import * as Variant from "./variant";
 

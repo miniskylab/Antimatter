@@ -1,6 +1,6 @@
 import {getFontFamily, inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
-import React from "react";
+import React, {JSX} from "react";
 import {Animated} from "react-native";
 import {LabelProps} from "./model";
 import * as Variant from "./variant";

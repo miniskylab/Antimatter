@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps, IsBoolean, IsDate, IsString} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps, DateFormat, IsBoolean, IsDate, IsEnum, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {DatePickerStyle} from "./style";
 
@@ -19,6 +19,16 @@ export class DatePickerProps extends ComponentProps<DatePickerStyle>
     @IsString()
     @IsOptional()
     readonly placeholder?: string;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type DateFormat
+     */
+    @IsEnum(DateFormat)
+    @IsOptional()
+    readonly dateFormat?: DateFormat;
 
 
     /**

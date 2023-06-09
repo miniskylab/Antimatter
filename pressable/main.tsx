@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {JSX, useMemo, useState} from "react";
 import {AnimatedPressable} from "./component";
 import {PressableContext, PressableProps, PressableState} from "./model";
 import * as Variant from "./variant";
@@ -9,7 +9,7 @@ import * as Variant from "./variant";
 export function Pressable({
     style = Variant.Default,
     children,
-    disabled,
+    disabled = false,
     onPress
 }: PressableProps): JSX.Element
 {

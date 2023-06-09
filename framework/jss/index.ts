@@ -1,2 +1,2 @@
 export * from "./layer";
-export * from "./screen-size";
+export * from "./responsive";

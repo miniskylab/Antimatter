@@ -4,7 +4,7 @@ import {DateFormat, EMPTY_STRING, GregorianCalendar} from "@miniskylab/antimatte
 import {IconName} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {View} from "@miniskylab/antimatter-view";
-import React, {useMemo} from "react";
+import React, {JSX, useMemo} from "react";
 import {DatePickerContext, DatePickerProps} from "./model";
 import * as Variant from "./variant";
 
@@ -15,6 +15,7 @@ export function DatePicker({
     style = Variant.Default,
     selectedDate,
     placeholder = EMPTY_STRING,
+    dateFormat = DateFormat.Short,
     calendarIsOpen = false,
     focusable = false,
     autoFocus = false,
@@ -24,7 +25,7 @@ export function DatePicker({
 }: DatePickerProps): JSX.Element
 {
     const props: Required<DatePickerProps> = {
-        style, selectedDate, placeholder, calendarIsOpen, focusable, autoFocus, editable, onAddonPress, onSelectedDateChange
+        style, selectedDate, placeholder, dateFormat, calendarIsOpen, focusable, autoFocus, editable, onAddonPress, onSelectedDateChange
     };
 
     const context = useMemo<DatePickerContext>(
@@ -40,7 +41,7 @@ export function DatePicker({
             <View style={computedStyle.Root}>
                 <InputField
                     style={computedStyle.InputField}
-                    value={GregorianCalendar.toString(selectedDate, DateFormat.Short)}
+                    value={GregorianCalendar.toString(selectedDate, dateFormat)}
                     placeholder={!selectedDate && placeholder}
                     focusable={focusable}
                     autoFocus={autoFocus}

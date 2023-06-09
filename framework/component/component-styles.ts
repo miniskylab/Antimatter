@@ -13,6 +13,7 @@ export function inheritTextStyleFrom<TStyle extends TextStyle>(style: TStyle): T
         fontStyle: style.fontStyle,
         fontWeight: style.fontWeight,
         lineHeight: style.lineHeight,
+        textAlign: style.textAlign,
         textDecorationLine: style.textDecorationLine,
         textDecorationStyle: style.textDecorationStyle
     };

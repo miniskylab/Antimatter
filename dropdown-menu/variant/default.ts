@@ -4,27 +4,27 @@ import {Layer} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {DropDirection, MenuItemStatus} from "../enum";
 import {DropdownMenuContextHook} from "../hook";
 import {DropdownMenuStyle} from "../model";
 
-const DropdownMenu__Root: PressableStyle = function (pressableProps, pressableState)
+const DropdownMenu__Root: ViewStyle = function (viewProps)
 {
     return {
-        ...PressableVariant.Default(pressableProps, pressableState),
+        ...ViewVariant.Default(viewProps),
         width: 220,
         minHeight: 34
     };
 };
 
-const DropdownMenu__SelectedItemContainer: ViewStyle = function (viewProps)
+const DropdownMenu__SelectedItemContainer: PressableStyle = function (pressableProps, pressableState)
 {
-    const pressableContext = PressableContextHook.usePressableContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
     return {
-        ...ViewVariant.Default(viewProps),
+        ...PressableVariant.Default(pressableProps, pressableState),
         flexDirection: "row",
         alignItems: "flex-start",
         justifyContent: "flex-start",
@@ -35,10 +35,10 @@ const DropdownMenu__SelectedItemContainer: ViewStyle = function (viewProps)
         paddingHorizontal: 12,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: !dropdownMenuContext.props.isOpen && pressableContext.state.hovered
+        borderColor: !dropdownMenuContext.props.isOpen && pressableState.hovered
             ? Color.Primary
             : Color.Transparent,
-        backgroundColor: !dropdownMenuContext.props.isOpen && pressableContext.state.hovered
+        backgroundColor: !dropdownMenuContext.props.isOpen && pressableState.hovered
             ? Color.Primary__a10
             : Color.Mineshaft
     };
@@ -97,17 +97,17 @@ const DropdownMenu__Caret: ViewStyle = function (viewProps)
     };
 };
 
-const DropdownMenu__Menu: ViewStyle = function (viewProps)
+const DropdownMenu__Menu: ScrollViewStyle = function (scrollViewProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
     return {
-        ...ViewVariant.Default(viewProps),
+        ...ScrollViewVariant.Default(scrollViewProps),
         display: dropdownMenuContext.props.isOpen ? "flex" : "none",
         flexDirection: "column",
         position: "absolute",
         top: "100%",
-        rowGap: 5,
+        gap: 5,
         width: "100%",
         paddingVertical: 10,
         marginVertical: 4,
@@ -130,9 +130,11 @@ const DropdownMenu__MenuItem__Root: PressableStyle = function (pressableProps, p
 
     return {
         ...inheritedStyle,
+        justifyContent: "flex-start",
         width: "100%",
         height: 30,
-        justifyContent: "flex-start",
+        paddingTop: 0,
+        paddingBottom: 0,
         backgroundColor: menuItemContext.status === MenuItemStatus.Selected || pressableState.pressed
             ? Color.Primary
             : pressableState.hovered
@@ -179,7 +181,7 @@ const DropdownMenu__MenuItem__Label: LabelStyle = function (labelProps)
         ...inheritedStyle,
         width: "100%",
         alignItems: "flex-start",
-        paddingHorizontal: 0,
+        paddingLeft: 0,
         paddingRight: 20,
         color: menuItemContext.status === MenuItemStatus.Selected
             ? Color.Ambient

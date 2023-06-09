@@ -1,4 +1,4 @@
-import React from "react";
+import React, {JSX} from "react";
 import {Animated} from "react-native";
 import {ViewProps} from "./model";
 import * as Variant from "./variant";

@@ -3,7 +3,6 @@ import {
     ComponentProps,
     IsBoolean,
     IsInteger,
-    IsNotEmpty,
     IsNumber,
     IsString,
     Min,
@@ -44,8 +43,6 @@ export class LabelProps extends ComponentProps<LabelStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsNotEmpty()
-    @IsString()
     @IsOptional()
     readonly pointerEvents?: PointerEvents;
 }

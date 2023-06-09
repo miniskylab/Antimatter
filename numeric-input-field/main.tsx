@@ -1,6 +1,6 @@
 import {EMPTY_STRING, MAX, MIN} from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
-import React, {useEffect, useMemo, useRef, useState} from "react";
+import React, {JSX, useEffect, useMemo, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
 import {Keypress} from "./enum";
 import {NumericInputFieldContext, NumericInputFieldProps, NumericInputFieldState} from "./model";
@@ -32,7 +32,7 @@ export function NumericInputField({
     };
 
     const [state, setState] = useState<NumericInputFieldState>({
-        selection: {start: 0},
+        selection: undefined,
         userInput: getDefaultUserInput()
     });
 
@@ -42,7 +42,6 @@ export function NumericInputField({
     );
 
     const lastKeypressRef = useRef<Keypress>();
-    const ignoreNextSelectionChangeEventRef = useRef(false);
 
     const {style: _, ...propsWithoutStyle} = props;
     const computedStyle = style(propsWithoutStyle);
@@ -60,7 +59,6 @@ export function NumericInputField({
             maximumDigitCount
         );
 
-        ignoreNextSelectionChangeEventRef.current = true;
         setState(prevState => ({
             ...prevState,
             selection: nextSelection,
@@ -85,7 +83,7 @@ export function NumericInputField({
                 onSelectionChange={handleSelectionChangeEvent}
                 onKeyPress={handleKeypressEvent}
                 onBlur={handleBlurEvent}
-                onFocus={onFocus}
+                onFocus={handleFocusEvent}
             />
         </NumericInputFieldContext.Provider>
     );
@@ -103,7 +101,6 @@ export function NumericInputField({
             maximumDigitCount
         );
 
-        ignoreNextSelectionChangeEventRef.current = true;
         setState(prevState => ({
             ...prevState,
             selection: nextSelection,
@@ -115,15 +112,10 @@ export function NumericInputField({
 
     function handleSelectionChangeEvent(selectionChangeEvent: NativeSyntheticEvent<TextInputSelectionChangeEventData>): void
     {
-        if (ignoreNextSelectionChangeEventRef.current)
-        {
-            ignoreNextSelectionChangeEventRef.current = false;
-            return;
-        }
-
+        const newSelection = selectionChangeEvent.nativeEvent.selection;
         setState(prevState => ({
             ...prevState,
-            selection: selectionChangeEvent.nativeEvent.selection
+            selection: newSelection
         }));
     }
 
@@ -186,6 +178,16 @@ export function NumericInputField({
         }));
 
         onBlur?.(focusEvent);
+    }
+
+    function handleFocusEvent(focusEvent: NativeSyntheticEvent<TextInputFocusEventData>): void
+    {
+        setState(prevState => ({
+            ...prevState,
+            selection: {start: prevState.userInput.length}
+        }));
+
+        onFocus?.(focusEvent);
     }
 
     function validateAndThrow(): void

@@ -1,13 +1,12 @@
-import {IsDate, IsEnum} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentName, ComponentProps, GestureResponderEventHandler, IsDate, IsEnum} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {MouseEventHandler} from "react";
-import {TransactionRecord} from "../components";
-import {Transaction} from "./transaction";
+import {TransactionRecord} from "../component";
+import {Transaction} from "../type";
+import {TransactionTableStyle} from "./style";
 
 @ComponentName("Transaction Table")
-export class TransactionTableProps extends ComponentProps
+export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -70,23 +69,23 @@ export class TransactionTableProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onAddNewTransaction: MouseEventHandler;
+    readonly onAddNewTransaction: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onSaveTransaction: MouseEventHandler;
+    readonly onSaveTransaction: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onDeleteTransaction: MouseEventHandler;
+    readonly onDeleteTransaction: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onCancel: MouseEventHandler;
+    readonly onCancel: GestureResponderEventHandler;
 }

@@ -32,6 +32,14 @@ export class DropdownMenuProps extends ComponentProps<DropdownMenuStyle>
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly enableMenuHorizontalScrolling?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
      *
      * @type DropDirection
      */
@@ -43,7 +51,7 @@ export class DropdownMenuProps extends ComponentProps<DropdownMenuStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onDropdownMenuPress?: () => void;
+    readonly onSelectedItemContainerPress?: () => void;
 
 
     /**
