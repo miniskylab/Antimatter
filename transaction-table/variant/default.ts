@@ -3,7 +3,7 @@ import {CalendarContextHook, CalendarStyle, CalendarVariant} from "@miniskylab/a
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DatePickerContextHook, DatePickerStyle, DatePickerVariant} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {Layer, ScreenSize, useScreenSize} from "@miniskylab/antimatter-framework";
+import {Environment, Layer, ScreenSize, useEnvironment, useScreenSize} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -12,7 +12,6 @@ import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskyla
 import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
 import {TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {Platform} from "react-native";
 import {Summary, TransactionRecord} from "../component";
 import {TransactionTableContextHook} from "../hook";
 import {TransactionTableStyle} from "../model";
@@ -704,7 +703,7 @@ const TransactionTable__Hr: ViewStyle = function (viewProps)
 {
     const hrPosition = TransactionTableContextHook.useHrPositionContext();
 
-    const isMobileDevice = Platform.OS === "ios" || Platform.OS === "android";
+    const runningOnMobileApp = useEnvironment(Environment.MobileApp);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -714,7 +713,7 @@ const TransactionTable__Hr: ViewStyle = function (viewProps)
         zIndex: Layer.Lower,
         backgroundColor: Color.Neutral,
         ...hrPosition === "top" && {top: 57.2},
-        ...hrPosition === "bottom" && {bottom: isMobileDevice ? 55 : 54.8}
+        ...hrPosition === "bottom" && {bottom: runningOnMobileApp ? 55 : 54.8}
     };
 };
 

@@ -1,5 +1,6 @@
+import {Environment, useEnvironment} from "@miniskylab/antimatter-framework";
 import React, {JSX, useEffect, useRef} from "react";
-import ReactNative, {Animated, Platform} from "react-native";
+import ReactNative, {Animated} from "react-native";
 import {ScrollViewProps} from "./model";
 import * as Variant from "./variant";
 
@@ -23,9 +24,10 @@ export function ScrollView({
     const {style: _, ...propsWithoutStyle} = props;
     const computedStyle = style(propsWithoutStyle);
 
+    const runningOnDesktopWeb = useEnvironment(Environment.DesktopWeb);
     useEffect(() =>
     {
-        if (Platform.OS !== "web" || !horizontal)
+        if (!runningOnDesktopWeb || !horizontal)
         {
             return;
         }
@@ -45,7 +47,7 @@ export function ScrollView({
         });
 
         return () => scrollableNode.removeEventListener("wheel", wheelEventListener);
-    }, [Platform.OS, horizontal]);
+    }, [runningOnDesktopWeb, horizontal]);
 
     return (
         <Animated.ScrollView

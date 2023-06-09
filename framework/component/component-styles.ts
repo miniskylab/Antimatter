@@ -1,5 +1,6 @@
-import {Platform, TextStyle} from "react-native";
+import {TextStyle} from "react-native";
 import {EMPTY_STRING} from "../data-type";
+import {Environment, useEnvironment} from "../jss";
 import {ComponentProps} from "./component-props";
 
 export type Styled<TProps extends ComponentProps<TProps["style"]>> = Required<Omit<TProps, "style">>;
@@ -22,7 +23,8 @@ export function inheritTextStyleFrom<TStyle extends TextStyle>(style: TStyle): T
 export function getFontFamily<TStyle extends TextStyle>(style: TStyle): string
 {
     const fontName = "Roboto";
-    if (Platform.OS === "web")
+    const runningOnWeb = useEnvironment(Environment.Web);
+    if (runningOnWeb)
     {
         return fontName;
     }
