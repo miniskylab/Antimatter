@@ -3,11 +3,13 @@ import {Selection} from "@miniskylab/antimatter-text-input";
 import {Keypress} from "../enum";
 
 type KeypressEvent = { keypress: Keypress; newUserInput: string };
+type ReturnTypeOfThisFunction = ReturnType<typeof getNextNumericInputFieldState>;
 export function getNextNumericInputFieldState(
     currentUserInput: string,
     currentSelection: Selection,
     lastEvent: "BlurEvent" | "SyncEvent" | KeypressEvent,
     showPlusSymbolForPositiveNumber = false,
+    treatEmptyInputAsZero = false,
     minValue = MIN,
     maxValue = MAX,
     maximumFractionDigits = 20,
@@ -26,26 +28,26 @@ export function getNextNumericInputFieldState(
             throw new Error("Cannot Sync invalid value");
         }
 
-        return {nextValue, nextUserInput, nextSelection: currentSelection};
+        return postProcess({nextValue, nextUserInput, nextSelection: currentSelection});
     }
     else if (lastEvent === "BlurEvent")
     {
         if (["-", "-0", "-0."].includes(currentUserInput))
         {
-            return {nextValue: 0, nextUserInput: "0", nextSelection: undefined};
+            return postProcess({nextValue: 0, nextUserInput: "0", nextSelection: undefined});
         }
         else if (showPlusSymbolForPositiveNumber && currentUserInput === "+")
         {
-            return {nextValue: 0, nextUserInput: "+0", nextSelection: undefined};
+            return postProcess({nextValue: 0, nextUserInput: "+0", nextSelection: undefined});
         }
         else if (endWithDotAndZeros(currentUserInput))
         {
             const {numericValue: nextValue} = reformatAndExtractNumericValueFrom(currentUserInput);
-            return {nextValue, nextUserInput: currentUserInput.replace(/\.0*$/g, EMPTY_STRING), nextSelection: undefined};
+            return postProcess({nextValue, nextUserInput: currentUserInput.replace(/\.0*$/g, EMPTY_STRING), nextSelection: undefined});
         }
 
         const {numericValue: nextValue, formattedUserInput: nextUserInput} = reformatAndExtractNumericValueFrom(currentUserInput);
-        return {nextValue, nextUserInput, nextSelection: undefined};
+        return postProcess({nextValue, nextUserInput, nextSelection: undefined});
     }
     else
     {
@@ -65,7 +67,7 @@ export function getNextNumericInputFieldState(
         )
         {
             const {numericValue: nextValue, formattedUserInput: nextUserInput} = reformatAndExtractNumericValueFrom(currentUserInput);
-            return {nextValue, nextUserInput, nextSelection: currentSelection};
+            return postProcess({nextValue, nextUserInput, nextSelection: currentSelection});
         }
 
         const newUserInput = keypressEvent.newUserInput && !keypressEvent.newUserInput.startsWith("-") && currentUserInput.startsWith("-")
@@ -114,7 +116,7 @@ export function getNextNumericInputFieldState(
                 nextCaretPosition += 1;
             }
 
-            return {nextValue, nextUserInput, nextSelection: {start: nextCaretPosition}};
+            return postProcess({nextValue, nextUserInput, nextSelection: {start: nextCaretPosition}});
         }
         else if (keypressEvent.keypress === Keypress.Delete)
         {
@@ -147,7 +149,7 @@ export function getNextNumericInputFieldState(
             }
 
             nextCaretPosition += commaCountBeforeCaretDifference;
-            return {nextValue, nextUserInput, nextSelection: {start: nextCaretPosition}};
+            return postProcess({nextValue, nextUserInput, nextSelection: {start: nextCaretPosition}});
         }
 
         nextCaretPosition += commaCountBeforeCaretDifference;
@@ -174,7 +176,7 @@ export function getNextNumericInputFieldState(
             nextCaretPosition = nextUserInput.length;
         }
 
-        return {nextValue, nextUserInput, nextSelection: {start: nextCaretPosition}};
+        return postProcess({nextValue, nextUserInput, nextSelection: {start: nextCaretPosition}});
     }
 
     function getDigitCountOf(anyString: string): number
@@ -248,6 +250,18 @@ export function getNextNumericInputFieldState(
             numericValue,
             formattedUserInput
         };
+    }
+
+    function postProcess(output: ReturnTypeOfThisFunction): ReturnTypeOfThisFunction
+    {
+        if (treatEmptyInputAsZero && !output.nextUserInput)
+        {
+            output.nextValue = 0;
+            output.nextUserInput = "0";
+            output.nextSelection = {start: 1};
+        }
+
+        return output;
     }
 }
 

@@ -4705,6 +4705,7 @@ describe("minus (-) symbol is not allowed when 'minValue' is greater than or equ
                 {start: 0},
                 {keypress: Keypress.Minus, newUserInput: "-"},
                 false,
+                undefined,
                 minValue
             )).toEqual({
                 nextValue: undefined,
@@ -4717,6 +4718,7 @@ describe("minus (-) symbol is not allowed when 'minValue' is greater than or equ
                 {start: 0},
                 {keypress: Keypress.Minus, newUserInput: "-1"},
                 false,
+                undefined,
                 minValue
             )).toEqual({
                 nextValue: 1,
@@ -4729,6 +4731,7 @@ describe("minus (-) symbol is not allowed when 'minValue' is greater than or equ
                 {start: 0},
                 {keypress: Keypress.Minus, newUserInput: "-1,234"},
                 false,
+                undefined,
                 minValue
             )).toEqual({
                 nextValue: 1234,
@@ -4747,6 +4750,7 @@ describe("minus (-) symbol is not allowed when 'minValue' is greater than or equ
                 {start: 0},
                 {keypress: Keypress.Minus, newUserInput: "-"},
                 true,
+                undefined,
                 minValue
             )).toEqual({
                 nextValue: undefined,
@@ -4759,6 +4763,7 @@ describe("minus (-) symbol is not allowed when 'minValue' is greater than or equ
                 {start: 0},
                 {keypress: Keypress.Minus, newUserInput: "-+1"},
                 true,
+                undefined,
                 minValue
             )).toEqual({
                 nextValue: 1,
@@ -4771,6 +4776,7 @@ describe("minus (-) symbol is not allowed when 'minValue' is greater than or equ
                 {start: 1},
                 {keypress: Keypress.Minus, newUserInput: "+-1"},
                 true,
+                undefined,
                 minValue
             )).toEqual({
                 nextValue: 1,
@@ -4783,6 +4789,7 @@ describe("minus (-) symbol is not allowed when 'minValue' is greater than or equ
                 {start: 1},
                 {keypress: Keypress.Minus, newUserInput: "+-1,234"},
                 true,
+                undefined,
                 minValue
             )).toEqual({
                 nextValue: 1234,
@@ -4804,6 +4811,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
             false,
             undefined,
             undefined,
+            undefined,
             0
         )).toEqual({
             nextValue: undefined,
@@ -4816,6 +4824,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
             {start: 0},
             {keypress: Keypress.Dot, newUserInput: ".1,234,567,890"},
             false,
+            undefined,
             undefined,
             undefined,
             0
@@ -4832,6 +4841,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
             false,
             undefined,
             undefined,
+            undefined,
             0
         )).toEqual({
             nextValue: 1234567890,
@@ -4844,6 +4854,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
             {start: 13},
             {keypress: Keypress.Dot, newUserInput: "1,234,567,890."},
             false,
+            undefined,
             undefined,
             undefined,
             0
@@ -4863,6 +4874,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
             true,
             undefined,
             undefined,
+            undefined,
             0
         )).toEqual({
             nextValue: undefined,
@@ -4875,6 +4887,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
             {start: 0},
             {keypress: Keypress.Dot, newUserInput: ".+1,234,567,890"},
             true,
+            undefined,
             undefined,
             undefined,
             0
@@ -4891,6 +4904,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
             true,
             undefined,
             undefined,
+            undefined,
             0
         )).toEqual({
             nextValue: 1234567890,
@@ -4905,6 +4919,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
             true,
             undefined,
             undefined,
+            undefined,
             0
         )).toEqual({
             nextValue: 1234567890,
@@ -4917,6 +4932,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
             {start: 14},
             {keypress: Keypress.Dot, newUserInput: "+1,234,567,890."},
             true,
+            undefined,
             undefined,
             undefined,
             0
@@ -4938,6 +4954,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
                 showPlusSymbolForPositiveNumber,
                 undefined,
                 undefined,
+                undefined,
                 0
             )).toEqual({
                 nextValue: -1234567890,
@@ -4950,6 +4967,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
                 {start: 1},
                 {keypress: Keypress.Dot, newUserInput: "-.1,234,567,890"},
                 showPlusSymbolForPositiveNumber,
+                undefined,
                 undefined,
                 undefined,
                 0
@@ -4966,6 +4984,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
                 showPlusSymbolForPositiveNumber,
                 undefined,
                 undefined,
+                undefined,
                 0
             )).toEqual({
                 nextValue: -1234567890,
@@ -4978,6 +4997,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0
                 {start: 14},
                 {keypress: Keypress.Dot, newUserInput: "-1,234,567,890."},
                 showPlusSymbolForPositiveNumber,
+                undefined,
                 undefined,
                 undefined,
                 0
@@ -5002,6 +5022,7 @@ describe("the number of digits cannot be greater than 'maximumDigitCount'", () =
             undefined,
             undefined,
             undefined,
+            undefined,
             6
         )).toEqual({
             nextValue: 123456,
@@ -5014,6 +5035,7 @@ describe("the number of digits cannot be greater than 'maximumDigitCount'", () =
             {start: 8},
             {keypress: Keypress.Digit, newUserInput: "1,234.567"},
             false,
+            undefined,
             undefined,
             undefined,
             undefined,
@@ -5035,6 +5057,7 @@ describe("the number of digits cannot be greater than 'maximumDigitCount'", () =
             undefined,
             undefined,
             undefined,
+            undefined,
             6
         )).toEqual({
             nextValue: 123456,
@@ -5047,6 +5070,7 @@ describe("the number of digits cannot be greater than 'maximumDigitCount'", () =
             {start: 9},
             {keypress: Keypress.Digit, newUserInput: "+1,234.567"},
             true,
+            undefined,
             undefined,
             undefined,
             undefined,
@@ -5070,6 +5094,7 @@ describe("the number of digits cannot be greater than 'maximumDigitCount'", () =
                 undefined,
                 undefined,
                 undefined,
+                undefined,
                 6
             )).toEqual({
                 nextValue: -123456,
@@ -5082,6 +5107,7 @@ describe("the number of digits cannot be greater than 'maximumDigitCount'", () =
                 {start: 9},
                 {keypress: Keypress.Digit, newUserInput: "-1,234.567"},
                 showPlusSymbolForPositiveNumber,
+                undefined,
                 undefined,
                 undefined,
                 undefined,
@@ -5306,6 +5332,7 @@ test("cannot enter number smaller than 'minValue'", () =>
             {start: 6},
             {keypress: Keypress.Digit, newUserInput: "-1,2345"},
             showPlusSymbolForPositiveNumber,
+            undefined,
             -5000
         )).toEqual({
             nextValue: -5000,
@@ -5318,6 +5345,7 @@ test("cannot enter number smaller than 'minValue'", () =>
             {start: 6},
             {keypress: Keypress.Digit, newUserInput: "-1,2349"},
             showPlusSymbolForPositiveNumber,
+            undefined,
             -12345
         )).toEqual({
             nextValue: -12345,
@@ -5335,6 +5363,7 @@ test("cannot enter number greater than 'maxValue'", () =>
         {keypress: Keypress.Digit, newUserInput: "1,2345"},
         false,
         undefined,
+        undefined,
         5000
     )).toEqual({
         nextValue: 5000,
@@ -5348,6 +5377,7 @@ test("cannot enter number greater than 'maxValue'", () =>
         {keypress: Keypress.Digit, newUserInput: "+1,2345"},
         true,
         undefined,
+        undefined,
         5000
     )).toEqual({
         nextValue: 5000,
@@ -5360,6 +5390,7 @@ test("cannot enter number greater than 'maxValue'", () =>
         {start: 5},
         {keypress: Keypress.Digit, newUserInput: "1,2349"},
         false,
+        undefined,
         undefined,
         12345
     )).toEqual({
@@ -5378,6 +5409,7 @@ test("the number of fraction digits cannot be greater than 'maximumFractionDigit
         false,
         undefined,
         undefined,
+        undefined,
         2
     )).toEqual({
         nextValue: 1234.56,
@@ -5390,6 +5422,7 @@ test("the number of fraction digits cannot be greater than 'maximumFractionDigit
         {start: 9},
         {keypress: Keypress.Digit, newUserInput: "+1,234.567"},
         true,
+        undefined,
         undefined,
         undefined,
         2
@@ -5408,12 +5441,40 @@ test("the number of fraction digits cannot be greater than 'maximumFractionDigit
             showPlusSymbolForPositiveNumber,
             undefined,
             undefined,
+            undefined,
             2
         )).toEqual({
             nextValue: -1234.56,
             nextUserInput: "-1,234.56",
             nextSelection: {start: 9}
         });
+    });
+});
+
+test("treat empty input as zero", () =>
+{
+    expect(getNextNumericInputFieldState(
+        "9",
+        {start: 1},
+        {keypress: Keypress.Backspace, newUserInput: ""},
+        undefined,
+        true
+    )).toEqual({
+        nextValue: 0,
+        nextUserInput: "0",
+        nextSelection: {start: 1}
+    });
+
+    expect(getNextNumericInputFieldState(
+        "9",
+        {start: 0},
+        {keypress: Keypress.Delete, newUserInput: ""},
+        undefined,
+        true
+    )).toEqual({
+        nextValue: 0,
+        nextUserInput: "0",
+        nextSelection: {start: 1}
     });
 });
 
@@ -5523,7 +5584,7 @@ describe("when blur", () =>
             )).toEqual({
                 nextValue: -1234567890,
                 nextUserInput: "-1,234,567,890",
-                nextCaretPosition: undefined
+                nextSelection: undefined
             });
 
             expect(getNextNumericInputFieldState(
@@ -5534,7 +5595,7 @@ describe("when blur", () =>
             )).toEqual({
                 nextValue: -1.00001,
                 nextUserInput: "-1.00001",
-                nextCaretPosition: undefined
+                nextSelection: undefined
             });
 
             expect(getNextNumericInputFieldState(
@@ -5545,7 +5606,19 @@ describe("when blur", () =>
             )).toEqual({
                 nextValue: -1.500001,
                 nextUserInput: "-1.500001",
-                nextCaretPosition: undefined
+                nextSelection: undefined
+            });
+
+            expect(getNextNumericInputFieldState(
+                "",
+                {start: 0},
+                "BlurEvent",
+                showPlusSymbolForPositiveNumber,
+                false
+            )).toEqual({
+                nextValue: undefined,
+                nextUserInput: "",
+                nextSelection: undefined
             });
         });
 
@@ -5556,7 +5629,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 1234567890,
             nextUserInput: "1,234,567,890",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5567,7 +5640,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 1234567890,
             nextUserInput: "+1,234,567,890",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5578,7 +5651,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 0,
             nextUserInput: "+0",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5588,7 +5661,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 1.00001,
             nextUserInput: "1.00001",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5599,7 +5672,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 1.00001,
             nextUserInput: "+1.00001",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5609,7 +5682,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 1.500001,
             nextUserInput: "1.500001",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5620,7 +5693,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 1.500001,
             nextUserInput: "+1.500001",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
     });
 
@@ -5636,7 +5709,7 @@ describe("when blur", () =>
             )).toEqual({
                 nextValue: 0,
                 nextUserInput: "0",
-                nextCaretPosition: undefined
+                nextSelection: undefined
             });
 
             expect(getNextNumericInputFieldState(
@@ -5647,7 +5720,7 @@ describe("when blur", () =>
             )).toEqual({
                 nextValue: 0,
                 nextUserInput: "0",
-                nextCaretPosition: undefined
+                nextSelection: undefined
             });
 
             expect(getNextNumericInputFieldState(
@@ -5658,7 +5731,7 @@ describe("when blur", () =>
             )).toEqual({
                 nextValue: 0,
                 nextUserInput: "0",
-                nextCaretPosition: undefined
+                nextSelection: undefined
             });
 
             expect(getNextNumericInputFieldState(
@@ -5669,7 +5742,7 @@ describe("when blur", () =>
             )).toEqual({
                 nextValue: -1,
                 nextUserInput: "-1",
-                nextCaretPosition: undefined
+                nextSelection: undefined
             });
 
             expect(getNextNumericInputFieldState(
@@ -5680,7 +5753,7 @@ describe("when blur", () =>
             )).toEqual({
                 nextValue: -1.5,
                 nextUserInput: "-1.5",
-                nextCaretPosition: undefined
+                nextSelection: undefined
             });
         });
 
@@ -5692,7 +5765,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 0,
             nextUserInput: "+0",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5703,7 +5776,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 0,
             nextUserInput: "+0",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5713,7 +5786,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 1,
             nextUserInput: "1",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5724,7 +5797,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 1,
             nextUserInput: "+1",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5734,7 +5807,7 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 1.5,
             nextUserInput: "1.5",
-            nextCaretPosition: undefined
+            nextSelection: undefined
         });
 
         expect(getNextNumericInputFieldState(
@@ -5745,7 +5818,25 @@ describe("when blur", () =>
         )).toEqual({
             nextValue: 1.5,
             nextUserInput: "+1.5",
-            nextCaretPosition: undefined
+            nextSelection: undefined
+        });
+    });
+
+    it("replaces empty user input with zero if 'treatEmptyInputAsZero' option is enabled", () =>
+    {
+        [true, false].forEach(showPlusSymbolForPositiveNumber =>
+        {
+            expect(getNextNumericInputFieldState(
+                "",
+                {start: 0},
+                "BlurEvent",
+                showPlusSymbolForPositiveNumber,
+                true
+            )).toEqual({
+                nextValue: 0,
+                nextUserInput: "0",
+                nextSelection: {start: 1}
+            });
         });
     });
 });
@@ -5760,10 +5851,7 @@ describe("when sync", () =>
                 "",
                 {start: 0},
                 "SyncEvent",
-                showPlusSymbolForPositiveNumber,
-                undefined,
-                undefined,
-                5
+                showPlusSymbolForPositiveNumber
             )).toEqual({
                 nextValue: undefined,
                 nextUserInput: "",
@@ -5815,12 +5903,31 @@ describe("when sync", () =>
         });
     });
 
+    it("respects 'treatEmptyInputAsZero' option", () =>
+    {
+        [true, false].forEach(showPlusSymbolForPositiveNumber =>
+        {
+            expect(getNextNumericInputFieldState(
+                "",
+                {start: 0},
+                "SyncEvent",
+                showPlusSymbolForPositiveNumber,
+                true
+            )).toEqual({
+                nextValue: 0,
+                nextUserInput: "0",
+                nextSelection: {start: 1}
+            });
+        });
+    });
+
     it("clamps value at 'minValue' or 'maxValue' if it is out of range", () =>
     {
         expect(getNextNumericInputFieldState(
             "-5001",
             undefined,
             "SyncEvent",
+            undefined,
             undefined,
             -5000
         )).toEqual({
@@ -5833,6 +5940,7 @@ describe("when sync", () =>
             "5001",
             undefined,
             "SyncEvent",
+            undefined,
             undefined,
             undefined,
             5000
@@ -5853,6 +5961,7 @@ describe("when sync", () =>
             undefined,
             undefined,
             undefined,
+            undefined,
             5
         )).toThrow();
 
@@ -5860,6 +5969,7 @@ describe("when sync", () =>
             "0.123",
             undefined,
             "SyncEvent",
+            undefined,
             undefined,
             undefined,
             undefined,

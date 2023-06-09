@@ -84,6 +84,14 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsBoolean()
+    @IsOptional()
+    readonly treatEmptyInputAsZero?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
     readonly onBlur?: TextInputFocusEventHandler;
 
 

@@ -118,9 +118,10 @@ export function Component({
                     style={computedStyle.AmountInputField}
                     minValue={0}
                     maxValue={999999999}
+                    treatEmptyInputAsZero={true}
                     showPlusSymbolForPositiveNumber={isIncome}
-                    maximumDigitCount={9}
                     maximumFractionDigits={0}
+                    maximumDigitCount={9}
                     defaultValue={amount}
                     onChange={onAmountChange}
                 />

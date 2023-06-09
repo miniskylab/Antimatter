@@ -15,11 +15,12 @@ export function NumericInputField({
     defaultValue,
     minValue = MIN,
     maxValue = MAX,
-    maximumFractionDigits = 20,
-    maximumDigitCount = MAX,
-    showPlusSymbolForPositiveNumber = false,
-    placeholder = EMPTY_STRING,
     autoFocus = false,
+    maximumDigitCount = MAX,
+    placeholder = EMPTY_STRING,
+    maximumFractionDigits = 20,
+    treatEmptyInputAsZero = false,
+    showPlusSymbolForPositiveNumber = false,
     onChange,
     onBlur,
     onFocus,
@@ -27,7 +28,7 @@ export function NumericInputField({
 }: NumericInputFieldProps): JSX.Element
 {
     const props: Required<NumericInputFieldProps> = {
-        style, defaultValue, minValue, maxValue, maximumFractionDigits, maximumDigitCount, placeholder, autoFocus,
+        style, defaultValue, minValue, maxValue, maximumFractionDigits, maximumDigitCount, placeholder, autoFocus, treatEmptyInputAsZero,
         showPlusSymbolForPositiveNumber, onChange, onBlur, onFocus, onKeyPress
     };
 
@@ -42,6 +43,7 @@ export function NumericInputField({
     );
 
     const lastKeypressRef = useRef<Keypress>();
+    const ignoreNextSelectionChangeEventRef = useRef(false);
 
     const {style: _, ...propsWithoutStyle} = props;
     const computedStyle = style(propsWithoutStyle);
@@ -53,12 +55,14 @@ export function NumericInputField({
             state.selection,
             "SyncEvent",
             showPlusSymbolForPositiveNumber,
+            treatEmptyInputAsZero,
             minValue,
             maxValue,
             maximumFractionDigits,
             maximumDigitCount
         );
 
+        ignoreNextSelectionChangeEventRef.current = true;
         setState(prevState => ({
             ...prevState,
             selection: nextSelection,
@@ -95,12 +99,14 @@ export function NumericInputField({
             state.selection,
             {keypress: lastKeypressRef.current, newUserInput},
             showPlusSymbolForPositiveNumber,
+            treatEmptyInputAsZero,
             minValue,
             maxValue,
             maximumFractionDigits,
             maximumDigitCount
         );
 
+        ignoreNextSelectionChangeEventRef.current = true;
         setState(prevState => ({
             ...prevState,
             selection: nextSelection,
@@ -112,10 +118,15 @@ export function NumericInputField({
 
     function handleSelectionChangeEvent(selectionChangeEvent: NativeSyntheticEvent<TextInputSelectionChangeEventData>): void
     {
-        const newSelection = selectionChangeEvent.nativeEvent.selection;
+        if (ignoreNextSelectionChangeEventRef.current)
+        {
+            ignoreNextSelectionChangeEventRef.current = false;
+            return;
+        }
+
         setState(prevState => ({
             ...prevState,
-            selection: newSelection
+            selection: selectionChangeEvent.nativeEvent.selection
         }));
     }
 
@@ -166,6 +177,7 @@ export function NumericInputField({
             state.selection,
             "BlurEvent",
             showPlusSymbolForPositiveNumber,
+            treatEmptyInputAsZero,
             minValue,
             maxValue,
             maximumFractionDigits,
@@ -227,6 +239,7 @@ export function NumericInputField({
                 {start: 0, end: 0},
                 "SyncEvent",
                 showPlusSymbolForPositiveNumber,
+                treatEmptyInputAsZero,
                 minValue,
                 maxValue,
                 maximumFractionDigits,
