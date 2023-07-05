@@ -40,6 +40,7 @@ const Calendar__Header__Navigator__Root: PressableStyle = function (pressablePro
         borderRadius: 20,
         borderWidth: 3,
         borderStyle: "solid",
+        userSelect: "none",
         ...pressableState.pressed
             ? {
                 borderColor: Color.Primary,
@@ -185,8 +186,12 @@ const Calendar__DateView__WeekNo: LabelStyle = function (labelProps)
 const Calendar__DateView__WeekOfYear: LabelStyle = function (labelProps)
 {
     return {
-        ...Calendar__DateView__WeekNo(labelProps),
-        fontSize: 10
+        ...LabelVariant.Default(labelProps),
+        width: 40,
+        height: 40,
+        color: Color.White__a10,
+        fontSize: 10,
+        fontWeight: "bold"
     };
 };
 

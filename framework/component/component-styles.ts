@@ -1,9 +1,10 @@
-import {TextStyle} from "react-native";
+import {ShadowStyleIOS, TextStyle} from "react-native";
 import {EMPTY_STRING} from "../data-type";
 import {Environment, useEnvironment} from "../jss";
 import {ComponentProps} from "./component-props";
 
 export type Styled<TProps extends ComponentProps<TProps["style"]>> = Required<Omit<TProps, "style">>;
+export type ShadowStyle = () => ShadowStyleIOS;
 
 export function inheritTextStyleFrom<TStyle extends TextStyle>(style: TStyle): TextStyle
 {

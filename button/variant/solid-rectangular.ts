@@ -57,12 +57,12 @@ const Button__Label: LabelStyle = function (labelProps)
 
 export const SolidRectangular: ButtonStyle = function (buttonProps)
 {
-    const outlinedRectangularButtonStyle = OutlinedRectangular(buttonProps);
-    const buttonStyle: ReturnType<ButtonStyle> = {...outlinedRectangularButtonStyle};
+    const inheritedStyle = OutlinedRectangular(buttonProps);
 
-    buttonStyle.Root = Button__Root;
-    buttonStyle.Icon = Button__Icon;
-    buttonStyle.Label = Button__Label;
-
-    return buttonStyle;
+    return {
+        ...inheritedStyle,
+        Root: Button__Root,
+        Icon: Button__Icon,
+        Label: Button__Label
+    };
 };
