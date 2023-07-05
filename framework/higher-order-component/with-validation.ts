@@ -3,8 +3,7 @@ import {validateSync, ValidationError} from "class-validator";
 import {ComponentType, createElement, JSX} from "react";
 import {ValidationMessageTemplate} from "../class-validator";
 import {ComponentName, ComponentProps} from "../component";
-import {EMPTY_STRING, formatString, getRepresentationString} from "../data-type";
-import {Decorator} from "../decorator";
+import {Decorator, EMPTY_STRING, formatString, getRepresentationString} from "../extensions";
 
 export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
     component: ComponentType<TProps>,

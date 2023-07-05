@@ -1,4 +1,4 @@
-import {Decorator} from "../decorator";
+import {Decorator} from "../extensions";
 
 export function ComponentName(componentName: string)
 {

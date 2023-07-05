@@ -1,7 +1,8 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {ImageStyle, ImageVariant, ScreenSize, ShadowStyle, useScreenSize} from "@miniskylab/antimatter-framework";
+import {ScreenSize, ShadowStyle, useScreenSize} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";

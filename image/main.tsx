@@ -1,6 +1,6 @@
+import {EMPTY_STRING} from "@miniskylab/antimatter-framework";
 import React, {JSX} from "react";
 import {Animated} from "react-native";
-import {EMPTY_STRING} from "../../data-type";
 import {ImageProps} from "./model";
 import * as Variant from "./variant";
 
@@ -9,13 +9,13 @@ import * as Variant from "./variant";
  */
 export function Image({
     style = Variant.Default,
-    uri,
+    source,
     alt = EMPTY_STRING,
     resizeMode = "cover"
 }: ImageProps): JSX.Element
 {
     const props: Required<ImageProps> = {
-        style, uri, alt, resizeMode
+        style, source, alt, resizeMode
     };
 
     const {style: _, ...propsWithoutStyle} = props;
@@ -24,8 +24,8 @@ export function Image({
     return (
         <Animated.Image
             style={computedStyle}
-            source={{uri}}
             alt={alt}
+            source={source}
             resizeMode={resizeMode}
         />
     );

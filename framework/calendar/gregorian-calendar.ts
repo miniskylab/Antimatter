@@ -1,4 +1,4 @@
-import {EMPTY_STRING} from "../data-type";
+import {EMPTY_STRING} from "../extensions";
 import {DateFormat} from "./date-format";
 import {Decade} from "./decade";
 import {TimeUnit} from "./time-unit";

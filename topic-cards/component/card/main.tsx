@@ -1,6 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Image} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
+import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -41,7 +41,7 @@ export function Component({
                     {illustration?.type === "image" && (
                         <Image
                             style={computedStyle.Image}
-                            uri={illustration.uri}
+                            source={illustration.source}
                             alt={illustration.alt}
                             resizeMode={"contain"}
                         />
