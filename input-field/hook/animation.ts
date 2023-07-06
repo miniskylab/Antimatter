@@ -8,8 +8,8 @@ export function usePlaceholderAnimation()
 {
     const inputFieldContext = useInputFieldContext();
 
-    const animatedFontSize = useRef(new Animated.Value(16)).current;
-    const animatedHeight = useRef(new Animated.Value(100)).current;
+    const animatedFontSize = useRef(new Animated.Value(inputFieldContext.props.value ? 11 : 16)).current;
+    const animatedHeight = useRef(new Animated.Value(inputFieldContext.props.value ? 55 : 100)).current;
     const interpolatedHeight = animatedHeight.interpolate({
         inputRange: [0, 100],
         outputRange: ["0%", "100%"]
@@ -44,8 +44,8 @@ export function usePlaceholderAnimation()
 
 export function useTextBoxAnimation(inputFieldProps: Styled<InputFieldProps>)
 {
-    const animatedPaddingTop = useRef(new Animated.Value(12)).current;
-    const animatedPaddingBottom = useRef(new Animated.Value(12)).current;
+    const animatedPaddingTop = useRef(new Animated.Value(inputFieldProps.value ? 20 : 12)).current;
+    const animatedPaddingBottom = useRef(new Animated.Value(inputFieldProps.value ? 5 : 12)).current;
 
     useEffect(() =>
     {
