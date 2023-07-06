@@ -1,5 +1,5 @@
 import {View} from "@miniskylab/antimatter-view";
-import React from "react";
+import React, {JSX} from "react";
 import {Props} from "./model";
 
 /**

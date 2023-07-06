@@ -62,13 +62,12 @@ export function NumericInputField({
             maximumDigitCount
         );
 
-        ignoreNextSelectionChangeEventRef.current = true;
         setState(prevState => ({
             ...prevState,
             selection: nextSelection,
             userInput: nextUserInput
         }));
-    }, [showPlusSymbolForPositiveNumber, minValue, maxValue, maximumFractionDigits, maximumDigitCount]);
+    }, [showPlusSymbolForPositiveNumber, treatEmptyInputAsZero, minValue, maxValue, maximumFractionDigits, maximumDigitCount]);
 
     validateAndThrow();
     return (
@@ -124,9 +123,10 @@ export function NumericInputField({
             return;
         }
 
+        const selection = selectionChangeEvent.nativeEvent.selection;
         setState(prevState => ({
             ...prevState,
-            selection: selectionChangeEvent.nativeEvent.selection
+            selection
         }));
     }
 
@@ -172,7 +172,7 @@ export function NumericInputField({
 
     function handleBlurEvent(focusEvent: NativeSyntheticEvent<TextInputFocusEventData>): void
     {
-        const {nextUserInput} = getNextNumericInputFieldState(
+        const {nextUserInput, nextSelection} = getNextNumericInputFieldState(
             state.userInput,
             state.selection,
             "BlurEvent",
@@ -186,7 +186,8 @@ export function NumericInputField({
 
         setState(prevState => ({
             ...prevState,
-            userInput: nextUserInput
+            userInput: nextUserInput,
+            selection: nextSelection
         }));
 
         onBlur?.(focusEvent);

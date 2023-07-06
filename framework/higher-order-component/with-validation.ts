@@ -7,7 +7,7 @@ import {Decorator, EMPTY_STRING, formatString, getRepresentationString} from "..
 
 export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
     component: ComponentType<TProps>,
-    PropsType: new () => TProps
+    propsType: new () => TProps
 ): ComponentType<TProps>
 {
     const validator: ComponentType<TProps> = (props: TProps): JSX.Element =>
@@ -17,7 +17,7 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
         {
             const errors = validateSync(
                 plainToClass(
-                    PropsType,
+                    propsType,
                     props,
 
                     /**

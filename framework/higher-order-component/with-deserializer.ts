@@ -1,4 +1,4 @@
-import {ComponentType, createElement} from "react";
+import {ComponentType, createElement, JSX} from "react";
 import {ComponentProps} from "../component";
 
 export function withDeserializer<TSerializedProps, TProps extends ComponentProps<TProps["style"]>>(

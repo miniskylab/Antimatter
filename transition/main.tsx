@@ -1,5 +1,5 @@
 import {View, ViewStyle} from "@miniskylab/antimatter-view";
-import React, {useMemo, useState} from "react";
+import React, {JSX, useMemo, useState} from "react";
 import {Transitionable} from "./component";
 import {Stage} from "./enum";
 import {TransitionAnimationHook} from "./hook";
