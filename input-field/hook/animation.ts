@@ -1,6 +1,6 @@
 import {Styled} from "@miniskylab/antimatter-framework";
 import {useEffect, useRef} from "react";
-import {Animated, Easing} from "react-native";
+import {Animated, DimensionValue, Easing} from "react-native";
 import {InputFieldProps} from "../model";
 import {useInputFieldContext} from "./context";
 
@@ -8,8 +8,10 @@ export function usePlaceholderAnimation()
 {
     const inputFieldContext = useInputFieldContext();
 
-    const animatedFontSize = useRef(new Animated.Value(inputFieldContext.props.value ? 11 : 16)).current;
-    const animatedHeight = useRef(new Animated.Value(inputFieldContext.props.value ? 55 : 100)).current;
+    const initialFontSize = inputFieldContext.props.placeholder && inputFieldContext.props.value ? 11 : 16;
+    const initialHeight = inputFieldContext.props.placeholder && inputFieldContext.props.value ? 55 : 100;
+    const animatedFontSize = useRef(new Animated.Value(initialFontSize)).current;
+    const animatedHeight = useRef(new Animated.Value(initialHeight)).current;
     const interpolatedHeight = animatedHeight.interpolate({
         inputRange: [0, 100],
         outputRange: ["0%", "100%"]
@@ -37,15 +39,17 @@ export function usePlaceholderAnimation()
     }, [inputFieldContext.props.value]);
 
     return {
-        height: interpolatedHeight as unknown as string,
+        height: interpolatedHeight as unknown as DimensionValue,
         fontSize: animatedFontSize as unknown as number
     };
 }
 
 export function useTextBoxAnimation(inputFieldProps: Styled<InputFieldProps>)
 {
-    const animatedPaddingTop = useRef(new Animated.Value(inputFieldProps.value ? 20 : 12)).current;
-    const animatedPaddingBottom = useRef(new Animated.Value(inputFieldProps.value ? 5 : 12)).current;
+    const initialPaddingTop = inputFieldProps.placeholder && inputFieldProps.value ? 20 : 12;
+    const initialPaddingBottom = inputFieldProps.placeholder && inputFieldProps.value ? 5 : 12;
+    const animatedPaddingTop = useRef(new Animated.Value(initialPaddingTop)).current;
+    const animatedPaddingBottom = useRef(new Animated.Value(initialPaddingBottom)).current;
 
     useEffect(() =>
     {

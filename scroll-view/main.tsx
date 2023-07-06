@@ -66,7 +66,9 @@ export function ScrollView({
                 paddingTop: computedStyle.paddingTop,
                 paddingBottom: computedStyle.paddingBottom,
                 paddingLeft: computedStyle.paddingLeft,
-                paddingRight: computedStyle.paddingRight
+                paddingRight: computedStyle.paddingRight,
+                paddingVertical: computedStyle.paddingVertical,
+                paddingHorizontal: computedStyle.paddingHorizontal
             }}
             showsVerticalScrollIndicator={showsVerticalScrollIndicator}
             showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
