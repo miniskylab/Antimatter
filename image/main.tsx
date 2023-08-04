@@ -10,12 +10,11 @@ import * as Variant from "./variant";
 export function Image({
     style = Variant.Default,
     source,
-    alt = EMPTY_STRING,
-    resizeMode = "cover"
+    alt = EMPTY_STRING
 }: ImageProps): JSX.Element
 {
     const props: Required<ImageProps> = {
-        style, source, alt, resizeMode
+        style, source, alt
     };
 
     const {style: _, ...propsWithoutStyle} = props;
@@ -26,7 +25,7 @@ export function Image({
             style={computedStyle}
             alt={alt}
             source={source}
-            resizeMode={resizeMode}
+            resizeMode={computedStyle.resizeMode}
         />
     );
 }

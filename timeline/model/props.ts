@@ -1,11 +1,12 @@
-import {ArrayNotEmpty, IsArray, IsDefined} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ArrayNotEmpty, ComponentName, ComponentProps, IsArray, IsDefined} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {BootstrapEvent, Event} from "../components";
+import {BootstrapEvent, Event} from "../component";
+import {BootstrapEventData, EventData} from "../type";
+import {TimelineStyle} from "./style";
 
 @ComponentName("Timeline")
-export class TimelineProps extends ComponentProps
+export class TimelineProps extends ComponentProps<TimelineStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -15,7 +16,7 @@ export class TimelineProps extends ComponentProps
     @IsDefined()
     @ValidateNested({each: true})
     @Type(() => Event.Props)
-    readonly events: Omit<Event.Props, keyof ComponentProps>[];
+    readonly events: EventData[];
 
 
     /**
@@ -24,5 +25,5 @@ export class TimelineProps extends ComponentProps
     @IsOptional()
     @ValidateNested()
     @Type(() => BootstrapEvent.Props)
-    readonly bootstrapEvent?: Omit<BootstrapEvent.Props, keyof ComponentProps>;
+    readonly bootstrapEvent?: BootstrapEventData;
 }

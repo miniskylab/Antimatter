@@ -1,15 +1,17 @@
-import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentProps, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
+import {IconName} from "@miniskylab/antimatter-icon";
+import {Style} from "./style";
 
-export class BootstrapEventProps extends ComponentProps
+export class Props extends ComponentProps<Style>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type IconName
      */
-    @IsNotEmpty()
-    @IsString()
+    @IsEnum(IconName)
     @IsDefined()
-    readonly icon: string;
+    readonly icon: IconName;
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>

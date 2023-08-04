@@ -43,7 +43,6 @@ export function Component({
                             style={computedStyle.Image}
                             source={illustration.source}
                             alt={illustration.alt}
-                            resizeMode={"contain"}
                         />
                     )}
                     {title && <Label style={computedStyle.Title}>{title}</Label>}

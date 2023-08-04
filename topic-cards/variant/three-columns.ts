@@ -101,7 +101,8 @@ const TopicCards__Card__Image: ImageStyle = function (imageProps)
     return {
         ...ImageVariant.Default(imageProps),
         width: "100%",
-        height: 150
+        height: 150,
+        resizeMode: "contain"
     };
 };
 

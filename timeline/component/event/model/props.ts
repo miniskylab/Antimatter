@@ -1,11 +1,17 @@
-import {IsBoolean, IsDate, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentProps, Image} from "@miniskylab/antimatter-model";
-import {TimeUnit} from "@miniskylab/antimatter-typescript";
-import {Type} from "class-transformer";
-import {IsOptional, ValidateNested} from "class-validator";
+import {ComponentProps, IsBoolean, IsDate, IsDefined, IsEnum, IsNotEmpty, IsString, TimeUnit} from "@miniskylab/antimatter-framework";
+import {IconName} from "@miniskylab/antimatter-icon";
+import {IsOptional} from "class-validator";
+import {ImageSourcePropType} from "react-native";
+import {Style} from "./style";
 
-export class EventProps extends ComponentProps
+export class Props extends ComponentProps<Style>
 {
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly index: number;
+
+
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
@@ -19,9 +25,7 @@ export class EventProps extends ComponentProps
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    @ValidateNested()
-    @Type(() => Image)
-    readonly image?: Image;
+    readonly image?: ImageSourcePropType;
 
 
     /**
@@ -38,7 +42,7 @@ export class EventProps extends ComponentProps
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly icon: string;
+    readonly icon: IconName;
 
 
     /**
