@@ -1,17 +1,19 @@
-import {IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentName, ComponentProps, IsEnum, IsString} from "@miniskylab/antimatter-framework";
+import {IconName} from "@miniskylab/antimatter-icon";
 import {IsOptional} from "class-validator";
+import {HighlightedParagraphStyle} from "./style";
 
 @ComponentName("Highlighted Paragraph")
-export class HighlightedParagraphProps extends ComponentProps
+export class HighlightedParagraphProps extends ComponentProps<HighlightedParagraphStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type IconName
      */
-    @IsNotEmpty()
-    @IsString()
+    @IsEnum(IconName)
     @IsOptional()
-    readonly icon?: string;
+    readonly icon?: IconName;
 
 
     /**

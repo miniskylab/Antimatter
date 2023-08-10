@@ -38,11 +38,12 @@ export class Props extends ComponentProps<Style>
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type IconName
      */
-    @IsNotEmpty()
-    @IsString()
-    @IsDefined()
-    readonly icon: IconName;
+    @IsEnum(IconName)
+    @IsOptional()
+    readonly icon?: IconName;
 
 
     /**
