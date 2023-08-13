@@ -1,28 +1,22 @@
-import {IsDefined, IsEmail, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {DownloadButtonProps} from "@miniskylab/antimatter-download-button";
-import {ComponentName, ComponentProps, Image} from "@miniskylab/antimatter-model";
-import {Type} from "class-transformer";
-import {IsOptional, ValidateNested} from "class-validator";
+import {ComponentName, ComponentProps, IsDefined, IsEmail, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
+import {ImageSourcePropType} from "react-native";
+import {SelfIntroductionHeroStyle} from "./style";
 
 @ComponentName("Self-Introduction Hero")
-export class SelfIntroductionHeroProps extends ComponentProps
+export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHeroStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsDefined()
-    @ValidateNested()
-    @Type(() => Image)
-    readonly coverPhoto: Image;
+    readonly coverPhoto: ImageSourcePropType;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsDefined()
-    @ValidateNested()
-    @Type(() => Image)
-    readonly avatar: Image;
+    readonly avatar: ImageSourcePropType;
 
 
     /**
@@ -49,24 +43,6 @@ export class SelfIntroductionHeroProps extends ComponentProps
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly emailTitle: string;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @IsEmail()
-    @IsString()
-    @IsDefined()
-    readonly emailAddress: string;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @IsNotEmpty()
-    @IsString()
-    @IsDefined()
     readonly locationTitle: string;
 
 
@@ -85,14 +61,23 @@ export class SelfIntroductionHeroProps extends ComponentProps
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly description: string;
+    readonly emailTitle: string;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsOptional()
-    @ValidateNested()
-    @Type(() => DownloadButtonProps)
-    readonly downloadButton?: DownloadButtonProps;
+    @IsEmail()
+    @IsString()
+    @IsDefined()
+    readonly emailAddress: string;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsNotEmpty()
+    @IsString()
+    @IsDefined()
+    readonly description: string;
 }
