@@ -44,7 +44,7 @@ export function TransactionTable({
     const computedStyle = style(propsWithoutStyle);
 
     const [datePickerIsOpened, setDatePickerIsOpened] = useState(false);
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return (
         <TransactionTableContext.Provider value={context}>
@@ -178,7 +178,7 @@ export function TransactionTable({
 
     function renderDateSelector(): JSX.Element
     {
-        return isLargeScreen
+        return ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint
             ? <Calendar
                 style={computedStyle.Calendar}
                 selectedDate={selectedDate}

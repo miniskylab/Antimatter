@@ -12,7 +12,7 @@ import {TopicCardsStyle} from "../model";
 
 const TopicCards__Root: ViewStyle = function (viewProps)
 {
-    const isMediumScreen = useScreenSize(ScreenSize.Medium);
+    const ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint = useScreenSize(ScreenSize.Medium);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -23,7 +23,7 @@ const TopicCards__Root: ViewStyle = function (viewProps)
         minWidth: 300,
         maxWidth: ScreenSize.ExtraLarge,
         marginVertical: -10,
-        ...isMediumScreen && {marginHorizontal: -10}
+        ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {marginHorizontal: -10}
     };
 };
 
@@ -31,8 +31,8 @@ const TopicCards__Card__Root: ViewStyle = function (viewProps)
 {
     const cardContext = Card.ContextHook.useCardContext();
 
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
-    const isMediumScreen = useScreenSize(ScreenSize.Medium);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint = useScreenSize(ScreenSize.Medium);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -40,8 +40,8 @@ const TopicCards__Card__Root: ViewStyle = function (viewProps)
         alignItems: "stretch",
         flexBasis: "100%",
         marginVertical: 10,
-        ...isMediumScreen && {flexBasis: "50%"},
-        ...isLargeScreen && {flexBasis: "33.33%"},
+        ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {flexBasis: "50%"},
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {flexBasis: "33.33%"},
         ...cardContext.props.thisIsPlaceholderCard && {
             marginTop: 0,
             marginBottom: 0,
@@ -76,13 +76,13 @@ const TopicCards__Card__Content: ViewStyle = function (viewProps)
 
 const TopicCards__Card__HorizontalMargin: ViewStyle = function (viewProps)
 {
-    const isMediumScreen = useScreenSize(ScreenSize.Medium);
+    const ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint = useScreenSize(ScreenSize.Medium);
 
     return {
         ...ViewVariant.Default(viewProps),
         width: 10,
         display: "none",
-        ...isMediumScreen && {display: "flex"}
+        ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {display: "flex"}
     };
 };
 

@@ -9,13 +9,13 @@ const TopicCards__Root: ViewStyle = function (viewProps)
 {
     const topicCardsContext = TopicCardsContextHook.useTopicCardsContext();
 
-    const isExtraLargeScreen = useScreenSize(ScreenSize.ExtraLarge);
+    const ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint = useScreenSize(ScreenSize.ExtraLarge);
 
     const inheritedStyle = ThreeColumns(topicCardsContext.props).Root(viewProps);
 
     return {
         ...inheritedStyle,
-        ...isExtraLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint && {
             marginTop: 0,
             marginBottom: 0,
             marginLeft: 0,
@@ -30,7 +30,7 @@ const TopicCards__Card__Root: ViewStyle = function (viewProps)
     const cardContext = Card.ContextHook.useCardContext();
     const topicCardsContext = TopicCardsContextHook.useTopicCardsContext();
 
-    const isExtraLargeScreen = useScreenSize(ScreenSize.ExtraLarge);
+    const ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint = useScreenSize(ScreenSize.ExtraLarge);
 
     const inheritedStyle = ThreeColumns(topicCardsContext.props)
         .Card(cardContext.props)
@@ -38,7 +38,7 @@ const TopicCards__Card__Root: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        ...isExtraLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint && {
             flexBasis: "25%",
             marginVertical: 0,
             opacity: 1
@@ -51,7 +51,7 @@ const TopicCards__Card__Content: ViewStyle = function (viewProps)
     const cardContext = Card.ContextHook.useCardContext();
     const topicCardsContext = TopicCardsContextHook.useTopicCardsContext();
 
-    const isExtraLargeScreen = useScreenSize(ScreenSize.ExtraLarge);
+    const ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint = useScreenSize(ScreenSize.ExtraLarge);
 
     const inheritedStyle = ThreeColumns(topicCardsContext.props)
         .Card(cardContext.props)
@@ -59,7 +59,7 @@ const TopicCards__Card__Content: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        ...isExtraLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint && {
             height: "auto"
         }
     };
@@ -70,7 +70,7 @@ const TopicCards__Card__HorizontalMargin: ViewStyle = function (viewProps)
     const cardContext = Card.ContextHook.useCardContext();
     const topicCardsContext = TopicCardsContextHook.useTopicCardsContext();
 
-    const isExtraLargeScreen = useScreenSize(ScreenSize.ExtraLarge);
+    const ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint = useScreenSize(ScreenSize.ExtraLarge);
 
     const inheritedStyle = ThreeColumns(topicCardsContext.props)
         .Card(cardContext.props)
@@ -78,7 +78,7 @@ const TopicCards__Card__HorizontalMargin: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        ...isExtraLargeScreen && {display: "none"}
+        ...ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint && {display: "none"}
     };
 };
 

@@ -20,13 +20,13 @@ const Timeline__Root: ViewStyle = function (viewProps)
 
 const Timeline__EventStream: ViewStyle = function (viewProps)
 {
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "column",
         alignSelf: "stretch",
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             flexDirection: "row",
             flexWrap: "wrap",
             columnGap: 130,
@@ -37,7 +37,7 @@ const Timeline__EventStream: ViewStyle = function (viewProps)
 
 const Timeline__VerticalLine: ViewStyle = function (viewProps)
 {
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -51,7 +51,7 @@ const Timeline__VerticalLine: ViewStyle = function (viewProps)
         marginBottom: 50,
         backgroundColor: Color.Gray,
         zIndex: Layer.Lower,
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             left: "50%",
             width: 6,
             marginLeft: -3,
@@ -63,7 +63,7 @@ const Timeline__VerticalLine: ViewStyle = function (viewProps)
 
 const Timeline__Origin: IconStyle = function (iconProps)
 {
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...IconVariant.Default(iconProps),
@@ -74,7 +74,7 @@ const Timeline__Origin: IconStyle = function (iconProps)
         marginBottom: 20,
         fontSize: 30,
         color: Color.Gray,
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             alignSelf: "center",
             flexBasis: "100%",
             height: 60,
@@ -88,7 +88,7 @@ const Timeline__Event__Root: ViewStyle = function (viewProps)
 {
     const eventContext = Event.ContextHook.useEventContext();
 
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -101,7 +101,7 @@ const Timeline__Event__Root: ViewStyle = function (viewProps)
         marginBottom: 20,
         marginLeft: 45,
         backgroundColor: Color.Ambient,
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             flexGrow: 1,
             flexBasis: "34%",
             marginLeft: 0,
@@ -115,7 +115,7 @@ const Timeline__Event__Icon: IconStyle = function (iconProps)
 {
     const eventContext = Event.ContextHook.useEventContext();
 
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...IconVariant.Default(iconProps),
@@ -131,7 +131,7 @@ const Timeline__Event__Icon: IconStyle = function (iconProps)
         fontSize: 14,
         color: Color.Neutral,
         backgroundColor: Color.Ambient,
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             top: 30,
             width: 60,
             height: 60,
@@ -154,7 +154,7 @@ const Timeline__Event__TriangleArrow: ViewStyle = function (viewProps)
 {
     const eventContext = Event.ContextHook.useEventContext();
 
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -167,7 +167,7 @@ const Timeline__Event__TriangleArrow: ViewStyle = function (viewProps)
         borderStyle: "solid",
         borderColor: Color.Transparent,
         borderRightColor: Color.Gray,
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             top: 40,
             borderWidth: 20,
             ...eventContext.props.index % 2 === 0 && {
@@ -344,7 +344,7 @@ const Timeline__Event: Event.Style = function ()
 
 const Timeline__BootstrapEvent__Root: ViewStyle = function (viewProps)
 {
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -358,7 +358,7 @@ const Timeline__BootstrapEvent__Root: ViewStyle = function (viewProps)
         marginTop: -110,
         marginLeft: 45,
         backgroundColor: Color.Ambient,
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             maxWidth: undefined,
             height: 200,
             marginTop: 10,
@@ -369,7 +369,7 @@ const Timeline__BootstrapEvent__Root: ViewStyle = function (viewProps)
 
 const Timeline__BootstrapEvent__TriangleArrow: ViewStyle = function (viewProps)
 {
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -382,7 +382,7 @@ const Timeline__BootstrapEvent__TriangleArrow: ViewStyle = function (viewProps)
         borderStyle: "solid",
         borderColor: Color.Transparent,
         borderRightColor: Color.Gray,
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             top: -36,
             left: "50%",
             marginLeft: -18,
@@ -395,7 +395,7 @@ const Timeline__BootstrapEvent__TriangleArrow: ViewStyle = function (viewProps)
 
 const Timeline__BootstrapEvent__Icon: IconStyle = function (iconProps)
 {
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...IconVariant.Default(iconProps),
@@ -404,7 +404,7 @@ const Timeline__BootstrapEvent__Icon: IconStyle = function (iconProps)
         marginBottom: 18,
         fontSize: 35,
         color: Color.Gray,
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             width: 45,
             height: 45,
             marginBottom: 23,
@@ -415,7 +415,7 @@ const Timeline__BootstrapEvent__Icon: IconStyle = function (iconProps)
 
 const Timeline__BootstrapEvent__Name: LabelStyle = function (labelProps)
 {
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...LabelVariant.Default(labelProps),
@@ -424,7 +424,7 @@ const Timeline__BootstrapEvent__Name: LabelStyle = function (labelProps)
         fontSize: 20,
         fontWeight: "bold",
         color: Color.Gray,
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             marginBottom: 10,
             fontSize: 30
         }
@@ -433,7 +433,7 @@ const Timeline__BootstrapEvent__Name: LabelStyle = function (labelProps)
 
 const Timeline__BootstrapEvent__Description: LabelStyle = function (labelProps)
 {
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...LabelVariant.Default(labelProps),
@@ -442,7 +442,7 @@ const Timeline__BootstrapEvent__Description: LabelStyle = function (labelProps)
         marginTop: 6,
         fontSize: 14,
         color: Color.Gray,
-        ...isLargeScreen && {
+        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
             fontSize: 17
         }
     };

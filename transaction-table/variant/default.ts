@@ -18,13 +18,13 @@ import {TransactionTableStyle} from "../model";
 
 const TransactionTable__Root: ViewStyle = function (viewProps)
 {
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...ViewVariant.Default(viewProps),
         flexGrow: 1,
-        flexDirection: isLargeScreen ? "row" : "column",
-        alignItems: isLargeScreen ? "flex-start" : "center",
+        flexDirection: ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint ? "row" : "column",
+        alignItems: ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint ? "flex-start" : "center",
         minWidth: 300,
         maxWidth: 1000
     };
@@ -189,7 +189,7 @@ const TransactionTable__DatePicker: DatePickerStyle = function (datePickerProps)
 
 const TransactionTable__TransactionDetails: ViewStyle = function (viewProps)
 {
-    const isLargeScreen = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -197,8 +197,8 @@ const TransactionTable__TransactionDetails: ViewStyle = function (viewProps)
         alignSelf: "stretch",
         justifyContent: "flex-start",
         minWidth: 300,
-        maxWidth: isLargeScreen ? "50%" : undefined,
-        height: isLargeScreen ? 562 : "auto",
+        maxWidth: ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint ? "50%" : undefined,
+        height: ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint ? 562 : "auto",
         marginTop: 12
     };
 };
