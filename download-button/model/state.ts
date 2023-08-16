@@ -1,5 +1,4 @@
-export class State
-{
+export type DownloadButtonState = {
+    readonly blobURL: string;
     readonly disabled: boolean;
-    readonly href: string;
-}
+};

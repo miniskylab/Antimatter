@@ -1,10 +1,11 @@
 import {Button} from "@miniskylab/antimatter-button";
+import {Environment, useEnvironment} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {Linking, Platform} from "react-native";
+import {Linking} from "react-native";
 import {CardContext, CtaTargetContext, Props} from "./model";
 import {Cta} from "./type";
 
@@ -31,6 +32,8 @@ export function Component({
 
     const {style: _, ...propsWithoutStyle} = props;
     const computedStyle = style(propsWithoutStyle);
+
+    const runningOnWeb = useEnvironment(Environment.Web);
 
     return (
         <CardContext.Provider value={context}>
@@ -69,14 +72,13 @@ export function Component({
 
     function follow(cta: Cta): void
     {
-        switch (Platform.OS)
+        if (runningOnWeb)
         {
-            case "web":
-                window.open(cta.href, cta.openIn);
-                break;
-
-            default:
-                Linking.openURL(cta.href);
+            window.open(cta.href, cta.openIn);
+        }
+        else
+        {
+            Linking.openURL(cta.href);
         }
     }
 }

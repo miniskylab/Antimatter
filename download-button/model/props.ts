@@ -1,9 +1,10 @@
-import {IsBoolean, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentName, ComponentProps, IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-framework";
+import {IconName} from "@miniskylab/antimatter-icon";
 import {IsOptional} from "class-validator";
+import {DownloadButtonStyle} from "./style";
 
 @ComponentName("Download Button")
-export class DownloadButtonProps extends ComponentProps
+export class DownloadButtonProps extends ComponentProps<DownloadButtonStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -23,11 +24,12 @@ export class DownloadButtonProps extends ComponentProps
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type IconName
      */
-    @IsNotEmpty()
-    @IsString()
+    @IsEnum(IconName)
     @IsOptional()
-    readonly icon?: string;
+    readonly icon?: IconName;
 
 
     /**
