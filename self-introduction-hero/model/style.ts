@@ -1,3 +1,4 @@
+import {DownloadButtonStyle} from "@miniskylab/antimatter-download-button";
 import {Styled} from "@miniskylab/antimatter-framework";
 import {HighlightedParagraphStyle} from "@miniskylab/antimatter-highlighted-paragraph";
 import {ImageStyle} from "@miniskylab/antimatter-image";
@@ -15,4 +16,5 @@ export type SelfIntroductionHeroStyle = (selfIntroductionHeroProps: Styled<SelfI
     AlternativeName?: LabelStyle;
     Description?: LabelStyle;
     PersonalInfo?: HighlightedParagraphStyle;
+    DownloadButton?: DownloadButtonStyle;
 };

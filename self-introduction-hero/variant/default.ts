@@ -1,4 +1,6 @@
+import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {DownloadButtonContextHook, DownloadButtonStyle, DownloadButtonVariant} from "@miniskylab/antimatter-download-button";
 import {ScreenSize, useScreenSize} from "@miniskylab/antimatter-framework";
 import {
     HighlightedParagraphContextHook,
@@ -8,6 +10,7 @@ import {
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {SelfIntroductionHeroContextHook} from "../hook";
 import {SelfIntroductionHeroStyle} from "../model";
@@ -275,6 +278,52 @@ const SelfIntroductionHero__PersonalInfo: HighlightedParagraphStyle = function (
     };
 };
 
+const SelfIntroductionHero__DownloadButton__Button__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const downloadButtonContext = DownloadButtonContextHook.useDownloadButtonContext();
+
+    const ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint = useScreenSize(ScreenSize.Small);
+
+    const inheritedStyle = DownloadButtonVariant.Default(downloadButtonContext.props)(buttonContext.props)
+        .Root(pressableProps, pressableState);
+
+    return {
+        ...inheritedStyle,
+        display: "none",
+        minWidth: 150,
+        marginTop: -5,
+        ...ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint && {
+            display: "flex"
+        }
+    };
+};
+
+const SelfIntroductionHero__DownloadButton__Button__Label: LabelStyle = function (labelProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const downloadButtonContext = DownloadButtonContextHook.useDownloadButtonContext();
+
+    const inheritedStyle = DownloadButtonVariant.Default(downloadButtonContext.props)(buttonContext.props).Label(labelProps);
+
+    return {
+        ...inheritedStyle,
+        fontWeight: "bold"
+    };
+};
+
+const SelfIntroductionHero__DownloadButton: DownloadButtonStyle = function (downloadButtonProps)
+{
+    return function (buttonProps)
+    {
+        return {
+            ...DownloadButtonVariant.Default(downloadButtonProps)(buttonProps),
+            Root: SelfIntroductionHero__DownloadButton__Button__Root,
+            Label: SelfIntroductionHero__DownloadButton__Button__Label
+        };
+    };
+};
+
 export const Default: SelfIntroductionHeroStyle = function ()
 {
     return {
@@ -286,6 +335,7 @@ export const Default: SelfIntroductionHeroStyle = function ()
         Name: SelfIntroductionHero__Name,
         AlternativeName: SelfIntroductionHero__AlternativeName,
         Description: SelfIntroductionHero__Description,
-        PersonalInfo: SelfIntroductionHero__PersonalInfo
+        PersonalInfo: SelfIntroductionHero__PersonalInfo,
+        DownloadButton: SelfIntroductionHero__DownloadButton
     };
 };

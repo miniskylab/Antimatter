@@ -1,3 +1,4 @@
+import {DownloadButton} from "@miniskylab/antimatter-download-button";
 import {HighlightedParagraph} from "@miniskylab/antimatter-highlighted-paragraph";
 import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
@@ -19,11 +20,12 @@ export function SelfIntroductionHero({
     emailAddress,
     locationTitle,
     location,
-    description
+    description,
+    downloadButton
 }: SelfIntroductionHeroProps): JSX.Element
 {
     const props: Required<SelfIntroductionHeroProps> = {
-        style, coverPhoto, avatar, name, alternativeName, emailTitle, emailAddress, locationTitle, location, description
+        style, coverPhoto, avatar, name, alternativeName, emailTitle, emailAddress, locationTitle, location, description, downloadButton
     };
 
     const context = useMemo<SelfIntroductionHeroContext>(
@@ -52,6 +54,7 @@ export function SelfIntroductionHero({
                 <PersonalInfoContext.Provider value={"email"}>
                     <HighlightedParagraph style={computedStyle.PersonalInfo} title={emailTitle} content={emailAddress}/>
                 </PersonalInfoContext.Provider>
+                {downloadButton && <DownloadButton style={computedStyle.DownloadButton} {...downloadButton}/>}
             </View>
         </SelfIntroductionHeroContext.Provider>
     );
