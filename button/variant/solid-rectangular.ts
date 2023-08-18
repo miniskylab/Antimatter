@@ -14,20 +14,25 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
 
     return {
         ...inheritedStyle,
-        ...pressableState.pressed
+        ...pressableProps.disabled
             ? {
-                borderColor: Color.Primary__b10,
-                backgroundColor: Color.Primary__b10
+                borderColor: Color.Neutral,
+                backgroundColor: Color.Neutral
             }
-            : pressableState.hovered
+            : pressableState.pressed
                 ? {
-                    borderColor: Color.Primary__w25,
-                    backgroundColor: Color.Primary__w25
+                    borderColor: Color.Primary__b10,
+                    backgroundColor: Color.Primary__b10
                 }
-                : {
-                    borderColor: Color.Primary,
-                    backgroundColor: Color.Primary
-                }
+                : pressableState.hovered
+                    ? {
+                        borderColor: Color.Primary__w25,
+                        backgroundColor: Color.Primary__w25
+                    }
+                    : {
+                        borderColor: Color.Primary,
+                        backgroundColor: Color.Primary
+                    }
     };
 };
 

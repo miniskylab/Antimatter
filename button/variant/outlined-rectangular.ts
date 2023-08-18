@@ -26,7 +26,8 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
                 : Color.Transparent,
         ...pressableProps.disabled && {
             opacity: .2,
-            cursor: "not-allowed"
+            cursor: "not-allowed",
+            borderColor: Color.Neutral
         }
     };
 };
@@ -40,11 +41,13 @@ const Button__Icon: IconStyle = function (iconProps)
         minWidth: 16,
         height: 16,
         fontSize: 16,
-        color: pressableContext.state.pressed
-            ? Color.Ambient
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Primary
+        color: pressableContext.props.disabled
+            ? Color.Neutral
+            : pressableContext.state.pressed
+                ? Color.Ambient
+                : pressableContext.state.hovered
+                    ? Color.White
+                    : Color.Primary
     };
 };
 
@@ -57,11 +60,13 @@ const Button__Label: LabelStyle = function (labelProps)
         fontSize: 14,
         paddingVertical: 0,
         paddingHorizontal: 10,
-        color: pressableContext.state.pressed
-            ? Color.Ambient
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Primary
+        color: pressableContext.props.disabled
+            ? Color.Neutral
+            : pressableContext.state.pressed
+                ? Color.Ambient
+                : pressableContext.state.hovered
+                    ? Color.White
+                    : Color.Primary
     };
 };
 

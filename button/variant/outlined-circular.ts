@@ -22,7 +22,8 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
                 : Color.Transparent,
         ...pressableProps.disabled && {
             opacity: .2,
-            cursor: "not-allowed"
+            cursor: "not-allowed",
+            borderColor: Color.Neutral
         }
     };
 };
@@ -34,11 +35,13 @@ const Button__Icon: IconStyle = function (iconProps)
     return {
         ...IconVariant.Default(iconProps),
         fontSize: 14,
-        color: pressableContext.state.pressed
-            ? Color.Ambient
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Primary
+        color: pressableContext.props.disabled
+            ? Color.Neutral
+            : pressableContext.state.pressed
+                ? Color.Ambient
+                : pressableContext.state.hovered
+                    ? Color.White
+                    : Color.Primary
     };
 };
 
