@@ -1,14 +1,17 @@
-import {IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
+import {IconName} from "@miniskylab/antimatter-icon";
 
 export class MenuItem
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type IconName
      */
-    @IsNotEmpty()
-    @IsString()
+    @IsEnum(IconName)
     @IsDefined()
-    readonly icon: string;
+    readonly icon: IconName;
+
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>

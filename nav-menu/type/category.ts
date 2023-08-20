@@ -1,4 +1,4 @@
-import {IsArray, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsArray, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {MenuItem} from "./menu-item";

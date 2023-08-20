@@ -1,12 +1,11 @@
-import {IsArray, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {ComponentName, ComponentProps, IsArray, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {MouseEvent} from "react";
-import {Category} from "./category";
+import {Category} from "../type";
+import {NavMenuStyle} from "./style";
 
-@ComponentName("Sidebar")
-export class SidebarProps extends ComponentProps
+@ComponentName("NavMenu")
+export class NavMenuProps extends ComponentProps<NavMenuStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -30,5 +29,5 @@ export class SidebarProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onNavigate?: (event: MouseEvent, targetUrl: string) => void;
+    readonly onMenuItemPress?: (targetUrl: string) => void;
 }
