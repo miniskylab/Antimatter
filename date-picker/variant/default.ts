@@ -155,7 +155,8 @@ const DatePicker__Calendar__Root: ViewStyle = function (viewProps)
         backgroundColor: Color.Background,
         shadowOffset: {width: 0, height: 10},
         shadowRadius: 20,
-        shadowColor: Color.Black
+        shadowColor: Color.Black,
+        shadowOpacity: 1
     };
 };
 

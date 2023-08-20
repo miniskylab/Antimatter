@@ -65,13 +65,7 @@ export const Color = {
     Accent__a10: toHex(Accent, 10),
 
     White: toHex(White),
-    White__a3: toHex(White, 3),
-    White__a4: toHex(White, 4),
-    White__a5: toHex(White, 5),
-    White__a8: toHex(White, 8),
     White__a10: toHex(White, 10),
-    White__a30: toHex(White, 30),
-    White__a50: toHex(White, 50),
 
     Gainsboro: toHex(Gainsboro),
 
@@ -79,7 +73,6 @@ export const Color = {
     Neutral__a10: toHex(Neutral, 10),
 
     Gray: toHex(Gray),
-    Gray__a10: toHex(Gray, 10),
     Gray__a65: toHex(Gray, 65),
     Gray__b10: toHex(shade(Gray, 10)),
     Gray__w25: toHex(tint(Gray, 25)),
@@ -89,9 +82,6 @@ export const Color = {
     Ambient: toHex(Ambient),
 
     Black: toHex(Black),
-    Black__a15: toHex(Black, 15),
-    Black__a25: toHex(Black, 25),
-    Black__a35: toHex(Black, 35),
 
     Transparent: toHex(Black, 0)
 };

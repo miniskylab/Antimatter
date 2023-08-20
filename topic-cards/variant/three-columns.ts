@@ -217,7 +217,8 @@ const TopicCards__Card__Shadow: ShadowStyle = function ()
     return {
         shadowOffset: {width: 0, height: -2},
         shadowRadius: 40,
-        shadowColor: Color.Black
+        shadowColor: Color.Black,
+        shadowOpacity: 1
     };
 };
 

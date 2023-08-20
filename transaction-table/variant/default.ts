@@ -66,6 +66,7 @@ const TransactionTable__DatePicker__Root: ViewStyle = function (viewProps)
             shadowOffset: {width: 0, height: 10},
             shadowRadius: 20,
             shadowColor: Color.Black,
+            shadowOpacity: 1,
             zIndex: Layer.AlwaysOnTop
         }
     };
