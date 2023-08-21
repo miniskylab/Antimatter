@@ -1,6 +1,6 @@
 export enum TimeUnit
 {
-    Day,
-    Month,
-    Year
+    Day = "Day",
+    Month = "Month",
+    Year = "Year"
 }

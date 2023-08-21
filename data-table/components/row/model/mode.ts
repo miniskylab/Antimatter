@@ -1,7 +1,7 @@
 export enum Mode
 {
-    ReadOnly,
-    Draft,
-    Edit,
-    Delete
+    ReadOnly = "ReadOnly",
+    Draft = "Draft",
+    Edit = "Edit",
+    Delete = "Delete"
 }

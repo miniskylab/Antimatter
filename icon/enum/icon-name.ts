@@ -64,5 +64,6 @@ export enum IconName
     Lock = "lock",
     Menu = "menu",
     Health = "health",
-    Statistics = "statistics"
+    Statistics = "statistics",
+    Circle = "circle"
 }

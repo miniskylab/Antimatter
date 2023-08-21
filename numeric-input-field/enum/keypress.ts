@@ -1,9 +1,9 @@
 export enum Keypress
 {
-    NotSupported,
-    Digit,
-    Minus,
-    Dot,
-    Backspace,
-    Delete
+    NotSupported = "NotSupported",
+    Digit = "Digit",
+    Minus = "Minus",
+    Dot = "Dot",
+    Backspace = "Backspace",
+    Delete = "Delete"
 }

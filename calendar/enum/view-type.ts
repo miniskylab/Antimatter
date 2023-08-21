@@ -1,6 +1,6 @@
 export enum ViewType
 {
-    Date,
-    Month,
-    Year
+    Date = "Date",
+    Month = "Month",
+    Year = "Year"
 }
