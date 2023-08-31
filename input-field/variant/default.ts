@@ -21,7 +21,7 @@ const InputField__Container: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
-        flexGrow: 1,
+        flex: 1,
         height: "100%"
     };
 };

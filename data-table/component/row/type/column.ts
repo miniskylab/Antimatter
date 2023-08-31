@@ -1,4 +1,4 @@
-import {IsString} from "@miniskylab/antimatter-class-validator";
+import {IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 
 export class Column

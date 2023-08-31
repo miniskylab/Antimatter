@@ -1,13 +1,23 @@
-import {ArrayNotEmpty, IsArray, IsDefined, IsEnum, IsInteger, IsPositive, IsString} from "@miniskylab/antimatter-class-validator";
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-model";
+import {
+    ArrayNotEmpty,
+    ComponentName,
+    ComponentProps,
+    GestureResponderEventHandler,
+    IsArray,
+    IsDefined,
+    IsEnum,
+    IsInteger,
+    IsPositive,
+    IsString
+} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {MouseEventHandler} from "react";
-import {DataTableRow} from "../components";
-import {Row} from "./row";
+import {Row} from "../component";
+import {SelectedRow} from "../type";
+import {DataTableStyle} from "./style";
 
 @ComponentName("Data Table")
-export class DataTableProps extends ComponentProps
+export class DataTableProps extends ComponentProps<DataTableStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -32,15 +42,15 @@ export class DataTableProps extends ComponentProps
     @IsArray()
     @IsDefined()
     @ValidateNested({each: true})
-    @Type(() => DataTableRow.Column)
-    readonly columns: DataTableRow.Column[];
+    @Type(() => Row.Column)
+    readonly columns: Row.Column[];
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly rows?: Record<string, DataTableRow.RowData>;
+    readonly rows?: Record<string, Row.Data>;
 
 
     /**
@@ -48,18 +58,18 @@ export class DataTableProps extends ComponentProps
      */
     @IsOptional()
     @ValidateNested()
-    @Type(() => Row)
-    readonly selectedRow?: Row;
+    @Type(() => SelectedRow)
+    readonly selectedRow?: SelectedRow;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type DataTableRow.Mode
+     * @type Row.Mode
      */
-    @IsEnum(DataTableRow.Mode)
+    @IsEnum(Row.Mode)
     @IsOptional()
-    readonly mode?: DataTableRow.Mode;
+    readonly mode?: Row.Mode;
 
 
     /**
@@ -74,13 +84,13 @@ export class DataTableProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onSwitchMode: (newMode: DataTableRow.Mode) => void;
+    readonly onSwitchMode: (newMode: Row.Mode) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChangeRow: (newRowData: DataTableRow.RowData) => void;
+    readonly onChangeRow: (newData: Row.Data) => void;
 
 
     /**
@@ -92,23 +102,23 @@ export class DataTableProps extends ComponentProps
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onAddNewRow: MouseEventHandler;
+    readonly onAddNewRow: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onSaveRow: MouseEventHandler;
+    readonly onSaveRow: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onDeleteRow: MouseEventHandler;
+    readonly onDeleteRow: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onCancel: MouseEventHandler;
+    readonly onCancel: GestureResponderEventHandler;
 }

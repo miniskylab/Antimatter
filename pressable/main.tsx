@@ -1,4 +1,5 @@
-import React, {JSX, useMemo, useState} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useMemo, useState} from "react";
+import ReactNative from "react-native";
 import {AnimatedPressable} from "./component";
 import {PressableContext, PressableProps, PressableState} from "./model";
 import * as Variant from "./variant";
@@ -6,12 +7,15 @@ import * as Variant from "./variant";
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Pressable({
-    style = Variant.Default,
-    children,
-    disabled = false,
-    onPress
-}: PressableProps): JSX.Element
+export const Pressable = forwardRef(function Pressable(
+    {
+        style = Variant.Default,
+        children,
+        disabled = false,
+        onPress
+    }: PressableProps,
+    ref: MutableRefObject<Pressable>
+): JSX.Element
 {
     const props: Required<PressableProps> = {
         style, children, disabled, onPress
@@ -42,6 +46,7 @@ export function Pressable({
     return (
         <PressableContext.Provider value={context}>
             <AnimatedPressable
+                ref={ref}
                 style={computedStyle}
                 onHoverIn={() => { setState(prevState => ({...prevState, hovered: !disabled})); }}
                 onHoverOut={() => { setState(prevState => ({...prevState, hovered: false})); }}
@@ -53,4 +58,6 @@ export function Pressable({
             </AnimatedPressable>
         </PressableContext.Provider>
     );
-}
+});
+
+export type Pressable = ReactNative.View;

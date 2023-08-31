@@ -1,5 +1,6 @@
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {Pressable} from "@miniskylab/antimatter-pressable";
+import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Status} from "./enum";
 import {ToggleContext, ToggleProps} from "./model";
@@ -29,9 +30,11 @@ export function Toggle({
 
     return (
         <ToggleContext.Provider value={context}>
-            <Pressable style={computedStyle.Root} onPress={() => { onChange?.(getNewStatus()); }}>
-                <Icon style={computedStyle.Icon} name={icon} selectable={false}/>
-            </Pressable>
+            <View style={computedStyle.Root}>
+                <Pressable style={computedStyle.Container} onPress={() => { onChange?.(getNewStatus()); }}>
+                    <Icon style={computedStyle.Icon} name={icon} selectable={false}/>
+                </Pressable>
+            </View>
         </ToggleContext.Provider>
     );
 

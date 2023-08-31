@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps, IsBoolean} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps, IsBoolean, IsInteger, Min} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {ReactNode} from "react";
 import {ScrollViewStyle} from "./style";
@@ -19,6 +19,15 @@ export class ScrollViewProps extends ComponentProps<ScrollViewStyle>
     @IsBoolean()
     @IsOptional()
     readonly horizontal?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @Min(0, {each: true})
+    @IsInteger({each: true})
+    @IsOptional()
+    readonly stickyHeaderIndices?: number[];
 
 
     /**

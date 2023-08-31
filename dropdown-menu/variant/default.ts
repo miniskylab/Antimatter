@@ -26,11 +26,11 @@ const DropdownMenu__SelectedItemContainer: PressableStyle = function (pressableP
     return {
         ...PressableVariant.Default(pressableProps, pressableState),
         flexDirection: "row",
+        alignSelf: "stretch",
         alignItems: "flex-start",
         justifyContent: "flex-start",
         flexWrap: "wrap",
         gap: 5,
-        width: "100%",
         paddingVertical: 8,
         paddingHorizontal: 12,
         borderWidth: 1,

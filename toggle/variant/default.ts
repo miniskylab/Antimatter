@@ -1,13 +1,22 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {useEffect, useRef} from "react";
 import {Animated, ColorValue, Easing} from "react-native";
 import {Status} from "../enum";
 import {ToggleContextHook} from "../hook";
 import {ToggleStyle} from "../model";
 
-const Toggle__Root: PressableStyle = function (pressableProps, pressableState)
+const Toggle__Root: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        userSelect: "none"
+    };
+};
+
+const Toggle__Container: PressableStyle = function (pressableProps, pressableState)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
 
@@ -33,7 +42,6 @@ const Toggle__Root: PressableStyle = function (pressableProps, pressableState)
         width: 80,
         height: 40,
         borderRadius: 20,
-        userSelect: "none",
         backgroundColor: interpolatedBackgroundColor as unknown as ColorValue
     };
 };
@@ -69,6 +77,7 @@ export const Default: ToggleStyle = function ()
 {
     return {
         Root: Toggle__Root,
+        Container: Toggle__Container,
         Icon: Toggle__Icon
     };
 };

@@ -1,5 +1,5 @@
 import {Environment, useEnvironment} from "@miniskylab/antimatter-framework";
-import React, {JSX, useEffect, useRef} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useEffect, useRef, WheelEvent} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ScrollViewProps} from "./model";
 import * as Variant from "./variant";
@@ -7,19 +7,26 @@ import * as Variant from "./variant";
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function ScrollView({
-    style = Variant.Default,
-    children,
-    horizontal = false,
-    showsVerticalScrollIndicator = true,
-    showsHorizontalScrollIndicator = true
-}: ScrollViewProps): JSX.Element
+export const ScrollView = forwardRef(function ScrollView(
+    {
+        style = Variant.Default,
+        children,
+        horizontal = false,
+        stickyHeaderIndices = [],
+        showsVerticalScrollIndicator = true,
+        showsHorizontalScrollIndicator = true
+    }: ScrollViewProps,
+    ref: MutableRefObject<ScrollView>
+): JSX.Element
 {
     const props: Required<ScrollViewProps> = {
-        style, children, horizontal, showsVerticalScrollIndicator, showsHorizontalScrollIndicator
+        style, children, horizontal, stickyHeaderIndices, showsVerticalScrollIndicator, showsHorizontalScrollIndicator
     };
 
-    const scrollViewRef = useRef<ReactNative.ScrollView>();
+    if (!ref)
+    {
+        ref = useRef<ScrollView>();
+    }
 
     const {style: _, ...propsWithoutStyle} = props;
     const computedStyle = style(propsWithoutStyle);
@@ -32,15 +39,15 @@ export function ScrollView({
             return;
         }
 
-        const scrollableNode = scrollViewRef.current.getScrollableNode();
-        const wheelEventListener = scrollableNode.addEventListener("wheel", (event: React.WheelEvent) =>
+        const scrollableNode = ref.current.getScrollableNode();
+        const wheelEventListener = scrollableNode.addEventListener("wheel", (event: WheelEvent) =>
         {
             if (event.deltaY === 0)
             {
                 return;
             }
 
-            scrollViewRef.current.scrollTo({
+            ref.current.scrollTo({
                 x: scrollableNode.scrollLeft + event.deltaY,
                 animated: true
             });
@@ -51,7 +58,7 @@ export function ScrollView({
 
     return (
         <Animated.ScrollView
-            ref={scrollViewRef}
+            ref={ref}
             style={{
                 ...computedStyle,
                 paddingTop: 0,
@@ -70,6 +77,7 @@ export function ScrollView({
                 paddingVertical: computedStyle.paddingVertical,
                 paddingHorizontal: computedStyle.paddingHorizontal
             }}
+            stickyHeaderIndices={stickyHeaderIndices}
             showsVerticalScrollIndicator={showsVerticalScrollIndicator}
             showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
             horizontal={horizontal}
@@ -77,4 +85,6 @@ export function ScrollView({
             {children}
         </Animated.ScrollView>
     );
-}
+});
+
+export type ScrollView = ReactNative.ScrollView;

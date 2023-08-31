@@ -1,8 +1,8 @@
-import {IsDefined, IsString} from "@miniskylab/antimatter-class-validator";
+import {IsDefined, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {DataTableRow} from "../components";
+import {Row} from "../component";
 
-export class Row
+export class SelectedRow
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -16,5 +16,5 @@ export class Row
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly data?: DataTableRow.RowData;
+    readonly data?: Row.Data;
 }

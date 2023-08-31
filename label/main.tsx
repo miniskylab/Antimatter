@@ -24,13 +24,29 @@ export function Label({
     const computedStyle = style(propsWithoutStyle);
 
     return (
-        <View style={() => (computedStyle)} pointerEvents={pointerEvents}>
+        <View
+            style={() => ({
+                ...computedStyle,
+                paddingTop: 0,
+                paddingBottom: 0,
+                paddingLeft: 0,
+                paddingRight: 0
+            })}
+            pointerEvents={pointerEvents}
+        >
             <Animated.Text
                 selectable={selectable}
                 numberOfLines={numberOfLines}
                 style={{
                     ...inheritTextStyleFrom(computedStyle),
-                    fontFamily: getFontFamily(computedStyle)
+                    fontFamily: getFontFamily(computedStyle),
+                    padding: computedStyle.padding,
+                    paddingVertical: computedStyle.paddingVertical,
+                    paddingHorizontal: computedStyle.paddingHorizontal,
+                    paddingTop: computedStyle.paddingTop,
+                    paddingBottom: computedStyle.paddingBottom,
+                    paddingLeft: computedStyle.paddingLeft,
+                    paddingRight: computedStyle.paddingRight
                 }}
             >
                 {children}
