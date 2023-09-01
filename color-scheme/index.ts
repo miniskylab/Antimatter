@@ -73,6 +73,7 @@ export const Color = {
     Neutral__a10: toHex(Neutral, 10),
 
     Gray: toHex(Gray),
+    Gray__a10: toHex(Gray, 10),
     Gray__a65: toHex(Gray, 65),
     Gray__b10: toHex(shade(Gray, 10)),
     Gray__w25: toHex(tint(Gray, 25)),
