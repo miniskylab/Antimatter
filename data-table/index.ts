@@ -1,5 +1,6 @@
 export type {DataTableStyle} from "./model";
 
+export {SelectedRow} from "./type";
 export {Row} from "./component";
 export {DataTableProps} from "./model";
 export {DataTable} from "./main";

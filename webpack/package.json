@@ -1,5 +1,6 @@
 {
   "name": "@miniskylab/antimatter-webpack",
+  "type": "module",
   "version": "0.0.0",
   "license": "MIT",
   "dependencies": {
@@ -9,11 +10,6 @@
     "css-minimizer-webpack-plugin": "5.0.1",
     "eslint-webpack-plugin": "4.0.1",
     "metro-react-native-babel-preset": "0.77.0",
-    "mini-css-extract-plugin": "2.7.6",
-    "sass-loader": "13.3.2"
-  },
-  "devDependencies": {
-    "clean-css": "5.3.2",
-    "sass": "1.66.1"
+    "mini-css-extract-plugin": "2.7.6"
   }
 }

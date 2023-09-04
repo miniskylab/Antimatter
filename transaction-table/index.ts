@@ -1,5 +1,6 @@
 export type {TransactionTableStyle} from "./model";
 
+export {Transaction} from "./type";
 export {TransactionRecord} from "./component";
 export {TransactionTableProps} from "./model";
 export {TransactionTable} from "./main";

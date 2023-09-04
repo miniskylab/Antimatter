@@ -4,7 +4,7 @@ import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
 import Webpack from "webpack";
 
-export function applyAntimatterConfiguration(webpackConfiguration: Webpack.Configuration, mode: string)
+export function applyAntimatterConfiguration(webpackConfiguration, mode)
 {
     const isProductionMode = mode.toLowerCase() === "production";
 
@@ -52,11 +52,11 @@ export function applyAntimatterConfiguration(webpackConfiguration: Webpack.Confi
             ]
         },
         {
-            test: /\.scss$/,
-            use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader", "sass-loader"]
+            test: /\.css$/,
+            use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"]
         },
         {
-            test: /\.(ttf|eot|woff|woff2|svg)$/,
+            test: /\.(ttf)$/,
             type: "asset/resource",
             generator: {
                 filename: "fonts/[name][ext]"
@@ -88,7 +88,7 @@ export function applyAntimatterConfiguration(webpackConfiguration: Webpack.Confi
     return webpackConfiguration;
 }
 
-function webIncompatibleReactNativeModules(pathToModule: string)
+function webIncompatibleReactNativeModules(pathToModule)
 {
     if (pathToModule)
     {
