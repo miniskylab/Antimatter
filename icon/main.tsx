@@ -3,10 +3,10 @@ import {inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import {useFonts} from "expo-font";
 import React, {JSX} from "react";
-import icomoonFont from "./asset/antimatter.ttf";
-import icomoonSelection from "./asset/selection.json";
-import {IconProps} from "./model";
-import * as Variant from "./variant";
+import icomoonFont from "./assets/antimatter.ttf";
+import icomoonSelection from "./assets/selection.json";
+import {IconProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

@@ -1,7 +1,7 @@
-export type {SelfIntroductionHeroStyle} from "./model";
+export type {SelfIntroductionHeroStyle} from "./models";
 
-export {SelfIntroductionHeroProps} from "./model";
+export {SelfIntroductionHeroProps} from "./models";
 export {SelfIntroductionHero} from "./main";
 export {ComponentName} from "./name";
-export {SelfIntroductionHeroContextHook} from "./hook";
-export * as SelfIntroductionHeroVariant from "./variant";
+export {SelfIntroductionHeroContextHook} from "./hooks";
+export * as SelfIntroductionHeroVariant from "./variants";

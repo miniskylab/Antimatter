@@ -1,8 +1,8 @@
-export type {ToggleStyle} from "./model";
+export type {ToggleStyle} from "./models";
 
-export {Status} from "./enum";
-export {ToggleProps} from "./model";
+export {Status} from "./enums";
+export {ToggleProps} from "./models";
 export {Toggle} from "./main";
 export {ComponentName} from "./name";
-export {ToggleContextHook} from "./hook";
-export * as ToggleVariant from "./variant";
+export {ToggleContextHook} from "./hooks";
+export * as ToggleVariant from "./variants";

@@ -1,7 +1,7 @@
-export type {HeadingStyle} from "./model";
+export type {HeadingStyle} from "./models";
 
-export {HeadingProps} from "./model";
+export {HeadingProps} from "./models";
 export {Heading} from "./main";
 export {ComponentName} from "./name";
-export {HeadingContextHook} from "./hook";
-export * as HeadingVariant from "./variant";
+export {HeadingContextHook} from "./hooks";
+export * as HeadingVariant from "./variants";

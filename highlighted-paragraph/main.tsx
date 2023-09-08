@@ -2,8 +2,8 @@ import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {HighlightedParagraphContext, HighlightedParagraphProps} from "./model";
-import * as Variant from "./variant";
+import {HighlightedParagraphContext, HighlightedParagraphProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

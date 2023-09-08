@@ -1,9 +1,9 @@
-export type {DataTableStyle} from "./model";
+export type {DataTableStyle} from "./models";
 
-export {SelectedRow} from "./type";
-export {Row} from "./component";
-export {DataTableProps} from "./model";
+export {SelectedRow} from "./types";
+export {Row} from "./components";
+export {DataTableProps} from "./models";
 export {DataTable} from "./main";
 export {ComponentName} from "./name";
-export {DataTableContextHook} from "./hook";
-export * as DataTableVariant from "./variant";
+export {DataTableContextHook} from "./hooks";
+export * as DataTableVariant from "./variants";

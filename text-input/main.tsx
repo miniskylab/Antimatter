@@ -2,8 +2,8 @@ import {EMPTY_STRING, getFontFamily, inheritTextStyleFrom} from "@miniskylab/ant
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import * as ReactNative from "react-native";
-import {TextInputProps} from "./model";
-import * as Variant from "./variant";
+import {TextInputProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

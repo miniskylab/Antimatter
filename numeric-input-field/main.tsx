@@ -2,10 +2,10 @@ import {EMPTY_STRING, MAX, MIN} from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import React, {JSX, useEffect, useMemo, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
-import {Keypress} from "./enum";
-import {NumericInputFieldContext, NumericInputFieldProps, NumericInputFieldState} from "./model";
-import {getNextNumericInputFieldState} from "./service";
-import * as Variant from "./variant";
+import {Keypress} from "./enums";
+import {NumericInputFieldContext, NumericInputFieldProps, NumericInputFieldState} from "./models";
+import {getNextNumericInputFieldState} from "./services";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

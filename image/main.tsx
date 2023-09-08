@@ -1,8 +1,8 @@
 import {EMPTY_STRING} from "@miniskylab/antimatter-framework";
 import React, {JSX} from "react";
 import {Animated} from "react-native";
-import {ImageProps} from "./model";
-import * as Variant from "./variant";
+import {ImageProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

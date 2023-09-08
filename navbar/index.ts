@@ -1,7 +1,7 @@
-export type {NavbarStyle} from "./model";
+export type {NavbarStyle} from "./models";
 
-export {NavbarProps} from "./model";
+export {NavbarProps} from "./models";
 export {Navbar} from "./main";
 export {ComponentName} from "./name";
-export {NavbarContextHook} from "./hook";
-export * as NavbarVariant from "./variant";
+export {NavbarContextHook} from "./hooks";
+export * as NavbarVariant from "./variants";

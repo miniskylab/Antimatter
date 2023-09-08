@@ -1,4 +1,4 @@
 import {ComponentName as ComponentNameDecorator, Decorator} from "@miniskylab/antimatter-framework";
-import {ToggleProps} from "./model";
+import {ToggleProps} from "./models";
 
 export const ComponentName = Decorator.getValue<string>(ComponentNameDecorator, ToggleProps);

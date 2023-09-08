@@ -1,8 +1,8 @@
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {NavbarContext, NavbarProps} from "./model";
-import * as Variant from "./variant";
+import {NavbarContext, NavbarProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

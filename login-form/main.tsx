@@ -5,8 +5,8 @@ import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useState} from "react";
-import {LoginFormContext, LoginFormProps, LoginFormState} from "./model";
-import * as Variant from "./variant";
+import {LoginFormContext, LoginFormProps, LoginFormState} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

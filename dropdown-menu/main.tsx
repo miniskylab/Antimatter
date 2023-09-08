@@ -6,9 +6,9 @@ import {Pressable} from "@miniskylab/antimatter-pressable";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {DropDirection, MenuItemStatus} from "./enum";
-import {DropdownMenuContext, DropdownMenuProps, MenuItemContext} from "./model";
-import * as Variant from "./variant";
+import {DropDirection, MenuItemStatus} from "./enums";
+import {DropdownMenuContext, DropdownMenuProps, MenuItemContext} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

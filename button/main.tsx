@@ -3,8 +3,8 @@ import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import React, {JSX, useMemo} from "react";
-import {ButtonContext, ButtonProps} from "./model";
-import * as Variant from "./variant";
+import {ButtonContext, ButtonProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

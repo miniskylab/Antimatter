@@ -1,7 +1,7 @@
-export type {NavMenuStyle} from "./model";
+export type {NavMenuStyle} from "./models";
 
-export {NavMenuProps} from "./model";
+export {NavMenuProps} from "./models";
 export {NavMenu} from "./main";
 export {ComponentName} from "./name";
-export {NavMenuContextHook} from "./hook";
-export * as NavMenuVariant from "./variant";
+export {NavMenuContextHook} from "./hooks";
+export * as NavMenuVariant from "./variants";

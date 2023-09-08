@@ -1,7 +1,7 @@
-export type {TimelineStyle} from "./model";
+export type {TimelineStyle} from "./models";
 
-export {TimelineProps} from "./model";
+export {TimelineProps} from "./models";
 export {Timeline} from "./main";
 export {ComponentName} from "./name";
-export {TimelineContextHook} from "./hook";
-export * as TimelineVariant from "./variant";
+export {TimelineContextHook} from "./hooks";
+export * as TimelineVariant from "./variants";

@@ -4,8 +4,8 @@ import {Label} from "@miniskylab/antimatter-label";
 import {TextInput} from "@miniskylab/antimatter-text-input";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {InputFieldContext, InputFieldProps} from "./model";
-import * as Variant from "./variant";
+import {InputFieldContext, InputFieldProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

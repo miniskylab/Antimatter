@@ -1,7 +1,7 @@
-export type {DatePickerStyle} from "./model";
+export type {DatePickerStyle} from "./models";
 
-export {DatePickerProps} from "./model";
+export {DatePickerProps} from "./models";
 export {DatePicker} from "./main";
 export {ComponentName} from "./name";
-export {DatePickerContextHook} from "./hook";
-export * as DatePickerVariant from "./variant";
+export {DatePickerContextHook} from "./hooks";
+export * as DatePickerVariant from "./variants";

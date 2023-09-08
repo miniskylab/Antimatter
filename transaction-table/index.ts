@@ -1,9 +1,9 @@
-export type {TransactionTableStyle} from "./model";
+export type {TransactionTableStyle} from "./models";
 
-export {Transaction} from "./type";
-export {TransactionRecord} from "./component";
-export {TransactionTableProps} from "./model";
+export {Transaction} from "./types";
+export {TransactionRecord} from "./components";
+export {TransactionTableProps} from "./models";
 export {TransactionTable} from "./main";
 export {ComponentName} from "./name";
-export {TransactionTableContextHook} from "./hook";
-export * as TransactionTableVariant from "./variant";
+export {TransactionTableContextHook} from "./hooks";
+export * as TransactionTableVariant from "./variants";

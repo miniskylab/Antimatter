@@ -1,9 +1,9 @@
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {BootstrapEvent, Event} from "./component";
-import {TimelineContext, TimelineProps} from "./model";
-import * as Variant from "./variant";
+import {BootstrapEvent, Event} from "./components";
+import {TimelineContext, TimelineProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

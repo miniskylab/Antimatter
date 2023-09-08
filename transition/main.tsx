@@ -1,10 +1,9 @@
 import {View, ViewStyle} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useState} from "react";
-import {Transitionable} from "./component";
-import {Stage} from "./enum";
-import {TransitionAnimationHook} from "./hook";
-import {useTransitionContext} from "./hook/context";
-import {TransitionContext, TransitionProps, TransitionState} from "./model";
+import {Transitionable} from "./components";
+import {Stage} from "./enums";
+import {TransitionAnimationHook, TransitionContextHook} from "./hooks";
+import {TransitionContext, TransitionProps, TransitionState} from "./models";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -32,7 +31,7 @@ export function Transition({
     const computedStyle = style(propsWithoutStyle, state);
     const transitionableStyle: Transitionable.Style = function (transitionableProps: Transitionable.Props): ViewStyle
     {
-        const transitionContext = useTransitionContext();
+        const transitionContext = TransitionContextHook.useTransitionContext();
 
         const isActiveTransitionable = transitionableProps.id === transitionContext.props.children.key;
         const transitionStage = isActiveTransitionable ? Stage.Enter : Stage.Exit;

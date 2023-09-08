@@ -1,6 +1,5 @@
 import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
 import ESLintPlugin from "eslint-webpack-plugin";
-import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import path from "path";
 import Webpack from "webpack";
 
@@ -29,8 +28,7 @@ export function applyAntimatterConfiguration(webpackConfiguration, mode)
         new ESLintPlugin({
             extensions: ["ts", "tsx"],
             emitWarning: !isProductionMode
-        }),
-        new MiniCssExtractPlugin({filename: isProductionMode ? "[name].[contenthash].css" : "[name].css"})
+        })
     );
 
     webpackConfiguration.module.rules.push(
@@ -50,10 +48,6 @@ export function applyAntimatterConfiguration(webpackConfiguration, mode)
                     }
                 }
             ]
-        },
-        {
-            test: /\.css$/,
-            use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"]
         },
         {
             test: /\.(ttf)$/,

@@ -1,9 +1,9 @@
-export type {CompositeTransitionSettings} from "./type";
-export type {TransitionStyle} from "./model";
+export type {CompositeTransitionSettings} from "./types";
+export type {TransitionStyle} from "./models";
 
-export {Animation, SlideDirection, ZoomDirection} from "./enum";
-export {TransitionProps} from "./model";
+export {Animation, SlideDirection, ZoomDirection} from "./enums";
+export {TransitionProps} from "./models";
 export {Transition} from "./main";
 export {ComponentName} from "./name";
-export {TransitionContextHook} from "./hook";
-export * as TransitionVariant from "./variant";
+export {TransitionContextHook} from "./hooks";
+export * as TransitionVariant from "./variants";

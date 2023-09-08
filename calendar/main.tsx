@@ -3,12 +3,12 @@ import {Animation, CompositeTransitionSettings, SlideDirection, Transition, Zoom
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef, useState} from "react";
 import {LayoutChangeEvent} from "react-native";
-import {Control, DateView, Header, MonthView, YearView} from "./component";
-import {ViewType} from "./enum";
-import {CalendarContext, CalendarProps, CalendarState} from "./model";
-import {canNavigateBackward, canNavigateForward, getDateViewData, getMonthViewData, getViewId, getYearViewData} from "./service";
-import {Cache, TimeFrame} from "./type";
-import * as Variant from "./variant";
+import {Control, DateView, Header, MonthView, YearView} from "./components";
+import {ViewType} from "./enums";
+import {CalendarContext, CalendarProps, CalendarState} from "./models";
+import {canNavigateBackward, canNavigateForward, getDateViewData, getMonthViewData, getViewId, getYearViewData} from "./services";
+import {Cache, TimeFrame} from "./types";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

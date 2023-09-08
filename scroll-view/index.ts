@@ -1,6 +1,6 @@
-export type {ScrollViewStyle} from "./model";
+export type {ScrollViewStyle} from "./models";
 
-export {ScrollViewProps} from "./model";
+export {ScrollViewProps} from "./models";
 export {ScrollView} from "./main";
 export {ComponentName} from "./name";
-export * as ScrollViewVariant from "./variant";
+export * as ScrollViewVariant from "./variants";

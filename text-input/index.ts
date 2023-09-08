@@ -1,7 +1,7 @@
-export type {TextInputStyle} from "./model";
+export type {TextInputStyle} from "./models";
 
-export {Selection} from "./type";
-export {TextInputProps} from "./model";
+export {Selection} from "./types";
+export {TextInputProps} from "./models";
 export {TextInput} from "./main";
 export {ComponentName} from "./name";
-export * as TextInputVariant from "./variant";
+export * as TextInputVariant from "./variants";

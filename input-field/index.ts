@@ -1,7 +1,7 @@
-export type {InputFieldStyle} from "./model";
+export type {InputFieldStyle} from "./models";
 
-export {InputFieldProps} from "./model";
+export {InputFieldProps} from "./models";
 export {InputField} from "./main";
 export {ComponentName} from "./name";
-export {InputFieldContextHook} from "./hook";
-export * as InputFieldVariant from "./variant";
+export {InputFieldContextHook} from "./hooks";
+export * as InputFieldVariant from "./variants";

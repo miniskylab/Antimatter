@@ -2,8 +2,8 @@ import {Button} from "@miniskylab/antimatter-button";
 import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import React, {JSX, useMemo} from "react";
-import {NavMenuContext, NavMenuProps} from "./model";
-import * as Variant from "./variant";
+import {NavMenuContext, NavMenuProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

@@ -1,8 +1,8 @@
-export type {DropdownMenuStyle} from "./model";
+export type {DropdownMenuStyle} from "./models";
 
-export {MenuItemStatus, DropDirection} from "./enum";
-export {DropdownMenuProps} from "./model";
+export {MenuItemStatus, DropDirection} from "./enums";
+export {DropdownMenuProps} from "./models";
 export {DropdownMenu} from "./main";
 export {ComponentName} from "./name";
-export {DropdownMenuContextHook} from "./hook";
-export * as DropdownMenuVariant from "./variant";
+export {DropdownMenuContextHook} from "./hooks";
+export * as DropdownMenuVariant from "./variants";

@@ -1,4 +1,4 @@
 import {ComponentName as ComponentNameDecorator, Decorator} from "@miniskylab/antimatter-framework";
-import {HeadingProps} from "./model";
+import {HeadingProps} from "./models";
 
 export const ComponentName = Decorator.getValue<string>(ComponentNameDecorator, HeadingProps);

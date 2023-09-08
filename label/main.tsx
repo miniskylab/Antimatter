@@ -2,8 +2,8 @@ import {getFontFamily, inheritTextStyleFrom} from "@miniskylab/antimatter-framew
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import {Animated} from "react-native";
-import {LabelProps} from "./model";
-import * as Variant from "./variant";
+import {LabelProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

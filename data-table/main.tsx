@@ -5,10 +5,10 @@ import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef} from "react";
-import {Row} from "./component";
-import {ControlButtonTypeContext, DataTableContext, DataTableProps, RowTypeContext} from "./model";
-import {ControlButton, ControlPanel} from "./type";
-import * as Variant from "./variant";
+import {Row} from "./components";
+import {ControlButtonTypeContext, DataTableContext, DataTableProps, RowTypeContext} from "./models";
+import {ControlButton, ControlPanel} from "./types";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

@@ -1,8 +1,7 @@
-export type {CalendarStyle} from "./model";
+export type {CalendarStyle} from "./models";
 
-export {CalendarProps} from "./model";
+export {CalendarProps} from "./models";
 export {Calendar} from "./main";
 export {ComponentName} from "./name";
-export {CalendarContextHook} from "./hook";
-export * as CalendarService from "./service";
-export * as CalendarVariant from "./variant";
+export {CalendarContextHook} from "./hooks";
+export * as CalendarVariant from "./variants";

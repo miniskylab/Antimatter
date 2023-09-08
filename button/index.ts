@@ -1,7 +1,7 @@
-export type {ButtonStyle} from "./model";
+export type {ButtonStyle} from "./models";
 
-export {ButtonProps} from "./model";
+export {ButtonProps} from "./models";
 export {Button} from "./main";
 export {ComponentName} from "./name";
-export {ButtonContextHook} from "./hook";
-export * as ButtonVariant from "./variant";
+export {ButtonContextHook} from "./hooks";
+export * as ButtonVariant from "./variants";

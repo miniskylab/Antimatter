@@ -5,8 +5,8 @@ import {IconName} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {DatePickerContext, DatePickerProps} from "./model";
-import * as Variant from "./variant";
+import {DatePickerContext, DatePickerProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

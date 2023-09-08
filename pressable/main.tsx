@@ -1,8 +1,8 @@
 import React, {forwardRef, JSX, MutableRefObject, useMemo, useState} from "react";
 import ReactNative from "react-native";
-import {AnimatedPressable} from "./component";
-import {PressableContext, PressableProps, PressableState} from "./model";
-import * as Variant from "./variant";
+import {AnimatedPressable} from "./components";
+import {PressableContext, PressableProps, PressableState} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

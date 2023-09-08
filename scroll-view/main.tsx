@@ -1,8 +1,8 @@
 import {Environment, useEnvironment} from "@miniskylab/antimatter-framework";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useRef, WheelEvent} from "react";
 import ReactNative, {Animated} from "react-native";
-import {ScrollViewProps} from "./model";
-import * as Variant from "./variant";
+import {ScrollViewProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

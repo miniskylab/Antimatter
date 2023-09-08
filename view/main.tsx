@@ -1,7 +1,7 @@
 import React, {forwardRef, JSX, MutableRefObject} from "react";
 import ReactNative, {Animated} from "react-native";
-import {ViewProps} from "./model";
-import * as Variant from "./variant";
+import {ViewProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

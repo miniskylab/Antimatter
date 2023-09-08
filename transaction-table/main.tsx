@@ -6,10 +6,10 @@ import {IconName} from "@miniskylab/antimatter-icon";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useState} from "react";
-import {Summary, TransactionRecord} from "./component";
-import {ControlButtonTypeContext, HrPositionContext, TransactionTableContext, TransactionTableProps} from "./model";
-import {ControlButton, ControlPanel} from "./type";
-import * as Variant from "./variant";
+import {Summary, TransactionRecord} from "./components";
+import {ControlButtonTypeContext, HrPositionContext, TransactionTableContext, TransactionTableProps} from "./models";
+import {ControlButton, ControlPanel} from "./types";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

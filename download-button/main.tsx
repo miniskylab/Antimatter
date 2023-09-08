@@ -1,8 +1,8 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {EMPTY_STRING, Environment, useEnvironment} from "@miniskylab/antimatter-framework";
 import React, {JSX, useEffect, useMemo, useState} from "react";
-import {DownloadButtonContext, DownloadButtonProps, DownloadButtonState} from "./model";
-import * as Variant from "./variant";
+import {DownloadButtonContext, DownloadButtonProps, DownloadButtonState} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

@@ -2,9 +2,9 @@ import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {Status} from "./enum";
-import {ToggleContext, ToggleProps} from "./model";
-import * as Variant from "./variant";
+import {Status} from "./enums";
+import {ToggleContext, ToggleProps} from "./models";
+import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

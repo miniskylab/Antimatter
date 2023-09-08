@@ -1,7 +1,7 @@
-export type {IconStyle} from "./model";
+export type {IconStyle} from "./models";
 
-export {IconName} from "./enum";
-export {IconProps} from "./model";
+export {IconName} from "./enums";
+export {IconProps} from "./models";
 export {Icon} from "./main";
 export {ComponentName} from "./name";
-export * as IconVariant from "./variant";
+export * as IconVariant from "./variants";
