@@ -11,8 +11,9 @@ const LoginForm__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
+        flexShrink: 1,
         flexDirection: "column",
-        width: "100%",
+        width: 450,
         minWidth: 300,
         maxWidth: 450,
         padding: 30,
