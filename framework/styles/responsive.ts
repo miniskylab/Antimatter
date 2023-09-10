@@ -1,6 +1,7 @@
 import "@expo/match-media";
+import {useEffect, useState} from "react";
 import {Platform} from "react-native";
-import {useMediaQuery} from "react-responsive";
+import {MediaQueryAllQueryable, useMediaQuery} from "react-responsive";
 
 export enum ScreenSize
 {
@@ -23,7 +24,7 @@ export enum Environment
 
 export function useScreenSize(screenSize: ScreenSize): boolean
 {
-    return useMediaQuery({minWidth: screenSize});
+    return useSsrSupportedMediaQuery({minWidth: screenSize});
 }
 
 export function useEnvironment(environment: Environment): boolean
@@ -32,23 +33,23 @@ export function useEnvironment(environment: Environment): boolean
     {
         case Environment.MobileApp:
             return (Platform.OS === "ios" || Platform.OS === "android") &&
-                   useMediaQuery({maxWidth: ScreenSize.Medium});
+                   useSsrSupportedMediaQuery({maxWidth: ScreenSize.Medium});
 
         case Environment.MobileWeb:
             return Platform.OS === "web" &&
-                   useMediaQuery({maxWidth: ScreenSize.Medium});
+                   useSsrSupportedMediaQuery({maxWidth: ScreenSize.Medium});
 
         case Environment.TabletApp:
             return (Platform.OS === "ios" || Platform.OS === "android") &&
-                   useMediaQuery({minWidth: ScreenSize.Medium, maxWidth: ScreenSize.Large});
+                   useSsrSupportedMediaQuery({minWidth: ScreenSize.Medium, maxWidth: ScreenSize.Large});
 
         case Environment.TabletWeb:
             return (Platform.OS === "web") &&
-                   useMediaQuery({minWidth: ScreenSize.Medium, maxWidth: ScreenSize.Large});
+                   useSsrSupportedMediaQuery({minWidth: ScreenSize.Medium, maxWidth: ScreenSize.Large});
 
         case Environment.DesktopWeb:
             return Platform.OS === "web" &&
-                   useMediaQuery({minWidth: ScreenSize.Large});
+                   useSsrSupportedMediaQuery({minWidth: ScreenSize.Large});
 
         case Environment.App:
             return Platform.OS === "ios" || Platform.OS === "android";
@@ -59,4 +60,20 @@ export function useEnvironment(environment: Environment): boolean
         default:
             return false;
     }
+}
+
+function useSsrSupportedMediaQuery(settings: MediaQueryAllQueryable): boolean
+{
+    const ssrIsEnabled = typeof window !== "undefined" && !!(window as never)?.["ANTIMATTER"]?.["ssr"];
+    if (ssrIsEnabled)
+    {
+        const [componentDidMount, setComponentDidMount] = useState(false);
+        useEffect(() => { setComponentDidMount(true); }, []);
+
+        return componentDidMount
+            ? useMediaQuery(settings)
+            : useMediaQuery({all: false});
+    }
+
+    return useMediaQuery(settings);
 }
