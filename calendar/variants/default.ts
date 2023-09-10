@@ -479,6 +479,7 @@ const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
 
     return {
         ...inheritedStyle,
+        paddingHorizontal: 0,
         fontSize: 14,
         fontWeight: isSelectedYear ? "bold" : "normal",
         color: pressableContext.state.pressed
