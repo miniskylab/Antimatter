@@ -1,0 +1,35 @@
+.antimatter-html {
+    overflow: inherit;
+    text-overflow: inherit;
+}
+
+.antimatter-html hr {
+    display: block;
+    height: 0;
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    border: 0;
+    border-top: 1px solid rgb(128, 128, 128);
+    unicode-bidi: isolate;
+    overflow: hidden;
+}
+
+.antimatter-html ul {
+    display: block;
+    list-style: disc;
+    padding-inline-start: 40px;
+}
+
+.antimatter-html ol {
+    display: block;
+    list-style: decimal;
+    padding-inline-start: 40px;
+}
+
+.antimatter-html blockquote {
+    border-left: 5px solid rgb(128, 128, 128);
+    font-style: italic;
+    padding: 10px 20px;
+}

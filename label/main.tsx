@@ -1,4 +1,4 @@
-import {getFontFamily, inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
+import {Environment, getFontFamily, Html, inheritTextStyleFrom, useEnvironment} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import {Animated} from "react-native";
@@ -22,6 +22,8 @@ export function Label({
 
     const {style: _, ...propsWithoutStyle} = props;
     const computedStyle = style(propsWithoutStyle);
+
+    const runningOnWeb = useEnvironment(Environment.Web);
 
     return (
         <View
@@ -49,7 +51,7 @@ export function Label({
                     paddingRight: computedStyle.paddingRight
                 }}
             >
-                {children}
+                {runningOnWeb ? Html.render(children) : children}
             </Animated.Text>
         </View>
     );
