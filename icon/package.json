@@ -1,8 +1,5 @@
 {
   "name": "@miniskylab/antimatter-icon",
   "version": "0.0.0",
-  "license": "MIT",
-  "dependencies": {
-    "@expo/vector-icons": "13.0.0"
-  }
+  "license": "MIT"
 }

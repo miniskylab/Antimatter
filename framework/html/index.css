@@ -1,4 +1,5 @@
 .antimatter-html {
+    white-space: normal;
     overflow: inherit;
     text-overflow: inherit;
 }

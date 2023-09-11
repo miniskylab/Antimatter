@@ -1,9 +1,10 @@
-import {IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
+import {ButtonStyle} from "@miniskylab/antimatter-button";
+import {ComponentProps, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {IsDefined, IsOptional} from "class-validator";
 import {CtaTarget} from "../enums";
 
-export class Cta
+export class Cta extends ComponentProps<ButtonStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

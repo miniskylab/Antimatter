@@ -12,7 +12,7 @@ import RobotoRegular from "./Roboto-Regular.ttf";
 import RobotoThinItalic from "./Roboto-Thin-Italic.ttf";
 import RobotoThin from "./Roboto-Thin.ttf";
 
-export function useRobotoFont()
+export function useRobotoFont(): boolean
 {
     const [fontsLoaded] = useFonts({
         "Roboto-Black": RobotoBlack,

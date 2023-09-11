@@ -55,7 +55,7 @@ export function Component({
                             {ctas.map((cta, i) => (
                                 <CtaTargetContext.Provider key={i} value={cta.openIn}>
                                     <Button
-                                        style={computedStyle.Cta}
+                                        style={cta.style ?? computedStyle.Cta}
                                         label={cta.label}
                                         icon={cta.icon}
                                         onPress={() => follow(cta)}
