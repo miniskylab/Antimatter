@@ -15,6 +15,7 @@ const TopicCardGroup__Root: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
+        maxWidth: ScreenSize.ExtraLarge,
         ...ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint && {
             marginTop: 0,
             marginBottom: 0,

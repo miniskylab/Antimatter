@@ -38,6 +38,8 @@ export const Color = {
 
     Secondary: toHex(Secondary),
     Secondary__a10: toHex(Secondary, 10),
+    Secondary__b10: toHex(shade(Secondary, 10)),
+    Secondary__w25: toHex(tint(Secondary, 25)),
 
     Tertiary: toHex(Tertiary),
 

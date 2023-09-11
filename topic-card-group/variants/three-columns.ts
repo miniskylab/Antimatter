@@ -21,7 +21,7 @@ const TopicCardGroup__Root: ViewStyle = function (viewProps)
         flexWrap: "wrap",
         alignItems: "stretch",
         minWidth: 300,
-        maxWidth: ScreenSize.ExtraLarge,
+        maxWidth: 1000,
         marginVertical: -10,
         ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {marginHorizontal: -10}
     };
