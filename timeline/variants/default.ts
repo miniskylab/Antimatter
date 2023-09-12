@@ -217,7 +217,7 @@ const Timeline__Event__Image: ImageStyle = function (imageProps)
         ...ImageVariant.Default(imageProps),
         width: "100%",
         height: undefined,
-        aspectRatio: 2.56,
+        aspectRatio: 2,
         resizeMode: "contain",
         marginTop: 15,
         marginBottom: 5
