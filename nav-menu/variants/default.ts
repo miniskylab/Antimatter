@@ -10,12 +10,10 @@ const NavMenu__Root: ScrollViewStyle = function (viewProps)
 {
     return {
         ...ScrollViewVariant.Default(viewProps),
-        flex: 0,
-        width: 250,
+        flex: 1,
         height: "100%",
         minWidth: 250,
         paddingVertical: 75,
-        marginRight: 25,
         backgroundColor: Color.Background
     };
 };
