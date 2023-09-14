@@ -210,7 +210,7 @@ const TransactionTable__ControlPanel: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         width: "100%",
-        height: 57.4,
+        height: 58,
         justifyContent: "space-around",
         backgroundColor: Color.Background
     };
@@ -713,8 +713,8 @@ const TransactionTable__Hr: ViewStyle = function (viewProps)
         height: 2,
         zIndex: Layer.Lower,
         backgroundColor: Color.Neutral,
-        ...hrPosition === "top" && {top: 57.2},
-        ...hrPosition === "bottom" && {bottom: runningOnMobileApp ? 55 : 54.8}
+        ...hrPosition === "top" && {top: 58},
+        ...hrPosition === "bottom" && {bottom: runningOnMobileApp ? 53 : 54}
     };
 };
 
@@ -727,7 +727,7 @@ const TransactionTable__AddNewButton__Root: PressableStyle = function (pressable
     return {
         ...inheritedStyle,
         width: "100%",
-        height: 65,
+        height: 66,
         borderWidth: 2,
         borderLeftWidth: 0,
         borderRightWidth: 0,
@@ -776,10 +776,12 @@ const TransactionTable__AddNewButton: ButtonStyle = function (buttonProps)
 
 const TransactionTable__Summary__Root: ViewStyle = function (viewProps)
 {
+    const runningOnMobileApp = useEnvironment(Environment.MobileApp);
+
     return {
         ...ViewVariant.Default(viewProps),
         width: "100%",
-        height: 55,
+        height: runningOnMobileApp ? 53 : 54,
         paddingTop: 5
     };
 };
