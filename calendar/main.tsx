@@ -1,4 +1,4 @@
-import {Decade, GregorianCalendar, whitespace} from "@miniskylab/antimatter-framework";
+import {Decade, GregorianCalendar, useComputedStyle, whitespace} from "@miniskylab/antimatter-framework";
 import {Animation, CompositeTransitionSettings, SlideDirection, Transition, ZoomDirection} from "@miniskylab/antimatter-transition";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef, useState} from "react";
@@ -57,8 +57,7 @@ export function Calendar({
         yearViewData: new Map()
     });
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle, state);
+    const computedStyle = useComputedStyle(style, props, state);
 
     return (
         <CalendarContext.Provider value={context}>

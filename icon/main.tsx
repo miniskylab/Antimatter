@@ -1,5 +1,5 @@
 import {createIconSetFromIcoMoon} from "@expo/vector-icons";
-import {inheritTextStyleFrom} from "@miniskylab/antimatter-framework";
+import {inheritTextStyleFrom, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {useIcomoon} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
@@ -20,9 +20,7 @@ export function Icon({
         style, name, selectable, pointerEvents
     };
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
-
+    const computedStyle = useComputedStyle(style, props);
     const icomoonSettings = useIcomoon();
     if (!icomoonSettings)
     {

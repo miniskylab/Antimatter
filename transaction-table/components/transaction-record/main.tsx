@@ -1,5 +1,5 @@
 import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {EMPTY_STRING, Enum} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, Enum, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
@@ -37,9 +37,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
-
+    const computedStyle = useComputedStyle(style, props);
     const maxSelectedLabelCount = 3;
 
     return (

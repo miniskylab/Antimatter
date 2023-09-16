@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Enum} from "@miniskylab/antimatter-framework";
+import {Enum, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
@@ -42,9 +42,7 @@ export function DataTable({
     );
 
     const scrollViewRef = useRef<ScrollView>(null);
-
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     const headerData = columns.map(x => x.name).filter(x => !!x);
     const {modeButton, actionButton, cancelButton} = getControlPanelModel();

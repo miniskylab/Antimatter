@@ -1,3 +1,4 @@
+import {useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -20,8 +21,7 @@ export function Navbar({
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <NavbarContext.Provider value={context}>

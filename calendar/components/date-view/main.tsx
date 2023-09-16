@@ -1,4 +1,4 @@
-import {GregorianCalendar} from "@miniskylab/antimatter-framework";
+import {GregorianCalendar, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {View} from "@miniskylab/antimatter-view";
@@ -24,8 +24,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <DateViewContext.Provider value={context}>

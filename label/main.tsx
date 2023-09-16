@@ -1,4 +1,4 @@
-import {Environment, Html, inheritTextStyleFrom, useEnvironment} from "@miniskylab/antimatter-framework";
+import {Environment, Html, inheritTextStyleFrom, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
 import {useFontFamily} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
@@ -21,9 +21,7 @@ export function Label({
         style, children, selectable, numberOfLines, pointerEvents
     };
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
-
+    const computedStyle = useComputedStyle(style, props);
     const runningOnWeb = useEnvironment(Environment.Web);
 
     return (

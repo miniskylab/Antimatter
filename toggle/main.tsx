@@ -1,3 +1,4 @@
+import {useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {View} from "@miniskylab/antimatter-view";
@@ -25,8 +26,7 @@ export function Toggle({
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <ToggleContext.Provider value={context}>

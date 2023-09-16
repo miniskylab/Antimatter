@@ -1,5 +1,5 @@
 import {DropDirection, DropdownMenu, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {EMPTY_STRING} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
@@ -39,9 +39,7 @@ export function Component({
     );
 
     const ref = useRef<Pressable>(null);
-
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props, state);
 
     if (mode === Mode.ReadOnly && state.openedDropdownMenuColumnIndex)
     {

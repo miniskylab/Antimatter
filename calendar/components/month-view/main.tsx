@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {GregorianCalendar} from "@miniskylab/antimatter-framework";
+import {GregorianCalendar, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {MonthContext, MonthViewContext, Props} from "./models";
@@ -23,8 +23,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <MonthViewContext.Provider value={context}>

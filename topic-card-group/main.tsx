@@ -1,4 +1,4 @@
-import {Layer} from "@miniskylab/antimatter-framework";
+import {Layer, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Card} from "./components";
@@ -22,8 +22,7 @@ export function TopicCardGroup({
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <TopicCardGroupContext.Provider value={context}>

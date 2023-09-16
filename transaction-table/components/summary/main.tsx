@@ -1,4 +1,4 @@
-import {EMPTY_STRING} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -24,8 +24,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <SummaryContext.Provider value={context}>

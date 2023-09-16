@@ -3,7 +3,8 @@ import {validateSync, ValidationError} from "class-validator";
 import {ComponentType, createElement, JSX} from "react";
 import {ValidationMessageTemplate} from "../class-validator";
 import {ComponentName, ComponentProps} from "../component";
-import {Decorator, EMPTY_STRING, formatString, getRepresentationString} from "../extensions";
+import {Decorator} from "../decorator";
+import {EMPTY_STRING, formatString, getRepresentationString} from "../extensions";
 
 export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
     component: ComponentType<TProps>,
@@ -61,7 +62,7 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
                         Object.keys(validationError.constraints).forEach(x =>
                         {
                             const tokens: string[] = [hierarchicalPropertyName];
-                            const targetPropertyNames = (validationError.contexts?.[x]?.targetPropertyNames || []) as string[];
+                            const targetPropertyNames = (validationError.contexts?.[x]?.["targetPropertyNames"] || []) as string[];
 
                             tokens.push(...targetPropertyNames, getRepresentationString(propertyValue));
                             targetPropertyNames.forEach((x: string) =>

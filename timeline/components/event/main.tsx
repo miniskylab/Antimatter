@@ -1,4 +1,4 @@
-import {DateFormat, EMPTY_STRING, GregorianCalendar, TimeUnit} from "@miniskylab/antimatter-framework";
+import {DateFormat, EMPTY_STRING, GregorianCalendar, TimeUnit, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon, IconName} from "@miniskylab/antimatter-icon";
 import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
@@ -32,8 +32,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <EventContext.Provider value={context}>

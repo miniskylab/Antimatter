@@ -6,8 +6,9 @@ import {LabelStyle} from "@miniskylab/antimatter-label";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ToggleStyle} from "@miniskylab/antimatter-toggle";
 import {Props} from "./props";
+import {State} from "./state";
 
-export type Style = (rowProps: Styled<Props>) => {
+export type Style = (rowProps: Styled<Props>, rowState: State) => {
     Root?: PressableStyle;
     CellDropdownMenu?: DropdownMenuStyle;
     CellToggle?: ToggleStyle;

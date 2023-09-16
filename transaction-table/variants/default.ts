@@ -457,7 +457,8 @@ const TransactionTable__TransactionRecord__AmountInputField__Root: ViewStyle = f
         .some(label => label.status === TransactionRecord.TransactionLabelStatus.Selected &&
                        label.type === TransactionRecord.TransactionLabelType.Income);
 
-    const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props)(inputFieldContext.props)
+    const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
+        (inputFieldContext.props)
         .Root(viewProps);
 
     return {
@@ -473,7 +474,8 @@ const TransactionTable__TransactionRecord__AmountInputField__TextBox: TextInputS
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
     const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
 
-    const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props)(inputFieldContext.props)
+    const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
+        (inputFieldContext.props)
         .TextBox(textInputProps);
 
     return {
@@ -489,10 +491,11 @@ const TransactionTable__TransactionRecord__AmountInputField__TextBox: TextInputS
     };
 };
 
-const TransactionTable__TransactionRecord__AmountInputField: NumericInputFieldStyle = function (numericInputFieldProps)
+const TransactionTable__TransactionRecord__AmountInputField: NumericInputFieldStyle = function (numericInputFieldProps,
+    numericInputFieldState)
 {
     return inputFieldProps => ({
-        ...NumericInputFieldVariant.Default(numericInputFieldProps)(inputFieldProps),
+        ...NumericInputFieldVariant.Default(numericInputFieldProps, numericInputFieldState)(inputFieldProps),
         Root: TransactionTable__TransactionRecord__AmountInputField__Root,
         TextBox: TransactionTable__TransactionRecord__AmountInputField__TextBox
     });

@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {EMPTY_STRING, Environment, useEnvironment} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, Environment, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
 import React, {JSX, useEffect, useMemo, useState} from "react";
 import {DownloadButtonContext, DownloadButtonProps, DownloadButtonState} from "./models";
 import * as Variant from "./variants";
@@ -36,8 +36,7 @@ export function DownloadButton({
         [...Object.values(props), ...Object.values(state)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props, state);
 
     useEffect(() =>
     {
@@ -48,10 +47,11 @@ export function DownloadButton({
                 const response = await fetch(href);
                 const blobURL = URL.createObjectURL(await response.blob());
 
-                setState({
+                setState(prevState => ({
+                    ...prevState,
                     blobURL,
                     disabled: false
-                });
+                }));
             }
         })();
     }, []);

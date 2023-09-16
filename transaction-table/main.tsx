@@ -1,13 +1,13 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
-import {DateFormat, Enum, ScreenSize, useScreenSize} from "@miniskylab/antimatter-framework";
+import {DateFormat, Enum, ScreenSize, useComputedStyle, useScreenSize} from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useState} from "react";
 import {Summary, TransactionRecord} from "./components";
-import {ControlButtonTypeContext, HrPositionContext, TransactionTableContext, TransactionTableProps} from "./models";
+import {ControlButtonTypeContext, HrPositionContext, TransactionTableContext, TransactionTableProps, TransactionTableState} from "./models";
 import {ControlButton, ControlPanel} from "./types";
 import * as Variant from "./variants";
 
@@ -35,15 +35,16 @@ export function TransactionTable({
         onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
     };
 
+    const [state, setState] = useState<TransactionTableState>({
+        datePickerIsOpened: false
+    });
+
     const context = useMemo<TransactionTableContext>(
         () => ({props}),
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
-
-    const [datePickerIsOpened, setDatePickerIsOpened] = useState(false);
+    const computedStyle = useComputedStyle(style, props, state);
     const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return (
@@ -188,13 +189,23 @@ export function TransactionTable({
                 style={computedStyle.DatePicker}
                 selectedDate={selectedDate}
                 dateFormat={DateFormat.Full}
-                calendarIsOpen={datePickerIsOpened}
+                calendarIsOpen={state.datePickerIsOpened}
                 onSelectedDateChange={newlySelectedDate =>
                 {
-                    setDatePickerIsOpened(false);
+                    setState(prevState => ({
+                        ...prevState,
+                        setDatePickerIsOpened: false
+                    }));
+
                     newlySelectedDate && onSelectDate?.(newlySelectedDate);
                 }}
-                onAddonPress={() => { setDatePickerIsOpened(!datePickerIsOpened); }}
+                onAddonPress={() =>
+                {
+                    setState(prevState => ({
+                        ...prevState,
+                        setDatePickerIsOpened: !state.datePickerIsOpened
+                    }));
+                }}
             />;
     }
 

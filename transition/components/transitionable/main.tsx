@@ -1,3 +1,4 @@
+import {useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import {Props} from "./models";
@@ -16,8 +17,7 @@ export function Component({
         id, style, children, onReadyToUnmount
     };
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <View style={computedStyle}>

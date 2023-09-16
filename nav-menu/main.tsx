@@ -1,4 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
+import {useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import React, {JSX, useMemo} from "react";
@@ -24,8 +25,7 @@ export function NavMenu({
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <NavMenuContext.Provider value={context}>

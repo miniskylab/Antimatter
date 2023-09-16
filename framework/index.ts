@@ -1,3 +1,4 @@
+export * from "./decorator";
 export * from "./calendar";
 export * from "./class-validator";
 export * from "./component";

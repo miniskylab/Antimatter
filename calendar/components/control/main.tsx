@@ -1,4 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
+import {useComputedStyle} from "@miniskylab/antimatter-framework";
 import {IconName} from "@miniskylab/antimatter-icon";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -22,8 +23,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
+    const computedStyle = useComputedStyle(style, props);
 
     const thereAreNoControlButtons = onTodayButtonPress === undefined && onSelectionButtonPress === undefined;
     if (thereAreNoControlButtons)

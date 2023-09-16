@@ -6,8 +6,12 @@ import {ScrollViewStyle} from "@miniskylab/antimatter-scroll-view";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Summary, TransactionRecord} from "../components";
 import {TransactionTableProps} from "./props";
+import {TransactionTableState} from "./state";
 
-export type TransactionTableStyle = (transactionTableProps: Styled<TransactionTableProps>) => {
+export type TransactionTableStyle = (
+    transactionTableProps: Styled<TransactionTableProps>,
+    transactionTableState: TransactionTableState
+) => {
     Root?: ViewStyle;
     TransactionDetails?: ViewStyle;
     TransactionContainer?: ScrollViewStyle;

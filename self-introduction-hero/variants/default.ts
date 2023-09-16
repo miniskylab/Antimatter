@@ -285,7 +285,7 @@ const SelfIntroductionHero__DownloadButton__Button__Root: PressableStyle = funct
 
     const ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint = useScreenSize(ScreenSize.Small);
 
-    const inheritedStyle = DownloadButtonVariant.Default(downloadButtonContext.props)(buttonContext.props)
+    const inheritedStyle = DownloadButtonVariant.Default(downloadButtonContext.props, downloadButtonContext.state)(buttonContext.props)
         .Root(pressableProps, pressableState);
 
     return {
@@ -304,7 +304,8 @@ const SelfIntroductionHero__DownloadButton__Button__Label: LabelStyle = function
     const buttonContext = ButtonContextHook.useButtonContext();
     const downloadButtonContext = DownloadButtonContextHook.useDownloadButtonContext();
 
-    const inheritedStyle = DownloadButtonVariant.Default(downloadButtonContext.props)(buttonContext.props).Label(labelProps);
+    const inheritedStyle = DownloadButtonVariant.Default(downloadButtonContext.props, downloadButtonContext.state)(buttonContext.props)
+        .Label(labelProps);
 
     return {
         ...inheritedStyle,
@@ -312,12 +313,12 @@ const SelfIntroductionHero__DownloadButton__Button__Label: LabelStyle = function
     };
 };
 
-const SelfIntroductionHero__DownloadButton: DownloadButtonStyle = function (downloadButtonProps)
+const SelfIntroductionHero__DownloadButton: DownloadButtonStyle = function (downloadButtonProps, downloadButtonState)
 {
     return function (buttonProps)
     {
         return {
-            ...DownloadButtonVariant.Default(downloadButtonProps)(buttonProps),
+            ...DownloadButtonVariant.Default(downloadButtonProps, downloadButtonState)(buttonProps),
             Root: SelfIntroductionHero__DownloadButton__Button__Root,
             Label: SelfIntroductionHero__DownloadButton__Button__Label
         };

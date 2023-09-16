@@ -1,4 +1,4 @@
-import {Environment, useEnvironment} from "@miniskylab/antimatter-framework";
+import {Environment, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useRef, WheelEvent} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ScrollViewProps} from "./models";
@@ -28,9 +28,7 @@ export const ScrollView = forwardRef(function ScrollView(
         ref = useRef<ScrollView>();
     }
 
-    const {style: _, ...propsWithoutStyle} = props;
-    const computedStyle = style(propsWithoutStyle);
-
+    const computedStyle = useComputedStyle(style, props);
     const runningOnDesktopWeb = useEnvironment(Environment.DesktopWeb);
     useEffect(() =>
     {
