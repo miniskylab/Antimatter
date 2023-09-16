@@ -12,16 +12,18 @@ export function useIcomoon(): IcomoonSettings
 export function useFontFamily<TStyle extends TextStyle>(style: TStyle): string
 {
     const fontLoaded = useRobotoFont();
-    if (!fontLoaded)
+    const icomoonSettings = useDefaultIconSet();
+    if (!fontLoaded || !icomoonSettings)
     {
         return undefined;
     }
 
     const fontName = "Roboto";
+    const [, glyphName] = icomoonSettings;
     const runningOnWeb = useEnvironment(Environment.Web);
     if (runningOnWeb)
     {
-        return `${fontName}, sans-serif, antimatter`;
+        return `${fontName}, sans-serif, ${glyphName}`;
     }
 
     let fontStyle;
