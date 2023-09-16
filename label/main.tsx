@@ -1,5 +1,5 @@
 import {Environment, Html, inheritTextStyleFrom, useEnvironment} from "@miniskylab/antimatter-framework";
-import {getFontFamily, useTypography} from "@miniskylab/antimatter-typography";
+import {useFontFamily} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import {Animated} from "react-native";
@@ -25,12 +25,6 @@ export function Label({
     const computedStyle = style(propsWithoutStyle);
 
     const runningOnWeb = useEnvironment(Environment.Web);
-    const [fontsLoaded] = useTypography();
-
-    if (!fontsLoaded)
-    {
-        return null;
-    }
 
     return (
         <View
@@ -48,7 +42,7 @@ export function Label({
                 numberOfLines={numberOfLines}
                 style={{
                     ...inheritTextStyleFrom(computedStyle),
-                    fontFamily: getFontFamily(computedStyle),
+                    fontFamily: useFontFamily(computedStyle),
                     padding: computedStyle.padding,
                     paddingVertical: computedStyle.paddingVertical,
                     paddingHorizontal: computedStyle.paddingHorizontal,

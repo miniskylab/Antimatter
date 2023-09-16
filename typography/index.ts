@@ -1,23 +1,22 @@
 import {EMPTY_STRING, Environment, useEnvironment} from "@miniskylab/antimatter-framework";
 import {TextStyle} from "react-native";
 import {useRobotoFont} from "./font";
-import {useIcomoonAntimatterIconSet} from "./icomoon";
+import {IcomoonSettings, useDefaultIconSet} from "./icomoon";
 
-export function useTypography(): [fontsLoaded: boolean, IconSet: ReturnType<typeof useIcomoonAntimatterIconSet>]
+export function useIcomoon(): IcomoonSettings
 {
-    const fontsLoaded = useRobotoFont();
-    const IconSet = useIcomoonAntimatterIconSet();
-
-    if (!fontsLoaded || !IconSet)
-    {
-        return [false, null];
-    }
-
-    return [fontsLoaded, IconSet];
+    const runningOnServerSide = typeof window === "undefined";
+    return runningOnServerSide ? null : useDefaultIconSet();
 }
 
-export function getFontFamily<TStyle extends TextStyle>(style: TStyle): string
+export function useFontFamily<TStyle extends TextStyle>(style: TStyle): string
 {
+    const fontLoaded = useRobotoFont();
+    if (!fontLoaded)
+    {
+        return undefined;
+    }
+
     const fontName = "Roboto";
     const runningOnWeb = useEnvironment(Environment.Web);
     if (runningOnWeb)
