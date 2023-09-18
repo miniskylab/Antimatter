@@ -9,73 +9,77 @@ export function useIcomoon(): IcomoonSettings
     return runningOnServerSide ? null : useDefaultIconSet();
 }
 
-export function useFontFamily<TStyle extends TextStyle>(style: TStyle): string
+type Typography = { fontFamily?: string; fontWeight?: TextStyle["fontWeight"]; fontStyle?: TextStyle["fontStyle"]; }
+export function useTypography<TStyle extends TextStyle>(style: TStyle): Typography
 {
     const fontLoaded = useRobotoFont();
     const icomoonSettings = useDefaultIconSet();
     const runningOnWeb = useEnvironment(Environment.Web);
     if (!fontLoaded || !icomoonSettings)
     {
-        return undefined;
+        return {};
     }
 
-    let fontStyle;
+    let fontStyleSuffix;
     switch (style.fontStyle)
     {
         case "italic":
-            fontStyle = "-Italic";
+            fontStyleSuffix = "-Italic";
             break;
 
         case "normal":
         default:
-            fontStyle = EMPTY_STRING;
+            fontStyleSuffix = EMPTY_STRING;
             break;
     }
 
-    let fontWeight;
+    let fontWeightSuffix;
     switch (style.fontWeight)
     {
         case "100":
         case "200":
-            fontWeight = "-Thin";
+            fontWeightSuffix = "-Thin";
             break;
 
         case "300":
-            fontWeight = "-Light";
+            fontWeightSuffix = "-Light";
             break;
 
         case "400":
-            fontWeight = "-Regular";
+            fontWeightSuffix = "-Regular";
             break;
 
         case "500":
         case "600":
-            fontWeight = "-Medium";
+            fontWeightSuffix = "-Medium";
             break;
 
         case "bold":
         case "700":
         case "800":
-            fontWeight = "-Bold";
+            fontWeightSuffix = "-Bold";
             break;
 
         case "900":
-            fontWeight = "-Black";
+            fontWeightSuffix = "-Black";
             break;
 
         case "normal":
         default:
-            fontWeight = "-Regular";
+            fontWeightSuffix = "-Regular";
             break;
     }
 
-    const fontName = "Roboto";
     const [, glyphName] = icomoonSettings;
-    let fontFamily = `${fontName}${fontWeight}${fontStyle}`;
+    let fontFamily = `Roboto${fontWeightSuffix}${fontStyleSuffix}`;
     if (runningOnWeb)
     {
         fontFamily += `, sans-serif, ${glyphName}`;
     }
 
-    return fontFamily;
+    return {
+        fontFamily,
+        fontWeight: "normal",
+        fontStyle: "normal"
+    };
 }

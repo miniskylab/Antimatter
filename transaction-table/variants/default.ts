@@ -26,7 +26,8 @@ const TransactionTable__Root: ViewStyle = function (viewProps)
         flexDirection: ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint ? "row" : "column",
         alignItems: ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint ? "flex-start" : "center",
         minWidth: 300,
-        maxWidth: 1000
+        maxWidth: 1000,
+        minHeight: 500
     };
 };
 

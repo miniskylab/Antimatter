@@ -196,7 +196,7 @@ const TopicCardGroup__Card__Cta__Label: LabelStyle = function (labelProps)
         ...inheritedStyle,
         flexGrow: 1,
         alignItems: "flex-start",
-        paddingHorizontal: 15,
+        paddingHorizontal: 10,
         fontSize: 16,
         fontWeight: "bold"
     };

@@ -1,5 +1,5 @@
 import {EMPTY_STRING, inheritTextStyleFrom, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {useFontFamily} from "@miniskylab/antimatter-typography";
+import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import * as ReactNative from "react-native";
@@ -44,7 +44,7 @@ export function TextInput({
                 secureTextEntry={secureTextEntry}
                 style={{
                     ...inheritTextStyleFrom(computedStyle),
-                    fontFamily: useFontFamily(computedStyle),
+                    ...useTypography(computedStyle),
                     width: "100%",
                     height: "100%"
                 }}

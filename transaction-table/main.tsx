@@ -194,7 +194,7 @@ export function TransactionTable({
                 {
                     setState(prevState => ({
                         ...prevState,
-                        setDatePickerIsOpened: false
+                        datePickerIsOpened: false
                     }));
 
                     newlySelectedDate && onSelectDate?.(newlySelectedDate);
@@ -203,7 +203,7 @@ export function TransactionTable({
                 {
                     setState(prevState => ({
                         ...prevState,
-                        setDatePickerIsOpened: !state.datePickerIsOpened
+                        datePickerIsOpened: !prevState.datePickerIsOpened
                     }));
                 }}
             />;
