@@ -13,17 +13,10 @@ export function useFontFamily<TStyle extends TextStyle>(style: TStyle): string
 {
     const fontLoaded = useRobotoFont();
     const icomoonSettings = useDefaultIconSet();
+    const runningOnWeb = useEnvironment(Environment.Web);
     if (!fontLoaded || !icomoonSettings)
     {
         return undefined;
-    }
-
-    const fontName = "Roboto";
-    const [, glyphName] = icomoonSettings;
-    const runningOnWeb = useEnvironment(Environment.Web);
-    if (runningOnWeb)
-    {
-        return `${fontName}, sans-serif, ${glyphName}`;
     }
 
     let fontStyle;
@@ -76,5 +69,13 @@ export function useFontFamily<TStyle extends TextStyle>(style: TStyle): string
             break;
     }
 
-    return `${fontName}${fontWeight}${fontStyle}`;
+    const fontName = "Roboto";
+    const [, glyphName] = icomoonSettings;
+    let fontFamily = `${fontName}${fontWeight}${fontStyle}`;
+    if (runningOnWeb)
+    {
+        fontFamily += `, sans-serif, ${glyphName}`;
+    }
+
+    return fontFamily;
 }
