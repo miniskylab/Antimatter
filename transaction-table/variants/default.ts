@@ -404,7 +404,8 @@ const TransactionTable__TransactionRecord__NameInputField__TextBox: TextInputSty
         paddingLeft: 0,
         paddingRight: 0,
         fontSize: 18,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        animations: undefined
     };
 };
 
@@ -421,7 +422,8 @@ const TransactionTable__TransactionRecord__NameInputField__Placeholder: LabelSty
         paddingLeft: 0,
         fontSize: 16,
         fontWeight: "bold",
-        fontStyle: "italic"
+        fontStyle: "italic",
+        animations: undefined
     };
 };
 

@@ -182,7 +182,9 @@ const TopicCardGroup__Card__Cta__Icon: IconStyle = function (iconProps)
         ...inheritedStyle,
         minWidth: 25,
         fontSize: 18,
-        ...TopicCardGroupAnimationHook.useCtaIconHoverAnimation()
+        animations: [
+            () => TopicCardGroupAnimationHook.useCtaIconHoverAnimation()
+        ]
     };
 };
 

@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 export type Modify<T, R> = Omit<T, keyof R> & R;
+export type Animated<T> = T & { animations?: (() => object)[]; }
 
 export type PointerEvents = "none" | "box-none" | "box-only" | "auto";
 export type LayoutChangeEventHandler = (event: LayoutChangeEvent) => void;

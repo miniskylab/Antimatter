@@ -38,7 +38,9 @@ const InputField__TextBox: TextInputStyle = function (textInputProps)
         fontSize: 14,
         color: Color.Neutral,
         backgroundColor: Color.Transparent,
-        ...InputFieldAnimationHook.useTextBoxAnimation(inputFieldContext.props)
+        animations: [
+            () => InputFieldAnimationHook.useTextBoxAnimation(inputFieldContext.props)
+        ]
     };
 };
 
@@ -64,7 +66,9 @@ const InputField__Placeholder: LabelStyle = function (labelProps)
         width: "100%",
         paddingLeft: 12,
         color: Color.Gray,
-        ...InputFieldAnimationHook.usePlaceholderAnimation()
+        animations: [
+            () => InputFieldAnimationHook.usePlaceholderAnimation()
+        ]
     };
 };
 
