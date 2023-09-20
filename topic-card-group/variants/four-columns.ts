@@ -1,4 +1,4 @@
-import {ScreenSize, useScreenSize} from "@miniskylab/antimatter-framework";
+import {ScreenSize, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Card} from "../components";
 import {TopicCardGroupContextHook} from "../hooks";
@@ -9,20 +9,18 @@ const TopicCardGroup__Root: ViewStyle = function (viewProps)
 {
     const topicCardGroupContext = TopicCardGroupContextHook.useTopicCardGroupContext();
 
-    const ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint = useScreenSize(ScreenSize.ExtraLarge);
-
     const inheritedStyle = ThreeColumns(topicCardGroupContext.props).Root(viewProps);
 
     return {
         ...inheritedStyle,
         maxWidth: ScreenSize.ExtraLarge,
-        ...ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.ExtraLarge, {
             marginTop: 0,
             marginBottom: 0,
             marginLeft: 0,
             marginRight: 0,
             justifyContent: "flex-start"
-        }
+        })
     };
 };
 
@@ -31,19 +29,17 @@ const TopicCardGroup__Card__Root: ViewStyle = function (viewProps)
     const cardContext = Card.ContextHook.useCardContext();
     const topicCardGroupContext = TopicCardGroupContextHook.useTopicCardGroupContext();
 
-    const ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint = useScreenSize(ScreenSize.ExtraLarge);
-
     const inheritedStyle = ThreeColumns(topicCardGroupContext.props)
         .Card(cardContext.props)
         .Root(viewProps);
 
     return {
         ...inheritedStyle,
-        ...ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.ExtraLarge, {
             flexBasis: "25%",
             marginVertical: 0,
             opacity: 1
-        }
+        })
     };
 };
 
@@ -52,17 +48,15 @@ const TopicCardGroup__Card__Content: ViewStyle = function (viewProps)
     const cardContext = Card.ContextHook.useCardContext();
     const topicCardGroupContext = TopicCardGroupContextHook.useTopicCardGroupContext();
 
-    const ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint = useScreenSize(ScreenSize.ExtraLarge);
-
     const inheritedStyle = ThreeColumns(topicCardGroupContext.props)
         .Card(cardContext.props)
         .Content(viewProps);
 
     return {
         ...inheritedStyle,
-        ...ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.ExtraLarge, {
             height: "auto"
-        }
+        })
     };
 };
 
@@ -71,15 +65,15 @@ const TopicCardGroup__Card__HorizontalMargin: ViewStyle = function (viewProps)
     const cardContext = Card.ContextHook.useCardContext();
     const topicCardGroupContext = TopicCardGroupContextHook.useTopicCardGroupContext();
 
-    const ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint = useScreenSize(ScreenSize.ExtraLarge);
-
     const inheritedStyle = ThreeColumns(topicCardGroupContext.props)
         .Card(cardContext.props)
         .HorizontalMargin(viewProps);
 
     return {
         ...inheritedStyle,
-        ...ifViewportSizeIsGreaterThanOrEqualToExtraLargeBreakpoint && {display: "none"}
+        ...useResponsiveStyle(ScreenSize.ExtraLarge, {
+            display: "none"
+        })
     };
 };
 

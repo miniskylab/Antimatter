@@ -1,7 +1,7 @@
 import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DownloadButtonContextHook, DownloadButtonStyle, DownloadButtonVariant} from "@miniskylab/antimatter-download-button";
-import {ScreenSize, useScreenSize} from "@miniskylab/antimatter-framework";
+import {ScreenSize, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {
     HighlightedParagraphContextHook,
     HighlightedParagraphStyle,
@@ -74,8 +74,6 @@ const SelfIntroductionHero__Avatar: ImageStyle = function (imageProps)
 
 const SelfIntroductionHero__Name: LabelStyle = function (labelProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint = useScreenSize(ScreenSize.Small);
-
     return {
         ...LabelVariant.Default(labelProps),
         alignSelf: "stretch",
@@ -84,17 +82,15 @@ const SelfIntroductionHero__Name: LabelStyle = function (labelProps)
         fontSize: 40,
         fontWeight: "bold",
         color: Color.White,
-        ...ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Small, {
             height: 60,
             fontSize: 50
-        }
+        })
     };
 };
 
 const SelfIntroductionHero__AlternativeName: LabelStyle = function (labelProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint = useScreenSize(ScreenSize.Small);
-
     return {
         ...LabelVariant.Default(labelProps),
         alignSelf: "stretch",
@@ -102,18 +98,15 @@ const SelfIntroductionHero__AlternativeName: LabelStyle = function (labelProps)
         fontSize: 28,
         fontWeight: "bold",
         color: Color.White,
-        ...ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Small, {
             height: 50,
             fontSize: 38
-        }
+        })
     };
 };
 
 const SelfIntroductionHero__Description: LabelStyle = function (labelProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint = useScreenSize(ScreenSize.Small);
-    const ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint = useScreenSize(ScreenSize.Medium);
-
     return {
         ...LabelVariant.Default(labelProps),
         width: "100%",
@@ -123,14 +116,14 @@ const SelfIntroductionHero__Description: LabelStyle = function (labelProps)
         fontSize: 20,
         color: Color.Neutral,
         textAlign: "justify",
-        ...ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Small, {
             width: 580,
             paddingVertical: 30,
             paddingHorizontal: 20
-        },
-        ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {
+        }),
+        ...useResponsiveStyle(ScreenSize.Medium, {
             width: 740
-        }
+        })
     };
 };
 
@@ -138,9 +131,6 @@ const SelfIntroductionHero__PersonalInfo__Root: ViewStyle = function (viewProps)
 {
     const personalInfoContext = SelfIntroductionHeroContextHook.usePersonalInfoContext();
     const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
-
-    const ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint = useScreenSize(ScreenSize.Small);
-    const ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint = useScreenSize(ScreenSize.Medium);
 
     const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).Root(viewProps);
 
@@ -156,7 +146,7 @@ const SelfIntroductionHero__PersonalInfo__Root: ViewStyle = function (viewProps)
             borderColor: Color.Primary,
             backgroundColor: Color.Primary__a10
         },
-        ...ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Small, {
             alignSelf: "center",
             position: "absolute",
             top: 300,
@@ -170,11 +160,11 @@ const SelfIntroductionHero__PersonalInfo__Root: ViewStyle = function (viewProps)
             marginLeft: personalInfoContext === "location" ? -370 : 370,
             borderWidth: 0,
             backgroundColor: Color.Transparent
-        },
-        ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {
+        }),
+        ...useResponsiveStyle(ScreenSize.Medium, {
             width: 200,
             marginLeft: personalInfoContext === "location" ? -500 : 500
-        }
+        })
     };
 };
 
@@ -182,16 +172,14 @@ const SelfIntroductionHero__PersonalInfo__TitleContainer: ViewStyle = function (
 {
     const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
 
-    const ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint = useScreenSize(ScreenSize.Small);
-
     const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).TitleContainer(viewProps);
 
     return {
         ...inheritedStyle,
         justifyContent: "center",
-        ...ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Small, {
             height: 37
-        }
+        })
     };
 };
 
@@ -199,22 +187,19 @@ const SelfIntroductionHero__PersonalInfo__TitleLabel: LabelStyle = function (lab
 {
     const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
 
-    const ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint = useScreenSize(ScreenSize.Small);
-    const ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint = useScreenSize(ScreenSize.Medium);
-
     const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).TitleLabel(labelProps);
 
     return {
         ...inheritedStyle,
         fontSize: 16,
         color: Color.Neutral,
-        ...ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Small, {
             fontSize: 17,
             fontWeight: "bold"
-        },
-        ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {
+        }),
+        ...useResponsiveStyle(ScreenSize.Medium, {
             fontSize: 20
-        }
+        })
     };
 };
 
@@ -238,9 +223,6 @@ const SelfIntroductionHero__PersonalInfo__Content: LabelStyle = function (labelP
 {
     const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
 
-    const ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint = useScreenSize(ScreenSize.Small);
-    const ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint = useScreenSize(ScreenSize.Medium);
-
     const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).Content(labelProps);
 
     return {
@@ -248,20 +230,20 @@ const SelfIntroductionHero__PersonalInfo__Content: LabelStyle = function (labelP
         alignSelf: "stretch",
         fontSize: 20,
         fontWeight: "bold",
-        ...ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Small, {
             height: 33,
             lineHeight: 20,
             fontSize: 17,
             fontWeight: "bold",
             color: Color.White,
             justifyContent: "flex-start",
+            borderStyle: "solid",
             borderBottomWidth: 4,
-            borderBottomStyle: "solid",
             borderBottomColor: Color.Primary
-        },
-        ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {
+        }),
+        ...useResponsiveStyle(ScreenSize.Medium, {
             fontSize: 20
-        }
+        })
     };
 };
 
@@ -283,8 +265,6 @@ const SelfIntroductionHero__DownloadButton__Button__Root: PressableStyle = funct
     const buttonContext = ButtonContextHook.useButtonContext();
     const downloadButtonContext = DownloadButtonContextHook.useDownloadButtonContext();
 
-    const ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint = useScreenSize(ScreenSize.Small);
-
     const inheritedStyle = DownloadButtonVariant.Default(downloadButtonContext.props, downloadButtonContext.state)(buttonContext.props)
         .Root(pressableProps, pressableState);
 
@@ -293,9 +273,9 @@ const SelfIntroductionHero__DownloadButton__Button__Root: PressableStyle = funct
         display: "none",
         minWidth: 150,
         marginTop: -5,
-        ...ifViewportSizeIsGreaterThanOrEqualToSmallBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Small, {
             display: "flex"
-        }
+        })
     };
 };
 

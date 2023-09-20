@@ -1,6 +1,6 @@
 import "@expo/match-media";
 import {useEffect, useState} from "react";
-import {Platform} from "react-native";
+import {ImageStyle, Platform, TextStyle, ViewStyle} from "react-native";
 import {MediaQueryAllQueryable, useMediaQuery} from "react-responsive";
 
 export enum ScreenSize
@@ -62,10 +62,42 @@ export function useEnvironment(environment: Environment): boolean
     }
 }
 
+export function useResponsiveStyle(screenSize: ScreenSize, style: ViewStyle | TextStyle | ImageStyle): typeof style
+{
+    const mediaQueryMatched = useMediaQuery({minWidth: screenSize});
+    if (ssrIsEnabled())
+    {
+        const [componentDidMount, setComponentDidMount] = useState(false);
+        useEffect(() => { setComponentDidMount(true); }, []);
+
+        return componentDidMount
+            ? mediaQueryMatched ? style : {}
+            : {};
+    }
+
+    return mediaQueryMatched ? style : {};
+}
+
+export function useSsrVisibleWhenReady(): ViewStyle & TextStyle & ImageStyle
+{
+    if (ssrIsEnabled())
+    {
+        const [componentDidMount, setComponentDidMount] = useState(false);
+        useEffect(() => { setComponentDidMount(true); }, []);
+
+        return componentDidMount
+            ? {}
+            : {display: "none"};
+    }
+
+    return useEnvironment(Environment.App) || runningInWebBrowser()
+        ? {}
+        : {display: "none"};
+}
+
 function useSsrSupportedMediaQuery(settings: MediaQueryAllQueryable): boolean
 {
-    const ssrIsEnabled = typeof window !== "undefined" && !!(window as never)?.["ANTIMATTER"]?.["ssr"];
-    if (ssrIsEnabled)
+    if (ssrIsEnabled())
     {
         const [componentDidMount, setComponentDidMount] = useState(false);
         useEffect(() => { setComponentDidMount(true); }, []);
@@ -76,4 +108,14 @@ function useSsrSupportedMediaQuery(settings: MediaQueryAllQueryable): boolean
     }
 
     return useMediaQuery(settings);
+}
+
+function ssrIsEnabled(): boolean
+{
+    return runningInWebBrowser() && !!(window as never)?.["ANTIMATTER"]?.["ssr"];
+}
+
+function runningInWebBrowser(): boolean
+{
+    return !!(typeof window !== "undefined" && window.document && window.document.createElement);
 }

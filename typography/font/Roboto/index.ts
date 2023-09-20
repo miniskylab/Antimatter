@@ -1,4 +1,4 @@
-import {useFonts} from "expo-font";
+import {FontDisplay, useFonts} from "expo-font";
 import RobotoBlackItalic from "./Roboto-Black-Italic.ttf";
 import RobotoBlack from "./Roboto-Black.ttf";
 import RobotoBoldItalic from "./Roboto-Bold-Italic.ttf";
@@ -14,19 +14,20 @@ import RobotoThin from "./Roboto-Thin.ttf";
 
 export function useRobotoFont(): boolean
 {
+    const display = FontDisplay.FALLBACK;
     const [fontsLoaded] = useFonts({
-        "Roboto-Black": RobotoBlack,
-        "Roboto-Black-Italic": RobotoBlackItalic,
-        "Roboto-Bold": RobotoBold,
-        "Roboto-Bold-Italic": RobotoBoldItalic,
-        "Roboto-Regular-Italic": RobotoRegularItalic,
-        "Roboto-Light": RobotoLight,
-        "Roboto-Light-Italic": RobotoLightItalic,
-        "Roboto-Medium": RobotoMedium,
-        "Roboto-Medium-Italic": RobotoMediumItalic,
-        "Roboto-Regular": RobotoRegular,
-        "Roboto-Thin": RobotoThin,
-        "Roboto-Thin-Italic": RobotoThinItalic
+        "Roboto-Black": {uri: RobotoBlack, display},
+        "Roboto-Black-Italic": {uri: RobotoBlackItalic, display},
+        "Roboto-Bold": {uri: RobotoBold, display},
+        "Roboto-Bold-Italic": {uri: RobotoBoldItalic, display},
+        "Roboto-Regular-Italic": {uri: RobotoRegularItalic, display},
+        "Roboto-Light": {uri: RobotoLight, display},
+        "Roboto-Light-Italic": {uri: RobotoLightItalic, display},
+        "Roboto-Medium": {uri: RobotoMedium, display},
+        "Roboto-Medium-Italic": {uri: RobotoMediumItalic, display},
+        "Roboto-Regular": {uri: RobotoRegular, display},
+        "Roboto-Thin": {uri: RobotoThin, display},
+        "Roboto-Thin-Italic": {uri: RobotoThinItalic, display}
     });
 
     return fontsLoaded;

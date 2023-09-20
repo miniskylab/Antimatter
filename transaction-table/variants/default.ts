@@ -3,7 +3,7 @@ import {CalendarContextHook, CalendarStyle, CalendarVariant} from "@miniskylab/a
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DatePickerContextHook, DatePickerStyle, DatePickerVariant} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {Environment, Layer, ScreenSize, useEnvironment, useScreenSize} from "@miniskylab/antimatter-framework";
+import {Environment, Layer, ScreenSize, useEnvironment, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -18,16 +18,18 @@ import {TransactionTableStyle} from "../models";
 
 const TransactionTable__Root: ViewStyle = function (viewProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-
     return {
         ...ViewVariant.Default(viewProps),
         flexGrow: 1,
-        flexDirection: ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint ? "row" : "column",
-        alignItems: ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint ? "flex-start" : "center",
+        flexDirection: "column",
+        alignItems: "center",
         minWidth: 300,
         maxWidth: 1000,
-        minHeight: 500
+        minHeight: 500,
+        ...useResponsiveStyle(ScreenSize.Large, {
+            flexDirection: "row",
+            alignItems: "flex-start"
+        })
     };
 };
 
@@ -191,17 +193,19 @@ const TransactionTable__DatePicker: DatePickerStyle = function (datePickerProps)
 
 const TransactionTable__TransactionDetails: ViewStyle = function (viewProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-
     return {
         ...ViewVariant.Default(viewProps),
         flex: 1,
         alignSelf: "stretch",
         justifyContent: "flex-start",
         minWidth: 300,
-        maxWidth: ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint ? "50%" : undefined,
-        height: ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint ? 562 : "auto",
-        marginTop: 12
+        maxWidth: undefined,
+        height: "auto",
+        marginTop: 12,
+        ...useResponsiveStyle(ScreenSize.Large, {
+            maxWidth: "50%",
+            height: 562
+        })
     };
 };
 

@@ -1,5 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Layer, ScreenSize, useScreenSize} from "@miniskylab/antimatter-framework";
+import {Layer, ScreenSize, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -20,25 +20,21 @@ const Timeline__Root: ViewStyle = function (viewProps)
 
 const Timeline__EventStream: ViewStyle = function (viewProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "column",
         alignSelf: "stretch",
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             flexDirection: "row",
             flexWrap: "wrap",
             columnGap: 130,
             marginTop: -60
-        }
+        })
     };
 };
 
 const Timeline__VerticalLine: ViewStyle = function (viewProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-
     return {
         ...ViewVariant.Default(viewProps),
         position: "absolute",
@@ -51,20 +47,18 @@ const Timeline__VerticalLine: ViewStyle = function (viewProps)
         marginBottom: 50,
         backgroundColor: Color.Gray,
         zIndex: Layer.Lower,
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             left: "50%",
             width: 6,
             marginLeft: -3,
             marginTop: 120,
             marginBottom: 80
-        }
+        })
     };
 };
 
 const Timeline__Origin: IconStyle = function (iconProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-
     return {
         ...IconVariant.Default(iconProps),
         alignSelf: "flex-start",
@@ -74,21 +68,19 @@ const Timeline__Origin: IconStyle = function (iconProps)
         marginBottom: 20,
         fontSize: 30,
         color: Color.Gray,
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             alignSelf: "center",
             flexBasis: "100%",
             height: 60,
             marginTop: 100,
             fontSize: 60
-        }
+        })
     };
 };
 
 const Timeline__Event__Root: ViewStyle = function (viewProps)
 {
     const eventContext = Event.ContextHook.useEventContext();
-
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -101,21 +93,19 @@ const Timeline__Event__Root: ViewStyle = function (viewProps)
         marginBottom: 20,
         marginLeft: 45,
         backgroundColor: Color.Ambient,
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             flexGrow: 1,
             flexBasis: "34%",
             marginLeft: 0,
             marginBottom: "auto",
             marginTop: eventContext.props.index % 2 !== 0 ? 220 : 60
-        }
+        })
     };
 };
 
 const Timeline__Event__Icon: IconStyle = function (iconProps)
 {
     const eventContext = Event.ContextHook.useEventContext();
-
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...IconVariant.Default(iconProps),
@@ -131,7 +121,7 @@ const Timeline__Event__Icon: IconStyle = function (iconProps)
         fontSize: 14,
         color: Color.Neutral,
         backgroundColor: Color.Ambient,
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             top: 30,
             width: 60,
             height: 60,
@@ -146,15 +136,13 @@ const Timeline__Event__Icon: IconStyle = function (iconProps)
                 left: -96,
                 right: undefined
             }
-        }
+        })
     };
 };
 
 const Timeline__Event__TriangleArrow: ViewStyle = function (viewProps)
 {
     const eventContext = Event.ContextHook.useEventContext();
-
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -167,7 +155,7 @@ const Timeline__Event__TriangleArrow: ViewStyle = function (viewProps)
         borderStyle: "solid",
         borderColor: Color.Transparent,
         borderRightColor: Color.Gray,
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             top: 40,
             borderWidth: 20,
             ...eventContext.props.index % 2 === 0 && {
@@ -182,7 +170,7 @@ const Timeline__Event__TriangleArrow: ViewStyle = function (viewProps)
                 borderRightColor: Color.Gray,
                 borderLeftColor: Color.Transparent
             }
-        }
+        })
     };
 };
 
@@ -344,8 +332,6 @@ const Timeline__Event: Event.Style = function ()
 
 const Timeline__BootstrapEvent__Root: ViewStyle = function (viewProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-
     return {
         ...ViewVariant.Default(viewProps),
         alignSelf: "stretch",
@@ -358,19 +344,17 @@ const Timeline__BootstrapEvent__Root: ViewStyle = function (viewProps)
         marginTop: -110,
         marginLeft: 45,
         backgroundColor: Color.Ambient,
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             maxWidth: undefined,
             height: 200,
             marginTop: 10,
             marginLeft: 0
-        }
+        })
     };
 };
 
 const Timeline__BootstrapEvent__TriangleArrow: ViewStyle = function (viewProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-
     return {
         ...ViewVariant.Default(viewProps),
         position: "absolute",
@@ -382,21 +366,19 @@ const Timeline__BootstrapEvent__TriangleArrow: ViewStyle = function (viewProps)
         borderStyle: "solid",
         borderColor: Color.Transparent,
         borderRightColor: Color.Gray,
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             top: -36,
             left: "50%",
             marginLeft: -18,
             borderWidth: 18,
             borderRightColor: Color.Transparent,
             borderBottomColor: Color.Gray
-        }
+        })
     };
 };
 
 const Timeline__BootstrapEvent__Icon: IconStyle = function (iconProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-
     return {
         ...IconVariant.Default(iconProps),
         width: 35,
@@ -404,19 +386,17 @@ const Timeline__BootstrapEvent__Icon: IconStyle = function (iconProps)
         marginBottom: 18,
         fontSize: 35,
         color: Color.Gray,
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             width: 45,
             height: 45,
             marginBottom: 23,
             fontSize: 45
-        }
+        })
     };
 };
 
 const Timeline__BootstrapEvent__Name: LabelStyle = function (labelProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-
     return {
         ...LabelVariant.Default(labelProps),
         lineHeight: 28,
@@ -424,17 +404,15 @@ const Timeline__BootstrapEvent__Name: LabelStyle = function (labelProps)
         fontSize: 20,
         fontWeight: "bold",
         color: Color.Gray,
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             marginBottom: 10,
             fontSize: 30
-        }
+        })
     };
 };
 
 const Timeline__BootstrapEvent__Description: LabelStyle = function (labelProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-
     return {
         ...LabelVariant.Default(labelProps),
         lineHeight: 21,
@@ -442,9 +420,9 @@ const Timeline__BootstrapEvent__Description: LabelStyle = function (labelProps)
         marginTop: 6,
         fontSize: 14,
         color: Color.Gray,
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {
+        ...useResponsiveStyle(ScreenSize.Large, {
             fontSize: 17
-        }
+        })
     };
 };
 

@@ -1,6 +1,6 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {ScreenSize, ShadowStyle, useScreenSize} from "@miniskylab/antimatter-framework";
+import {ScreenSize, ShadowStyle, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -12,8 +12,6 @@ import {TopicCardGroupStyle} from "../models";
 
 const TopicCardGroup__Root: ViewStyle = function (viewProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint = useScreenSize(ScreenSize.Medium);
-
     return {
         ...ViewVariant.Default(viewProps),
         flex: 1,
@@ -23,7 +21,9 @@ const TopicCardGroup__Root: ViewStyle = function (viewProps)
         minWidth: 300,
         maxWidth: 1000,
         marginVertical: -10,
-        ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {marginHorizontal: -10}
+        ...useResponsiveStyle(ScreenSize.Medium, {
+            marginHorizontal: -10
+        })
     };
 };
 
@@ -31,17 +31,14 @@ const TopicCardGroup__Card__Root: ViewStyle = function (viewProps)
 {
     const cardContext = Card.ContextHook.useCardContext();
 
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
-    const ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint = useScreenSize(ScreenSize.Medium);
-
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         alignItems: "stretch",
         flexBasis: "100%",
         marginVertical: 10,
-        ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {flexBasis: "50%"},
-        ...ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint && {flexBasis: "33.33%"},
+        ...useResponsiveStyle(ScreenSize.Medium, {flexBasis: "50%"}),
+        ...useResponsiveStyle(ScreenSize.Large, {flexBasis: "33.33%"}),
         ...cardContext.props.thisIsPlaceholderCard && {
             marginTop: 0,
             marginBottom: 0,
@@ -76,13 +73,13 @@ const TopicCardGroup__Card__Content: ViewStyle = function (viewProps)
 
 const TopicCardGroup__Card__HorizontalMargin: ViewStyle = function (viewProps)
 {
-    const ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint = useScreenSize(ScreenSize.Medium);
-
     return {
         ...ViewVariant.Default(viewProps),
         width: 10,
         display: "none",
-        ...ifViewportSizeIsGreaterThanOrEqualToMediumBreakpoint && {display: "flex"}
+        ...useResponsiveStyle(ScreenSize.Medium, {
+            display: "flex"
+        })
     };
 };
 
