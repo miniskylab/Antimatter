@@ -2,6 +2,7 @@ import "@expo/match-media";
 import {useEffect, useState} from "react";
 import {ImageStyle, Platform, TextStyle, ViewStyle} from "react-native";
 import {MediaQueryAllQueryable, useMediaQuery} from "react-responsive";
+import {runningInWebBrowser} from "../functions";
 
 export enum ScreenSize
 {
@@ -113,9 +114,4 @@ function useSsrSupportedMediaQuery(settings: MediaQueryAllQueryable): boolean
 function ssrIsEnabled(): boolean
 {
     return runningInWebBrowser() && !!(window as never)?.["ANTIMATTER"]?.["ssr"];
-}
-
-function runningInWebBrowser(): boolean
-{
-    return !!(typeof window !== "undefined" && window.document && window.document.createElement);
 }

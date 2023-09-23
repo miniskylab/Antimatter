@@ -7,3 +7,4 @@ export * from "./higher-order-components";
 export * from "./html";
 export * from "./styles";
 export * from "./types";
+export * from "./functions";
