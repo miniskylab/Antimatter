@@ -22,7 +22,7 @@ export function Label({
     };
 
     const computedStyle = useComputedStyle(style, props);
-    const runningOnWeb = useEnvironment(Environment.Web);
+    const isWebEnvironment = useEnvironment(Environment.Web);
 
     return (
         <View
@@ -50,7 +50,7 @@ export function Label({
                     paddingRight: computedStyle.paddingRight
                 }}
             >
-                {runningOnWeb ? Html.render(children) : children}
+                {isWebEnvironment ? Html.render(children) : children}
             </Animated.Text>
         </View>
     );

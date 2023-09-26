@@ -31,7 +31,7 @@ export function Component({
     );
 
     const computedStyle = useComputedStyle(style, props);
-    const runningOnWeb = useEnvironment(Environment.Web);
+    const runningInsideWebBrowser = useEnvironment(Environment.WebBrowser);
 
     return (
         <CardContext.Provider value={context}>
@@ -70,7 +70,7 @@ export function Component({
 
     function follow(cta: Cta): void
     {
-        if (runningOnWeb)
+        if (runningInsideWebBrowser)
         {
             window.open(cta.href, cta.openIn);
         }

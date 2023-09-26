@@ -16,10 +16,10 @@ export function DownloadButton({
     disabled = false
 }: DownloadButtonProps): JSX.Element
 {
-    const runningOnWeb = useEnvironment(Environment.Web);
-    if (!runningOnWeb)
+    const isWebEnvironment = useEnvironment(Environment.Web);
+    if (!isWebEnvironment)
     {
-        throw new Error("<DownloadButton/> cannot be used on mobile!");
+        throw new Error("<DownloadButton/> can only be used inside web environment");
     }
 
     const props: Required<DownloadButtonProps> = {

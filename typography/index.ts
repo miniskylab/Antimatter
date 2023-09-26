@@ -14,7 +14,7 @@ export function useTypography<TStyle extends TextStyle>(style: TStyle): Typograp
 {
     const fontLoaded = useRobotoFont();
     const icomoonSettings = useDefaultIconSet();
-    const runningOnWeb = useEnvironment(Environment.Web);
+    const isWebEnvironment = useEnvironment(Environment.Web);
     if (!fontLoaded || !icomoonSettings)
     {
         return {};
@@ -72,7 +72,7 @@ export function useTypography<TStyle extends TextStyle>(style: TStyle): Typograp
 
     const [, glyphName] = icomoonSettings;
     let fontFamily = `Roboto${fontWeightSuffix}${fontStyleSuffix}`;
-    if (runningOnWeb)
+    if (isWebEnvironment)
     {
         fontFamily += `, sans-serif, ${glyphName}`;
     }

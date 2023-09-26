@@ -4,9 +4,22 @@
   "license": "MIT",
   "dependencies": {
     "@expo/match-media": "0.4.0",
+    "@react-native-async-storage/async-storage": "1.18.2",
+    "@reduxjs/toolkit": "1.9.5",
+    "@types/crypto-js": "4.1.2",
+    "@types/react-redux": "7.1.26",
     "@types/sanitize-html": "2.9.0",
+    "base64-js": "1.5.1",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.0",
+    "crypto-js": "4.1.1",
+    "expo-auth-session": "5.0.2",
+    "expo-crypto": "12.4.1",
+    "expo-secure-store": "12.3.1",
+    "jwt-decode": "3.1.2",
+    "react-native-get-random-values": "1.9.0",
+    "react-redux": "8.1.2",
+    "redux-saga": "1.2.3",
     "reflect-metadata": "0.1.13",
     "sanitize-html": "2.11.0"
   }
