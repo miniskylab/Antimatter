@@ -4,7 +4,6 @@ import CryptoJS from "crypto-js";
 import * as AuthSession from "expo-auth-session";
 import * as ExpoCrypto from "expo-crypto";
 import * as ExpoSecureStore from "expo-secure-store";
-import jwt_decode from "jwt-decode";
 import {useState} from "react";
 
 export const Authentication = new class
@@ -15,7 +14,7 @@ export const Authentication = new class
     private clientId: string;
     private discovery: AuthSession.DiscoveryDocument;
 
-    useAuthentication(issuer: string, clientId: string, mobileAppScheme: string): [boolean, string?]
+    useAuthentication(issuer: string, clientId: string, mobileAppScheme: string): boolean
     {
         this.clientId = clientId;
         this.discovery = AuthSession.useAutoDiscovery(issuer);
@@ -26,7 +25,7 @@ export const Authentication = new class
             isTripleSlashed: true
         });
 
-        const [userId, setUserId] = useState<string>(undefined);
+        const [authenticationComplete, setAuthenticationComplete] = useState(false);
         const [authRequest, codeResponse, promptAsync] = AuthSession.useAuthRequest(
             {
                 clientId,
@@ -36,14 +35,14 @@ export const Authentication = new class
             this.discovery
         );
 
-        if (userId)
+        if (authenticationComplete)
         {
-            return [true, userId];
+            return true;
         }
 
         if (!this.discovery || !authRequest)
         {
-            return [false];
+            return false;
         }
 
         if (codeResponse?.type === "success")
@@ -64,8 +63,7 @@ export const Authentication = new class
                     refreshToken: tokenResponse.refreshToken
                 }).then(() =>
                 {
-                    const idTokenPayload = jwt_decode(tokenResponse.idToken) as Record<string, string>;
-                    setUserId(idTokenPayload["sub"]);
+                    setAuthenticationComplete(true);
                 });
             });
         }
@@ -74,7 +72,7 @@ export const Authentication = new class
             promptAsync();
         }
 
-        return [false];
+        return false;
     }
 
     async storeTokenAsync(token: Token): Promise<void>
