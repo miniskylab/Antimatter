@@ -49,3 +49,14 @@ export function isNumericEnum(anyObject: Record<string, unknown>): boolean
 
     return true;
 }
+
+export function isDefaultJavaScriptErrorObject(anyObject: unknown): boolean
+{
+    if (!anyObject || typeof anyObject !== "object")
+    {
+        return false;
+    }
+
+    const indexableObject = anyObject as Record<string, unknown>;
+    return typeof indexableObject.stack === "string" && typeof indexableObject.message === "string";
+}

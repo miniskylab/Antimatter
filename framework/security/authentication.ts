@@ -4,7 +4,9 @@ import CryptoJS from "crypto-js";
 import * as AuthSession from "expo-auth-session";
 import * as ExpoCrypto from "expo-crypto";
 import * as ExpoSecureStore from "expo-secure-store";
-import {useState} from "react";
+import * as WebBrowser from "expo-web-browser";
+import {useRef, useState} from "react";
+import {base64UrlEncode, extractQueryParameter} from "../extensions";
 
 export const Authentication = new class
 {
@@ -19,38 +21,51 @@ export const Authentication = new class
         this.clientId = clientId;
         this.discovery = AuthSession.useAutoDiscovery(issuer);
 
-        const redirectUri = AuthSession.makeRedirectUri({
-            scheme: mobileAppScheme,
-            preferLocalhost: true,
-            isTripleSlashed: true
-        });
-
+        const ref = useRef<Ref>({});
+        const [codeChallenge, setCodeChallenge] = useState<string>();
         const [authenticationComplete, setAuthenticationComplete] = useState(false);
-        const [authRequest, codeResponse, promptAsync] = AuthSession.useAuthRequest(
-            {
-                clientId,
-                redirectUri,
-                scopes: ["openid", "profile", "offline_access"]
-            },
-            this.discovery
-        );
+        const [authorizationResponse, setAuthorizationResponse] = useState<WebBrowser.WebBrowserAuthSessionResult>();
 
         if (authenticationComplete)
         {
             return true;
         }
 
-        if (!this.discovery || !authRequest)
+        if (!ref.current.codeVerifier && !codeChallenge)
+        {
+            ref.current.codeVerifier = Base64JS.fromByteArray(ExpoCrypto.getRandomBytes(1024));
+            ExpoCrypto.digestStringAsync(
+                ExpoCrypto.CryptoDigestAlgorithm.SHA256,
+                ref.current.codeVerifier,
+                {encoding: ExpoCrypto.CryptoEncoding.BASE64}
+            ).then(codeChallenge =>
+            {
+                setCodeChallenge(base64UrlEncode(codeChallenge));
+            });
+        }
+
+        if (!this.discovery || !codeChallenge)
         {
             return false;
         }
 
-        if (codeResponse?.type === "success")
+        const redirectUri = AuthSession.makeRedirectUri({scheme: mobileAppScheme, preferLocalhost: true, isTripleSlashed: true});
+        const scope = ["openid", "profile", "offline_access"];
+        const authorizationRequestUrl = `${this.discovery.authorizationEndpoint}?`
+                                        + "response_type=code&"
+                                        + "code_challenge_method=S256&"
+                                        + `code_challenge=${codeChallenge}&`
+                                        + `client_id=${this.clientId}&`
+                                        + `redirect_uri=${redirectUri}&`
+                                        + `scope=${scope.join("%20")}`;
+
+        if (authorizationResponse?.type === "success")
         {
+            const authorizationCode = extractQueryParameter(authorizationResponse.url)["code"];
             AuthSession.exchangeCodeAsync(
                 {
-                    extraParams: {code_verifier: authRequest.codeVerifier},
-                    code: codeResponse.params.code,
+                    extraParams: {code_verifier: ref.current.codeVerifier},
+                    code: authorizationCode,
                     redirectUri,
                     clientId
                 },
@@ -69,7 +84,11 @@ export const Authentication = new class
         }
         else
         {
-            promptAsync();
+            WebBrowser.openAuthSessionAsync(authorizationRequestUrl, redirectUri)
+                .then(authorizationResponse =>
+                {
+                    setAuthorizationResponse(authorizationResponse);
+                });
         }
 
         return false;
@@ -134,3 +153,7 @@ type Token = {
     readonly accessToken: string;
     readonly refreshToken: string;
 };
+
+type Ref = {
+    codeVerifier?: string;
+}
