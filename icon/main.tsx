@@ -21,15 +21,13 @@ export function Icon({
     };
 
     const computedStyle = useComputedStyle(style, props);
-    const icomoonSettings = useIcomoon();
-    if (!icomoonSettings)
+    const [assetLoaded, selection, expoFontName, expoAssetId] = useIcomoon();
+    if (!assetLoaded)
     {
         return null;
     }
 
-    const [selection, expoFontName, expoAssetId] = icomoonSettings;
     const IconSet = createIconSetFromIcoMoon(selection, expoFontName, expoAssetId);
-
     return (
         <View style={() => computedStyle} pointerEvents={pointerEvents}>
             <IconSet name={name} size={computedStyle.fontSize} style={inheritTextStyleFrom(computedStyle)} selectable={selectable}/>

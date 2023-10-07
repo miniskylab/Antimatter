@@ -1,4 +1,4 @@
-import {Environment, Html, inheritTextStyleFrom, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
+import {Environment, Html, inheritTextStyleFrom, isEnvironment, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
@@ -22,7 +22,6 @@ export function Label({
     };
 
     const computedStyle = useComputedStyle(style, props);
-    const isWebEnvironment = useEnvironment(Environment.Web);
 
     return (
         <View
@@ -41,6 +40,7 @@ export function Label({
                 style={{
                     ...inheritTextStyleFrom(computedStyle),
                     ...useTypography(computedStyle),
+                    ...{whiteSpace: "inherit"},
                     padding: computedStyle.padding,
                     paddingVertical: computedStyle.paddingVertical,
                     paddingHorizontal: computedStyle.paddingHorizontal,
@@ -50,7 +50,7 @@ export function Label({
                     paddingRight: computedStyle.paddingRight
                 }}
             >
-                {isWebEnvironment ? Html.render(children) : children}
+                {isEnvironment(Environment.Web) ? Html.render(children) : children}
             </Animated.Text>
         </View>
     );

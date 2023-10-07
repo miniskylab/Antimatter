@@ -1,1 +1,1 @@
-export type IcomoonSettings = [selection: unknown, expoFontName: string, expoAssetId: string];
+export type IcomoonSettings = [assetLoaded: boolean, selection: unknown, expoFontName: string, expoAssetId: string];

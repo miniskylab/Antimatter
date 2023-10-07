@@ -1,21 +1,19 @@
-import {EMPTY_STRING, Environment, useEnvironment} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, Environment, isEnvironment} from "@miniskylab/antimatter-framework";
 import {TextStyle} from "react-native";
 import {useRobotoFont} from "./font";
 import {IcomoonSettings, useDefaultIconSet} from "./icomoon";
 
 export function useIcomoon(): IcomoonSettings
 {
-    const runningOnServerSide = typeof window === "undefined";
-    return runningOnServerSide ? null : useDefaultIconSet();
+    return useDefaultIconSet();
 }
 
 type Typography = { fontFamily?: string; fontWeight?: TextStyle["fontWeight"]; fontStyle?: TextStyle["fontStyle"]; }
 export function useTypography<TStyle extends TextStyle>(style: TStyle): Typography
 {
     const fontLoaded = useRobotoFont();
-    const icomoonSettings = useDefaultIconSet();
-    const isWebEnvironment = useEnvironment(Environment.Web);
-    if (!fontLoaded || !icomoonSettings)
+    const [iconLoaded, , glyphName] = useDefaultIconSet();
+    if (!fontLoaded || !iconLoaded)
     {
         return {};
     }
@@ -70,9 +68,8 @@ export function useTypography<TStyle extends TextStyle>(style: TStyle): Typograp
             break;
     }
 
-    const [, glyphName] = icomoonSettings;
     let fontFamily = `Roboto${fontWeightSuffix}${fontStyleSuffix}`;
-    if (isWebEnvironment)
+    if (isEnvironment(Environment.Web))
     {
         fontFamily += `, sans-serif, ${glyphName}`;
     }

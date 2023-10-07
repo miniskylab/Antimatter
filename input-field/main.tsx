@@ -46,7 +46,7 @@ export function InputField({
     return (
         <InputFieldContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                {icon && <Icon style={computedStyle.AddOn} name={icon}/>}
+                {icon && <Icon style={computedStyle.AddOn} name={icon} pointerEvents={"none"}/>}
                 <View style={computedStyle.Container}>
                     {!!placeholder && (
                         <Label style={computedStyle.Placeholder} pointerEvents={"none"}>
