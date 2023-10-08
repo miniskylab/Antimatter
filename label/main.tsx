@@ -22,6 +22,7 @@ export function Label({
     };
 
     const computedStyle = useComputedStyle(style, props);
+    const isWebEnvironment = isEnvironment(Environment.Web);
 
     return (
         <View
@@ -40,17 +41,17 @@ export function Label({
                 style={{
                     ...inheritTextStyleFrom(computedStyle),
                     ...useTypography(computedStyle),
-                    ...{whiteSpace: "inherit"},
                     padding: computedStyle.padding,
                     paddingVertical: computedStyle.paddingVertical,
                     paddingHorizontal: computedStyle.paddingHorizontal,
                     paddingTop: computedStyle.paddingTop,
                     paddingBottom: computedStyle.paddingBottom,
                     paddingLeft: computedStyle.paddingLeft,
-                    paddingRight: computedStyle.paddingRight
+                    paddingRight: computedStyle.paddingRight,
+                    ...isWebEnvironment && numberOfLines !== 1 && {whiteSpace: "inherit"}
                 }}
             >
-                {isEnvironment(Environment.Web) ? Html.render(children) : children}
+                {isWebEnvironment ? Html.render(children) : children}
             </Animated.Text>
         </View>
     );
