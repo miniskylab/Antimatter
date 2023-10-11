@@ -31,10 +31,8 @@ export const Default: DownloadButtonStyle = function ()
 {
     return function (buttonProps)
     {
-        const inheritedStyle = ButtonVariant.SolidRectangular(buttonProps);
-
         return {
-            ...inheritedStyle,
+            ...ButtonVariant.SolidRectangular(buttonProps),
             Root: DownloadButton__Button__Root,
             Icon: DownloadButton__Button__Icon
         };

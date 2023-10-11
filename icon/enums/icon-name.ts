@@ -62,8 +62,9 @@ export enum IconName
     LockInsideShield = "lock-inside-shield",
     User = "user",
     Lock = "lock",
-    Menu = "menu",
     Health = "health",
     Statistics = "statistics",
-    Circle = "circle"
+    Circle = "circle",
+    Home = "home",
+    Gear = "gear"
 }

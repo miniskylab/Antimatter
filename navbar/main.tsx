@@ -31,7 +31,7 @@ export function Navbar({
                 <Icon style={computedStyle.Icon} name={IconName.Sun}/>
                 <Icon style={computedStyle.Icon} name={IconName.Sun}/>
                 <Icon style={computedStyle.Icon} name={IconName.Sun}/>
-                <Icon style={computedStyle.Icon} name={IconName.Menu}/>
+                <Icon style={computedStyle.Icon} name={IconName.Sun}/>
             </View>
         </NavbarContext.Provider>
     );

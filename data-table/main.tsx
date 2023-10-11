@@ -44,7 +44,7 @@ export function DataTable({
     const scrollViewRef = useRef<ScrollView>(null);
     const computedStyle = useComputedStyle(style, props);
 
-    const headerData = columns.map(x => x.name).filter(x => !!x);
+    const headerData = columns?.map(x => x.name).filter(x => !!x);
     const {modeButton, actionButton, cancelButton} = getControlPanelModel();
 
     return (
