@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Environment, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
+import {Environment, Style, useEnvironment} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
@@ -30,7 +30,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
     const runningInsideWebBrowser = useEnvironment(Environment.WebBrowser);
 
     return (

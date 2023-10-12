@@ -1,5 +1,5 @@
 import {ComponentName, ComponentProps, IsBoolean, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {Target} from "../enums";
 import {NavButtonStyle} from "./style";
@@ -37,11 +37,11 @@ export class NavButtonProps extends ComponentProps<NavButtonStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type IconName
+     * @type DefaultIconSet
      */
-    @IsEnum(IconName)
+    @IsEnum(DefaultIconSet)
     @IsOptional()
-    readonly icon?: IconName;
+    readonly icon?: DefaultIconSet;
 
 
     /**

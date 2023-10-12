@@ -1,8 +1,8 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
-import {DateFormat, EMPTY_STRING, GregorianCalendar, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {DateFormat, EMPTY_STRING, GregorianCalendar, Style} from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {DatePickerContext, DatePickerProps} from "./models";
@@ -33,7 +33,7 @@ export function DatePicker({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <DatePickerContext.Provider value={context}>
@@ -48,7 +48,7 @@ export function DatePicker({
                 />
                 <Button
                     style={computedStyle.Addon}
-                    icon={IconName.Calendar}
+                    icon={DefaultIconSet.Calendar}
                     onPress={onAddonPress}
                 />
                 {calendarIsOpen && (

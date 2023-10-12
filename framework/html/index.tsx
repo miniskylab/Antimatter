@@ -3,29 +3,26 @@ import sanitizeHtml from "sanitize-html";
 import {Environment, isEnvironment} from "../environment";
 import "./index.css";
 
-export const Html = new class
+export function render(dangerousHtmlString: string): JSX.Element
 {
-    render(dangerousHtmlString: string): JSX.Element
+    if (!isEnvironment(Environment.Web))
     {
-        if (!isEnvironment(Environment.Web))
-        {
-            throw new Error("Raw HTML, Markdown & WYSIWYG can only be used inside web environment");
-        }
-
-        const sanitizedHtmlString = sanitizeHtml(
-            dangerousHtmlString,
-            {
-                allowedAttributes: {
-                    "*": ["class"]
-                }
-            }
-        );
-
-        return (
-            <div
-                className={"antimatter-html"}
-                dangerouslySetInnerHTML={{__html: sanitizedHtmlString}}
-            />
-        );
+        throw new Error("Raw HTML, Markdown & WYSIWYG can only be used inside web environment");
     }
-};
+
+    const sanitizedHtmlString = sanitizeHtml(
+        dangerousHtmlString,
+        {
+            allowedAttributes: {
+                "*": ["class"]
+            }
+        }
+    );
+
+    return (
+        <div
+            className={"antimatter-html"}
+            dangerouslySetInnerHTML={{__html: sanitizedHtmlString}}
+        />
+    );
+}

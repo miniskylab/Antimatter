@@ -1,7 +1,7 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {CalendarContextHook, CalendarStyle, CalendarVariant} from "@miniskylab/antimatter-calendar";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Layer} from "@miniskylab/antimatter-framework";
+import {Style} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle} from "@miniskylab/antimatter-label";
@@ -33,7 +33,7 @@ const DatePicker__Caret: ViewStyle = function (viewProps)
         borderStyle: "solid",
         borderColor: Color.Transparent,
         borderBottomColor: Color.Background,
-        zIndex: Layer.AlwaysOnTop
+        zIndex: Style.Layer.AlwaysOnTop
     };
 };
 

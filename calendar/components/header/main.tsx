@@ -1,6 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {useComputedStyle} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {Style} from "@miniskylab/antimatter-framework";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {HeaderContext, NavigatorDirectionContext, Props} from "./models";
@@ -25,7 +25,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <HeaderContext.Provider value={context}>
@@ -33,7 +33,7 @@ export function Component({
                 <NavigatorDirectionContext.Provider value={"backward"}>
                     <Button
                         style={computedStyle.Navigator}
-                        icon={IconName.ChevronLeft}
+                        icon={DefaultIconSet.ChevronLeft}
                         disabled={!onPrevPress}
                         onPress={onPrevPress}
                     />
@@ -47,7 +47,7 @@ export function Component({
                 <NavigatorDirectionContext.Provider value={"forward"}>
                     <Button
                         style={computedStyle.Navigator}
-                        icon={IconName.ChevronRight}
+                        icon={DefaultIconSet.ChevronRight}
                         disabled={!onNextPress}
                         onPress={onNextPress}
                     />

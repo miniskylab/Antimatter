@@ -1,4 +1,4 @@
-import {Layer, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {Style} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Card} from "./components";
@@ -22,7 +22,7 @@ export function TopicCardGroup({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <TopicCardGroupContext.Provider value={context}>
@@ -50,7 +50,7 @@ export function TopicCardGroup({
                     marginBottom: 0,
                     marginLeft: 0,
                     marginRight: 0,
-                    zIndex: Layer.Ambient
+                    zIndex: Style.Layer.Ambient
                 })}
             >
                 <View
@@ -61,7 +61,7 @@ export function TopicCardGroup({
                         bottom: 0,
                         left: 0,
                         right: 0,
-                        zIndex: Layer.AlwaysOnTop
+                        zIndex: Style.Layer.AlwaysOnTop
                     })}
                 />
                 {cards.map((cardProps, i) => (

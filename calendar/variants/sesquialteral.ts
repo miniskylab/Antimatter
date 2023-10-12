@@ -1,5 +1,5 @@
 import {ButtonContextHook, ButtonStyle} from "@miniskylab/antimatter-button";
-import {GregorianCalendar} from "@miniskylab/antimatter-framework";
+import {isEqualDate} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle} from "@miniskylab/antimatter-label";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
@@ -205,7 +205,7 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
     const calendarContext = CalendarContextHook.useCalendarContext();
     const dateViewContext = DateView.ContextHook.useDateViewContext();
 
-    const isToday = GregorianCalendar.isEqualDate(dateContext.value, dateViewContext.props.today);
+    const isToday = isEqualDate(dateContext.value, dateViewContext.props.today);
 
     const inheritedStyle = Default(calendarContext.props, calendarContext.state)
         .DateView(dateViewContext.props)

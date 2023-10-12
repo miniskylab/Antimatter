@@ -1,0 +1,23 @@
+import {ComponentName, InputField} from "@miniskylab/antimatter-input-field";
+import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-framework";
+import * as Stories from "./stories";
+
+<Meta of={Stories}/>
+<Sb.Intro title={ComponentName} component={InputField}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<Controls of={Stories.Playground}/>
+
+### Prefilled
+<Canvas of={Stories.Prefilled}/>
+
+### Placeholder
+<Canvas of={Stories.Placeholder}/>
+
+### Password Field
+<Canvas of={Stories.PasswordField}/>
+
+### With Addon
+<Canvas of={Stories.WithAddon}/>

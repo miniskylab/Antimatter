@@ -1,5 +1,5 @@
 import {ComponentName, ComponentProps, IsEnum, IsString} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {HighlightedParagraphStyle} from "./style";
 
@@ -9,11 +9,11 @@ export class HighlightedParagraphProps extends ComponentProps<HighlightedParagra
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type IconName
+     * @type DefaultIconSet
      */
-    @IsEnum(IconName)
+    @IsEnum(DefaultIconSet)
     @IsOptional()
-    readonly icon?: IconName;
+    readonly icon?: DefaultIconSet;
 
 
     /**

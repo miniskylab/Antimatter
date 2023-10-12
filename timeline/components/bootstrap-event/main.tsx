@@ -1,4 +1,4 @@
-import {useComputedStyle} from "@miniskylab/antimatter-framework";
+import {Style} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
@@ -24,7 +24,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <BootstrapEventContext.Provider value={context}>

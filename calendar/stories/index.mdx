@@ -1,0 +1,11 @@
+import {ComponentName, Calendar} from "@miniskylab/antimatter-calendar";
+import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-framework";
+import * as Stories from "./stories";
+
+<Meta of={Stories}/>
+<Sb.Intro title={ComponentName} component={Calendar}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<Controls of={Stories.Playground}/>

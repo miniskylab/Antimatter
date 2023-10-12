@@ -1,8 +1,8 @@
 import {GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 
 export type ControlButton = {
-    icon?: IconName;
+    icon?: DefaultIconSet;
     text?: string;
     disabled?: boolean;
     onPress?: GestureResponderEventHandler;

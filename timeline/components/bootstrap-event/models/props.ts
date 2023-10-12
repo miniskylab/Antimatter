@@ -1,5 +1,5 @@
 import {ComponentProps, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {Style} from "./style";
 
 export class Props extends ComponentProps<Style>
@@ -7,11 +7,12 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type IconName
+     * @type DefaultIconSet
      */
-    @IsEnum(IconName)
+    @IsEnum(DefaultIconSet)
     @IsDefined()
-    readonly icon: IconName;
+    readonly icon: DefaultIconSet;
+
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -20,6 +21,7 @@ export class Props extends ComponentProps<Style>
     @IsString()
     @IsDefined()
     readonly name: string;
+
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>

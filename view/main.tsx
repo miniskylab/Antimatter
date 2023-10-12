@@ -1,4 +1,4 @@
-import {useComputedStyle} from "@miniskylab/antimatter-framework";
+import {Style} from "@miniskylab/antimatter-framework";
 import React, {forwardRef, JSX, MutableRefObject} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ViewProps} from "./models";
@@ -21,7 +21,7 @@ export const View = forwardRef(function View(
         style, children, pointerEvents, onLayout
     };
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <Animated.View

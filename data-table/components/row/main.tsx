@@ -1,10 +1,11 @@
 import {DropDirection, DropdownMenu, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {EMPTY_STRING, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Icon, IconName} from "@miniskylab/antimatter-icon";
+import {EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
+import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Status as CheckboxStatus, Toggle} from "@miniskylab/antimatter-toggle";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef, useState} from "react";
 import {Mode} from "./enums";
@@ -39,7 +40,7 @@ export function Component({
     );
 
     const ref = useRef<Pressable>(null);
-    const computedStyle = useComputedStyle(style, props, state);
+    const computedStyle = Style.useComputedStyle(style, props, state);
 
     if (mode === Mode.ReadOnly && state.openedDropdownMenuColumnIndex)
     {
@@ -138,7 +139,7 @@ export function Component({
                         return (
                             <Toggle
                                 style={computedStyle.CellToggle}
-                                icon={IconName.CheckMark}
+                                icon={DefaultIconSet.CheckMark}
                                 status={
                                     typeof cellValue === "boolean" && cellValue === true
                                         ? CheckboxStatus.Checked
@@ -187,7 +188,7 @@ export function Component({
                     case "boolean":
                     {
                         return cellValue === true
-                            ? <Icon style={computedStyle.CellIcon} name={IconName.CheckMark}/>
+                            ? <Icon style={computedStyle.CellIcon} name={DefaultIconSet.CheckMark}/>
                             : <Label style={computedStyle.CellLabel}>{EMPTY_STRING}</Label>;
                     }
 

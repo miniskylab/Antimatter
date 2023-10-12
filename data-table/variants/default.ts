@@ -1,7 +1,7 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DropDirection, DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant} from "@miniskylab/antimatter-dropdown-menu";
-import {Environment, Layer, useEnvironment} from "@miniskylab/antimatter-framework";
+import {Environment, Style, useEnvironment} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -220,10 +220,10 @@ const DataTable__Row__Root: PressableStyle = function (pressableProps, pressable
         marginTop: runningOnMobileApp ? -2 : -1.6,
         cursor: selectableAndHovered ? "pointer" : "default",
         zIndex: rowContext.props.mode !== Row.Mode.ReadOnly
-            ? Layer.AlwaysOnTop
+            ? Style.Layer.AlwaysOnTop
             : pressableState.hovered
-                ? Layer.Higher
-                : Layer.Default,
+                ? Style.Layer.Higher
+                : Style.Layer.Default,
         ...(selectableAndHovered || rowContext.props.mode === Row.Mode.Draft || rowContext.props.mode === Row.Mode.Edit) && {
             backgroundColor: Color.Primary__a10,
             borderColor: Color.Primary
@@ -528,7 +528,7 @@ const DataTable__AddNewButton__Root: PressableStyle = function (pressableProps, 
         borderTopWidth: 2,
         borderBottomWidth: 2,
         borderColor: pressableState.hovered || pressableState.pressed ? Color.Primary : Color.Neutral,
-        zIndex: pressableState.hovered ? Layer.Higher : Layer.Default,
+        zIndex: pressableState.hovered ? Style.Layer.Higher : Style.Layer.Default,
         marginTop: runningOnMobileApp ? -2 : -1.6,
         opacity: 1
     };

@@ -1,0 +1,11 @@
+import {ComponentName, NavMenu} from "@miniskylab/antimatter-nav-menu";
+import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-framework";
+import * as Stories from "./stories";
+
+<Meta of={Stories}/>
+<Sb.Intro title={ComponentName} component={NavMenu}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<Controls of={Stories.Playground}/>

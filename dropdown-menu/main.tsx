@@ -1,9 +1,9 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {EMPTY_STRING, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {DropDirection, MenuItemStatus} from "./enums";
@@ -33,7 +33,7 @@ export function DropdownMenu({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     const selectedValues = Object.keys(menuItems).filter(x => menuItems[x].status === MenuItemStatus.Selected);
     const hasSelection = selectedValues.length > 0;
@@ -90,7 +90,7 @@ export function DropdownMenu({
                     <Button
                         style={computedStyle.MenuItem}
                         label={menuItem.displayText || menuItemKey}
-                        icon={menuItem.status === MenuItemStatus.Selected && IconName.CheckMark}
+                        icon={menuItem.status === MenuItemStatus.Selected && DefaultIconSet.CheckMark}
                         disabled={menuItem.status !== MenuItemStatus.Selected && menuItem.status !== undefined}
                         onPress={() => { onMenuItemPress?.(menuItemKey); }}
                     />

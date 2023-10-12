@@ -1,5 +1,5 @@
 import {IsEnum} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsDefined} from "class-validator";
 import {Illustration} from "./illustration";
 
@@ -11,9 +11,9 @@ export class IconIllustration extends Illustration
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type IconName
+     * @type DefaultIconSet
      */
-    @IsEnum(IconName)
+    @IsEnum(DefaultIconSet)
     @IsDefined()
-    readonly iconName: IconName;
+    readonly iconName: DefaultIconSet;
 }

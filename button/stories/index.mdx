@@ -1,0 +1,20 @@
+import {ComponentName, Button} from "@miniskylab/antimatter-button";
+import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-framework";
+import * as Stories from "./stories";
+
+<Meta of={Stories}/>
+<Sb.Intro title={ComponentName} component={Button}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<Controls of={Stories.Playground}/>
+
+### Styles
+<Canvas of={Stories.Styles}/>
+
+### Size
+<Canvas of={Stories.Size}/>
+
+### Disabled
+<Canvas of={Stories.Disabled}/>

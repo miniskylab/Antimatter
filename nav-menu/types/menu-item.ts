@@ -1,16 +1,16 @@
 import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 
 export class MenuItem
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type IconName
+     * @type DefaultIconSet
      */
-    @IsEnum(IconName)
+    @IsEnum(DefaultIconSet)
     @IsDefined()
-    readonly icon: IconName;
+    readonly icon: DefaultIconSet;
 
 
     /**

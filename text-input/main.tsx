@@ -1,4 +1,4 @@
-import {EMPTY_STRING, inheritTextStyleFrom, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, inheritTextStyleFrom, Style} from "@miniskylab/antimatter-framework";
 import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
@@ -33,7 +33,7 @@ export function TextInput({
         onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
     };
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <View style={() => computedStyle}>

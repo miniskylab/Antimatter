@@ -1,4 +1,4 @@
-import {Decade, GregorianCalendar, useComputedStyle, whitespace} from "@miniskylab/antimatter-framework";
+import {Decade, GregorianCalendar, isEqualDate, Style, whitespace} from "@miniskylab/antimatter-framework";
 import {Animation, CompositeTransitionSettings, SlideDirection, Transition, ZoomDirection} from "@miniskylab/antimatter-transition";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef, useState} from "react";
@@ -57,7 +57,7 @@ export function Calendar({
         yearViewData: new Map()
     });
 
-    const computedStyle = useComputedStyle(style, props, state);
+    const computedStyle = Style.useComputedStyle(style, props, state);
 
     return (
         <CalendarContext.Provider value={context}>
@@ -178,13 +178,13 @@ export function Calendar({
         let canNavigateToToday = true;
         if (state.view.type === ViewType.Date)
         {
-            canNavigateToToday = !dateViewData.some(dateInfo => GregorianCalendar.isEqualDate(dateInfo.value, state.today));
+            canNavigateToToday = !dateViewData.some(dateInfo => isEqualDate(dateInfo.value, state.today));
         }
 
         let canNavigateToSelectedDate = !!selectedDate;
         if (selectedDate && state.view.type === ViewType.Date)
         {
-            canNavigateToSelectedDate = !dateViewData.some(dateInfo => GregorianCalendar.isEqualDate(dateInfo.value, selectedDate));
+            canNavigateToSelectedDate = !dateViewData.some(dateInfo => isEqualDate(dateInfo.value, selectedDate));
         }
 
         return (
@@ -390,7 +390,7 @@ export function Calendar({
 
     function onDatePress(date: Date): void
     {
-        onSelectedDateChange?.(GregorianCalendar.isEqualDate(date, selectedDate) ? undefined : date);
+        onSelectedDateChange?.(isEqualDate(date, selectedDate) ? undefined : date);
     }
 
     function onMonthPress(month: Date): void

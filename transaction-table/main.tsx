@@ -1,9 +1,9 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
-import {DateFormat, Enum, ScreenSize, useComputedStyle, useScreenSize} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {DateFormat, Enum, ScreenSize, Style, useScreenSize} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useState} from "react";
 import {Summary, TransactionRecord} from "./components";
@@ -44,7 +44,7 @@ export function TransactionTable({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props, state);
+    const computedStyle = Style.useComputedStyle(style, props, state);
     const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
 
     return (
@@ -85,31 +85,31 @@ export function TransactionTable({
         {
             case TransactionRecord.Mode.Draft:
                 return {
-                    modeButton: {disabled: true, icon: IconName.Quill, text: "Draft-Mode"},
-                    actionButton: {icon: IconName.FloppyDisk, text: "Save", onPress: onSaveTransaction},
-                    cancelButton: {icon: IconName.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    modeButton: {disabled: true, icon: DefaultIconSet.Quill, text: "Draft-Mode"},
+                    actionButton: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveTransaction},
+                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case TransactionRecord.Mode.Edit:
                 return {
-                    modeButton: {icon: IconName.Quill, text: "Edit-Mode", onPress: switchMode},
-                    actionButton: {icon: IconName.FloppyDisk, text: "Save", onPress: onSaveTransaction},
-                    cancelButton: {icon: IconName.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    modeButton: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
+                    actionButton: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveTransaction},
+                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case TransactionRecord.Mode.Delete:
                 return {
-                    modeButton: {icon: IconName.Fire, text: "Delete-Mode", onPress: switchMode},
-                    actionButton: {icon: IconName.TrashCan, text: "Delete", onPress: onDeleteTransaction},
-                    cancelButton: {icon: IconName.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    modeButton: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
+                    actionButton: {icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteTransaction},
+                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             default:
             case TransactionRecord.Mode.ReadOnly:
                 return {
-                    modeButton: {disabled: true, icon: IconName.Eye, text: "Read-Only"},
-                    actionButton: {disabled: true, icon: IconName.FloppyDisk, text: "Save"},
-                    cancelButton: {disabled: true, icon: IconName.XMarkInsideCircle, text: "Cancel"}
+                    modeButton: {disabled: true, icon: DefaultIconSet.Eye, text: "Read-Only"},
+                    actionButton: {disabled: true, icon: DefaultIconSet.FloppyDisk, text: "Save"},
+                    cancelButton: {disabled: true, icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
                 };
         }
     }
@@ -119,10 +119,10 @@ export function TransactionTable({
         switch (mode)
         {
             case TransactionRecord.Mode.ReadOnly:
-                return {icon: IconName.PlusCircle, onPress: onAddNewTransaction};
+                return {icon: DefaultIconSet.PlusCircle, onPress: onAddNewTransaction};
 
             default:
-                return {disabled: true, icon: IconName.NotAllowed};
+                return {disabled: true, icon: DefaultIconSet.NotAllowed};
         }
     }
 

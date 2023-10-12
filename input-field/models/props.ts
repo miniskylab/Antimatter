@@ -11,8 +11,8 @@ import {
     TextInputKeyPressEventHandler,
     TextInputSelectionChangeEventHandler
 } from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
 import {Selection} from "@miniskylab/antimatter-text-input";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {KeyboardTypeOptions} from "react-native";
@@ -24,11 +24,11 @@ export class InputFieldProps extends ComponentProps<InputFieldStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type IconName
+     * @type DefaultIconSet
      */
-    @IsEnum(IconName)
+    @IsEnum(DefaultIconSet)
     @IsOptional()
-    readonly icon?: IconName;
+    readonly icon?: DefaultIconSet;
 
 
     /**

@@ -1,0 +1,20 @@
+import {ComponentName, Label} from "@miniskylab/antimatter-label";
+import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-framework";
+import * as Stories from "./stories";
+
+<Meta of={Stories}/>
+<Sb.Intro title={ComponentName} component={Label}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<Controls of={Stories.Playground}/>
+
+### Style, Weight & Decoration
+<Canvas of={Stories.StyleWeightAndDecoration}/>
+
+### Size
+<Canvas of={Stories.Size}/>
+
+### Badge
+<Canvas of={Stories.Badge}/>

@@ -1,5 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Layer, ScreenSize, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {ScreenSize, Style, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -46,7 +46,7 @@ const Timeline__VerticalLine: ViewStyle = function (viewProps)
         marginTop: 60,
         marginBottom: 50,
         backgroundColor: Color.Gray,
-        zIndex: Layer.Lower,
+        zIndex: Style.Layer.Lower,
         ...useResponsiveStyle(ScreenSize.Large, {
             left: "50%",
             width: 6,

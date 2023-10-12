@@ -1,4 +1,4 @@
-import {GregorianCalendar, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {GregorianCalendar, isEqualDate, Style} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {View} from "@miniskylab/antimatter-view";
@@ -24,7 +24,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <DateViewContext.Provider value={context}>
@@ -76,7 +76,7 @@ export function Component({
                         data[weekNo][dayNo].isExtraneous
                     ]
                 );
-                const isToday = GregorianCalendar.isEqualDate(dateInfo.value, today);
+                const isToday = isEqualDate(dateInfo.value, today);
 
                 week.push(
                     <DateContext.Provider key={data[weekNo][dayNo].value.getTime()} value={dateInfo}>

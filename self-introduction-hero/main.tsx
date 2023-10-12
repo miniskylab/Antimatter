@@ -1,5 +1,5 @@
 import {DownloadButton} from "@miniskylab/antimatter-download-button";
-import {useComputedStyle} from "@miniskylab/antimatter-framework";
+import {Style} from "@miniskylab/antimatter-framework";
 import {HighlightedParagraph} from "@miniskylab/antimatter-highlighted-paragraph";
 import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
@@ -34,7 +34,7 @@ export function SelfIntroductionHero({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <SelfIntroductionHeroContext.Provider value={context}>

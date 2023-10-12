@@ -1,0 +1,22 @@
+import {Sb} from "@miniskylab/antimatter-framework";
+import {Meta, Typeset} from "@storybook/blocks";
+
+<Meta title="Typography"/>
+
+<Sb.Intro title={"Typography"}/>
+<p style={{textAlign: "center"}}>(no description available)</p>
+<br/>
+<br/>
+
+__Font__: Roboto
+
+__Weights__: 100 (thin), 300 (light), 400 (regular), 500 (medium), 700 (bold), 900 (black)
+
+<div style={{color: "#FFFFFF"}}>
+    <Typeset
+        fontFamily={"Roboto-Regular"}
+        sampleText={"The quick brown fox jumps over the lazy dog"}
+        fontSizes={["12px", "14px", "16px", "20px", "24px", "32px", "40px", "48px"]}
+        fontWeight={400}
+    />
+</div>

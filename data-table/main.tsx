@@ -1,8 +1,8 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Enum, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
+import {Enum, Style} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef} from "react";
 import {Row} from "./components";
@@ -42,7 +42,7 @@ export function DataTable({
     );
 
     const scrollViewRef = useRef<ScrollView>(null);
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     const headerData = columns?.map(x => x.name).filter(x => !!x);
     const {modeButton, actionButton, cancelButton} = getControlPanelModel();
@@ -91,31 +91,31 @@ export function DataTable({
         {
             case Row.Mode.Draft:
                 return {
-                    modeButton: {disabled: true, icon: IconName.Quill, text: "Draft-Mode"},
-                    actionButton: {icon: IconName.FloppyDisk, text: "Save", onPress: onSaveRow},
-                    cancelButton: {icon: IconName.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    modeButton: {disabled: true, icon: DefaultIconSet.Quill, text: "Draft-Mode"},
+                    actionButton: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
+                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case Row.Mode.Edit:
                 return {
-                    modeButton: {icon: IconName.Quill, text: "Edit-Mode", onPress: switchMode},
-                    actionButton: {icon: IconName.FloppyDisk, text: "Save", onPress: onSaveRow},
-                    cancelButton: {icon: IconName.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    modeButton: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
+                    actionButton: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
+                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case Row.Mode.Delete:
                 return {
-                    modeButton: {icon: IconName.Fire, text: "Delete-Mode", onPress: switchMode},
-                    actionButton: {icon: IconName.TrashCan, text: "Delete", onPress: onDeleteRow},
-                    cancelButton: {icon: IconName.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    modeButton: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
+                    actionButton: {icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteRow},
+                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             default:
             case Row.Mode.ReadOnly:
                 return {
-                    modeButton: {disabled: true, icon: IconName.Eye, text: "Read-Only"},
-                    actionButton: {disabled: true, icon: IconName.FloppyDisk, text: "Save"},
-                    cancelButton: {disabled: true, icon: IconName.XMarkInsideCircle, text: "Cancel"}
+                    modeButton: {disabled: true, icon: DefaultIconSet.Eye, text: "Read-Only"},
+                    actionButton: {disabled: true, icon: DefaultIconSet.FloppyDisk, text: "Save"},
+                    cancelButton: {disabled: true, icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
                 };
         }
     }
@@ -125,10 +125,10 @@ export function DataTable({
         switch (mode)
         {
             case Row.Mode.ReadOnly:
-                return {icon: IconName.PlusCircle, onPress: onAddNewRow};
+                return {icon: DefaultIconSet.PlusCircle, onPress: onAddNewRow};
 
             default:
-                return {disabled: true, icon: IconName.NotAllowed};
+                return {disabled: true, icon: DefaultIconSet.NotAllowed};
         }
     }
 

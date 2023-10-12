@@ -1,0 +1,40 @@
+import {Sb} from "@miniskylab/antimatter-framework";
+import {Color} from "@miniskylab/antimatter-color-scheme";
+import {Meta, ColorPalette, ColorItem} from "@storybook/blocks";
+import {EMPTY_STRING} from "@miniskylab/antimatter-framework";
+
+<Meta title="Color Scheme"/>
+
+<Sb.Intro title={"Color Scheme"}/>
+<p style={{textAlign: "center"}}>(no description available)</p>
+<br/>
+<br/>
+
+<ColorPalette>
+    <ColorItem title={"Primary"} subtitle={"Blue"} colors={{Primary: Color.Primary}}/>
+    <ColorItem title={"Complementary"} subtitle={"Orange"} colors={{Complementary: Color.Complementary}}/>
+    <ColorItem title={"Secondary"} subtitle={"Green"} colors={{Secondary: Color.Secondary}}/>
+    <ColorItem title={"Tertiary"} subtitle={"Coral"} colors={{Tertiary: Color.Tertiary}}/>
+    <ColorItem title={"Positive"} subtitle={"Green"} colors={{Positive: Color.Positive}}/>
+    <ColorItem title={"Warning"} subtitle={"Gold"} colors={{Warning: Color.Warning}}/>
+    <ColorItem title={"Negative"} subtitle={"Tomato"} colors={{Negative: Color.Negative}}/>
+    <ColorItem title={"Accent"} subtitle={"Purple"} colors={{Accent: Color.Accent}}/>
+    <ColorItem title={"Neutral"} subtitle={"Grey"} colors={{Neutral: Color.Neutral}}/>
+    <ColorItem title={"Blue"} subtitle={EMPTY_STRING} colors={{Blue: Color.Blue}}/>
+    <ColorItem title={"Green"} subtitle={EMPTY_STRING} colors={{Green: Color.Green}}/>
+    <ColorItem title={"Gold"} subtitle={EMPTY_STRING} colors={{Gold: Color.Gold}}/>
+    <ColorItem title={"Tomato"} subtitle={EMPTY_STRING} colors={{Tomato: Color.Tomato}}/>
+    <ColorItem title={"Purple"} subtitle={EMPTY_STRING} colors={{Purple: Color.Purple}}/>
+    <ColorItem
+        title="Monochrome"
+        subtitle={EMPTY_STRING}
+        colors={{
+            White: Color.White,
+            Gainsboro: Color.Gainsboro,
+            Neutral: Color.Neutral,
+            Gray: Color.Gray,
+            MineShaft: Color.Mineshaft,
+            Black: Color.Black,
+        }}
+    />
+</ColorPalette>

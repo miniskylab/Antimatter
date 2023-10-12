@@ -1,7 +1,7 @@
 import {ButtonProps} from "@miniskylab/antimatter-button";
 import {ComponentName, ComponentProps, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
-import {IconName} from "@miniskylab/antimatter-icon";
 import {InputFieldProps} from "@miniskylab/antimatter-input-field";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {Type} from "class-transformer";
 import {ValidateNested} from "class-validator";
 import {LoginFormStyle} from "./style";
@@ -12,11 +12,11 @@ export class LoginFormProps extends ComponentProps<LoginFormStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type IconName
+     * @type DefaultIconSet
      */
-    @IsEnum(IconName)
+    @IsEnum(DefaultIconSet)
     @IsDefined()
-    readonly logo: IconName;
+    readonly logo: DefaultIconSet;
 
 
     /**

@@ -1,4 +1,4 @@
-import {EMPTY_STRING} from "../extensions";
+import {EMPTY_STRING} from "../typescript";
 import {DateFormat} from "./date-format";
 import {Decade} from "./decade";
 import {TimeUnit} from "./time-unit";
@@ -225,50 +225,5 @@ export const GregorianCalendar = new class
                     year: "numeric"
                 });
         }
-    }
-
-    isEqualDate(date1: Date, date2: Date): boolean
-    {
-        if (!date1 && !date2) return true;
-        if (!date1 || !date2) return false;
-
-        const clonedDate1 = new Date(date1);
-        clonedDate1.setHours(0, 0, 0, 0);
-        const clonedDate2 = new Date(date2);
-        clonedDate2.setHours(0, 0, 0, 0);
-
-        return clonedDate1.getTime() === clonedDate2.getTime();
-    }
-
-    isEqualMonth(date1: Date, date2: Date): boolean
-    {
-        if (!date1 && !date2) return true;
-        if (!date1 || !date2) return false;
-
-        const clonedDate1 = new Date(date1);
-        clonedDate1.setDate(1);
-        clonedDate1.setHours(0, 0, 0, 0);
-        const clonedDate2 = new Date(date2);
-        clonedDate2.setDate(1);
-        clonedDate2.setHours(0, 0, 0, 0);
-
-        return clonedDate1.getTime() === clonedDate2.getTime();
-    }
-
-    isEqualYear(date1: Date, date2: Date): boolean
-    {
-        if (!date1 && !date2) return true;
-        if (!date1 || !date2) return false;
-
-        const clonedDate1 = new Date(date1);
-        clonedDate1.setMonth(0);
-        clonedDate1.setDate(1);
-        clonedDate1.setHours(0, 0, 0, 0);
-        const clonedDate2 = new Date(date2);
-        clonedDate2.setMonth(0);
-        clonedDate2.setDate(1);
-        clonedDate2.setHours(0, 0, 0, 0);
-
-        return clonedDate1.getTime() === clonedDate2.getTime();
     }
 };

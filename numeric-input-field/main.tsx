@@ -1,4 +1,4 @@
-import {EMPTY_STRING, MAX, MIN, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, MAX, MIN, Style} from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import React, {JSX, useEffect, useMemo, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
@@ -44,7 +44,7 @@ export function NumericInputField({
 
     const lastKeypressRef = useRef<Keypress>();
     const ignoreNextSelectionChangeEventRef = useRef(false);
-    const computedStyle = useComputedStyle(style, props, state);
+    const computedStyle = Style.useComputedStyle(style, props, state);
 
     useEffect(() =>
     {

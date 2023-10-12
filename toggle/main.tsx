@@ -1,6 +1,7 @@
-import {useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Icon, IconName} from "@miniskylab/antimatter-icon";
+import {Style} from "@miniskylab/antimatter-framework";
+import {Icon} from "@miniskylab/antimatter-icon";
 import {Pressable} from "@miniskylab/antimatter-pressable";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Status} from "./enums";
@@ -13,7 +14,7 @@ import * as Variant from "./variants";
 export function Toggle({
     style = Variant.Default,
     status = Status.Unchecked,
-    icon = IconName.Circle,
+    icon = DefaultIconSet.Circle,
     onChange
 }: ToggleProps): JSX.Element
 {
@@ -26,7 +27,7 @@ export function Toggle({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <ToggleContext.Provider value={context}>

@@ -1,0 +1,32 @@
+import {ComponentName, NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
+import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-framework";
+import * as Stories from "./stories";
+
+<Meta of={Stories}/>
+<Sb.Intro title={ComponentName} component={NumericInputField}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<Controls of={Stories.Playground}/>
+
+### Prefilled
+<Canvas of={Stories.Prefilled}/>
+
+### Placeholder
+<Canvas of={Stories.Placeholder}/>
+
+### Explicit "+" Symbol
+<Canvas of={Stories.ExplicitPlusSymbol}/>
+
+### Range
+The `numeric input field` below accepts number from `-100` to `100`:
+<Canvas of={Stories.Range}/>
+
+### Digit Count
+The `numeric input field` below accepts numbers having less than or equal to 5 digits:
+<Canvas of={Stories.DigitCount}/>
+
+### Fraction Digit Count
+The `numeric input field` below supports up to 5 fraction digits:
+<Canvas of={Stories.FractionDigitCount}/>

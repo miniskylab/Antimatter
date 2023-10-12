@@ -1,10 +1,11 @@
 import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {EMPTY_STRING, Enum, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Icon, IconName} from "@miniskylab/antimatter-icon";
+import {EMPTY_STRING, Enum, Style} from "@miniskylab/antimatter-framework";
+import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import {Pressable} from "@miniskylab/antimatter-pressable";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Mode, TransactionLabelStatus, TransactionLabelType} from "./enums";
@@ -37,7 +38,7 @@ export function Component({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
     const maxSelectedLabelCount = 3;
 
     return (
@@ -58,13 +59,13 @@ export function Component({
         return transactionLabelA.order - transactionLabelB.order;
     }
 
-    function getIcon(): IconName
+    function getIcon(): DefaultIconSet
     {
-        let icon = IconName.PriceTag;
+        let icon = DefaultIconSet.PriceTag;
         Object.values(labels)
             .filter(label => label.status === TransactionLabelStatus.Selected)
             .sort(byOrder)
-            .forEach(selectedLabel => { icon = (IconName as Record<string, IconName>)[selectedLabel.icon] ?? icon; });
+            .forEach(selectedLabel => { icon = (DefaultIconSet as Record<string, DefaultIconSet>)[selectedLabel.icon] ?? icon; });
 
         return icon;
     }

@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {EMPTY_STRING, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
@@ -36,7 +36,7 @@ export function LoginForm({
         [...Object.values(props), ...Object.values(state)]
     );
 
-    const computedStyle = useComputedStyle(style, props, state);
+    const computedStyle = Style.useComputedStyle(style, props, state);
 
     return (
         <LoginFormContext.Provider value={context}>

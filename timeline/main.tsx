@@ -1,5 +1,6 @@
-import {useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Icon, IconName} from "@miniskylab/antimatter-icon";
+import {Style} from "@miniskylab/antimatter-framework";
+import {Icon} from "@miniskylab/antimatter-icon";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {BootstrapEvent, Event} from "./components";
@@ -24,7 +25,7 @@ export function Timeline({
         [...Object.values(props)]
     );
 
-    const computedStyle = useComputedStyle(style, props);
+    const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <TimelineContext.Provider value={context}>
@@ -32,7 +33,7 @@ export function Timeline({
                 <View style={computedStyle.EventStream}>
                     {events.map((event, i) => <Event.Component key={i} {...event} style={computedStyle.Event} index={i}/>)}
                     <View style={computedStyle.VerticalLine}/>
-                    <Icon style={computedStyle.Origin} name={IconName.Origin}/>
+                    <Icon style={computedStyle.Origin} name={DefaultIconSet.Origin}/>
                 </View>
                 {bootstrapEvent && <BootstrapEvent.Component {...bootstrapEvent} style={computedStyle.BootstrapEvent}/>}
             </View>

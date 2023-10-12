@@ -3,6 +3,8 @@ import {TextStyle} from "react-native";
 import {useRobotoFont} from "./font";
 import {IcomoonSettings, useDefaultIconSet} from "./icomoon";
 
+export {DefaultIconSet} from "./icomoon";
+
 export function useIcomoon(): IcomoonSettings
 {
     return useDefaultIconSet();
