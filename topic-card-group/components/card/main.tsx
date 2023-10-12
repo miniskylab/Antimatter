@@ -1,13 +1,11 @@
-import {Button} from "@miniskylab/antimatter-button";
-import {Environment, Style, useEnvironment} from "@miniskylab/antimatter-framework";
+import {Style} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
+import {NavButton} from "@miniskylab/antimatter-nav-button";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {Linking} from "react-native";
-import {CardContext, CtaTargetContext, Props} from "./models";
-import {Cta} from "./types";
+import {CardContext, Props} from "./models";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -31,7 +29,6 @@ export function Component({
     );
 
     const computedStyle = Style.useComputedStyle(style, props);
-    const runningInsideWebBrowser = useEnvironment(Environment.WebBrowser);
 
     return (
         <CardContext.Provider value={context}>
@@ -51,14 +48,11 @@ export function Component({
                     {ctas && ctas.length > 0 && (
                         <View style={computedStyle.CtaContainer}>
                             {ctas.map((cta, i) => (
-                                <CtaTargetContext.Provider key={i} value={cta.openIn}>
-                                    <Button
-                                        style={cta.style ?? computedStyle.Cta}
-                                        label={cta.label}
-                                        icon={cta.icon}
-                                        onPress={() => follow(cta)}
-                                    />
-                                </CtaTargetContext.Provider>
+                                <NavButton
+                                    {...cta}
+                                    key={i}
+                                    style={cta.style ?? computedStyle.Cta}
+                                />
                             ))}
                         </View>
                     )}
@@ -67,16 +61,4 @@ export function Component({
             </View>
         </CardContext.Provider>
     );
-
-    function follow(cta: Cta): void
-    {
-        if (runningInsideWebBrowser)
-        {
-            window.open(cta.href, cta.openIn);
-        }
-        else
-        {
-            Linking.openURL(cta.href);
-        }
-    }
 }

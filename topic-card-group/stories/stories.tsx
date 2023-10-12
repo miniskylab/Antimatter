@@ -1,5 +1,6 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {Card, TopicCardGroup, TopicCardGroupProps} from "@miniskylab/antimatter-topic-card-group";
+import {Target} from "@miniskylab/antimatter-nav-button";
+import {TopicCardGroup, TopicCardGroupProps} from "@miniskylab/antimatter-topic-card-group";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
@@ -28,8 +29,8 @@ export const Playground: Story = {
                 description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tortor purus, consequat ac aliquam at, " +
                              "accumsan sit amet quam. Duis finibus nunc ut lectus ornare, at consectetur massa suscipit.",
                 ctas: [
-                    {label: "Lorem ipsum", icon: DefaultIconSet.ChevronRight, href: "#cta", openIn: Card.CtaTarget.SameWindowOrTab},
-                    {label: "Lorem ipsum", icon: DefaultIconSet.ChevronRight, href: "#cta", openIn: Card.CtaTarget.SameWindowOrTab}
+                    {label: "Lorem ipsum", icon: DefaultIconSet.ChevronRight, destination: "#cta", openIn: Target.SameFrame},
+                    {label: "Lorem ipsum", icon: DefaultIconSet.ChevronRight, destination: "#cta", openIn: Target.SameFrame}
                 ]
             },
             {
@@ -38,8 +39,8 @@ export const Playground: Story = {
                 description: "Nullam tincidunt metus eros, ac pharetra ante porttitor nec. Praesent in sollicitudin risus. " +
                              "Vestibulum id mattis mauris. Mauris elementum suscipit augue, at blandit nibh vulputate ac.",
                 ctas: [
-                    {label: "Lorem ipsum", icon: DefaultIconSet.NewTab, href: "#cta", openIn: Card.CtaTarget.NewWindowOrTab},
-                    {label: "Lorem ipsum", icon: DefaultIconSet.NewTab, href: "#cta", openIn: Card.CtaTarget.NewWindowOrTab}
+                    {label: "Lorem ipsum", icon: DefaultIconSet.NewTab, destination: "#cta", openIn: Target.NewWindowOrTab},
+                    {label: "Lorem ipsum", icon: DefaultIconSet.NewTab, destination: "#cta", openIn: Target.NewWindowOrTab}
                 ]
             },
             {
@@ -48,8 +49,8 @@ export const Playground: Story = {
                 description: "Vestibulum ut justo urna. Etiam a risus eget est egestas consequat ut sit amet elit. Sed hendrerit, " +
                              "elit ut pellentesque vestibulum, justo nisi eleifend arcu, porttitor varius libero nibh ut dolor.",
                 ctas: [
-                    {label: "Lorem ipsum", icon: DefaultIconSet.ChevronRight, href: "#cta", openIn: Card.CtaTarget.SameWindowOrTab},
-                    {label: "Lorem ipsum", icon: DefaultIconSet.NewTab, href: "#cta", openIn: Card.CtaTarget.NewWindowOrTab}
+                    {label: "Lorem ipsum", icon: DefaultIconSet.ChevronRight, destination: "#cta", openIn: Target.SameFrame},
+                    {label: "Lorem ipsum", icon: DefaultIconSet.NewTab, destination: "#cta", openIn: Target.NewWindowOrTab}
                 ]
             },
             {
@@ -58,7 +59,7 @@ export const Playground: Story = {
                 description: "Pellentesque pellentesque purus sit amet iaculis rutrum. Nam vitae neque et enim aliquet dignissim eget " +
                              "ornare nibh. Vestibulum elementum felis diam, in viverra lacus rutrum at mattis porttitor.",
                 ctas: [
-                    {label: "Lorem ipsum", href: "#cta", openIn: Card.CtaTarget.SameWindowOrTab}
+                    {label: "Lorem ipsum", destination: "#cta", openIn: Target.SameFrame}
                 ]
             },
             {

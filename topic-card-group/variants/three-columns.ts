@@ -1,13 +1,13 @@
-import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {ScreenSize, ShadowStyle, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {NavButtonContextHook, NavButtonStyle, NavButtonVariant} from "@miniskylab/antimatter-nav-button";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {Card} from "../components";
-import {TopicCardGroupAnimationHook} from "../hooks";
 import {TopicCardGroupStyle} from "../models";
 
 const TopicCardGroup__Root: ViewStyle = function (viewProps)
@@ -140,74 +140,25 @@ const TopicCardGroup__Card__CtaContainer: ViewStyle = function (viewProps)
 const TopicCardGroup__Card__Cta__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
+    const navButtonContext = NavButtonContextHook.useNavButtonContext();
 
-    const inheritedStyle = ButtonVariant.SolidRectangular(buttonContext.props).Root(pressableProps, pressableState);
+    const inheritedStyle = NavButtonVariant.Default(navButtonContext.props)(buttonContext.props).Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,
-        flexDirection: "row-reverse",
         width: "100%",
-        height: 50,
-        paddingVertical: 6,
-        paddingHorizontal: 14,
-        marginTop: 15,
-        userSelect: "none",
-        ...pressableState.pressed
-            ? {
-                borderColor: Color.Gray__b10,
-                backgroundColor: Color.Gray__b10
-            }
-            : pressableState.hovered
-                ? {
-                    borderColor: Color.Gray__w25,
-                    backgroundColor: Color.Gray__w25
-                }
-                : {
-                    borderColor: Color.Gray,
-                    backgroundColor: Color.Gray
-                }
+        marginTop: 15
     };
 };
 
-const TopicCardGroup__Card__Cta__Icon: IconStyle = function (iconProps)
+const TopicCardGroup__Card__Cta: NavButtonStyle = function (navButtonProps)
 {
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const inheritedStyle = ButtonVariant.SolidRectangular(buttonContext.props).Icon(iconProps);
-
-    return {
-        ...inheritedStyle,
-        minWidth: 25,
-        fontSize: 18,
-        animations: [
-            () => TopicCardGroupAnimationHook.useCtaIconHoverAnimation()
-        ]
-    };
-};
-
-const TopicCardGroup__Card__Cta__Label: LabelStyle = function (labelProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const inheritedStyle = ButtonVariant.SolidRectangular(buttonContext.props).Label(labelProps);
-
-    return {
-        ...inheritedStyle,
-        flexGrow: 1,
-        alignItems: "flex-start",
-        paddingHorizontal: 10,
-        fontSize: 16,
-        fontWeight: "bold"
-    };
-};
-
-const TopicCardGroup__Card__Cta: ButtonStyle = function (buttonProps)
-{
-    return {
-        ...ButtonVariant.SolidRectangular(buttonProps),
-        Root: TopicCardGroup__Card__Cta__Root,
-        Icon: TopicCardGroup__Card__Cta__Icon,
-        Label: TopicCardGroup__Card__Cta__Label
+    return function (buttonProps)
+    {
+        return {
+            ...NavButtonVariant.Default(navButtonProps)(buttonProps),
+            Root: TopicCardGroup__Card__Cta__Root
+        };
     };
 };
 
