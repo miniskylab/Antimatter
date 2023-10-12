@@ -2,6 +2,7 @@ import {Button} from "@miniskylab/antimatter-button";
 import {EMPTY_STRING, Environment, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
 import {useNavigation} from "@react-navigation/native";
 import React, {JSX, useMemo} from "react";
+import {Target} from "./enums";
 import {NavButtonContext, NavButtonProps} from "./models";
 import * as Variant from "./variants";
 
@@ -11,7 +12,7 @@ import * as Variant from "./variants";
 export function NavButton({
     style = Variant.Default,
     destination,
-    openIn,
+    openIn = Target.SameWindowOrTab,
     label = EMPTY_STRING,
     icon,
     disabled = false

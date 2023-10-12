@@ -22,8 +22,8 @@ export class NavButtonProps extends ComponentProps<NavButtonStyle>
      * @type Target
      */
     @IsEnum(Target)
-    @IsDefined()
-    readonly openIn: Target;
+    @IsOptional()
+    readonly openIn?: Target;
 
 
     /**

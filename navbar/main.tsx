@@ -1,5 +1,5 @@
 import {useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Icon, IconName} from "@miniskylab/antimatter-icon";
+import {NavButton} from "@miniskylab/antimatter-nav-button";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {NavbarContext, NavbarProps} from "./models";
@@ -9,11 +9,12 @@ import * as Variant from "./variants";
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Navbar({
-    style = Variant.Default
+    style = Variant.Default,
+    tabs = []
 }: NavbarProps): JSX.Element
 {
     const props: Required<NavbarProps> = {
-        style
+        style, tabs
     };
 
     const context = useMemo<NavbarContext>(
@@ -26,12 +27,7 @@ export function Navbar({
     return (
         <NavbarContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                <Icon style={computedStyle.Icon} name={IconName.Sun}/>
-                <Icon style={computedStyle.Icon} name={IconName.Sun}/>
-                <Icon style={computedStyle.Icon} name={IconName.Sun}/>
-                <Icon style={computedStyle.Icon} name={IconName.Sun}/>
-                <Icon style={computedStyle.Icon} name={IconName.Sun}/>
-                <Icon style={computedStyle.Icon} name={IconName.Sun}/>
+                {tabs.map((tab, tabIndex) => <NavButton key={tabIndex} style={computedStyle.Tab} {...tab} />)}
             </View>
         </NavbarContext.Provider>
     );
