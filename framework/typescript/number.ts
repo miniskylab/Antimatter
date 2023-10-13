@@ -1,9 +1,6 @@
-import {EMPTY_STRING} from "./string";
+import {EMPTY_STRING} from "../predefined";
 
-export const MIN = -999999999999999;
-export const MAX = 999999999999999;
-
-export function clampNumber(value: number, min?: number, max?: number): number
+export function clamp(value: number, min?: number, max?: number): number
 {
     if (min > max)
     {
@@ -28,13 +25,13 @@ export function clampNumber(value: number, min?: number, max?: number): number
     return value;
 }
 
-export function roundNumber(anyNumber: number, fractionDigits?: number): number
+export function round(anyNumber: number, fractionDigits?: number): number
 {
     const coefficient = Math.pow(10, fractionDigits);
     return Math.round((anyNumber + Number.EPSILON) * coefficient) / coefficient;
 }
 
-export function shortenNumber(anyNumber: number): string
+export function shorten(anyNumber: number): string
 {
     if (anyNumber === undefined || anyNumber === null)
     {

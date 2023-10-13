@@ -1,11 +1,11 @@
-export const EMPTY_STRING = "";
+import {EMPTY_STRING} from "../predefined";
 
 export function whitespace(length: number)
 {
     return " ".repeat(length);
 }
 
-export function formatString(anyString: string, ...replacements: string[]): string
+export function format(anyString: string, ...replacements: string[]): string
 {
     if (!replacements)
     {

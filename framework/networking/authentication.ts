@@ -6,7 +6,7 @@ import * as ExpoCrypto from "expo-crypto";
 import * as ExpoSecureStore from "expo-secure-store";
 import * as WebBrowser from "expo-web-browser";
 import {useRef, useState} from "react";
-import {base64UrlEncode, extractQueryParameter} from "../typescript";
+import * as Ts from "../typescript";
 
 export const Authentication = new class
 {
@@ -40,7 +40,7 @@ export const Authentication = new class
                 {encoding: ExpoCrypto.CryptoEncoding.BASE64}
             ).then(codeChallenge =>
             {
-                setCodeChallenge(base64UrlEncode(codeChallenge));
+                setCodeChallenge(Ts.String.base64UrlEncode(codeChallenge));
             });
         }
 
@@ -61,7 +61,7 @@ export const Authentication = new class
 
         if (authorizationResponse?.type === "success")
         {
-            const authorizationCode = extractQueryParameter(authorizationResponse.url)["code"];
+            const authorizationCode = Ts.String.extractQueryParameter(authorizationResponse.url)["code"];
             AuthSession.exchangeCodeAsync(
                 {
                     extraParams: {code_verifier: ref.current.codeVerifier},

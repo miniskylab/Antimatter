@@ -1,4 +1,4 @@
-import {isDefaultJavaScriptErrorObject, isEmptyObject, isNullOrUndefined} from "./object";
+import {isDefaultJavaScriptError, isEmpty, isNullOrUndefined} from "./object";
 
 describe("how to use [isNullOrUndefined(...)]", () =>
 {
@@ -15,16 +15,16 @@ describe("how to use [isNullOrUndefined(...)]", () =>
     });
 });
 
-describe("how to use [isEmptyObject(...)]", () =>
+describe("how to use [isEmpty(...)]", () =>
 {
     it("returns true if the given object is an empty object", () =>
     {
-        expect(isEmptyObject({})).toBe(true);
-        expect(isEmptyObject({test: "test"})).toBe(false);
+        expect(isEmpty({})).toBe(true);
+        expect(isEmpty({test: "test"})).toBe(false);
     });
 });
 
-describe("how to use [isDefaultJavaScriptErrorObject(...)]", () =>
+describe("how to use [isDefaultJavaScriptError(...)]", () =>
 {
     it("returns true if the given object is default javascript error object", () =>
     {
@@ -40,13 +40,13 @@ describe("how to use [isDefaultJavaScriptErrorObject(...)]", () =>
             }
             catch (error)
             {
-                expect(isDefaultJavaScriptErrorObject(error)).toBe(true);
+                expect(isDefaultJavaScriptError(error)).toBe(true);
             }
         });
 
-        expect(isDefaultJavaScriptErrorObject(new Error())).toBe(true);
-        expect(isDefaultJavaScriptErrorObject(new Error("This is an error message"))).toBe(true);
-        expect(isDefaultJavaScriptErrorObject({})).toBe(false);
+        expect(isDefaultJavaScriptError(new Error())).toBe(true);
+        expect(isDefaultJavaScriptError(new Error("This is an error message"))).toBe(true);
+        expect(isDefaultJavaScriptError({})).toBe(false);
 
         function throwError(message?: string) { throw Error(message); }
     });

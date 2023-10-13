@@ -1,6 +1,6 @@
-import {clampNumber, ensurePercent, percentToRadians, shortenNumber} from "./number";
+import {clamp, ensurePercent, percentToRadians, shorten} from "./number";
 
-describe("how to use [clampNumber(...)]", () =>
+describe("how to use [clamp(...)]", () =>
 {
     it("throws error when 1st argument is greater than 2nd argument", () =>
     {
@@ -10,21 +10,21 @@ describe("how to use [clampNumber(...)]", () =>
             const min = 1;
             const max = -1;
 
-            expect(() => { clampNumber(value, min, max); }).toThrow(Error);
-            expect(() => { clampNumber(value, min, max); }).toThrow("Invalid arguments: [min] cannot be greater than [max]");
+            expect(() => { clamp(value, min, max); }).toThrow(Error);
+            expect(() => { clamp(value, min, max); }).toThrow("Invalid arguments: [min] cannot be greater than [max]");
         });
     });
 
     it("returns NaN when being used on NaN", () =>
     {
-        expect(clampNumber(NaN)).toBe(NaN);
-        expect(clampNumber(-NaN)).toBe(-NaN);
+        expect(clamp(NaN)).toBe(NaN);
+        expect(clamp(-NaN)).toBe(-NaN);
 
         const parameters = [undefined, null, -NaN, NaN, -Infinity, Infinity, -1, 0, 5];
         parameters.forEach(min =>
         {
-            expect(clampNumber(NaN, min)).toBe(NaN);
-            expect(clampNumber(-NaN, min)).toBe(-NaN);
+            expect(clamp(NaN, min)).toBe(NaN);
+            expect(clamp(-NaN, min)).toBe(-NaN);
 
             parameters.forEach(max =>
             {
@@ -33,8 +33,8 @@ describe("how to use [clampNumber(...)]", () =>
                     return;
                 }
 
-                expect(clampNumber(NaN, min, max)).toBe(NaN);
-                expect(clampNumber(-NaN, min, max)).toBe(-NaN);
+                expect(clamp(NaN, min, max)).toBe(NaN);
+                expect(clamp(-NaN, min, max)).toBe(-NaN);
             });
         });
     });
@@ -44,11 +44,11 @@ describe("how to use [clampNumber(...)]", () =>
         const parameters = [-Infinity, Infinity, -10, 0, 10];
         parameters.forEach(value =>
         {
-            expect(clampNumber(Infinity, value)).toBe(Infinity);
-            expect(clampNumber(-Infinity, value)).toBe(value);
+            expect(clamp(Infinity, value)).toBe(Infinity);
+            expect(clamp(-Infinity, value)).toBe(value);
 
-            expect(clampNumber(value, -Infinity)).toBe(value);
-            expect(clampNumber(value, Infinity)).toBe(Infinity);
+            expect(clamp(value, -Infinity)).toBe(value);
+            expect(clamp(value, Infinity)).toBe(Infinity);
 
             parameters.forEach(min =>
             {
@@ -59,16 +59,16 @@ describe("how to use [clampNumber(...)]", () =>
                         return;
                     }
 
-                    expect(clampNumber(Infinity, min, max)).toBe(max);
-                    expect(clampNumber(-Infinity, min, max)).toBe(min);
+                    expect(clamp(Infinity, min, max)).toBe(max);
+                    expect(clamp(-Infinity, min, max)).toBe(min);
                 });
 
-                expect(clampNumber(value, min, Infinity)).toBe(Math.max(value, min));
+                expect(clamp(value, min, Infinity)).toBe(Math.max(value, min));
             });
 
             parameters.forEach(max =>
             {
-                expect(clampNumber(value, -Infinity, max)).toBe(Math.min(value, max));
+                expect(clamp(value, -Infinity, max)).toBe(Math.min(value, max));
             });
         });
     });
@@ -76,14 +76,14 @@ describe("how to use [clampNumber(...)]", () =>
     it("does nothing when both arguments are not number", () =>
     {
         const value = 100;
-        expect(clampNumber(value)).toBe(value);
+        expect(clamp(value)).toBe(value);
 
         const paramaters = [undefined, null, NaN, -NaN];
         paramaters.forEach(min =>
         {
             paramaters.forEach(max =>
             {
-                expect(clampNumber(value, min, max)).toBe(value);
+                expect(clamp(value, min, max)).toBe(value);
             });
         });
     });
@@ -96,12 +96,12 @@ describe("how to use [clampNumber(...)]", () =>
             const max = 2;
 
             let value = 4;
-            expect(clampNumber(value, min, max)).toBe(clampNumber(value, -Infinity, max));
-            expect(clampNumber(value, min, max)).toBe(max);
+            expect(clamp(value, min, max)).toBe(clamp(value, -Infinity, max));
+            expect(clamp(value, min, max)).toBe(max);
 
             value = -4;
-            expect(clampNumber(value, min, max)).toBe(clampNumber(value, -Infinity, max));
-            expect(clampNumber(value, min, max)).toBe(value);
+            expect(clamp(value, min, max)).toBe(clamp(value, -Infinity, max));
+            expect(clamp(value, min, max)).toBe(value);
         });
     });
 
@@ -110,36 +110,36 @@ describe("how to use [clampNumber(...)]", () =>
         const min = -1;
 
         let value = 5;
-        expect(clampNumber(value, min)).toBe(clampNumber(value, min, Infinity));
-        expect(clampNumber(value, min)).toBe(value);
+        expect(clamp(value, min)).toBe(clamp(value, min, Infinity));
+        expect(clamp(value, min)).toBe(value);
 
         value = -5;
-        expect(clampNumber(value, min)).toBe(clampNumber(value, min, Infinity));
-        expect(clampNumber(value, min)).toBe(min);
+        expect(clamp(value, min)).toBe(clamp(value, min, Infinity));
+        expect(clamp(value, min)).toBe(min);
 
         const paramaters = [undefined, null, NaN, -NaN];
         paramaters.forEach(max =>
         {
             value = 5;
-            expect(clampNumber(value, min, max)).toBe(clampNumber(value, min, Infinity));
-            expect(clampNumber(value, min, max)).toBe(value);
+            expect(clamp(value, min, max)).toBe(clamp(value, min, Infinity));
+            expect(clamp(value, min, max)).toBe(value);
 
             value = -5;
-            expect(clampNumber(value, min, max)).toBe(clampNumber(value, min, Infinity));
-            expect(clampNumber(value, min, max)).toBe(min);
+            expect(clamp(value, min, max)).toBe(clamp(value, min, Infinity));
+            expect(clamp(value, min, max)).toBe(min);
         });
     });
 
     it("clamps between 2nd and 3rd arguments", () =>
     {
-        expect(clampNumber(0, -1, 1)).toBe(0);
-        expect(clampNumber(-2, -1, 1)).toBe(-1);
-        expect(clampNumber(2, -1, 1)).toBe(1);
-        expect(clampNumber(5, 0, 0)).toBe(0);
+        expect(clamp(0, -1, 1)).toBe(0);
+        expect(clamp(-2, -1, 1)).toBe(-1);
+        expect(clamp(2, -1, 1)).toBe(1);
+        expect(clamp(5, 0, 0)).toBe(0);
     });
 });
 
-describe("how to use [shortenNumber(...)]", () =>
+describe("how to use [shorten(...)]", () =>
 {
     it("returns the shortened version of the given number in string", () =>
     {
@@ -164,7 +164,7 @@ describe("how to use [shortenNumber(...)]", () =>
             {input: 1000000000, expectedResult: "1B"},
             {input: 1234567890, expectedResult: "1.23B"}
         ];
-        testCases.forEach(x => { expect(shortenNumber(x.input)).toBe(x.expectedResult); });
+        testCases.forEach(x => { expect(shorten(x.input)).toBe(x.expectedResult); });
     });
 });
 

@@ -3,7 +3,7 @@ export function isNullOrUndefined(anyObject: unknown): boolean
     return anyObject === null || anyObject === undefined;
 }
 
-export function isEmptyObject(anyObject: unknown): boolean
+export function isEmpty(anyObject: unknown): boolean
 {
     return anyObject ? Object.keys(anyObject).length === 0 : false;
 }
@@ -50,7 +50,7 @@ export function isNumericEnum(anyObject: Record<string, unknown>): boolean
     return true;
 }
 
-export function isDefaultJavaScriptErrorObject(anyObject: unknown): boolean
+export function isDefaultJavaScriptError(anyObject: unknown): boolean
 {
     if (!anyObject || typeof anyObject !== "object")
     {

@@ -1,4 +1,4 @@
-import {EMPTY_STRING} from "../typescript";
+import {EMPTY_STRING} from "../predefined";
 import {DateFormat} from "./date-format";
 import {TimeUnit} from "./time-unit";
 import {Decade} from "./types";

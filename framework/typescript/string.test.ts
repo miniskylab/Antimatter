@@ -1,13 +1,14 @@
-import {base64UrlEncode, EMPTY_STRING, extractQueryParameter, formatString, splitCamelCase} from "./string";
+import {EMPTY_STRING} from "../predefined";
+import {base64UrlEncode, extractQueryParameter, format, splitCamelCase} from "./string";
 
-describe("how to use [formatString(...)]", () =>
+describe("how to use [format(...)]", () =>
 {
     it("replaces placeholders in given string with given replacements", () =>
     {
         const templateString = "The quick brown {0} jumps over the lazy {1}. The {0} is known by his brush. {2}";
         const resultString = "The quick brown fox jumps over the lazy dog. The fox is known by his brush. {2}";
 
-        expect(formatString(templateString, "fox", "dog")).toBe(resultString);
+        expect(format(templateString, "fox", "dog")).toBe(resultString);
     });
 
     it("does nothing when there are no replacements", () =>
@@ -15,8 +16,8 @@ describe("how to use [formatString(...)]", () =>
         const emptyArray: string[] = [];
         const templateString = "The quick brown {0} jumps over the lazy {1}. The {0} is known by his brush. {2}";
 
-        expect(formatString(templateString)).toBe(templateString);
-        expect(formatString(templateString, ...emptyArray)).toBe(templateString);
+        expect(format(templateString)).toBe(templateString);
+        expect(format(templateString, ...emptyArray)).toBe(templateString);
     });
 });
 

@@ -1,4 +1,4 @@
-import {clampNumber, EMPTY_STRING, isNullOrUndefined, MAX, MIN} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, MAX, MIN, Ts} from "@miniskylab/antimatter-framework";
 import {Selection} from "@miniskylab/antimatter-text-input";
 import {Keypress} from "../enums";
 
@@ -218,7 +218,7 @@ export function getNextNumericInputFieldState(
 
     function reformatAndExtractNumericValueFrom(anyString: string): { numericValue: number; formattedUserInput: string }
     {
-        const numericValue = clampNumber(tryParse(anyString), minValue, maxValue);
+        const numericValue = Ts.Number.clamp(tryParse(anyString), minValue, maxValue);
         if (isNaN(numericValue))
         {
             return {
@@ -267,7 +267,7 @@ export function getNextNumericInputFieldState(
 
 function endWithDotAndZeros(anyString: string): boolean
 {
-    if (isNullOrUndefined(anyString))
+    if (Ts.Object.isNullOrUndefined(anyString))
     {
         return false;
     }

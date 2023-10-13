@@ -1,11 +1,11 @@
-import {splitCamelCase} from "../typescript";
+import * as Ts from "../typescript";
 
 export function styleSelector(anyObject: Record<string, unknown>): Record<string, unknown>
 {
     const options = Object.keys(anyObject);
 
     const labelMapping: Record<string, string> = {};
-    options.forEach(option => { labelMapping[option] = splitCamelCase(option); });
+    options.forEach(option => { labelMapping[option] = Ts.String.splitCamelCase(option); });
 
     const valueMapping: Record<string, unknown> = {};
     options.forEach(option => { valueMapping[option] = anyObject[option]; });
@@ -30,7 +30,7 @@ export function enumDropdown(anyEnum: Record<string, string>)
             type: "select",
             labels: Object.fromEntries(Object.entries(anyEnumWithoutReverseMapping).map(entry =>
             {
-                entry[0] = splitCamelCase(entry[0]);
+                entry[0] = Ts.String.splitCamelCase(entry[0]);
                 return entry.reverse();
             }))
         }

@@ -1,4 +1,4 @@
-import {Decade, GregorianCalendar, isEqualDate, Style, whitespace} from "@miniskylab/antimatter-framework";
+import {Decade, GregorianCalendar, isEqualDate, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Animation, CompositeTransitionSettings, SlideDirection, Transition, ZoomDirection} from "@miniskylab/antimatter-transition";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef, useState} from "react";
@@ -79,7 +79,7 @@ export function Calendar({
             {
                 const date = state.view.timeFrame.monthAndYear;
 
-                return `${GregorianCalendar.getFullMonthName(date.getMonth())}${whitespace(2)}${date.getFullYear()}`;
+                return `${GregorianCalendar.getFullMonthName(date.getMonth())}${Ts.String.whitespace(2)}${date.getFullYear()}`;
             }
 
             case ViewType.Month:

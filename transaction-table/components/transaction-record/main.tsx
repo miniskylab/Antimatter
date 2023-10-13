@@ -1,5 +1,5 @@
 import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {EMPTY_STRING, Enum, Style} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
@@ -77,7 +77,7 @@ export function Component({
         Object.keys(labels).forEach(labelId =>
         {
             const label = labels[labelId];
-            const mappedMenuItemStatus = Enum.getValue(MenuItemStatus, Enum.getName(TransactionLabelStatus, label.status));
+            const mappedMenuItemStatus = Ts.Enum.getValue(MenuItemStatus, Ts.Enum.getName(TransactionLabelStatus, label.status));
             dropdownMenuItems[labelId] = {
                 displayText: label.name,
                 status: selectedLabelCount < maxSelectedLabelCount

@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
-import {DateFormat, Enum, Environment, Style} from "@miniskylab/antimatter-framework";
+import {DateFormat, Environment, Style, Ts} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -305,7 +305,7 @@ export function TransactionTable({
                 break;
 
             default:
-                throw new Error(`No valid mode to switch to from mode "${Enum.getName(TransactionRecord.Mode, mode)}"`);
+                throw new Error(`No valid mode to switch to from mode "${Ts.Enum.getName(TransactionRecord.Mode, mode)}"`);
         }
     }
 }

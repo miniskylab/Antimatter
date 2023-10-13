@@ -2,8 +2,9 @@ import {plainToClass} from "class-transformer";
 import {validateSync, ValidationError} from "class-validator";
 import {ComponentType, createElement, JSX} from "react";
 import {ComponentProps} from "../component";
+import {EMPTY_STRING} from "../predefined";
 import {ComponentName, Decorator} from "../reflection";
-import {EMPTY_STRING, formatString, getRepresentationString} from "../typescript";
+import * as Ts from "../typescript";
 import {ErrorMessages} from "./error-messages";
 
 export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
@@ -45,7 +46,7 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
                 getValidationErrorMessages(error).forEach(errorMessage =>
                 {
                     const componentName = Decorator.getValue<string>(ComponentName, error.target);
-                    console.error(`${formatString(ErrorMessages.PropsValidationErrorOccurred, componentName)} ${errorMessage}`);
+                    console.error(`${Ts.String.format(ErrorMessages.PropsValidationErrorOccurred, componentName)} ${errorMessage}`);
                 });
 
                 function getValidationErrorMessages(validationError: ValidationError, parentPropertyName = EMPTY_STRING): string[]
@@ -64,15 +65,15 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
                             const tokens: string[] = [hierarchicalPropertyName];
                             const targetPropertyNames = (validationError.contexts?.[x]?.["targetPropertyNames"] || []) as string[];
 
-                            tokens.push(...targetPropertyNames, getRepresentationString(propertyValue));
+                            tokens.push(...targetPropertyNames, Ts.Object.getRepresentationString(propertyValue));
                             targetPropertyNames.forEach((x: string) =>
                             {
                                 const targetPropertyValue = (validationError.target as Record<string, unknown>)[x];
-                                tokens.push(getRepresentationString(targetPropertyValue));
+                                tokens.push(Ts.Object.getRepresentationString(targetPropertyValue));
                             });
 
                             const errorMessageTemplate = validationError.constraints[x];
-                            errorMessages.push(formatString(errorMessageTemplate, ...tokens));
+                            errorMessages.push(Ts.String.format(errorMessageTemplate, ...tokens));
                         });
                     }
 

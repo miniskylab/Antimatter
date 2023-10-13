@@ -1,4 +1,4 @@
-import {getRepresentationString, isNullOrUndefined} from "../typescript";
+import * as Ts from "../typescript";
 
 export * from "./types";
 export * from "./time-unit";
@@ -17,7 +17,7 @@ export function deserializeDate(anySerializedDate: number | string | Date): Date
     {
         return new Date(anySerializedDate);
     }
-    else if (ofTypeDate(anySerializedDate) || isNullOrUndefined(anySerializedDate))
+    else if (ofTypeDate(anySerializedDate) || Ts.Object.isNullOrUndefined(anySerializedDate))
     {
         return anySerializedDate;
     }
@@ -25,7 +25,7 @@ export function deserializeDate(anySerializedDate: number | string | Date): Date
     {
         throw new Error(
             "Invalid arguments: The provided argument is not of type string or Date. " +
-            `Received value: ${getRepresentationString(anySerializedDate)}`
+            `Received value: ${Ts.Object.getRepresentationString(anySerializedDate)}`
         );
     }
 }

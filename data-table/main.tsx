@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Enum, Style} from "@miniskylab/antimatter-framework";
+import {Style, Ts} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
@@ -258,7 +258,7 @@ export function DataTable({
                 break;
 
             default:
-                throw new Error(`No valid mode to switch to from mode "${Enum.getName(Row.Mode, mode)}"`);
+                throw new Error(`No valid mode to switch to from mode "${Ts.Enum.getName(Row.Mode, mode)}"`);
         }
     }
 }
