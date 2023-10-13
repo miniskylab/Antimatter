@@ -1,4 +1,4 @@
-import {useSsrVisibleWhenReady} from "@miniskylab/antimatter-framework";
+import {Environment} from "@miniskylab/antimatter-framework";
 import {ViewStyle} from "../models";
 
 export const Default: ViewStyle = function ()
@@ -6,6 +6,6 @@ export const Default: ViewStyle = function ()
     return {
         alignItems: "center",
         justifyContent: "center",
-        ...useSsrVisibleWhenReady()
+        ...Environment.useSuspense()
     };
 };

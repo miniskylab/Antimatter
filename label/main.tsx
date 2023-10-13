@@ -1,4 +1,4 @@
-import {Environment, Html, inheritTextStyleFrom, isEnvironment, Style} from "@miniskylab/antimatter-framework";
+import {Environment, Html, inheritTextStyleFrom, Style} from "@miniskylab/antimatter-framework";
 import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
@@ -22,7 +22,7 @@ export function Label({
     };
 
     const computedStyle = Style.useComputedStyle(style, props);
-    const isWebEnvironment = isEnvironment(Environment.Web);
+    const isWebEnvironment = Environment.is("Web");
 
     return (
         <View

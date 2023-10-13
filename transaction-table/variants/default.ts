@@ -3,7 +3,7 @@ import {CalendarContextHook, CalendarStyle, CalendarVariant} from "@miniskylab/a
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DatePickerContextHook, DatePickerStyle, DatePickerVariant} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {Environment, ScreenSize, Style, useEnvironment, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {Environment, Style} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -26,7 +26,7 @@ const TransactionTable__Root: ViewStyle = function (viewProps)
         minWidth: 300,
         maxWidth: 1000,
         minHeight: 500,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             flexDirection: "row",
             alignItems: "flex-start"
         })
@@ -202,7 +202,7 @@ const TransactionTable__TransactionDetails: ViewStyle = function (viewProps)
         maxWidth: undefined,
         height: "auto",
         marginTop: 12,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             maxWidth: "50%",
             height: 562
         })
@@ -714,7 +714,7 @@ const TransactionTable__Hr: ViewStyle = function (viewProps)
 {
     const hrPosition = TransactionTableContextHook.useHrPositionContext();
 
-    const runningOnMobileApp = useEnvironment(Environment.MobileApp);
+    const runningOnMobileApp = Environment.use("MobileApp");
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -786,7 +786,7 @@ const TransactionTable__AddNewButton: ButtonStyle = function (buttonProps)
 
 const TransactionTable__Summary__Root: ViewStyle = function (viewProps)
 {
-    const runningOnMobileApp = useEnvironment(Environment.MobileApp);
+    const runningOnMobileApp = Environment.use("MobileApp");
 
     return {
         ...ViewVariant.Default(viewProps),

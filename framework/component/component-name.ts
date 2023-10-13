@@ -1,9 +1,9 @@
-import {Decorator} from "../decorator";
+import {getMetadataKey} from "../decorator";
 
 export function ComponentName(componentName: string)
 {
     return (constructor: unknown): void =>
     {
-        Reflect.defineMetadata(Decorator.getMetadataKey(ComponentName.name), componentName, constructor);
+        Reflect.defineMetadata(getMetadataKey(ComponentName.name), componentName, constructor);
     };
 }

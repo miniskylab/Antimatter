@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {EMPTY_STRING, Environment, isEnvironment, Style} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, Environment, Style} from "@miniskylab/antimatter-framework";
 import {useNavigation} from "@react-navigation/native";
 import React, {JSX, useMemo} from "react";
 import {Target} from "./enums";
@@ -28,7 +28,7 @@ export function NavButton({
     );
 
     const computedStyle = Style.useComputedStyle(style, props);
-    const navigation = isEnvironment(Environment.Web) ? undefined : useNavigation();
+    const navigation = Environment.is("Web") ? undefined : useNavigation();
 
     return (
         <NavButtonContext.Provider value={context}>
@@ -44,7 +44,7 @@ export function NavButton({
 
     function onPress(): void
     {
-        if (isEnvironment(Environment.WebBrowser))
+        if (Environment.is("WebBrowser"))
         {
             window.open(destination, openIn);
         }

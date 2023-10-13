@@ -1,4 +1,4 @@
-import {EMPTY_STRING, Environment, isEnvironment} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, Environment} from "@miniskylab/antimatter-framework";
 import {TextStyle} from "react-native";
 import {useRobotoFont} from "./font";
 import {IcomoonSettings, useDefaultIconSet} from "./icomoon";
@@ -71,7 +71,7 @@ export function useTypography<TStyle extends TextStyle>(style: TStyle): Typograp
     }
 
     let fontFamily = `Roboto${fontWeightSuffix}${fontStyleSuffix}`;
-    if (isEnvironment(Environment.Web))
+    if (Environment.is("Web"))
     {
         fontFamily += `, sans-serif, ${glyphName}`;
     }

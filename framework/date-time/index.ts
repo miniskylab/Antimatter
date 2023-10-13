@@ -1,4 +1,9 @@
-import {getRepresentationString, isNullOrUndefined} from "./object";
+import {getRepresentationString, isNullOrUndefined} from "../typescript";
+
+export * from "./decade";
+export * from "./time-unit";
+export * from "./date-format";
+export * from "./day-of-week";
 
 export function deserializeDate(anySerializedDate: number | string | Date): Date
 {

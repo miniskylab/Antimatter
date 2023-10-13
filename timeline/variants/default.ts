@@ -1,5 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {ScreenSize, Style, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {Environment, Style} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -14,7 +14,7 @@ const Timeline__Root: ViewStyle = function (viewProps)
         flex: 1,
         width: "100%",
         minWidth: 300,
-        maxWidth: ScreenSize.ExtraLarge
+        maxWidth: Environment.ScreenSize("ExtraLarge")
     };
 };
 
@@ -24,7 +24,7 @@ const Timeline__EventStream: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flexDirection: "column",
         alignSelf: "stretch",
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             flexDirection: "row",
             flexWrap: "wrap",
             columnGap: 130,
@@ -47,7 +47,7 @@ const Timeline__VerticalLine: ViewStyle = function (viewProps)
         marginBottom: 50,
         backgroundColor: Color.Gray,
         zIndex: Style.Layer.Lower,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             left: "50%",
             width: 6,
             marginLeft: -3,
@@ -68,7 +68,7 @@ const Timeline__Origin: IconStyle = function (iconProps)
         marginBottom: 20,
         fontSize: 30,
         color: Color.Gray,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             alignSelf: "center",
             flexBasis: "100%",
             height: 60,
@@ -93,7 +93,7 @@ const Timeline__Event__Root: ViewStyle = function (viewProps)
         marginBottom: 20,
         marginLeft: 45,
         backgroundColor: Color.Ambient,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             flexGrow: 1,
             flexBasis: "34%",
             marginLeft: 0,
@@ -121,7 +121,7 @@ const Timeline__Event__Icon: IconStyle = function (iconProps)
         fontSize: 14,
         color: Color.Neutral,
         backgroundColor: Color.Ambient,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             top: 30,
             width: 60,
             height: 60,
@@ -155,7 +155,7 @@ const Timeline__Event__TriangleArrow: ViewStyle = function (viewProps)
         borderStyle: "solid",
         borderColor: Color.Transparent,
         borderRightColor: Color.Gray,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             top: 40,
             borderWidth: 20,
             ...eventContext.props.index % 2 === 0 && {
@@ -344,7 +344,7 @@ const Timeline__BootstrapEvent__Root: ViewStyle = function (viewProps)
         marginTop: -110,
         marginLeft: 45,
         backgroundColor: Color.Ambient,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             maxWidth: undefined,
             height: 200,
             marginTop: 10,
@@ -366,7 +366,7 @@ const Timeline__BootstrapEvent__TriangleArrow: ViewStyle = function (viewProps)
         borderStyle: "solid",
         borderColor: Color.Transparent,
         borderRightColor: Color.Gray,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             top: -36,
             left: "50%",
             marginLeft: -18,
@@ -386,7 +386,7 @@ const Timeline__BootstrapEvent__Icon: IconStyle = function (iconProps)
         marginBottom: 18,
         fontSize: 35,
         color: Color.Gray,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             width: 45,
             height: 45,
             marginBottom: 23,
@@ -404,7 +404,7 @@ const Timeline__BootstrapEvent__Name: LabelStyle = function (labelProps)
         fontSize: 20,
         fontWeight: "bold",
         color: Color.Gray,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             marginBottom: 10,
             fontSize: 30
         })
@@ -420,7 +420,7 @@ const Timeline__BootstrapEvent__Description: LabelStyle = function (labelProps)
         marginTop: 6,
         fontSize: 14,
         color: Color.Gray,
-        ...useResponsiveStyle(ScreenSize.Large, {
+        ...Environment.useResponsiveStyle("Large", {
             fontSize: 17
         })
     };

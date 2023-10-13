@@ -1,7 +1,7 @@
 import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DownloadButtonContextHook, DownloadButtonStyle, DownloadButtonVariant} from "@miniskylab/antimatter-download-button";
-import {ScreenSize, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {Environment} from "@miniskylab/antimatter-framework";
 import {
     HighlightedParagraphContextHook,
     HighlightedParagraphStyle,
@@ -20,7 +20,7 @@ const SelfIntroductionHero__Root: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flex: 1,
-        flexBasis: ScreenSize.ExtraLarge,
+        flexBasis: Environment.ScreenSize("ExtraLarge"),
         flexDirection: "column",
         minWidth: 300
     };
@@ -82,7 +82,7 @@ const SelfIntroductionHero__Name: LabelStyle = function (labelProps)
         fontSize: 40,
         fontWeight: "bold",
         color: Color.White,
-        ...useResponsiveStyle(ScreenSize.Small, {
+        ...Environment.useResponsiveStyle("Small", {
             height: 60,
             fontSize: 50
         })
@@ -98,7 +98,7 @@ const SelfIntroductionHero__AlternativeName: LabelStyle = function (labelProps)
         fontSize: 28,
         fontWeight: "bold",
         color: Color.White,
-        ...useResponsiveStyle(ScreenSize.Small, {
+        ...Environment.useResponsiveStyle("Small", {
             height: 50,
             fontSize: 38
         })
@@ -116,12 +116,12 @@ const SelfIntroductionHero__Description: LabelStyle = function (labelProps)
         fontSize: 20,
         color: Color.Neutral,
         textAlign: "justify",
-        ...useResponsiveStyle(ScreenSize.Small, {
+        ...Environment.useResponsiveStyle("Small", {
             width: 580,
             paddingVertical: 30,
             paddingHorizontal: 20
         }),
-        ...useResponsiveStyle(ScreenSize.Medium, {
+        ...Environment.useResponsiveStyle("Medium", {
             width: 740
         })
     };
@@ -146,7 +146,7 @@ const SelfIntroductionHero__PersonalInfo__Root: ViewStyle = function (viewProps)
             borderColor: Color.Primary,
             backgroundColor: Color.Primary__a10
         },
-        ...useResponsiveStyle(ScreenSize.Small, {
+        ...Environment.useResponsiveStyle("Small", {
             alignSelf: "center",
             position: "absolute",
             top: 300,
@@ -161,7 +161,7 @@ const SelfIntroductionHero__PersonalInfo__Root: ViewStyle = function (viewProps)
             borderWidth: 0,
             backgroundColor: Color.Transparent
         }),
-        ...useResponsiveStyle(ScreenSize.Medium, {
+        ...Environment.useResponsiveStyle("Medium", {
             width: 200,
             marginLeft: personalInfoContext === "location" ? -500 : 500
         })
@@ -177,7 +177,7 @@ const SelfIntroductionHero__PersonalInfo__TitleContainer: ViewStyle = function (
     return {
         ...inheritedStyle,
         justifyContent: "center",
-        ...useResponsiveStyle(ScreenSize.Small, {
+        ...Environment.useResponsiveStyle("Small", {
             height: 37
         })
     };
@@ -193,11 +193,11 @@ const SelfIntroductionHero__PersonalInfo__TitleLabel: LabelStyle = function (lab
         ...inheritedStyle,
         fontSize: 16,
         color: Color.Neutral,
-        ...useResponsiveStyle(ScreenSize.Small, {
+        ...Environment.useResponsiveStyle("Small", {
             fontSize: 17,
             fontWeight: "bold"
         }),
-        ...useResponsiveStyle(ScreenSize.Medium, {
+        ...Environment.useResponsiveStyle("Medium", {
             fontSize: 20
         })
     };
@@ -230,7 +230,7 @@ const SelfIntroductionHero__PersonalInfo__Content: LabelStyle = function (labelP
         alignSelf: "stretch",
         fontSize: 20,
         fontWeight: "bold",
-        ...useResponsiveStyle(ScreenSize.Small, {
+        ...Environment.useResponsiveStyle("Small", {
             height: 33,
             lineHeight: 20,
             fontSize: 17,
@@ -241,7 +241,7 @@ const SelfIntroductionHero__PersonalInfo__Content: LabelStyle = function (labelP
             borderBottomWidth: 4,
             borderBottomColor: Color.Primary
         }),
-        ...useResponsiveStyle(ScreenSize.Medium, {
+        ...Environment.useResponsiveStyle("Medium", {
             fontSize: 20
         })
     };
@@ -273,7 +273,7 @@ const SelfIntroductionHero__DownloadButton__Button__Root: PressableStyle = funct
         display: "none",
         minWidth: 150,
         marginTop: -5,
-        ...useResponsiveStyle(ScreenSize.Small, {
+        ...Environment.useResponsiveStyle("Small", {
             display: "flex"
         })
     };

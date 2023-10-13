@@ -1,4 +1,4 @@
-import {ScreenSize, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {Environment} from "@miniskylab/antimatter-framework";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Card} from "../components";
 import {TopicCardGroupContextHook} from "../hooks";
@@ -13,8 +13,8 @@ const TopicCardGroup__Root: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        maxWidth: ScreenSize.ExtraLarge,
-        ...useResponsiveStyle(ScreenSize.ExtraLarge, {
+        maxWidth: Environment.ScreenSize("ExtraLarge"),
+        ...Environment.useResponsiveStyle("ExtraLarge", {
             marginTop: 0,
             marginBottom: 0,
             marginLeft: 0,
@@ -35,7 +35,7 @@ const TopicCardGroup__Card__Root: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        ...useResponsiveStyle(ScreenSize.ExtraLarge, {
+        ...Environment.useResponsiveStyle("ExtraLarge", {
             flexBasis: "25%",
             marginVertical: 0,
             opacity: 1
@@ -54,7 +54,7 @@ const TopicCardGroup__Card__Content: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        ...useResponsiveStyle(ScreenSize.ExtraLarge, {
+        ...Environment.useResponsiveStyle("ExtraLarge", {
             height: "auto"
         })
     };
@@ -71,7 +71,7 @@ const TopicCardGroup__Card__HorizontalMargin: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        ...useResponsiveStyle(ScreenSize.ExtraLarge, {
+        ...Environment.useResponsiveStyle("ExtraLarge", {
             display: "none"
         })
     };

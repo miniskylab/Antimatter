@@ -1,17 +1,14 @@
 import "reflect-metadata";
 
-export const Decorator = new class
+export function getMetadataKey(key: string): string { return `antimatter:anotation:${key}`; }
+
+export function getValue<T = unknown>(decorator: (constructor: unknown) => void, target: unknown): T
 {
-    getMetadataKey(key: string): string { return `antimatter:anotation:${key}`; }
+    const metadataKey = this.getMetadataKey(decorator.name);
 
-    getValue<T = unknown>(decorator: (constructor: unknown) => void, target: unknown): T
-    {
-        const metadataKey = this.getMetadataKey(decorator.name);
-
-        return (
-            Reflect.getMetadata(metadataKey, Object.getPrototypeOf(target).constructor)
-            ||
-            Reflect.getMetadata(metadataKey, Object.getPrototypeOf(new (target as FunctionConstructor)()).constructor)
-        );
-    }
-};
+    return (
+        Reflect.getMetadata(metadataKey, Object.getPrototypeOf(target).constructor)
+        ||
+        Reflect.getMetadata(metadataKey, Object.getPrototypeOf(new (target as FunctionConstructor)()).constructor)
+    );
+}

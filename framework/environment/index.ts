@@ -2,27 +2,22 @@ import "@expo/match-media";
 import {useEffect, useState} from "react";
 import {ImageStyle, Platform, TextStyle, ViewStyle} from "react-native";
 import {MediaQueryAllQueryable, useMediaQuery} from "react-responsive";
-import {PlatformEnvironment} from "./platform-environment";
-import {ResponsiveEnvironment} from "./responsive-environment";
-import {ScreenSize} from "./screen-size";
+import type {Breakpoint, PlatformEnvironment, ResponsiveEnvironment} from "./types";
 
-export {ScreenSize};
-export const Environment = {...ResponsiveEnvironment, ...PlatformEnvironment};
-
-export function isEnvironment(environment: PlatformEnvironment): boolean
+export function is(environment: PlatformEnvironment): boolean
 {
     switch (environment)
     {
-        case PlatformEnvironment.NativeApp:
+        case "NativeApp":
             return Platform.OS === "ios" || Platform.OS === "android";
 
-        case PlatformEnvironment.WebBrowser:
+        case "WebBrowser":
             return Platform.OS === "web" && !!(typeof window !== "undefined" && window.document && window.document.createElement);
 
-        case PlatformEnvironment.WebSSR:
+        case "WebSSR":
             return Platform.OS === "web" && typeof window === "undefined";
 
-        case PlatformEnvironment.Web:
+        case "Web":
             return Platform.OS === "web";
 
         default:
@@ -30,49 +25,49 @@ export function isEnvironment(environment: PlatformEnvironment): boolean
     }
 }
 
-export function useEnvironment(environment: ResponsiveEnvironment | PlatformEnvironment): boolean
+export function use(environment: ResponsiveEnvironment | PlatformEnvironment): boolean
 {
     switch (environment)
     {
-        case Environment.MobileApp:
+        case "MobileApp":
             return (Platform.OS === "ios" || Platform.OS === "android") &&
-                   useSsrSupportedMediaQuery({maxWidth: ScreenSize.Medium});
+                   useSsrSupportedMediaQuery({maxWidth: ScreenSize("Medium")});
 
-        case Environment.MobileWeb:
+        case "MobileWeb":
             return Platform.OS === "web" &&
-                   useSsrSupportedMediaQuery({maxWidth: ScreenSize.Medium});
+                   useSsrSupportedMediaQuery({maxWidth: ScreenSize("Medium")});
 
-        case Environment.TabletApp:
+        case "TabletApp":
             return (Platform.OS === "ios" || Platform.OS === "android") &&
-                   useSsrSupportedMediaQuery({minWidth: ScreenSize.Medium, maxWidth: ScreenSize.Large});
+                   useSsrSupportedMediaQuery({minWidth: ScreenSize("Medium"), maxWidth: ScreenSize("Large")});
 
-        case Environment.TabletWeb:
+        case "TabletWeb":
             return (Platform.OS === "web") &&
-                   useSsrSupportedMediaQuery({minWidth: ScreenSize.Medium, maxWidth: ScreenSize.Large});
+                   useSsrSupportedMediaQuery({minWidth: ScreenSize("Medium"), maxWidth: ScreenSize("Large")});
 
-        case Environment.DesktopWeb:
+        case "DesktopWeb":
             return Platform.OS === "web" &&
-                   useSsrSupportedMediaQuery({minWidth: ScreenSize.Large});
+                   useSsrSupportedMediaQuery({minWidth: ScreenSize("Large")});
 
-        case Environment.NativeApp:
-        case Environment.WebBrowser:
-        case Environment.WebSSR:
-        case Environment.Web:
-            return isEnvironment(environment);
+        case "NativeApp":
+        case "WebBrowser":
+        case "WebSSR":
+        case "Web":
+            return is(environment);
 
         default:
             return false;
     }
 }
 
-export function useScreenSize(screenSize: ScreenSize): boolean
+export function useBreakpoint(breakpoint: Breakpoint): boolean
 {
-    return useSsrSupportedMediaQuery({minWidth: screenSize});
+    return useSsrSupportedMediaQuery({minWidth: ScreenSize(breakpoint)});
 }
 
-export function useResponsiveStyle(screenSize: ScreenSize, style: ViewStyle | TextStyle | ImageStyle): typeof style
+export function useResponsiveStyle(breakpoint: Breakpoint, style: ViewStyle | TextStyle | ImageStyle): typeof style
 {
-    const mediaQueryMatched = useMediaQuery({minWidth: screenSize});
+    const mediaQueryMatched = useMediaQuery({minWidth: ScreenSize(breakpoint)});
     if (ssrIsEnabled())
     {
         const [componentDidMount, setComponentDidMount] = useState(false);
@@ -86,7 +81,7 @@ export function useResponsiveStyle(screenSize: ScreenSize, style: ViewStyle | Te
     return mediaQueryMatched ? style : {};
 }
 
-export function useSsrVisibleWhenReady(): ViewStyle & TextStyle & ImageStyle
+export function useSuspense(): ViewStyle & TextStyle & ImageStyle
 {
     if (ssrIsEnabled())
     {
@@ -98,9 +93,27 @@ export function useSsrVisibleWhenReady(): ViewStyle & TextStyle & ImageStyle
             : {display: "none"};
     }
 
-    return useEnvironment(Environment.NativeApp) || useEnvironment(Environment.WebBrowser)
+    return is("NativeApp") || is("WebBrowser")
         ? {}
         : {display: "none"};
+}
+
+export function ScreenSize(breakpoint: Breakpoint): number
+{
+    switch (breakpoint)
+    {
+        case "Small":
+            return 576;
+
+        case "Medium":
+            return 769;
+
+        case "Large":
+            return 1025;
+
+        case "ExtraLarge":
+            return 1200;
+    }
 }
 
 function useSsrSupportedMediaQuery(settings: MediaQueryAllQueryable): boolean
@@ -120,5 +133,5 @@ function useSsrSupportedMediaQuery(settings: MediaQueryAllQueryable): boolean
 
 function ssrIsEnabled(): boolean
 {
-    return isEnvironment(PlatformEnvironment.WebBrowser) && !!(window as never)?.["ANTIMATTER"]?.["ssr"];
+    return is("WebBrowser") && !!(window as never)?.["ANTIMATTER"]?.["ssr"];
 }

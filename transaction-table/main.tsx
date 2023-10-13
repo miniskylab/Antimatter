@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
-import {DateFormat, Enum, ScreenSize, Style, useScreenSize} from "@miniskylab/antimatter-framework";
+import {DateFormat, Enum, Environment, Style} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -45,7 +45,7 @@ export function TransactionTable({
     );
 
     const computedStyle = Style.useComputedStyle(style, props, state);
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useScreenSize(ScreenSize.Large);
+    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = Environment.useBreakpoint("Large");
 
     return (
         <TransactionTableContext.Provider value={context}>
