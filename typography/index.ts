@@ -11,7 +11,7 @@ export function useIcomoon(): IcomoonSettings
 }
 
 type Typography = { fontFamily?: string; fontWeight?: TextStyle["fontWeight"]; fontStyle?: TextStyle["fontStyle"]; }
-export function useTypography<TStyle extends TextStyle>(style: TStyle): Typography
+export function useTypography<TStyle extends TextStyle>(style?: TStyle): Typography
 {
     const fontLoaded = useRobotoFont();
     const [iconLoaded, , glyphName] = useDefaultIconSet();
@@ -21,7 +21,7 @@ export function useTypography<TStyle extends TextStyle>(style: TStyle): Typograp
     }
 
     let fontStyleSuffix;
-    switch (style.fontStyle)
+    switch (style?.fontStyle)
     {
         case "italic":
             fontStyleSuffix = "-Italic";
@@ -34,7 +34,7 @@ export function useTypography<TStyle extends TextStyle>(style: TStyle): Typograp
     }
 
     let fontWeightSuffix;
-    switch (style.fontWeight)
+    switch (style?.fontWeight)
     {
         case "100":
         case "200":
