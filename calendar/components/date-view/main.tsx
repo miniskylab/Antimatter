@@ -1,4 +1,4 @@
-import {GregorianCalendar, isEqualDate, Style} from "@miniskylab/antimatter-framework";
+import {GregorianCalendar, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {View} from "@miniskylab/antimatter-view";
@@ -76,7 +76,7 @@ export function Component({
                         data[weekNo][dayNo].isExtraneous
                     ]
                 );
-                const isToday = isEqualDate(dateInfo.value, today);
+                const isToday = Ts.Date.isEqualDate(dateInfo.value, today);
 
                 week.push(
                     <DateContext.Provider key={data[weekNo][dayNo].value.getTime()} value={dateInfo}>

@@ -1,4 +1,4 @@
-import {DayOfWeek, Decade, GregorianCalendar, isEqualMonth} from "@miniskylab/antimatter-framework";
+import {DayOfWeek, Decade, GregorianCalendar, Ts} from "@miniskylab/antimatter-framework";
 import {DateView, MonthView, YearView} from "../components";
 import {ViewType} from "../enums";
 import {View} from "../types";
@@ -99,7 +99,7 @@ export function getDateViewData(month: Date): DateView.DateInfo[][]
             week = [];
         }
 
-        week.push({value: new Date(date), isExtraneous: !isEqualMonth(date, month)});
+        week.push({value: new Date(date), isExtraneous: !Ts.Date.isEqualMonth(date, month)});
         date.setDate(date.getDate() + 1);
     }
 

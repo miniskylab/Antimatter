@@ -1,6 +1,6 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {isEqualDate, isEqualMonth} from "@miniskylab/antimatter-framework";
+import {Ts} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
@@ -214,8 +214,8 @@ const Calendar__DateView__DateContainer: PressableStyle = function (pressablePro
     const calendarContext = CalendarContextHook.useCalendarContext();
     const dateViewContext = DateView.ContextHook.useDateViewContext();
 
-    const isToday = isEqualDate(dateContext.value, dateViewContext.props.today);
-    const isSelectedDate = isEqualDate(dateContext.value, calendarContext.props.selectedDate);
+    const isToday = Ts.Date.isEqualDate(dateContext.value, dateViewContext.props.today);
+    const isSelectedDate = Ts.Date.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
     return {
         ...PressableVariant.Default(pressableProps, pressableState),
@@ -254,8 +254,8 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
     const dateViewContext = DateView.ContextHook.useDateViewContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const isToday = isEqualDate(dateContext.value, dateViewContext.props.today);
-    const isSelectedDate = isEqualDate(dateContext.value, calendarContext.props.selectedDate);
+    const isToday = Ts.Date.isEqualDate(dateContext.value, dateViewContext.props.today);
+    const isSelectedDate = Ts.Date.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
     return {
         ...LabelVariant.Default(labelProps),
@@ -280,7 +280,7 @@ const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
     const calendarContext = CalendarContextHook.useCalendarContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const isSelectedDate = isEqualDate(dateContext.value, calendarContext.props.selectedDate);
+    const isSelectedDate = Ts.Date.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
     return {
         ...LabelVariant.Default(labelProps),
@@ -329,7 +329,7 @@ const Calendar__MonthView__GridCell__Root: PressableStyle = function (pressableP
     const monthContext = MonthView.ContextHook.useMonthContext();
     const monthViewContext = MonthView.ContextHook.useMonthViewContext();
 
-    const isSelectedMonth = isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
+    const isSelectedMonth = Ts.Date.isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
@@ -375,7 +375,7 @@ const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
     const monthViewContext = MonthView.ContextHook.useMonthViewContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const isSelectedMonth = isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
+    const isSelectedMonth = Ts.Date.isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
 
