@@ -1,8 +1,9 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {HighlightedParagraph, HighlightedParagraphProps} from "@miniskylab/antimatter-highlighted-paragraph";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {HighlightedParagraph} from "../main";
+import {HighlightedParagraphProps} from "../models";
 import * as Variant from "./variants";
 
 const HighlightedParagraphWithValidation = withValidation(HighlightedParagraph, HighlightedParagraphProps);

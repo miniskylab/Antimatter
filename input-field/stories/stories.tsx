@@ -1,9 +1,10 @@
 import {EMPTY_STRING, Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {InputField, InputFieldProps} from "@miniskylab/antimatter-input-field";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {InputField} from "../main";
+import {InputFieldProps} from "../models";
 import * as Variant from "./variants";
 
 const InputFieldWithValidation = withValidation(InputField, InputFieldProps);

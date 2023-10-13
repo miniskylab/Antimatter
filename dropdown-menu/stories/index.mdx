@@ -1,10 +1,11 @@
-import {ComponentName, DropdownMenu} from "@miniskylab/antimatter-dropdown-menu";
 import {Canvas, Meta, Controls} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
+import {DropdownMenu} from "../main";
+import {DropdownMenuProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories}/>
-<Sb.Intro title={ComponentName} component={DropdownMenu}/>
+<Sb.Intro of={DropdownMenu} propsType={DropdownMenuProps}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table

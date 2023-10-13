@@ -1,10 +1,11 @@
-import {DownloadButton, DownloadButtonProps} from "@miniskylab/antimatter-download-button";
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {DownloadButton} from "../main";
+import {DownloadButtonProps} from "../models";
+import * as Variant from "../variants";
 import * as StaticAsset from "./static-assets";
-import * as Variant from "./variants";
 
 const DownloadButtonWithValidation = withValidation(DownloadButton, DownloadButtonProps);
 export default {

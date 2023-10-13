@@ -1,8 +1,10 @@
-import {DataTable, DataTableProps, Row} from "@miniskylab/antimatter-data-table";
 import {EMPTY_STRING, Sb, withValidation} from "@miniskylab/antimatter-framework";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {Row} from "../components";
+import {DataTable} from "../main";
+import {DataTableProps} from "../models";
 import {TestData} from "./test-data";
 import * as Variant from "./variants";
 

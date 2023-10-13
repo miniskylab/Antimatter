@@ -1,9 +1,10 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {LoginForm, LoginFormProps} from "@miniskylab/antimatter-login-form";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-import * as Variant from "./variants";
+import {LoginForm} from "../main";
+import {LoginFormProps} from "../models";
+import * as Variant from "../variants";
 
 const LoginFormWithValidation = withValidation(LoginForm, LoginFormProps);
 export default {

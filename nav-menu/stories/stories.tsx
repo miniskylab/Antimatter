@@ -1,8 +1,9 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {NavMenu, NavMenuProps} from "@miniskylab/antimatter-nav-menu";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {NavMenu} from "../main";
+import {NavMenuProps} from "../models";
 import {TestData} from "./test-data";
 import * as Variant from "./variants";
 

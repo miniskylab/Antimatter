@@ -1,11 +1,12 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
 import {Target} from "@miniskylab/antimatter-nav-button";
-import {TopicCardGroup, TopicCardGroupProps} from "@miniskylab/antimatter-topic-card-group";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {TopicCardGroup} from "../main";
+import {TopicCardGroupProps} from "../models";
+import * as Variant from "../variants";
 import * as StaticAsset from "./static-assets";
-import * as Variant from "./variants";
 
 const TopicCardGroupWithValidation = withValidation(TopicCardGroup, TopicCardGroupProps);
 export default {

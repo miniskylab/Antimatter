@@ -1,10 +1,13 @@
-import {DataTableContextHook, DataTableStyle, DataTableVariant, Row} from "@miniskylab/antimatter-data-table";
 import {DropdownMenuContextHook, DropdownMenuStyle} from "@miniskylab/antimatter-dropdown-menu";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle} from "@miniskylab/antimatter-input-field";
 import {LabelStyle} from "@miniskylab/antimatter-label";
 import {ToggleContextHook, ToggleStyle} from "@miniskylab/antimatter-toggle";
 import {ViewStyle} from "@miniskylab/antimatter-view";
+import {Row} from "../../components";
+import {DataTableContextHook} from "../../hooks";
+import {DataTableStyle} from "../../models";
+import * as DataTableVariant from "../../variants";
 
 const DataTable__Row__CellLabel: LabelStyle = function (labelProps)
 {

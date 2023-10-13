@@ -1,4 +1,5 @@
-import {TransactionRecord, TransactionTableProps} from "@miniskylab/antimatter-transaction-table";
+import {TransactionRecord} from "../../components";
+import {TransactionTableProps} from "../../models";
 import {labels} from "./labels";
 
 const today = new Date();

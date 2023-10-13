@@ -1,8 +1,9 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Icon, IconVariant} from "@miniskylab/antimatter-icon";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IconItem} from "@storybook/blocks";
 import React, {JSX} from "react";
+import {Icon} from "../../main";
+import * as IconVariant from "../../variants";
 
 type Props = { iconName: DefaultIconSet };
 export function IconShowcase({iconName}: Props): JSX.Element

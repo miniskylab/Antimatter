@@ -1,5 +1,5 @@
-import {NavbarProps} from "@miniskylab/antimatter-navbar";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
+import {NavbarProps} from "../../models";
 
 export const TestData = {
     getTabs(): NavbarProps["tabs"]

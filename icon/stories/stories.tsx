@@ -1,8 +1,9 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {Icon, IconProps} from "@miniskylab/antimatter-icon";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {Icon} from "../main";
+import {IconProps} from "../models";
 import * as Variant from "./variants";
 
 const IconWithValidation = withValidation(Icon, IconProps);

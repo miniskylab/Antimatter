@@ -1,4 +1,4 @@
-import * as Decorator from "../decorator";
+import {Decorator} from "./";
 
 export function ComponentName(componentName: string)
 {

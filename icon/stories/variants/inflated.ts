@@ -1,5 +1,6 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {IconStyle} from "../../models";
+import * as IconVariant from "../../variants";
 
 export const Inflated: IconStyle = function (iconProps)
 {

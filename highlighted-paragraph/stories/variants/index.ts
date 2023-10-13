@@ -1,4 +1,4 @@
-export * from "@miniskylab/antimatter-highlighted-paragraph/variants";
+export * from "../../variants";
 export * from "./error";
 export * from "./info";
 export * from "./note";

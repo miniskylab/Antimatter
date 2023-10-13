@@ -1,7 +1,9 @@
-import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle} from "@miniskylab/antimatter-label";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
+import {ButtonContextHook} from "../../hooks";
+import {ButtonStyle} from "../../models";
+import * as ButtonVariant from "../../variants";
 
 const Button__Root: PressableStyle = function (pressableProps, pressableState)
 {

@@ -1,12 +1,10 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {
-    HighlightedParagraphContextHook,
-    HighlightedParagraphStyle,
-    HighlightedParagraphVariant
-} from "@miniskylab/antimatter-highlighted-paragraph";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {LabelStyle} from "@miniskylab/antimatter-label";
 import {ViewStyle} from "@miniskylab/antimatter-view";
+import {HighlightedParagraphContextHook} from "../../hooks";
+import {HighlightedParagraphStyle} from "../../models";
+import * as HighlightedParagraphVariant from "../../variants";
 
 const HighlightedParagraph__Root: ViewStyle = function (viewProps)
 {

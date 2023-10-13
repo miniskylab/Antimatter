@@ -1,8 +1,9 @@
 import {EMPTY_STRING, MAX, MIN, Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {NumericInputField, NumericInputFieldProps} from "@miniskylab/antimatter-numeric-input-field";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React, {useRef} from "react";
+import {NumericInputField} from "../main";
+import {NumericInputFieldProps} from "../models";
 import * as Variant from "./variants";
 
 const NumericInputFieldWithValidation = withValidation(NumericInputField, NumericInputFieldProps);

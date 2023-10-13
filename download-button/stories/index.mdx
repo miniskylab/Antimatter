@@ -1,10 +1,11 @@
-import {ComponentName, DownloadButton} from "@miniskylab/antimatter-download-button";
 import {Canvas, Meta, Controls} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
+import {DownloadButton} from "../main";
+import {DownloadButtonProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories}/>
-<Sb.Intro title={ComponentName} component={DownloadButton}/>
+<Sb.Intro of={DownloadButton} propsType={DownloadButtonProps}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table

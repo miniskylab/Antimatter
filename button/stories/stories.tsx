@@ -1,8 +1,9 @@
-import {Button, ButtonProps} from "@miniskylab/antimatter-button";
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {Button} from "../main";
+import {ButtonProps} from "../models";
 import * as Variant from "./variants";
 
 const ButtonWithValidation = withValidation(Button, ButtonProps);

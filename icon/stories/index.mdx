@@ -1,12 +1,13 @@
-import {ComponentName, Icon} from "@miniskylab/antimatter-icon";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {Canvas, Meta, Controls, IconGallery} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
 import {IconShowcase} from "./components";
+import {Icon} from "../main";
+import {IconProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories}/>
-<Sb.Intro title={ComponentName} component={Icon}/>
+<Sb.Intro of={Icon} propsType={IconProps}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table

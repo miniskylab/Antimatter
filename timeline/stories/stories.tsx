@@ -1,10 +1,11 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {Timeline, TimelineProps} from "@miniskylab/antimatter-timeline";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {Timeline} from "../main";
+import {TimelineProps} from "../models";
+import * as Variant from "../variants";
 import * as StaticAsset from "./static-assets";
-import * as Variant from "./variants";
 
 const TimelineWithValidation = withValidation(Timeline, TimelineProps);
 export default {

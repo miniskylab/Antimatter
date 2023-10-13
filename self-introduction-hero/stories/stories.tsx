@@ -1,10 +1,11 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {SelfIntroductionHero, SelfIntroductionHeroProps} from "@miniskylab/antimatter-self-introduction-hero";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {SelfIntroductionHero} from "../main";
+import {SelfIntroductionHeroProps} from "../models";
+import * as Variant from "../variants";
 import * as StaticAsset from "./static-assets";
-import * as Variant from "./variants";
 
 const SelfIntroductionHeroWithValidation = withValidation(SelfIntroductionHero, SelfIntroductionHeroProps);
 export default {

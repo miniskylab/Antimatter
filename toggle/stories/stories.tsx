@@ -1,10 +1,12 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {Status, Toggle, ToggleProps} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-import * as Variant from "./variants";
+import {Status} from "../enums";
+import {Toggle} from "../main";
+import {ToggleProps} from "../models";
+import * as Variant from "../variants";
 
 const ToggleWithValidation = withValidation(Toggle, ToggleProps);
 export default {

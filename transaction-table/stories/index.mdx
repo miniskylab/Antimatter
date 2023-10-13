@@ -1,10 +1,11 @@
-import {ComponentName, TransactionTable} from "@miniskylab/antimatter-transaction-table";
 import {Canvas, Meta, Controls} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
+import {TransactionTable} from "../main";
+import {TransactionTableProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories}/>
-<Sb.Intro title={ComponentName} component={TransactionTable}/>
+<Sb.Intro of={TransactionTable} propsType={TransactionTableProps}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table

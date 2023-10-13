@@ -1,9 +1,10 @@
-import {Calendar, CalendarProps} from "@miniskylab/antimatter-calendar";
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-import * as Variant from "./variants";
+import {Calendar} from "../main";
+import {CalendarProps} from "../models";
+import * as Variant from "../variants";
 
 const CalendarWithValidation = withValidation(Calendar, CalendarProps);
 export default {

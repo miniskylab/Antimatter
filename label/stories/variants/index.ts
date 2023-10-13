@@ -1,4 +1,4 @@
-export * from "@miniskylab/antimatter-label/variants";
+export * from "../../variants";
 export * from "./bold-italic-underline";
 export * from "./bold";
 export * from "./italic";

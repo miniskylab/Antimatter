@@ -1,9 +1,10 @@
-import {DatePicker, DatePickerProps} from "@miniskylab/antimatter-date-picker";
 import {DateFormat, Sb, withValidation} from "@miniskylab/antimatter-framework";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-import * as Variant from "./variants";
+import {DatePicker} from "../main";
+import {DatePickerProps} from "../models";
+import * as Variant from "../variants";
 
 const DatePickerWithValidation = withValidation(DatePicker, DatePickerProps);
 export default {

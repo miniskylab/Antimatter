@@ -1,8 +1,9 @@
-import {Footer, FooterProps} from "@miniskylab/antimatter-footer";
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-import * as Variant from "./variants";
+import {Footer} from "../main";
+import {FooterProps} from "../models";
+import * as Variant from "../variants";
 
 const FooterWithValidation = withValidation(Footer, FooterProps);
 export default {

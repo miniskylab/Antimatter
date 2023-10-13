@@ -1,7 +1,8 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {Label, LabelProps} from "@miniskylab/antimatter-label";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {Label} from "../main";
+import {LabelProps} from "../models";
 import * as Variant from "./variants";
 
 const LabelWithValidation = withValidation(Label, LabelProps);

@@ -1,10 +1,11 @@
-import {ComponentName, HighlightedParagraph} from "@miniskylab/antimatter-highlighted-paragraph";
 import {Canvas, Meta, Controls} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
+import {HighlightedParagraph} from "../main";
+import {HighlightedParagraphProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories}/>
-<Sb.Intro title={ComponentName} component={HighlightedParagraph}/>
+<Sb.Intro of={HighlightedParagraph} propsType={HighlightedParagraphProps}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table

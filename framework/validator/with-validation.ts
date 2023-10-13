@@ -1,8 +1,8 @@
 import {plainToClass} from "class-transformer";
 import {validateSync, ValidationError} from "class-validator";
 import {ComponentType, createElement, JSX} from "react";
-import {ComponentName, ComponentProps} from "../component";
-import * as Decorator from "../decorator";
+import {ComponentProps} from "../component";
+import {ComponentName, Decorator} from "../reflection";
 import {EMPTY_STRING, formatString, getRepresentationString} from "../typescript";
 import {ErrorMessages} from "./error-messages";
 

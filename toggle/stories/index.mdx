@@ -1,10 +1,11 @@
-import {ComponentName, Toggle} from "@miniskylab/antimatter-toggle";
 import {Canvas, Meta, Controls} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
+import {Toggle} from "../main";
+import {ToggleProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories}/>
-<Sb.Intro title={ComponentName} component={Toggle}/>
+<Sb.Intro of={Toggle} propsType={ToggleProps}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table

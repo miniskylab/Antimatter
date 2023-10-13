@@ -1,5 +1,6 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {LabelStyle} from "../../models";
+import * as LabelVariant from "../../variants";
 
 export const OutlinedBadge: LabelStyle = function (labelProps)
 {

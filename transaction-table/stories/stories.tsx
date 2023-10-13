@@ -1,10 +1,12 @@
 import {EMPTY_STRING, Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {TransactionRecord, TransactionTable, TransactionTableProps} from "@miniskylab/antimatter-transaction-table";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {TransactionRecord} from "../components";
+import {TransactionTable} from "../main";
+import {TransactionTableProps} from "../models";
+import * as Variant from "../variants";
 import {TestData} from "./test-data";
-import * as Variant from "./variants";
 
 const TransactionTableWithValidation = withValidation(TransactionTable, TransactionTableProps);
 export default {

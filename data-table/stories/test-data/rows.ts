@@ -1,5 +1,5 @@
-import {DataTableProps} from "@miniskylab/antimatter-data-table";
 import {DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
+import {DataTableProps} from "../../models";
 import {menuItems} from "./menu-items";
 
 export const rows: DataTableProps["rows"] = {

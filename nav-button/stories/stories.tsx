@@ -1,9 +1,11 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {NavButton, NavButtonProps, Target} from "@miniskylab/antimatter-nav-button";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-import * as Variant from "./variants";
+import {Target} from "../enums";
+import {NavButton} from "../main";
+import {NavButtonProps} from "../models";
+import * as Variant from "../variants";
 
 const NavButtonWithValidation = withValidation(NavButton, NavButtonProps);
 export default {

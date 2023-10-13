@@ -1,5 +1,5 @@
-import {NavMenuProps} from "@miniskylab/antimatter-nav-menu";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
+import {NavMenuProps} from "../../models";
 
 export const TestData: ITestData = {
     selectedUrl: "/dolor-sit-amet",

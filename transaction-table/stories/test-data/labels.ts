@@ -1,6 +1,6 @@
 import {Enum} from "@miniskylab/antimatter-framework";
-import {TransactionRecord} from "@miniskylab/antimatter-transaction-table";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
+import {TransactionRecord} from "../../components";
 
 export const labels: TransactionRecord.Props["labels"] = {
     "viverra": {name: "viverra"},

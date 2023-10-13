@@ -1,4 +1,4 @@
-export * from "@miniskylab/antimatter-button/variants";
+export * from "../../variants";
 export * from "./outlined-circular-complementary";
 export * from "./outlined-circular-gigantic";
 export * from "./outlined-circular-large";

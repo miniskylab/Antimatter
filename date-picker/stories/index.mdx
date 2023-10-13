@@ -1,10 +1,11 @@
-import {ComponentName, DatePicker} from "@miniskylab/antimatter-date-picker";
 import {Canvas, Meta, Controls} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
+import {DatePicker} from "../main";
+import {DatePickerProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories}/>
-<Sb.Intro title={ComponentName} component={DatePicker}/>
+<Sb.Intro of={DatePicker} propsType={DatePickerProps}/>
 <Canvas of={Stories.Playground} story={{height: "380px"}} sourceState={"none"}/>
 
 ### Props table

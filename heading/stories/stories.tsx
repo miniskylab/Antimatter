@@ -1,8 +1,9 @@
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
-import {Heading, HeadingProps} from "@miniskylab/antimatter-heading";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-import * as Variant from "./variants";
+import {Heading} from "../main";
+import {HeadingProps} from "../models";
+import * as Variant from "../variants";
 
 const HeadingWithValidation = withValidation(Heading, HeadingProps);
 export default {

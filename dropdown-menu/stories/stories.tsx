@@ -1,9 +1,11 @@
-import {DropDirection, DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {Sb, withValidation} from "@miniskylab/antimatter-framework";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-import * as Variant from "./variants";
+import {DropDirection, MenuItemStatus} from "../enums";
+import {DropdownMenu} from "../main";
+import {DropdownMenuProps} from "../models";
+import * as Variant from "../variants";
 
 const DropdownMenuWithValidation = withValidation(DropdownMenu, DropdownMenuProps);
 export default {
