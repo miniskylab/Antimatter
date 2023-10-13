@@ -1,11 +1,11 @@
 import React, {JSX} from "react";
 import sanitizeHtml from "sanitize-html";
-import {is} from "../environment";
+import * as Environment from "../environment";
 import "./index.css";
 
 export function render(dangerousHtmlString: string): JSX.Element
 {
-    if (!is("Web"))
+    if (!Environment.is("Web"))
     {
         throw new Error("Raw HTML, Markdown & WYSIWYG can only be used inside web environment");
     }

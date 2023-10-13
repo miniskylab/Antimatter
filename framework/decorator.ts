@@ -4,7 +4,7 @@ export function getMetadataKey(key: string): string { return `antimatter:anotati
 
 export function getValue<T = unknown>(decorator: (constructor: unknown) => void, target: unknown): T
 {
-    const metadataKey = this.getMetadataKey(decorator.name);
+    const metadataKey = getMetadataKey(decorator.name);
 
     return (
         Reflect.getMetadata(metadataKey, Object.getPrototypeOf(target).constructor)

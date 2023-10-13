@@ -4,7 +4,6 @@ export * as Decorator from "./decorator";
 export * as Sb from "./storybook";
 export * as Style from "./style";
 export * as Html from "./html";
-export * from "./date-time";
 
 export * from "./calendar";
 export * from "./validator";

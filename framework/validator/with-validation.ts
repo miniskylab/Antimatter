@@ -2,7 +2,7 @@ import {plainToClass} from "class-transformer";
 import {validateSync, ValidationError} from "class-validator";
 import {ComponentType, createElement, JSX} from "react";
 import {ComponentName, ComponentProps} from "../component";
-import {getValue} from "../decorator";
+import * as Decorator from "../decorator";
 import {EMPTY_STRING, formatString, getRepresentationString} from "../typescript";
 import {ErrorMessages} from "./error-messages";
 
@@ -44,7 +44,7 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
             {
                 getValidationErrorMessages(error).forEach(errorMessage =>
                 {
-                    const componentName = getValue<string>(ComponentName, error.target);
+                    const componentName = Decorator.getValue<string>(ComponentName, error.target);
                     console.error(`${formatString(ErrorMessages.PropsValidationErrorOccurred, componentName)} ${errorMessage}`);
                 });
 
