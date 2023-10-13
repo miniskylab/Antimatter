@@ -27,6 +27,7 @@ export function useIconHoverAnimation()
                 break;
             }
 
+            case Target.SameFrame:
             case Target.SameWindowOrTab:
             {
                 Animated.timing(iconTranslateX, {

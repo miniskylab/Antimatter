@@ -1,6 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {EMPTY_STRING, Environment, Style} from "@miniskylab/antimatter-framework";
-import {useNavigation} from "@react-navigation/native";
+import {NavigationContainerRefContext, NavigationContext, useNavigation} from "@react-navigation/native";
 import React, {JSX, useMemo} from "react";
 import {Target} from "./enums";
 import {NavButtonContext, NavButtonProps} from "./models";
@@ -28,7 +28,9 @@ export function NavButton({
     );
 
     const computedStyle = Style.useComputedStyle(style, props);
-    const navigation = Environment.is("Web") ? undefined : useNavigation();
+    const navigationContext = React.useContext(NavigationContext);
+    const navigationContainerRefContext = React.useContext(NavigationContainerRefContext);
+    const navigation = !Environment.is("Web") || navigationContext || navigationContainerRefContext ? useNavigation() : undefined;
 
     return (
         <NavButtonContext.Provider value={context}>
@@ -44,13 +46,13 @@ export function NavButton({
 
     function onPress(): void
     {
-        if (Environment.is("WebBrowser"))
-        {
-            window.open(destination, openIn);
-        }
-        else
+        if (navigation)
         {
             navigation.navigate({name: destination, params: {}} as never);
+        }
+        else if (Environment.is("WebBrowser"))
+        {
+            window.open(destination, openIn);
         }
     }
 }
