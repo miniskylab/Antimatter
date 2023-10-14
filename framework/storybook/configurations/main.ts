@@ -43,5 +43,9 @@ export default {
     {
         applyRepositoryWideModifications(storybookDefault, mode);
         return storybookDefault;
+    },
+    async babel(storybookDefault)
+    {
+        return {...storybookDefault, rootMode: "upward"};
     }
 } satisfies StorybookConfig;

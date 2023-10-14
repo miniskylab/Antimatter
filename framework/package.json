@@ -6,8 +6,6 @@
     "run-storybook": "sb dev -p 6006 -c storybook/configurations"
   },
   "dependencies": {
-    "@babel/plugin-proposal-decorators": "7.23.0",
-    "@babel/preset-typescript": "7.23.0",
     "@etchteam/storybook-addon-status": "4.2.4",
     "@expo/match-media": "0.4.0",
     "@react-native-async-storage/async-storage": "1.19.3",
