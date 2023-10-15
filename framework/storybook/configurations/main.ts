@@ -3,7 +3,6 @@ import type {StorybookConfig} from "@storybook/react-webpack5";
 import findWorkspaceRoot from "find-yarn-workspace-root";
 import path from "path";
 
-const pathToTsConfigFile = path.join(findWorkspaceRoot(), "tsconfig.json");
 export default {
     core: {
         disableTelemetry: true
@@ -30,12 +29,10 @@ export default {
         "@storybook/addon-links"
     ],
     typescript: {
-        check: true,
-        checkOptions: {typescript: {configFile: pathToTsConfigFile}},
         reactDocgen: "react-docgen-typescript",
         reactDocgenTypescriptOptions: {
             shouldExtractLiteralValuesFromEnum: true,
-            tsconfigPath: pathToTsConfigFile,
+            tsconfigPath: path.join(findWorkspaceRoot(), "tsconfig.json"),
             propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true)
         }
     },
