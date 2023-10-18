@@ -1,6 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {EMPTY_STRING, Environment, Style} from "@miniskylab/antimatter-framework";
-import {NavigationContainerRefContext, NavigationContext, useNavigation} from "@react-navigation/native";
+import {NavigationContainerRefContext, NavigationContext, StackActions, useNavigation} from "@react-navigation/native";
 import React, {JSX, useMemo} from "react";
 import {Target} from "./enums";
 import {NavButtonContext, NavButtonProps} from "./models";
@@ -48,7 +48,7 @@ export function NavButton({
     {
         if (navigation)
         {
-            navigation.navigate({name: destination, params: {}} as never);
+            navigation.dispatch(StackActions.replace(destination, {}));
         }
         else if (Environment.is("WebBrowser"))
         {
