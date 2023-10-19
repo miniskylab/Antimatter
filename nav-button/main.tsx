@@ -1,6 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {EMPTY_STRING, Environment, Style} from "@miniskylab/antimatter-framework";
-import {NavigationContainerRefContext, NavigationContext, StackActions, useNavigation} from "@react-navigation/native";
+import {NavigationContainerRefContext, NavigationContext, useNavigation} from "@react-navigation/native";
 import React, {JSX, useMemo} from "react";
 import {Target} from "./enums";
 import {NavButtonContext, NavButtonProps} from "./models";
@@ -15,11 +15,11 @@ export function NavButton({
     openIn = Target.SameWindowOrTab,
     label = EMPTY_STRING,
     icon,
-    disabled = false
+    isHighlighted = false
 }: NavButtonProps): JSX.Element
 {
     const props: Required<NavButtonProps> = {
-        style, destination, openIn, label, icon, disabled
+        style, destination, openIn, label, icon, isHighlighted
     };
 
     const context = useMemo<NavButtonContext>(
@@ -39,7 +39,7 @@ export function NavButton({
                 label={label}
                 icon={icon}
                 onPress={onPress}
-                disabled={disabled}
+                disabled={isHighlighted}
             />
         </NavButtonContext.Provider>
     );
@@ -48,7 +48,7 @@ export function NavButton({
     {
         if (navigation)
         {
-            navigation.dispatch(StackActions.replace(destination, {}));
+            navigation.navigate({name: destination, params: {}} as never);
         }
         else if (Environment.is("WebBrowser"))
         {

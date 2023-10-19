@@ -15,6 +15,7 @@ export class NativeAuthentication
 
     private readonly issuer: string;
     private readonly clientId: string;
+    private tokenRefreshTask: Promise<void>;
 
     constructor(issuer: string, clientId: string)
     {
@@ -56,6 +57,11 @@ export class NativeAuthentication
             if (discovery && ref.current.codeVerifier && authorizationResponse?.type === "success")
             {
                 const authorizationCode = Ts.String.extractQueryParameter(authorizationResponse.url)["code"];
+                if (!authorizationCode)
+                {
+                    return;
+                }
+
                 AuthSession.exchangeCodeAsync(
                     {
                         extraParams: {code_verifier: ref.current.codeVerifier},
@@ -124,7 +130,7 @@ export class NativeAuthentication
         }
 
         const encryptedValue = CryptoJS.AES.encrypt(JSON.stringify(token), aesSecret).toString();
-        return AsyncStorage.setItem(this.TOKEN_STORAGE_KEY, encryptedValue);
+        await AsyncStorage.setItem(this.TOKEN_STORAGE_KEY, encryptedValue);
     }
 
     async retrieveTokenAsync(): Promise<Token>
@@ -145,20 +151,41 @@ export class NativeAuthentication
 
     async refreshTokenAsync(): Promise<void>
     {
-        const discovery = await AuthSession.fetchDiscoveryAsync(this.issuer);
-        const {refreshToken} = await this.retrieveTokenAsync();
-        const tokenResponse = await AuthSession.refreshAsync(
-            {
-                refreshToken,
-                clientId: this.clientId
-            },
-            discovery
-        );
+        if (this.tokenRefreshTask)
+        {
+            await this.tokenRefreshTask;
+            this.tokenRefreshTask = undefined;
 
-        await this.storeTokenAsync({
-            idToken: tokenResponse.idToken,
-            accessToken: tokenResponse.accessToken,
-            refreshToken: tokenResponse.refreshToken
+            return;
+        }
+
+        this.tokenRefreshTask = new Promise(async (resolve, reject) =>
+        {
+            try
+            {
+                const {refreshToken} = await this.retrieveTokenAsync();
+                const discovery = await AuthSession.fetchDiscoveryAsync(this.issuer);
+
+                const tokenResponse = await AuthSession.refreshAsync(
+                    {
+                        refreshToken,
+                        clientId: this.clientId
+                    },
+                    discovery
+                );
+
+                await this.storeTokenAsync({
+                    idToken: tokenResponse.idToken,
+                    accessToken: tokenResponse.accessToken,
+                    refreshToken: tokenResponse.refreshToken
+                });
+
+                resolve();
+            }
+            catch (error)
+            {
+                reject(error);
+            }
         });
     }
 }

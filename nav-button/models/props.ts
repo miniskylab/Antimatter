@@ -49,5 +49,5 @@ export class NavButtonProps extends ComponentProps<NavButtonStyle>
      */
     @IsBoolean()
     @IsOptional()
-    readonly disabled?: boolean;
+    readonly isHighlighted?: boolean;
 }

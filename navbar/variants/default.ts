@@ -14,7 +14,7 @@ const Navbar__Root: ViewStyle = function (viewProps)
         flexDirection: "row",
         columnGap: 10,
         width: "100%",
-        height: 50,
+        height: 55,
         backgroundColor: Color.Ambient,
         shadowOffset: {width: 0, height: 0},
         shadowRadius: 20,
@@ -37,8 +37,8 @@ const Navbar__Tab__Root: PressableStyle = function (pressableProps, pressableSta
         minWidth: 90,
         maxWidth: 90,
         height: "auto",
-        paddingHorizontal: 0,
         paddingVertical: 0,
+        paddingHorizontal: 0,
         opacity: 1,
         ...pressableState.pressed
             ? {
@@ -63,8 +63,8 @@ const Navbar__Tab__Icon: IconStyle = function (iconProps)
     return {
         ...inheritedStyle,
         animations: undefined,
-        height: 30,
-        paddingTop: 2,
+        height: 32,
+        paddingTop: 5,
         fontSize: 25,
         color: pressableContext.state.pressed
             ? Color.Ambient
@@ -84,7 +84,7 @@ const Navbar__Tab__Label: LabelStyle = function (labelProps)
 
     return {
         ...inheritedStyle,
-        height: 20,
+        height: 23,
         paddingLeft: 0,
         paddingRight: 0,
         fontSize: 13,
