@@ -11,8 +11,7 @@ import * as StaticAsset from "./static-assets";
 const TopicCardGroupWithValidation = withValidation(TopicCardGroup, TopicCardGroupProps);
 export default {
     component: TopicCardGroup,
-    title: "Components/Topic Card Group",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Topic Card Group"
 } satisfies Meta<typeof TopicCardGroup>;
 type Story = StoryObj<typeof TopicCardGroup>;
 

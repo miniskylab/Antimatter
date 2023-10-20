@@ -10,7 +10,6 @@ const NumericInputFieldWithValidation = withValidation(NumericInputField, Numeri
 export default {
     component: NumericInputField,
     title: "Components/Numeric Input Field",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}},
     render: args =>
     {
         const [, setArgs] = useArgs<NumericInputFieldProps>();

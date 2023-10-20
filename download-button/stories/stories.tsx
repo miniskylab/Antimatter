@@ -10,8 +10,7 @@ import * as StaticAsset from "./static-assets";
 const DownloadButtonWithValidation = withValidation(DownloadButton, DownloadButtonProps);
 export default {
     component: DownloadButton,
-    title: "Components/Download Button",
-    parameters: {status: {type: [Sb.Badge.Web]}}
+    title: "Components/Download Button"
 } satisfies Meta<typeof DownloadButton>;
 type Story = StoryObj<typeof DownloadButton>;
 

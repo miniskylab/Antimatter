@@ -9,8 +9,7 @@ import * as Variant from "./variants";
 const IconWithValidation = withValidation(Icon, IconProps);
 export default {
     component: Icon,
-    title: "Components/Icon",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Icon"
 } satisfies Meta<typeof Icon>;
 type Story = StoryObj<typeof Icon>;
 

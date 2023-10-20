@@ -17,7 +17,12 @@ export class NavButtonProps extends ComponentProps<NavButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * <b className="property-description__supported-platform-section">
+     *     Supported Platforms:
+     *     <b className="property-description__supported-platform-value--web">Web</b>
+     * </b>
+     *
+     * Specify where to open the provided destination.
      *
      * @type Target
      */

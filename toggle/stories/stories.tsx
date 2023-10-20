@@ -11,8 +11,7 @@ import * as Variant from "../variants";
 const ToggleWithValidation = withValidation(Toggle, ToggleProps);
 export default {
     component: Toggle,
-    title: "Components/Toggle",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Toggle"
 } satisfies Meta<typeof Toggle>;
 type Story = StoryObj<typeof Toggle>;
 

@@ -10,8 +10,7 @@ import * as Variant from "./variants";
 const NavMenuWithValidation = withValidation(NavMenu, NavMenuProps);
 export default {
     component: NavMenu,
-    title: "Components/Navigation Menu",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Navigation Menu"
 } satisfies Meta<typeof NavMenu>;
 type Story = StoryObj<typeof NavMenu>;
 

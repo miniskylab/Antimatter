@@ -10,8 +10,7 @@ import * as StaticAsset from "./static-assets";
 const SelfIntroductionHeroWithValidation = withValidation(SelfIntroductionHero, SelfIntroductionHeroProps);
 export default {
     component: SelfIntroductionHero,
-    title: "Components/Self-Introduction Hero",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Self-Introduction Hero"
 } satisfies Meta<typeof SelfIntroductionHero>;
 type Story = StoryObj<typeof SelfIntroductionHero>;
 

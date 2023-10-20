@@ -10,8 +10,7 @@ import * as StaticAsset from "./static-assets";
 const TimelineWithValidation = withValidation(Timeline, TimelineProps);
 export default {
     component: Timeline,
-    title: "Components/Timeline",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Timeline"
 } satisfies Meta<typeof Timeline>;
 type Story = StoryObj<typeof Timeline>;
 

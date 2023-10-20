@@ -11,7 +11,6 @@ const DropdownMenuWithValidation = withValidation(DropdownMenu, DropdownMenuProp
 export default {
     component: DropdownMenu,
     title: "Components/Dropdown Menu",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}},
     render: args =>
     {
         const [, setArgs] = useArgs<DropdownMenuProps>();

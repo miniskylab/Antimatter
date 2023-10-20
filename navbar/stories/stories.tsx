@@ -9,8 +9,7 @@ import {TestData} from "./test-data";
 const NavbarWithValidation = withValidation(Navbar, NavbarProps);
 export default {
     component: Navbar,
-    title: "Components/Navigation Bar",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Navigation Bar"
 } satisfies Meta<typeof Navbar>;
 type Story = StoryObj<typeof Navbar>;
 

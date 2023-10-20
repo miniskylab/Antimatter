@@ -11,7 +11,6 @@ const InputFieldWithValidation = withValidation(InputField, InputFieldProps);
 export default {
     component: InputField,
     title: "Components/Input Field",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}},
     render: args =>
     {
         const [, setArgs] = useArgs<InputFieldProps>();

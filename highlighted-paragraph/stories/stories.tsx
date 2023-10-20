@@ -9,8 +9,7 @@ import * as Variant from "./variants";
 const HighlightedParagraphWithValidation = withValidation(HighlightedParagraph, HighlightedParagraphProps);
 export default {
     component: HighlightedParagraph,
-    title: "Components/Highlighted Paragraph",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Highlighted Paragraph"
 } satisfies Meta<typeof HighlightedParagraph>;
 type Story = StoryObj<typeof HighlightedParagraph>;
 

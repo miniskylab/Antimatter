@@ -12,7 +12,6 @@ const TransactionTableWithValidation = withValidation(TransactionTable, Transact
 export default {
     component: TransactionTable,
     title: "Components/Transaction Table",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}},
     render: args =>
     {
         const [, setArgs] = useArgs<TransactionTableProps>();

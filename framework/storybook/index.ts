@@ -1,5 +1,4 @@
 export * from "./hooks";
-export * from "./badge";
 export * from "./arg-types";
 export * from "./components";
 

@@ -8,8 +8,7 @@ import * as Variant from "./variants";
 const LabelWithValidation = withValidation(Label, LabelProps);
 export default {
     component: Label,
-    title: "Components/Label",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Label"
 } satisfies Meta<typeof Label>;
 type Story = StoryObj<typeof Label>;
 

@@ -9,8 +9,7 @@ import * as Variant from "../variants";
 const LoginFormWithValidation = withValidation(LoginForm, LoginFormProps);
 export default {
     component: LoginForm,
-    title: "Components/Login Form",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Login Form"
 } satisfies Meta<typeof LoginForm>;
 type Story = StoryObj<typeof LoginForm>;
 

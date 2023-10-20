@@ -18,7 +18,7 @@ export const TestData = {
             const selectedTabName = windowLocationUrl.searchParams.get(queryParamaterName) || TabName.Home;
 
             windowLocationUrl.searchParams.set(queryParamaterName, tabName);
-            return {destination: windowLocationUrl.href, label: tabName, icon: tabIcon, disabled: selectedTabName === tabName};
+            return {destination: windowLocationUrl.href, label: tabName, icon: tabIcon, isHighlighted: selectedTabName === tabName};
         });
     }
 };

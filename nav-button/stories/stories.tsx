@@ -10,8 +10,7 @@ import * as Variant from "../variants";
 const NavButtonWithValidation = withValidation(NavButton, NavButtonProps);
 export default {
     component: NavButton,
-    title: "Components/Navigation Button",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Navigation Button"
 } satisfies Meta<typeof NavButton>;
 type Story = StoryObj<typeof NavButton>;
 

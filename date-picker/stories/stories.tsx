@@ -10,7 +10,6 @@ const DatePickerWithValidation = withValidation(DatePicker, DatePickerProps);
 export default {
     component: DatePicker,
     title: "Components/Date Picker",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}},
     render: args =>
     {
         const [, setArgs] = useArgs<DatePickerProps>();

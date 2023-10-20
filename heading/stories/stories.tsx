@@ -8,8 +8,7 @@ import * as Variant from "../variants";
 const HeadingWithValidation = withValidation(Heading, HeadingProps);
 export default {
     component: Heading,
-    title: "Components/Heading",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Heading"
 } satisfies Meta<typeof Heading>;
 type Story = StoryObj<typeof Heading>;
 

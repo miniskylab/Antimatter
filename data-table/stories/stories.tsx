@@ -12,7 +12,6 @@ const DataTableWithValidation = withValidation(DataTable, DataTableProps);
 export default {
     component: DataTable,
     title: "Components/Data Table",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}},
     render: args =>
     {
         const [, setArgs] = useArgs<DataTableProps>();

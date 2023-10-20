@@ -27,3 +27,21 @@ em {
 u {
     text-decoration: underline;
 }
+
+.property-description__supported-platform-section {
+    display: block;
+    margin-bottom: 10px;
+    color: #9B9B9B;
+}
+
+.property-description__supported-platform-value--iOS {
+    color: #FFFFFF;
+}
+
+.property-description__supported-platform-value--android {
+    color: #87AC4E;
+}
+
+.property-description__supported-platform-value--web {
+    color: #00A0FF;
+}

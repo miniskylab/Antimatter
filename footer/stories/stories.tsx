@@ -8,8 +8,7 @@ import * as Variant from "../variants";
 const FooterWithValidation = withValidation(Footer, FooterProps);
 export default {
     component: Footer,
-    title: "Components/Footer",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Footer"
 } satisfies Meta<typeof Footer>;
 type Story = StoryObj<typeof Footer>;
 

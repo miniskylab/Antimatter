@@ -9,8 +9,7 @@ import * as Variant from "./variants";
 const ButtonWithValidation = withValidation(Button, ButtonProps);
 export default {
     component: Button,
-    title: "Components/Button",
-    parameters: {status: {type: [Sb.Badge.IOS, Sb.Badge.Web]}}
+    title: "Components/Button"
 } satisfies Meta<typeof Button>;
 type Story = StoryObj<typeof Button>;
 
