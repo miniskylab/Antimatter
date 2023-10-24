@@ -1,7 +1,6 @@
 import {EMPTY_STRING, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {RangeSlider} from "@miniskylab/antimatter-range-slider";
-import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Props, SectionContext, SummaryContext} from "./models";
@@ -50,13 +49,6 @@ export function Component({
                     maxValue={1}
                     value={summaryPct}
                     disabled={true}
-                    knobIcon={
-                        summaryPct === 0.5
-                            ? DefaultIconSet.ArrowUp
-                            : summaryPct > 0.5
-                                ? DefaultIconSet.ArrowRight
-                                : DefaultIconSet.ArrowLeft
-                    }
                 />
             </View>
         </SummaryContext.Provider>

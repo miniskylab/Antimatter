@@ -23,14 +23,12 @@ const TransactionTable__Root: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flex: 1,
         flexDirection: "column",
-        flexWrap: "wrap",
-        alignItems: "center",
         minWidth: 300,
         maxWidth: 1000,
         minHeight: 500,
         ...Environment.useResponsiveStyle("Large", {
             flexDirection: "row",
-            alignItems: "flex-start"
+            flexWrap: "wrap"
         })
     };
 };
@@ -197,12 +195,12 @@ const TransactionTable__Summary__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
-        flexBasis: "100%",
         flexDirection: "row",
         flexWrap: "wrap",
         alignSelf: "stretch",
         marginTop: 10,
         ...Environment.useResponsiveStyle("Large", {
+            flexBasis: "100%",
             marginTop: 0
         })
     };
@@ -215,11 +213,8 @@ const TransactionTable__Summary__Section: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flexBasis: "50%",
-        borderStyle: "solid",
-        borderColor: Color.Neutral,
         alignItems: sectionContext === "expense" ? "flex-end" : "flex-start",
-        ...sectionContext === "expense" && {borderLeftWidth: 1},
-        ...sectionContext === "income" && {borderRightWidth: 1}
+        marginBottom: -5
     };
 };
 
@@ -243,7 +238,10 @@ const TransactionTable__Summary__Amount: LabelStyle = function (labelProps)
         lineHeight: 25,
         fontSize: 20,
         fontWeight: "bold",
-        color: sectionContext === "expense" ? Color.Warning : Color.Positive
+        color: sectionContext === "expense" ? Color.Warning : Color.Positive,
+        ...Environment.useResponsiveStyle("Large", {
+            lineHeight: 30
+        })
     };
 };
 
@@ -255,12 +253,7 @@ const TransactionTable__Summary__RangeSlider__Root: ViewStyle = function (viewPr
 
     return {
         ...inheritedStyle,
-        flexBasis: "100%",
-        marginTop: 5,
-        marginBottom: -5,
-        ...Environment.useResponsiveStyle("Large", {
-            marginBottom: 10
-        })
+        flexBasis: "100%"
     };
 };
 
@@ -296,6 +289,8 @@ const TransactionTable__Summary__RangeSlider__FillLeft: ViewStyle = function (vi
 
     return {
         ...inheritedStyle,
+        borderTopRightRadius: 0,
+        borderBottomRightRadius: 0,
         backgroundColor: Color.Green
     };
 };
@@ -308,6 +303,8 @@ const TransactionTable__Summary__RangeSlider__FillRight: ViewStyle = function (v
 
     return {
         ...inheritedStyle,
+        borderTopLeftRadius: 0,
+        borderBottomLeftRadius: 0,
         backgroundColor: Color.Gold
     };
 };
@@ -320,7 +317,24 @@ const TransactionTable__Summary__RangeSlider__Knob: ViewStyle = function (viewPr
 
     return {
         ...inheritedStyle,
-        display: "flex"
+        display: "flex",
+        width: 20,
+        height: 20,
+        borderRadius: 10,
+        borderWidth: 4,
+        transform: [{translateX: -10}]
+    };
+};
+
+const TransactionTable__Summary__RangeSlider__KnobIcon: IconStyle = function (iconProps)
+{
+    const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
+
+    const inheritedStyle = RangeSliderVariant.Default(rangeSliderContext.props).KnobIcon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        display: "none"
     };
 };
 
@@ -379,6 +393,7 @@ const TransactionTable__Summary__RangeSlider: RangeSliderStyle = function (range
         FillLeft: TransactionTable__Summary__RangeSlider__FillLeft,
         FillRight: TransactionTable__Summary__RangeSlider__FillRight,
         Knob: TransactionTable__Summary__RangeSlider__Knob,
+        KnobIcon: TransactionTable__Summary__RangeSlider__KnobIcon,
         Pips: TransactionTable__Summary__RangeSlider__Pips
     };
 };
@@ -404,10 +419,11 @@ const TransactionTable__TransactionDetails: ViewStyle = function (viewProps)
         minWidth: 300,
         maxWidth: undefined,
         height: "auto",
-        marginTop: 12,
+        marginTop: 5,
         ...Environment.useResponsiveStyle("Large", {
             maxWidth: "50%",
-            height: 508
+            height: 508,
+            marginTop: 12
         })
     };
 };
