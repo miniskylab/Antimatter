@@ -13,14 +13,14 @@ export type TransactionTableStyle = (
     transactionTableState: TransactionTableState
 ) => {
     Root?: ViewStyle;
-    TransactionDetails?: ViewStyle;
-    TransactionContainer?: ScrollViewStyle;
-    Hr?: ViewStyle;
     Calendar?: CalendarStyle;
     DatePicker?: DatePickerStyle;
+    Summary?: Summary.Style;
+    TransactionDetails?: ViewStyle;
     ControlPanel?: ViewStyle;
     ControlButton?: ButtonStyle;
+    TransactionContainer?: ScrollViewStyle;
     TransactionRecord?: TransactionRecord.Style;
     AddNewButton?: ButtonStyle;
-    Summary?: Summary.Style;
+    Hr?: ViewStyle;
 };

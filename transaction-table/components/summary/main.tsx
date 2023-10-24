@@ -1,8 +1,10 @@
-import {EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
+import {RangeSlider} from "@miniskylab/antimatter-range-slider";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {Props, RowContext, SummaryContext} from "./models";
+import {Props, SectionContext, SummaryContext} from "./models";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -25,23 +27,58 @@ export function Component({
     );
 
     const computedStyle = Style.useComputedStyle(style, props);
+    const summaryPct = getSummaryPct();
 
     return (
         <SummaryContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                <View style={computedStyle.Row}>
-                    <Label style={computedStyle.Label}>{expenseLabel}</Label>
-                    <RowContext.Provider value={"expense"}>
-                        <Label style={computedStyle.Amount}>{expenseAmount.toLocaleString("en-us")}</Label>
-                    </RowContext.Provider>
-                </View>
-                <View style={computedStyle.Row}>
-                    <Label style={computedStyle.Label}>{incomeLabel}</Label>
-                    <RowContext.Provider value={"income"}>
+                <SectionContext.Provider value={"income"}>
+                    <View style={computedStyle.Section}>
+                        <Label style={computedStyle.Label}>{incomeLabel}</Label>
                         <Label style={computedStyle.Amount}>{incomeAmount.toLocaleString("en-us")}</Label>
-                    </RowContext.Provider>
-                </View>
+                    </View>
+                </SectionContext.Provider>
+                <SectionContext.Provider value={"expense"}>
+                    <View style={computedStyle.Section}>
+                        <Label style={computedStyle.Label}>{expenseLabel}</Label>
+                        <Label style={computedStyle.Amount}>{expenseAmount.toLocaleString("en-us")}</Label>
+                    </View>
+                </SectionContext.Provider>
+                <RangeSlider
+                    style={computedStyle.RangeSlider}
+                    minValue={0}
+                    maxValue={1}
+                    value={summaryPct}
+                    disabled={true}
+                    knobIcon={
+                        summaryPct === 0.5
+                            ? DefaultIconSet.ArrowUp
+                            : summaryPct > 0.5
+                                ? DefaultIconSet.ArrowRight
+                                : DefaultIconSet.ArrowLeft
+                    }
+                />
             </View>
         </SummaryContext.Provider>
     );
+
+    function getSummaryPct(): number
+    {
+        if (incomeAmount === 0 && expenseAmount === 0)
+        {
+            return 0.5;
+        }
+
+        if (incomeAmount === 0)
+        {
+            return 0;
+        }
+
+        if (expenseAmount === 0)
+        {
+            return 1;
+        }
+
+        return Ts.Number.clamp(incomeAmount / (incomeAmount + expenseAmount), 0, 1);
+    }
 }

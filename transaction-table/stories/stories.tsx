@@ -60,7 +60,7 @@ export default {
                         selectedDate: newDate,
                         selectedTransaction: undefined,
                         mode: TransactionRecord.Mode.ReadOnly,
-                        transactions: TestData.getTransactionsByExecutionDate(newDate)
+                        transactions: TestData.getTransactionsByExecutionDate(newDate || new Date())
                     });
                 }}
                 onSelectTransaction={transactionId =>
@@ -126,7 +126,7 @@ export default {
                     setArgs({
                         mode: TransactionRecord.Mode.ReadOnly,
                         selectedTransaction: undefined,
-                        transactions: TestData.transactions
+                        transactions: TestData.getTransactionsByExecutionDate(args.selectedDate)
                     });
                 }}
                 onDeleteTransaction={() =>

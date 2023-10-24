@@ -50,7 +50,7 @@ export function TransactionTable({
     return (
         <TransactionTableContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                {renderDateSelector()}
+                {renderDateSelectorAndSummary()}
                 <View style={computedStyle.TransactionDetails}>
                     {renderControlPanel()}
                     <HrPositionContext.Provider value={"top"}>
@@ -67,13 +67,6 @@ export function TransactionTable({
                     <HrPositionContext.Provider value={"bottom"}>
                         <View style={computedStyle.Hr}/>
                     </HrPositionContext.Provider>
-                    <Summary.Component
-                        style={computedStyle.Summary}
-                        expenseLabel={"TOTAL EXPENSES:"}
-                        expenseAmount={getTotalExpense()}
-                        incomeLabel={"TOTAL INCOME:"}
-                        incomeAmount={getTotalIncome()}
-                    />
                 </View>
             </View>
         </TransactionTableContext.Provider>
@@ -177,15 +170,23 @@ export function TransactionTable({
         return transactionA.createdDate.getTime() - transactionB.createdDate.getTime();
     }
 
-    function renderDateSelector(): JSX.Element
+    function renderSummary(): JSX.Element
     {
-        return ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint
-            ? <Calendar
-                style={computedStyle.Calendar}
-                selectedDate={selectedDate}
-                onSelectedDateChange={onSelectDate}
+        return (
+            <Summary.Component
+                style={computedStyle.Summary}
+                expenseLabel={"Expenses"}
+                expenseAmount={getTotalExpense()}
+                incomeLabel={"Income"}
+                incomeAmount={getTotalIncome()}
             />
-            : <DatePicker
+        );
+    }
+
+    function renderDatePicker(): JSX.Element
+    {
+        return (
+            <DatePicker
                 style={computedStyle.DatePicker}
                 selectedDate={selectedDate}
                 dateFormat={DateFormat.Full}
@@ -206,7 +207,28 @@ export function TransactionTable({
                         datePickerIsOpened: !prevState.datePickerIsOpened
                     }));
                 }}
-            />;
+            />
+        );
+    }
+
+    function renderDateSelectorAndSummary(): JSX.Element
+    {
+        if (ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint)
+        {
+            return (<>
+                {renderSummary()}
+                <Calendar
+                    style={computedStyle.Calendar}
+                    selectedDate={selectedDate}
+                    onSelectedDateChange={onSelectDate}
+                />
+            </>);
+        }
+
+        return (<>
+            {renderDatePicker()}
+            {renderSummary()}
+        </>);
     }
 
     function renderControlPanel(): JSX.Element

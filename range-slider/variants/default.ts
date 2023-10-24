@@ -81,7 +81,9 @@ const RangeSlider__FillRight: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flex: 1,
-        alignSelf: "stretch"
+        alignSelf: "stretch",
+        borderTopLeftRadius: 8,
+        borderBottomLeftRadius: 8
     };
 };
 

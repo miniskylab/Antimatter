@@ -1,6 +1,6 @@
 import {useContext} from "react";
-import {RowContext, SummaryContext} from "../models";
+import {SectionContext, SummaryContext} from "../models";
 
 export function useSummaryContext(): SummaryContext { return useContext(SummaryContext); }
 
-export function useRowContext(): RowContext { return useContext(RowContext); }
+export function useSectionContext(): SectionContext { return useContext(SectionContext); }
