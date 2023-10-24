@@ -59,8 +59,7 @@ export default {
                     setArgs({
                         selectedDate: newDate,
                         selectedTransaction: undefined,
-                        mode: TransactionRecord.Mode.ReadOnly,
-                        transactions: TestData.getTransactionsByExecutionDate(newDate || new Date())
+                        mode: TransactionRecord.Mode.ReadOnly
                     });
                 }}
                 onSelectTransaction={transactionId =>
@@ -125,8 +124,7 @@ export default {
 
                     setArgs({
                         mode: TransactionRecord.Mode.ReadOnly,
-                        selectedTransaction: undefined,
-                        transactions: TestData.getTransactionsByExecutionDate(args.selectedDate)
+                        selectedTransaction: undefined
                     });
                 }}
                 onDeleteTransaction={() =>
@@ -171,6 +169,6 @@ export const Playground: Story = {
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
         selectedDate: today,
-        transactions: TestData.getTransactionsByExecutionDate(today)
+        transactions: TestData.transactions
     }
 };

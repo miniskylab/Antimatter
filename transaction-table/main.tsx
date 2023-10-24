@@ -126,32 +126,74 @@ export function TransactionTable({
             : TransactionRecord.Mode.ReadOnly;
     }
 
-    function isIncome(transaction: TransactionRecord.TransactionData): boolean
+    function isIncome(transactionData: TransactionRecord.TransactionData): boolean
     {
-        return Object.values(transaction.labels)
+        return Object.values(transactionData.labels)
             .some(
-                label => label.status === TransactionRecord.TransactionLabelStatus.Selected
-                         &&
+                label => label.status === TransactionRecord.TransactionLabelStatus.Selected &&
                          label.type === TransactionRecord.TransactionLabelType.Income
             );
     }
 
+    function filterTransactionsForSelectedDate(): typeof transactions
+    {
+        const filteredTransactions: typeof transactions = {};
+        Object.keys(transactions)
+            .filter(transactionId => Ts.Date.isEqualDate(transactions[transactionId].executedDate, selectedDate))
+            .forEach(transactionId => { filteredTransactions[transactionId] = transactions[transactionId]; });
+
+        return filteredTransactions;
+    }
+
+    function filterTransactionsForSelectedMonth(): typeof transactions
+    {
+        const filteredTransactions: typeof transactions = {};
+        Object.keys(transactions)
+            .filter(transactionId => Ts.Date.isEqualMonth(transactions[transactionId].executedDate, selectedDate))
+            .forEach(transactionId => { filteredTransactions[transactionId] = transactions[transactionId]; });
+
+        return filteredTransactions;
+    }
+
+    function mergeDataWithSelectedTransaction(inputTransactions: typeof transactions): void
+    {
+        if (!selectedTransaction)
+        {
+            return;
+        }
+
+        if (selectedTransaction.data)
+        {
+            inputTransactions[selectedTransaction.id] = selectedTransaction.data;
+        }
+        else
+        {
+            delete inputTransactions[selectedTransaction.id];
+        }
+    }
+
     function getTotalIncome(): number
     {
+        const filteredTransactions = filterTransactionsForSelectedMonth();
+        mergeDataWithSelectedTransaction(filteredTransactions);
+
         let totalIncome = 0;
-        Object.values(transactions)
-            .filter(transaction => isIncome(transaction))
-            .forEach(transaction => { totalIncome += transaction.amount; });
+        Object.values(filteredTransactions)
+            .filter(filteredTransactionData => isIncome(filteredTransactionData))
+            .forEach(filteredTransactionData => { totalIncome += filteredTransactionData.amount; });
 
         return totalIncome;
     }
 
     function getTotalExpense(): number
     {
+        const filteredTransactions = filterTransactionsForSelectedMonth();
+        mergeDataWithSelectedTransaction(filteredTransactions);
+
         let totalExpense = 0;
-        Object.values(transactions)
-            .filter(transaction => !isIncome(transaction))
-            .forEach(transaction => { totalExpense += transaction.amount; });
+        Object.values(filteredTransactions)
+            .filter(filteredTransactionData => !isIncome(filteredTransactionData))
+            .forEach(filteredTransactionData => { totalExpense += filteredTransactionData.amount; });
 
         return totalExpense;
     }
@@ -269,28 +311,29 @@ export function TransactionTable({
 
     function renderTransactions(): JSX.Element[]
     {
-        const transactionIds = Object.keys(transactions).sort(byDate);
+        const filteredTransactions = filterTransactionsForSelectedDate();
+        const filteredTransactionIds = Object.keys(filteredTransactions).sort(byDate);
         if (mode === TransactionRecord.Mode.Draft && selectedTransaction)
         {
-            transactionIds.push(selectedTransaction.id);
+            filteredTransactionIds.push(selectedTransaction.id);
         }
 
-        return transactionIds.map(transactionId =>
+        return filteredTransactionIds.map(filteredTransactionId =>
         {
-            const transactionMode = getTransactionMode(transactionId);
+            const transactionMode = getTransactionMode(filteredTransactionId);
             const transactionData = transactionMode === TransactionRecord.Mode.Edit || transactionMode === TransactionRecord.Mode.Draft
                 ? selectedTransaction.data
-                : transactions[transactionId];
+                : filteredTransactions[filteredTransactionId];
 
             return (
                 <TransactionRecord.Component
                     {...transactionData}
-                    key={transactionId}
-                    id={transactionId}
+                    key={filteredTransactionId}
+                    id={filteredTransactionId}
                     style={computedStyle.TransactionRecord}
                     mode={transactionMode}
                     labels={transactionData.labels}
-                    onPress={mode === TransactionRecord.Mode.ReadOnly ? () => { onSelectTransaction(transactionId); } : undefined}
+                    onPress={mode === TransactionRecord.Mode.ReadOnly ? () => { onSelectTransaction(filteredTransactionId); } : undefined}
                     onChange={newTransactionData => { onChangeTransaction(newTransactionData); }}
                 />
             );

@@ -265,6 +265,7 @@ const TransactionTable__Summary__RangeSlider__StopperLeft: ViewStyle = function 
 
     return {
         ...inheritedStyle,
+        width: 10,
         backgroundColor: Color.Green
     };
 };
@@ -277,6 +278,7 @@ const TransactionTable__Summary__RangeSlider__StopperRight: ViewStyle = function
 
     return {
         ...inheritedStyle,
+        width: 10,
         backgroundColor: Color.Gold
     };
 };
