@@ -20,7 +20,6 @@ export default {
         "../../../**/stories/stories.tsx"
     ],
     addons: [
-        "@etchteam/storybook-addon-status",
         "@storybook/addon-docs",
         "@storybook/addon-measure",
         "@storybook/addon-controls",

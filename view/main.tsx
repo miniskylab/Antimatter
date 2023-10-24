@@ -12,13 +12,17 @@ export const View = forwardRef(function View(
         style = Variant.Default,
         children,
         pointerEvents = "auto",
-        onLayout
+        onLayout,
+        onStartShouldSetResponder,
+        onMoveShouldSetResponder,
+        onResponderStart,
+        onResponderMove
     }: ViewProps,
     ref: MutableRefObject<View>
 ): JSX.Element
 {
     const props: Required<ViewProps> = {
-        style, children, pointerEvents, onLayout
+        style, children, pointerEvents, onLayout, onStartShouldSetResponder, onMoveShouldSetResponder, onResponderStart, onResponderMove
     };
 
     const computedStyle = Style.useComputedStyle(style, props);
@@ -29,6 +33,10 @@ export const View = forwardRef(function View(
             style={computedStyle}
             pointerEvents={pointerEvents}
             onLayout={onLayout}
+            onStartShouldSetResponder={onStartShouldSetResponder}
+            onMoveShouldSetResponder={onMoveShouldSetResponder}
+            onResponderStart={onResponderStart}
+            onResponderMove={onResponderMove}
         >
             {children}
         </Animated.View>

@@ -1,0 +1,24 @@
+import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-framework";
+import {RangeSlider} from "../main";
+import {RangeSliderProps} from "../models";
+import * as Stories from "./stories";
+
+<Meta of={Stories}/>
+<Sb.Intro of={RangeSlider} propsType={RangeSliderProps} supportedPlatforms={["iOS", "Web"]}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<Controls of={Stories.Playground}/>
+
+### Snap To Pip
+<Canvas of={Stories.SnapToPip}/>
+
+### Color Stack
+<Canvas of={Stories.ColorStack}/>
+
+### Without Pips
+<Canvas of={Stories.WithoutPips}/>
+
+### Progress Bar
+<Canvas of={Stories.ProgressBar}/>

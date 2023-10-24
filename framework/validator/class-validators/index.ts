@@ -13,4 +13,7 @@ export * from "./is-integer";
 export * from "./is-positive";
 export * from "./is-hex-color";
 export * from "./is-not-empty";
+export * from "./is-multiple-of";
 export * from "./array-not-empty";
+export * from "./is-less-than-or-equal-to";
+export * from "./is-greater-than-or-equal-to";
