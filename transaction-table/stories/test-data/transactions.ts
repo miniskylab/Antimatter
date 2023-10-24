@@ -10,7 +10,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     "1": {
         name: "Pulvinar",
         labels: deepCopyWithSelection(labels, "dolore", "tortor"),
-        amount: 1280000,
+        amount: 13400000,
         executedDate: today,
         modifiedDate: today,
         createdDate: today
@@ -18,7 +18,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     "2": {
         name: "Pretium",
         labels: deepCopyWithSelection(labels, "dolore", "tortor"),
-        amount: 327000,
+        amount: 237000,
         executedDate: today,
         modifiedDate: today,
         createdDate: today
@@ -42,7 +42,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     "5": {
         name: "Pellentesque",
         labels: deepCopyWithSelection(labels, "feugiat"),
-        amount: 150000,
+        amount: 450000,
         executedDate: today,
         modifiedDate: today,
         createdDate: today
@@ -66,7 +66,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     "8": {
         name: "Quam",
         labels: deepCopyWithSelection(labels, "volutpat"),
-        amount: 10000,
+        amount: 79000,
         executedDate: today,
         modifiedDate: today,
         createdDate: today
@@ -74,7 +74,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     "9": {
         name: "Urna molestie",
         labels: deepCopyWithSelection(labels, "iaculis", "sagittis"),
-        amount: 1000000,
+        amount: 215000000,
         executedDate: today,
         modifiedDate: today,
         createdDate: today
@@ -82,7 +82,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     "10": {
         name: "Iaculis eu non",
         labels: deepCopyWithSelection(labels, "viverra", "metus"),
-        amount: 10520000,
+        amount: 5000,
         executedDate: today,
         modifiedDate: today,
         createdDate: today
@@ -90,7 +90,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     "11": {
         name: "Phasellus vestibulum",
         labels: deepCopyWithSelection(labels, "imperdiet"),
-        amount: 10520000,
+        amount: 26000,
         executedDate: today,
         modifiedDate: today,
         createdDate: today
@@ -98,7 +98,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     "12": {
         name: "Nisi lacus sed",
         labels: deepCopyWithSelection(labels, "massa"),
-        amount: 10520000,
+        amount: 2560000,
         executedDate: today,
         modifiedDate: today,
         createdDate: today
@@ -106,7 +106,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     "13": {
         name: "Risus ultricies",
         labels: deepCopyWithSelection(labels, "adipiscing"),
-        amount: 10520000,
+        amount: 125000000,
         executedDate: today,
         modifiedDate: today,
         createdDate: today

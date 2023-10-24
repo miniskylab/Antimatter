@@ -56,21 +56,11 @@ export function Component({
 
     function getSummaryPct(): number
     {
-        if (incomeAmount === 0 && expenseAmount === 0)
-        {
-            return 0.5;
-        }
-
         if (incomeAmount === 0)
         {
             return 0;
         }
 
-        if (expenseAmount === 0)
-        {
-            return 1;
-        }
-
-        return Ts.Number.clamp(incomeAmount / (incomeAmount + expenseAmount), 0, 1);
+        return Ts.Number.clamp(1 - (expenseAmount / incomeAmount), 0, 1);
     }
 }

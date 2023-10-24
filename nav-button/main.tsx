@@ -15,11 +15,11 @@ export function NavButton({
     openIn = Target.SameWindowOrTab,
     label = EMPTY_STRING,
     icon,
-    isHighlighted = false
+    disabled = false
 }: NavButtonProps): JSX.Element
 {
     const props: Required<NavButtonProps> = {
-        style, destination, openIn, label, icon, isHighlighted
+        style, destination, openIn, label, icon, disabled
     };
 
     const context = useMemo<NavButtonContext>(
@@ -39,7 +39,7 @@ export function NavButton({
                 label={label}
                 icon={icon}
                 onPress={onPress}
-                disabled={isHighlighted}
+                disabled={disabled}
             />
         </NavButtonContext.Provider>
     );

@@ -27,7 +27,7 @@ export const Playground: Story = {
         openIn: Target.SameWindowOrTab,
         label: "Navigate to home page",
         icon: DefaultIconSet.ChevronRight,
-        isHighlighted: false
+        disabled: false
     },
     render: args => <NavButtonWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
 };
