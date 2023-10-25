@@ -11,9 +11,6 @@ export default {
         name: "@storybook/react-webpack5",
         options: {}
     },
-    docs: {
-        docsMode: true
-    },
     staticDirs: ["../static-assets"],
     stories: [
         "../../../**/stories/index.mdx",

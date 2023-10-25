@@ -46,6 +46,7 @@ export const Playground: Story = {
 };
 
 export const Prefilled: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.Default,
         selectedDate: new Date(1993, 1, 25)
@@ -53,6 +54,7 @@ export const Prefilled: Story = {
 };
 
 export const Placeholder: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.Default,
         placeholder: "DD / MM / YYYY"
@@ -60,6 +62,7 @@ export const Placeholder: Story = {
 };
 
 export const Format: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.Default,
         dateFormat: DateFormat.Full,

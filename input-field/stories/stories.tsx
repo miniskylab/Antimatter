@@ -52,6 +52,7 @@ export const Playground: Story = {
 };
 
 export const Prefilled: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.FixedWidth,
         value: "Hello World"
@@ -59,6 +60,7 @@ export const Prefilled: Story = {
 };
 
 export const Placeholder: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.FixedWidth,
         placeholder: "Placeholder"
@@ -66,6 +68,7 @@ export const Placeholder: Story = {
 };
 
 export const PasswordField: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.FixedWidth,
         placeholder: "Password Field",
@@ -75,6 +78,7 @@ export const PasswordField: Story = {
 };
 
 export const WithAddon: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.FixedWidth,
         icon: DefaultIconSet.Sun

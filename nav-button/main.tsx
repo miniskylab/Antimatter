@@ -30,7 +30,7 @@ export function NavButton({
     const computedStyle = Style.useComputedStyle(style, props);
     const navigationContext = React.useContext(NavigationContext);
     const navigationContainerRefContext = React.useContext(NavigationContainerRefContext);
-    const navigation = !Environment.is("Web") || navigationContext || navigationContainerRefContext ? useNavigation() : undefined;
+    const clientSideNavigation = !Environment.is("Web") || navigationContext || navigationContainerRefContext ? useNavigation() : undefined;
 
     return (
         <NavButtonContext.Provider value={context}>
@@ -46,9 +46,9 @@ export function NavButton({
 
     function onPress(): void
     {
-        if (navigation)
+        if (clientSideNavigation)
         {
-            navigation.navigate({name: destination, params: {}} as never);
+            clientSideNavigation.navigate({name: destination, params: {}} as never);
         }
         else if (Environment.is("WebBrowser"))
         {

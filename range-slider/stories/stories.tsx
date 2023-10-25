@@ -47,6 +47,7 @@ export const Playground: Story = {
 };
 
 export const SnapToPip: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.Default,
         minValue: 0,
@@ -61,6 +62,7 @@ export const SnapToPip: Story = {
 };
 
 export const ColorStack: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.ColorStack,
         minValue: 0,
@@ -74,6 +76,7 @@ export const ColorStack: Story = {
 };
 
 export const WithoutPips: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.Default,
         minValue: 0,
@@ -83,6 +86,7 @@ export const WithoutPips: Story = {
 };
 
 export const ProgressBar: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.Default,
         minValue: 0,

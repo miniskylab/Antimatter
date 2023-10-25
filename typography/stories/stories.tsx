@@ -4,7 +4,7 @@ import React, {JSX} from "react";
 import {Text} from "react-native";
 import {useTypography} from "../index";
 
-export default {title: "Typography"} satisfies Meta;
+export default {title: "Typography", tags: ["hidden-from-sidebar"]} satisfies Meta;
 export function RobotoTypeset(): JSX.Element
 {
     return (

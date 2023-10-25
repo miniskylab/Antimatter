@@ -30,6 +30,7 @@ export const Playground: Story = {
 };
 
 export const Styles: Story = {
+    tags: ["hidden-from-sidebar"],
     render: () => (
         <>
             <Button
@@ -65,6 +66,7 @@ export const Styles: Story = {
 };
 
 export const Size: Story = {
+    tags: ["hidden-from-sidebar"],
     render: () => (
         <>
             <Button
@@ -103,6 +105,7 @@ export const Size: Story = {
 };
 
 export const Disabled: Story = {
+    tags: ["hidden-from-sidebar"],
     render: () => (
         <>
             <Button

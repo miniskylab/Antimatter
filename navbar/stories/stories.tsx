@@ -9,7 +9,8 @@ import {TestData} from "./test-data";
 const NavbarWithValidation = withValidation(Navbar, NavbarProps);
 export default {
     component: Navbar,
-    title: "Components/Navigation Bar"
+    title: "Components/Navigation Bar",
+    render: args => <NavbarWithValidation {...args} tabs={TestData.getTabs()} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
 } satisfies Meta<typeof Navbar>;
 type Story = StoryObj<typeof Navbar>;
 
@@ -19,8 +20,6 @@ export const Playground: Story = {
         tabs: Sb.locked
     },
     args: {
-        style: Sb.getVariantName(Variant, Variant.Default),
-        tabs: TestData.getTabs()
-    },
-    render: args => <NavbarWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
+        style: Sb.getVariantName(Variant, Variant.Default)
+    }
 };

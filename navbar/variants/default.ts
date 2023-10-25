@@ -40,6 +40,7 @@ const Navbar__Tab__Root: PressableStyle = function (pressableProps, pressableSta
         paddingVertical: 0,
         paddingHorizontal: 0,
         opacity: 1,
+        cursor: navButtonContext.props.disabled ? "default" : "pointer",
         ...pressableState.pressed
             ? {
                 borderColor: Color.Primary,

@@ -70,6 +70,7 @@ export const Playground: Story = {
 };
 
 export const Divider: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.Default,
         placeholder: "Please select some options",
@@ -87,6 +88,7 @@ export const Divider: Story = {
 };
 
 export const DisabledOptions: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.Default,
         placeholder: "Please select some options",
@@ -102,6 +104,7 @@ export const DisabledOptions: Story = {
 };
 
 export const Dropup: Story = {
+    tags: ["hidden-from-sidebar"],
     decorators: [Story => <div style={{display: "flex", alignItems: "flex-end", height: 285}}>{<Story/>}</div>],
     args: {
         style: Variant.Default,
@@ -119,6 +122,7 @@ export const Dropup: Story = {
 };
 
 export const PreSelected: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.Default,
         placeholder: "Please select some options",

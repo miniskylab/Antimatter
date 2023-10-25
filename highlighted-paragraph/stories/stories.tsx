@@ -36,6 +36,7 @@ export const Playground: Story = {
 };
 
 export const ShortMessage: Story = {
+    tags: ["hidden-from-sidebar"],
     render: () => (
         <>
             <HighlightedParagraph style={Variant.Info} title={"This is information."}/>
@@ -47,6 +48,7 @@ export const ShortMessage: Story = {
 };
 
 export const Paragraph: Story = {
+    tags: ["hidden-from-sidebar"],
     render: () => (
         <>
             <HighlightedParagraph

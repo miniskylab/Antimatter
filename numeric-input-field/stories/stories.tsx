@@ -70,6 +70,7 @@ export const Playground: Story = {
 };
 
 export const Prefilled: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.FixedWidth,
         defaultValue: 123456.789
@@ -77,6 +78,7 @@ export const Prefilled: Story = {
 };
 
 export const Placeholder: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.FixedWidth,
         placeholder: "Placeholder"
@@ -84,6 +86,7 @@ export const Placeholder: Story = {
 };
 
 export const ExplicitPlusSymbol: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.FixedWidth,
         showPlusSymbolForPositiveNumber: true,
@@ -92,6 +95,7 @@ export const ExplicitPlusSymbol: Story = {
 };
 
 export const Range: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.FixedWidth,
         placeholder: "From -100 to 100",
@@ -101,6 +105,7 @@ export const Range: Story = {
 };
 
 export const DigitCount: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.FixedWidth,
         placeholder: "No more than 5 digits",
@@ -109,6 +114,7 @@ export const DigitCount: Story = {
 };
 
 export const FractionDigitCount: Story = {
+    tags: ["hidden-from-sidebar"],
     args: {
         style: Variant.FixedWidth,
         placeholder: "Ex: 0.12345",

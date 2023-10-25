@@ -4,7 +4,8 @@ import {NavbarProps} from "../../models";
 export const TestData = {
     getTabs(): NavbarProps["tabs"]
     {
-        return [
+        const queryParamaterName = "tab";
+        const tabs = [
             [TabName.Lorem, DefaultIconSet.Home],
             [TabName.Suscipit, DefaultIconSet.Calendar],
             [TabName.Pellentesque, DefaultIconSet.Money],
@@ -13,13 +14,23 @@ export const TestData = {
         ].map((tabData: [TabName, DefaultIconSet]) =>
         {
             const [tabName, tabIcon] = tabData;
-            const queryParamaterName = "tab";
             const windowLocationUrl = new URL(window.top.location.href);
             const selectedTabName = windowLocationUrl.searchParams.get(queryParamaterName) || TabName.Lorem;
 
             windowLocationUrl.searchParams.set(queryParamaterName, tabName);
-            return {destination: windowLocationUrl.href, label: tabName, icon: tabIcon, disabled: selectedTabName === tabName};
+            return {
+                label: tabName,
+                icon: tabIcon,
+                disabled: selectedTabName === tabName,
+                destination: decodeURIComponent(windowLocationUrl.href)
+            };
         });
+
+        const windowLocationUrl = new URL(window.top.location.href);
+        windowLocationUrl.searchParams.delete(queryParamaterName);
+        window.top.history.replaceState(null, "", decodeURIComponent(windowLocationUrl.href));
+
+        return tabs;
     }
 };
 

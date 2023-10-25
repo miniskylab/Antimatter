@@ -30,6 +30,7 @@ export const Playground: Story = {
 };
 
 export const StyleWeightAndDecoration: Story = {
+    tags: ["hidden-from-sidebar"],
     render: () => (
         <>
             <Label style={Variant.Bold}>Bold</Label>
@@ -43,6 +44,7 @@ export const StyleWeightAndDecoration: Story = {
 };
 
 export const Size: Story = {
+    tags: ["hidden-from-sidebar"],
     render: () => (
         <>
             <Label style={Variant.Small}>Small</Label>
@@ -53,6 +55,7 @@ export const Size: Story = {
 };
 
 export const Badge: Story = {
+    tags: ["hidden-from-sidebar"],
     render: () => (
         <>
             <Label style={Variant.PrimaryBadge}>1</Label>
