@@ -24,7 +24,7 @@
     "base64-js": "1.5.1",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.0",
-    "crypto-js": "4.1.1",
+    "crypto-js": "4.2.0",
     "expo-auth-session": "5.0.2",
     "expo-crypto": "12.6.0",
     "expo-secure-store": "12.5.0",
