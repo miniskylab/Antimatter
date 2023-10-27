@@ -11,6 +11,7 @@ export function useDefaultIconSet(): IcomoonSettings
 
 export enum DefaultIconSet
 {
+    None = "none",
     ChevronLeft = "chevron-left",
     ChevronDown = "chevron-down",
     ChevronUp = "chevron-up",
