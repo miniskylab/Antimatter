@@ -294,6 +294,7 @@ const DataTable__Row__CellInputField__TextBox: TextInputStyle = function (textIn
 
     return {
         ...inheritedStyle,
+        animations: undefined,
         paddingTop: 0,
         paddingBottom: 0,
         paddingLeft: 0,
@@ -310,9 +311,12 @@ const DataTable__Row__CellInputField__Placeholder: LabelStyle = function (labelP
 
     return {
         ...inheritedStyle,
+        animations: undefined,
         display: inputFieldContext.props.value ? "none" : "flex",
-        fontStyle: "italic",
-        paddingLeft: 0
+        height: "100%",
+        paddingLeft: 0,
+        fontSize: 16,
+        fontStyle: "italic"
     };
 };
 

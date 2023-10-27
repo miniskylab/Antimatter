@@ -126,13 +126,10 @@ export function TransactionTable({
             : TransactionRecord.Mode.ReadOnly;
     }
 
-    function isIncome(transactionData: TransactionRecord.TransactionData): boolean
+    function isIncome(transactionData: TransactionRecord.Data): boolean
     {
-        return Object.values(transactionData.labels)
-            .some(
-                label => label.status === TransactionRecord.TransactionLabelStatus.Selected &&
-                         label.type === TransactionRecord.TransactionLabelType.Income
-            );
+        return Object.values(transactionData.tags)
+            .some(tag => tag.status === TransactionRecord.TagStatus.Selected && tag.isIncome);
     }
 
     function filterTransactionsForSelectedDate(): typeof transactions
@@ -332,7 +329,7 @@ export function TransactionTable({
                     id={filteredTransactionId}
                     style={computedStyle.TransactionRecord}
                     mode={transactionMode}
-                    labels={transactionData.labels}
+                    tags={transactionData.tags}
                     onPress={mode === TransactionRecord.Mode.ReadOnly ? () => { onSelectTransaction(filteredTransactionId); } : undefined}
                     onChange={newTransactionData => { onChangeTransaction(newTransactionData); }}
                 />

@@ -10,8 +10,8 @@ import {
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {Mode} from "../enums";
-import type {TransactionData} from "../types";
-import {TransactionLabel} from "../types";
+import type {Data} from "../types";
+import {Tag} from "../types";
 import {Style} from "./style";
 
 export class Props extends ComponentProps<Style>
@@ -46,7 +46,7 @@ export class Props extends ComponentProps<Style>
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly labels?: Record<string, TransactionLabel>;
+    readonly tags?: Record<string, Tag>;
 
 
     /**
@@ -92,5 +92,5 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChange?: (newTransactionData: TransactionData) => void;
+    readonly onChange?: (newTransactionData: Data) => void;
 }

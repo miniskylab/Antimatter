@@ -1,8 +1,8 @@
-import {IsDefined, IsEnum, IsNotEmpty, IsPositive, IsString} from "@miniskylab/antimatter-framework";
+import {IsBoolean, IsDefined, IsEnum, IsNotEmpty, IsPositive, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {TransactionLabelStatus, TransactionLabelType} from "../enums";
+import {TagStatus} from "../enums";
 
-export class TransactionLabel
+export class Tag
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -33,19 +33,17 @@ export class TransactionLabel
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      *
-     * @type TransactionLabelStatus
+     * @type TagStatus
      */
-    @IsEnum(TransactionLabelStatus)
+    @IsEnum(TagStatus)
     @IsOptional()
-    readonly status?: TransactionLabelStatus;
+    readonly status?: TagStatus;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type TransactionLabelType
      */
-    @IsEnum(TransactionLabelType)
+    @IsBoolean()
     @IsOptional()
-    readonly type?: TransactionLabelType;
+    readonly isIncome?: boolean;
 }

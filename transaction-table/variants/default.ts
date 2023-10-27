@@ -589,7 +589,7 @@ const TransactionTable__TransactionRecord__Icon: IconStyle = function (iconProps
     };
 };
 
-const TransactionTable__TransactionRecord__NameAndLabelContainer: ViewStyle = function (viewProps)
+const TransactionTable__TransactionRecord__NameAndTagContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -681,9 +681,8 @@ const TransactionTable__TransactionRecord__AmountInputField__Root: ViewStyle = f
     const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
     const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
 
-    const isIncome = Object.values(transactionRecordContext.props.labels)
-        .some(label => label.status === TransactionRecord.TransactionLabelStatus.Selected &&
-                       label.type === TransactionRecord.TransactionLabelType.Income);
+    const isIncome = Object.values(transactionRecordContext.props.tags)
+        .some(tag => tag.status === TransactionRecord.TagStatus.Selected && tag.isIncome);
 
     const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
         (inputFieldContext.props)
@@ -733,9 +732,8 @@ const TransactionTable__TransactionRecord__AmountLabel: LabelStyle = function (l
 {
     const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
 
-    const isIncome = Object.values(transactionRecordContext.props.labels)
-        .some(label => label.status === TransactionRecord.TransactionLabelStatus.Selected &&
-                       label.type === TransactionRecord.TransactionLabelType.Income);
+    const isIncome = Object.values(transactionRecordContext.props.tags)
+        .some(tag => tag.status === TransactionRecord.TagStatus.Selected && tag.isIncome);
 
     return {
         ...LabelVariant.Default(labelProps),
@@ -749,7 +747,7 @@ const TransactionTable__TransactionRecord__AmountLabel: LabelStyle = function (l
     };
 };
 
-const TransactionTable__TransactionRecord__LabelSelector__Root: ViewStyle = function (viewProps)
+const TransactionTable__TransactionRecord__TagSelector__Root: ViewStyle = function (viewProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -766,21 +764,21 @@ const TransactionTable__TransactionRecord__LabelSelector__Root: ViewStyle = func
     };
 };
 
-const TransactionTable__TransactionRecord__LabelSelector__SelectedItemContainer: PressableStyle = function ()
+const TransactionTable__TransactionRecord__TagSelector__SelectedItemContainer: PressableStyle = function ()
 {
     return {
         display: "none"
     };
 };
 
-const TransactionTable__TransactionRecord__LabelSelector__Caret: ViewStyle = function ()
+const TransactionTable__TransactionRecord__TagSelector__Caret: ViewStyle = function ()
 {
     return {
         display: "none"
     };
 };
 
-const TransactionTable__TransactionRecord__LabelSelector__Menu: ScrollViewStyle = function (scrollViewProps)
+const TransactionTable__TransactionRecord__TagSelector__Menu: ScrollViewStyle = function (scrollViewProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -797,7 +795,7 @@ const TransactionTable__TransactionRecord__LabelSelector__Menu: ScrollViewStyle 
     };
 };
 
-const TransactionTable__TransactionRecord__LabelSelector__MenuItem__Root: PressableStyle = function (pressableProps, pressableState)
+const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
@@ -828,7 +826,7 @@ const TransactionTable__TransactionRecord__LabelSelector__MenuItem__Root: Pressa
     };
 };
 
-const TransactionTable__TransactionRecord__LabelSelector__MenuItem__Label: LabelStyle = function (labelProps)
+const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: LabelStyle = function (labelProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
@@ -844,14 +842,14 @@ const TransactionTable__TransactionRecord__LabelSelector__MenuItem__Label: Label
     };
 };
 
-const TransactionTable__TransactionRecord__LabelSelector__MenuItem__Icon: IconStyle = function ()
+const TransactionTable__TransactionRecord__TagSelector__MenuItem__Icon: IconStyle = function ()
 {
     return {
         display: "none"
     };
 };
 
-const TransactionTable__TransactionRecord__LabelSelector__MenuItem: ButtonStyle = function (buttonProps)
+const TransactionTable__TransactionRecord__TagSelector__MenuItem: ButtonStyle = function (buttonProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -859,33 +857,33 @@ const TransactionTable__TransactionRecord__LabelSelector__MenuItem: ButtonStyle 
 
     return {
         ...inheritedStyle,
-        Root: TransactionTable__TransactionRecord__LabelSelector__MenuItem__Root,
-        Label: TransactionTable__TransactionRecord__LabelSelector__MenuItem__Label,
-        Icon: TransactionTable__TransactionRecord__LabelSelector__MenuItem__Icon
+        Root: TransactionTable__TransactionRecord__TagSelector__MenuItem__Root,
+        Label: TransactionTable__TransactionRecord__TagSelector__MenuItem__Label,
+        Icon: TransactionTable__TransactionRecord__TagSelector__MenuItem__Icon
     };
 };
 
-const TransactionTable__TransactionRecord__LabelSelector__Divider: ViewStyle = function ()
+const TransactionTable__TransactionRecord__TagSelector__Divider: ViewStyle = function ()
 {
     return {
         display: "none"
     };
 };
 
-const TransactionTable__TransactionRecord__LabelSelector: DropdownMenuStyle = function (dropdownMenuProps)
+const TransactionTable__TransactionRecord__TagSelector: DropdownMenuStyle = function (dropdownMenuProps)
 {
     return {
         ...DropdownMenuVariant.Default(dropdownMenuProps),
-        Root: TransactionTable__TransactionRecord__LabelSelector__Root,
-        SelectedItemContainer: TransactionTable__TransactionRecord__LabelSelector__SelectedItemContainer,
-        Caret: TransactionTable__TransactionRecord__LabelSelector__Caret,
-        Menu: TransactionTable__TransactionRecord__LabelSelector__Menu,
-        MenuItem: TransactionTable__TransactionRecord__LabelSelector__MenuItem,
-        Divider: TransactionTable__TransactionRecord__LabelSelector__Divider
+        Root: TransactionTable__TransactionRecord__TagSelector__Root,
+        SelectedItemContainer: TransactionTable__TransactionRecord__TagSelector__SelectedItemContainer,
+        Caret: TransactionTable__TransactionRecord__TagSelector__Caret,
+        Menu: TransactionTable__TransactionRecord__TagSelector__Menu,
+        MenuItem: TransactionTable__TransactionRecord__TagSelector__MenuItem,
+        Divider: TransactionTable__TransactionRecord__TagSelector__Divider
     };
 };
 
-const TransactionTable__TransactionRecord__LabelContainer: ViewStyle = function (viewProps)
+const TransactionTable__TransactionRecord__TagContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -899,7 +897,7 @@ const TransactionTable__TransactionRecord__LabelContainer: ViewStyle = function 
     };
 };
 
-const TransactionTable__TransactionRecord__Label: LabelStyle = function (labelProps)
+const TransactionTable__TransactionRecord__Tag: LabelStyle = function (labelProps)
 {
     return {
         ...LabelVariant.Default(labelProps),
@@ -920,14 +918,14 @@ const TransactionTable__TransactionRecord: TransactionRecord.Style = function ()
     return {
         Root: TransactionTable__TransactionRecord__Root,
         Icon: TransactionTable__TransactionRecord__Icon,
-        NameAndLabelContainer: TransactionTable__TransactionRecord__NameAndLabelContainer,
+        NameAndTagContainer: TransactionTable__TransactionRecord__NameAndTagContainer,
         NameInputField: TransactionTable__TransactionRecord__NameInputField,
         NameLabel: TransactionTable__TransactionRecord__NameLabel,
         AmountInputField: TransactionTable__TransactionRecord__AmountInputField,
         AmountLabel: TransactionTable__TransactionRecord__AmountLabel,
-        LabelSelector: TransactionTable__TransactionRecord__LabelSelector,
-        LabelContainer: TransactionTable__TransactionRecord__LabelContainer,
-        Label: TransactionTable__TransactionRecord__Label
+        TagSelector: TransactionTable__TransactionRecord__TagSelector,
+        TagContainer: TransactionTable__TransactionRecord__TagContainer,
+        Tag: TransactionTable__TransactionRecord__Tag
     };
 };
 

@@ -2,13 +2,13 @@ import {Ts} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {TransactionRecord} from "../../components";
 
-export const labels: TransactionRecord.Props["labels"] = {
+export const tags: TransactionRecord.Props["tags"] = {
     "viverra": {name: "viverra"},
     "metus": {name: "metus"},
     "iaculis": {
         name: "iaculis",
         icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Money),
-        type: TransactionRecord.TransactionLabelType.Income
+        isIncome: true
     },
     "sagittis": {name: "sagittis"},
     "dolore": {name: "dolore", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Apple)},

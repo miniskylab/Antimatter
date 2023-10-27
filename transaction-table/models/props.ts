@@ -20,7 +20,7 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly transactions?: Record<string, TransactionRecord.TransactionData>;
+    readonly transactions?: Record<string, TransactionRecord.Data>;
 
 
     /**
@@ -51,7 +51,7 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChangeTransaction: (newTransactionData: TransactionRecord.TransactionData) => void;
+    readonly onChangeTransaction: (newTransactionData: TransactionRecord.Data) => void;
 
 
     /**

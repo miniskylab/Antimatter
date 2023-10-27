@@ -29,7 +29,7 @@ export default {
                                 ? {
                                     name: args.transactions[args.selectedTransaction.id].name,
                                     amount: args.transactions[args.selectedTransaction.id].amount,
-                                    labels: args.transactions[args.selectedTransaction.id].labels,
+                                    tags: args.transactions[args.selectedTransaction.id].tags,
                                     executedDate: args.transactions[args.selectedTransaction.id].executedDate,
                                     modifiedDate: args.transactions[args.selectedTransaction.id].modifiedDate,
                                     createdDate: args.transactions[args.selectedTransaction.id].createdDate
@@ -45,7 +45,7 @@ export default {
                             id: args.selectedTransaction.id,
                             data: {
                                 name: newTransactionData.name,
-                                labels: newTransactionData.labels,
+                                tags: newTransactionData.tags,
                                 amount: newTransactionData.amount,
                                 executedDate: newTransactionData.executedDate,
                                 modifiedDate: newTransactionData.modifiedDate,
@@ -71,7 +71,7 @@ export default {
                             data: {
                                 name: args.transactions[transactionId].name,
                                 amount: args.transactions[transactionId].amount,
-                                labels: args.transactions[transactionId].labels,
+                                tags: args.transactions[transactionId].tags,
                                 executedDate: args.transactions[transactionId].executedDate,
                                 modifiedDate: args.transactions[transactionId].modifiedDate,
                                 createdDate: args.transactions[transactionId].createdDate
@@ -87,7 +87,7 @@ export default {
                             id: EMPTY_STRING,
                             data: {
                                 name: EMPTY_STRING,
-                                labels: TestData.labels,
+                                tags: TestData.tags,
                                 amount: 0,
                                 executedDate: args.selectedDate,
                                 modifiedDate: new Date(),
@@ -103,7 +103,7 @@ export default {
                         TestData.transactions[`${Date.now()}`] = {
                             name: args.selectedTransaction.data.name,
                             amount: args.selectedTransaction.data.amount,
-                            labels: args.selectedTransaction.data.labels,
+                            tags: args.selectedTransaction.data.tags,
                             executedDate: args.selectedTransaction.data.executedDate,
                             modifiedDate: new Date(),
                             createdDate: args.selectedTransaction.data.createdDate
@@ -115,7 +115,7 @@ export default {
                             ...args.transactions[args.selectedTransaction.id],
                             name: args.selectedTransaction.data.name,
                             amount: args.selectedTransaction.data.amount,
-                            labels: args.selectedTransaction.data.labels,
+                            tags: args.selectedTransaction.data.tags,
                             executedDate: args.selectedTransaction.data.executedDate,
                             modifiedDate: new Date(),
                             createdDate: args.selectedTransaction.data.createdDate

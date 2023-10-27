@@ -1,4 +1,4 @@
-export enum TransactionLabelStatus
+export enum TagStatus
 {
     Selected = "Selected",
     Disabled = "Disabled"

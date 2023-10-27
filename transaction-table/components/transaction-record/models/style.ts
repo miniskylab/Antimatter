@@ -11,12 +11,12 @@ import {Props} from "./props";
 export type Style = (transactionRecordProps: Styled<Props>) => {
     Root?: PressableStyle;
     Icon?: IconStyle;
-    NameAndLabelContainer?: ViewStyle;
+    NameAndTagContainer?: ViewStyle;
     NameInputField?: InputFieldStyle;
     NameLabel?: LabelStyle;
     AmountInputField?: NumericInputFieldStyle;
     AmountLabel?: LabelStyle;
-    LabelSelector?: DropdownMenuStyle;
-    LabelContainer?: ViewStyle;
-    Label?: LabelStyle;
+    TagSelector?: DropdownMenuStyle;
+    TagContainer?: ViewStyle;
+    Tag?: LabelStyle;
 };

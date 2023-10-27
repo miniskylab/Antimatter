@@ -1,6 +1,6 @@
 import {TransactionRecord} from "../../components";
 import {TransactionTableProps} from "../../models";
-import {labels} from "./labels";
+import {tags} from "./tags";
 
 const today = new Date();
 const yesterday = new Date(today);
@@ -9,7 +9,7 @@ yesterday.setDate(yesterday.getDate() - 1);
 export const transactions: TransactionTableProps["transactions"] = {
     "1": {
         name: "Pulvinar",
-        labels: deepCopyWithSelection(labels, "dolore", "tortor"),
+        tags: deepCopyWithSelection(tags, "dolore", "tortor"),
         amount: 13400000,
         executedDate: today,
         modifiedDate: today,
@@ -17,7 +17,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "2": {
         name: "Pretium",
-        labels: deepCopyWithSelection(labels, "dolore", "tortor"),
+        tags: deepCopyWithSelection(tags, "dolore", "tortor"),
         amount: 237000,
         executedDate: today,
         modifiedDate: today,
@@ -25,7 +25,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "3": {
         name: "Turpis massa tincidunt",
-        labels: deepCopyWithSelection(labels, "semper"),
+        tags: deepCopyWithSelection(tags, "semper"),
         amount: 10000,
         executedDate: today,
         modifiedDate: today,
@@ -33,7 +33,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "4": {
         name: "Nulla pharetra",
-        labels: deepCopyWithSelection(labels, "interdum"),
+        tags: deepCopyWithSelection(tags, "interdum"),
         amount: 180000,
         executedDate: today,
         modifiedDate: today,
@@ -41,7 +41,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "5": {
         name: "Pellentesque",
-        labels: deepCopyWithSelection(labels, "feugiat"),
+        tags: deepCopyWithSelection(tags, "feugiat"),
         amount: 450000,
         executedDate: today,
         modifiedDate: today,
@@ -49,7 +49,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "6": {
         name: "Risus",
-        labels: deepCopyWithSelection(labels, "mauris"),
+        tags: deepCopyWithSelection(tags, "mauris"),
         amount: 30000,
         executedDate: today,
         modifiedDate: today,
@@ -57,7 +57,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "7": {
         name: "Diam donec",
-        labels: deepCopyWithSelection(labels, "dolore", "feugiat"),
+        tags: deepCopyWithSelection(tags, "dolore", "feugiat"),
         amount: 390000,
         executedDate: today,
         modifiedDate: today,
@@ -65,7 +65,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "8": {
         name: "Quam",
-        labels: deepCopyWithSelection(labels, "volutpat"),
+        tags: deepCopyWithSelection(tags, "volutpat"),
         amount: 79000,
         executedDate: today,
         modifiedDate: today,
@@ -73,7 +73,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "9": {
         name: "Urna molestie",
-        labels: deepCopyWithSelection(labels, "iaculis", "sagittis"),
+        tags: deepCopyWithSelection(tags, "iaculis", "sagittis"),
         amount: 215000000,
         executedDate: today,
         modifiedDate: today,
@@ -81,7 +81,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "10": {
         name: "Iaculis eu non",
-        labels: deepCopyWithSelection(labels, "viverra", "metus"),
+        tags: deepCopyWithSelection(tags, "viverra", "metus"),
         amount: 5000,
         executedDate: today,
         modifiedDate: today,
@@ -89,7 +89,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "11": {
         name: "Phasellus vestibulum",
-        labels: deepCopyWithSelection(labels, "imperdiet"),
+        tags: deepCopyWithSelection(tags, "imperdiet"),
         amount: 26000,
         executedDate: today,
         modifiedDate: today,
@@ -97,7 +97,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "12": {
         name: "Nisi lacus sed",
-        labels: deepCopyWithSelection(labels, "massa"),
+        tags: deepCopyWithSelection(tags, "massa"),
         amount: 2560000,
         executedDate: today,
         modifiedDate: today,
@@ -105,7 +105,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "13": {
         name: "Risus ultricies",
-        labels: deepCopyWithSelection(labels, "adipiscing"),
+        tags: deepCopyWithSelection(tags, "adipiscing"),
         amount: 125000000,
         executedDate: today,
         modifiedDate: today,
@@ -113,7 +113,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "14": {
         name: "Cursus turpis",
-        labels: deepCopyWithSelection(labels, "dolore", "tortor"),
+        tags: deepCopyWithSelection(tags, "dolore", "tortor"),
         amount: 45000,
         executedDate: yesterday,
         modifiedDate: yesterday,
@@ -121,7 +121,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "15": {
         name: "Morbi tincidunt",
-        labels: deepCopyWithSelection(labels, "dolore", "tortor"),
+        tags: deepCopyWithSelection(tags, "dolore", "tortor"),
         amount: 70000,
         executedDate: yesterday,
         modifiedDate: yesterday,
@@ -129,14 +129,14 @@ export const transactions: TransactionTableProps["transactions"] = {
     }
 };
 
-function deepCopyWithSelection(labels: TransactionRecord.Props["labels"], ...selections: string[]): TransactionRecord.Props["labels"]
+function deepCopyWithSelection(tags: TransactionRecord.Props["tags"], ...selections: string[]): TransactionRecord.Props["tags"]
 {
-    const copy = {...labels};
+    const copy = {...tags};
     selections.forEach(selection =>
     {
         copy[selection] = {
             ...copy[selection],
-            status: TransactionRecord.TransactionLabelStatus.Selected
+            status: TransactionRecord.TagStatus.Selected
         };
     });
 

@@ -1,8 +1,8 @@
 import {IsDate, IsDefined, IsNotEmpty, IsNumber, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {TransactionLabel} from "./transaction-label";
+import {Tag} from "./tag";
 
-export class TransactionData
+export class Data
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>
@@ -25,7 +25,7 @@ export class TransactionData
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly labels?: Record<string, TransactionLabel>;
+    readonly tags?: Record<string, Tag>;
 
 
     /**

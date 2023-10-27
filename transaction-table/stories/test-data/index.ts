@@ -1,7 +1,7 @@
-import {labels} from "./labels";
+import {tags} from "./tags";
 import {transactions} from "./transactions";
 
 export const TestData = {
-    labels,
+    tags,
     transactions
 };
