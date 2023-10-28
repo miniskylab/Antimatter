@@ -168,6 +168,8 @@ export const Playground: Story = {
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
+        summarySection1Label: "Iaculis",
+        summarySection2Label: "Lorem",
         selectedDate: today,
         transactions: TestData.transactions
     }

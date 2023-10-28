@@ -16,6 +16,8 @@ import * as Variant from "./variants";
  */
 export function TransactionTable({
     style = Variant.Default,
+    summarySection1Label,
+    summarySection2Label,
     transactions = {},
     selectedDate = new Date(),
     selectedTransaction,
@@ -31,8 +33,8 @@ export function TransactionTable({
 }: TransactionTableProps): JSX.Element
 {
     const props: Required<TransactionTableProps> = {
-        style, transactions, selectedDate, selectedTransaction, mode, onChangeTransaction, onSelectDate, onSelectTransaction, onSwitchMode,
-        onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
+        style, summarySection1Label, summarySection2Label, transactions, selectedDate, selectedTransaction, mode, onChangeTransaction,
+        onSelectDate, onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
     };
 
     const [state, setState] = useState<TransactionTableState>({
@@ -214,10 +216,10 @@ export function TransactionTable({
         return (
             <Summary.Component
                 style={computedStyle.Summary}
-                expenseLabel={"Expenses"}
-                expenseAmount={getTotalExpense()}
-                incomeLabel={"Income"}
-                incomeAmount={getTotalIncome()}
+                section1Label={summarySection1Label}
+                section1Amount={getTotalIncome()}
+                section2Label={summarySection2Label}
+                section2Amount={getTotalExpense()}
             />
         );
     }

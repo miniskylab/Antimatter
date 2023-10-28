@@ -6,4 +6,4 @@ export const SummaryContext = createContext<SummaryContext>({});
 export type SummaryContext = ComponentContext<Props>;
 
 export const SectionContext = createContext<SectionContext>(undefined);
-export type SectionContext = "income" | "expense";
+export type SectionContext = "section-1" | "section-2";

@@ -9,7 +9,7 @@ yesterday.setDate(yesterday.getDate() - 1);
 export const transactions: TransactionTableProps["transactions"] = {
     "1": {
         name: "Pulvinar",
-        tags: deepCopyWithSelection(tags, "dolore", "tortor"),
+        tags: deepCopyWithSelection(tags, "feugiat", "mauris"),
         amount: 13400000,
         executedDate: today,
         modifiedDate: today,

@@ -9,7 +9,7 @@ export class Props extends ComponentProps<Style>
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly expenseLabel: string;
+    readonly section1Label: string;
 
 
     /**
@@ -17,7 +17,7 @@ export class Props extends ComponentProps<Style>
      */
     @IsNumber()
     @IsDefined()
-    readonly expenseAmount: number;
+    readonly section1Amount: number;
 
 
     /**
@@ -26,7 +26,7 @@ export class Props extends ComponentProps<Style>
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly incomeLabel: string;
+    readonly section2Label: string;
 
 
     /**
@@ -34,5 +34,5 @@ export class Props extends ComponentProps<Style>
      */
     @IsNumber()
     @IsDefined()
-    readonly incomeAmount: number;
+    readonly section2Amount: number;
 }

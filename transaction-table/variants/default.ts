@@ -213,8 +213,8 @@ const TransactionTable__Summary__Section: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flexBasis: "50%",
-        alignItems: sectionContext === "expense" ? "flex-end" : "flex-start",
-        marginBottom: -5
+        marginBottom: -5,
+        alignItems: sectionContext === "section-1" ? "flex-start" : "flex-end"
     };
 };
 
@@ -238,7 +238,7 @@ const TransactionTable__Summary__Amount: LabelStyle = function (labelProps)
         lineHeight: 25,
         fontSize: 20,
         fontWeight: "bold",
-        color: sectionContext === "expense" ? Color.Warning : Color.Positive,
+        color: sectionContext === "section-1" ? Color.Positive : Color.Warning,
         ...Environment.useResponsiveStyle("Large", {
             lineHeight: 30
         })

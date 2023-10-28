@@ -10,14 +10,14 @@ import {Props, SectionContext, SummaryContext} from "./models";
  */
 export function Component({
     style,
-    expenseLabel = EMPTY_STRING,
-    expenseAmount = 0,
-    incomeLabel = EMPTY_STRING,
-    incomeAmount = 0
+    section1Label = EMPTY_STRING,
+    section1Amount = 0,
+    section2Label = EMPTY_STRING,
+    section2Amount = 0
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        style, expenseLabel, expenseAmount, incomeLabel, incomeAmount
+        style, section1Label, section1Amount, section2Label, section2Amount
     };
 
     const context = useMemo<SummaryContext>(
@@ -31,16 +31,16 @@ export function Component({
     return (
         <SummaryContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                <SectionContext.Provider value={"income"}>
+                <SectionContext.Provider value={"section-1"}>
                     <View style={computedStyle.Section}>
-                        <Label style={computedStyle.Label}>{incomeLabel}</Label>
-                        <Label style={computedStyle.Amount}>{incomeAmount.toLocaleString("en-us")}</Label>
+                        <Label style={computedStyle.Label}>{section1Label}</Label>
+                        <Label style={computedStyle.Amount}>{section1Amount.toLocaleString("en-us")}</Label>
                     </View>
                 </SectionContext.Provider>
-                <SectionContext.Provider value={"expense"}>
+                <SectionContext.Provider value={"section-2"}>
                     <View style={computedStyle.Section}>
-                        <Label style={computedStyle.Label}>{expenseLabel}</Label>
-                        <Label style={computedStyle.Amount}>{expenseAmount.toLocaleString("en-us")}</Label>
+                        <Label style={computedStyle.Label}>{section2Label}</Label>
+                        <Label style={computedStyle.Amount}>{section2Amount.toLocaleString("en-us")}</Label>
                     </View>
                 </SectionContext.Provider>
                 <RangeSlider
@@ -56,11 +56,11 @@ export function Component({
 
     function getSummaryPct(): number
     {
-        if (incomeAmount === 0)
+        if (section1Amount === 0)
         {
             return 0;
         }
 
-        return Ts.Number.clamp(1 - (expenseAmount / incomeAmount), 0, 1);
+        return Ts.Number.clamp(1 - (section2Amount / section1Amount), 0, 1);
     }
 }
