@@ -8,8 +8,8 @@ import {Pressable} from "@miniskylab/antimatter-pressable";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {Mode, TagStatus} from "./enums";
-import {Props, TransactionRecordContext} from "./models";
+import {Mode, TagKind, TagStatus} from "./enums";
+import {Props, TagKindContext, TransactionRecordContext} from "./models";
 import {Tag} from "./types";
 
 /**
@@ -86,9 +86,16 @@ export function Component({
                     ? MenuItemStatus.Disabled
                     : Ts.Enum.getValue(MenuItemStatus, Ts.Enum.getName(TagStatus, tag.status));
 
+            const context: string[] = [];
+            if (tag.isIncome)
+            {
+                context.push(TagKind.Income);
+            }
+
             dropdownMenuItems[tagId] = {
                 displayText: tag.name,
-                status: mappedMenuItemStatus
+                status: mappedMenuItemStatus,
+                context
             };
         });
 
@@ -155,7 +162,11 @@ export function Component({
                     {
                         [...Object.keys(tags).filter(x => tags[x].status === TagStatus.Selected)]
                             .sort((a, b) => dropdownMenuItemValues.indexOf(a) - dropdownMenuItemValues.indexOf(b))
-                            .map(tagId => (<Label key={tagId} style={computedStyle.Tag}>{tags[tagId].name ?? tagId}</Label>))
+                            .map(tagId => (
+                                <TagKindContext.Provider key={tagId} value={tags[tagId].isIncome ? "income" : undefined}>
+                                    <Label style={computedStyle.Tag}>{tags[tagId].name ?? tagId}</Label>
+                                </TagKindContext.Provider>
+                            ))
                     }
                 </View>
             );

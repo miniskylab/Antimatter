@@ -886,6 +886,8 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: Pressabl
     const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
+    const hasIncomeContext = menuItemContext.context.includes(TransactionRecord.TagKind.Income);
+
     const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props)
         .MenuItem(buttonContext.props)
         .Root(pressableProps, pressableState);
@@ -901,11 +903,11 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: Pressabl
         marginBottom: 0,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: Color.Neutral,
+        borderColor: hasIncomeContext ? Color.Positive : Color.Neutral,
         backgroundColor: menuItemContext.status === MenuItemStatus.Selected || pressableState.pressed
-            ? Color.Neutral
+            ? hasIncomeContext ? Color.Positive : Color.Neutral
             : pressableState.hovered
-                ? Color.Neutral__a10
+                ? hasIncomeContext ? Color.Positive__a10 : Color.Neutral__a10
                 : Color.Transparent
     };
 };
@@ -913,7 +915,11 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: Pressabl
 const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: LabelStyle = function (labelProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+    const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
+
+    const hasIncomeContext = menuItemContext.context.includes(TransactionRecord.TagKind.Income);
 
     const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props)
         .MenuItem(buttonContext.props)
@@ -922,7 +928,14 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: LabelSt
     return {
         ...inheritedStyle,
         paddingRight: 0,
-        fontSize: 12
+        fontSize: 12,
+        color: menuItemContext.status === MenuItemStatus.Selected || pressableContext.state.pressed
+            ? Color.Ambient
+            : pressableContext.state.hovered
+                ? Color.White
+                : hasIncomeContext
+                    ? Color.Positive
+                    : Color.Neutral
     };
 };
 
@@ -983,6 +996,8 @@ const TransactionTable__TransactionRecord__TagContainer: ViewStyle = function (v
 
 const TransactionTable__TransactionRecord__Tag: LabelStyle = function (labelProps)
 {
+    const tagKind = TransactionRecord.ContextHook.useTagKindContext();
+
     return {
         ...LabelVariant.Default(labelProps),
         height: "100%",
@@ -990,10 +1005,10 @@ const TransactionTable__TransactionRecord__Tag: LabelStyle = function (labelProp
         marginRight: 5,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: Color.Neutral,
+        borderColor: tagKind === "income" ? Color.Positive : Color.Neutral,
         fontSize: 12,
         color: Color.Background,
-        backgroundColor: Color.Neutral
+        backgroundColor: tagKind === "income" ? Color.Positive : Color.Neutral
     };
 };
 

@@ -1,4 +1,6 @@
 import {useContext} from "react";
-import {TransactionRecordContext} from "../models";
+import {TagKindContext, TransactionRecordContext} from "../models";
 
 export function useTransactionRecordContext(): TransactionRecordContext { return useContext(TransactionRecordContext); }
+
+export function useTagKindContext(): TagKindContext { return useContext(TagKindContext); }

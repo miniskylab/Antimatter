@@ -21,4 +21,12 @@ export class MenuItem
     @IsString()
     @IsOptional()
     readonly displayText?: string;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsString({each: true})
+    @IsOptional()
+    readonly context?: string[];
 }

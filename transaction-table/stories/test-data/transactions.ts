@@ -73,7 +73,7 @@ export const transactions: TransactionTableProps["transactions"] = {
     },
     "9": {
         name: "Urna molestie",
-        tags: deepCopyWithSelection(tags, "iaculis", "sagittis"),
+        tags: deepCopyWithSelection(tags, "iaculis"),
         amount: 215000000,
         executedDate: today,
         modifiedDate: today,

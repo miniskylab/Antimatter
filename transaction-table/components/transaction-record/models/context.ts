@@ -4,3 +4,6 @@ import {Props} from "./props";
 
 export const TransactionRecordContext = createContext<TransactionRecordContext>({});
 export type TransactionRecordContext = ComponentContext<Props>;
+
+export const TagKindContext = createContext<TagKindContext>(undefined);
+export type TagKindContext = "income";
