@@ -25,7 +25,7 @@ export const Playground: Story = {
         style: Sb.getVariantName(Variant, Variant.Default),
         logo: DefaultIconSet.LockInsideShield,
         title: "MiniSkyLab Gatekeeper",
-        description: "Enter your credentials below",
+        subtitle: "Enter your credentials below",
         usernameInputField: {icon: DefaultIconSet.User, placeholder: "Username"},
         passwordInputField: {icon: DefaultIconSet.Lock, placeholder: "Password"},
         loginButton: {label: "Login"},

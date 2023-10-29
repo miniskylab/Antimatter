@@ -11,7 +11,7 @@ export type LoginFormStyle = (loginFormProps: Styled<LoginFormProps>, loginFormS
     Root?: ViewStyle;
     Logo?: IconStyle;
     Title?: LabelStyle;
-    Description?: LabelStyle;
+    Subtitle?: LabelStyle;
     InputField?: InputFieldStyle;
     LoginButton?: ButtonStyle;
 };

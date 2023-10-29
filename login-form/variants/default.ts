@@ -49,7 +49,7 @@ const LoginForm__Title: LabelStyle = function (labelProps)
     };
 };
 
-const LoginForm__Description: LabelStyle = function (labelProps)
+const LoginForm__Subtitle: LabelStyle = function (labelProps)
 {
     return {
         ...LabelVariant.Default(labelProps),
@@ -122,7 +122,7 @@ export const Default: LoginFormStyle = function ()
         Root: LoginForm__Root,
         Logo: LoginForm__Logo,
         Title: LoginForm__Title,
-        Description: LoginForm__Description,
+        Subtitle: LoginForm__Subtitle,
         InputField: LoginForm__InputField,
         LoginButton: LoginForm__LoginButton
     };

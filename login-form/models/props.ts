@@ -34,7 +34,7 @@ export class LoginFormProps extends ComponentProps<LoginFormStyle>
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly description: string;
+    readonly subtitle: string;
 
 
     /**

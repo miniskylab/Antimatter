@@ -15,7 +15,7 @@ export function LoginForm({
     style = Variant.Default,
     logo,
     title,
-    description,
+    subtitle,
     usernameInputField,
     passwordInputField,
     loginButton,
@@ -23,7 +23,7 @@ export function LoginForm({
 }: LoginFormProps): JSX.Element
 {
     const props: Required<LoginFormProps> = {
-        style, logo, title, description, usernameInputField, passwordInputField, loginButton, onLogin
+        style, logo, title, subtitle, usernameInputField, passwordInputField, loginButton, onLogin
     };
 
     const [state, setState] = useState<LoginFormState>({
@@ -43,7 +43,7 @@ export function LoginForm({
             <View style={computedStyle.Root}>
                 <Icon style={computedStyle.Logo} name={logo}/>
                 <Label style={computedStyle.Title}>{title}</Label>
-                <Label style={computedStyle.Description}>{description}</Label>
+                <Label style={computedStyle.Subtitle}>{subtitle}</Label>
                 <InputField
                     style={computedStyle.InputField}
                     icon={usernameInputField.icon}
