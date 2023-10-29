@@ -74,17 +74,21 @@ export function Component({
     {
         const dropdownMenuItems: DropdownMenuProps["menuItems"] = {};
         const selectedTagCount = Object.values(tags).filter(x => x.status === TagStatus.Selected).length;
+        const incomeTagSelected = Object.values(tags).some(x => x.isIncome && x.status === TagStatus.Selected);
         Object.keys(tags).forEach(tagId =>
         {
             const tag = tags[tagId];
-            const mappedMenuItemStatus = Ts.Enum.getValue(MenuItemStatus, Ts.Enum.getName(TagStatus, tag.status));
+            const incomeTagDisabled = tag.isIncome && selectedTagCount > 0;
+            const maxSelectedTagCountReached = selectedTagCount >= maxSelectedTagCount;
+            const mappedMenuItemStatus = tag.status === undefined && (maxSelectedTagCountReached || incomeTagSelected)
+                ? MenuItemStatus.Hidden
+                : tag.status === undefined && incomeTagDisabled
+                    ? MenuItemStatus.Disabled
+                    : Ts.Enum.getValue(MenuItemStatus, Ts.Enum.getName(TagStatus, tag.status));
+
             dropdownMenuItems[tagId] = {
                 displayText: tag.name,
-                status: selectedTagCount < maxSelectedTagCount
-                    ? mappedMenuItemStatus
-                    : tag.status === undefined
-                        ? MenuItemStatus.Disabled
-                        : mappedMenuItemStatus
+                status: mappedMenuItemStatus
             };
         });
 

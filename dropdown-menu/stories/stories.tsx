@@ -62,9 +62,11 @@ export const Playground: Story = {
             "alpha": {displayText: "Alpha"},
             "beta": {displayText: "Beta"},
             "gamma": {displayText: "Gamma"},
+            "hidden-1": {displayText: "Hidden 1", status: MenuItemStatus.Hidden},
             "omega": {displayText: "Omega"},
             "charlie": {displayText: "Charlie"},
-            "long-text": {displayText: "This is a very very long line of text"}
+            "long-text": {displayText: "This is a very very long line of text"},
+            "hidden-2": {displayText: "Hidden 2", status: MenuItemStatus.Hidden}
         }
     }
 };

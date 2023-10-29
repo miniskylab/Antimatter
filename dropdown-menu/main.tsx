@@ -79,6 +79,11 @@ export function DropdownMenu({
         for (const menuItemKey in menuItems)
         {
             const menuItem = menuItems[menuItemKey];
+            if (menuItem.status === MenuItemStatus.Hidden)
+            {
+                continue;
+            }
+
             if (menuItem.status === MenuItemStatus.Divider)
             {
                 menuItemJsxElements.push(<View key={menuItemKey} style={computedStyle.Divider}/>);

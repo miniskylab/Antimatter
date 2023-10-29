@@ -892,7 +892,6 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: Pressabl
 
     return {
         ...inheritedStyle,
-        display: menuItemContext.status === MenuItemStatus.Disabled ? "none" : "flex",
         flex: 1,
         width: "auto",
         height: "100%",
