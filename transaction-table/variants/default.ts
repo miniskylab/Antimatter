@@ -495,6 +495,11 @@ const TransactionTable__Subtitle: LabelStyle = function (labelProps)
 const TransactionTable__ControlButton__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+    const controlButtonTypeContext = TransactionTableContextHook.useControlButtonTypeContext();
+
+    const isModeButton = controlButtonTypeContext === "mode";
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
@@ -508,7 +513,13 @@ const TransactionTable__ControlButton__Root: PressableStyle = function (pressabl
         paddingTop: 5,
         paddingBottom: 4,
         borderWidth: 0,
-        backgroundColor: Color.Transparent
+        backgroundColor: Color.Transparent,
+        opacity: 1,
+        ...isDraftMode && isModeButton && {
+            paddingLeft: 15,
+            paddingRight: 15,
+            backgroundColor: Color.Primary
+        }
     };
 };
 
@@ -519,10 +530,12 @@ const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
     const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
     const controlButtonTypeContext = TransactionTableContextHook.useControlButtonTypeContext();
 
-    const isActionOrModeButton = controlButtonTypeContext === "action" || controlButtonTypeContext === "mode";
+    const isModeButton = controlButtonTypeContext === "mode";
+    const isActionButton = controlButtonTypeContext === "action";
+    const isCancelButton = controlButtonTypeContext === "cancel";
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
     const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
-    const isDraftOrEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft ||
-                              transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
 
@@ -530,15 +543,25 @@ const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
         ...inheritedStyle,
         flexGrow: 1,
         fontSize: 28,
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : isActionOrModeButton && isDraftOrEditMode
+        ...isActionButton && {
+            color: isDraftMode || isEditMode
+                ? Color.Primary
+                : isDeleteMode
+                    ? Color.Tomato
+                    : Color.Neutral
+        },
+        ...isModeButton && {
+            color: isDraftMode
+                ? Color.Background
+                : isEditMode
                     ? Color.Primary
-                    : isActionOrModeButton && isDeleteMode
+                    : isDeleteMode
                         ? Color.Tomato
                         : Color.Neutral
+        },
+        ...isCancelButton && {color: Color.Neutral},
+        ...pressableContext.state.hovered && {color: Color.White},
+        ...pressableContext.state.pressed && {color: Color.Gray}
     };
 };
 
@@ -549,10 +572,12 @@ const TransactionTable__ControlButton__Label: LabelStyle = function (labelProps)
     const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
     const controlButtonTypeContext = TransactionTableContextHook.useControlButtonTypeContext();
 
-    const isActionOrModeButton = controlButtonTypeContext === "action" || controlButtonTypeContext === "mode";
+    const isModeButton = controlButtonTypeContext === "mode";
+    const isActionButton = controlButtonTypeContext === "action";
+    const isCancelButton = controlButtonTypeContext === "cancel";
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
     const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
-    const isDraftOrEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft ||
-                              transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
 
@@ -564,15 +589,25 @@ const TransactionTable__ControlButton__Label: LabelStyle = function (labelProps)
         paddingHorizontal: 0,
         fontSize: 12,
         fontWeight: "bold",
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : isActionOrModeButton && isDraftOrEditMode
+        ...isActionButton && {
+            color: isDraftMode || isEditMode
+                ? Color.Primary
+                : isDeleteMode
+                    ? Color.Tomato
+                    : Color.Neutral
+        },
+        ...isModeButton && {
+            color: isDraftMode
+                ? Color.Background
+                : isEditMode
                     ? Color.Primary
-                    : isActionOrModeButton && isDeleteMode
+                    : isDeleteMode
                         ? Color.Tomato
                         : Color.Neutral
+        },
+        ...isCancelButton && {color: Color.Neutral},
+        ...pressableContext.state.hovered && {color: Color.White},
+        ...pressableContext.state.pressed && {color: Color.Gray}
     };
 };
 
