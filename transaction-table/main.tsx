@@ -1,7 +1,8 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
-import {DateFormat, Environment, Style, Ts} from "@miniskylab/antimatter-framework";
+import {DateFormat, EMPTY_STRING, Environment, Style, Ts} from "@miniskylab/antimatter-framework";
+import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -16,8 +17,10 @@ import * as Variant from "./variants";
  */
 export function TransactionTable({
     style = Variant.Default,
-    summarySection1Label,
-    summarySection2Label,
+    summarySection1Label = EMPTY_STRING,
+    summarySection2Label = EMPTY_STRING,
+    title = EMPTY_STRING,
+    subtitle = EMPTY_STRING,
     transactions = {},
     selectedDate = new Date(),
     selectedTransaction,
@@ -33,8 +36,9 @@ export function TransactionTable({
 }: TransactionTableProps): JSX.Element
 {
     const props: Required<TransactionTableProps> = {
-        style, summarySection1Label, summarySection2Label, transactions, selectedDate, selectedTransaction, mode, onChangeTransaction,
-        onSelectDate, onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
+        style, summarySection1Label, summarySection2Label, title, subtitle, transactions, selectedDate, selectedTransaction, mode,
+        onChangeTransaction, onSelectDate, onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction,
+        onCancel
     };
 
     const [state, setState] = useState<TransactionTableState>({
@@ -54,7 +58,7 @@ export function TransactionTable({
             <View style={computedStyle.Root}>
                 {renderDateSelectorAndSummary()}
                 <View style={computedStyle.TransactionDetails}>
-                    {renderControlPanel()}
+                    {mode === TransactionRecord.Mode.ReadOnly && (title || subtitle) ? renderDisplayPanel() : renderControlPanel()}
                     <HrPositionContext.Provider value={"top"}>
                         <View style={computedStyle.Hr}/>
                     </HrPositionContext.Provider>
@@ -304,6 +308,16 @@ export function TransactionTable({
                         onPress={cancelButton.onPress}
                     />
                 </ControlButtonTypeContext.Provider>
+            </View>
+        );
+    }
+
+    function renderDisplayPanel(): JSX.Element
+    {
+        return (
+            <View style={computedStyle.DisplayPanel}>
+                <Label style={computedStyle.Title} numberOfLines={1}>{title}</Label>
+                <Label style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Label>
             </View>
         );
     }

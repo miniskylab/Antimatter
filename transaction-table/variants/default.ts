@@ -198,7 +198,7 @@ const TransactionTable__Summary__Root: ViewStyle = function (viewProps)
         flexDirection: "row",
         flexWrap: "wrap",
         alignSelf: "stretch",
-        marginTop: 10,
+        marginTop: 5,
         ...Environment.useResponsiveStyle("Large", {
             flexBasis: "100%",
             marginTop: 0
@@ -254,6 +254,22 @@ const TransactionTable__Summary__RangeSlider__Root: ViewStyle = function (viewPr
     return {
         ...inheritedStyle,
         flexBasis: "100%"
+    };
+};
+
+const TransactionTable__Summary__RangeSlider__Track: ViewStyle = function (viewProps)
+{
+    const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
+
+    const inheritedStyle = RangeSliderVariant.Default(rangeSliderContext.props).Track(viewProps);
+
+    return {
+        ...inheritedStyle,
+        marginTop: 8,
+        marginBottom: 3,
+        ...Environment.useResponsiveStyle("Large", {
+            marginBottom: 5
+        })
     };
 };
 
@@ -390,6 +406,7 @@ const TransactionTable__Summary__RangeSlider: RangeSliderStyle = function (range
     return {
         ...RangeSliderVariant.Default(rangeSliderProps),
         Root: TransactionTable__Summary__RangeSlider__Root,
+        Track: TransactionTable__Summary__RangeSlider__Track,
         StopperLeft: TransactionTable__Summary__RangeSlider__StopperLeft,
         StopperRight: TransactionTable__Summary__RangeSlider__StopperRight,
         FillLeft: TransactionTable__Summary__RangeSlider__FillLeft,
@@ -435,10 +452,43 @@ const TransactionTable__ControlPanel: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
-        width: "100%",
+        alignSelf: "stretch",
         height: 58,
         justifyContent: "space-around",
         backgroundColor: Color.Background
+    };
+};
+
+const TransactionTable__DisplayPanel: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        alignSelf: "stretch",
+        height: 58,
+        backgroundColor: Color.Background
+    };
+};
+
+const TransactionTable__Title: LabelStyle = function (labelProps)
+{
+    return {
+        ...LabelVariant.Default(labelProps),
+        flex: 1,
+        justifyContent: "flex-end",
+        paddingBottom: 3,
+        color: Color.Gainsboro,
+        fontSize: 22,
+        fontWeight: "bold"
+    };
+};
+
+const TransactionTable__Subtitle: LabelStyle = function (labelProps)
+{
+    return {
+        ...LabelVariant.Default(labelProps),
+        justifyContent: "flex-start",
+        height: 24,
+        color: Color.Neutral
     };
 };
 
@@ -1009,6 +1059,9 @@ export const Default: TransactionTableStyle = function ()
         DatePicker: TransactionTable__DatePicker,
         Summary: TransactionTable__Summary,
         TransactionDetails: TransactionTable__TransactionDetails,
+        DisplayPanel: TransactionTable__DisplayPanel,
+        Title: TransactionTable__Title,
+        Subtitle: TransactionTable__Subtitle,
         ControlPanel: TransactionTable__ControlPanel,
         ControlButton: TransactionTable__ControlButton,
         TransactionContainer: TransactionTable__TransactionContainer,

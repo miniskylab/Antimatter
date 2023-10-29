@@ -27,6 +27,22 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsString()
+    @IsOptional()
+    readonly title?: string;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsString()
+    @IsOptional()
+    readonly subtitle?: string;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
     @IsDate()
     @IsOptional()
     readonly selectedDate?: Date;

@@ -170,6 +170,8 @@ export const Playground: Story = {
         style: Sb.getVariantName(Variant, Variant.Default),
         summarySection1Label: "Iaculis",
         summarySection2Label: "Lorem",
+        title: "Lorem Ipsum",
+        subtitle: "Aenean condimentum maximus ligula porttitor",
         selectedDate: today,
         transactions: TestData.transactions
     }
