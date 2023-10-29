@@ -8,5 +8,5 @@ export type HeadingStyle = (headingProps: Styled<HeadingProps>) => {
     Root?: ViewStyle;
     Title?: LabelStyle;
     Hr?: ViewStyle;
-    SubTitle?: HighlightedParagraphStyle;
+    Subtitle?: HighlightedParagraphStyle;
 }

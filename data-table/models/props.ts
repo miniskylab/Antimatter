@@ -32,7 +32,7 @@ export class DataTableProps extends ComponentProps<DataTableStyle>
      */
     @IsString()
     @IsOptional()
-    readonly subTitle?: string;
+    readonly subtitle?: string;
 
 
     /**

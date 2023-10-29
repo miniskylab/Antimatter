@@ -41,7 +41,7 @@ const Heading__Hr: ViewStyle = function (viewProps)
     };
 };
 
-const Heading__SubTitle__Root: ViewStyle = function (viewProps)
+const Heading__Subtitle__Root: ViewStyle = function (viewProps)
 {
     const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
 
@@ -54,7 +54,7 @@ const Heading__SubTitle__Root: ViewStyle = function (viewProps)
     };
 };
 
-const Heading__SubTitle__Content: LabelStyle = function (labelProps)
+const Heading__Subtitle__Content: LabelStyle = function (labelProps)
 {
     const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
 
@@ -67,12 +67,12 @@ const Heading__SubTitle__Content: LabelStyle = function (labelProps)
     };
 };
 
-const Heading__SubTitle: HighlightedParagraphStyle = function (highlightedParagraphProps)
+const Heading__Subtitle: HighlightedParagraphStyle = function (highlightedParagraphProps)
 {
     return {
         ...HighlightedParagraphVariant.Default(highlightedParagraphProps),
-        Root: Heading__SubTitle__Root,
-        Content: Heading__SubTitle__Content
+        Root: Heading__Subtitle__Root,
+        Content: Heading__Subtitle__Content
     };
 };
 
@@ -82,6 +82,6 @@ export const Default: HeadingStyle = function ()
         Root: Heading__Root,
         Title: Heading__Title,
         Hr: Heading__Hr,
-        SubTitle: Heading__SubTitle
+        Subtitle: Heading__Subtitle
     };
 };

@@ -19,7 +19,7 @@ export const Playground: Story = {
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
         title: "Lorem Ipsum",
-        subTitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse massa tellus, commodo eu leo sit amet"
+        subtitle: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse massa tellus, commodo eu leo sit amet"
     },
     render: args => <HeadingWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
 };

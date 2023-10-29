@@ -19,5 +19,5 @@ export class HeadingProps extends ComponentProps<HeadingStyle>
      */
     @IsString()
     @IsOptional()
-    readonly subTitle?: string;
+    readonly subtitle?: string;
 }

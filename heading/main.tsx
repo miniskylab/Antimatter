@@ -12,11 +12,11 @@ import * as Variant from "./variants";
 export function Heading({
     style = Variant.Default,
     title,
-    subTitle
+    subtitle
 }: HeadingProps): JSX.Element
 {
     const props: Required<HeadingProps> = {
-        style, title, subTitle
+        style, title, subtitle
     };
 
     const context = useMemo<HeadingContext>(
@@ -31,7 +31,7 @@ export function Heading({
             <View style={computedStyle.Root}>
                 <Label style={computedStyle.Title}>{title}</Label>
                 <View style={computedStyle.Hr}/>
-                {subTitle && (<HighlightedParagraph style={computedStyle.SubTitle} content={subTitle}/>)}
+                {subtitle && (<HighlightedParagraph style={computedStyle.Subtitle} content={subtitle}/>)}
             </View>
         </HeadingContext.Provider>
     );

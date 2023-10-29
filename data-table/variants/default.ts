@@ -69,7 +69,7 @@ const DataTable__MainTitle: LabelStyle = function (labelProps)
     };
 };
 
-const DataTable__SubTitle: LabelStyle = function (labelProps)
+const DataTable__Subtitle: LabelStyle = function (labelProps)
 {
     return {
         ...LabelVariant.Default(labelProps),
@@ -575,7 +575,7 @@ export const Default: DataTableStyle = function ()
         ControlPanel: DataTable__ControlPanel,
         TitleContainer: DataTable__TitleContainer,
         MainTitle: DataTable__MainTitle,
-        SubTitle: DataTable__SubTitle,
+        Subtitle: DataTable__Subtitle,
         ControlButton: DataTable__ControlButton,
         Scroll: DataTable__Scroll,
         Hr: DataTable__Hr,

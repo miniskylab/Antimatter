@@ -11,7 +11,7 @@ export type DataTableStyle = (dataTableProps: Styled<DataTableProps>) => {
     ControlPanel?: ViewStyle;
     TitleContainer?: ViewStyle;
     MainTitle?: LabelStyle;
-    SubTitle?: LabelStyle;
+    Subtitle?: LabelStyle;
     ControlButton?: ButtonStyle;
     Scroll?: ScrollViewStyle;
     Hr?: ViewStyle;

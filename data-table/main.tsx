@@ -16,7 +16,7 @@ import * as Variant from "./variants";
 export function DataTable({
     style = Variant.Default,
     title,
-    subTitle,
+    subtitle,
     columns,
     rows,
     selectedRow,
@@ -32,7 +32,7 @@ export function DataTable({
 }: DataTableProps): JSX.Element
 {
     const props: Required<DataTableProps> = {
-        style, title, subTitle, columns, rows, selectedRow, mode, minRowCount, onChangeRow, onSwitchMode, onSelectRow, onAddNewRow,
+        style, title, subtitle, columns, rows, selectedRow, mode, minRowCount, onChangeRow, onSwitchMode, onSelectRow, onAddNewRow,
         onSaveRow, onDeleteRow, onCancel
     };
 
@@ -145,7 +145,7 @@ export function DataTable({
             <View style={computedStyle.ControlPanel}>
                 <View style={computedStyle.TitleContainer}>
                     <Label style={computedStyle.MainTitle} numberOfLines={1}>{title}</Label>
-                    <Label style={computedStyle.SubTitle} numberOfLines={1}>{subTitle}</Label>
+                    <Label style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Label>
                 </View>
                 <ControlButtonTypeContext.Provider value={"action"}>
                     <Button

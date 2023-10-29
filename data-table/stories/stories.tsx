@@ -115,7 +115,7 @@ export const Playground: Story = {
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
         title: "Lorem ipsum dolor sit amet",
-        subTitle: "Lorem ipsum dolor sit amet",
+        subtitle: "Lorem ipsum dolor sit amet",
         minRowCount: 15,
         rows: TestData.rows,
         columns: TestData.columns
