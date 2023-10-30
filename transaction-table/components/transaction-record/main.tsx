@@ -8,8 +8,8 @@ import {Pressable} from "@miniskylab/antimatter-pressable";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {Mode, TagKind, TagStatus} from "./enums";
-import {Props, TagKindContext, TransactionRecordContext} from "./models";
+import {Mode, TagMetadata, TagStatus} from "./enums";
+import {Props, TagMetadataContext, TransactionRecordContext} from "./models";
 import {Tag} from "./types";
 
 /**
@@ -74,22 +74,24 @@ export function Component({
     {
         const dropdownMenuItems: DropdownMenuProps["menuItems"] = {};
         const selectedTagCount = Object.values(tags).filter(x => x.status === TagStatus.Selected).length;
-        const incomeTagSelected = Object.values(tags).some(x => x.isIncome && x.status === TagStatus.Selected);
+        const mutuallyExclusiveTagSelected = Object.values(tags)
+            .some(x => x.metadata?.has(TagMetadata.MutuallyExclusive) && x.status === TagStatus.Selected);
+
         Object.keys(tags).forEach(tagId =>
         {
             const tag = tags[tagId];
-            const incomeTagDisabled = tag.isIncome && selectedTagCount > 0;
             const maxSelectedTagCountReached = selectedTagCount >= maxSelectedTagCount;
-            const mappedMenuItemStatus = tag.status === undefined && (maxSelectedTagCountReached || incomeTagSelected)
+            const mutuallyExclusiveTagDisabled = tag.metadata?.has(TagMetadata.MutuallyExclusive) && selectedTagCount > 0;
+            const mappedMenuItemStatus = tag.status === undefined && (maxSelectedTagCountReached || mutuallyExclusiveTagSelected)
                 ? MenuItemStatus.Hidden
-                : tag.status === undefined && incomeTagDisabled
+                : tag.status === undefined && mutuallyExclusiveTagDisabled
                     ? MenuItemStatus.Disabled
                     : Ts.Enum.getValue(MenuItemStatus, Ts.Enum.getName(TagStatus, tag.status));
 
             const context: string[] = [];
-            if (tag.isIncome)
+            if (tag.metadata?.has(TagMetadata.HighlightTarget))
             {
-                context.push(TagKind.Income);
+                context.push(TagMetadata.HighlightTarget);
             }
 
             dropdownMenuItems[tagId] = {
@@ -119,8 +121,8 @@ export function Component({
 
     function renderAmount(): JSX.Element
     {
-        const isIncome = Object.values(tags)
-            .some(tag => tag.status === TagStatus.Selected && tag.isIncome);
+        const explicitPlusSymbol = Object.values(tags)
+            .some(tag => tag.status === TagStatus.Selected && tag.metadata?.has(TagMetadata.ExplicitPlusSymbol));
 
         return (
             mode === Mode.Draft || mode === Mode.Edit
@@ -129,13 +131,15 @@ export function Component({
                     minValue={0}
                     maxValue={999999999}
                     treatEmptyInputAsZero={true}
-                    showPlusSymbolForPositiveNumber={isIncome}
+                    showPlusSymbolForPositiveNumber={explicitPlusSymbol}
                     maximumFractionDigits={0}
                     maximumDigitCount={9}
                     defaultValue={amount}
                     onChange={onAmountChange}
                 />
-                : <Label style={computedStyle.AmountLabel}>{`${isIncome ? "+" : EMPTY_STRING}${amount.toLocaleString("en-us")}`}</Label>
+                : <Label style={computedStyle.AmountLabel}>
+                    {`${explicitPlusSymbol ? "+" : EMPTY_STRING}${amount.toLocaleString("en-us")}`}
+                </Label>
         );
     }
 
@@ -163,9 +167,9 @@ export function Component({
                         [...Object.keys(tags).filter(x => tags[x].status === TagStatus.Selected)]
                             .sort((a, b) => dropdownMenuItemValues.indexOf(a) - dropdownMenuItemValues.indexOf(b))
                             .map(tagId => (
-                                <TagKindContext.Provider key={tagId} value={tags[tagId].isIncome ? "income" : undefined}>
+                                <TagMetadataContext.Provider key={tagId} value={Array.from(tags[tagId].metadata ?? []).sort().join(",")}>
                                     <Label style={computedStyle.Tag}>{tags[tagId].name ?? tagId}</Label>
-                                </TagKindContext.Provider>
+                                </TagMetadataContext.Provider>
                             ))
                     }
                 </View>

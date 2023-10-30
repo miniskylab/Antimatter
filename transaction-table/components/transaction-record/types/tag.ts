@@ -1,6 +1,6 @@
-import {IsBoolean, IsDefined, IsEnum, IsNotEmpty, IsPositive, IsString} from "@miniskylab/antimatter-framework";
+import {IsDefined, IsEnum, IsNotEmpty, IsPositive, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {TagStatus} from "../enums";
+import {TagMetadata, TagStatus} from "../enums";
 
 export class Tag
 {
@@ -43,7 +43,7 @@ export class Tag
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsBoolean()
+    @IsEnum(TagMetadata, {each: true})
     @IsOptional()
-    readonly isIncome?: boolean;
+    readonly metadata?: Set<TagMetadata>;
 }

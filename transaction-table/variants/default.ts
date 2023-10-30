@@ -766,8 +766,11 @@ const TransactionTable__TransactionRecord__AmountInputField__Root: ViewStyle = f
     const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
     const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
 
-    const isIncome = Object.values(transactionRecordContext.props.tags)
-        .some(tag => tag.status === TransactionRecord.TagStatus.Selected && tag.isIncome);
+    const isHighlighted = Object.values(transactionRecordContext.props.tags)
+        .some(
+            tag => tag.status === TransactionRecord.TagStatus.Selected &&
+                   tag.metadata?.has(TransactionRecord.TagMetadata.HighlightTarget)
+        );
 
     const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
         (inputFieldContext.props)
@@ -777,7 +780,7 @@ const TransactionTable__TransactionRecord__AmountInputField__Root: ViewStyle = f
         ...inheritedStyle,
         width: 115,
         height: 38,
-        backgroundColor: isIncome ? Color.Positive : Color.Neutral
+        backgroundColor: isHighlighted ? Color.Positive : Color.Neutral
     };
 };
 
@@ -817,8 +820,11 @@ const TransactionTable__TransactionRecord__AmountLabel: LabelStyle = function (l
 {
     const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
 
-    const isIncome = Object.values(transactionRecordContext.props.tags)
-        .some(tag => tag.status === TransactionRecord.TagStatus.Selected && tag.isIncome);
+    const isHighlighted = Object.values(transactionRecordContext.props.tags)
+        .some(
+            tag => tag.status === TransactionRecord.TagStatus.Selected &&
+                   tag.metadata?.has(TransactionRecord.TagMetadata.HighlightTarget)
+        );
 
     return {
         ...LabelVariant.Default(labelProps),
@@ -828,7 +834,7 @@ const TransactionTable__TransactionRecord__AmountLabel: LabelStyle = function (l
         fontSize: 17,
         fontWeight: "bold",
         color: Color.Background,
-        backgroundColor: isIncome ? Color.Positive : Color.Neutral
+        backgroundColor: isHighlighted ? Color.Positive : Color.Neutral
     };
 };
 
@@ -886,7 +892,7 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: Pressabl
     const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
-    const hasIncomeContext = menuItemContext.context.includes(TransactionRecord.TagKind.Income);
+    const isHighlighted = menuItemContext.context.includes(TransactionRecord.TagMetadata.HighlightTarget);
 
     const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props)
         .MenuItem(buttonContext.props)
@@ -903,11 +909,11 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: Pressabl
         marginBottom: 0,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: hasIncomeContext ? Color.Positive : Color.Neutral,
+        borderColor: isHighlighted ? Color.Positive : Color.Neutral,
         backgroundColor: menuItemContext.status === MenuItemStatus.Selected || pressableState.pressed
-            ? hasIncomeContext ? Color.Positive : Color.Neutral
+            ? isHighlighted ? Color.Positive : Color.Neutral
             : pressableState.hovered
-                ? hasIncomeContext ? Color.Positive__a10 : Color.Neutral__a10
+                ? isHighlighted ? Color.Positive__a10 : Color.Neutral__a10
                 : Color.Transparent
     };
 };
@@ -919,7 +925,7 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: LabelSt
     const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
-    const hasIncomeContext = menuItemContext.context.includes(TransactionRecord.TagKind.Income);
+    const isHighlighted = menuItemContext.context.includes(TransactionRecord.TagMetadata.HighlightTarget);
 
     const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props)
         .MenuItem(buttonContext.props)
@@ -933,7 +939,7 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: LabelSt
             ? Color.Ambient
             : pressableContext.state.hovered
                 ? Color.White
-                : hasIncomeContext
+                : isHighlighted
                     ? Color.Positive
                     : Color.Neutral
     };
@@ -996,7 +1002,10 @@ const TransactionTable__TransactionRecord__TagContainer: ViewStyle = function (v
 
 const TransactionTable__TransactionRecord__Tag: LabelStyle = function (labelProps)
 {
-    const tagKind = TransactionRecord.ContextHook.useTagKindContext();
+    const tagMetadataContext = TransactionRecord.ContextHook.useTagMetadataContext();
+
+    const tagMetadata = tagMetadataContext.split(",");
+    const isHighlighted = tagMetadata.includes(TransactionRecord.TagMetadata.HighlightTarget);
 
     return {
         ...LabelVariant.Default(labelProps),
@@ -1005,10 +1014,10 @@ const TransactionTable__TransactionRecord__Tag: LabelStyle = function (labelProp
         marginRight: 5,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: tagKind === "income" ? Color.Positive : Color.Neutral,
+        borderColor: isHighlighted ? Color.Positive : Color.Neutral,
         fontSize: 12,
         color: Color.Background,
-        backgroundColor: tagKind === "income" ? Color.Positive : Color.Neutral
+        backgroundColor: isHighlighted ? Color.Positive : Color.Neutral
     };
 };
 

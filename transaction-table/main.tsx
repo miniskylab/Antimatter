@@ -132,10 +132,13 @@ export function TransactionTable({
             : TransactionRecord.Mode.ReadOnly;
     }
 
-    function isIncome(transactionData: TransactionRecord.Data): boolean
+    function isHighlightedTransaction(transactionData: TransactionRecord.Data): boolean
     {
         return Object.values(transactionData.tags)
-            .some(tag => tag.status === TransactionRecord.TagStatus.Selected && tag.isIncome);
+            .some(
+                tag => tag.status === TransactionRecord.TagStatus.Selected &&
+                       tag.metadata?.has(TransactionRecord.TagMetadata.HighlightTarget)
+            );
     }
 
     function filterTransactionsForSelectedDate(): typeof transactions
@@ -175,30 +178,30 @@ export function TransactionTable({
         }
     }
 
-    function getTotalIncome(): number
+    function getTotalHighlightedTransactionAmount(): number
     {
         const filteredTransactions = filterTransactionsForSelectedMonth();
         mergeDataWithSelectedTransaction(filteredTransactions);
 
-        let totalIncome = 0;
+        let totalAmount = 0;
         Object.values(filteredTransactions)
-            .filter(filteredTransactionData => isIncome(filteredTransactionData))
-            .forEach(filteredTransactionData => { totalIncome += filteredTransactionData.amount; });
+            .filter(isHighlightedTransaction)
+            .forEach(x => { totalAmount += x.amount; });
 
-        return totalIncome;
+        return totalAmount;
     }
 
-    function getTotalExpense(): number
+    function getTotalNonHighlightedTransactionAmount(): number
     {
         const filteredTransactions = filterTransactionsForSelectedMonth();
         mergeDataWithSelectedTransaction(filteredTransactions);
 
-        let totalExpense = 0;
+        let totalAmount = 0;
         Object.values(filteredTransactions)
-            .filter(filteredTransactionData => !isIncome(filteredTransactionData))
-            .forEach(filteredTransactionData => { totalExpense += filteredTransactionData.amount; });
+            .filter(x => !isHighlightedTransaction(x))
+            .forEach(x => { totalAmount += x.amount; });
 
-        return totalExpense;
+        return totalAmount;
     }
 
     function byDate(transactionIdA: string, transactionIdB: string): number
@@ -221,9 +224,9 @@ export function TransactionTable({
             <Summary.Component
                 style={computedStyle.Summary}
                 section1Label={summarySection1Label}
-                section1Amount={getTotalIncome()}
+                section1Amount={getTotalHighlightedTransactionAmount()}
                 section2Label={summarySection2Label}
-                section2Amount={getTotalExpense()}
+                section2Amount={getTotalNonHighlightedTransactionAmount()}
             />
         );
     }

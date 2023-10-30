@@ -8,7 +8,11 @@ export const tags: TransactionRecord.Props["tags"] = {
     "iaculis": {
         name: "iaculis",
         icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Money),
-        isIncome: true
+        metadata: new Set([
+            TransactionRecord.TagMetadata.HighlightTarget,
+            TransactionRecord.TagMetadata.ExplicitPlusSymbol,
+            TransactionRecord.TagMetadata.MutuallyExclusive
+        ])
     },
     "sagittis": {name: "sagittis"},
     "dolore": {name: "dolore", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Apple)},
