@@ -5,6 +5,7 @@ import React from "react";
 import {TransactionRecord} from "../components";
 import {TransactionTable} from "../main";
 import {TransactionTableProps} from "../models";
+import * as Service from "../services";
 import * as Variant from "../variants";
 import {TestData} from "./test-data";
 
@@ -21,36 +22,48 @@ export default {
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
                 onSwitchMode={newMode =>
                 {
+                    const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
+                        id: args.selectedTransaction.id,
+                        data: newMode === TransactionRecord.Mode.Edit
+                            ? {
+                                name: args.transactions[args.selectedTransaction.id].name,
+                                amount: args.transactions[args.selectedTransaction.id].amount,
+                                tags: args.transactions[args.selectedTransaction.id].tags,
+                                executedDate: args.transactions[args.selectedTransaction.id].executedDate,
+                                modifiedDate: args.transactions[args.selectedTransaction.id].modifiedDate,
+                                createdDate: args.transactions[args.selectedTransaction.id].createdDate
+                            }
+                            : undefined
+                    };
+
                     setArgs({
                         mode: newMode,
-                        selectedTransaction: {
-                            id: args.selectedTransaction.id,
-                            data: newMode === TransactionRecord.Mode.Edit
-                                ? {
-                                    name: args.transactions[args.selectedTransaction.id].name,
-                                    amount: args.transactions[args.selectedTransaction.id].amount,
-                                    tags: args.transactions[args.selectedTransaction.id].tags,
-                                    executedDate: args.transactions[args.selectedTransaction.id].executedDate,
-                                    modifiedDate: args.transactions[args.selectedTransaction.id].modifiedDate,
-                                    createdDate: args.transactions[args.selectedTransaction.id].createdDate
-                                }
-                                : undefined
+                        selectedTransaction,
+                        summary: {
+                            ...args.summary,
+                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate, selectedTransaction)
                         }
                     });
                 }}
                 onChangeTransaction={newTransactionData =>
                 {
+                    const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
+                        id: args.selectedTransaction.id,
+                        data: {
+                            name: newTransactionData.name,
+                            tags: newTransactionData.tags,
+                            amount: newTransactionData.amount,
+                            executedDate: newTransactionData.executedDate,
+                            modifiedDate: newTransactionData.modifiedDate,
+                            createdDate: newTransactionData.createdDate
+                        }
+                    };
+
                     setArgs({
-                        selectedTransaction: {
-                            id: args.selectedTransaction.id,
-                            data: {
-                                name: newTransactionData.name,
-                                tags: newTransactionData.tags,
-                                amount: newTransactionData.amount,
-                                executedDate: newTransactionData.executedDate,
-                                modifiedDate: newTransactionData.modifiedDate,
-                                createdDate: newTransactionData.createdDate
-                            }
+                        selectedTransaction,
+                        summary: {
+                            ...args.summary,
+                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate, selectedTransaction)
                         }
                     });
                 }}
@@ -59,40 +72,56 @@ export default {
                     setArgs({
                         selectedDate: newDate,
                         selectedTransaction: undefined,
-                        mode: TransactionRecord.Mode.ReadOnly
+                        mode: TransactionRecord.Mode.ReadOnly,
+                        summary: {
+                            ...args.summary,
+                            ...Service.getDefaultSummaryFigures(args.transactions, newDate)
+                        }
                     });
                 }}
                 onSelectTransaction={transactionId =>
                 {
+                    const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
+                        id: transactionId,
+                        data: {
+                            name: args.transactions[transactionId].name,
+                            amount: args.transactions[transactionId].amount,
+                            tags: args.transactions[transactionId].tags,
+                            executedDate: args.transactions[transactionId].executedDate,
+                            modifiedDate: args.transactions[transactionId].modifiedDate,
+                            createdDate: args.transactions[transactionId].createdDate
+                        }
+                    };
+
                     setArgs({
                         mode: TransactionRecord.Mode.Edit,
-                        selectedTransaction: {
-                            id: transactionId,
-                            data: {
-                                name: args.transactions[transactionId].name,
-                                amount: args.transactions[transactionId].amount,
-                                tags: args.transactions[transactionId].tags,
-                                executedDate: args.transactions[transactionId].executedDate,
-                                modifiedDate: args.transactions[transactionId].modifiedDate,
-                                createdDate: args.transactions[transactionId].createdDate
-                            }
+                        selectedTransaction,
+                        summary: {
+                            ...args.summary,
+                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate, selectedTransaction)
                         }
                     });
                 }}
                 onAddNewTransaction={() =>
                 {
+                    const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
+                        id: EMPTY_STRING,
+                        data: {
+                            name: EMPTY_STRING,
+                            tags: TestData.tags,
+                            amount: 0,
+                            executedDate: args.selectedDate,
+                            modifiedDate: new Date(),
+                            createdDate: new Date()
+                        }
+                    };
+
                     setArgs({
                         mode: TransactionRecord.Mode.Draft,
-                        selectedTransaction: {
-                            id: EMPTY_STRING,
-                            data: {
-                                name: EMPTY_STRING,
-                                tags: TestData.tags,
-                                amount: 0,
-                                executedDate: args.selectedDate,
-                                modifiedDate: new Date(),
-                                createdDate: new Date()
-                            }
+                        selectedTransaction,
+                        summary: {
+                            ...args.summary,
+                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate, selectedTransaction)
                         }
                     });
                 }}
@@ -124,7 +153,11 @@ export default {
 
                     setArgs({
                         mode: TransactionRecord.Mode.ReadOnly,
-                        selectedTransaction: undefined
+                        selectedTransaction: undefined,
+                        summary: {
+                            ...args.summary,
+                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate)
+                        }
                     });
                 }}
                 onDeleteTransaction={() =>
@@ -133,14 +166,21 @@ export default {
                     setArgs({
                         mode: TransactionRecord.Mode.ReadOnly,
                         selectedTransaction: undefined,
-                        transactions: TestData.transactions
+                        summary: {
+                            ...args.summary,
+                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate)
+                        }
                     });
                 }}
                 onCancel={() =>
                 {
                     setArgs({
                         mode: TransactionRecord.Mode.ReadOnly,
-                        selectedTransaction: undefined
+                        selectedTransaction: undefined,
+                        summary: {
+                            ...args.summary,
+                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate)
+                        }
                     });
                 }}
             />
@@ -153,6 +193,7 @@ const today = new Date();
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
+        summary: Sb.locked,
         transactions: Sb.locked,
         selectedDate: Sb.locked,
         selectedTransaction: Sb.locked,
@@ -168,8 +209,11 @@ export const Playground: Story = {
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
-        summarySection1Label: "Iaculis",
-        summarySection2Label: "Lorem",
+        summary: {
+            section1Label: "Iaculis",
+            section2Label: "Lorem",
+            ...Service.getDefaultSummaryFigures(TestData.transactions, today)
+        },
         title: "Lorem Ipsum",
         subtitle: "Aenean condimentum maximus ligula porttitor",
         selectedDate: today,

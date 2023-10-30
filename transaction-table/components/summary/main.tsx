@@ -13,11 +13,12 @@ export function Component({
     section1Label = EMPTY_STRING,
     section1Amount = 0,
     section2Label = EMPTY_STRING,
-    section2Amount = 0
+    section2Amount = 0,
+    progressBarValue
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        style, section1Label, section1Amount, section2Label, section2Amount
+        style, section1Label, section1Amount, section2Label, section2Amount, progressBarValue
     };
 
     const context = useMemo<SummaryContext>(
@@ -26,7 +27,6 @@ export function Component({
     );
 
     const computedStyle = Style.useComputedStyle(style, props);
-    const summaryPct = getSummaryPct();
 
     return (
         <SummaryContext.Provider value={context}>
@@ -43,24 +43,16 @@ export function Component({
                         <Label style={computedStyle.Amount}>{section2Amount.toLocaleString("en-us")}</Label>
                     </View>
                 </SectionContext.Provider>
-                <RangeSlider
-                    style={computedStyle.RangeSlider}
-                    minValue={0}
-                    maxValue={1}
-                    value={summaryPct}
-                    disabled={true}
-                />
+                {!Ts.Object.isNullOrUndefined(progressBarValue) && (
+                    <RangeSlider
+                        style={computedStyle.RangeSlider}
+                        minValue={0}
+                        maxValue={1}
+                        value={Ts.Number.clamp(progressBarValue, 0, 1)}
+                        disabled={true}
+                    />
+                )}
             </View>
         </SummaryContext.Provider>
     );
-
-    function getSummaryPct(): number
-    {
-        if (section1Amount === 0)
-        {
-            return 0;
-        }
-
-        return Ts.Number.clamp(1 - (section2Amount / section1Amount), 0, 1);
-    }
 }

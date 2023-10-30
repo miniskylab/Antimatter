@@ -17,8 +17,7 @@ import * as Variant from "./variants";
  */
 export function TransactionTable({
     style = Variant.Default,
-    summarySection1Label = EMPTY_STRING,
-    summarySection2Label = EMPTY_STRING,
+    summary,
     title = EMPTY_STRING,
     subtitle = EMPTY_STRING,
     transactions = {},
@@ -36,9 +35,8 @@ export function TransactionTable({
 }: TransactionTableProps): JSX.Element
 {
     const props: Required<TransactionTableProps> = {
-        style, summarySection1Label, summarySection2Label, title, subtitle, transactions, selectedDate, selectedTransaction, mode,
-        onChangeTransaction, onSelectDate, onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction,
-        onCancel
+        style, summary, title, subtitle, transactions, selectedDate, selectedTransaction, mode, onChangeTransaction, onSelectDate,
+        onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
     };
 
     const [state, setState] = useState<TransactionTableState>({
@@ -132,15 +130,6 @@ export function TransactionTable({
             : TransactionRecord.Mode.ReadOnly;
     }
 
-    function isHighlightedTransaction(transactionData: TransactionRecord.Data): boolean
-    {
-        return Object.values(transactionData.tags)
-            .some(
-                tag => tag.status === TransactionRecord.TagStatus.Selected &&
-                       tag.metadata?.has(TransactionRecord.TagMetadata.HighlightTarget)
-            );
-    }
-
     function filterTransactionsForSelectedDate(): typeof transactions
     {
         const filteredTransactions: typeof transactions = {};
@@ -149,59 +138,6 @@ export function TransactionTable({
             .forEach(transactionId => { filteredTransactions[transactionId] = transactions[transactionId]; });
 
         return filteredTransactions;
-    }
-
-    function filterTransactionsForSelectedMonth(): typeof transactions
-    {
-        const filteredTransactions: typeof transactions = {};
-        Object.keys(transactions)
-            .filter(transactionId => Ts.Date.isEqualMonth(transactions[transactionId].executedDate, selectedDate))
-            .forEach(transactionId => { filteredTransactions[transactionId] = transactions[transactionId]; });
-
-        return filteredTransactions;
-    }
-
-    function mergeDataWithSelectedTransaction(inputTransactions: typeof transactions): void
-    {
-        if (!selectedTransaction)
-        {
-            return;
-        }
-
-        if (selectedTransaction.data)
-        {
-            inputTransactions[selectedTransaction.id] = selectedTransaction.data;
-        }
-        else
-        {
-            delete inputTransactions[selectedTransaction.id];
-        }
-    }
-
-    function getTotalHighlightedTransactionAmount(): number
-    {
-        const filteredTransactions = filterTransactionsForSelectedMonth();
-        mergeDataWithSelectedTransaction(filteredTransactions);
-
-        let totalAmount = 0;
-        Object.values(filteredTransactions)
-            .filter(isHighlightedTransaction)
-            .forEach(x => { totalAmount += x.amount; });
-
-        return totalAmount;
-    }
-
-    function getTotalNonHighlightedTransactionAmount(): number
-    {
-        const filteredTransactions = filterTransactionsForSelectedMonth();
-        mergeDataWithSelectedTransaction(filteredTransactions);
-
-        let totalAmount = 0;
-        Object.values(filteredTransactions)
-            .filter(x => !isHighlightedTransaction(x))
-            .forEach(x => { totalAmount += x.amount; });
-
-        return totalAmount;
     }
 
     function byDate(transactionIdA: string, transactionIdB: string): number
@@ -223,10 +159,7 @@ export function TransactionTable({
         return (
             <Summary.Component
                 style={computedStyle.Summary}
-                section1Label={summarySection1Label}
-                section1Amount={getTotalHighlightedTransactionAmount()}
-                section2Label={summarySection2Label}
-                section2Amount={getTotalNonHighlightedTransactionAmount()}
+                {...summary}
             />
         );
     }

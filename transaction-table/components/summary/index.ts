@@ -1,3 +1,4 @@
+export type {Figure} from "./types";
 export type {Style} from "./models";
 
 export {Props} from "./models";

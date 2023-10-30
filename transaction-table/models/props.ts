@@ -1,7 +1,7 @@
 import {ComponentName, ComponentProps, GestureResponderEventHandler, IsDate, IsEnum, IsString} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {TransactionRecord} from "../components";
+import {Summary, TransactionRecord} from "../components";
 import {Transaction} from "../types";
 import {TransactionTableStyle} from "./style";
 
@@ -11,17 +11,10 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsString()
     @IsOptional()
-    readonly summarySection1Label?: string;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @IsString()
-    @IsOptional()
-    readonly summarySection2Label?: string;
+    @ValidateNested()
+    @Type(() => Summary.Props)
+    readonly summary?: Summary.Props;
 
 
     /**
