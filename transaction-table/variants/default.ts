@@ -459,39 +459,6 @@ const TransactionTable__ControlPanel: ViewStyle = function (viewProps)
     };
 };
 
-const TransactionTable__DisplayPanel: ViewStyle = function (viewProps)
-{
-    return {
-        ...ViewVariant.Default(viewProps),
-        alignSelf: "stretch",
-        height: 58,
-        backgroundColor: Color.Background
-    };
-};
-
-const TransactionTable__Title: LabelStyle = function (labelProps)
-{
-    return {
-        ...LabelVariant.Default(labelProps),
-        flex: 1,
-        justifyContent: "flex-end",
-        paddingBottom: 3,
-        color: Color.Gainsboro,
-        fontSize: 22,
-        fontWeight: "bold"
-    };
-};
-
-const TransactionTable__Subtitle: LabelStyle = function (labelProps)
-{
-    return {
-        ...LabelVariant.Default(labelProps),
-        justifyContent: "flex-start",
-        height: 24,
-        color: Color.Neutral
-    };
-};
-
 const TransactionTable__ControlButton__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
@@ -500,13 +467,14 @@ const TransactionTable__ControlButton__Root: PressableStyle = function (pressabl
 
     const isModeButton = controlButtonTypeContext === "mode";
     const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,
         flexDirection: "column",
-        minWidth: 70,
+        minWidth: 100,
         height: "100%",
         paddingLeft: 0,
         paddingRight: 0,
@@ -514,11 +482,15 @@ const TransactionTable__ControlButton__Root: PressableStyle = function (pressabl
         paddingBottom: 4,
         borderWidth: 0,
         backgroundColor: Color.Transparent,
-        opacity: 1,
-        ...isDraftMode && isModeButton && {
+        ...isModeButton && {
+            opacity: 1,
             paddingLeft: 15,
             paddingRight: 15,
-            backgroundColor: Color.Primary
+            backgroundColor: isDraftMode
+                ? Color.Primary
+                : isReadOnlyMode
+                    ? Color.Neutral
+                    : Color.Transparent
         }
     };
 };
@@ -536,6 +508,7 @@ const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
     const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
     const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
     const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
+    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
 
@@ -551,7 +524,7 @@ const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
                     : Color.Neutral
         },
         ...isModeButton && {
-            color: isDraftMode
+            color: isDraftMode || isReadOnlyMode
                 ? Color.Background
                 : isEditMode
                     ? Color.Primary
@@ -578,6 +551,7 @@ const TransactionTable__ControlButton__Label: LabelStyle = function (labelProps)
     const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
     const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
     const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
+    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
 
@@ -597,7 +571,7 @@ const TransactionTable__ControlButton__Label: LabelStyle = function (labelProps)
                     : Color.Neutral
         },
         ...isModeButton && {
-            color: isDraftMode
+            color: isDraftMode || isReadOnlyMode
                 ? Color.Background
                 : isEditMode
                     ? Color.Primary
@@ -1037,62 +1011,6 @@ const TransactionTable__TransactionRecord: TransactionRecord.Style = function ()
     };
 };
 
-const TransactionTable__AddNewButton__Root: PressableStyle = function (pressableProps, pressableState)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
-
-    return {
-        ...inheritedStyle,
-        width: "100%",
-        height: 66,
-        borderWidth: 2,
-        borderLeftWidth: 0,
-        borderRightWidth: 0,
-        borderColor: Color.Neutral,
-        marginTop: -2,
-        ...pressableState.hovered && {
-            zIndex: Style.Layer.Higher,
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary__a10
-        },
-        ...pressableState.pressed && {
-            zIndex: Style.Layer.Higher,
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary
-        }
-    };
-};
-
-const TransactionTable__AddNewButton__Icon: IconStyle = function (iconProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-    const pressableContext = PressableContextHook.usePressableContext();
-
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
-
-    return {
-        ...inheritedStyle,
-        height: "100%",
-        fontSize: 35,
-        color: pressableContext.state.pressed
-            ? Color.Ambient
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Neutral
-    };
-};
-
-const TransactionTable__AddNewButton: ButtonStyle = function (buttonProps)
-{
-    return {
-        ...ButtonVariant.OutlinedRectangular(buttonProps),
-        Root: TransactionTable__AddNewButton__Root,
-        Icon: TransactionTable__AddNewButton__Icon
-    };
-};
-
 const TransactionTable__Hr: ViewStyle = function (viewProps)
 {
     const hrPosition = TransactionTableContextHook.useHrPositionContext();
@@ -1117,14 +1035,10 @@ export const Default: TransactionTableStyle = function ()
         DatePicker: TransactionTable__DatePicker,
         Summary: TransactionTable__Summary,
         TransactionDetails: TransactionTable__TransactionDetails,
-        DisplayPanel: TransactionTable__DisplayPanel,
-        Title: TransactionTable__Title,
-        Subtitle: TransactionTable__Subtitle,
         ControlPanel: TransactionTable__ControlPanel,
         ControlButton: TransactionTable__ControlButton,
         TransactionContainer: TransactionTable__TransactionContainer,
         TransactionRecord: TransactionTable__TransactionRecord,
-        AddNewButton: TransactionTable__AddNewButton,
         Hr: TransactionTable__Hr
     };
 };

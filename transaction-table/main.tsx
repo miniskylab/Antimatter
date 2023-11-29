@@ -1,15 +1,14 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
-import {DateFormat, EMPTY_STRING, Environment, Style, Ts} from "@miniskylab/antimatter-framework";
-import {Label} from "@miniskylab/antimatter-label";
+import {DateFormat, Environment, Style, Ts} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useState} from "react";
 import {Summary, TransactionRecord} from "./components";
 import {ControlButtonTypeContext, HrPositionContext, TransactionTableContext, TransactionTableProps, TransactionTableState} from "./models";
-import {ControlButton, ControlPanel} from "./types";
+import {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
 /**
@@ -18,8 +17,6 @@ import * as Variant from "./variants";
 export function TransactionTable({
     style = Variant.Default,
     summary,
-    title = EMPTY_STRING,
-    subtitle = EMPTY_STRING,
     transactions = {},
     selectedDate = new Date(),
     selectedTransaction,
@@ -35,8 +32,8 @@ export function TransactionTable({
 }: TransactionTableProps): JSX.Element
 {
     const props: Required<TransactionTableProps> = {
-        style, summary, title, subtitle, transactions, selectedDate, selectedTransaction, mode, onChangeTransaction, onSelectDate,
-        onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
+        style, summary, transactions, selectedDate, selectedTransaction, mode, onChangeTransaction, onSelectDate, onSelectTransaction,
+        onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
     };
 
     const [state, setState] = useState<TransactionTableState>({
@@ -56,7 +53,7 @@ export function TransactionTable({
             <View style={computedStyle.Root}>
                 {renderDateSelectorAndSummary()}
                 <View style={computedStyle.TransactionDetails}>
-                    {mode === TransactionRecord.Mode.ReadOnly && (title || subtitle) ? renderDisplayPanel() : renderControlPanel()}
+                    {renderControlPanel()}
                     <HrPositionContext.Provider value={"top"}>
                         <View style={computedStyle.Hr}/>
                     </HrPositionContext.Provider>
@@ -66,7 +63,6 @@ export function TransactionTable({
                         showsHorizontalScrollIndicator={false}
                     >
                         {renderTransactions()}
-                        {mode !== TransactionRecord.Mode.Draft && renderAddNewButton()}
                     </ScrollView>
                     <HrPositionContext.Provider value={"bottom"}>
                         <View style={computedStyle.Hr}/>
@@ -105,21 +101,9 @@ export function TransactionTable({
             case TransactionRecord.Mode.ReadOnly:
                 return {
                     modeButton: {disabled: true, icon: DefaultIconSet.Eye, text: "Read-Only"},
-                    actionButton: {disabled: true, icon: DefaultIconSet.FloppyDisk, text: "Save"},
+                    actionButton: {icon: DefaultIconSet.PlusCircle, text: "Add new", onPress: onAddNewTransaction},
                     cancelButton: {disabled: true, icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
                 };
-        }
-    }
-
-    function getAddNewButton(): ControlButton
-    {
-        switch (mode)
-        {
-            case TransactionRecord.Mode.ReadOnly:
-                return {icon: DefaultIconSet.PlusCircle, onPress: onAddNewTransaction};
-
-            default:
-                return {disabled: true, icon: DefaultIconSet.NotAllowed};
         }
     }
 
@@ -248,16 +232,6 @@ export function TransactionTable({
         );
     }
 
-    function renderDisplayPanel(): JSX.Element
-    {
-        return (
-            <View style={computedStyle.DisplayPanel}>
-                <Label style={computedStyle.Title} numberOfLines={1}>{title}</Label>
-                <Label style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Label>
-            </View>
-        );
-    }
-
     function renderTransactions(): JSX.Element[]
     {
         const filteredTransactions = filterTransactionsForSelectedDate();
@@ -287,19 +261,6 @@ export function TransactionTable({
                 />
             );
         });
-    }
-
-    function renderAddNewButton(): JSX.Element
-    {
-        const addNewButton = getAddNewButton();
-        return (
-            <Button
-                style={computedStyle.AddNewButton}
-                icon={addNewButton.icon}
-                disabled={addNewButton.disabled}
-                onPress={addNewButton.onPress}
-            />
-        );
     }
 
     function switchMode(): void

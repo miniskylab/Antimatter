@@ -214,8 +214,6 @@ export const Playground: Story = {
             section2Label: "Lorem",
             ...Service.getDefaultSummaryFigures(TestData.transactions, today)
         },
-        title: "Lorem Ipsum",
-        subtitle: "Aenean condimentum maximus ligula porttitor",
         selectedDate: today,
         transactions: TestData.transactions
     }
