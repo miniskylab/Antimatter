@@ -41,8 +41,8 @@ export function TransactionTable({
     });
 
     const context = useMemo<TransactionTableContext>(
-        () => ({props}),
-        [...Object.values(props)]
+        () => ({props, state}),
+        [...Object.values(props), ...Object.values(state)]
     );
 
     const computedStyle = Style.useComputedStyle(style, props, state);
