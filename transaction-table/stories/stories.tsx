@@ -5,7 +5,6 @@ import React from "react";
 import {TransactionRecord} from "../components";
 import {TransactionTable} from "../main";
 import {TransactionTableProps} from "../models";
-import * as Service from "../services";
 import * as Variant from "../variants";
 import {TestData} from "./test-data";
 
@@ -41,7 +40,7 @@ export default {
                         selectedTransaction,
                         summary: {
                             ...args.summary,
-                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate, selectedTransaction)
+                            ...TestData.getSummaryFigures(args.selectedDate, selectedTransaction)
                         }
                     });
                 }}
@@ -63,7 +62,7 @@ export default {
                         selectedTransaction,
                         summary: {
                             ...args.summary,
-                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate, selectedTransaction)
+                            ...TestData.getSummaryFigures(args.selectedDate, selectedTransaction)
                         }
                     });
                 }}
@@ -75,7 +74,7 @@ export default {
                         mode: TransactionRecord.Mode.ReadOnly,
                         summary: {
                             ...args.summary,
-                            ...Service.getDefaultSummaryFigures(args.transactions, newDate)
+                            ...TestData.getSummaryFigures(newDate)
                         }
                     });
                 }}
@@ -98,7 +97,7 @@ export default {
                         selectedTransaction,
                         summary: {
                             ...args.summary,
-                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate, selectedTransaction)
+                            ...TestData.getSummaryFigures(args.selectedDate, selectedTransaction)
                         }
                     });
                 }}
@@ -121,7 +120,7 @@ export default {
                         selectedTransaction,
                         summary: {
                             ...args.summary,
-                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate, selectedTransaction)
+                            ...TestData.getSummaryFigures(args.selectedDate, selectedTransaction)
                         }
                     });
                 }}
@@ -156,7 +155,7 @@ export default {
                         selectedTransaction: undefined,
                         summary: {
                             ...args.summary,
-                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate)
+                            ...TestData.getSummaryFigures(args.selectedDate)
                         }
                     });
                 }}
@@ -168,7 +167,7 @@ export default {
                         selectedTransaction: undefined,
                         summary: {
                             ...args.summary,
-                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate)
+                            ...TestData.getSummaryFigures(args.selectedDate)
                         }
                     });
                 }}
@@ -179,7 +178,7 @@ export default {
                         selectedTransaction: undefined,
                         summary: {
                             ...args.summary,
-                            ...Service.getDefaultSummaryFigures(args.transactions, args.selectedDate)
+                            ...TestData.getSummaryFigures(args.selectedDate)
                         }
                     });
                 }}
@@ -212,7 +211,7 @@ export const Playground: Story = {
         summary: {
             section1Label: "Iaculis",
             section2Label: "Lorem",
-            ...Service.getDefaultSummaryFigures(TestData.transactions, today)
+            ...TestData.getSummaryFigures(today)
         },
         selectedDate: today,
         transactions: TestData.transactions

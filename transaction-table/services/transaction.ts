@@ -2,13 +2,47 @@ import {Ts} from "@miniskylab/antimatter-framework";
 import {TransactionRecord} from "../components";
 import {TransactionTableProps} from "../models";
 
-function isHighlightedTransaction(transactionData: TransactionRecord.Data): boolean
+export function isHighlightedTransaction(transaction: TransactionRecord.Data): boolean
 {
-    return Object.values(transactionData.tags)
+    return Object.values(transaction.tags)
         .some(
             tag => tag.status === TransactionRecord.TagStatus.Selected &&
                    tag.metadata?.has(TransactionRecord.TagMetadata.HighlightTarget)
         );
+}
+
+export function getSummaryFigures(
+    transactions: TransactionTableProps["transactions"],
+    transactionGroup1Filter: (transaction: TransactionRecord.Data) => boolean,
+    transactionGroup2Filter: (transaction: TransactionRecord.Data) => boolean,
+    selectedDate: TransactionTableProps["selectedDate"],
+    selectedTransaction?: TransactionTableProps["selectedTransaction"]
+): Pick<TransactionTableProps["summary"], "section1Amount" | "section2Amount" | "progressBarValue">
+{
+    const selectedMonthTransactions = filterTransactionsForSelectedMonth(transactions, selectedDate);
+    mergeData(selectedMonthTransactions, selectedTransaction);
+
+    const transactionGroup1: TransactionTableProps["transactions"] = {};
+    Object.keys(selectedMonthTransactions)
+        .filter(txnId => transactionGroup1Filter(selectedMonthTransactions[txnId]))
+        .forEach(txnId => { transactionGroup1[txnId] = selectedMonthTransactions[txnId]; });
+
+    const transactionGroup2: TransactionTableProps["transactions"] = {};
+    Object.keys(selectedMonthTransactions)
+        .filter(txnId => transactionGroup2Filter(selectedMonthTransactions[txnId]))
+        .forEach(txnId => { transactionGroup2[txnId] = selectedMonthTransactions[txnId]; });
+
+    const transactionGroup1TotalAmount = getTotalAmount(transactionGroup1);
+    const transactionGroup2TotalAmount = getTotalAmount(transactionGroup2);
+    const ratio = transactionGroup1TotalAmount !== 0
+        ? Ts.Number.clamp(1 - (transactionGroup2TotalAmount / transactionGroup1TotalAmount), 0, 1)
+        : 0;
+
+    return {
+        section1Amount: transactionGroup1TotalAmount,
+        section2Amount: transactionGroup2TotalAmount,
+        progressBarValue: ratio
+    };
 }
 
 function filterTransactionsForSelectedMonth(
@@ -44,66 +78,10 @@ function mergeData(
     }
 }
 
-export function getTotalHighlightedTransactionAmount(
-    transactions: TransactionTableProps["transactions"],
-    selectedDate: TransactionTableProps["selectedDate"],
-    selectedTransaction?: TransactionTableProps["selectedTransaction"]
-): number
+function getTotalAmount(transactions: TransactionTableProps["transactions"]): number
 {
-    const filteredTransactions = filterTransactionsForSelectedMonth(transactions, selectedDate);
-    mergeData(filteredTransactions, selectedTransaction);
-
     let totalAmount = 0;
-    Object.values(filteredTransactions)
-        .filter(isHighlightedTransaction)
-        .forEach(x => { totalAmount += x.amount; });
+    Object.values(transactions).forEach(x => { totalAmount += x.amount; });
 
     return totalAmount;
-}
-
-export function getTotalNonHighlightedTransactionAmount(
-    transactions: TransactionTableProps["transactions"],
-    selectedDate: TransactionTableProps["selectedDate"],
-    selectedTransaction?: TransactionTableProps["selectedTransaction"]
-): number
-{
-    const filteredTransactions = filterTransactionsForSelectedMonth(transactions, selectedDate);
-    mergeData(filteredTransactions, selectedTransaction);
-
-    let totalAmount = 0;
-    Object.values(filteredTransactions)
-        .filter(x => !isHighlightedTransaction(x))
-        .forEach(x => { totalAmount += x.amount; });
-
-    return totalAmount;
-}
-
-export function getTotalHighlightedNonHighlightedAmountRatio(
-    transactions: TransactionTableProps["transactions"],
-    selectedDate: TransactionTableProps["selectedDate"],
-    selectedTransaction?: TransactionTableProps["selectedTransaction"]
-): number
-{
-    const totalHighlightedAmount = getTotalHighlightedTransactionAmount(transactions, selectedDate, selectedTransaction);
-    const totalNonHighlightedAmount = getTotalNonHighlightedTransactionAmount(transactions, selectedDate, selectedTransaction);
-
-    if (totalHighlightedAmount === 0)
-    {
-        return 0;
-    }
-
-    return Ts.Number.clamp(1 - (totalNonHighlightedAmount / totalHighlightedAmount), 0, 1);
-}
-
-export function getDefaultSummaryFigures(
-    transactions: TransactionTableProps["transactions"],
-    selectedDate: TransactionTableProps["selectedDate"],
-    selectedTransaction?: TransactionTableProps["selectedTransaction"]
-): Pick<TransactionTableProps["summary"], "section1Amount" | "section2Amount" | "progressBarValue">
-{
-    return {
-        section1Amount: getTotalHighlightedTransactionAmount(transactions, selectedDate, selectedTransaction),
-        section2Amount: getTotalNonHighlightedTransactionAmount(transactions, selectedDate, selectedTransaction),
-        progressBarValue: getTotalHighlightedNonHighlightedAmountRatio(transactions, selectedDate, selectedTransaction)
-    };
 }
