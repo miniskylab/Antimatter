@@ -16,9 +16,10 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsNumber()
+    @IsNotEmpty()
+    @IsString()
     @IsDefined()
-    readonly section1Amount: number;
+    readonly section1Value: string;
 
 
     /**
@@ -33,9 +34,10 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsNumber()
+    @IsNotEmpty()
+    @IsString()
     @IsDefined()
-    readonly section2Amount: number;
+    readonly section2Value: string;
 
 
     /**

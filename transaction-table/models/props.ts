@@ -56,47 +56,47 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onSwitchMode: (newMode: TransactionRecord.Mode) => void;
+    readonly onSwitchMode?: (newMode: TransactionRecord.Mode) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChangeTransaction: (newTransactionData: TransactionRecord.Data) => void;
+    readonly onChangeTransaction?: (newTransactionData: TransactionRecord.Data) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onSelectTransaction: (transactionId: string) => void;
+    readonly onSelectTransaction?: (transactionId: string) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onSelectDate: (newDate: Date) => void;
+    readonly onSelectDate?: (newDate: Date) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onAddNewTransaction: GestureResponderEventHandler;
+    readonly onAddNewTransaction?: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onSaveTransaction: GestureResponderEventHandler;
+    readonly onSaveTransaction?: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onDeleteTransaction: GestureResponderEventHandler;
+    readonly onDeleteTransaction?: GestureResponderEventHandler;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onCancel: GestureResponderEventHandler;
+    readonly onCancel?: GestureResponderEventHandler;
 }

@@ -599,7 +599,7 @@ const TransactionTable__TransactionContainer: ScrollViewStyle = function (scroll
 {
     return {
         ...ScrollViewVariant.Default(scrollViewProps),
-        width: "100%",
+        alignSelf: "stretch",
         paddingTop: 2
     };
 };

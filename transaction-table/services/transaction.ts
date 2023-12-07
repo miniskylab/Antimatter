@@ -17,7 +17,7 @@ export function getSummaryFigures(
     transactionGroup2Filter: (transaction: TransactionRecord.Data) => boolean,
     selectedDate: TransactionTableProps["selectedDate"],
     selectedTransaction?: TransactionTableProps["selectedTransaction"]
-): Pick<TransactionTableProps["summary"], "section1Amount" | "section2Amount" | "progressBarValue">
+): Pick<TransactionTableProps["summary"], "section1Value" | "section2Value" | "progressBarValue">
 {
     const selectedMonthTransactions = filterTransactionsForSelectedMonth(transactions, selectedDate);
     mergeData(selectedMonthTransactions, selectedTransaction);
@@ -39,8 +39,8 @@ export function getSummaryFigures(
         : 0;
 
     return {
-        section1Amount: transactionGroup1TotalAmount,
-        section2Amount: transactionGroup2TotalAmount,
+        section1Value: transactionGroup1TotalAmount.toLocaleString("en-us"),
+        section2Value: transactionGroup2TotalAmount.toLocaleString("en-us"),
         progressBarValue: ratio
     };
 }

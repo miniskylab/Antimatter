@@ -11,14 +11,14 @@ import {Props, SectionContext, SummaryContext} from "./models";
 export function Component({
     style,
     section1Label = EMPTY_STRING,
-    section1Amount = 0,
+    section1Value = EMPTY_STRING,
     section2Label = EMPTY_STRING,
-    section2Amount = 0,
+    section2Value = EMPTY_STRING,
     progressBarValue
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        style, section1Label, section1Amount, section2Label, section2Amount, progressBarValue
+        style, section1Label, section1Value, section2Label, section2Value, progressBarValue
     };
 
     const context = useMemo<SummaryContext>(
@@ -34,13 +34,13 @@ export function Component({
                 <SectionContext.Provider value={"section-1"}>
                     <View style={computedStyle.Section}>
                         <Label style={computedStyle.Label}>{section1Label}</Label>
-                        <Label style={computedStyle.Amount}>{section1Amount.toLocaleString("en-us")}</Label>
+                        <Label style={computedStyle.Amount}>{section1Value}</Label>
                     </View>
                 </SectionContext.Provider>
                 <SectionContext.Provider value={"section-2"}>
                     <View style={computedStyle.Section}>
                         <Label style={computedStyle.Label}>{section2Label}</Label>
-                        <Label style={computedStyle.Amount}>{section2Amount.toLocaleString("en-us")}</Label>
+                        <Label style={computedStyle.Amount}>{section2Value}</Label>
                     </View>
                 </SectionContext.Provider>
                 {!Ts.Object.isNullOrUndefined(progressBarValue) && (
