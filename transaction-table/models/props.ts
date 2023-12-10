@@ -2,7 +2,7 @@ import {ComponentName, ComponentProps, GestureResponderEventHandler, IsDate, IsE
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {Summary, TransactionRecord} from "../components";
-import {Transaction} from "../types";
+import {ControlButton, Transaction} from "../types";
 import {TransactionTableStyle} from "./style";
 
 @ComponentName("Transaction Table")
@@ -51,6 +51,12 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     @IsEnum(TransactionRecord.Mode)
     @IsOptional()
     readonly mode?: TransactionRecord.Mode;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly customActionButton?: ControlButton;
 
 
     /**

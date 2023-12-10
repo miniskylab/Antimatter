@@ -21,6 +21,7 @@ export function TransactionTable({
     selectedDate = new Date(),
     selectedTransaction,
     mode = TransactionRecord.Mode.ReadOnly,
+    customActionButton,
     onChangeTransaction,
     onSelectDate,
     onSelectTransaction,
@@ -32,8 +33,8 @@ export function TransactionTable({
 }: TransactionTableProps): JSX.Element
 {
     const props: Required<TransactionTableProps> = {
-        style, summary, transactions, selectedDate, selectedTransaction, mode, onChangeTransaction, onSelectDate, onSelectTransaction,
-        onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
+        style, summary, transactions, selectedDate, selectedTransaction, mode, customActionButton, onChangeTransaction, onSelectDate,
+        onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
     };
 
     const [state, setState] = useState<TransactionTableState>({
@@ -78,31 +79,33 @@ export function TransactionTable({
         {
             case TransactionRecord.Mode.Draft:
                 return {
+                    actionButton1: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveTransaction},
                     modeButton: {disabled: true, icon: DefaultIconSet.Quill, text: "Draft-Mode"},
-                    actionButton: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveTransaction},
-                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    actionButton2: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case TransactionRecord.Mode.Edit:
                 return {
+                    actionButton1: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveTransaction},
                     modeButton: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
-                    actionButton: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveTransaction},
-                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    actionButton2: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case TransactionRecord.Mode.Delete:
                 return {
+                    actionButton1: {icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteTransaction},
                     modeButton: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
-                    actionButton: {icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteTransaction},
-                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    actionButton2: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             default:
             case TransactionRecord.Mode.ReadOnly:
                 return {
+                    actionButton1: {icon: DefaultIconSet.PlusCircle, text: "Add New", onPress: onAddNewTransaction},
                     modeButton: {disabled: true, icon: DefaultIconSet.Eye, text: "Read-Only"},
-                    actionButton: {icon: DefaultIconSet.PlusCircle, text: "Add new", onPress: onAddNewTransaction},
-                    cancelButton: {disabled: true, icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
+                    actionButton2: customActionButton
+                        ? customActionButton
+                        : {disabled: true, icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
                 };
         }
     }
@@ -198,16 +201,16 @@ export function TransactionTable({
 
     function renderControlPanel(): JSX.Element
     {
-        const {actionButton, modeButton, cancelButton} = getControlPanel();
+        const {actionButton1, modeButton, actionButton2} = getControlPanel();
         return (
             <View style={computedStyle.ControlPanel}>
                 <ControlButtonTypeContext.Provider value={"action"}>
                     <Button
                         style={computedStyle.ControlButton}
-                        icon={actionButton.icon}
-                        label={actionButton.text}
-                        disabled={actionButton.disabled}
-                        onPress={actionButton.onPress}
+                        icon={actionButton1.icon}
+                        label={actionButton1.text}
+                        disabled={actionButton1.disabled}
+                        onPress={actionButton1.onPress}
                     />
                 </ControlButtonTypeContext.Provider>
                 <ControlButtonTypeContext.Provider value={"mode"}>
@@ -222,10 +225,10 @@ export function TransactionTable({
                 <ControlButtonTypeContext.Provider value={"cancel"}>
                     <Button
                         style={computedStyle.ControlButton}
-                        icon={cancelButton.icon}
-                        label={cancelButton.text}
-                        disabled={cancelButton.disabled}
-                        onPress={cancelButton.onPress}
+                        icon={actionButton2.icon}
+                        label={actionButton2.text}
+                        disabled={actionButton2.disabled}
+                        onPress={actionButton2.onPress}
                     />
                 </ControlButtonTypeContext.Provider>
             </View>

@@ -1,4 +1,5 @@
 import {EMPTY_STRING, Sb, withValidation} from "@miniskylab/antimatter-framework";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
@@ -19,6 +20,11 @@ export default {
             <TransactionTableWithValidation
                 {...args}
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
+                customActionButton={{
+                    icon: DefaultIconSet.Group,
+                    text: "Lorem Ipsum: 99",
+                    onPress: () => { alert("Lorem Ipsum"); }
+                }}
                 onSwitchMode={newMode =>
                 {
                     const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
@@ -197,6 +203,7 @@ export const Playground: Story = {
         selectedDate: Sb.locked,
         selectedTransaction: Sb.locked,
         mode: Sb.locked,
+        customActionButton: Sb.locked,
         onChangeTransaction: Sb.locked,
         onSelectDate: Sb.locked,
         onSelectTransaction: Sb.locked,
