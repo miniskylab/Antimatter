@@ -1,7 +1,7 @@
 import {EMPTY_STRING, inheritTextStyleFrom, Style} from "@miniskylab/antimatter-framework";
 import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX} from "react";
+import React, {forwardRef, JSX, MutableRefObject} from "react";
 import * as ReactNative from "react-native";
 import {TextInputProps} from "./models";
 import * as Variant from "./variants";
@@ -9,24 +9,27 @@ import * as Variant from "./variants";
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function TextInput({
-    style = Variant.Default,
-    value = EMPTY_STRING,
-    focusable = true,
-    autoFocus = false,
-    editable = true,
-    secureTextEntry = false,
-    contextMenuHidden = false,
-    autoCorrect = true,
-    maxLength,
-    keyboardType = "default",
-    selection,
-    onChangeText,
-    onSelectionChange,
-    onBlur,
-    onFocus,
-    onKeyPress
-}: TextInputProps): JSX.Element
+export const TextInput = forwardRef(function TextInput(
+    {
+        style = Variant.Default,
+        value = EMPTY_STRING,
+        focusable = true,
+        autoFocus = false,
+        editable = true,
+        secureTextEntry = false,
+        contextMenuHidden = false,
+        autoCorrect = true,
+        maxLength,
+        keyboardType = "default",
+        selection,
+        onChangeText,
+        onSelectionChange,
+        onBlur,
+        onFocus,
+        onKeyPress
+    }: TextInputProps,
+    ref: MutableRefObject<TextInput>
+): JSX.Element
 {
     const props: Required<TextInputProps> = {
         style, value, focusable, autoFocus, editable, secureTextEntry, contextMenuHidden, autoCorrect, maxLength, keyboardType, selection,
@@ -38,6 +41,7 @@ export function TextInput({
     return (
         <View style={() => computedStyle}>
             <ReactNative.TextInput
+                ref={ref}
                 editable={editable}
                 focusable={focusable}
                 autoCorrect={autoCorrect}
@@ -62,4 +66,6 @@ export function TextInput({
             />
         </View>
     );
-}
+});
+
+export type TextInput = ReactNative.TextInput;

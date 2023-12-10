@@ -56,7 +56,7 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly customActionButton?: ControlButton;
+    readonly customButton?: Omit<ControlButton, "type">;
 
 
     /**

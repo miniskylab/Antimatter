@@ -20,7 +20,7 @@ export default {
             <TransactionTableWithValidation
                 {...args}
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
-                customActionButton={{
+                customButton={{
                     icon: DefaultIconSet.Group,
                     text: "Lorem Ipsum: 99",
                     onPress: () => { alert("Lorem Ipsum"); }
@@ -203,7 +203,7 @@ export const Playground: Story = {
         selectedDate: Sb.locked,
         selectedTransaction: Sb.locked,
         mode: Sb.locked,
-        customActionButton: Sb.locked,
+        customButton: Sb.locked,
         onChangeTransaction: Sb.locked,
         onSelectDate: Sb.locked,
         onSelectTransaction: Sb.locked,

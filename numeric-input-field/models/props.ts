@@ -10,6 +10,7 @@ import {
     TextInputKeyPressEventHandler
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
+import {NumericKeyboardTypeOptions} from "../types";
 import {NumericInputFieldStyle} from "./style";
 
 @ComponentName("Numeric Input Field")
@@ -87,6 +88,13 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
     @IsBoolean()
     @IsOptional()
     readonly treatEmptyInputAsZero?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsOptional()
+    readonly keyboardType?: NumericKeyboardTypeOptions;
 
 
     /**

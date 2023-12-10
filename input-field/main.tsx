@@ -3,33 +3,36 @@ import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {TextInput} from "@miniskylab/antimatter-text-input";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useMemo} from "react";
 import {InputFieldContext, InputFieldProps} from "./models";
 import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function InputField({
-    style = Variant.Default,
-    value = EMPTY_STRING,
-    icon,
-    placeholder = EMPTY_STRING,
-    focusable = true,
-    autoFocus = false,
-    editable = true,
-    isPasswordField = false,
-    contextMenuHidden = false,
-    autoCorrect = true,
-    maxLength,
-    keyboardType = "default",
-    selection,
-    onChangeText,
-    onSelectionChange,
-    onBlur,
-    onFocus,
-    onKeyPress
-}: InputFieldProps): JSX.Element
+export const InputField = forwardRef(function InputField(
+    {
+        style = Variant.Default,
+        value = EMPTY_STRING,
+        icon,
+        placeholder = EMPTY_STRING,
+        focusable = true,
+        autoFocus = false,
+        editable = true,
+        isPasswordField = false,
+        contextMenuHidden = false,
+        autoCorrect = true,
+        maxLength,
+        keyboardType = "default",
+        selection,
+        onChangeText,
+        onSelectionChange,
+        onBlur,
+        onFocus,
+        onKeyPress
+    }: InputFieldProps,
+    ref: MutableRefObject<InputField>
+): JSX.Element
 {
     const props: Required<InputFieldProps> = {
         style, value, icon, placeholder, focusable, autoFocus, editable, isPasswordField, contextMenuHidden, autoCorrect, maxLength,
@@ -54,6 +57,7 @@ export function InputField({
                         </Label>
                     )}
                     <TextInput
+                        ref={ref}
                         style={computedStyle.TextBox}
                         editable={editable}
                         focusable={focusable}
@@ -75,4 +79,6 @@ export function InputField({
             </View>
         </InputFieldContext.Provider>
     );
-}
+});
+
+export type InputField = TextInput;

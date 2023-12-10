@@ -51,6 +51,7 @@ type Story = StoryObj<typeof NumericInputField>;
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
+        keyboardType: Sb.locked,
         onBlur: Sb.locked,
         onFocus: Sb.locked,
         onKeyPress: Sb.locked,

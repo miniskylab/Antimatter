@@ -21,7 +21,7 @@ export function TransactionTable({
     selectedDate = new Date(),
     selectedTransaction,
     mode = TransactionRecord.Mode.ReadOnly,
-    customActionButton,
+    customButton,
     onChangeTransaction,
     onSelectDate,
     onSelectTransaction,
@@ -33,7 +33,7 @@ export function TransactionTable({
 }: TransactionTableProps): JSX.Element
 {
     const props: Required<TransactionTableProps> = {
-        style, summary, transactions, selectedDate, selectedTransaction, mode, customActionButton, onChangeTransaction, onSelectDate,
+        style, summary, transactions, selectedDate, selectedTransaction, mode, customButton, onChangeTransaction, onSelectDate,
         onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
     };
 
@@ -79,33 +79,33 @@ export function TransactionTable({
         {
             case TransactionRecord.Mode.Draft:
                 return {
-                    actionButton1: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveTransaction},
-                    modeButton: {disabled: true, icon: DefaultIconSet.Quill, text: "Draft-Mode"},
-                    actionButton2: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    pressButton1: {type: "action", icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveTransaction},
+                    switchButton: {type: "mode", icon: DefaultIconSet.Quill, text: "Draft-Mode"},
+                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case TransactionRecord.Mode.Edit:
                 return {
-                    actionButton1: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveTransaction},
-                    modeButton: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
-                    actionButton2: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    pressButton1: {type: "action", icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveTransaction},
+                    switchButton: {type: "mode", icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
+                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case TransactionRecord.Mode.Delete:
                 return {
-                    actionButton1: {icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteTransaction},
-                    modeButton: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
-                    actionButton2: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    pressButton1: {type: "action", icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteTransaction},
+                    switchButton: {type: "mode", icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
+                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             default:
             case TransactionRecord.Mode.ReadOnly:
                 return {
-                    actionButton1: {icon: DefaultIconSet.PlusCircle, text: "Add New", onPress: onAddNewTransaction},
-                    modeButton: {disabled: true, icon: DefaultIconSet.Eye, text: "Read-Only"},
-                    actionButton2: customActionButton
-                        ? customActionButton
-                        : {disabled: true, icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
+                    pressButton1: {type: "action", icon: DefaultIconSet.PlusCircle, text: "Add New", onPress: onAddNewTransaction},
+                    switchButton: {type: "mode", icon: DefaultIconSet.Eye, text: "Read-Only"},
+                    pressButton2: customButton
+                        ? {type: "custom", ...customButton}
+                        : {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
                 };
         }
     }
@@ -201,34 +201,34 @@ export function TransactionTable({
 
     function renderControlPanel(): JSX.Element
     {
-        const {actionButton1, modeButton, actionButton2} = getControlPanel();
+        const {pressButton1, switchButton, pressButton2} = getControlPanel();
         return (
             <View style={computedStyle.ControlPanel}>
-                <ControlButtonTypeContext.Provider value={"action"}>
+                <ControlButtonTypeContext.Provider value={pressButton1.type}>
                     <Button
                         style={computedStyle.ControlButton}
-                        icon={actionButton1.icon}
-                        label={actionButton1.text}
-                        disabled={actionButton1.disabled}
-                        onPress={actionButton1.onPress}
+                        icon={pressButton1.icon}
+                        label={pressButton1.text}
+                        disabled={!pressButton1.onPress}
+                        onPress={pressButton1.onPress}
                     />
                 </ControlButtonTypeContext.Provider>
-                <ControlButtonTypeContext.Provider value={"mode"}>
+                <ControlButtonTypeContext.Provider value={switchButton.type}>
                     <Button
                         style={computedStyle.ControlButton}
-                        icon={modeButton.icon}
-                        label={modeButton.text}
-                        disabled={modeButton.disabled}
-                        onPress={modeButton.onPress}
+                        icon={switchButton.icon}
+                        label={switchButton.text}
+                        disabled={!switchButton.onPress}
+                        onPress={switchButton.onPress}
                     />
                 </ControlButtonTypeContext.Provider>
-                <ControlButtonTypeContext.Provider value={"cancel"}>
+                <ControlButtonTypeContext.Provider value={pressButton2.type}>
                     <Button
                         style={computedStyle.ControlButton}
-                        icon={actionButton2.icon}
-                        label={actionButton2.text}
-                        disabled={actionButton2.disabled}
-                        onPress={actionButton2.onPress}
+                        icon={pressButton2.icon}
+                        label={pressButton2.text}
+                        disabled={!pressButton2.onPress}
+                        onPress={pressButton2.onPress}
                     />
                 </ControlButtonTypeContext.Provider>
             </View>

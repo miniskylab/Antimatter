@@ -1,6 +1,6 @@
 import {EMPTY_STRING, MAX, MIN, Style} from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
-import React, {JSX, useEffect, useMemo, useRef, useState} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useEffect, useMemo, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
 import {Keypress} from "./enums";
 import {NumericInputFieldContext, NumericInputFieldProps, NumericInputFieldState} from "./models";
@@ -10,26 +10,30 @@ import * as Variant from "./variants";
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function NumericInputField({
-    style = Variant.Default,
-    defaultValue,
-    minValue = MIN,
-    maxValue = MAX,
-    autoFocus = false,
-    maximumDigitCount = MAX,
-    placeholder = EMPTY_STRING,
-    maximumFractionDigits = 20,
-    treatEmptyInputAsZero = false,
-    showPlusSymbolForPositiveNumber = false,
-    onChange,
-    onBlur,
-    onFocus,
-    onKeyPress
-}: NumericInputFieldProps): JSX.Element
+export const NumericInputField = forwardRef(function NumericInputField(
+    {
+        style = Variant.Default,
+        defaultValue,
+        minValue = MIN,
+        maxValue = MAX,
+        autoFocus = false,
+        maximumDigitCount = MAX,
+        placeholder = EMPTY_STRING,
+        maximumFractionDigits = 20,
+        treatEmptyInputAsZero = false,
+        keyboardType = "numbers-and-punctuation",
+        showPlusSymbolForPositiveNumber = false,
+        onChange,
+        onBlur,
+        onFocus,
+        onKeyPress
+    }: NumericInputFieldProps,
+    ref: MutableRefObject<NumericInputField>
+): JSX.Element
 {
     const props: Required<NumericInputFieldProps> = {
         style, defaultValue, minValue, maxValue, maximumFractionDigits, maximumDigitCount, placeholder, autoFocus, treatEmptyInputAsZero,
-        showPlusSymbolForPositiveNumber, onChange, onBlur, onFocus, onKeyPress
+        keyboardType, showPlusSymbolForPositiveNumber, onChange, onBlur, onFocus, onKeyPress
     };
 
     const [state, setState] = useState<NumericInputFieldState>({
@@ -71,6 +75,7 @@ export function NumericInputField({
     return (
         <NumericInputFieldContext.Provider value={context}>
             <InputField
+                ref={ref}
                 style={computedStyle}
                 value={state.userInput}
                 selection={state.selection}
@@ -79,7 +84,7 @@ export function NumericInputField({
                 maxLength={state.userInput.length + 1}
                 autoCorrect={false}
                 contextMenuHidden={true}
-                keyboardType={"numbers-and-punctuation"}
+                keyboardType={keyboardType}
                 onChangeText={handleChangeEvent}
                 onSelectionChange={handleSelectionChangeEvent}
                 onKeyPress={handleKeypressEvent}
@@ -248,4 +253,6 @@ export function NumericInputField({
 
         return defaultUserInput;
     }
-}
+});
+
+export type NumericInputField = InputField;

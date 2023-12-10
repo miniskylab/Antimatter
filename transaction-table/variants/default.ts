@@ -504,7 +504,6 @@ const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
 
     const isModeButton = controlButtonTypeContext === "mode";
     const isActionButton = controlButtonTypeContext === "action";
-    const isCancelButton = controlButtonTypeContext === "cancel";
     const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
     const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
     const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
@@ -516,6 +515,7 @@ const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
         ...inheritedStyle,
         flexGrow: 1,
         fontSize: 28,
+        color: Color.Neutral,
         ...isActionButton && {
             color: isDraftMode || isEditMode
                 ? Color.Primary
@@ -532,7 +532,6 @@ const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
                         ? Color.Tomato
                         : Color.Neutral
         },
-        ...isCancelButton && {color: Color.Neutral},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
@@ -547,7 +546,6 @@ const TransactionTable__ControlButton__Label: LabelStyle = function (labelProps)
 
     const isModeButton = controlButtonTypeContext === "mode";
     const isActionButton = controlButtonTypeContext === "action";
-    const isCancelButton = controlButtonTypeContext === "cancel";
     const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
     const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
     const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
@@ -563,6 +561,7 @@ const TransactionTable__ControlButton__Label: LabelStyle = function (labelProps)
         paddingHorizontal: 0,
         fontSize: 12,
         fontWeight: "bold",
+        color: Color.Neutral,
         ...isActionButton && {
             color: isDraftMode || isEditMode
                 ? Color.Primary
@@ -579,7 +578,6 @@ const TransactionTable__ControlButton__Label: LabelStyle = function (labelProps)
                         ? Color.Tomato
                         : Color.Neutral
         },
-        ...isCancelButton && {color: Color.Neutral},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };

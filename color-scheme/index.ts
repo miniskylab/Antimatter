@@ -89,6 +89,8 @@ export const Color = {
     Transparent: toHex(Black, 0)
 };
 
+export type HexColorCode = `#${string}`;
+
 function complement(color: number[]): number[]
 {
     return [
@@ -116,7 +118,7 @@ function shade(color: number[], factor: number): number[]
     ];
 }
 
-function toHex(color: number[], alpha = 100): string
+function toHex(color: number[], alpha = 100): HexColorCode
 {
     return (
         "#" +
@@ -124,5 +126,5 @@ function toHex(color: number[], alpha = 100): string
         (color[1] | 1 << 8).toString(16).slice(1) +
         (color[2] | 1 << 8).toString(16).slice(1) +
         ((alpha / 100 * 255) | 1 << 8).toString(16).slice(1)
-    ).toUpperCase();
+    ).toUpperCase() as HexColorCode;
 }
