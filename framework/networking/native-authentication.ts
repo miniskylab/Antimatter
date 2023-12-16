@@ -6,12 +6,13 @@ import * as ExpoCrypto from "expo-crypto";
 import * as ExpoSecureStore from "expo-secure-store";
 import * as WebBrowser from "expo-web-browser";
 import {useEffect, useRef, useState} from "react";
+import * as Environment from "../environment";
 import * as Ts from "../typescript";
 
 export class NativeAuthentication
 {
     private readonly TOKEN_STORAGE_KEY = "MINISKYLAB_TOKEN";
-    private readonly AES_SECRET_STORAGE_KEY = "MINISKYLAB_SECURE_STORAGE_AES_SECRET";
+    private readonly AES_SECRET_STORAGE_KEY = "MINISKYLAB_AES_SECRET";
 
     private readonly issuer: string;
     private readonly clientId: string;
@@ -19,6 +20,11 @@ export class NativeAuthentication
 
     constructor(issuer: string, clientId: string)
     {
+        if (Environment.is("Web"))
+        {
+            throw new Error("NativeAuthentication cannot be used inside web environment");
+        }
+
         this.issuer = issuer;
         this.clientId = clientId;
     }
