@@ -26,7 +26,10 @@ export const Color = {
     Blue: toHex(Blue),
     Green: toHex(Green),
     Gold: toHex(Gold),
+
     Tomato: toHex(Tomato),
+    Tomato__a10: toHex(Tomato, 10),
+
     Purple: toHex(Purple),
 
     Primary: toHex(Primary),
