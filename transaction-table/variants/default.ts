@@ -668,7 +668,8 @@ const TransactionTable__TransactionRecord__NameInputField__Root: ViewStyle = fun
     return {
         ...inheritedStyle,
         width: "95%",
-        height: 20,
+        height: 23,
+        marginTop: -1,
         backgroundColor: Color.Transparent
     };
 };
@@ -725,7 +726,8 @@ const TransactionTable__TransactionRecord__NameLabel: LabelStyle = function (lab
         ...LabelVariant.Default(labelProps),
         alignItems: "flex-start",
         width: "95%",
-        lineHeight: 20,
+        height: 23,
+        marginTop: -1,
         fontSize: 18,
         fontWeight: "bold",
         color: Color.Neutral
