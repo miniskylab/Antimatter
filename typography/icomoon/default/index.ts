@@ -78,5 +78,7 @@ export enum DefaultIconSet
     Statistics = "statistics",
     Circle = "circle",
     Home = "home",
-    Gear = "gear"
+    Gear = "gear",
+    Fairshare = "fairshare",
+    Registry = "registry"
 }
