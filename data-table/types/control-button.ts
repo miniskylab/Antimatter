@@ -1,9 +1,10 @@
 import {GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 
+export type ControlButtonType = "action" | "mode" | "cancel";
 export type ControlButton = {
-    icon?: DefaultIconSet;
     text?: string;
-    disabled?: boolean;
+    icon?: DefaultIconSet;
+    type?: ControlButtonType;
     onPress?: GestureResponderEventHandler;
 }

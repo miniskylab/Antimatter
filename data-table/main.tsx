@@ -7,7 +7,7 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef} from "react";
 import {Row} from "./components";
 import {ControlButtonTypeContext, DataTableContext, DataTableProps, RowTypeContext} from "./models";
-import {ControlButton, ControlPanel} from "./types";
+import {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
 /**
@@ -45,7 +45,6 @@ export function DataTable({
     const computedStyle = Style.useComputedStyle(style, props);
 
     const headerData = columns?.map(x => x.name).filter(x => !!x);
-    const {modeButton, actionButton, cancelButton} = getControlPanelModel();
 
     return (
         <DataTableContext.Provider value={context}>
@@ -80,55 +79,38 @@ export function DataTable({
         return rowId === selectedRow?.id;
     }
 
-    function isAddNewButton(rowId: string): boolean
-    {
-        return rowId === null;
-    }
-
-    function getControlPanelModel(): ControlPanel
+    function getControlPanel(): ControlPanel
     {
         switch (mode)
         {
             case Row.Mode.Draft:
                 return {
-                    modeButton: {disabled: true, icon: DefaultIconSet.Quill, text: "Draft-Mode"},
-                    actionButton: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
-                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    pressButton1: {type: "action", icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
+                    switchButton: {type: "mode", icon: DefaultIconSet.Quill, text: "Draft-Mode"},
+                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case Row.Mode.Edit:
                 return {
-                    modeButton: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
-                    actionButton: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
-                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    pressButton1: {type: "action", icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
+                    switchButton: {type: "mode", icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
+                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case Row.Mode.Delete:
                 return {
-                    modeButton: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
-                    actionButton: {icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteRow},
-                    cancelButton: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    pressButton1: {type: "action", icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteRow},
+                    switchButton: {type: "mode", icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
+                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             default:
             case Row.Mode.ReadOnly:
                 return {
-                    modeButton: {disabled: true, icon: DefaultIconSet.Eye, text: "Read-Only"},
-                    actionButton: {disabled: true, icon: DefaultIconSet.FloppyDisk, text: "Save"},
-                    cancelButton: {disabled: true, icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
+                    pressButton1: {type: "action", icon: DefaultIconSet.PlusCircle, text: "Add New", onPress: onAddNewRow},
+                    switchButton: {type: "mode", icon: DefaultIconSet.Eye, text: "Read-Only"},
+                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
                 };
-        }
-    }
-
-    function getAddNewButtonModel(): ControlButton
-    {
-        switch (mode)
-        {
-            case Row.Mode.ReadOnly:
-                return {icon: DefaultIconSet.PlusCircle, onPress: onAddNewRow};
-
-            default:
-                return {disabled: true, icon: DefaultIconSet.NotAllowed};
         }
     }
 
@@ -141,37 +123,38 @@ export function DataTable({
 
     function renderControlPanel(): JSX.Element
     {
+        const {pressButton1, switchButton, pressButton2} = getControlPanel();
         return (
             <View style={computedStyle.ControlPanel}>
                 <View style={computedStyle.TitleContainer}>
                     <Label style={computedStyle.MainTitle} numberOfLines={1}>{title}</Label>
                     <Label style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Label>
                 </View>
-                <ControlButtonTypeContext.Provider value={"action"}>
+                <ControlButtonTypeContext.Provider value={pressButton1.type}>
                     <Button
                         style={computedStyle.ControlButton}
-                        icon={actionButton.icon}
-                        label={actionButton.text}
-                        disabled={actionButton.disabled}
-                        onPress={actionButton.onPress}
+                        icon={pressButton1.icon}
+                        label={pressButton1.text}
+                        disabled={!pressButton1.onPress}
+                        onPress={pressButton1.onPress}
                     />
                 </ControlButtonTypeContext.Provider>
-                <ControlButtonTypeContext.Provider value={"mode"}>
+                <ControlButtonTypeContext.Provider value={switchButton.type}>
                     <Button
                         style={computedStyle.ControlButton}
-                        icon={modeButton.icon}
-                        label={modeButton.text}
-                        disabled={modeButton.disabled}
-                        onPress={modeButton.onPress}
+                        icon={switchButton.icon}
+                        label={switchButton.text}
+                        disabled={!switchButton.onPress}
+                        onPress={switchButton.onPress}
                     />
                 </ControlButtonTypeContext.Provider>
-                <ControlButtonTypeContext.Provider value={"cancel"}>
+                <ControlButtonTypeContext.Provider value={pressButton2.type}>
                     <Button
                         style={computedStyle.ControlButton}
-                        icon={cancelButton.icon}
-                        label={cancelButton.text}
-                        disabled={cancelButton.disabled}
-                        onPress={cancelButton.onPress}
+                        icon={pressButton2.icon}
+                        label={pressButton2.text}
+                        disabled={!pressButton2.onPress}
+                        onPress={pressButton2.onPress}
                     />
                 </ControlButtonTypeContext.Provider>
             </View>
@@ -182,38 +165,15 @@ export function DataTable({
     {
         const rowJsxElements = [];
         const rowIds = rows ? Object.keys(rows) : [];
-        if (mode === Row.Mode.Draft)
+        if (selectedRow && mode === Row.Mode.Draft)
         {
-            if (selectedRow)
-            {
-                rowIds.push(selectedRow.id);
-            }
-        }
-        else
-        {
-            rowIds.push(null);
+            rowIds.push(selectedRow.id);
         }
 
         const rowCount = rowIds.length > minRowCount ? rowIds.length : minRowCount;
         for (let rowIndex = 0; rowIndex < rowCount; rowIndex++)
         {
             const rowId = rowIds[rowIndex];
-            if (isAddNewButton(rowId))
-            {
-                const addNewButton = getAddNewButtonModel();
-                rowJsxElements.push(
-                    <Button
-                        key={rowIndex}
-                        style={computedStyle.AddNewButton}
-                        icon={addNewButton.icon}
-                        disabled={addNewButton.disabled}
-                        onPress={addNewButton.onPress}
-                    />
-                );
-
-                continue;
-            }
-
             const rowMode = getRowMode(rowId);
             const rowData = rowMode === Row.Mode.Edit || rowMode === Row.Mode.Draft
                 ? selectedRow.data
@@ -224,7 +184,7 @@ export function DataTable({
             const canSelect = !isEmptyRow(rowId) && mode === Row.Mode.ReadOnly;
             const canEdit = !isEmptyRow(rowId) && (rowMode === Row.Mode.Edit || rowMode === Row.Mode.Draft);
             rowJsxElements.push(
-                <RowTypeContext.Provider key={rowIndex} value={isEmptyRow(rowId) ? "empty" : undefined}>
+                <RowTypeContext.Provider key={rowIndex} value={isEmptyRow(rowId) ? "empty" : "data"}>
                     <Row.Component
                         containerRef={scrollViewRef}
                         data={rowData}

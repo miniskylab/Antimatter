@@ -16,5 +16,4 @@ export type DataTableStyle = (dataTableProps: Styled<DataTableProps>) => {
     Scroll?: ScrollViewStyle;
     Hr?: ViewStyle;
     Row?: Row.Style;
-    AddNewButton?: ButtonStyle;
 };

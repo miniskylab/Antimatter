@@ -1,7 +1,7 @@
 import {ControlButton} from "./control-button";
 
 export type ControlPanel = {
-    modeButton: ControlButton;
-    actionButton: ControlButton;
-    cancelButton: ControlButton;
+    pressButton1: ControlButton;
+    switchButton: ControlButton;
+    pressButton2: ControlButton;
 }

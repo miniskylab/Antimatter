@@ -516,58 +516,6 @@ const DataTable__Row: Row.Style = function ()
     };
 };
 
-const DataTable__AddNewButton__Root: PressableStyle = function (pressableProps, pressableState)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const runningOnMobileApp = Environment.use("MobileApp");
-
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
-
-    return {
-        ...inheritedStyle,
-        alignSelf: "stretch",
-        height: 42,
-        borderWidth: 0,
-        borderTopWidth: 2,
-        borderBottomWidth: 2,
-        borderColor: pressableState.hovered || pressableState.pressed ? Color.Primary : Color.Neutral,
-        zIndex: pressableState.hovered ? Style.Layer.Higher : Style.Layer.Default,
-        marginTop: runningOnMobileApp ? -2 : -1.6,
-        opacity: 1
-    };
-};
-
-const DataTable__AddNewButton__Icon: IconStyle = function (iconProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-    const pressableContext = PressableContextHook.usePressableContext();
-
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
-
-    return {
-        ...inheritedStyle,
-        height: "100%",
-        fontSize: 20,
-        color: buttonContext.props.disabled
-            ? Color.Gray__a65
-            : pressableContext.state.pressed
-                ? Color.Ambient
-                : pressableContext.state.hovered
-                    ? Color.White
-                    : Color.Neutral
-    };
-};
-
-const DataTable__AddNewButton: ButtonStyle = function (buttonProps)
-{
-    return {
-        ...ButtonVariant.OutlinedRectangular(buttonProps),
-        Root: DataTable__AddNewButton__Root,
-        Icon: DataTable__AddNewButton__Icon
-    };
-};
-
 export const Default: DataTableStyle = function ()
 {
     return {
@@ -579,7 +527,6 @@ export const Default: DataTableStyle = function ()
         ControlButton: DataTable__ControlButton,
         Scroll: DataTable__Scroll,
         Hr: DataTable__Hr,
-        Row: DataTable__Row,
-        AddNewButton: DataTable__AddNewButton
+        Row: DataTable__Row
     };
 };
