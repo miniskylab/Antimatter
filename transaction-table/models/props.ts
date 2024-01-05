@@ -1,4 +1,13 @@
-import {ComponentName, ComponentProps, GestureResponderEventHandler, IsDate, IsEnum} from "@miniskylab/antimatter-framework";
+import {
+    ComponentName,
+    ComponentProps,
+    GestureResponderEventHandler,
+    IsDate,
+    IsEnum,
+    IsInteger,
+    IsNumber,
+    IsPositive
+} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {Summary, TransactionRecord} from "../components";
@@ -51,6 +60,16 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     @IsEnum(TransactionRecord.Mode)
     @IsOptional()
     readonly mode?: TransactionRecord.Mode;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsPositive()
+    @IsInteger()
+    @IsNumber()
+    @IsOptional()
+    readonly maxSelectedTagCount?: number;
 
 
     /**

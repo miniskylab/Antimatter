@@ -1,7 +1,7 @@
-export function getName(anyEnum: Record<string, number | string>, possiblyValue: unknown): string
+export function getName(anyEnum: Record<string, number | string>, possibleValue: unknown): string
 {
-    return (typeof possiblyValue === "string" || typeof possiblyValue === "number") && Object.values(anyEnum).includes(possiblyValue)
-        ? Object.keys(anyEnum).find(key => anyEnum[key] === possiblyValue)
+    return (typeof possibleValue === "string" || typeof possibleValue === "number") && Object.values(anyEnum).includes(possibleValue)
+        ? Object.keys(anyEnum).find(key => anyEnum[key] === possibleValue)
         : undefined;
 }
 
@@ -17,7 +17,7 @@ export function getValues(anyEnum: Record<string, number | string>): (number | s
         .filter(x => anyEnum[x] !== undefined ? typeof x === "number" : true);
 }
 
-export function getValue<T extends number | string>(anyEnum: Record<string, T & number | string>, possiblyKey: string): T
+export function getValue<T extends number | string>(anyEnum: Record<string, T & number | string>, possibleKey: string): T
 {
-    return anyEnum[possiblyKey] as T;
+    return anyEnum[possibleKey] as T;
 }

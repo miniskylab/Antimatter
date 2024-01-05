@@ -4,8 +4,10 @@ import {
     IsDate,
     IsDefined,
     IsEnum,
+    IsInteger,
     IsNotEmpty,
     IsNumber,
+    IsPositive,
     IsString
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
@@ -40,6 +42,16 @@ export class Props extends ComponentProps<Style>
     @IsNumber()
     @IsDefined()
     readonly amount: number;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsPositive()
+    @IsInteger()
+    @IsNumber()
+    @IsOptional()
+    readonly maxSelectedTagCount?: number;
 
 
     /**

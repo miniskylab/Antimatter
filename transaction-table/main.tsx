@@ -21,6 +21,7 @@ export function TransactionTable({
     selectedDate = new Date(),
     selectedTransaction,
     mode = TransactionRecord.Mode.ReadOnly,
+    maxSelectedTagCount = 3,
     customButton,
     onChangeTransaction,
     onSelectDate,
@@ -33,8 +34,8 @@ export function TransactionTable({
 }: TransactionTableProps): JSX.Element
 {
     const props: Required<TransactionTableProps> = {
-        style, summary, transactions, selectedDate, selectedTransaction, mode, customButton, onChangeTransaction, onSelectDate,
-        onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
+        style, summary, transactions, selectedDate, selectedTransaction, mode, maxSelectedTagCount, customButton, onChangeTransaction,
+        onSelectDate, onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
     };
 
     const [state, setState] = useState<TransactionTableState>({
@@ -259,6 +260,7 @@ export function TransactionTable({
                     style={computedStyle.TransactionRecord}
                     mode={transactionMode}
                     tags={transactionData.tags}
+                    maxSelectedTagCount={maxSelectedTagCount}
                     onPress={mode === TransactionRecord.Mode.ReadOnly ? () => { onSelectTransaction(filteredTransactionId); } : undefined}
                     onChange={newTransactionData => { onChangeTransaction(newTransactionData); }}
                 />

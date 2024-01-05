@@ -21,6 +21,7 @@ export function Component({
     name = EMPTY_STRING,
     tags = {},
     amount = 0,
+    maxSelectedTagCount = 3,
     executedDate,
     modifiedDate,
     createdDate,
@@ -30,7 +31,7 @@ export function Component({
 }: Props): JSX.Element
 {
     const props: Required<Props> = {
-        style, id, name, tags, amount, executedDate, modifiedDate, createdDate, mode, onPress, onChange
+        style, id, name, tags, amount, maxSelectedTagCount, executedDate, modifiedDate, createdDate, mode, onPress, onChange
     };
 
     const context = useMemo<TransactionRecordContext>(
@@ -39,7 +40,6 @@ export function Component({
     );
 
     const computedStyle = Style.useComputedStyle(style, props);
-    const maxSelectedTagCount = 3;
 
     return (
         <TransactionRecordContext.Provider value={context}>
