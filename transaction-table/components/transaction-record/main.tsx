@@ -111,7 +111,6 @@ export function Component({
                 ? <InputField
                     style={computedStyle.NameInputField}
                     placeholder={"Transaction Name"}
-                    autoFocus={true}
                     value={name}
                     onChangeText={onNameChange}
                 />
@@ -128,13 +127,16 @@ export function Component({
             mode === Mode.Draft || mode === Mode.Edit
                 ? <NumericInputField
                     style={computedStyle.AmountInputField}
+                    autoFocus={true}
                     minValue={0}
                     maxValue={999999999}
+                    selectAllOnFocus={true}
                     treatEmptyInputAsZero={true}
                     showPlusSymbolForPositiveNumber={explicitPlusSymbol}
                     maximumFractionDigits={0}
                     maximumDigitCount={9}
                     defaultValue={amount}
+                    keyboardType={"number-pad"}
                     onChange={onAmountChange}
                 />
                 : <Label style={computedStyle.AmountLabel}>

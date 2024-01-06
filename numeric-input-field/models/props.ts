@@ -93,6 +93,14 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsBoolean()
+    @IsOptional()
+    readonly selectAllOnFocus?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
     @IsOptional()
     readonly keyboardType?: NumericKeyboardTypeOptions;
 
