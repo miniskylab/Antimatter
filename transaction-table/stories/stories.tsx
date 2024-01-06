@@ -221,6 +221,7 @@ export const Playground: Story = {
             ...TestData.getSummaryFigures(today)
         },
         selectedDate: today,
+        maxSelectedTagCount: 3,
         transactions: TestData.transactions
     }
 };
