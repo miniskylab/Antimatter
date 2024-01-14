@@ -1,4 +1,4 @@
-import {Styled} from "@miniskylab/antimatter-framework";
+import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {useEffect, useRef} from "react";
 import {Animated, DimensionValue, Easing} from "react-native";
 import {InputFieldProps} from "../models";
@@ -44,7 +44,7 @@ export function usePlaceholderAnimation()
     };
 }
 
-export function useTextBoxAnimation(inputFieldProps: Styled<InputFieldProps>)
+export function useTextBoxAnimation(inputFieldProps: WithoutStyle<InputFieldProps>)
 {
     const initialPaddingTop = inputFieldProps.placeholder && inputFieldProps.value ? 19 : 0;
     const initialPaddingBottom = inputFieldProps.placeholder && inputFieldProps.value ? 3 : 0;

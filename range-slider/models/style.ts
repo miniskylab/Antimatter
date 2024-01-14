@@ -1,10 +1,10 @@
-import {Styled} from "@miniskylab/antimatter-framework";
+import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Pips} from "../components";
 import {RangeSliderProps} from "./props";
 
-export type RangeSliderStyle = (rangeSliderProps: Styled<RangeSliderProps>) => {
+export type RangeSliderStyle = (rangeSliderProps: WithoutStyle<RangeSliderProps>) => {
     Root: ViewStyle;
     Track: ViewStyle;
     StopperLeft: ViewStyle;

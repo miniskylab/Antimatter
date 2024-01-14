@@ -1,12 +1,12 @@
 import {ButtonStyle} from "@miniskylab/antimatter-button";
-import {Styled} from "@miniskylab/antimatter-framework";
+import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {LabelStyle} from "@miniskylab/antimatter-label";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ScrollViewStyle} from "@miniskylab/antimatter-scroll-view";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {DropdownMenuProps} from "./props";
 
-export type DropdownMenuStyle = (dropdownMenuProps: Styled<DropdownMenuProps>) => {
+export type DropdownMenuStyle = (dropdownMenuProps: WithoutStyle<DropdownMenuProps>) => {
     Root?: ViewStyle;
     SelectedItemContainer?: PressableStyle;
     SelectedItem?: LabelStyle;

@@ -1,5 +1,5 @@
 import {ButtonStyle} from "@miniskylab/antimatter-button";
-import {Styled} from "@miniskylab/antimatter-framework";
+import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {NavButtonProps} from "./props";
 
-export type NavButtonStyle = (navButtonProps: Styled<NavButtonProps>) => ButtonStyle;
+export type NavButtonStyle = (navButtonProps: WithoutStyle<NavButtonProps>) => ButtonStyle;

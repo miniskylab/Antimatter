@@ -1,5 +1,5 @@
 import {DropdownMenuStyle} from "@miniskylab/antimatter-dropdown-menu";
-import {Styled} from "@miniskylab/antimatter-framework";
+import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {InputFieldStyle} from "@miniskylab/antimatter-input-field";
 import {LabelStyle} from "@miniskylab/antimatter-label";
@@ -8,7 +8,7 @@ import {ToggleStyle} from "@miniskylab/antimatter-toggle";
 import {Props} from "./props";
 import {State} from "./state";
 
-export type Style = (rowProps: Styled<Props>, rowState: State) => {
+export type Style = (rowProps: WithoutStyle<Props>, rowState: State) => {
     Root?: PressableStyle;
     CellDropdownMenu?: DropdownMenuStyle;
     CellToggle?: ToggleStyle;

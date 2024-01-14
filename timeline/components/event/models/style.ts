@@ -1,11 +1,11 @@
-import {Styled} from "@miniskylab/antimatter-framework";
+import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {ImageStyle} from "@miniskylab/antimatter-image";
 import {LabelStyle} from "@miniskylab/antimatter-label";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Props} from "./props";
 
-export type Style = (eventProps: Styled<Props>) => {
+export type Style = (eventProps: WithoutStyle<Props>) => {
     Root?: ViewStyle;
     Icon?: IconStyle;
     TriangleArrow?: ViewStyle;
