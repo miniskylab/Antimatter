@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -14,7 +14,7 @@ export function Component({
     onSelectionButtonPress
 }: Props): JSX.Element
 {
-    const props: Required<Props> = {
+    const props: AllPropertiesMustPresent<Props> = {
         style, onTodayButtonPress, onSelectionButtonPress
     };
 

@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
@@ -24,7 +24,7 @@ export function DropdownMenu({
     onMenuItemPress
 }: DropdownMenuProps): JSX.Element
 {
-    const props: Required<DropdownMenuProps> = {
+    const props: AllPropertiesMustPresent<DropdownMenuProps> = {
         style, menuItems, placeholder, isOpen, enableMenuHorizontalScrolling, dropDirection, onSelectedItemContainerPress, onMenuItemPress
     };
 

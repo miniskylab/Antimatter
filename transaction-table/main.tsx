@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
-import {DateFormat, Environment, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, DateFormat, Environment, Style, Ts} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -33,7 +33,7 @@ export function TransactionTable({
     onCancel
 }: TransactionTableProps): JSX.Element
 {
-    const props: Required<TransactionTableProps> = {
+    const props: AllPropertiesMustPresent<TransactionTableProps> = {
         style, summary, transactions, selectedDate, selectedTransaction, mode, maxSelectedTagCount, customButton, onChangeTransaction,
         onSelectDate, onSelectTransaction, onSwitchMode, onAddNewTransaction, onSaveTransaction, onDeleteTransaction, onCancel
     };

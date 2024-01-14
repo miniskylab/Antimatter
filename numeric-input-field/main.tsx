@@ -1,4 +1,4 @@
-import {EMPTY_STRING, MAX, MIN, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, MAX, MIN, Style} from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useMemo, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
@@ -32,7 +32,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
     ref: MutableRefObject<NumericInputField>
 ): JSX.Element
 {
-    const props: Required<NumericInputFieldProps> = {
+    const props: AllPropertiesMustPresent<NumericInputFieldProps> = {
         style, defaultValue, minValue, maxValue, maximumFractionDigits, maximumDigitCount, placeholder, autoFocus, treatEmptyInputAsZero,
         keyboardType, showPlusSymbolForPositiveNumber, selectAllOnFocus, onChange, onBlur, onFocus, onKeyPress
     };

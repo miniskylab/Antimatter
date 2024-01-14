@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {GregorianCalendar, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, GregorianCalendar, Style} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {MonthContext, MonthViewContext, Props} from "./models";
@@ -14,7 +14,7 @@ export function Component({
     onMonthPress
 }: Props): JSX.Element
 {
-    const props: Required<Props> = {
+    const props: AllPropertiesMustPresent<Props> = {
         style, selectedMonth, data, onMonthPress
     };
 

@@ -1,4 +1,4 @@
-import {EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {TextInput} from "@miniskylab/antimatter-text-input";
@@ -34,7 +34,7 @@ export const InputField = forwardRef(function InputField(
     ref: MutableRefObject<InputField>
 ): JSX.Element
 {
-    const props: Required<InputFieldProps> = {
+    const props: AllPropertiesMustPresent<InputFieldProps> = {
         style, value, icon, placeholder, focusable, autoFocus, editable, isPasswordField, contextMenuHidden, autoCorrect, maxLength,
         keyboardType, selection, onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
     };

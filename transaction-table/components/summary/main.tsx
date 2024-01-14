@@ -1,4 +1,4 @@
-import {EMPTY_STRING, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {RangeSlider} from "@miniskylab/antimatter-range-slider";
 import {View} from "@miniskylab/antimatter-view";
@@ -17,7 +17,7 @@ export function Component({
     progressBarValue
 }: Props): JSX.Element
 {
-    const props: Required<Props> = {
+    const props: AllPropertiesMustPresent<Props> = {
         style, section1Label, section1Value, section2Label, section2Value, progressBarValue
     };
 

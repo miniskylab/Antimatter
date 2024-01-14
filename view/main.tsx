@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import React, {forwardRef, JSX, MutableRefObject} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ViewProps} from "./models";
@@ -21,7 +21,7 @@ export const View = forwardRef(function View(
     ref: MutableRefObject<View>
 ): JSX.Element
 {
-    const props: Required<ViewProps> = {
+    const props: AllPropertiesMustPresent<ViewProps> = {
         style, children, pointerEvents, onLayout, onStartShouldSetResponder, onMoveShouldSetResponder, onResponderStart, onResponderMove
     };
 

@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {View, ViewStyle} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useState} from "react";
 import {Transitionable} from "./components";
@@ -15,7 +15,7 @@ export function Transition({
     children
 }: TransitionProps): JSX.Element
 {
-    const props: Required<TransitionProps> = {
+    const props: AllPropertiesMustPresent<TransitionProps> = {
         style, settings, children
     };
 

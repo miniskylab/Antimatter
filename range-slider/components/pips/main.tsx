@@ -1,4 +1,4 @@
-import {Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -17,7 +17,7 @@ export function Component({
     milestoneStep
 }: Props): JSX.Element
 {
-    const props: Required<Props> = {
+    const props: AllPropertiesMustPresent<Props> = {
         style, minValue, maxValue, step, startValue, endValue, milestoneStep
     };
 

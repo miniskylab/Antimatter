@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
@@ -15,7 +15,7 @@ export function Component({
     description
 }: Props): JSX.Element
 {
-    const props: Required<Props> = {
+    const props: AllPropertiesMustPresent<Props> = {
         style, icon, name, description
     };
 

@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
@@ -16,7 +16,7 @@ export function HighlightedParagraph({
     content
 }: HighlightedParagraphProps): JSX.Element
 {
-    const props: Required<HighlightedParagraphProps> = {
+    const props: AllPropertiesMustPresent<HighlightedParagraphProps> = {
         style, icon, title, content
     };
 

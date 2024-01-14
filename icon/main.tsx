@@ -1,5 +1,5 @@
 import {createIconSetFromIcoMoon} from "@expo/vector-icons";
-import {inheritTextStyleFrom, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, inheritTextStyleFrom, Style} from "@miniskylab/antimatter-framework";
 import {useIcomoon} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
@@ -14,9 +14,9 @@ export function Icon({
     name,
     selectable = true,
     pointerEvents = "auto"
-}: IconProps): JSX.Element
+}: IconProps): JSX.Element | null
 {
-    const props: Required<IconProps> = {
+    const props: AllPropertiesMustPresent<IconProps> = {
         style, name, selectable, pointerEvents
     };
 

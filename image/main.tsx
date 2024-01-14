@@ -1,4 +1,4 @@
-import {EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
 import React, {JSX} from "react";
 import {Animated} from "react-native";
 import {ImageProps} from "./models";
@@ -13,7 +13,7 @@ export function Image({
     alt = EMPTY_STRING
 }: ImageProps): JSX.Element
 {
-    const props: Required<ImageProps> = {
+    const props: AllPropertiesMustPresent<ImageProps> = {
         style, source, alt
     };
 

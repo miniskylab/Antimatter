@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import {Props} from "./models";
@@ -13,7 +13,7 @@ export function Component({
     onReadyToUnmount
 }: Props): JSX.Element
 {
-    const props: Required<Props> = {
+    const props: AllPropertiesMustPresent<Props> = {
         id, style, children, onReadyToUnmount
     };
 

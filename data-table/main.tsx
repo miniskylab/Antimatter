@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
@@ -31,7 +31,7 @@ export function DataTable({
     onCancel
 }: DataTableProps): JSX.Element
 {
-    const props: Required<DataTableProps> = {
+    const props: AllPropertiesMustPresent<DataTableProps> = {
         style, title, subtitle, columns, rows, selectedRow, mode, minRowCount, onChangeRow, onSwitchMode, onSelectRow, onAddNewRow,
         onSaveRow, onDeleteRow, onCancel
     };

@@ -1,5 +1,5 @@
 import {DownloadButton} from "@miniskylab/antimatter-download-button";
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {HighlightedParagraph} from "@miniskylab/antimatter-highlighted-paragraph";
 import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
@@ -25,7 +25,7 @@ export function SelfIntroductionHero({
     downloadButton
 }: SelfIntroductionHeroProps): JSX.Element
 {
-    const props: Required<SelfIntroductionHeroProps> = {
+    const props: AllPropertiesMustPresent<SelfIntroductionHeroProps> = {
         style, coverPhoto, avatar, name, alternativeName, emailTitle, emailAddress, locationTitle, location, description, downloadButton
     };
 

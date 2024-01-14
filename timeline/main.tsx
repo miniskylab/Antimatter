@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -16,7 +16,7 @@ export function Timeline({
     bootstrapEvent
 }: TimelineProps): JSX.Element
 {
-    const props: Required<TimelineProps> = {
+    const props: AllPropertiesMustPresent<TimelineProps> = {
         style, events, bootstrapEvent
     };
 

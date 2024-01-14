@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Card} from "./components";
@@ -13,7 +13,7 @@ export function TopicCardGroup({
     cards = []
 }: TopicCardGroupProps): JSX.Element
 {
-    const props: Required<TopicCardGroupProps> = {
+    const props: AllPropertiesMustPresent<TopicCardGroupProps> = {
         style, cards
     };
 

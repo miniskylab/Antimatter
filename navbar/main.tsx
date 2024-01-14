@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {NavButton} from "@miniskylab/antimatter-nav-button";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -13,7 +13,7 @@ export function Navbar({
     tabs = []
 }: NavbarProps): JSX.Element
 {
-    const props: Required<NavbarProps> = {
+    const props: AllPropertiesMustPresent<NavbarProps> = {
         style, tabs
     };
 

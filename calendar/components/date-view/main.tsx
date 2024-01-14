@@ -1,4 +1,4 @@
-import {GregorianCalendar, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, GregorianCalendar, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {View} from "@miniskylab/antimatter-view";
@@ -15,7 +15,7 @@ export function Component({
     onDatePress
 }: Props): JSX.Element
 {
-    const props: Required<Props> = {
+    const props: AllPropertiesMustPresent<Props> = {
         style, today, data, onDatePress
     };
 

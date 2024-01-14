@@ -1,4 +1,4 @@
-import {Environment, Html, inheritTextStyleFrom, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Environment, Html, inheritTextStyleFrom, Style} from "@miniskylab/antimatter-framework";
 import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
@@ -17,7 +17,7 @@ export function Label({
     pointerEvents = "auto"
 }: LabelProps): JSX.Element
 {
-    const props: Required<LabelProps> = {
+    const props: AllPropertiesMustPresent<LabelProps> = {
         style, children, selectable, numberOfLines, pointerEvents
     };
 

@@ -1,8 +1,8 @@
 import {ShadowStyleIOS, TextStyle} from "react-native";
 import {ComponentProps} from "./component-props";
 
-export type Styled<TProps extends ComponentProps<TProps["style"]>> = Required<Omit<TProps, "style">>;
 export type ShadowStyle = () => ShadowStyleIOS;
+export type Styled<TProps extends ComponentProps<TProps["style"]>> = Omit<TProps, "style">;
 
 export function inheritTextStyleFrom<TStyle extends TextStyle>(style: TStyle): TextStyle
 {

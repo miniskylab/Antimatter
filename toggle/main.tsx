@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
@@ -18,7 +18,7 @@ export function Toggle({
     onChange
 }: ToggleProps): JSX.Element
 {
-    const props: Required<ToggleProps> = {
+    const props: AllPropertiesMustPresent<ToggleProps> = {
         style, status, icon, onChange
     };
 

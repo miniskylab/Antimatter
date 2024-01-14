@@ -1,4 +1,4 @@
-import {EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
@@ -17,7 +17,7 @@ export function Button({
     onPress
 }: ButtonProps): JSX.Element
 {
-    const props: Required<ButtonProps> = {
+    const props: AllPropertiesMustPresent<ButtonProps> = {
         style, label, icon, disabled, onPress
     };
 

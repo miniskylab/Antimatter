@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {EMPTY_STRING, Environment, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Environment, Style} from "@miniskylab/antimatter-framework";
 import {NavigationContainerRefContext, NavigationContext, useNavigation} from "@react-navigation/native";
 import React, {JSX, useMemo} from "react";
 import {Target} from "./enums";
@@ -18,7 +18,7 @@ export function NavButton({
     disabled = false
 }: NavButtonProps): JSX.Element
 {
-    const props: Required<NavButtonProps> = {
+    const props: AllPropertiesMustPresent<NavButtonProps> = {
         style, destination, openIn, label, icon, disabled
     };
 

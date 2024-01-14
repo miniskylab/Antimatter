@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import React, {forwardRef, JSX, MutableRefObject, useMemo, useState} from "react";
 import ReactNative from "react-native";
 import {AnimatedPressable} from "./components";
@@ -18,7 +18,7 @@ export const Pressable = forwardRef(function Pressable(
     ref: MutableRefObject<Pressable>
 ): JSX.Element
 {
-    const props: Required<PressableProps> = {
+    const props: AllPropertiesMustPresent<PressableProps> = {
         style, children, disabled, onPress
     };
 

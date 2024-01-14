@@ -1,4 +1,4 @@
-import {EMPTY_STRING, inheritTextStyleFrom, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, inheritTextStyleFrom, Style} from "@miniskylab/antimatter-framework";
 import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject} from "react";
@@ -31,7 +31,7 @@ export const TextInput = forwardRef(function TextInput(
     ref: MutableRefObject<TextInput>
 ): JSX.Element
 {
-    const props: Required<TextInputProps> = {
+    const props: AllPropertiesMustPresent<TextInputProps> = {
         style, value, focusable, autoFocus, editable, secureTextEntry, contextMenuHidden, autoCorrect, maxLength, keyboardType, selection,
         onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
     };

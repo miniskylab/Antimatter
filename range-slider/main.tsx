@@ -1,4 +1,4 @@
-import {Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -21,7 +21,7 @@ export function RangeSlider({
     onChange
 }: RangeSliderProps): JSX.Element
 {
-    const props: Required<RangeSliderProps> = {
+    const props: AllPropertiesMustPresent<RangeSliderProps> = {
         style, minValue, maxValue, value, knobIcon, pipsSettings, disabled, onChange
     };
 

@@ -1,4 +1,4 @@
-import {Environment, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Environment, Style} from "@miniskylab/antimatter-framework";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useRef, WheelEvent} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ScrollViewProps} from "./models";
@@ -19,7 +19,7 @@ export const ScrollView = forwardRef(function ScrollView(
     ref: MutableRefObject<ScrollView>
 ): JSX.Element
 {
-    const props: Required<ScrollViewProps> = {
+    const props: AllPropertiesMustPresent<ScrollViewProps> = {
         style, children, horizontal, stickyHeaderIndices, showsVerticalScrollIndicator, showsHorizontalScrollIndicator
     };
 

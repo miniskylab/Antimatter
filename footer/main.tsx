@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import React, {JSX, useMemo} from "react";
 import {FooterContext, FooterProps} from "./models";
@@ -12,7 +12,7 @@ export function Footer({
     text
 }: FooterProps): JSX.Element
 {
-    const props: Required<FooterProps> = {
+    const props: AllPropertiesMustPresent<FooterProps> = {
         style, text
     };
 

@@ -1,4 +1,4 @@
-import {DateFormat, EMPTY_STRING, GregorianCalendar, Style, TimeUnit} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, DateFormat, EMPTY_STRING, GregorianCalendar, Style, TimeUnit} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
@@ -24,7 +24,7 @@ export function Component({
     minimumTimeUnit = TimeUnit.Month
 }: Props): JSX.Element
 {
-    const props: Required<Props> = {
+    const props: AllPropertiesMustPresent<Props> = {
         style, index, name, image, description, icon, startDate, endDate, isOnGoing, location, minimumTimeUnit
     };
 

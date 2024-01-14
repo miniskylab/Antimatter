@@ -1,4 +1,4 @@
-import {Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
 import {HighlightedParagraph} from "@miniskylab/antimatter-highlighted-paragraph";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
@@ -15,7 +15,7 @@ export function Heading({
     subtitle
 }: HeadingProps): JSX.Element
 {
-    const props: Required<HeadingProps> = {
+    const props: AllPropertiesMustPresent<HeadingProps> = {
         style, title, subtitle
     };
 
