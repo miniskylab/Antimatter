@@ -1,3 +1,6 @@
+/* Keyword "any" is allowed in this file and can be utilized to define new types. */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import {
     GestureResponderEvent,
     LayoutChangeEvent,
@@ -7,7 +10,9 @@ import {
     TextInputSelectionChangeEventData
 } from "react-native";
 
+export type Class = new (...args: any[]) => any;
 export type Modify<T, R> = Omit<T, keyof R> & R;
+export type Enum = Record<string, number | string>;
 export type Animated<T> = T & { animations?: (() => object)[]; }
 
 export type PointerEvents = "none" | "box-none" | "box-only" | "auto";

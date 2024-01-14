@@ -48,6 +48,6 @@ describe("how to use [isDefaultJavaScriptError(...)]", () =>
         expect(isDefaultJavaScriptError(new Error("This is an error message"))).toBe(true);
         expect(isDefaultJavaScriptError({})).toBe(false);
 
-        function throwError(message?: string) { throw Error(message); }
+        function throwError(message?: string) { throw new Error(message); }
     });
 });

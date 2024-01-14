@@ -1,9 +1,10 @@
 import {isDefined, registerDecorator, ValidationOptions} from "class-validator";
+import {Class} from "../../predefined";
 import {ErrorMessages} from "../error-messages";
 
 export function IsDefined(validationOptions?: Omit<ValidationOptions, "message">)
 {
-    return function (classContainingThisProperty: unknown, thisPropertyName: string): void
+    return function (classContainingThisProperty: Class, thisPropertyName: string): void
     {
         registerDecorator({
             name: "IsDefined",

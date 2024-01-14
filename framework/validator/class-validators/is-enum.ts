@@ -1,9 +1,10 @@
 import {isEnum, isString, registerDecorator, ValidationOptions} from "class-validator";
+import {Class, Enum} from "../../predefined";
 import {ErrorMessages} from "../error-messages";
 
-export function IsEnum(anyEnum: unknown, validationOptions?: Omit<ValidationOptions, "message">)
+export function IsEnum(anyEnum: Enum, validationOptions?: Omit<ValidationOptions, "message">)
 {
-    return function (classContainingThisProperty: unknown, thisPropertyName: string): void
+    return function (classContainingThisProperty: Class, thisPropertyName: string): void
     {
         registerDecorator({
             name: "IsEnum",

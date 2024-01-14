@@ -12,7 +12,7 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
     propsType: new () => TProps
 ): ComponentType<TProps>
 {
-    const validator: ComponentType<TProps> = (props: TProps): JSX.Element =>
+    const validator: ComponentType<TProps> = (props: TProps): JSX.Element | null =>
     {
         return validateProps(props) ? createElement(component, props) : null;
         function validateProps(props: TProps): boolean
@@ -59,11 +59,16 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
                     if (validationError.constraints)
                     {
                         const propertyName = hierarchicalPropertyName.split(".").pop();
+                        if (!propertyName)
+                        {
+                            throw new Error("'propertyName' variable is not expected to be empty string, null or undefined here");
+                        }
+
                         const propertyValue = (validationError.target as Record<string, unknown>)[propertyName];
-                        Object.keys(validationError.constraints).forEach(x =>
+                        for (const constraintId of Object.keys(validationError.constraints))
                         {
                             const tokens: string[] = [hierarchicalPropertyName];
-                            const targetPropertyNames = (validationError.contexts?.[x]?.["targetPropertyNames"] || []) as string[];
+                            const targetPropertyNames: string[] = (validationError.contexts?.[constraintId]?.["targetPropertyNames"] || []);
 
                             tokens.push(...targetPropertyNames, Ts.Object.getRepresentationString(propertyValue));
                             targetPropertyNames.forEach((x: string) =>
@@ -72,9 +77,9 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
                                 tokens.push(Ts.Object.getRepresentationString(targetPropertyValue));
                             });
 
-                            const errorMessageTemplate = validationError.constraints[x];
+                            const errorMessageTemplate = validationError.constraints[constraintId];
                             errorMessages.push(Ts.String.format(errorMessageTemplate, ...tokens));
-                        });
+                        }
                     }
 
                     if (validationError.children && validationError.children.length > 0)
