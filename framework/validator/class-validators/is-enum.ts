@@ -1,14 +1,14 @@
 import {isEnum, isString, registerDecorator, ValidationOptions} from "class-validator";
-import {Class, Enum} from "../../predefined";
+import {Enum} from "../../predefined";
 import {ErrorMessages} from "../error-messages";
 
 export function IsEnum(anyEnum: Enum, validationOptions?: Omit<ValidationOptions, "message">)
 {
-    return function (classContainingThisProperty: Class, thisPropertyName: string): void
+    return function (objectContainingThisProperty: object, thisPropertyName: string): void
     {
         registerDecorator({
             name: "IsEnum",
-            target: classContainingThisProperty.constructor,
+            target: objectContainingThisProperty.constructor,
             propertyName: thisPropertyName,
             options: validationOptions,
             validator: {
