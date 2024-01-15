@@ -267,7 +267,7 @@ export function getNextNumericInputFieldState(
 
 function endWithDotAndZeros(anyString: string): boolean
 {
-    if (Ts.Object.isNullOrUndefined(anyString))
+    if (Ts.Data.isNullOrUndefined(anyString))
     {
         return false;
     }

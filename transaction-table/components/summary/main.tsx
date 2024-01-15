@@ -43,7 +43,7 @@ export function Component({
                         <Label style={computedStyle.Amount}>{section2Value}</Label>
                     </View>
                 </SectionContext.Provider>
-                {!Ts.Object.isNullOrUndefined(progressBarValue) && (
+                {!Ts.Data.isNullOrUndefined(progressBarValue) && (
                     <RangeSlider
                         style={computedStyle.RangeSlider}
                         minValue={0}

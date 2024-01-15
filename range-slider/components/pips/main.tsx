@@ -89,7 +89,7 @@ export function Component({
 
     function isMilestonePip(pipIndex: number): boolean
     {
-        if (Ts.Object.isNullOrUndefined(milestoneStep))
+        if (Ts.Data.isNullOrUndefined(milestoneStep))
         {
             return false;
         }

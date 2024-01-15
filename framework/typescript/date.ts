@@ -1,4 +1,5 @@
-import {getRepresentationString, isNullOrUndefined} from "./object";
+import {isNullOrUndefined} from "./data";
+import {getRepresentationString} from "./object";
 
 export function deserialize(anySerializedDate: number | string | Date): Date
 {

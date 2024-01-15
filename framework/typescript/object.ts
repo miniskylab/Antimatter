@@ -1,8 +1,3 @@
-export function isNullOrUndefined(anyObject: unknown): boolean
-{
-    return anyObject === null || anyObject === undefined;
-}
-
 export function isEmpty(anyObject: unknown): boolean
 {
     return anyObject ? Object.keys(anyObject).length === 0 : false;
@@ -48,15 +43,4 @@ export function isNumericEnum(anyObject: Record<string, unknown>): boolean
     }
 
     return true;
-}
-
-export function isDefaultJavaScriptError(anyObject: unknown): boolean
-{
-    if (!anyObject || typeof anyObject !== "object")
-    {
-        return false;
-    }
-
-    const indexableObject = anyObject as Record<string, unknown>;
-    return typeof indexableObject.stack === "string" && typeof indexableObject.message === "string";
 }
