@@ -28,7 +28,7 @@ export function Component({
     return (
         <YearViewContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                {data?.map(yearInfo =>
+                {data.map(yearInfo =>
                 {
                     const outOfSupportedYearRange = yearInfo.value < GregorianCalendar.MIN_YEAR
                                                     ||
@@ -43,7 +43,7 @@ export function Component({
                                 style={computedStyle.GridCell}
                                 disabled={outOfSupportedYearRange}
                                 label={outOfSupportedYearRange ? EMPTY_STRING : yearInfo.value.toString()}
-                                onPress={outOfSupportedYearRange ? undefined : () => { onYearPress?.(yearInfo.value); }}
+                                onPress={outOfSupportedYearRange ? undefined : () => { onYearPress(yearInfo.value); }}
                             />
                         </YearContext.Provider>
                     );
