@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Environment, Html, inheritTextStyleFrom, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Environment, Html, inheritTextStyleFrom, Style, Ts} from "@miniskylab/antimatter-framework";
 import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
@@ -21,7 +21,9 @@ export function Label({
         style, children, selectable, numberOfLines, pointerEvents
     };
 
+    Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
+
     const isWebEnvironment = Environment.is("Web");
 
     return (

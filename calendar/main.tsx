@@ -50,14 +50,15 @@ export function Calendar({
         [...Object.values(props), ...Object.values(state)]
     );
 
+    Ts.Error.throwIfNullOrUndefined(style);
+    const computedStyle = Style.useComputedStyle(style, props, state);
+
     const calendarWidthRef = useRef<number>();
     const cacheRef = useRef<Cache>({
         dateViewData: new Map(),
         monthViewData: new Map(),
         yearViewData: new Map()
     });
-
-    const computedStyle = Style.useComputedStyle(style, props, state);
 
     return (
         <CalendarContext.Provider value={context}>

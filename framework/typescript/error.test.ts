@@ -1,4 +1,4 @@
-import {isDefaultJavaScriptError} from "./error";
+import {isDefaultJavaScriptError, throwIfNullOrUndefined} from "./error";
 
 describe("how to use [isDefaultJavaScriptError(...)]", () =>
 {
@@ -13,7 +13,7 @@ describe("how to use [isDefaultJavaScriptError(...)]", () =>
             try
             {
                 throwError(message);
-                function throwError(message?: string | null) { throw new Error(message); }
+                function throwError(message?: string | null) { throw new Error(message ?? ""); }
             }
             catch (error)
             {
@@ -24,5 +24,19 @@ describe("how to use [isDefaultJavaScriptError(...)]", () =>
         expect(isDefaultJavaScriptError(new Error())).toBe(true);
         expect(isDefaultJavaScriptError(new Error("This is an error message"))).toBe(true);
         expect(isDefaultJavaScriptError({})).toBe(false);
+    });
+});
+
+describe("how to use [throwIfNullOrUndefined(...)]", () =>
+{
+    it("throws an error if the given value is null or undefined", () =>
+    {
+        expect(() => throwIfNullOrUndefined(null)).toThrow();
+        expect(() => throwIfNullOrUndefined(undefined)).toThrow();
+
+        expect(() => throwIfNullOrUndefined(0)).not.toThrow();
+        expect(() => throwIfNullOrUndefined("")).not.toThrow();
+        expect(() => throwIfNullOrUndefined({})).not.toThrow();
+        expect(() => throwIfNullOrUndefined([])).not.toThrow();
     });
 });

@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {AllPropertiesMustPresent, EMPTY_STRING, GregorianCalendar, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, GregorianCalendar, Style, Ts} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Props, YearContext, YearViewContext} from "./models";
@@ -23,12 +23,13 @@ export function Component({
         [...Object.values(props)]
     );
 
+    Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
 
     return (
         <YearViewContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                {data.map(yearInfo =>
+                {data?.map(yearInfo =>
                 {
                     const outOfSupportedYearRange = yearInfo.value < GregorianCalendar.MIN_YEAR
                                                     ||
@@ -43,7 +44,7 @@ export function Component({
                                 style={computedStyle.GridCell}
                                 disabled={outOfSupportedYearRange}
                                 label={outOfSupportedYearRange ? EMPTY_STRING : yearInfo.value.toString()}
-                                onPress={outOfSupportedYearRange ? undefined : () => { onYearPress(yearInfo.value); }}
+                                onPress={outOfSupportedYearRange ? undefined : () => { onYearPress?.(yearInfo.value); }}
                             />
                         </YearContext.Provider>
                     );

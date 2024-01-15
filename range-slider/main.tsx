@@ -30,9 +30,10 @@ export function RangeSlider({
         [...Object.values(props)]
     );
 
-    const freeZoneWidthRef = useRef<number>(undefined);
-
+    Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
+
+    const freeZoneWidthRef = useRef<number>(0);
 
     return (
         <RangeSliderContext.Provider value={context}>

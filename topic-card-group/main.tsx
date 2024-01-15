@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Card} from "./components";
@@ -22,6 +22,7 @@ export function TopicCardGroup({
         [...Object.values(props)]
     );
 
+    Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
 
     return (

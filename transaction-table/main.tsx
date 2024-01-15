@@ -47,7 +47,9 @@ export function TransactionTable({
         [...Object.values(props), ...Object.values(state)]
     );
 
+    Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props, state);
+
     const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = Environment.useBreakpoint("Large");
 
     return (

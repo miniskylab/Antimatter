@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
@@ -28,6 +28,7 @@ export function Component({
         [...Object.values(props)]
     );
 
+    Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
 
     return (

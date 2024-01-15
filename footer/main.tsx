@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import React, {JSX, useMemo} from "react";
 import {FooterContext, FooterProps} from "./models";
@@ -21,6 +21,7 @@ export function Footer({
         [...Object.values(props)]
     );
 
+    Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
 
     return (

@@ -41,9 +41,10 @@ export function DataTable({
         [...Object.values(props)]
     );
 
-    const scrollViewRef = useRef<ScrollView>(null);
+    Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
 
+    const scrollViewRef = useRef<ScrollView>(null);
     const headerData = columns?.map(x => x.name).filter(x => !!x);
 
     return (

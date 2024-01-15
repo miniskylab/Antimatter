@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
@@ -27,6 +27,7 @@ export function Toggle({
         [...Object.values(props)]
     );
 
+    Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
 
     return (

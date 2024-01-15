@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {AllPropertiesMustPresent, EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Style, Ts} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
@@ -33,6 +33,7 @@ export function DropdownMenu({
         [...Object.values(props)]
     );
 
+    Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
 
     const selectedValues = Object.keys(menuItems).filter(x => menuItems[x].status === MenuItemStatus.Selected);
