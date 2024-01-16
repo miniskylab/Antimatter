@@ -18,7 +18,7 @@ export const Decorator = new class
 
 export function ComponentName(componentName: string)
 {
-    return (constructor: unknown): void =>
+    return (constructor: object): void =>
     {
         Reflect.defineMetadata(Decorator.getMetadataKey(ComponentName.name), componentName, constructor);
     };

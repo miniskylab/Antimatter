@@ -2,9 +2,9 @@ import {EMPTY_STRING} from "../predefined";
 
 export function clamp(value: number, min?: number, max?: number): number
 {
-    if (min > max)
+    if (min !== null && min !== undefined && max !== null && max !== undefined && min > max)
     {
-        throw new Error("Invalid arguments: [min] cannot be greater than [max]");
+        throw new Error("Invalid arguments: 'min' cannot be greater than 'max'");
     }
 
     if (value === undefined || value === null || isNaN(value))
@@ -25,9 +25,9 @@ export function clamp(value: number, min?: number, max?: number): number
     return value;
 }
 
-export function round(anyNumber: number, fractionDigits?: number): number
+export function round(anyNumber: number, fractionDigitCount: number = 0): number
 {
-    const coefficient = Math.pow(10, fractionDigits);
+    const coefficient = Math.pow(10, fractionDigitCount);
     return Math.round((anyNumber + Number.EPSILON) * coefficient) / coefficient;
 }
 

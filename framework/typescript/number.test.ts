@@ -11,7 +11,7 @@ describe("how to use [clamp(...)]", () =>
             const max = -1;
 
             expect(() => { clamp(value, min, max); }).toThrow(Error);
-            expect(() => { clamp(value, min, max); }).toThrow("Invalid arguments: [min] cannot be greater than [max]");
+            expect(() => { clamp(value, min, max); }).toThrow("Invalid arguments: 'min' cannot be greater than 'max'");
         });
     });
 

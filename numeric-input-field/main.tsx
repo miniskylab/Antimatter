@@ -19,7 +19,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
         autoFocus = false,
         maximumDigitCount = MAX,
         placeholder = EMPTY_STRING,
-        maximumFractionDigits = 20,
+        maximumFractionDigitCount = 20,
         treatEmptyInputAsZero = false,
         keyboardType = "numbers-and-punctuation",
         showPlusSymbolForPositiveNumber = false,
@@ -33,8 +33,8 @@ export const NumericInputField = forwardRef(function NumericInputField(
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<NumericInputFieldProps> = {
-        style, defaultValue, minValue, maxValue, maximumFractionDigits, maximumDigitCount, placeholder, autoFocus, treatEmptyInputAsZero,
-        keyboardType, showPlusSymbolForPositiveNumber, selectAllOnFocus, onChange, onBlur, onFocus, onKeyPress
+        style, defaultValue, minValue, maxValue, maximumFractionDigitCount, maximumDigitCount, placeholder, autoFocus,
+        treatEmptyInputAsZero, keyboardType, showPlusSymbolForPositiveNumber, selectAllOnFocus, onChange, onBlur, onFocus, onKeyPress
     };
 
     const [state, setState] = useState<NumericInputFieldState>({
@@ -63,7 +63,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
             treatEmptyInputAsZero,
             minValue,
             maxValue,
-            maximumFractionDigits,
+            maximumFractionDigitCount,
             maximumDigitCount
         );
 
@@ -72,7 +72,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
             selection: nextSelection,
             userInput: nextUserInput
         }));
-    }, [showPlusSymbolForPositiveNumber, treatEmptyInputAsZero, minValue, maxValue, maximumFractionDigits, maximumDigitCount]);
+    }, [showPlusSymbolForPositiveNumber, treatEmptyInputAsZero, minValue, maxValue, maximumFractionDigitCount, maximumDigitCount]);
 
     validateAndThrow();
     return (
@@ -107,7 +107,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
             treatEmptyInputAsZero,
             minValue,
             maxValue,
-            maximumFractionDigits,
+            maximumFractionDigitCount,
             maximumDigitCount
         );
 
@@ -186,7 +186,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
             treatEmptyInputAsZero,
             minValue,
             maxValue,
-            maximumFractionDigits,
+            maximumFractionDigitCount,
             maximumDigitCount
         );
 
@@ -252,7 +252,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
                 treatEmptyInputAsZero,
                 minValue,
                 maxValue,
-                maximumFractionDigits,
+                maximumFractionDigitCount,
                 maximumDigitCount
             ));
         }

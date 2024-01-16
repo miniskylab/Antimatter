@@ -12,7 +12,7 @@ export function getNextNumericInputFieldState(
     treatEmptyInputAsZero = false,
     minValue = MIN,
     maxValue = MAX,
-    maximumFractionDigits = 20,
+    maximumFractionDigitCount = 20,
     maximumDigitCount = MAX
 ): {
     nextValue: number;
@@ -23,7 +23,7 @@ export function getNextNumericInputFieldState(
     if (lastEvent === "SyncEvent")
     {
         const {numericValue: nextValue, formattedUserInput: nextUserInput} = reformatAndExtractNumericValueFrom(currentUserInput);
-        if (getDigitCountOf(`${nextValue}`) > maximumDigitCount || getFractionDigitCountOf(`${nextValue}`) > maximumFractionDigits)
+        if (getDigitCountOf(`${nextValue}`) > maximumDigitCount || getFractionDigitCountOf(`${nextValue}`) > maximumFractionDigitCount)
         {
             throw new Error("Cannot Sync invalid value");
         }
@@ -58,8 +58,8 @@ export function getNextNumericInputFieldState(
         const newDotCount = keypressEvent.newUserInput.split(".").length - 1;
 
         if (
-            (getFractionDigitCountOf(keypressEvent.newUserInput) > maximumFractionDigits) ||
-            (maximumFractionDigits === 0 && keypressEvent.keypress === Keypress.Dot) ||
+            (getFractionDigitCountOf(keypressEvent.newUserInput) > maximumFractionDigitCount) ||
+            (maximumFractionDigitCount === 0 && keypressEvent.keypress === Keypress.Dot) ||
             (getDigitCountOf(keypressEvent.newUserInput) > maximumDigitCount) ||
             (minValue >= 0 && keypressEvent.keypress === Keypress.Minus) ||
             (keypressEvent.keypress === Keypress.NotSupported) ||
@@ -237,8 +237,8 @@ export function getNextNumericInputFieldState(
 
         const showPlusSymbol = numericValue >= 0 && showPlusSymbolForPositiveNumber;
         let formattedUserInput = showPlusSymbol
-            ? `+${numericValue.toLocaleString("en-us", {maximumFractionDigits})}`
-            : numericValue.toLocaleString("en-us", {maximumFractionDigits});
+            ? `+${numericValue.toLocaleString("en-us", {maximumFractionDigits: maximumFractionDigitCount})}`
+            : numericValue.toLocaleString("en-us", {maximumFractionDigits: maximumFractionDigitCount});
 
         if (endWithDotAndZeros(anyString))
         {

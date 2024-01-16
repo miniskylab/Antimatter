@@ -134,7 +134,7 @@ export function Component({
                     selectAllOnFocus={true}
                     treatEmptyInputAsZero={true}
                     showPlusSymbolForPositiveNumber={explicitPlusSymbol}
-                    maximumFractionDigits={0}
+                    maximumFractionDigitCount={0}
                     maximumDigitCount={9}
                     defaultValue={amount}
                     keyboardType={"number-pad"}

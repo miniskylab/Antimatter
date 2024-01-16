@@ -62,7 +62,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
     @IsPositive()
     @IsInteger()
     @IsOptional()
-    readonly maximumFractionDigits?: number;
+    readonly maximumFractionDigitCount?: number;
 
 
     /**

@@ -4694,7 +4694,7 @@ describe("only 1 dot (.) symbol is allowed", () =>
     });
 });
 
-describe("minus (-) symbol is not allowed when 'minValue' is greater than or equals to 0", () =>
+describe("minus (-) symbol is not allowed when 'minValue' is greater than or equal to 0", () =>
 {
     it("ignores minus (-) symbol when not explicitly showing plus (+) symbol", () =>
     {
@@ -4800,7 +4800,7 @@ describe("minus (-) symbol is not allowed when 'minValue' is greater than or equ
     });
 });
 
-describe("dot (.) symbol is not allowed when 'maximumFractionDigits' equals to 0", () =>
+describe("dot (.) symbol is not allowed when 'maximumFractionDigitCount' is equal to 0", () =>
 {
     it("ignores dot (.) symbol when not explicitly showing plus (+) symbol", () =>
     {
@@ -5400,7 +5400,7 @@ test("cannot enter number greater than 'maxValue'", () =>
     });
 });
 
-test("the number of fraction digits cannot be greater than 'maximumFractionDigits'", () =>
+test("the number of fraction digits cannot be greater than 'maximumFractionDigitCount'", () =>
 {
     expect(getNextNumericInputFieldState(
         "1,234.56",

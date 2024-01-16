@@ -34,9 +34,11 @@ describe("how to use [throwIfNullOrUndefined(...)]", () =>
         expect(() => throwIfNullOrUndefined(null)).toThrow();
         expect(() => throwIfNullOrUndefined(undefined)).toThrow();
 
+        expect(() => throwIfNullOrUndefined(NaN)).not.toThrow();
         expect(() => throwIfNullOrUndefined(0)).not.toThrow();
+        expect(() => throwIfNullOrUndefined(-0)).not.toThrow();
+        expect(() => throwIfNullOrUndefined(0n)).not.toThrow();
         expect(() => throwIfNullOrUndefined("")).not.toThrow();
-        expect(() => throwIfNullOrUndefined({})).not.toThrow();
-        expect(() => throwIfNullOrUndefined([])).not.toThrow();
+        expect(() => throwIfNullOrUndefined(false)).not.toThrow();
     });
 });

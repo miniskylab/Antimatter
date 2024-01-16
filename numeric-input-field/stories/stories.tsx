@@ -65,7 +65,7 @@ export const Playground: Story = {
         showPlusSymbolForPositiveNumber: false,
         minValue: MIN,
         maxValue: MAX,
-        maximumFractionDigits: 20,
+        maximumFractionDigitCount: 20,
         maximumDigitCount: MAX
     }
 };
@@ -119,6 +119,6 @@ export const FractionDigitCount: Story = {
     args: {
         style: Variant.FixedWidth,
         placeholder: "Ex: 0.12345",
-        maximumFractionDigits: 5
+        maximumFractionDigitCount: 5
     }
 };
