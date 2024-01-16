@@ -3,11 +3,11 @@ import {useRef} from "react";
 export function useNewKeyIfAnyOfTheseChanges(dependencies: unknown[]): number
 {
     const ref = useRef<{
-        key?: number;
-        dependencies?: unknown[];
+        key: number;
+        dependencies: unknown[];
     }>({
-        dependencies: [],
-        key: undefined
+        key: 0,
+        dependencies: []
     });
 
     let nextKey = ref.current.key;

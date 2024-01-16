@@ -41,12 +41,12 @@ export const GregorianCalendar = new class
 
     isValidDay(day: number, month: number, year: number): boolean
     {
-        if (!this.isValidYear(year)) return false;
-        if (!this.isValidMonth(month)) return false;
-        const maxDay = new Date(year, month + 1, 0).getDate();
         if (!day) return false;
         if (isNaN(day)) return false;
+        if (!this.isValidMonth(month)) return false;
+        if (!this.isValidYear(year)) return false;
 
+        const maxDay = new Date(year, month + 1, 0).getDate();
         return (this.MIN_DAY <= day && day <= maxDay);
     }
 
@@ -80,7 +80,11 @@ export const GregorianCalendar = new class
 
     getFullMonthName(month: number): string
     {
-        if (!this.isValidMonth(month)) return;
+        if (!this.isValidMonth(month))
+        {
+            throw new Error(`Expected a valid month but got: ${month}`);
+        }
+
         const fullNameOfMonths = [
             "January",
             "February",
@@ -101,7 +105,11 @@ export const GregorianCalendar = new class
 
     getShortMonthName(month: number): string
     {
-        if (!this.isValidMonth(month)) return;
+        if (!this.isValidMonth(month))
+        {
+            throw new Error(`Expected a valid month but got: ${month}`);
+        }
+
         const shortNameOfMonths = [
             "Jan",
             "Feb",
@@ -122,7 +130,11 @@ export const GregorianCalendar = new class
 
     getDecade(year: number = new Date().getFullYear()): Decade
     {
-        if (!this.isValidYear(year)) return undefined;
+        if (!this.isValidYear(year))
+        {
+            throw new Error(`Expected a valid year but got: ${year}`);
+        }
+
         let decadeFirstYear = year;
         while (decadeFirstYear % this.YEAR_COUNT_IN_DECADE !== 0) decadeFirstYear--;
 
@@ -146,29 +158,10 @@ export const GregorianCalendar = new class
             endDate?.setMonth(11);
         }
 
-        const millisecondCountInDay = 86400000;
-        let dayCount = (endDate.getTime() - startDate.getTime()) / millisecondCountInDay;
-
         const dayCountInNonLeapYear = 365;
         const dayCountInAstronomicalYear = 365.25;
-        const hasFebruary29 = (dayCount: number): boolean =>
-        {
-            const dayCountIn4ConsecutiveYears = 1461;
-            if (dayCount >= dayCountIn4ConsecutiveYears) return true;
-
-            let leapYear: number;
-            for (let year = startDate.getFullYear(); year <= endDate.getFullYear(); year++)
-            {
-                if (this.isLeapYear(year))
-                {
-                    leapYear = year;
-                    break;
-                }
-            }
-
-            return startDate.getTime() <= new Date(leapYear, 1, 29).getTime();
-        };
-        const dayCountInYear = hasFebruary29(dayCount) ? dayCountInAstronomicalYear : dayCountInNonLeapYear;
+        const dayCountInYear = this.hasFebruary29th(startDate, endDate) ? dayCountInAstronomicalYear : dayCountInNonLeapYear;
+        let dayCount = this.getDayCount(startDate, endDate);
         let yearCount = Math.trunc(dayCount / dayCountInYear);
 
         dayCount %= dayCountInYear;
@@ -188,14 +181,10 @@ export const GregorianCalendar = new class
             monthCount = 0;
         }
 
-        const tokenize = (unitCount: number, timeUnit: TimeUnit): string =>
-            unitCount > 0
-                ? `${unitCount} ${TimeUnit[timeUnit]}${unitCount > 1 ? "s" : EMPTY_STRING}`
-                : EMPTY_STRING;
         const tokens: string[] = [];
-        if (yearCount > 0) tokens.push(tokenize(yearCount, TimeUnit.Year));
-        if (monthCount > 0) tokens.push(tokenize(monthCount, TimeUnit.Month));
-        if (dayCount > 0) tokens.push(tokenize(dayCount, TimeUnit.Day));
+        if (yearCount > 0) tokens.push(this.tokenize(yearCount, TimeUnit.Year));
+        if (monthCount > 0) tokens.push(this.tokenize(monthCount, TimeUnit.Month));
+        if (dayCount > 0) tokens.push(this.tokenize(dayCount, TimeUnit.Day));
 
         return tokens.join(", ");
     }
@@ -225,5 +214,38 @@ export const GregorianCalendar = new class
                     year: "numeric"
                 });
         }
+    }
+
+    private tokenize(unitCount: number, timeUnit: TimeUnit): string
+    {
+        return unitCount > 0
+            ? `${unitCount} ${TimeUnit[timeUnit]}${unitCount > 1 ? "s" : EMPTY_STRING}`
+            : EMPTY_STRING;
+    }
+
+    private hasFebruary29th(startDate: Date, endDate: Date): boolean
+    {
+        const dayCountIn4ConsecutiveYears = 1461;
+        if (this.getDayCount(startDate, endDate) >= dayCountIn4ConsecutiveYears)
+        {
+            return true;
+        }
+
+        for (let year = startDate.getFullYear(); year <= endDate.getFullYear(); year++)
+        {
+            if (this.isLeapYear(year))
+            {
+                const february29th = new Date(year, 1, 29).getTime();
+                return startDate.getTime() <= february29th && february29th <= endDate.getTime();
+            }
+        }
+
+        return false;
+    }
+
+    private getDayCount(startDate: Date, endDate: Date): number
+    {
+        const millisecondCountInDay = 86400000;
+        return (endDate.getTime() - startDate.getTime()) / millisecondCountInDay;
     }
 };

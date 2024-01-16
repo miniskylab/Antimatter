@@ -53,7 +53,7 @@ export function Label({
                     ...isWebEnvironment && numberOfLines !== 1 && {whiteSpace: "inherit"}
                 }}
             >
-                {isWebEnvironment ? Html.render(children) : children}
+                {children && (isWebEnvironment ? Html.render(children) : children)}
             </Animated.Text>
         </View>
     );

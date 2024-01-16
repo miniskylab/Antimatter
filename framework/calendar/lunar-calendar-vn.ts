@@ -25,12 +25,16 @@ export const LunarCalendarVn = new class
         return [yy, mm, dd, ly[i][4]];
     }
 
-    getGregorianDate(year: number, month: number, day: number, isLeapMonth = false): Date
+    getGregorianDate(year: number, month: number, day: number, isLeapMonth = false): Date | null
     {
         let yy = year;
-        if (month >= 11) yy = year + 1;
+        if (month >= 11)
+        {
+            yy = year + 1;
+        }
+
         const lunarYear = this.getLunarYear(yy);
-        let lunarMonth: number[] = null;
+        let lunarMonth: number[] | null = null;
         for (const lm of lunarYear)
         {
             if (lm[3] === month && !!lm[4] === isLeapMonth)
@@ -42,12 +46,15 @@ export const LunarCalendarVn = new class
 
         if (lunarMonth !== null)
         {
-            const jd = this.getJulianDayCount(new Date(lunarMonth[2], lunarMonth[1], lunarMonth[0]), 7);
-            const result = this.getDate(jd + day);
-            const ld = this.getLunarDate(result);
-            if (ld[0] !== year || ld[1] !== month || ld[2] !== day || !!ld[3] !== isLeapMonth) return null;
+            const julianDayCount = this.getJulianDayCount(new Date(lunarMonth[2], lunarMonth[1], lunarMonth[0]), 7);
+            const gregorianDate = this.getDate(julianDayCount + day);
+            const lunarDate = this.getLunarDate(gregorianDate);
+            if (lunarDate[0] !== year || lunarDate[1] !== month || lunarDate[2] !== day || !!lunarDate[3] !== isLeapMonth)
+            {
+                return null;
+            }
 
-            return result;
+            return gregorianDate;
         }
         else
         {

@@ -36,7 +36,7 @@ export function extractQueryParameter(url: string): Record<string, string>
 
     const queryParameter: Record<string, string> = {};
     const keyValuePairs = url.match(queryParameterRegex);
-    keyValuePairs.forEach(keyValuePair =>
+    keyValuePairs?.forEach(keyValuePair =>
     {
         const [key, value] = keyValuePair
             .replace("?", EMPTY_STRING)

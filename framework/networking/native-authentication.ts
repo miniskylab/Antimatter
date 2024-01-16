@@ -16,7 +16,7 @@ export class NativeAuthentication
 
     private readonly issuer: string;
     private readonly clientId: string;
-    private tokenRefreshTask: Promise<void>;
+    private tokenRefreshTask: Promise<void> | undefined;
 
     constructor(issuer: string, clientId: string)
     {
@@ -152,6 +152,8 @@ export class NativeAuthentication
         }
 
         const aesSecret = await ExpoSecureStore.getItemAsync(this.AES_SECRET_STORAGE_KEY);
+        Ts.Error.throwIfNullOrUndefined(aesSecret);
+
         return JSON.parse(CryptoJS.AES.decrypt(encryptedValue, aesSecret).toString(CryptoJS.enc.Utf8));
     }
 
@@ -197,9 +199,9 @@ export class NativeAuthentication
 }
 
 type Token = {
-    readonly idToken: string;
-    readonly accessToken: string;
-    readonly refreshToken: string;
+    readonly idToken: string | undefined;
+    readonly accessToken: string | undefined;
+    readonly refreshToken: string | undefined;
 };
 
 type Ref = {
