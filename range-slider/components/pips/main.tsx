@@ -12,8 +12,8 @@ export function Component({
     minValue,
     maxValue,
     step,
-    startValue,
-    endValue,
+    startValue = NaN,
+    endValue = NaN,
     milestoneStep
 }: Props): JSX.Element
 {
@@ -91,7 +91,7 @@ export function Component({
 
     function isMilestonePip(pipIndex: number): boolean
     {
-        if (Ts.Data.isNullOrUndefined(milestoneStep))
+        if (milestoneStep === null || milestoneStep === undefined)
         {
             return false;
         }

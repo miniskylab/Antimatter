@@ -1,8 +1,8 @@
 import {Context, useContext} from "react";
-import {Undefinable} from "../predefined";
+import {CanBeUndefined} from "../predefined";
 import {Error} from "../typescript";
 
-export type ComponentContext<P = undefined, S = undefined> = Undefinable<
+export type ComponentContext<P = undefined, S = undefined> = CanBeUndefined<
     P extends undefined
         ? S extends undefined
             ? undefined

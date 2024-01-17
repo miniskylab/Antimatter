@@ -177,9 +177,9 @@ export function DataTable({
             const rowId = rowIds[rowIndex];
             const rowMode = getRowMode(rowId);
             const rowData = rowMode === Row.Mode.Edit || rowMode === Row.Mode.Draft
-                ? selectedRow.data
+                ? selectedRow?.data
                 : rowId
-                    ? rows[rowId]
+                    ? rows?.[rowId]
                     : [];
 
             const canSelect = !isEmptyRow(rowId) && mode === Row.Mode.ReadOnly;

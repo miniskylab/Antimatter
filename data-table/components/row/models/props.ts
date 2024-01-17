@@ -3,7 +3,7 @@ import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {View} from "@miniskylab/antimatter-view";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {MutableRefObject} from "react";
+import {RefObject} from "react";
 import {Mode} from "../enums";
 import {Column, Data} from "../types";
 import {Style} from "./style";
@@ -14,7 +14,7 @@ export class Props extends ComponentProps<Style>
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly containerRef?: MutableRefObject<View | ScrollView>;
+    readonly containerRef?: RefObject<View | ScrollView>;
 
 
     /**

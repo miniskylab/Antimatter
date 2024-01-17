@@ -7,4 +7,4 @@ export const DropdownMenuContext = createContext<DropdownMenuContext>(undefined)
 export type DropdownMenuContext = ComponentContext<DropdownMenuProps>;
 
 export const MenuItemContext = createContext<MenuItemContext>(undefined);
-export type MenuItemContext = MenuItem;
+export type MenuItemContext = MenuItem | undefined;

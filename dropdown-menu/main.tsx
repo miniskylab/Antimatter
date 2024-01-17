@@ -96,7 +96,7 @@ export function DropdownMenu({
                     <Button
                         style={computedStyle.MenuItem}
                         label={menuItem.displayText || menuItemKey}
-                        icon={menuItem.status === MenuItemStatus.Selected && DefaultIconSet.CheckMark}
+                        icon={menuItem.status === MenuItemStatus.Selected ? DefaultIconSet.CheckMark : undefined}
                         disabled={menuItem.status !== MenuItemStatus.Selected && menuItem.status !== undefined}
                         onPress={() => { onMenuItemPress?.(menuItemKey); }}
                     />

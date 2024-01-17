@@ -26,11 +26,8 @@ export const ScrollView = forwardRef(function ScrollView(
     Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
 
+    ref = ref ?? useRef<ScrollView>();
     const runningOnDesktopWeb = Environment.use("DesktopWeb");
-    if (!ref)
-    {
-        ref = useRef<ScrollView>();
-    }
 
     useEffect(() =>
     {

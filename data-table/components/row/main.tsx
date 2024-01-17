@@ -78,7 +78,7 @@ export function Component({
                 </ColumnIndexContext.Provider>
             );
 
-            function renderEditor(): JSX.Element
+            function renderEditor(): JSX.Element | null
             {
                 switch (typeof cellValue)
                 {
@@ -130,7 +130,7 @@ export function Component({
                                         openedDropdownMenuColumnIndex: undefined
                                     }));
 
-                                    onChange(data.map((oldCellValue, i) => i === columnIndex ? newCellValue : oldCellValue));
+                                    onChange?.(data.map((oldCellValue, i) => i === columnIndex ? newCellValue : oldCellValue));
                                 }}
                             />
                         );
@@ -142,15 +142,11 @@ export function Component({
                             <Toggle
                                 style={computedStyle.CellToggle}
                                 icon={DefaultIconSet.CheckMark}
-                                status={
-                                    typeof cellValue === "boolean" && cellValue === true
-                                        ? CheckboxStatus.Checked
-                                        : CheckboxStatus.Unchecked
-                                }
+                                status={cellValue ? CheckboxStatus.Checked : CheckboxStatus.Unchecked}
                                 onChange={newStatus =>
                                 {
                                     const newValue = newStatus === CheckboxStatus.Checked;
-                                    onChange(data.map((oldCellValue, i) => i === columnIndex ? newValue : oldCellValue));
+                                    onChange?.(data.map((oldCellValue, i) => i === columnIndex ? newValue : oldCellValue));
                                 }}
                             />
                         );
@@ -166,15 +162,18 @@ export function Component({
                                 style={computedStyle.CellInputField}
                                 onChangeText={newValue =>
                                 {
-                                    onChange(data.map((oldCellValue, i) => i === columnIndex ? newValue : oldCellValue));
+                                    onChange?.(data.map((oldCellValue, i) => i === columnIndex ? newValue : oldCellValue));
                                 }}
                             />
                         );
                     }
+
+                    default:
+                        return null;
                 }
             }
 
-            function renderValue(): JSX.Element
+            function renderValue(): JSX.Element | null
             {
                 switch (typeof cellValue)
                 {
@@ -183,13 +182,20 @@ export function Component({
                         const selectedMenuItemValue = Object.keys(cellValue)
                             .find(menuItemValue => cellValue[menuItemValue].status === MenuItemStatus.Selected);
 
-                        const labelText = cellValue[selectedMenuItemValue]?.displayText || selectedMenuItemValue;
-                        return (<Label style={computedStyle.CellLabel} numberOfLines={1}>{labelText}</Label>);
+                        return (
+                            <Label style={computedStyle.CellLabel} numberOfLines={1}>
+                                {
+                                    selectedMenuItemValue !== null && selectedMenuItemValue !== undefined
+                                        ? cellValue[selectedMenuItemValue].displayText
+                                        : selectedMenuItemValue
+                                }
+                            </Label>
+                        );
                     }
 
                     case "boolean":
                     {
-                        return cellValue === true
+                        return cellValue
                             ? <Icon style={computedStyle.CellIcon} name={DefaultIconSet.CheckMark}/>
                             : <Label style={computedStyle.CellLabel}>{EMPTY_STRING}</Label>;
                     }
@@ -198,6 +204,9 @@ export function Component({
                     {
                         return (<Label style={computedStyle.CellLabel} numberOfLines={1}>{cellValue}</Label>);
                     }
+
+                    default:
+                        return null;
                 }
             }
         }
@@ -209,12 +218,12 @@ export function Component({
     {
         return new Promise(resolve =>
         {
-            if (!containerRef.current)
+            if (!containerRef?.current)
             {
                 resolve(DropDirection.Down);
             }
 
-            const container = containerRef.current as View;
+            const container = containerRef?.current as View;
             let containerMeasurement: Measurement;
             let rowMeasurement: Measurement;
 
@@ -224,7 +233,7 @@ export function Component({
                 tryResolvePromise();
             });
 
-            ref.current.measure((x, y, width, height, pageX, pageY) =>
+            ref.current?.measure((x, y, width, height, pageX, pageY) =>
             {
                 rowMeasurement = {x, y, width, height, pageX, pageY};
                 tryResolvePromise();
