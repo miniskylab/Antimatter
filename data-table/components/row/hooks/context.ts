@@ -1,6 +1,6 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {ColumnIndexContext, RowContext} from "../models";
 
-export function useRowContext(): RowContext { return useContext(RowContext); }
+export function useRowContext(): NonNullable<RowContext> { return useContextOrThrow(RowContext); }
 
-export function useColumnIndexContext(): ColumnIndexContext { return useContext(ColumnIndexContext); }
+export function useColumnIndexContext(): NonNullable<ColumnIndexContext> { return useContextOrThrow(ColumnIndexContext); }

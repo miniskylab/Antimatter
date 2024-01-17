@@ -3,7 +3,7 @@ import {createContext} from "react";
 import {MenuItem} from "../types";
 import {DropdownMenuProps} from "./props";
 
-export const DropdownMenuContext = createContext<DropdownMenuContext>({});
+export const DropdownMenuContext = createContext<DropdownMenuContext>(undefined);
 export type DropdownMenuContext = ComponentContext<DropdownMenuProps>;
 
 export const MenuItemContext = createContext<MenuItemContext>(undefined);

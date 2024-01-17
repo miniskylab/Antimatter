@@ -3,7 +3,7 @@ import {createContext} from "react";
 import {Props} from "./props";
 import {State} from "./state";
 
-export const RowContext = createContext<RowContext>({});
+export const RowContext = createContext<RowContext>(undefined);
 export type RowContext = ComponentContext<Props, State>;
 
 export const ColumnIndexContext = createContext<ColumnIndexContext>(undefined);

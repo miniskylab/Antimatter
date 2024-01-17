@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {TimelineContext} from "../models";
 
-export function useTimelineContext(): TimelineContext { return useContext(TimelineContext); }
+export function useTimelineContext(): NonNullable<TimelineContext> { return useContextOrThrow(TimelineContext); }

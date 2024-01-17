@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {BootstrapEventContext} from "../models";
 
-export function useBootstrapEventContext(): BootstrapEventContext { return useContext(BootstrapEventContext); }
+export function useBootstrapEventContext(): NonNullable<BootstrapEventContext> { return useContextOrThrow(BootstrapEventContext); }

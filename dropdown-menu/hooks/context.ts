@@ -1,6 +1,6 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {DropdownMenuContext, MenuItemContext} from "../models";
 
-export function useDropdownMenuContext(): DropdownMenuContext { return useContext(DropdownMenuContext); }
+export function useDropdownMenuContext(): NonNullable<DropdownMenuContext> { return useContextOrThrow(DropdownMenuContext); }
 
-export function useMenuItemContext(): MenuItemContext { return useContext(MenuItemContext); }
+export function useMenuItemContext(): NonNullable<MenuItemContext> { return useContextOrThrow(MenuItemContext); }

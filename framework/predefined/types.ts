@@ -7,6 +7,7 @@ import {
     TextInputSelectionChangeEventData
 } from "react-native";
 
+export type Undefinable<T> = T | undefined;
 export type Modify<T, R> = Omit<T, keyof R> & R;
 export type Enum = Record<string, number | string>;
 export type Animated<T> = T & { animations?: (() => object)[]; };

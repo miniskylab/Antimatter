@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {DatePickerContext} from "../models";
 
-export function useDatePickerContext(): DatePickerContext { return useContext(DatePickerContext); }
+export function useDatePickerContext(): NonNullable<DatePickerContext> { return useContextOrThrow(DatePickerContext); }

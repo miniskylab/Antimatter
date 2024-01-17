@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {CardContext} from "../models";
 
-export function useCardContext(): CardContext { return useContext(CardContext); }
+export function useCardContext(): NonNullable<CardContext> { return useContextOrThrow(CardContext); }

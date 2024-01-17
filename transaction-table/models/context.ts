@@ -4,7 +4,7 @@ import {ControlButtonType} from "../types";
 import {TransactionTableProps} from "./props";
 import {TransactionTableState} from "./state";
 
-export const TransactionTableContext = createContext<TransactionTableContext>({});
+export const TransactionTableContext = createContext<TransactionTableContext>(undefined);
 export type TransactionTableContext = ComponentContext<TransactionTableProps, TransactionTableState>;
 
 export const ControlButtonTypeContext = createContext<ControlButtonTypeContext>(undefined);

@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {TransitionContext} from "../models";
 
-export function useTransitionContext(): TransitionContext { return useContext(TransitionContext); }
+export function useTransitionContext(): NonNullable<TransitionContext> { return useContextOrThrow(TransitionContext); }

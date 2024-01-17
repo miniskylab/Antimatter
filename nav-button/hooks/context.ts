@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {NavButtonContext} from "../models";
 
-export function useNavButtonContext(): NavButtonContext { return useContext(NavButtonContext); }
+export function useNavButtonContext(): NonNullable<NavButtonContext> { return useContextOrThrow(NavButtonContext); }

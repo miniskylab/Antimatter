@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {FooterContext} from "../models";
 
-export function useFooterContext(): FooterContext { return useContext(FooterContext); }
+export function useFooterContext(): NonNullable<FooterContext> { return useContextOrThrow(FooterContext); }

@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {ToggleContext} from "../models";
 
-export function useToggleContext(): ToggleContext { return useContext(ToggleContext); }
+export function useToggleContext(): NonNullable<ToggleContext> { return useContextOrThrow(ToggleContext); }

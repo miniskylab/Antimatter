@@ -1,4 +1,7 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {HighlightedParagraphContext} from "../models";
 
-export function useHighlightedParagraphContext(): HighlightedParagraphContext { return useContext(HighlightedParagraphContext); }
+export function useHighlightedParagraphContext(): NonNullable<HighlightedParagraphContext>
+{
+    return useContextOrThrow(HighlightedParagraphContext);
+}

@@ -1,6 +1,6 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {EventContext, RowContext} from "../models";
 
-export function useEventContext(): EventContext { return useContext(EventContext); }
+export function useEventContext(): NonNullable<EventContext> { return useContextOrThrow(EventContext); }
 
-export function useRowContext(): RowContext { return useContext(RowContext); }
+export function useRowContext(): NonNullable<RowContext> { return useContextOrThrow(RowContext); }

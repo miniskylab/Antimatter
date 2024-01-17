@@ -1,8 +1,8 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {ControlButtonTypeContext, HrPositionContext, TransactionTableContext} from "../models";
 
-export function useTransactionTableContext(): TransactionTableContext { return useContext(TransactionTableContext); }
+export function useTransactionTableContext(): NonNullable<TransactionTableContext> { return useContextOrThrow(TransactionTableContext); }
 
-export function useControlButtonTypeContext(): ControlButtonTypeContext { return useContext(ControlButtonTypeContext); }
+export function useControlButtonTypeContext(): NonNullable<ControlButtonTypeContext> { return useContextOrThrow(ControlButtonTypeContext); }
 
-export function useHrPositionContext(): HrPositionContext { return useContext(HrPositionContext); }
+export function useHrPositionContext(): NonNullable<HrPositionContext> { return useContextOrThrow(HrPositionContext); }

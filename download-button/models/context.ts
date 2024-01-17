@@ -3,5 +3,5 @@ import {createContext} from "react";
 import {DownloadButtonProps} from "./props";
 import {DownloadButtonState} from "./state";
 
-export const DownloadButtonContext = createContext<DownloadButtonContext>({});
+export const DownloadButtonContext = createContext<DownloadButtonContext>(undefined);
 export type DownloadButtonContext = ComponentContext<DownloadButtonProps, DownloadButtonState>;

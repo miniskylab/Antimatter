@@ -1,6 +1,6 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {YearContext, YearViewContext} from "../models";
 
-export function useYearViewContext(): YearViewContext { return useContext(YearViewContext); }
+export function useYearViewContext(): NonNullable<YearViewContext> { return useContextOrThrow(YearViewContext); }
 
-export function useYearContext(): YearContext { return useContext(YearContext); }
+export function useYearContext(): NonNullable<YearContext> { return useContextOrThrow(YearContext); }

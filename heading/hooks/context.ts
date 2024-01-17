@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {HeadingContext} from "../models";
 
-export function useHeadingContext(): HeadingContext { return useContext(HeadingContext); }
+export function useHeadingContext(): NonNullable<HeadingContext> { return useContextOrThrow(HeadingContext); }

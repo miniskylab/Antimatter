@@ -1,6 +1,6 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {MonthContext, MonthViewContext} from "../models";
 
-export function useMonthViewContext(): MonthViewContext { return useContext(MonthViewContext); }
+export function useMonthViewContext(): NonNullable<MonthViewContext> { return useContextOrThrow(MonthViewContext); }
 
-export function useMonthContext(): MonthContext { return useContext(MonthContext); }
+export function useMonthContext(): NonNullable<MonthContext> { return useContextOrThrow(MonthContext); }

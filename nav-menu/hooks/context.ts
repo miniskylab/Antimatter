@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {NavMenuContext} from "../models";
 
-export function useNavMenuContext(): NavMenuContext { return useContext(NavMenuContext); }
+export function useNavMenuContext(): NonNullable<NavMenuContext> { return useContextOrThrow(NavMenuContext); }

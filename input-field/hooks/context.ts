@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {InputFieldContext} from "../models";
 
-export function useInputFieldContext(): InputFieldContext { return useContext(InputFieldContext); }
+export function useInputFieldContext(): NonNullable<InputFieldContext> { return useContextOrThrow(InputFieldContext); }

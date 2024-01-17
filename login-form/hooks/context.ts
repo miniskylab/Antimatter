@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {LoginFormContext} from "../models";
 
-export function useLoginFormContext(): LoginFormContext { return useContext(LoginFormContext); }
+export function useLoginFormContext(): NonNullable<LoginFormContext> { return useContextOrThrow(LoginFormContext); }

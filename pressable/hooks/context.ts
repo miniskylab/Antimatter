@@ -1,4 +1,4 @@
-import {useContext} from "react";
+import {useContextOrThrow} from "@miniskylab/antimatter-framework";
 import {PressableContext} from "../models";
 
-export function usePressableContext(): PressableContext { return useContext(PressableContext); }
+export function usePressableContext(): NonNullable<PressableContext> { return useContextOrThrow(PressableContext); }
