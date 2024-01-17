@@ -8,10 +8,10 @@ import {LoginFormProps} from "./props";
 import {LoginFormState} from "./state";
 
 export type LoginFormStyle = (loginFormProps: WithoutStyle<LoginFormProps>, loginFormState: LoginFormState) => {
-    Root?: ViewStyle;
-    Logo?: IconStyle;
-    Title?: LabelStyle;
-    Subtitle?: LabelStyle;
-    InputField?: InputFieldStyle;
-    LoginButton?: ButtonStyle;
+    Root: ViewStyle;
+    Logo: IconStyle;
+    Title: LabelStyle;
+    Subtitle: LabelStyle;
+    InputField: InputFieldStyle;
+    LoginButton: ButtonStyle;
 };

@@ -7,14 +7,14 @@ import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Props} from "./props";
 
 export type Style = (cardProps: WithoutStyle<Props>) => {
-    Root?: ViewStyle;
-    Content?: ViewStyle;
-    HorizontalMargin?: ViewStyle;
-    Image?: ImageStyle;
-    Icon?: IconStyle;
-    Title?: LabelStyle;
-    Description?: LabelStyle;
-    CtaContainer?: ViewStyle;
-    Cta?: NavButtonStyle;
-    Shadow?: ShadowStyle;
+    Root: ViewStyle;
+    Content: ViewStyle;
+    HorizontalMargin: ViewStyle;
+    Image: ImageStyle;
+    Icon: IconStyle;
+    Title: LabelStyle;
+    Description: LabelStyle;
+    CtaContainer: ViewStyle;
+    Cta: NavButtonStyle;
+    Shadow: ShadowStyle;
 };

@@ -4,6 +4,6 @@ import {ViewStyle} from "@miniskylab/antimatter-view";
 import {NavbarProps} from "./props";
 
 export type NavbarStyle = (navbarProps: WithoutStyle<NavbarProps>) => {
-    Root?: ViewStyle;
-    Tab?: NavButtonStyle;
+    Root: ViewStyle;
+    Tab: NavButtonStyle;
 };

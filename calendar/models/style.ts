@@ -6,11 +6,11 @@ import {CalendarProps} from "./props";
 import {CalendarState} from "./state";
 
 export type CalendarStyle = (calendarProps: WithoutStyle<CalendarProps>, calendarState: CalendarState) => {
-    Root?: ViewStyle;
-    Header?: Header.Style;
-    ViewTransition?: TransitionStyle;
-    DateView?: DateView.Style;
-    MonthView?: MonthView.Style;
-    YearView?: YearView.Style;
-    Control?: Control.Style;
+    Root: ViewStyle;
+    Header: Header.Style;
+    ViewTransition: TransitionStyle;
+    DateView: DateView.Style;
+    MonthView: MonthView.Style;
+    YearView: YearView.Style;
+    Control: Control.Style;
 };

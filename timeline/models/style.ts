@@ -5,10 +5,10 @@ import {BootstrapEvent, Event} from "../components";
 import {TimelineProps} from "./props";
 
 export type TimelineStyle = (timelineProps: WithoutStyle<TimelineProps>) => {
-    Root?: ViewStyle;
-    EventStream?: ViewStyle;
-    VerticalLine?: ViewStyle;
-    Origin?: IconStyle;
-    Event?: Event.Style;
-    BootstrapEvent?: BootstrapEvent.Style;
+    Root: ViewStyle;
+    EventStream: ViewStyle;
+    VerticalLine: ViewStyle;
+    Origin: IconStyle;
+    Event: Event.Style;
+    BootstrapEvent: BootstrapEvent.Style;
 };

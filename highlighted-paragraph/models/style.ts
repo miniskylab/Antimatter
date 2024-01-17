@@ -5,10 +5,10 @@ import {ViewStyle} from "@miniskylab/antimatter-view";
 import {HighlightedParagraphProps} from "./props";
 
 export type HighlightedParagraphStyle = (highlightedParagraphProps: WithoutStyle<HighlightedParagraphProps>) => {
-    Root?: ViewStyle;
-    TitleContainer?: ViewStyle;
-    TitleIcon?: IconStyle;
-    TitleLabel?: LabelStyle;
-    Gap?: ViewStyle;
-    Content?: LabelStyle;
+    Root: ViewStyle;
+    TitleContainer: ViewStyle;
+    TitleIcon: IconStyle;
+    TitleLabel: LabelStyle;
+    Gap: ViewStyle;
+    Content: LabelStyle;
 };

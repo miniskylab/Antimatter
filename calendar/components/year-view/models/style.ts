@@ -4,6 +4,6 @@ import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Props} from "./props";
 
 export type Style = (yearViewProps: WithoutStyle<Props>) => {
-    Root?: ViewStyle;
-    GridCell?: ButtonStyle;
+    Root: ViewStyle;
+    GridCell: ButtonStyle;
 };

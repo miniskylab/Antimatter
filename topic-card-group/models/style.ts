@@ -4,6 +4,6 @@ import {Card} from "../components";
 import {TopicCardGroupProps} from "./props";
 
 export type TopicCardGroupStyle = (topicCardGroupProps: WithoutStyle<TopicCardGroupProps>) => {
-    Root?: ViewStyle;
-    Card?: Card.Style;
+    Root: ViewStyle;
+    Card: Card.Style;
 };

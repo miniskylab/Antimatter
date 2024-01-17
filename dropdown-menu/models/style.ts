@@ -7,12 +7,12 @@ import {ViewStyle} from "@miniskylab/antimatter-view";
 import {DropdownMenuProps} from "./props";
 
 export type DropdownMenuStyle = (dropdownMenuProps: WithoutStyle<DropdownMenuProps>) => {
-    Root?: ViewStyle;
-    SelectedItemContainer?: PressableStyle;
-    SelectedItem?: LabelStyle;
-    Placeholder?: LabelStyle;
-    Caret?: ViewStyle;
-    Menu?: ScrollViewStyle;
-    Divider?: ViewStyle;
-    MenuItem?: ButtonStyle;
+    Root: ViewStyle;
+    SelectedItemContainer: PressableStyle;
+    SelectedItem: LabelStyle;
+    Placeholder: LabelStyle;
+    Caret: ViewStyle;
+    Menu: ScrollViewStyle;
+    Divider: ViewStyle;
+    MenuItem: ButtonStyle;
 };

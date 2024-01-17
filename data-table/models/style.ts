@@ -7,13 +7,13 @@ import {Row} from "../components";
 import {DataTableProps} from "./props";
 
 export type DataTableStyle = (dataTableProps: WithoutStyle<DataTableProps>) => {
-    Root?: ViewStyle;
-    ControlPanel?: ViewStyle;
-    TitleContainer?: ViewStyle;
-    MainTitle?: LabelStyle;
-    Subtitle?: LabelStyle;
-    ControlButton?: ButtonStyle;
-    Scroll?: ScrollViewStyle;
-    Hr?: ViewStyle;
-    Row?: Row.Style;
+    Root: ViewStyle;
+    ControlPanel: ViewStyle;
+    TitleContainer: ViewStyle;
+    MainTitle: LabelStyle;
+    Subtitle: LabelStyle;
+    ControlButton: ButtonStyle;
+    Scroll: ScrollViewStyle;
+    Hr: ViewStyle;
+    Row: Row.Style;
 };

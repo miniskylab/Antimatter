@@ -4,6 +4,6 @@ import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Props} from "./props";
 
 export type Style = (controlProps: WithoutStyle<Props>) => {
-    Root?: ViewStyle;
-    Button?: ButtonStyle;
+    Root: ViewStyle;
+    Button: ButtonStyle;
 };

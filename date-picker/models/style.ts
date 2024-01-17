@@ -6,9 +6,9 @@ import {ViewStyle} from "@miniskylab/antimatter-view";
 import {DatePickerProps} from "./props";
 
 export type DatePickerStyle = (datePickerProps: WithoutStyle<DatePickerProps>) => {
-    Root?: ViewStyle;
-    InputField?: InputFieldStyle;
-    Addon?: ButtonStyle;
-    Caret?: ViewStyle;
-    Calendar?: CalendarStyle;
+    Root: ViewStyle;
+    InputField: InputFieldStyle;
+    Addon: ButtonStyle;
+    Caret: ViewStyle;
+    Calendar: CalendarStyle;
 };

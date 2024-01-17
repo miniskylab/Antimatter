@@ -5,8 +5,8 @@ import {ViewStyle} from "@miniskylab/antimatter-view";
 import {HeadingProps} from "./props";
 
 export type HeadingStyle = (headingProps: WithoutStyle<HeadingProps>) => {
-    Root?: ViewStyle;
-    Title?: LabelStyle;
-    Hr?: ViewStyle;
-    Subtitle?: HighlightedParagraphStyle;
+    Root: ViewStyle;
+    Title: LabelStyle;
+    Hr: ViewStyle;
+    Subtitle: HighlightedParagraphStyle;
 }

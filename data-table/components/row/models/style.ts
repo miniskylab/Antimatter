@@ -9,10 +9,10 @@ import {Props} from "./props";
 import {State} from "./state";
 
 export type Style = (rowProps: WithoutStyle<Props>, rowState: State) => {
-    Root?: PressableStyle;
-    CellDropdownMenu?: DropdownMenuStyle;
-    CellToggle?: ToggleStyle;
-    CellInputField?: InputFieldStyle;
-    CellLabel?: LabelStyle;
-    CellIcon?: IconStyle;
+    Root: PressableStyle;
+    CellDropdownMenu: DropdownMenuStyle;
+    CellToggle: ToggleStyle;
+    CellInputField: InputFieldStyle;
+    CellLabel: LabelStyle;
+    CellIcon: IconStyle;
 };

@@ -5,7 +5,7 @@ import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ButtonProps} from "./props";
 
 export type ButtonStyle = (buttonProps: WithoutStyle<ButtonProps>) => {
-    Root?: PressableStyle;
-    Icon?: IconStyle;
-    Label?: LabelStyle;
+    Root: PressableStyle;
+    Icon: IconStyle;
+    Label: LabelStyle;
 };

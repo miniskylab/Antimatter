@@ -9,14 +9,14 @@ import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Props} from "./props";
 
 export type Style = (transactionRecordProps: WithoutStyle<Props>) => {
-    Root?: PressableStyle;
-    Icon?: IconStyle;
-    NameAndTagContainer?: ViewStyle;
-    NameInputField?: InputFieldStyle;
-    NameLabel?: LabelStyle;
-    AmountInputField?: NumericInputFieldStyle;
-    AmountLabel?: LabelStyle;
-    TagSelector?: DropdownMenuStyle;
-    TagContainer?: ViewStyle;
-    Tag?: LabelStyle;
+    Root: PressableStyle;
+    Icon: IconStyle;
+    NameAndTagContainer: ViewStyle;
+    NameInputField: InputFieldStyle;
+    NameLabel: LabelStyle;
+    AmountInputField: NumericInputFieldStyle;
+    AmountLabel: LabelStyle;
+    TagSelector: DropdownMenuStyle;
+    TagContainer: ViewStyle;
+    Tag: LabelStyle;
 };

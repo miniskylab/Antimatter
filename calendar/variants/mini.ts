@@ -361,7 +361,8 @@ const Calendar__Control__Root: ViewStyle = function ()
 const Calendar__Control: Control.Style = function ()
 {
     return {
-        Root: Calendar__Control__Root
+        Root: Calendar__Control__Root,
+        Button: undefined
     };
 };
 

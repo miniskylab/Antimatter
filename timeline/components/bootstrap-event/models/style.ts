@@ -5,9 +5,9 @@ import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Props} from "./props";
 
 export type Style = (bootstrapEventProps: WithoutStyle<Props>) => {
-    Root?: ViewStyle;
-    TriangleArrow?: ViewStyle;
-    Icon?: IconStyle;
-    Name?: LabelStyle;
-    Description?: LabelStyle;
+    Root: ViewStyle;
+    TriangleArrow: ViewStyle;
+    Icon: IconStyle;
+    Name: LabelStyle;
+    Description: LabelStyle;
 };
