@@ -6,8 +6,8 @@ type KeypressEvent = { keypress: Keypress; newUserInput: string };
 type ReturnTypeOfThisFunction = ReturnType<typeof getNextNumericInputFieldState>;
 export function getNextNumericInputFieldState(
     currentUserInput: string,
-    currentSelection: Selection,
-    lastEvent: "BlurEvent" | "SyncEvent" | KeypressEvent,
+    currentSelection: Selection | undefined,
+    lastEvent: "BlurEvent" | "SyncEvent" | KeypressEvent | undefined,
     showPlusSymbolForPositiveNumber = false,
     treatEmptyInputAsZero = false,
     minValue = MIN,
@@ -17,7 +17,7 @@ export function getNextNumericInputFieldState(
 ): {
     nextValue: number;
     nextUserInput: string;
-    nextSelection: Selection;
+    nextSelection: Selection | undefined;
 }
 {
     if (lastEvent === "SyncEvent")
@@ -49,12 +49,15 @@ export function getNextNumericInputFieldState(
         const {numericValue: nextValue, formattedUserInput: nextUserInput} = reformatAndExtractNumericValueFrom(currentUserInput);
         return postProcess({nextValue, nextUserInput, nextSelection: undefined});
     }
-    else
+    else if (isKeypressEvent(lastEvent))
     {
+        throwIfNotKeypressEvent(lastEvent);
+        Ts.Error.throwIfNullOrUndefined(currentSelection);
+
         const keypressEvent = lastEvent;
         keypressEvent.keypress = keypressEvent.keypress ?? Keypress.NotSupported;
 
-        const hasSelection = currentSelection.start < currentSelection.end;
+        const hasSelection = currentSelection.end && currentSelection.end > currentSelection.start;
         const newDotCount = keypressEvent.newUserInput.split(".").length - 1;
 
         if (
@@ -178,6 +181,10 @@ export function getNextNumericInputFieldState(
 
         return postProcess({nextValue, nextUserInput, nextSelection: {start: nextCaretPosition}});
     }
+    else
+    {
+        throw new Error("Non-keypress events are not supported");
+    }
 
     function getDigitCountOf(anyString: string): number
     {
@@ -222,7 +229,7 @@ export function getNextNumericInputFieldState(
         if (isNaN(numericValue))
         {
             return {
-                numericValue: undefined,
+                numericValue: NaN,
                 formattedUserInput: EMPTY_STRING
             };
         }
@@ -281,4 +288,17 @@ function purify(anyString: string): string
         .replace(/^-\+/g, "-")
         .replace(/^\+-/g, "-")
         .replace(/(?!^)[-+]/g, EMPTY_STRING);
+}
+
+function isKeypressEvent(anything: unknown): boolean
+{
+    return anything !== null && anything !== undefined && typeof anything === "object" && anything.hasOwnProperty("keypress");
+}
+
+function throwIfNotKeypressEvent(value: unknown): asserts value is KeypressEvent
+{
+    if (!isKeypressEvent(value))
+    {
+        throw new Error(`Expected a value of type KeypressEvent but instead got: ${value}`);
+    }
 }

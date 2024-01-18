@@ -698,7 +698,7 @@ describe("put caret at the end then press 'backspace' continuously", () =>
             {start: 1},
             {keypress: Keypress.Backspace, newUserInput: ""}
         )).toEqual({
-            nextValue: undefined,
+            nextValue: NaN,
             nextUserInput: "",
             nextSelection: {start: 0}
         });
@@ -877,7 +877,7 @@ describe("put caret at the end then press 'backspace' continuously", () =>
             {keypress: Keypress.Backspace, newUserInput: "+"},
             true
         )).toEqual({
-            nextValue: undefined,
+            nextValue: NaN,
             nextUserInput: "",
             nextSelection: {start: 0}
         });
@@ -1069,7 +1069,7 @@ describe("put caret at the end then press 'backspace' continuously", () =>
                 {keypress: Keypress.Backspace, newUserInput: ""},
                 showPlusSymbolForPositiveNumber
             )).toEqual({
-                nextValue: undefined,
+                nextValue: NaN,
                 nextUserInput: "",
                 nextSelection: {start: 0}
             });
@@ -1669,7 +1669,7 @@ describe("put caret at the beginning then press 'delete' continuously", () =>
             {start: 0},
             {keypress: Keypress.Delete, newUserInput: ""}
         )).toEqual({
-            nextValue: undefined,
+            nextValue: NaN,
             nextUserInput: "",
             nextSelection: {start: 0}
         });
@@ -1782,7 +1782,7 @@ describe("put caret at the beginning then press 'delete' continuously", () =>
             {keypress: Keypress.Delete, newUserInput: "0"},
             true
         )).toEqual({
-            nextValue: undefined,
+            nextValue: NaN,
             nextUserInput: "",
             nextSelection: {start: 0}
         });
@@ -1908,7 +1908,7 @@ describe("put caret at the beginning then press 'delete' continuously", () =>
                 {keypress: Keypress.Delete, newUserInput: ""},
                 showPlusSymbolForPositiveNumber
             )).toEqual({
-                nextValue: undefined,
+                nextValue: NaN,
                 nextUserInput: "",
                 nextSelection: {start: 0}
             });
@@ -3231,7 +3231,7 @@ describe("enter not supported characters", () =>
                 {start: 0},
                 {keypress: Keypress.NotSupported, newUserInput: `${char}`}
             )).toEqual({
-                nextValue: undefined,
+                nextValue: NaN,
                 nextUserInput: "",
                 nextSelection: {start: 0}
             });
@@ -3428,7 +3428,7 @@ describe("enter not supported characters", () =>
                 {keypress: Keypress.NotSupported, newUserInput: `${char}`},
                 true
             )).toEqual({
-                nextValue: undefined,
+                nextValue: NaN,
                 nextUserInput: "",
                 nextSelection: {start: 0}
             });
@@ -4708,7 +4708,7 @@ describe("minus (-) symbol is not allowed when 'minValue' is greater than or equ
                 undefined,
                 minValue
             )).toEqual({
-                nextValue: undefined,
+                nextValue: NaN,
                 nextUserInput: "",
                 nextSelection: {start: 0}
             });
@@ -4753,7 +4753,7 @@ describe("minus (-) symbol is not allowed when 'minValue' is greater than or equ
                 undefined,
                 minValue
             )).toEqual({
-                nextValue: undefined,
+                nextValue: NaN,
                 nextUserInput: "",
                 nextSelection: {start: 0}
             });
@@ -4814,7 +4814,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigitCount' is equa
             undefined,
             0
         )).toEqual({
-            nextValue: undefined,
+            nextValue: NaN,
             nextUserInput: "",
             nextSelection: {start: 0}
         });
@@ -4877,7 +4877,7 @@ describe("dot (.) symbol is not allowed when 'maximumFractionDigitCount' is equa
             undefined,
             0
         )).toEqual({
-            nextValue: undefined,
+            nextValue: NaN,
             nextUserInput: "",
             nextSelection: {start: 0}
         });
@@ -5278,7 +5278,7 @@ test("deleting plus (+) symbol removes the character next to it", () =>
         {keypress: Keypress.Delete, newUserInput: "1"},
         true
     )).toEqual({
-        nextValue: undefined,
+        nextValue: NaN,
         nextUserInput: "",
         nextSelection: {start: 0}
     });
@@ -5316,7 +5316,7 @@ test("deleting minus (-) symbol removes the character next to it", () =>
             {keypress: Keypress.Delete, newUserInput: ""},
             showPlusSymbolForPositiveNumber
         )).toEqual({
-            nextValue: undefined,
+            nextValue: NaN,
             nextUserInput: "",
             nextSelection: {start: 0}
         });
@@ -5616,7 +5616,7 @@ describe("when blur", () =>
                 showPlusSymbolForPositiveNumber,
                 false
             )).toEqual({
-                nextValue: undefined,
+                nextValue: NaN,
                 nextUserInput: "",
                 nextSelection: undefined
             });
@@ -5853,7 +5853,7 @@ describe("when sync", () =>
                 "SyncEvent",
                 showPlusSymbolForPositiveNumber
             )).toEqual({
-                nextValue: undefined,
+                nextValue: NaN,
                 nextUserInput: "",
                 nextSelection: {start: 0}
             });

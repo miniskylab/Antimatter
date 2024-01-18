@@ -102,7 +102,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
         const {nextValue, nextUserInput, nextSelection} = getNextNumericInputFieldState(
             state.userInput,
             state.selection,
-            {keypress: lastKeypressRef.current, newUserInput},
+            lastKeypressRef.current ? {keypress: lastKeypressRef.current, newUserInput} : undefined,
             showPlusSymbolForPositiveNumber,
             treatEmptyInputAsZero,
             minValue,
@@ -222,20 +222,23 @@ export const NumericInputField = forwardRef(function NumericInputField(
             );
         }
 
-        if (defaultValue < minValue)
+        if (defaultValue !== null && defaultValue !== undefined)
         {
-            throw new Error(
-                `"defaultValue" cannot be less than "minValue". ` +
-                `Received values: defaultValue = ${defaultValue}, minValue = ${minValue}`
-            );
-        }
+            if (defaultValue < minValue)
+            {
+                throw new Error(
+                    `"defaultValue" cannot be less than "minValue". ` +
+                    `Received values: defaultValue = ${defaultValue}, minValue = ${minValue}`
+                );
+            }
 
-        if (defaultValue > maxValue)
-        {
-            throw new Error(
-                `"defaultValue" cannot greater less than "maxValue". ` +
-                `Received values: defaultValue = ${defaultValue}, minValue = ${maxValue}`
-            );
+            if (defaultValue > maxValue)
+            {
+                throw new Error(
+                    `"defaultValue" cannot be greater than "maxValue". ` +
+                    `Received values: defaultValue = ${defaultValue}, maxValue = ${maxValue}`
+                );
+            }
         }
     }
 
