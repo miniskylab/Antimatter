@@ -77,7 +77,7 @@ export function Component({
                         data[weekNo][dayNo].isExtraneous
                     ]
                 );
-                const isToday = today && Ts.Date.isEqualDate(dateInfo.value, today);
+                const isToday = Ts.Date.isEqualDate(dateInfo.value, today);
 
                 week.push(
                     <DateContext.Provider key={data[weekNo][dayNo].value.getTime()} value={dateInfo}>

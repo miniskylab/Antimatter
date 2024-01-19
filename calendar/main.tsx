@@ -53,7 +53,7 @@ export function Calendar({
     Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props, state);
 
-    const calendarWidthRef = useRef<number>();
+    const calendarWidthRef = useRef<number>(NaN);
     const cacheRef = useRef<Cache>({
         dateViewData: new Map(),
         monthViewData: new Map(),
@@ -179,20 +179,20 @@ export function Calendar({
         let canNavigateToToday = true;
         if (state.view.type === ViewType.Date)
         {
-            canNavigateToToday = !dateViewData.some(dateInfo => Ts.Date.isEqualDate(dateInfo.value, state.today));
+            canNavigateToToday = !dateViewData?.some(dateInfo => Ts.Date.isEqualDate(dateInfo.value, state.today));
         }
 
         let canNavigateToSelectedDate = !!selectedDate;
         if (selectedDate && state.view.type === ViewType.Date)
         {
-            canNavigateToSelectedDate = !dateViewData.some(dateInfo => Ts.Date.isEqualDate(dateInfo.value, selectedDate));
+            canNavigateToSelectedDate = !dateViewData?.some(dateInfo => Ts.Date.isEqualDate(dateInfo.value, selectedDate));
         }
 
         return (
             <Control.Component
                 style={computedStyle.Control}
-                onTodayButtonPress={canNavigateToToday ? () => { goToToday(); } : null}
-                onSelectionButtonPress={canNavigateToSelectedDate ? () => { goToSelectedDate(); } : null}
+                onTodayButtonPress={canNavigateToToday ? goToToday : undefined}
+                onSelectionButtonPress={canNavigateToSelectedDate ? goToSelectedDate : undefined}
             />
         );
     }
@@ -309,7 +309,7 @@ export function Calendar({
     function getNextTimeFrame(slideDirection: SlideDirection): TimeFrame
     {
         const nextTimeFrame: TimeFrame = {
-            decade: undefined,
+            decade: state.view.timeFrame.decade,
             monthAndYear: new Date(state.view.timeFrame.monthAndYear)
         };
 
@@ -368,30 +368,39 @@ export function Calendar({
     function getDateViewDataWithCache(month: Date): DateView.DateInfo[][]
     {
         const cacheKey = `${month.getMonth()}${month.getFullYear()}`;
-        return cacheRef.current.dateViewData.has(cacheKey)
-            ? cacheRef.current.dateViewData.get(cacheKey)
-            : cacheRef.current.dateViewData.set(cacheKey, getDateViewData(month)) && cacheRef.current.dateViewData.get(cacheKey);
+        if (!cacheRef.current.dateViewData.has(cacheKey))
+        {
+            cacheRef.current.dateViewData.set(cacheKey, getDateViewData(month));
+        }
+
+        return cacheRef.current.dateViewData.get(cacheKey) ?? [];
     }
 
     function getMonthViewDataWithCache(year: number): MonthView.MonthInfo[]
     {
         const cacheKey = `${year}`;
-        return cacheRef.current.monthViewData.has(cacheKey)
-            ? cacheRef.current.monthViewData.get(cacheKey)
-            : cacheRef.current.monthViewData.set(cacheKey, getMonthViewData(year)) && cacheRef.current.monthViewData.get(cacheKey);
+        if (!cacheRef.current.monthViewData.has(cacheKey))
+        {
+            cacheRef.current.monthViewData.set(cacheKey, getMonthViewData(year));
+        }
+
+        return cacheRef.current.monthViewData.get(cacheKey) ?? [];
     }
 
     function getYearViewDataWithCache(decade: Decade): YearView.YearInfo[]
     {
         const cacheKey = `${decade}`;
-        return cacheRef.current.yearViewData.has(cacheKey)
-            ? cacheRef.current.yearViewData.get(cacheKey)
-            : cacheRef.current.yearViewData.set(cacheKey, getYearViewData(decade)) && cacheRef.current.yearViewData.get(cacheKey);
+        if (!cacheRef.current.yearViewData.has(cacheKey))
+        {
+            cacheRef.current.yearViewData.set(cacheKey, getYearViewData(decade));
+        }
+
+        return cacheRef.current.yearViewData.get(cacheKey) ?? [];
     }
 
-    function onDatePress(date: Date): void
+    function onDatePress(pressedDate: Date): void
     {
-        onSelectedDateChange?.(Ts.Date.isEqualDate(date, selectedDate) ? undefined : date);
+        onSelectedDateChange?.(Ts.Date.isEqualDate(selectedDate, pressedDate) ? undefined : pressedDate);
     }
 
     function onMonthPress(month: Date): void

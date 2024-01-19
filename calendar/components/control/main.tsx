@@ -26,33 +26,23 @@ export function Component({
     Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = Style.useComputedStyle(style, props);
 
-    const thereAreNoControlButtons = onTodayButtonPress === undefined && onSelectionButtonPress === undefined;
-    if (thereAreNoControlButtons)
-    {
-        return null;
-    }
-
     return (
         <ControlContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                {onTodayButtonPress !== undefined && (
-                    <Button
-                        style={computedStyle.Button}
-                        disabled={onTodayButtonPress === null}
-                        icon={DefaultIconSet.Flag}
-                        label={"Today"}
-                        onPress={onTodayButtonPress}
-                    />
-                )}
-                {onSelectionButtonPress !== undefined && (
-                    <Button
-                        style={computedStyle.Button}
-                        disabled={onSelectionButtonPress === null}
-                        icon={DefaultIconSet.Location}
-                        label={"Selection"}
-                        onPress={onSelectionButtonPress}
-                    />
-                )}
+                <Button
+                    style={computedStyle.Button}
+                    disabled={!onTodayButtonPress}
+                    icon={DefaultIconSet.Flag}
+                    label={"Today"}
+                    onPress={onTodayButtonPress}
+                />
+                <Button
+                    style={computedStyle.Button}
+                    disabled={!onSelectionButtonPress}
+                    icon={DefaultIconSet.Location}
+                    label={"Selection"}
+                    onPress={onSelectionButtonPress}
+                />
             </View>
         </ControlContext.Provider>
     );

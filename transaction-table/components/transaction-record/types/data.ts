@@ -1,4 +1,4 @@
-import {IsDate, IsDefined, IsNotEmpty, IsNumber, IsString} from "@miniskylab/antimatter-framework";
+import {IsDate, IsDefined, IsNumber, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {Tag} from "./tag";
 
@@ -7,10 +7,9 @@ export class Data
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsNotEmpty()
     @IsString()
-    @IsDefined()
-    readonly name: string;
+    @IsOptional()
+    readonly name?: string;
 
 
     /**

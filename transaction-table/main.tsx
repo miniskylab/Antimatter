@@ -144,14 +144,9 @@ export function TransactionTable({
         return transactionA.createdDate.getTime() - transactionB.createdDate.getTime();
     }
 
-    function renderSummary(): JSX.Element
+    function renderSummary(): JSX.Element | undefined
     {
-        return (
-            <Summary.Component
-                style={computedStyle.Summary}
-                {...summary}
-            />
-        );
+        return summary && (<Summary.Component style={computedStyle.Summary} {...summary}/>);
     }
 
     function renderDatePicker(): JSX.Element
@@ -250,7 +245,12 @@ export function TransactionTable({
         return filteredTransactionIds.map(filteredTransactionId =>
         {
             const transactionMode = getTransactionMode(filteredTransactionId);
-            const transactionData = transactionMode === TransactionRecord.Mode.Edit || transactionMode === TransactionRecord.Mode.Draft
+            const transactionData = selectedTransaction &&
+                                    (
+                                        transactionMode === TransactionRecord.Mode.Edit
+                                        ||
+                                        transactionMode === TransactionRecord.Mode.Draft
+                                    )
                 ? selectedTransaction.data
                 : filteredTransactions[filteredTransactionId];
 
@@ -261,10 +261,10 @@ export function TransactionTable({
                     id={filteredTransactionId}
                     style={computedStyle.TransactionRecord}
                     mode={transactionMode}
-                    tags={transactionData.tags}
+                    tags={transactionData?.tags}
                     maxSelectedTagCount={maxSelectedTagCount}
-                    onPress={mode === TransactionRecord.Mode.ReadOnly ? () => { onSelectTransaction(filteredTransactionId); } : undefined}
-                    onChange={newTransactionData => { onChangeTransaction(newTransactionData); }}
+                    onPress={mode === TransactionRecord.Mode.ReadOnly ? () => { onSelectTransaction?.(filteredTransactionId); } : undefined}
+                    onChange={newTransactionData => { onChangeTransaction?.(newTransactionData); }}
                 />
             );
         });
@@ -275,15 +275,15 @@ export function TransactionTable({
         switch (mode)
         {
             case TransactionRecord.Mode.ReadOnly:
-                onSwitchMode(TransactionRecord.Mode.Draft);
+                onSwitchMode?.(TransactionRecord.Mode.Draft);
                 break;
 
             case TransactionRecord.Mode.Edit:
-                onSwitchMode(TransactionRecord.Mode.Delete);
+                onSwitchMode?.(TransactionRecord.Mode.Delete);
                 break;
 
             case TransactionRecord.Mode.Delete:
-                onSwitchMode(TransactionRecord.Mode.Edit);
+                onSwitchMode?.(TransactionRecord.Mode.Edit);
                 break;
 
             default:

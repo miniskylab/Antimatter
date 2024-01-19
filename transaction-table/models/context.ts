@@ -8,7 +8,7 @@ export const TransactionTableContext = createContext<TransactionTableContext>(un
 export type TransactionTableContext = ComponentContext<TransactionTableProps, TransactionTableState>;
 
 export const ControlButtonTypeContext = createContext<ControlButtonTypeContext>(undefined);
-export type ControlButtonTypeContext = ControlButtonType;
+export type ControlButtonTypeContext = ControlButtonType | undefined;
 
 export const HrPositionContext = createContext<HrPositionContext>(undefined);
-export type HrPositionContext = "top" | "bottom";
+export type HrPositionContext = "top" | "bottom" | undefined;

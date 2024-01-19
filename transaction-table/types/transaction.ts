@@ -1,5 +1,4 @@
 import {IsDefined, IsString} from "@miniskylab/antimatter-framework";
-import {IsOptional} from "class-validator";
 import {TransactionRecord} from "../components";
 
 export class Transaction
@@ -15,6 +14,6 @@ export class Transaction
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsOptional()
-    readonly data?: TransactionRecord.Data;
+    @IsDefined()
+    readonly data: TransactionRecord.Data;
 }

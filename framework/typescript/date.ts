@@ -29,7 +29,7 @@ export function ofTypeDate(anyObject: unknown): boolean
     return anyObject instanceof Date && Object.prototype.toString.call(anyObject) === "[object Date]";
 }
 
-export function isEqualDate(date1: Date, date2: Date): boolean
+export function isEqualDate(date1: Date | null | undefined, date2: Date | null | undefined): boolean
 {
     if (!date1 && !date2) return true;
     if (!date1 || !date2) return false;
@@ -42,7 +42,7 @@ export function isEqualDate(date1: Date, date2: Date): boolean
     return clonedDate1.getTime() === clonedDate2.getTime();
 }
 
-export function isEqualMonth(date1: Date, date2: Date): boolean
+export function isEqualMonth(date1: Date | null | undefined, date2: Date | null | undefined): boolean
 {
     if (!date1 && !date2) return true;
     if (!date1 || !date2) return false;
@@ -57,7 +57,7 @@ export function isEqualMonth(date1: Date, date2: Date): boolean
     return clonedDate1.getTime() === clonedDate2.getTime();
 }
 
-export function isEqualYear(date1: Date, date2: Date): boolean
+export function isEqualYear(date1: Date | null | undefined, date2: Date | null | undefined): boolean
 {
     if (!date1 && !date2) return true;
     if (!date1 || !date2) return false;

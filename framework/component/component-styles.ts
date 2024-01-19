@@ -19,3 +19,8 @@ export function inheritTextStyleFrom<TStyle extends TextStyle>(style: TStyle): T
         textDecorationStyle: style.textDecorationStyle
     };
 }
+
+export function notRequiredAsParentElementIsHidden<T>(): T
+{
+    return undefined as T;
+}
