@@ -7,4 +7,4 @@ export const DateViewContext = createContext<DateViewContext>(undefined);
 export type DateViewContext = ComponentContext<Props>;
 
 export const DateContext = createContext<DateContext>(undefined);
-export type DateContext = DateInfo;
+export type DateContext = DateInfo | undefined;

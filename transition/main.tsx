@@ -35,7 +35,7 @@ export function Transition({
     {
         const transitionContext = TransitionContextHook.useTransitionContext();
 
-        const isActiveTransitionable = transitionableProps.id === transitionContext.props.children.key;
+        const isActiveTransitionable = transitionableProps.id === transitionContext.props.children?.key;
         const transitionStage = isActiveTransitionable ? Stage.Enter : Stage.Exit;
 
         return () => ({
@@ -56,13 +56,17 @@ export function Transition({
 
     if (!Object.values(state.children).some(x => x === children))
     {
-        setState(prevState => ({
-            ...prevState,
-            children: {
-                ...prevState.children,
-                [children.key]: children
-            }
-        }));
+        setState(prevState =>
+        {
+            Ts.Error.throwIfNullOrUndefined(children?.key);
+            return {
+                ...prevState,
+                children: {
+                    ...prevState.children,
+                    [children.key]: children
+                }
+            };
+        });
     }
 
     return (

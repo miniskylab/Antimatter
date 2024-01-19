@@ -7,4 +7,4 @@ export const MonthViewContext = createContext<MonthViewContext>(undefined);
 export type MonthViewContext = ComponentContext<Props>;
 
 export const MonthContext = createContext<MonthContext>(undefined);
-export type MonthContext = MonthInfo;
+export type MonthContext = MonthInfo | undefined;

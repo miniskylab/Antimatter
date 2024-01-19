@@ -11,7 +11,7 @@ import {DateContext, DateViewContext, Props} from "./models";
 export function Component({
     style,
     today,
-    data,
+    data = [],
     onDatePress
 }: Props): JSX.Element
 {
@@ -77,7 +77,7 @@ export function Component({
                         data[weekNo][dayNo].isExtraneous
                     ]
                 );
-                const isToday = Ts.Date.isEqualDate(dateInfo.value, today);
+                const isToday = today && Ts.Date.isEqualDate(dateInfo.value, today);
 
                 week.push(
                     <DateContext.Provider key={data[weekNo][dayNo].value.getTime()} value={dateInfo}>

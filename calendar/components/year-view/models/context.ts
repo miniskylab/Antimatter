@@ -7,4 +7,4 @@ export const YearViewContext = createContext<YearViewContext>(undefined);
 export type YearViewContext = ComponentContext<Props>;
 
 export const YearContext = createContext<YearContext>(undefined);
-export type YearContext = YearInfo;
+export type YearContext = YearInfo | undefined;

@@ -19,7 +19,12 @@ export function getValues(anyEnum: Enum): (number | string)[]
         .filter(x => anyEnum[x] !== undefined ? typeof x === "number" : true);
 }
 
-export function getValue<T extends number | string>(anyEnum: Record<string, T & number | string>, possibleKey: string): T
+export function getValue<T extends number | string | undefined>(
+    anyEnum: Record<string, T & number | string | undefined>,
+    possibleKey: string | undefined
+): T
 {
-    return anyEnum[possibleKey] as T;
+    return possibleKey !== null && possibleKey !== undefined
+        ? anyEnum[possibleKey] as T
+        : undefined as T;
 }

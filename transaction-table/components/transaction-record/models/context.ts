@@ -6,4 +6,4 @@ export const TransactionRecordContext = createContext<TransactionRecordContext>(
 export type TransactionRecordContext = ComponentContext<Props>;
 
 export const TagMetadataContext = createContext<TagMetadataContext>(undefined);
-export type TagMetadataContext = string;
+export type TagMetadataContext = string | undefined;

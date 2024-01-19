@@ -57,7 +57,9 @@ export function Component({
 
     function byOrder(tagA: Tag, tagB: Tag): number
     {
-        return tagA.order - tagB.order;
+        return tagA.order !== null && tagA.order !== undefined && tagB.order !== null && tagB.order !== undefined
+            ? tagA.order - tagB.order
+            : NaN;
     }
 
     function getIcon(): DefaultIconSet
@@ -66,12 +68,18 @@ export function Component({
         Object.values(tags)
             .filter(tag => tag.status === TagStatus.Selected)
             .sort(byOrder)
-            .forEach(selectedTag => { icon = (DefaultIconSet as Record<string, DefaultIconSet>)[selectedTag.icon] ?? icon; });
+            .forEach(selectedTag =>
+            {
+                if (selectedTag.icon)
+                {
+                    icon = (DefaultIconSet as Record<string, DefaultIconSet>)[selectedTag.icon] ?? icon;
+                }
+            });
 
         return icon;
     }
 
-    function getDropdownMenuItems(): DropdownMenuProps["menuItems"]
+    function getDropdownMenuItems(): NonNullable<DropdownMenuProps["menuItems"]>
     {
         const dropdownMenuItems: DropdownMenuProps["menuItems"] = {};
         const selectedTagCount = Object.values(tags).filter(x => x.status === TagStatus.Selected).length;
@@ -182,7 +190,7 @@ export function Component({
 
     function onNameChange(newText: string): void
     {
-        onChange({
+        onChange?.({
             name: newText,
             amount,
             tags,
@@ -194,7 +202,7 @@ export function Component({
 
     function onAmountChange(newValue: number): void
     {
-        onChange({
+        onChange?.({
             name,
             amount: newValue,
             tags,
@@ -213,7 +221,7 @@ export function Component({
                 ? TagStatus.Selected
                 : pressedTag.status;
 
-        onChange({
+        onChange?.({
             name,
             amount,
             tags: {
