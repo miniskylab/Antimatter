@@ -4,6 +4,11 @@ import {TransactionTableProps} from "../models";
 
 export function isHighlightedTransaction(transaction: TransactionRecord.Data): boolean
 {
+    if (!transaction.tags)
+    {
+        return false;
+    }
+
     return Object.values(transaction.tags)
         .some(
             tag => tag.status === TransactionRecord.TagStatus.Selected &&
@@ -17,7 +22,7 @@ export function getSummaryFigures(
     transactionGroup2Filter: (transaction: TransactionRecord.Data) => boolean,
     selectedDate: TransactionTableProps["selectedDate"],
     selectedTransaction?: TransactionTableProps["selectedTransaction"]
-): Pick<TransactionTableProps["summary"], "section1Value" | "section2Value" | "progressBarValue">
+): Pick<NonNullable<TransactionTableProps["summary"]>, "section1Value" | "section2Value" | "progressBarValue">
 {
     const selectedMonthTransactions = filterTransactionsForSelectedMonth(transactions, selectedDate);
     mergeData(selectedMonthTransactions, selectedTransaction);
@@ -48,8 +53,10 @@ export function getSummaryFigures(
 function filterTransactionsForSelectedMonth(
     transactions: TransactionTableProps["transactions"],
     selectedDate: TransactionTableProps["selectedDate"]
-): TransactionTableProps["transactions"]
+): NonNullable<TransactionTableProps["transactions"]>
 {
+    Ts.Error.throwIfNullOrUndefined(transactions);
+
     const filteredTransactions: TransactionTableProps["transactions"] = {};
     Object.keys(transactions)
         .filter(txnId => Ts.Date.isEqualMonth(transactions[txnId].executedDate, selectedDate))
@@ -63,6 +70,7 @@ function mergeData(
     selectedTransaction: TransactionTableProps["selectedTransaction"]
 ): void
 {
+    Ts.Error.throwIfNullOrUndefined(transactions);
     if (!selectedTransaction)
     {
         return;
@@ -80,6 +88,11 @@ function mergeData(
 
 function getTotalAmount(transactions: TransactionTableProps["transactions"]): number
 {
+    if (!transactions)
+    {
+        return 0;
+    }
+
     let totalAmount = 0;
     Object.values(transactions).forEach(x => { totalAmount += x.amount; });
 
