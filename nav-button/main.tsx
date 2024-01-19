@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {AllPropertiesMustPresent, EMPTY_STRING, Environment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, isEnvironment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {NavigationContainerRefContext, NavigationContext, useNavigation} from "@react-navigation/native";
-import React, {JSX, useMemo} from "react";
+import React, {JSX, useContext, useMemo} from "react";
 import {Target} from "./enums";
 import {NavButtonContext, NavButtonProps} from "./models";
 import * as Variant from "./variants";
@@ -30,9 +30,9 @@ export function NavButton({
     Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = useComputedStyle(style, props);
 
-    const navigationContext = React.useContext(NavigationContext);
-    const navigationContainerRefContext = React.useContext(NavigationContainerRefContext);
-    const clientSideNavigation = !Environment.is("Web") || navigationContext || navigationContainerRefContext ? useNavigation() : undefined;
+    const navigationContext = useContext(NavigationContext);
+    const navigationContainerRefContext = useContext(NavigationContainerRefContext);
+    const clientSideNavigation = !isEnvironment("Web") || navigationContext || navigationContainerRefContext ? useNavigation() : undefined;
 
     return (
         <NavButtonContext.Provider value={context}>
@@ -52,7 +52,7 @@ export function NavButton({
         {
             clientSideNavigation.navigate({name: destination, params: {}} as never);
         }
-        else if (Environment.is("WebBrowser"))
+        else if (isEnvironment("WebBrowser"))
         {
             window.open(destination, openIn);
         }

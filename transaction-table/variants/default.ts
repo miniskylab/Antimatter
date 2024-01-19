@@ -3,7 +3,7 @@ import {CalendarContextHook, CalendarStyle, CalendarVariant} from "@miniskylab/a
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DatePickerContextHook, DatePickerStyle, DatePickerVariant} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {Environment, Style} from "@miniskylab/antimatter-framework";
+import {Style, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -26,7 +26,7 @@ const TransactionTable__Root: ViewStyle = function (viewProps)
         minWidth: 300,
         maxWidth: 1000,
         minHeight: 500,
-        ...Environment.useResponsiveStyle("Large", {
+        ...useResponsiveStyle("Large", {
             flexDirection: "row",
             flexWrap: "wrap"
         })
@@ -199,7 +199,7 @@ const TransactionTable__Summary__Root: ViewStyle = function (viewProps)
         flexWrap: "wrap",
         alignSelf: "stretch",
         marginTop: 5,
-        ...Environment.useResponsiveStyle("Large", {
+        ...useResponsiveStyle("Large", {
             flexBasis: "100%",
             marginTop: 0
         })
@@ -239,7 +239,7 @@ const TransactionTable__Summary__Amount: LabelStyle = function (labelProps)
         fontSize: 20,
         fontWeight: "bold",
         color: sectionContext === "section-1" ? Color.Positive : Color.Warning,
-        ...Environment.useResponsiveStyle("Large", {
+        ...useResponsiveStyle("Large", {
             lineHeight: 30
         })
     };
@@ -267,7 +267,7 @@ const TransactionTable__Summary__RangeSlider__Track: ViewStyle = function (viewP
         ...inheritedStyle,
         marginTop: 8,
         marginBottom: 3,
-        ...Environment.useResponsiveStyle("Large", {
+        ...useResponsiveStyle("Large", {
             marginBottom: 5
         })
     };
@@ -439,7 +439,7 @@ const TransactionTable__TransactionDetails: ViewStyle = function (viewProps)
         maxWidth: undefined,
         height: "auto",
         marginTop: 5,
-        ...Environment.useResponsiveStyle("Large", {
+        ...useResponsiveStyle("Large", {
             maxWidth: "50%",
             height: 508,
             marginTop: 12

@@ -1,5 +1,4 @@
 import {ShadowStyleIOS, TextStyle} from "react-native";
-import {Animated} from "../predefined";
 import {ComponentProps} from "./component-props";
 
 export type ShadowStyle = () => ShadowStyleIOS;
@@ -24,19 +23,4 @@ export function inheritTextStyleFrom<TStyle extends TextStyle>(style: TStyle): T
 export function notRequiredAsParentElementIsHidden<T>(): T
 {
     return undefined as T;
-}
-
-type Style = (props: unknown, state: unknown) => Animated<object> | Style;
-export function useComputedStyle<TStyle extends Style>(style: TStyle, props: ComponentProps<TStyle>, state?: unknown): ReturnType<TStyle>
-{
-    const {style: _, ...propsWithoutStyle} = props;
-    let computedStyle = style(propsWithoutStyle, state);
-
-    if (typeof computedStyle === "object")
-    {
-        const {animations: _, ...computedStyleWithoutAnimations} = computedStyle;
-        computedStyle.animations?.forEach(animation => { computedStyle = {...computedStyleWithoutAnimations, ...animation()}; });
-    }
-
-    return computedStyle as ReturnType<TStyle>;
 }

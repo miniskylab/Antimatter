@@ -1,6 +1,6 @@
 import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Environment, ShadowStyle} from "@miniskylab/antimatter-framework";
+import {ShadowStyle, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -21,7 +21,7 @@ const TopicCardGroup__Root: ViewStyle = function (viewProps)
         minWidth: 300,
         maxWidth: 1000,
         marginVertical: -10,
-        ...Environment.useResponsiveStyle("Medium", {
+        ...useResponsiveStyle("Medium", {
             marginHorizontal: -10
         })
     };
@@ -37,8 +37,8 @@ const TopicCardGroup__Card__Root: ViewStyle = function (viewProps)
         alignItems: "stretch",
         flexBasis: "100%",
         marginVertical: 10,
-        ...Environment.useResponsiveStyle("Medium", {flexBasis: "50%"}),
-        ...Environment.useResponsiveStyle("Large", {flexBasis: "33.33%"}),
+        ...useResponsiveStyle("Medium", {flexBasis: "50%"}),
+        ...useResponsiveStyle("Large", {flexBasis: "33.33%"}),
         ...cardContext.props.thisIsPlaceholderCard && {
             marginTop: 0,
             marginBottom: 0,
@@ -77,7 +77,7 @@ const TopicCardGroup__Card__HorizontalMargin: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         width: 10,
         display: "none",
-        ...Environment.useResponsiveStyle("Medium", {
+        ...useResponsiveStyle("Medium", {
             display: "flex"
         })
     };

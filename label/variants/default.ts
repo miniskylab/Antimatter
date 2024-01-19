@@ -1,5 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Environment} from "@miniskylab/antimatter-framework";
+import {useSuspense} from "@miniskylab/antimatter-framework";
 import {LabelStyle} from "../models";
 
 export const Default: LabelStyle = function ()
@@ -8,6 +8,6 @@ export const Default: LabelStyle = function ()
         alignItems: "center",
         justifyContent: "center",
         color: Color.White,
-        ...Environment.useSuspense()
+        ...useSuspense()
     };
 };

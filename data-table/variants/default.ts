@@ -1,7 +1,7 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DropDirection, DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant} from "@miniskylab/antimatter-dropdown-menu";
-import {Environment, Style} from "@miniskylab/antimatter-framework";
+import {Style, useEnvironment} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -203,7 +203,7 @@ const DataTable__Row__Root: PressableStyle = function (pressableProps, pressable
     const rowContext = Row.ContextHook.useRowContext();
     const rowTypeContext = DataTableContextHook.useRowTypeContext();
 
-    const runningOnMobileApp = Environment.use("MobileApp");
+    const runningOnMobileApp = useEnvironment("MobileApp");
     const selectableAndHovered = rowContext.props.onPress && pressableState.hovered;
 
     return {

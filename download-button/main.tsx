@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {AllPropertiesMustPresent, EMPTY_STRING, Environment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, isEnvironment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import React, {JSX, useEffect, useMemo, useState} from "react";
 import {DownloadButtonContext, DownloadButtonProps, DownloadButtonState} from "./models";
 import * as Variant from "./variants";
@@ -16,7 +16,7 @@ export function DownloadButton({
     disabled = false
 }: DownloadButtonProps): JSX.Element
 {
-    if (!Environment.is("Web"))
+    if (!isEnvironment("Web"))
     {
         throw new Error("<DownloadButton/> can only be used inside web environment");
     }

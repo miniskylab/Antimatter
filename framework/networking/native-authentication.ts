@@ -6,7 +6,7 @@ import * as ExpoCrypto from "expo-crypto";
 import * as ExpoSecureStore from "expo-secure-store";
 import * as WebBrowser from "expo-web-browser";
 import {useEffect, useRef, useState} from "react";
-import * as Environment from "../environment";
+import {isEnvironment} from "../functions";
 import * as Ts from "../typescript";
 
 export class NativeAuthentication
@@ -20,7 +20,7 @@ export class NativeAuthentication
 
     constructor(issuer: string, clientId: string)
     {
-        if (Environment.is("Web"))
+        if (isEnvironment("Web"))
         {
             throw new Error("NativeAuthentication cannot be used inside web environment");
         }
