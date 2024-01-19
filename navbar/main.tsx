@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {NavButton} from "@miniskylab/antimatter-nav-button";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -23,7 +23,7 @@ export function Navbar({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <NavbarContext.Provider value={context}>

@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -27,7 +27,7 @@ export function Component({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     const pipCount = Math.round((maxValue - minValue) / step);
 

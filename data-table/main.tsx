@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
@@ -42,7 +42,7 @@ export function DataTable({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     const scrollViewRef = useRef<ScrollView>(null);
     const headerData = columns?.map(x => x.name).filter(x => !!x);

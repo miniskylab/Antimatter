@@ -1,5 +1,5 @@
 import {createIconSetFromIcoMoon} from "@expo/vector-icons";
-import {AllPropertiesMustPresent, inheritTextStyleFrom, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, inheritTextStyleFrom, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {useIcomoon} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
@@ -21,7 +21,7 @@ export function Icon({
     };
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     const [assetLoaded, selection, expoFontName, expoAssetId] = useIcomoon();
     if (!assetLoaded)

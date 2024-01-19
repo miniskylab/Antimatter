@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, EMPTY_STRING, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {TextInput} from "@miniskylab/antimatter-text-input";
@@ -45,7 +45,7 @@ export const InputField = forwardRef(function InputField(
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <InputFieldContext.Provider value={context}>

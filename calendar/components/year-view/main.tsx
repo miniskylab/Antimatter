@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {AllPropertiesMustPresent, EMPTY_STRING, GregorianCalendar, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Props, YearContext, YearViewContext} from "./models";
@@ -24,7 +24,7 @@ export function Component({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <YearViewContext.Provider value={context}>

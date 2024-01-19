@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import React, {forwardRef, JSX, MutableRefObject, useMemo, useState} from "react";
 import ReactNative from "react-native";
 import {AnimatedPressable} from "./components";
@@ -33,7 +33,7 @@ export const Pressable = forwardRef(function Pressable(
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props, state);
+    const computedStyle = useComputedStyle(style, props, state);
 
     if (disabled && (state.hovered || state.pressed))
     {

@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View, ViewStyle} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useState} from "react";
 import {Transitionable} from "./components";
@@ -29,7 +29,7 @@ export function Transition({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props, state);
+    const computedStyle = useComputedStyle(style, props, state);
 
     const transitionableStyle: Transitionable.Style = function (transitionableProps: Transitionable.Props): ViewStyle
     {

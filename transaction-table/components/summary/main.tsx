@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, EMPTY_STRING, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {RangeSlider} from "@miniskylab/antimatter-range-slider";
 import {View} from "@miniskylab/antimatter-view";
@@ -27,7 +27,7 @@ export function Component({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <SummaryContext.Provider value={context}>

@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -26,7 +26,7 @@ export function Timeline({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <TimelineContext.Provider value={context}>

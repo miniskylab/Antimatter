@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, EMPTY_STRING, inheritTextStyleFrom, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, inheritTextStyleFrom, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject} from "react";
@@ -37,7 +37,7 @@ export const TextInput = forwardRef(function TextInput(
     };
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <View style={() => computedStyle}>

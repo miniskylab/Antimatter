@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, EMPTY_STRING, Style} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
@@ -31,7 +31,7 @@ export function Button({
         style = label ? Variant.OutlinedRectangular : Variant.OutlinedCircular;
     }
 
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <ButtonContext.Provider value={context}>

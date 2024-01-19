@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, GregorianCalendar, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {View} from "@miniskylab/antimatter-view";
@@ -25,7 +25,7 @@ export function Component({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <DateViewContext.Provider value={context}>

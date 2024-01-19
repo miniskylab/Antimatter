@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Decade, GregorianCalendar, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Decade, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Animation, CompositeTransitionSettings, SlideDirection, Transition, ZoomDirection} from "@miniskylab/antimatter-transition";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef, useState} from "react";
@@ -51,7 +51,7 @@ export function Calendar({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props, state);
+    const computedStyle = useComputedStyle(style, props, state);
 
     const calendarWidthRef = useRef<number>(NaN);
     const cacheRef = useRef<Cache>({

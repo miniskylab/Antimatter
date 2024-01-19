@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, EMPTY_STRING, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import React, {JSX} from "react";
 import {Animated} from "react-native";
 import {ImageProps} from "./models";
@@ -18,7 +18,7 @@ export function Image({
     };
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <Animated.Image

@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
-import {AllPropertiesMustPresent, DateFormat, Environment, Style, Ts} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, DateFormat, Environment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -48,7 +48,7 @@ export function TransactionTable({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props, state);
+    const computedStyle = useComputedStyle(style, props, state);
 
     const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = Environment.useBreakpoint("Large");
 

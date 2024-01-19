@@ -1,6 +1,13 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
-import {AllPropertiesMustPresent, DateFormat, EMPTY_STRING, GregorianCalendar, Style, Ts} from "@miniskylab/antimatter-framework";
+import {
+    AllPropertiesMustPresent,
+    DateFormat,
+    EMPTY_STRING,
+    GregorianCalendar,
+    Ts,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -34,7 +41,7 @@ export function DatePicker({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = Style.useComputedStyle(style, props);
+    const computedStyle = useComputedStyle(style, props);
 
     return (
         <DatePickerContext.Provider value={context}>
