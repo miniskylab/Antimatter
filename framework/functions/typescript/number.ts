@@ -1,4 +1,4 @@
-import {EMPTY_STRING} from "../consts";
+import {EMPTY_STRING} from "../../consts";
 
 export function clamp(value: number, min?: number, max?: number): number
 {

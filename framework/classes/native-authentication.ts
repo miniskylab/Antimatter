@@ -7,8 +7,7 @@ import * as ExpoCrypto from "expo-crypto";
 import * as ExpoSecureStore from "expo-secure-store";
 import * as WebBrowser from "expo-web-browser";
 import {useEffect, useRef, useState} from "react";
-import {isEnvironment} from "../functions";
-import * as Ts from "../typescript";
+import {isEnvironment, Ts} from "../functions";
 
 export class NativeAuthentication
 {

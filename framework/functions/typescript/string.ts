@@ -1,4 +1,4 @@
-import {EMPTY_STRING} from "../consts";
+import {EMPTY_STRING} from "../../consts";
 
 export function whitespace(length: number)
 {

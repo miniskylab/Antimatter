@@ -4,7 +4,7 @@ import {ComponentType, createElement, JSX} from "react";
 import {ComponentProps} from "../classes";
 import {EMPTY_STRING, ErrorMessage, Reflection} from "../consts";
 import {ComponentName} from "../decorators";
-import * as Ts from "../typescript";
+import {Ts} from "../functions";
 
 export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
     component: ComponentType<TProps>,

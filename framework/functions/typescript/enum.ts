@@ -1,4 +1,4 @@
-import {Enum} from "../types";
+import {Enum} from "../../types";
 
 export function getName(anyEnum: Enum, possibleValue: unknown): string | undefined
 {

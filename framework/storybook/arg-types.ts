@@ -1,4 +1,4 @@
-import * as Ts from "../typescript";
+import {Ts} from "../functions";
 
 export function styleSelector(anyObject: Record<string, unknown>): Record<string, unknown>
 {

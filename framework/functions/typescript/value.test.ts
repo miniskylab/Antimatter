@@ -1,4 +1,4 @@
-import {isNullOrUndefined} from "./data";
+import {isNullOrUndefined} from "./value";
 
 describe("how to use [isNullOrUndefined(...)]", () =>
 {

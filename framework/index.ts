@@ -7,6 +7,5 @@ export * from "./hooks";
 export * from "./enums";
 export * from "./types";
 
-export * as Ts from "./typescript";
 export * as Sb from "./storybook";
 export * as WYSIWYG from "./wysiwyg";
