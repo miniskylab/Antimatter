@@ -1,4 +1,11 @@
-import {AllPropertiesMustPresent, Html, inheritTextStyleFrom, isEnvironment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    AllPropertiesMustPresent,
+    inheritTextStyleFrom,
+    isEnvironment,
+    Ts,
+    useComputedStyle,
+    WYSIWYG
+} from "@miniskylab/antimatter-framework";
 import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
@@ -53,7 +60,7 @@ export function Label({
                     ...isWebEnvironment && numberOfLines !== 1 && {whiteSpace: "inherit"}
                 }}
             >
-                {children && (isWebEnvironment ? Html.render(children) : children)}
+                {children && (isWebEnvironment ? WYSIWYG.render(children) : children)}
             </Animated.Text>
         </View>
     );

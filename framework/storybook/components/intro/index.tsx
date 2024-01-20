@@ -1,7 +1,8 @@
 import {Description, Title} from "@storybook/blocks";
 import React, {FunctionComponent, JSX} from "react";
 import {Text, View} from "react-native";
-import {ComponentName, Decorator} from "../../../reflection";
+import {Reflection} from "../../../consts";
+import {ComponentName} from "../../../decorators";
 import * as Styles from "./styles";
 
 type Props = { of: FunctionComponent; propsType: unknown; supportedPlatforms: ("iOS" | "Android" | "Web")[] }
@@ -13,7 +14,7 @@ export function Intro({
 {
     return (
         <View style={Styles.Root}>
-            <Title>{Decorator.getValue<string>(ComponentName, propsType)}</Title>
+            <Title>{Reflection.getDecoratorValue<string>(ComponentName, propsType)}</Title>
             {supportedPlatforms.length > 0 && <View style={Styles.BadgeContainer}>
                 <Text style={Styles.BadgeDescription}>Supported Platforms</Text>
                 {supportedPlatforms.includes("iOS") && <Text style={Styles.BadgeValueIOS}>iOS</Text>}
