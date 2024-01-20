@@ -1,4 +1,4 @@
-import {getScreenSizeInPixel, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {getScreenSizeFromBreakpoint, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Card} from "../components";
 import {TopicCardGroupContextHook} from "../hooks";
@@ -13,7 +13,7 @@ const TopicCardGroup__Root: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        maxWidth: getScreenSizeInPixel("ExtraLarge"),
+        maxWidth: getScreenSizeFromBreakpoint("ExtraLarge"),
         ...useResponsiveStyle("ExtraLarge", {
             marginTop: 0,
             marginBottom: 0,

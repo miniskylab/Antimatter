@@ -2,7 +2,7 @@ import "@expo/match-media";
 import {useEffect, useState} from "react";
 import {ImageStyle, Platform, TextStyle, ViewStyle} from "react-native";
 import {MediaQueryAllQueryable, useMediaQuery} from "react-responsive";
-import {getScreenSizeInPixel, isEnvironment} from "../functions";
+import {getScreenSizeFromBreakpoint, isEnvironment} from "../functions";
 import {Breakpoint, PlatformEnvironment, ResponsiveEnvironment} from "../types";
 
 export function useEnvironment(environment: ResponsiveEnvironment | PlatformEnvironment): boolean
@@ -11,29 +11,29 @@ export function useEnvironment(environment: ResponsiveEnvironment | PlatformEnvi
     {
         case "MobileApp":
             return (Platform.OS === "ios" || Platform.OS === "android") &&
-                   useSsrSupportedMediaQuery({maxWidth: getScreenSizeInPixel("Medium")});
+                   useSsrSupportedMediaQuery({maxWidth: getScreenSizeFromBreakpoint("Medium")});
 
         case "MobileWeb":
             return Platform.OS === "web" &&
-                   useSsrSupportedMediaQuery({maxWidth: getScreenSizeInPixel("Medium")});
+                   useSsrSupportedMediaQuery({maxWidth: getScreenSizeFromBreakpoint("Medium")});
 
         case "TabletApp":
             return (Platform.OS === "ios" || Platform.OS === "android") &&
                    useSsrSupportedMediaQuery({
-                       minWidth: getScreenSizeInPixel("Medium"),
-                       maxWidth: getScreenSizeInPixel("Large")
+                       minWidth: getScreenSizeFromBreakpoint("Medium"),
+                       maxWidth: getScreenSizeFromBreakpoint("Large")
                    });
 
         case "TabletWeb":
             return (Platform.OS === "web") &&
                    useSsrSupportedMediaQuery({
-                       minWidth: getScreenSizeInPixel("Medium"),
-                       maxWidth: getScreenSizeInPixel("Large")
+                       minWidth: getScreenSizeFromBreakpoint("Medium"),
+                       maxWidth: getScreenSizeFromBreakpoint("Large")
                    });
 
         case "DesktopWeb":
             return Platform.OS === "web" &&
-                   useSsrSupportedMediaQuery({minWidth: getScreenSizeInPixel("Large")});
+                   useSsrSupportedMediaQuery({minWidth: getScreenSizeFromBreakpoint("Large")});
 
         case "NativeApp":
         case "WebBrowser":
@@ -48,12 +48,12 @@ export function useEnvironment(environment: ResponsiveEnvironment | PlatformEnvi
 
 export function useBreakpoint(breakpoint: Breakpoint): boolean
 {
-    return useSsrSupportedMediaQuery({minWidth: getScreenSizeInPixel(breakpoint)});
+    return useSsrSupportedMediaQuery({minWidth: getScreenSizeFromBreakpoint(breakpoint)});
 }
 
 export function useResponsiveStyle(breakpoint: Breakpoint, style: ViewStyle | TextStyle | ImageStyle): typeof style
 {
-    const mediaQueryMatched = useMediaQuery({minWidth: getScreenSizeInPixel(breakpoint)});
+    const mediaQueryMatched = useMediaQuery({minWidth: getScreenSizeFromBreakpoint(breakpoint)});
     if (ssrIsEnabled())
     {
         const [componentDidMount, setComponentDidMount] = useState(false);

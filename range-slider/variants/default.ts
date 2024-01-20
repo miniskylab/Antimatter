@@ -1,5 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Style} from "@miniskylab/antimatter-framework";
+import {Layer} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
@@ -61,7 +61,7 @@ const RangeSlider__FreeZone: ViewStyle = function (viewProps)
         flex: 1,
         flexDirection: "row",
         alignSelf: "stretch",
-        zIndex: Style.Layer.Higher
+        zIndex: Layer.Higher
     };
 };
 
@@ -102,7 +102,7 @@ const RangeSlider__Knob: ViewStyle = function (viewProps)
         borderColor: Color.White,
         borderRadius: 15,
         backgroundColor: Color.Ambient,
-        zIndex: Style.Layer.Higher,
+        zIndex: Layer.Higher,
         transform: [{translateX: -15}]
     };
 };

@@ -1,5 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {getScreenSizeInPixel, Style, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {getScreenSizeFromBreakpoint, Layer, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -14,7 +14,7 @@ const Timeline__Root: ViewStyle = function (viewProps)
         flex: 1,
         width: "100%",
         minWidth: 300,
-        maxWidth: getScreenSizeInPixel("ExtraLarge")
+        maxWidth: getScreenSizeFromBreakpoint("ExtraLarge")
     };
 };
 
@@ -46,7 +46,7 @@ const Timeline__VerticalLine: ViewStyle = function (viewProps)
         marginTop: 60,
         marginBottom: 50,
         backgroundColor: Color.Gray,
-        zIndex: Style.Layer.Lower,
+        zIndex: Layer.Lower,
         ...useResponsiveStyle("Large", {
             left: "50%",
             width: 6,

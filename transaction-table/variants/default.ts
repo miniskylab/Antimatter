@@ -3,7 +3,7 @@ import {CalendarContextHook, CalendarStyle, CalendarVariant} from "@miniskylab/a
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DatePickerContextHook, DatePickerStyle, DatePickerVariant} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {Style, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {Layer, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -70,7 +70,7 @@ const TransactionTable__DatePicker__Root: ViewStyle = function (viewProps)
             shadowRadius: 20,
             shadowColor: Color.Black,
             shadowOpacity: 1,
-            zIndex: Style.Layer.AlwaysOnTop
+            zIndex: Layer.AlwaysOnTop
         }
     };
 };
@@ -624,7 +624,7 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         marginTop: -2,
         cursor: hasSelectedTransaction ? "default" : "pointer",
         ...((!hasSelectedTransaction && pressableState.hovered) || isSelectedTransactionRecord) && {
-            zIndex: Style.Layer.Higher,
+            zIndex: Layer.Higher,
             borderColor: Color.Primary,
             backgroundColor: Color.Primary__a10,
             ...transactionTableContext.props.mode === TransactionRecord.Mode.Delete && {
@@ -1020,7 +1020,7 @@ const TransactionTable__Hr: ViewStyle = function (viewProps)
         position: "absolute",
         width: "100%",
         height: 2,
-        zIndex: Style.Layer.Lower,
+        zIndex: Layer.Lower,
         backgroundColor: Color.Neutral,
         ...hrPosition === "top" && {top: 58},
         ...hrPosition === "bottom" && {bottom: 0}

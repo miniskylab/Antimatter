@@ -1,6 +1,6 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {TextStyle, ViewStyle} from "react-native";
-import {Layer} from "../../../style";
+import {Layer} from "../../../enums";
 
 export const Root: ViewStyle = {
     alignItems: "center",

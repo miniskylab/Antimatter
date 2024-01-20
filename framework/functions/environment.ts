@@ -22,7 +22,7 @@ export function isEnvironment(environment: PlatformEnvironment): boolean
     }
 }
 
-export function getScreenSizeInPixel(breakpoint: Breakpoint): number
+export function getScreenSizeFromBreakpoint(breakpoint: Breakpoint): number
 {
     switch (breakpoint)
     {

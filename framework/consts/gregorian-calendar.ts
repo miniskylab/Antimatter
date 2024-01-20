@@ -1,7 +1,6 @@
-import {EMPTY_STRING} from "../predefined";
-import {DateFormat} from "./date-format";
-import {TimeUnit} from "./time-unit";
-import {Decade} from "./types";
+import {EMPTY_STRING} from "../consts";
+import {DateFormat, TimeUnit} from "../enums";
+import {Decade} from "../types";
 
 export const GregorianCalendar = new class
 {

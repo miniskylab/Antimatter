@@ -1,7 +1,7 @@
 import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DownloadButtonContextHook, DownloadButtonStyle, DownloadButtonVariant} from "@miniskylab/antimatter-download-button";
-import {getScreenSizeInPixel, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {getScreenSizeFromBreakpoint, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {
     HighlightedParagraphContextHook,
     HighlightedParagraphStyle,
@@ -20,7 +20,7 @@ const SelfIntroductionHero__Root: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flex: 1,
-        flexBasis: getScreenSizeInPixel("ExtraLarge"),
+        flexBasis: getScreenSizeFromBreakpoint("ExtraLarge"),
         flexDirection: "column",
         minWidth: 300
     };
