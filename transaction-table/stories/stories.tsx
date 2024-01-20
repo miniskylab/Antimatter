@@ -29,16 +29,14 @@ export default {
                 {
                     const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
                         id: args.selectedTransaction.id,
-                        data: newMode === TransactionRecord.Mode.Edit
-                            ? {
-                                name: args.transactions[args.selectedTransaction.id].name,
-                                amount: args.transactions[args.selectedTransaction.id].amount,
-                                tags: args.transactions[args.selectedTransaction.id].tags,
-                                executedDate: args.transactions[args.selectedTransaction.id].executedDate,
-                                modifiedDate: args.transactions[args.selectedTransaction.id].modifiedDate,
-                                createdDate: args.transactions[args.selectedTransaction.id].createdDate
-                            }
-                            : undefined
+                        data: {
+                            name: args.transactions[args.selectedTransaction.id].name,
+                            amount: args.transactions[args.selectedTransaction.id].amount,
+                            tags: args.transactions[args.selectedTransaction.id].tags,
+                            executedDate: args.transactions[args.selectedTransaction.id].executedDate,
+                            modifiedDate: args.transactions[args.selectedTransaction.id].modifiedDate,
+                            createdDate: args.transactions[args.selectedTransaction.id].createdDate
+                        }
                     };
 
                     setArgs({

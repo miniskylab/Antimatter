@@ -1,4 +1,4 @@
-import {EMPTY_STRING} from "../consts";
+import {EMPTY_STRING} from "../../consts";
 import {base64UrlEncode, extractQueryParameter, format, splitCamelCase} from "./string";
 
 describe("how to use [format(...)]", () =>
