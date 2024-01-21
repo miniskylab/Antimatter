@@ -1,5 +1,5 @@
 import {DropDirection, DropdownMenu, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
@@ -185,7 +185,7 @@ export function Component({
                         return (
                             <Label style={computedStyle.CellLabel} numberOfLines={1}>
                                 {
-                                    selectedMenuItemValue !== null && selectedMenuItemValue !== undefined
+                                    isNotNullAndUndefined(selectedMenuItemValue)
                                         ? cellValue[selectedMenuItemValue].displayText
                                         : selectedMenuItemValue
                                 }

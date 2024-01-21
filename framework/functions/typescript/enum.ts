@@ -1,4 +1,5 @@
 import {Enum} from "../../types";
+import {isNotNullAndUndefined} from "../type-guard";
 
 export function getName(anyEnum: Enum, possibleValue: unknown): string | undefined
 {
@@ -24,7 +25,7 @@ export function getValue<T extends number | string | undefined>(
     possibleKey: string | undefined
 ): T
 {
-    return possibleKey !== null && possibleKey !== undefined
+    return isNotNullAndUndefined(possibleKey)
         ? anyEnum[possibleKey] as T
         : undefined as T;
 }

@@ -1,4 +1,6 @@
-export function isDefaultJavaScriptError(anything: unknown): boolean
+import {isNullOrUndefined} from "../type-guard";
+
+export function isDefaultJavaScriptError(anything: unknown): anything is Error
 {
     if (!anything || typeof anything !== "object")
     {
@@ -11,7 +13,7 @@ export function isDefaultJavaScriptError(anything: unknown): boolean
 
 export function throwIfNullOrUndefined<T>(anything: T): asserts anything is NonNullable<T>
 {
-    if (anything === null || anything === undefined)
+    if (isNullOrUndefined(anything))
     {
         throw new Error("Unexpected null or undefined value here");
     }

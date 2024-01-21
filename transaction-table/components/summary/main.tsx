@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {RangeSlider} from "@miniskylab/antimatter-range-slider";
 import {View} from "@miniskylab/antimatter-view";
@@ -44,7 +44,7 @@ export function Component({
                         <Label style={computedStyle.Amount}>{section2Value}</Label>
                     </View>
                 </SectionContext.Provider>
-                {progressBarValue !== null && progressBarValue !== undefined && (
+                {isNotNullAndUndefined(progressBarValue) && (
                     <RangeSlider
                         style={computedStyle.RangeSlider}
                         minValue={0}

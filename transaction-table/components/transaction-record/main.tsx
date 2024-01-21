@@ -1,5 +1,5 @@
 import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
@@ -57,7 +57,7 @@ export function Component({
 
     function byOrder(tagA: Tag, tagB: Tag): number
     {
-        return tagA.order !== null && tagA.order !== undefined && tagB.order !== null && tagB.order !== undefined
+        return isNotNullAndUndefined(tagA.order) && isNotNullAndUndefined(tagB.order)
             ? tagA.order - tagB.order
             : NaN;
     }

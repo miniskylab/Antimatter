@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, isNullOrUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Label} from "@miniskylab/antimatter-label";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -91,7 +91,7 @@ export function Component({
 
     function isMilestonePip(pipIndex: number): boolean
     {
-        if (milestoneStep === null || milestoneStep === undefined)
+        if (isNullOrUndefined(milestoneStep))
         {
             return false;
         }

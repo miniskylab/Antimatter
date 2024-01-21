@@ -1,4 +1,12 @@
-import {AllPropertiesMustPresent, EMPTY_STRING, MAX, MIN, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    AllPropertiesMustPresent,
+    EMPTY_STRING,
+    isNotNullAndUndefined,
+    MAX,
+    MIN,
+    Ts,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useMemo, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
@@ -222,7 +230,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
             );
         }
 
-        if (defaultValue !== null && defaultValue !== undefined)
+        if (isNotNullAndUndefined(defaultValue))
         {
             if (defaultValue < minValue)
             {

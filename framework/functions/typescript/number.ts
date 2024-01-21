@@ -1,23 +1,24 @@
 import {EMPTY_STRING} from "../../consts";
+import {isNotNullAndUndefined, isNullOrUndefined} from "../type-guard";
 
 export function clamp(value: number, min?: number, max?: number): number
 {
-    if (min !== null && min !== undefined && max !== null && max !== undefined && min > max)
+    if (isNotNullAndUndefined(min) && isNotNullAndUndefined(max) && min > max)
     {
         throw new Error("Invalid arguments: 'min' cannot be greater than 'max'");
     }
 
-    if (value === undefined || value === null || isNaN(value))
+    if (isNullOrUndefined(value) || isNaN(value))
     {
         return NaN;
     }
 
-    if (min !== undefined && min !== null && !isNaN(min) && value < min)
+    if (isNotNullAndUndefined(min) && !isNaN(min) && value < min)
     {
         return min;
     }
 
-    if (max !== undefined && max !== null && !isNaN(max) && value > max)
+    if (isNotNullAndUndefined(max) && !isNaN(max) && value > max)
     {
         return max;
     }
@@ -33,7 +34,7 @@ export function round(anyNumber: number, fractionDigitCount: number = 0): number
 
 export function shorten(anyNumber: number): string
 {
-    if (anyNumber === undefined || anyNumber === null)
+    if (isNullOrUndefined(anyNumber))
     {
         return EMPTY_STRING;
     }
@@ -69,7 +70,7 @@ export function shorten(anyNumber: number): string
 
 export function percentToRadians(percent: number): number
 {
-    if (percent === undefined || percent === null)
+    if (isNullOrUndefined(percent))
     {
         return NaN;
     }
@@ -83,7 +84,7 @@ export function percentToRadians(percent: number): number
 
 export function ensurePercent(anyNumber: number): number
 {
-    if (anyNumber === undefined || anyNumber === null)
+    if (isNullOrUndefined(anyNumber))
     {
         return NaN;
     }

@@ -1,4 +1,4 @@
-import {EMPTY_STRING, MAX, MIN, Ts} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, isNotNullAndUndefined, isNullOrUndefined, MAX, MIN, Ts} from "@miniskylab/antimatter-framework";
 import {Selection} from "@miniskylab/antimatter-text-input";
 import {Keypress} from "../enums";
 
@@ -51,7 +51,6 @@ export function getNextNumericInputFieldState(
     }
     else if (isKeypressEvent(lastEvent))
     {
-        throwIfNotKeypressEvent(lastEvent);
         Ts.Error.throwIfNullOrUndefined(currentSelection);
 
         const keypressEvent = lastEvent;
@@ -274,7 +273,7 @@ export function getNextNumericInputFieldState(
 
 function endWithDotAndZeros(anyString: string): boolean
 {
-    if (Ts.Value.isNullOrUndefined(anyString))
+    if (isNullOrUndefined(anyString))
     {
         return false;
     }
@@ -290,15 +289,7 @@ function purify(anyString: string): string
         .replace(/(?!^)[-+]/g, EMPTY_STRING);
 }
 
-function isKeypressEvent(anything: unknown): boolean
+function isKeypressEvent(anything: unknown): anything is KeypressEvent
 {
-    return anything !== null && anything !== undefined && typeof anything === "object" && anything.hasOwnProperty("keypress");
-}
-
-function throwIfNotKeypressEvent(value: unknown): asserts value is KeypressEvent
-{
-    if (!isKeypressEvent(value))
-    {
-        throw new Error(`Expected a value of type KeypressEvent but instead got: ${value}`);
-    }
+    return typeof anything === "object" && isNotNullAndUndefined(anything) && anything.hasOwnProperty("keypress");
 }
