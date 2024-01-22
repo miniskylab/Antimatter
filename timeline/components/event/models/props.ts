@@ -42,8 +42,8 @@ export class Props extends ComponentProps<Style>
      * @type DefaultIconSet
      */
     @IsEnum(DefaultIconSet)
-    @IsOptional()
-    readonly icon?: DefaultIconSet;
+    @IsDefined()
+    readonly icon: DefaultIconSet;
 
 
     /**

@@ -73,8 +73,8 @@ export function DownloadButton({
         const hidden_a = document.createElement("a");
         hidden_a.style.display = "none";
         hidden_a.setAttribute("href", state.blobURL);
-        hidden_a.setAttribute("download", fileName);
         hidden_a.setAttribute("target", "_self");
+        hidden_a.setAttribute("download", fileName ?? EMPTY_STRING);
 
         document.body.appendChild(hidden_a);
         hidden_a.click();

@@ -44,6 +44,12 @@ export function Component({
     Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = useComputedStyle(style, props);
 
+    const duration = isOnGoing
+        ? GregorianCalendar.getTimeDuration(startDate, new Date(), minimumTimeUnit)
+        : endDate
+            ? GregorianCalendar.getTimeDuration(startDate, endDate, minimumTimeUnit)
+            : undefined;
+
     return (
         <EventContext.Provider value={context}>
             <View style={computedStyle.Root}>
@@ -70,13 +76,11 @@ export function Component({
                         }
                     </View>
                 </RowContext.Provider>
-                {(isOnGoing || endDate) && (
+                {duration && (
                     <RowContext.Provider value={"duration"}>
                         <View style={computedStyle.Row}>
                             <Icon style={computedStyle.BulletinIcon} name={DefaultIconSet.History}/>
-                            <Label style={computedStyle.Duration}>
-                                {GregorianCalendar.getTimeDuration(startDate, isOnGoing ? new Date() : endDate, minimumTimeUnit)}
-                            </Label>
+                            <Label style={computedStyle.Duration}>{duration}</Label>
                         </View>
                     </RowContext.Provider>
                 )}

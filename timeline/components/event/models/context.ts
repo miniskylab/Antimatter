@@ -6,4 +6,4 @@ export const EventContext = createContext<EventContext>(undefined);
 export type EventContext = ComponentContext<Props>;
 
 export const RowContext = createContext<RowContext>(undefined);
-export type RowContext = "time" | "duration" | "location" | "description";
+export type RowContext = "time" | "duration" | "location" | "description" | undefined;

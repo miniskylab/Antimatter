@@ -18,6 +18,7 @@
     "forceConsistentCasingInFileNames": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "strictNullChecks": true,
     "allowJs": false
   }
 }

@@ -6,4 +6,4 @@ export const SelfIntroductionHeroContext = createContext<SelfIntroductionHeroCon
 export type SelfIntroductionHeroContext = ComponentContext<SelfIntroductionHeroProps>;
 
 export const PersonalInfoContext = createContext<PersonalInfoContext>(undefined);
-export type PersonalInfoContext = "location" | "email";
+export type PersonalInfoContext = "location" | "email" | undefined;
