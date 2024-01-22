@@ -1,7 +1,6 @@
-import {EMPTY_STRING} from "../consts";
 import {DateFormat, TimeUnit} from "../enums";
-import {isNullOrUndefined} from "../functions";
 import {Decade} from "../types";
+import {EMPTY_STRING} from "./typescript";
 
 export const GregorianCalendar = new class
 {
@@ -33,7 +32,7 @@ export const GregorianCalendar = new class
 
     isValidMonth(month: number): boolean
     {
-        if (isNullOrUndefined(month)) return false;
+        if (month === null || month === undefined) return false;
         if (isNaN(month)) return false;
 
         return (this.MIN_MONTH <= month && month <= this.MAX_MONTH);
