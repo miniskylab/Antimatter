@@ -3,6 +3,8 @@ import type {StorybookConfig} from "@storybook/react-webpack5";
 import findWorkspaceRoot from "find-yarn-workspace-root";
 import path from "path";
 
+const workspaceRoot = findWorkspaceRoot()!;
+const pathToTypeScriptConfigFile = path.join(workspaceRoot, "tsconfig.json");
 export default {
     core: {
         disableTelemetry: true
@@ -25,10 +27,17 @@ export default {
         "@storybook/addon-links"
     ],
     typescript: {
+        check: true,
+        checkOptions: {
+            typescript: {
+                configFile: pathToTypeScriptConfigFile,
+                context: path.join(workspaceRoot, "Frontend/MiniSkyLab.Antimatter")
+            }
+        },
         reactDocgen: "react-docgen-typescript",
         reactDocgenTypescriptOptions: {
             shouldExtractLiteralValuesFromEnum: true,
-            tsconfigPath: path.join(findWorkspaceRoot(), "tsconfig.json"),
+            tsconfigPath: pathToTypeScriptConfigFile,
             propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true)
         }
     },

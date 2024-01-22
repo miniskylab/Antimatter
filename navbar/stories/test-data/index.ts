@@ -1,3 +1,4 @@
+import {Ts} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {NavbarProps} from "../../models";
 
@@ -13,6 +14,8 @@ export const TestData = {
             [TabName.Consectetur, DefaultIconSet.Gear]
         ].map((tabData: [TabName, DefaultIconSet]) =>
         {
+            Ts.Error.throwIfNullOrUndefined(window.top);
+
             const [tabName, tabIcon] = tabData;
             const windowLocationUrl = new URL(window.top.location.href);
             const selectedTabName = windowLocationUrl.searchParams.get(queryParamaterName) || TabName.Lorem;
@@ -26,9 +29,12 @@ export const TestData = {
             };
         });
 
-        const windowLocationUrl = new URL(window.top.location.href);
-        windowLocationUrl.searchParams.delete(queryParamaterName);
-        window.top.history.replaceState(null, "", decodeURIComponent(windowLocationUrl.href));
+        if (window.top)
+        {
+            const windowLocationUrl = new URL(window.top.location.href);
+            windowLocationUrl.searchParams.delete(queryParamaterName);
+            window.top.history.replaceState(null, "", decodeURIComponent(windowLocationUrl.href));
+        }
 
         return tabs;
     }

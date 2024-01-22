@@ -13,7 +13,7 @@ const TransactionTableWithValidation = withValidation(TransactionTable, Transact
 export default {
     component: TransactionTable,
     title: "Components/Transaction Table",
-    render: args =>
+    render: (args: Required<TransactionTableProps>) =>
     {
         const [, setArgs] = useArgs<TransactionTableProps>();
         return (
@@ -130,7 +130,7 @@ export default {
                 {
                     if (args.selectedTransaction.id === EMPTY_STRING)
                     {
-                        TestData.transactions[`${Date.now()}`] = {
+                        args.transactions[`${Date.now()}`] = {
                             name: args.selectedTransaction.data.name,
                             amount: args.selectedTransaction.data.amount,
                             tags: args.selectedTransaction.data.tags,
@@ -140,7 +140,7 @@ export default {
                     }
                     else
                     {
-                        TestData.transactions[args.selectedTransaction.id] = {
+                        args.transactions[args.selectedTransaction.id] = {
                             ...args.transactions[args.selectedTransaction.id],
                             name: args.selectedTransaction.data.name,
                             amount: args.selectedTransaction.data.amount,
@@ -161,7 +161,7 @@ export default {
                 }}
                 onDeleteTransaction={() =>
                 {
-                    delete TestData.transactions[args.selectedTransaction.id];
+                    delete args.transactions[args.selectedTransaction.id];
                     setArgs({
                         mode: TransactionRecord.Mode.ReadOnly,
                         selectedTransaction: undefined,

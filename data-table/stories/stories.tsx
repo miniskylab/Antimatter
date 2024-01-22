@@ -12,7 +12,7 @@ const DataTableWithValidation = withValidation(DataTable, DataTableProps);
 export default {
     component: DataTable,
     title: "Components/Data Table",
-    render: args =>
+    render: (args: Required<DataTableProps>) =>
     {
         const [, setArgs] = useArgs<DataTableProps>();
         return (
@@ -25,9 +25,7 @@ export default {
                         mode: newMode,
                         selectedRow: {
                             id: args.selectedRow.id,
-                            data: newMode === Row.Mode.Edit
-                                ? args.rows[args.selectedRow.id]
-                                : undefined
+                            data: args.rows[args.selectedRow.id]
                         }
                     });
                 }}
@@ -64,11 +62,11 @@ export default {
                 {
                     if (args.selectedRow.id === EMPTY_STRING)
                     {
-                        TestData.rows[`${Date.now()}`] = args.selectedRow.data;
+                        args.rows[`${Date.now()}`] = args.selectedRow.data;
                     }
                     else
                     {
-                        TestData.rows[args.selectedRow.id] = args.selectedRow.data;
+                        args.rows[args.selectedRow.id] = args.selectedRow.data;
                     }
 
                     setArgs({
@@ -78,7 +76,7 @@ export default {
                 }}
                 onDeleteRow={() =>
                 {
-                    delete TestData.rows[args.selectedRow.id];
+                    delete args.rows[args.selectedRow.id];
                     setArgs({
                         mode: Row.Mode.ReadOnly,
                         selectedRow: undefined

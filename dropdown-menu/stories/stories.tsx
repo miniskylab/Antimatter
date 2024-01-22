@@ -11,7 +11,7 @@ const DropdownMenuWithValidation = withValidation(DropdownMenu, DropdownMenuProp
 export default {
     component: DropdownMenu,
     title: "Components/Dropdown Menu",
-    render: args =>
+    render: (args: Required<DropdownMenuProps>) =>
     {
         const [, setArgs] = useArgs<DropdownMenuProps>();
         return (
