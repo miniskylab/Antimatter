@@ -1,7 +1,14 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
-import {AllPropertiesMustPresent, DateFormat, Ts, useBreakpoint, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    AllPropertiesMustPresent,
+    DateFormat,
+    isNotNullAndUndefined,
+    Ts,
+    useBreakpoint,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -141,7 +148,9 @@ export function TransactionTable({
             return executedDateComparisonResult;
         }
 
-        return transactionA.createdDate.getTime() - transactionB.createdDate.getTime();
+        return isNotNullAndUndefined(transactionA.createdDate) && isNotNullAndUndefined(transactionB.createdDate)
+            ? transactionA.createdDate.getTime() - transactionB.createdDate.getTime()
+            : NaN;
     }
 
     function renderSummary(): JSX.Element | undefined

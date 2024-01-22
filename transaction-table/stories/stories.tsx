@@ -113,9 +113,7 @@ export default {
                             name: EMPTY_STRING,
                             tags: TestData.tags,
                             amount: 0,
-                            executedDate: args.selectedDate,
-                            modifiedDate: new Date(),
-                            createdDate: new Date()
+                            executedDate: args.selectedDate
                         }
                     };
 
@@ -137,8 +135,7 @@ export default {
                             amount: args.selectedTransaction.data.amount,
                             tags: args.selectedTransaction.data.tags,
                             executedDate: args.selectedTransaction.data.executedDate,
-                            modifiedDate: new Date(),
-                            createdDate: args.selectedTransaction.data.createdDate
+                            createdDate: new Date()
                         };
                     }
                     else
@@ -149,8 +146,7 @@ export default {
                             amount: args.selectedTransaction.data.amount,
                             tags: args.selectedTransaction.data.tags,
                             executedDate: args.selectedTransaction.data.executedDate,
-                            modifiedDate: new Date(),
-                            createdDate: args.selectedTransaction.data.createdDate
+                            modifiedDate: new Date()
                         };
                     }
 

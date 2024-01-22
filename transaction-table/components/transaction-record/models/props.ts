@@ -72,16 +72,16 @@ export class Props extends ComponentProps<Style>
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsDate()
-    @IsDefined()
-    readonly modifiedDate: Date;
+    @IsOptional()
+    readonly modifiedDate?: Date;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsDate()
-    @IsDefined()
-    readonly createdDate: Date;
+    @IsOptional()
+    readonly createdDate?: Date;
 
 
     /**
