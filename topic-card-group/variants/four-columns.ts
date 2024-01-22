@@ -77,12 +77,11 @@ const TopicCardGroup__Card__HorizontalMargin: ViewStyle = function (viewProps)
     };
 };
 
-const TopicCardGroup__Card: Card.Style = function ()
+const TopicCardGroup__Card: Card.Style = function (cardProps)
 {
-    const cardContext = Card.ContextHook.useCardContext();
     const topicCardGroupContext = TopicCardGroupContextHook.useTopicCardGroupContext();
 
-    const inheritedStyle = ThreeColumns(topicCardGroupContext.props).Card(cardContext.props);
+    const inheritedStyle = ThreeColumns(topicCardGroupContext.props).Card(cardProps);
 
     return {
         ...inheritedStyle,
