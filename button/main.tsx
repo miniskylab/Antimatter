@@ -36,7 +36,7 @@ export function Button({
     return (
         <ButtonContext.Provider value={context}>
             <Pressable style={computedStyle.Root} disabled={disabled} onPress={onPress}>
-                {icon && <Icon style={computedStyle.Icon} name={icon} pointerEvents={"none"} selectable={false}/>}
+                {!!icon && <Icon style={computedStyle.Icon} name={icon} pointerEvents={"none"} selectable={false}/>}
                 {!!label && (
                     <Label
                         style={computedStyle.Label}

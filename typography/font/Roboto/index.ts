@@ -1,4 +1,5 @@
-import {FontDisplay, useFonts} from "expo-font";
+import {useCustomFonts} from "@miniskylab/antimatter-framework";
+import {FontDisplay} from "expo-font";
 import RobotoBlackItalic from "./Roboto-Black-Italic.ttf";
 import RobotoBlack from "./Roboto-Black.ttf";
 import RobotoBoldItalic from "./Roboto-Bold-Italic.ttf";
@@ -15,7 +16,7 @@ import RobotoThin from "./Roboto-Thin.ttf";
 export function useRobotoFont(): boolean
 {
     const display = FontDisplay.FALLBACK;
-    const [fontsLoaded] = useFonts({
+    const [fontsLoaded] = useCustomFonts({
         "Roboto-Black": {uri: RobotoBlack, display},
         "Roboto-Black-Italic": {uri: RobotoBlackItalic, display},
         "Roboto-Bold": {uri: RobotoBold, display},

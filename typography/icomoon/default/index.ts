@@ -1,11 +1,12 @@
-import {FontDisplay, useFonts} from "expo-font";
+import {useCustomFonts} from "@miniskylab/antimatter-framework";
+import {FontDisplay} from "expo-font";
 import {IcomoonSettings} from "../types";
 import glyph from "./glyph.ttf";
 import selection from "./selection.json";
 
 export function useDefaultIconSet(): IcomoonSettings
 {
-    const [fontLoaded] = useFonts({glyph: {uri: glyph, display: FontDisplay.FALLBACK}});
+    const [fontLoaded] = useCustomFonts({glyph: {uri: glyph, display: FontDisplay.FALLBACK}});
     return [fontLoaded, selection, "glyph", "glyph.ttf"];
 }
 
