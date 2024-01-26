@@ -556,7 +556,7 @@ const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
         flexGrow: 1,
         fontSize: 28,
         color: Color.Neutral,
-        ...isActionButton && {
+        ...isActionButton && !buttonContext.props.disabled && {
             color: isDraftMode || isEditMode
                 ? Color.Primary
                 : isDeleteMode
@@ -602,7 +602,7 @@ const TransactionTable__ControlButton__Label: LabelStyle = function (labelProps)
         fontSize: 12,
         fontWeight: "bold",
         color: Color.Neutral,
-        ...isActionButton && {
+        ...isActionButton && !buttonContext.props.disabled && {
             color: isDraftMode || isEditMode
                 ? Color.Primary
                 : isDeleteMode

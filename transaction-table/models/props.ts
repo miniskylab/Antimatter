@@ -1,13 +1,4 @@
-import {
-    ComponentName,
-    ComponentProps,
-    GestureResponderEventHandler,
-    IsDate,
-    IsEnum,
-    IsInteger,
-    IsNumber,
-    IsPositive
-} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps, IsDate, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {Summary, TransactionRecord} from "../components";
@@ -75,7 +66,31 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly customButton?: Omit<ControlButton, "type">;
+    readonly addNewTransactionButton: ControlButton;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly saveTransactionButton: ControlButton;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly deleteTransactionButton: ControlButton;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly cancelButton: ControlButton;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly customButton?: ControlButton;
 
 
     /**
@@ -100,28 +115,4 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
      * <i style="color: #9B9B9B">(not available)</i>
      */
     readonly onSelectDate?: (newDate: Date) => void;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    readonly onAddNewTransaction?: GestureResponderEventHandler;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    readonly onSaveTransaction?: GestureResponderEventHandler;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    readonly onDeleteTransaction?: GestureResponderEventHandler;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    readonly onCancel?: GestureResponderEventHandler;
 }

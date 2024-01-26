@@ -20,6 +20,99 @@ export default {
             <TransactionTableWithValidation
                 {...args}
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
+                addNewTransactionButton={{
+                    icon: DefaultIconSet.PlusCircle,
+                    text: "Add New",
+                    onPress: () =>
+                    {
+                        const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
+                            id: EMPTY_STRING,
+                            data: {
+                                name: EMPTY_STRING,
+                                tags: TestData.tags,
+                                amount: 0,
+                                executedDate: args.selectedDate
+                            }
+                        };
+
+                        setArgs({
+                            mode: TransactionRecord.Mode.Draft,
+                            selectedTransaction,
+                            summary: {
+                                ...args.summary,
+                                ...TestData.getSummaryFigures(args.selectedDate, selectedTransaction)
+                            }
+                        });
+                    }
+                }}
+                saveTransactionButton={{
+                    icon: DefaultIconSet.FloppyDisk,
+                    text: "Save",
+                    onPress: () =>
+                    {
+                        if (args.selectedTransaction.id === EMPTY_STRING)
+                        {
+                            args.transactions[`${Date.now()}`] = {
+                                name: args.selectedTransaction.data.name,
+                                amount: args.selectedTransaction.data.amount,
+                                tags: args.selectedTransaction.data.tags,
+                                executedDate: args.selectedTransaction.data.executedDate,
+                                createdDate: new Date()
+                            };
+                        }
+                        else
+                        {
+                            args.transactions[args.selectedTransaction.id] = {
+                                ...args.transactions[args.selectedTransaction.id],
+                                name: args.selectedTransaction.data.name,
+                                amount: args.selectedTransaction.data.amount,
+                                tags: args.selectedTransaction.data.tags,
+                                executedDate: args.selectedTransaction.data.executedDate,
+                                modifiedDate: new Date()
+                            };
+                        }
+
+                        setArgs({
+                            mode: TransactionRecord.Mode.ReadOnly,
+                            selectedTransaction: undefined,
+                            summary: {
+                                ...args.summary,
+                                ...TestData.getSummaryFigures(args.selectedDate)
+                            }
+                        });
+                    }
+                }}
+                deleteTransactionButton={{
+                    icon: DefaultIconSet.TrashCan,
+                    text: "Delete",
+                    onPress: () =>
+                    {
+                        delete args.transactions[args.selectedTransaction.id];
+                        setArgs({
+                            mode: TransactionRecord.Mode.ReadOnly,
+                            selectedTransaction: undefined,
+                            summary: {
+                                ...args.summary,
+                                ...TestData.getSummaryFigures(args.selectedDate)
+                            }
+                        });
+                    }
+                }}
+                cancelButton={{
+                    icon: DefaultIconSet.XMarkInsideCircle,
+                    text: "Cancel",
+                    onPress: () =>
+                    {
+                        setArgs({
+                            mode: TransactionRecord.Mode.ReadOnly,
+                            selectedTransaction: undefined,
+                            summary: {
+                                ...args.summary,
+                                ...TestData.getSummaryFigures(args.selectedDate)
+                            }
+                        });
+                    }
+                }}
                 customButton={{
                     icon: DefaultIconSet.Group,
                     text: "Lorem Ipsum: 99",
@@ -105,83 +198,6 @@ export default {
                         }
                     });
                 }}
-                onAddNewTransaction={() =>
-                {
-                    const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
-                        id: EMPTY_STRING,
-                        data: {
-                            name: EMPTY_STRING,
-                            tags: TestData.tags,
-                            amount: 0,
-                            executedDate: args.selectedDate
-                        }
-                    };
-
-                    setArgs({
-                        mode: TransactionRecord.Mode.Draft,
-                        selectedTransaction,
-                        summary: {
-                            ...args.summary,
-                            ...TestData.getSummaryFigures(args.selectedDate, selectedTransaction)
-                        }
-                    });
-                }}
-                onSaveTransaction={() =>
-                {
-                    if (args.selectedTransaction.id === EMPTY_STRING)
-                    {
-                        args.transactions[`${Date.now()}`] = {
-                            name: args.selectedTransaction.data.name,
-                            amount: args.selectedTransaction.data.amount,
-                            tags: args.selectedTransaction.data.tags,
-                            executedDate: args.selectedTransaction.data.executedDate,
-                            createdDate: new Date()
-                        };
-                    }
-                    else
-                    {
-                        args.transactions[args.selectedTransaction.id] = {
-                            ...args.transactions[args.selectedTransaction.id],
-                            name: args.selectedTransaction.data.name,
-                            amount: args.selectedTransaction.data.amount,
-                            tags: args.selectedTransaction.data.tags,
-                            executedDate: args.selectedTransaction.data.executedDate,
-                            modifiedDate: new Date()
-                        };
-                    }
-
-                    setArgs({
-                        mode: TransactionRecord.Mode.ReadOnly,
-                        selectedTransaction: undefined,
-                        summary: {
-                            ...args.summary,
-                            ...TestData.getSummaryFigures(args.selectedDate)
-                        }
-                    });
-                }}
-                onDeleteTransaction={() =>
-                {
-                    delete args.transactions[args.selectedTransaction.id];
-                    setArgs({
-                        mode: TransactionRecord.Mode.ReadOnly,
-                        selectedTransaction: undefined,
-                        summary: {
-                            ...args.summary,
-                            ...TestData.getSummaryFigures(args.selectedDate)
-                        }
-                    });
-                }}
-                onCancel={() =>
-                {
-                    setArgs({
-                        mode: TransactionRecord.Mode.ReadOnly,
-                        selectedTransaction: undefined,
-                        summary: {
-                            ...args.summary,
-                            ...TestData.getSummaryFigures(args.selectedDate)
-                        }
-                    });
-                }}
             />
         );
     }
@@ -197,15 +213,15 @@ export const Playground: Story = {
         selectedDate: Sb.locked,
         selectedTransaction: Sb.locked,
         mode: Sb.locked,
+        addNewTransactionButton: Sb.locked,
+        saveTransactionButton: Sb.locked,
+        deleteTransactionButton: Sb.locked,
+        cancelButton: Sb.locked,
         customButton: Sb.locked,
         onChangeTransaction: Sb.locked,
         onSelectDate: Sb.locked,
         onSelectTransaction: Sb.locked,
-        onAddNewTransaction: Sb.locked,
-        onSaveTransaction: Sb.locked,
-        onDeleteTransaction: Sb.locked,
-        onSwitchMode: Sb.locked,
-        onCancel: Sb.locked
+        onSwitchMode: Sb.locked
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
