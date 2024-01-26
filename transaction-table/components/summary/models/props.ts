@@ -1,5 +1,7 @@
 import {ComponentProps, IsDefined, IsNotEmpty, IsNumber, IsString, Max, Min} from "@miniskylab/antimatter-framework";
-import {IsOptional} from "class-validator";
+import {Type} from "class-transformer";
+import {IsOptional, ValidateNested} from "class-validator";
+import {Indicator} from "../types";
 import {Style} from "./style";
 
 export class Props extends ComponentProps<Style>
@@ -38,6 +40,15 @@ export class Props extends ComponentProps<Style>
     @IsString()
     @IsDefined()
     readonly section2Value: string;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => Indicator)
+    readonly indicator?: Indicator;
 
 
     /**

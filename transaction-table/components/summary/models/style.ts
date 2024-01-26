@@ -7,7 +7,10 @@ import {Props} from "./props";
 export type Style = (summaryProps: WithoutStyle<Props>) => {
     Root: ViewStyle;
     Section: ViewStyle;
-    Label: LabelStyle;
-    Amount: LabelStyle;
-    RangeSlider: RangeSliderStyle;
+    SectionLabel: LabelStyle;
+    SectionAmount: LabelStyle;
+    Indicator: ViewStyle;
+    IndicatorIcon: LabelStyle;
+    IndicatorLabel: LabelStyle;
+    ProgressBar: RangeSliderStyle;
 };

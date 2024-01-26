@@ -212,13 +212,18 @@ const TransactionTable__Summary__Section: ViewStyle = function (viewProps)
 
     return {
         ...ViewVariant.Default(viewProps),
-        flexBasis: "50%",
+        flexGrow: 1,
+        flexBasis: "33%",
         marginBottom: -5,
-        alignItems: sectionContext === "section-1" ? "flex-start" : "flex-end"
+        alignItems: sectionContext === "section-1"
+            ? "flex-start"
+            : sectionContext === "section-2"
+                ? "flex-end"
+                : "center"
     };
 };
 
-const TransactionTable__Summary__Label: LabelStyle = function (labelProps)
+const TransactionTable__Summary__SectionLabel: LabelStyle = function (labelProps)
 {
     return {
         ...LabelVariant.Default(labelProps),
@@ -229,7 +234,7 @@ const TransactionTable__Summary__Label: LabelStyle = function (labelProps)
     };
 };
 
-const TransactionTable__Summary__Amount: LabelStyle = function (labelProps)
+const TransactionTable__Summary__SectionAmount: LabelStyle = function (labelProps)
 {
     const sectionContext = Summary.ContextHook.useSectionContext();
 
@@ -245,7 +250,39 @@ const TransactionTable__Summary__Amount: LabelStyle = function (labelProps)
     };
 };
 
-const TransactionTable__Summary__RangeSlider__Root: ViewStyle = function (viewProps)
+const TransactionTable__Summary__Indicator: ViewStyle = function (viewProps)
+{
+    return {
+        ...TransactionTable__Summary__Section(viewProps),
+        flexGrow: 0,
+        flexShrink: 0,
+        flexBasis: 100
+    };
+};
+
+const TransactionTable__Summary__Indicator__Icon: IconStyle = function (iconProps)
+{
+    return {
+        ...IconVariant.Default(iconProps),
+        height: 25,
+        paddingTop: 6,
+        fontSize: 16,
+        color: Color.Negative
+    };
+};
+
+const TransactionTable__Summary__Indicator__Label: LabelStyle = function (labelProps)
+{
+    return {
+        ...LabelVariant.Default(labelProps),
+        height: 20,
+        fontSize: 15,
+        fontWeight: "bold",
+        color: Color.Negative
+    };
+};
+
+const TransactionTable__Summary__ProgressBar__Root: ViewStyle = function (viewProps)
 {
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
 
@@ -257,7 +294,7 @@ const TransactionTable__Summary__RangeSlider__Root: ViewStyle = function (viewPr
     };
 };
 
-const TransactionTable__Summary__RangeSlider__Track: ViewStyle = function (viewProps)
+const TransactionTable__Summary__ProgressBar__Track: ViewStyle = function (viewProps)
 {
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
 
@@ -273,7 +310,7 @@ const TransactionTable__Summary__RangeSlider__Track: ViewStyle = function (viewP
     };
 };
 
-const TransactionTable__Summary__RangeSlider__StopperLeft: ViewStyle = function (viewProps)
+const TransactionTable__Summary__ProgressBar__StopperLeft: ViewStyle = function (viewProps)
 {
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
 
@@ -286,7 +323,7 @@ const TransactionTable__Summary__RangeSlider__StopperLeft: ViewStyle = function 
     };
 };
 
-const TransactionTable__Summary__RangeSlider__StopperRight: ViewStyle = function (viewProps)
+const TransactionTable__Summary__ProgressBar__StopperRight: ViewStyle = function (viewProps)
 {
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
 
@@ -299,7 +336,7 @@ const TransactionTable__Summary__RangeSlider__StopperRight: ViewStyle = function
     };
 };
 
-const TransactionTable__Summary__RangeSlider__FillLeft: ViewStyle = function (viewProps)
+const TransactionTable__Summary__ProgressBar__FillLeft: ViewStyle = function (viewProps)
 {
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
 
@@ -313,7 +350,7 @@ const TransactionTable__Summary__RangeSlider__FillLeft: ViewStyle = function (vi
     };
 };
 
-const TransactionTable__Summary__RangeSlider__FillRight: ViewStyle = function (viewProps)
+const TransactionTable__Summary__ProgressBar__FillRight: ViewStyle = function (viewProps)
 {
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
 
@@ -327,7 +364,7 @@ const TransactionTable__Summary__RangeSlider__FillRight: ViewStyle = function (v
     };
 };
 
-const TransactionTable__Summary__RangeSlider__Knob: ViewStyle = function (viewProps)
+const TransactionTable__Summary__ProgressBar__Knob: ViewStyle = function (viewProps)
 {
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
 
@@ -344,7 +381,7 @@ const TransactionTable__Summary__RangeSlider__Knob: ViewStyle = function (viewPr
     };
 };
 
-const TransactionTable__Summary__RangeSlider__KnobIcon: IconStyle = function (iconProps)
+const TransactionTable__Summary__ProgressBar__KnobIcon: IconStyle = function (iconProps)
 {
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
 
@@ -356,7 +393,7 @@ const TransactionTable__Summary__RangeSlider__KnobIcon: IconStyle = function (ic
     };
 };
 
-const TransactionTable__Summary__RangeSlider__Pips__Pip: ViewStyle = function (viewProps)
+const TransactionTable__Summary__ProgressBar__Pips__Pip: ViewStyle = function (viewProps)
 {
     const pipsContext = Pips.ContextHook.usePipsContext();
     const isHighlighted = Pips.ContextHook.useHighlightedContext();
@@ -372,7 +409,7 @@ const TransactionTable__Summary__RangeSlider__Pips__Pip: ViewStyle = function (v
     };
 };
 
-const TransactionTable__Summary__RangeSlider__Pips__Label: LabelStyle = function (labelProps)
+const TransactionTable__Summary__ProgressBar__Pips__Label: LabelStyle = function (labelProps)
 {
     const pipsContext = Pips.ContextHook.usePipsContext();
     const isHighlighted = Pips.ContextHook.useHighlightedContext();
@@ -388,7 +425,7 @@ const TransactionTable__Summary__RangeSlider__Pips__Label: LabelStyle = function
     };
 };
 
-const TransactionTable__Summary__RangeSlider__Pips: Pips.Style = function (pipProps)
+const TransactionTable__Summary__ProgressBar__Pips: Pips.Style = function (pipProps)
 {
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
 
@@ -396,24 +433,24 @@ const TransactionTable__Summary__RangeSlider__Pips: Pips.Style = function (pipPr
 
     return {
         ...inheritedStyle,
-        Pip: TransactionTable__Summary__RangeSlider__Pips__Pip,
-        Label: TransactionTable__Summary__RangeSlider__Pips__Label
+        Pip: TransactionTable__Summary__ProgressBar__Pips__Pip,
+        Label: TransactionTable__Summary__ProgressBar__Pips__Label
     };
 };
 
-const TransactionTable__Summary__RangeSlider: RangeSliderStyle = function (rangeSliderProps)
+const TransactionTable__Summary__ProgressBar: RangeSliderStyle = function (rangeSliderProps)
 {
     return {
         ...RangeSliderVariant.Default(rangeSliderProps),
-        Root: TransactionTable__Summary__RangeSlider__Root,
-        Track: TransactionTable__Summary__RangeSlider__Track,
-        StopperLeft: TransactionTable__Summary__RangeSlider__StopperLeft,
-        StopperRight: TransactionTable__Summary__RangeSlider__StopperRight,
-        FillLeft: TransactionTable__Summary__RangeSlider__FillLeft,
-        FillRight: TransactionTable__Summary__RangeSlider__FillRight,
-        Knob: TransactionTable__Summary__RangeSlider__Knob,
-        KnobIcon: TransactionTable__Summary__RangeSlider__KnobIcon,
-        Pips: TransactionTable__Summary__RangeSlider__Pips
+        Root: TransactionTable__Summary__ProgressBar__Root,
+        Track: TransactionTable__Summary__ProgressBar__Track,
+        StopperLeft: TransactionTable__Summary__ProgressBar__StopperLeft,
+        StopperRight: TransactionTable__Summary__ProgressBar__StopperRight,
+        FillLeft: TransactionTable__Summary__ProgressBar__FillLeft,
+        FillRight: TransactionTable__Summary__ProgressBar__FillRight,
+        Knob: TransactionTable__Summary__ProgressBar__Knob,
+        KnobIcon: TransactionTable__Summary__ProgressBar__KnobIcon,
+        Pips: TransactionTable__Summary__ProgressBar__Pips
     };
 };
 
@@ -422,9 +459,12 @@ const TransactionTable__Summary: Summary.Style = function ()
     return {
         Root: TransactionTable__Summary__Root,
         Section: TransactionTable__Summary__Section,
-        Label: TransactionTable__Summary__Label,
-        Amount: TransactionTable__Summary__Amount,
-        RangeSlider: TransactionTable__Summary__RangeSlider
+        SectionLabel: TransactionTable__Summary__SectionLabel,
+        SectionAmount: TransactionTable__Summary__SectionAmount,
+        Indicator: TransactionTable__Summary__Indicator,
+        IndicatorIcon: TransactionTable__Summary__Indicator__Icon,
+        IndicatorLabel: TransactionTable__Summary__Indicator__Label,
+        ProgressBar: TransactionTable__Summary__ProgressBar
     };
 };
 
