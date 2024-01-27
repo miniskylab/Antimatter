@@ -31,7 +31,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
         treatEmptyInputAsZero = false,
         keyboardType = "numbers-and-punctuation",
         showPlusSymbolForPositiveNumber = false,
-        selectAllOnFocus = false,
+        selectTextOnFocus = false,
         onChange,
         onBlur,
         onFocus,
@@ -42,7 +42,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
 {
     const props: AllPropertiesMustPresent<NumericInputFieldProps> = {
         style, defaultValue, minValue, maxValue, maximumFractionDigitCount, maximumDigitCount, placeholder, autoFocus,
-        treatEmptyInputAsZero, keyboardType, showPlusSymbolForPositiveNumber, selectAllOnFocus, onChange, onBlur, onFocus, onKeyPress
+        treatEmptyInputAsZero, keyboardType, showPlusSymbolForPositiveNumber, selectTextOnFocus, onChange, onBlur, onFocus, onKeyPress
     };
 
     const [state, setState] = useState<NumericInputFieldState>({
@@ -212,7 +212,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
         setState(prevState => ({
             ...prevState,
             selection: {
-                start: selectAllOnFocus ? 0 : prevState.userInput.length,
+                start: selectTextOnFocus ? 0 : prevState.userInput.length,
                 end: prevState.userInput.length
             }
         }));

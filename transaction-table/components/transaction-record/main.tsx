@@ -139,7 +139,7 @@ export function Component({
                     autoFocus={true}
                     minValue={0}
                     maxValue={999999999}
-                    selectAllOnFocus={true}
+                    selectTextOnFocus={true}
                     treatEmptyInputAsZero={true}
                     showPlusSymbolForPositiveNumber={explicitPlusSymbol}
                     maximumFractionDigitCount={0}

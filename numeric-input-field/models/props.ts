@@ -95,7 +95,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
      */
     @IsBoolean()
     @IsOptional()
-    readonly selectAllOnFocus?: boolean;
+    readonly selectTextOnFocus?: boolean;
 
 
     /**
