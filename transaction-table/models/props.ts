@@ -2,7 +2,7 @@ import {ComponentName, ComponentProps, IsDate, IsEnum, IsInteger, IsNumber, IsPo
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {Summary, TransactionRecord} from "../components";
-import {ControlButton, Transaction} from "../types";
+import {ControlButton, Transaction, TransactionChangeData} from "../types";
 import {TransactionTableStyle} from "./style";
 
 @ComponentName("Transaction Table")
@@ -102,7 +102,7 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onChangeTransaction?: (newTransactionData: TransactionRecord.Data) => void;
+    readonly onChangeTransaction?: (newTransactionData: TransactionChangeData) => void;
 
 
     /**

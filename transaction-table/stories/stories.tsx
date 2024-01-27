@@ -146,12 +146,8 @@ export default {
                     const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
                         id: args.selectedTransaction.id,
                         data: {
-                            name: newTransactionData.name,
-                            tags: newTransactionData.tags,
-                            amount: newTransactionData.amount,
-                            executedDate: newTransactionData.executedDate,
-                            modifiedDate: newTransactionData.modifiedDate,
-                            createdDate: newTransactionData.createdDate
+                            ...args.selectedTransaction.data,
+                            ...newTransactionData
                         }
                     };
 
