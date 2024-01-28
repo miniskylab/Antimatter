@@ -256,7 +256,7 @@ const TransactionTable__Summary__Indicator: ViewStyle = function (viewProps)
         ...TransactionTable__Summary__Section(viewProps),
         flexGrow: 0,
         flexShrink: 0,
-        flexBasis: 100
+        flexBasis: 135
     };
 };
 
