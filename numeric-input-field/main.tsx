@@ -82,6 +82,17 @@ export const NumericInputField = forwardRef(function NumericInputField(
         }));
     }, [showPlusSymbolForPositiveNumber, treatEmptyInputAsZero, minValue, maxValue, maximumFractionDigitCount, maximumDigitCount]);
 
+    useEffect(() =>
+    {
+        if (state.selection)
+        {
+            ref?.current?.setSelection(
+                state.selection.start,
+                state.selection.end ?? state.selection.start
+            );
+        }
+    });
+
     validateAndThrow();
     return (
         <NumericInputFieldContext.Provider value={context}>
