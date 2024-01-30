@@ -1,5 +1,5 @@
 import {EMPTY_STRING} from "../../consts";
-import {base64UrlEncode, extractQueryParameter, format, splitCamelCase} from "./string";
+import {base64UrlEncode, extractQueryParameter, format, removeTrailingSlash, splitCamelCase} from "./string";
 
 describe("how to use [format(...)]", () =>
 {
@@ -70,5 +70,19 @@ describe("how to use [base64UrlEncode(...)]", () =>
         expect(base64UrlEncode(null)).toBe(null);
         expect(base64UrlEncode(undefined)).toBe(undefined);
         expect(base64UrlEncode("TG+/9y0/aX+zdQ==")).toBe("TG-_9y0_aX-zdQ");
+    });
+});
+
+describe("how to use [removeTrailingSlash(...)]", () =>
+{
+    it("removes all slash marks (/) from the end of given string", () =>
+    {
+        expect(removeTrailingSlash(EMPTY_STRING)).toBe(EMPTY_STRING);
+        expect(removeTrailingSlash(null)).toBe(null);
+        expect(removeTrailingSlash(undefined)).toBe(undefined);
+        expect(removeTrailingSlash("lorem ipsum")).toBe("lorem ipsum");
+        expect(removeTrailingSlash("https://lorem.ipsum.com")).toBe("https://lorem.ipsum.com");
+        expect(removeTrailingSlash("https://lorem.ipsum.com/")).toBe("https://lorem.ipsum.com");
+        expect(removeTrailingSlash("https://lorem.ipsum.com////")).toBe("https://lorem.ipsum.com");
     });
 });

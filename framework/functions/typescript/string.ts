@@ -1,4 +1,5 @@
 import {EMPTY_STRING} from "../../consts";
+import {isNullOrUndefined} from "../type-guard";
 
 export function whitespace(length: number)
 {
@@ -59,4 +60,14 @@ export function base64UrlEncode(base64String: string): string
     return base64String.replace(/\+/g, "-")
         .replace(/\//g, "_")
         .replace(/=/g, "");
+}
+
+export function removeTrailingSlash(anyString: string): string
+{
+    if (isNullOrUndefined(anyString))
+    {
+        return anyString;
+    }
+
+    return anyString.replace(/\/+$/, EMPTY_STRING);
 }
