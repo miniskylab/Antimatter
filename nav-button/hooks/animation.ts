@@ -1,10 +1,10 @@
 import {PressableContextHook} from "@miniskylab/antimatter-pressable";
 import {useEffect, useRef} from "react";
-import {Animated, Easing} from "react-native";
+import ReactNative, {Animated, Easing} from "react-native";
 import {Target} from "../enums";
 import {useNavButtonContext} from "./context";
 
-export function useIconHoverAnimation()
+export function useIconHoverAnimation(): ReactNative.ViewStyle
 {
     const navButtonContext = useNavButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();

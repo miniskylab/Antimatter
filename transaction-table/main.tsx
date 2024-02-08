@@ -4,60 +4,98 @@ import {DatePicker} from "@miniskylab/antimatter-date-picker";
 import {
     AllPropertiesMustPresent,
     DateFormat,
+    EMPTY_STRING,
     isNotNullAndUndefined,
+    Nullable,
     Ts,
     useBreakpoint,
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
+import {Icon} from "@miniskylab/antimatter-icon";
+import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo, useState} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
 import {Summary, TransactionRecord} from "./components";
-import {ControlButtonTypeContext, HrPositionContext, TransactionTableContext, TransactionTableProps, TransactionTableState} from "./models";
+import {
+    ControlButtonTypeContext,
+    HrPositionContext,
+    TransactionTableContext,
+    TransactionTableProps,
+    TransactionTableRef,
+    TransactionTableState
+} from "./models";
 import {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function TransactionTable({
-    style = Variant.Default,
-    summary,
-    transactions = {},
-    selectedDate = new Date(),
-    selectedTransaction,
-    mode = TransactionRecord.Mode.ReadOnly,
-    maxSelectedTagCount = 3,
-    addNewTransactionButton,
-    saveTransactionButton,
-    deleteTransactionButton,
-    cancelButton,
-    customButton,
-    onChangeTransaction,
-    onSelectDate,
-    onSelectTransaction,
-    onSwitchMode
-}: TransactionTableProps): JSX.Element
+export const TransactionTable = forwardRef(function TransactionTable(
+    {
+        style = Variant.Default,
+        summary,
+        transactions = {},
+        selectedDate = new Date(),
+        selectedTransaction,
+        mode = TransactionRecord.Mode.ReadOnly,
+        maxSelectedTagCount = 3,
+        displayPanel = {icon: DefaultIconSet.None, message: EMPTY_STRING},
+        addNewTransactionButton,
+        saveTransactionButton,
+        deleteTransactionButton,
+        cancelButton,
+        customButton,
+        onChangeTransaction,
+        onSelectDate,
+        onSelectTransaction,
+        onSwitchMode
+    }: TransactionTableProps,
+    ref: MutableRefObject<TransactionTableRef>
+): JSX.Element
 {
     const props: AllPropertiesMustPresent<TransactionTableProps> = {
-        style, summary, transactions, selectedDate, selectedTransaction, mode, maxSelectedTagCount, customButton, addNewTransactionButton,
-        saveTransactionButton, deleteTransactionButton, cancelButton, onChangeTransaction, onSelectDate, onSelectTransaction, onSwitchMode
+        style, summary, transactions, selectedDate, selectedTransaction, mode, maxSelectedTagCount, displayPanel, customButton,
+        addNewTransactionButton, saveTransactionButton, deleteTransactionButton, cancelButton, onChangeTransaction, onSelectDate,
+        onSelectTransaction, onSwitchMode
     };
 
     const [state, setState] = useState<TransactionTableState>({
-        datePickerIsOpened: false
+        datePickerIsOpened: false,
+        flashHighlightTransactionIds: []
     });
 
     const context = useMemo<TransactionTableContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
+        () => ({props, state, ref}),
+        [...Object.values(props), ...Object.values(state), ref]
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = useComputedStyle(style, props, state);
 
+    const transactionRecordsRef = useRef<Record<string, Nullable<TransactionRecord.Ref>>>({});
     const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useBreakpoint("Large");
+
+    useImperativeHandle(ref, () => ({
+        flashHighlightTransactions(...transactionIds: string[]): void
+        {
+            setState(prevState => ({...prevState, flashHighlightTransactionIds: transactionIds}));
+        }
+    }), []);
+
+    useEffect(() =>
+    {
+        const transactionIds = Object.keys(transactions);
+        Object.keys(transactionRecordsRef)
+            .filter(x => !transactionIds.includes(x))
+            .forEach(x => { delete transactionRecordsRef.current[x]; });
+    }, [transactions]);
+
+    useEffect(
+        () => { state.flashHighlightTransactionIds.forEach(x => { transactionRecordsRef.current[x]?.flashHighlight(); }); },
+        [state.flashHighlightTransactionIds]
+    );
 
     return (
         <TransactionTableContext.Provider value={context}>
@@ -65,6 +103,7 @@ export function TransactionTable({
                 {renderDateSelectorAndSummary()}
                 <View style={computedStyle.TransactionDetails}>
                     {renderControlPanel()}
+                    {renderDisplayPanel()}
                     <HrPositionContext.Provider value={"top"}>
                         <View style={computedStyle.Hr}/>
                     </HrPositionContext.Provider>
@@ -129,18 +168,24 @@ export function TransactionTable({
 
     function filterTransactionsForSelectedDate(): typeof transactions
     {
+        const unifiedTransactionList = {...transactions};
+        if (selectedTransaction)
+        {
+            unifiedTransactionList[selectedTransaction.id] = selectedTransaction.data;
+        }
+
         const filteredTransactions: typeof transactions = {};
-        Object.keys(transactions)
-            .filter(transactionId => Ts.Date.isEqualDate(transactions[transactionId].executedDate, selectedDate))
-            .forEach(transactionId => { filteredTransactions[transactionId] = transactions[transactionId]; });
+        Object.keys(unifiedTransactionList)
+            .filter(transactionId => Ts.Date.isEqualDate(unifiedTransactionList[transactionId].executedDate, selectedDate))
+            .forEach(transactionId => { filteredTransactions[transactionId] = unifiedTransactionList[transactionId]; });
 
         return filteredTransactions;
     }
 
     function byDate(transactionIdA: string, transactionIdB: string): number
     {
-        const transactionA = transactions[transactionIdA];
-        const transactionB = transactions[transactionIdB];
+        const transactionA = transactionIdA === selectedTransaction?.id ? selectedTransaction.data : transactions[transactionIdA];
+        const transactionB = transactionIdB === selectedTransaction?.id ? selectedTransaction.data : transactions[transactionIdB];
 
         const executedDateComparisonResult = transactionA.executedDate.getTime() - transactionB.executedDate.getTime();
         if (executedDateComparisonResult !== 0)
@@ -173,6 +218,7 @@ export function TransactionTable({
                         datePickerIsOpened: false
                     }));
 
+                    newlySelectedDate && setTodayHours(newlySelectedDate);
                     newlySelectedDate && onSelectDate?.(newlySelectedDate);
                 }}
                 onAddonPress={() =>
@@ -195,7 +241,11 @@ export function TransactionTable({
                 <Calendar
                     style={computedStyle.Calendar}
                     selectedDate={selectedDate}
-                    onSelectedDateChange={onSelectDate}
+                    onSelectedDateChange={newlySelectedDate =>
+                    {
+                        newlySelectedDate && setTodayHours(newlySelectedDate);
+                        newlySelectedDate && onSelectDate?.(newlySelectedDate);
+                    }}
                 />
             </>);
         }
@@ -204,6 +254,16 @@ export function TransactionTable({
             {renderDatePicker()}
             {renderSummary()}
         </>);
+    }
+
+    function renderDisplayPanel(): JSX.Element
+    {
+        return (
+            <View style={computedStyle.DisplayPanel} pointerEvents={displayPanel.isVisible ? "auto" : "none"}>
+                <Icon style={computedStyle.DisplayIcon} name={displayPanel.icon} pointerEvents={"none"} selectable={false}/>
+                <Label style={computedStyle.DisplayMessage} pointerEvents={"none"} selectable={false}>{displayPanel.message}</Label>
+            </View>
+        );
     }
 
     function renderControlPanel(): JSX.Element
@@ -246,33 +306,24 @@ export function TransactionTable({
     {
         const filteredTransactions = filterTransactionsForSelectedDate();
         const filteredTransactionIds = Object.keys(filteredTransactions).sort(byDate);
-        if (mode === TransactionRecord.Mode.Draft && selectedTransaction)
-        {
-            filteredTransactionIds.push(selectedTransaction.id);
-        }
-
         return filteredTransactionIds.map(filteredTransactionId =>
         {
             const transactionMode = getTransactionMode(filteredTransactionId);
-            const transactionData = selectedTransaction &&
-                                    (
-                                        transactionMode === TransactionRecord.Mode.Edit
-                                        ||
-                                        transactionMode === TransactionRecord.Mode.Draft
-                                    )
-                ? selectedTransaction.data
-                : filteredTransactions[filteredTransactionId];
+            const transactionData = filteredTransactions[filteredTransactionId];
+            const isSelectedTransaction = filteredTransactionId === selectedTransaction?.id;
 
             return (
                 <TransactionRecord.Component
                     {...transactionData}
                     key={filteredTransactionId}
                     id={filteredTransactionId}
+                    ref={ref => { transactionRecordsRef.current[filteredTransactionId] = ref; }}
                     style={computedStyle.TransactionRecord}
                     mode={transactionMode}
                     tags={transactionData?.tags}
                     maxSelectedTagCount={maxSelectedTagCount}
-                    onPress={mode === TransactionRecord.Mode.ReadOnly ? () => { onSelectTransaction?.(filteredTransactionId); } : undefined}
+                    showProgressStripes={isSelectedTransaction && selectedTransaction?.showProgressStripes}
+                    onPress={!selectedTransaction ? () => { onSelectTransaction?.(filteredTransactionId); } : undefined}
                     onChange={newTransactionData => { onChangeTransaction?.(newTransactionData); }}
                 />
             );
@@ -299,4 +350,10 @@ export function TransactionTable({
                 throw new Error(`No valid mode to switch to from mode "${Ts.Enum.getName(TransactionRecord.Mode, mode)}"`);
         }
     }
-}
+
+    function setTodayHours(date: Date): void
+    {
+        const today = new Date();
+        date.setHours(today.getHours(), today.getMinutes(), today.getSeconds(), today.getMilliseconds());
+    }
+});

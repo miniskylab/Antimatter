@@ -7,6 +7,7 @@ import {Layer, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {ProgressStripesContextHook, ProgressStripesStyle, ProgressStripesVariant} from "@miniskylab/antimatter-motion-graphics";
 import {NumericInputFieldContextHook, NumericInputFieldStyle, NumericInputFieldVariant} from "@miniskylab/antimatter-numeric-input-field";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {Pips, RangeSliderContextHook, RangeSliderStyle, RangeSliderVariant} from "@miniskylab/antimatter-range-slider";
@@ -14,7 +15,8 @@ import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-
 import {TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {Summary, TransactionRecord} from "../components";
-import {TransactionTableContextHook} from "../hooks";
+import {DisplayPanelTheme} from "../enums";
+import {TransactionTableAnimationHook, TransactionTableContextHook} from "../hooks";
 import {TransactionTableStyle} from "../models";
 
 const TransactionTable__Root: ViewStyle = function (viewProps)
@@ -493,7 +495,7 @@ const TransactionTable__ControlPanel: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         alignSelf: "stretch",
-        height: 58,
+        height: 58.4,
         justifyContent: "space-around",
         backgroundColor: Color.Background
     };
@@ -647,7 +649,7 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
     const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
     const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
 
-    const hasSelectedTransaction = transactionTableContext.props.mode !== TransactionRecord.Mode.ReadOnly;
+    const hasSelectedTransaction = !!transactionTableContext.props.selectedTransaction;
     const isSelectedTransactionRecord = transactionRecordContext.props.id === transactionTableContext.props.selectedTransaction?.id;
 
     return {
@@ -663,15 +665,18 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         borderColor: Color.Neutral,
         marginTop: -2,
         cursor: hasSelectedTransaction ? "default" : "pointer",
-        ...((!hasSelectedTransaction && pressableState.hovered) || isSelectedTransactionRecord) && {
-            zIndex: Layer.Higher,
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary__a10,
-            ...transactionTableContext.props.mode === TransactionRecord.Mode.Delete && {
-                borderColor: Color.Negative,
-                backgroundColor: Color.Negative__a10
+        dynamics: [
+            () => TransactionTableAnimationHook.useFlashHighlightAnimation(),
+            () => ((!hasSelectedTransaction && pressableState.hovered) || isSelectedTransactionRecord) && {
+                zIndex: Layer.AlwaysOnTop,
+                borderColor: Color.Primary,
+                backgroundColor: Color.Primary__a10,
+                ...transactionTableContext.props.mode === TransactionRecord.Mode.Delete && {
+                    borderColor: Color.Negative,
+                    backgroundColor: Color.Negative__a10
+                }
             }
-        }
+        ]
     };
 };
 
@@ -728,7 +733,7 @@ const TransactionTable__TransactionRecord__NameInputField__TextBox: TextInputSty
         paddingRight: 0,
         fontSize: 18,
         fontWeight: "bold",
-        animations: undefined
+        dynamics: undefined
     };
 };
 
@@ -746,7 +751,7 @@ const TransactionTable__TransactionRecord__NameInputField__Placeholder: LabelSty
         fontSize: 16,
         fontWeight: "bold",
         fontStyle: "italic",
-        animations: undefined
+        dynamics: undefined
     };
 };
 
@@ -1035,6 +1040,50 @@ const TransactionTable__TransactionRecord__Tag: LabelStyle = function (labelProp
     };
 };
 
+const TransactionTable__TransactionRecord__ProgressStripes__Root: ViewStyle = function (viewProps)
+{
+    const progressStripesContext = ProgressStripesContextHook.useProgressStripesContext();
+
+    const inheritedStyle = ProgressStripesVariant.Default(progressStripesContext.props).Root(viewProps);
+
+    return {
+        ...inheritedStyle,
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        width: undefined,
+        height: undefined,
+        zIndex: Layer.Ambient
+    };
+};
+
+const TransactionTable__TransactionRecord__ProgressStripes__Stripe: ViewStyle = function (viewProps)
+{
+    const stripeIndex = ProgressStripesContextHook.useStripeIndexContext();
+    const progressStripesContext = ProgressStripesContextHook.useProgressStripesContext();
+
+    const inheritedStyle = ProgressStripesVariant.Default(progressStripesContext.props).Stripe(viewProps);
+
+    return {
+        ...inheritedStyle,
+        width: 50,
+        backgroundColor: stripeIndex % 2 === 0
+            ? Color.White__a10
+            : Color.Transparent
+    };
+};
+
+const TransactionTable__TransactionRecord__ProgressStripes: ProgressStripesStyle = function (progressStripesProps)
+{
+    return {
+        ...ProgressStripesVariant.Default(progressStripesProps),
+        Root: TransactionTable__TransactionRecord__ProgressStripes__Root,
+        Stripe: TransactionTable__TransactionRecord__ProgressStripes__Stripe
+    };
+};
+
 const TransactionTable__TransactionRecord: TransactionRecord.Style = function ()
 {
     return {
@@ -1047,7 +1096,76 @@ const TransactionTable__TransactionRecord: TransactionRecord.Style = function ()
         AmountLabel: TransactionTable__TransactionRecord__AmountLabel,
         TagSelector: TransactionTable__TransactionRecord__TagSelector,
         TagContainer: TransactionTable__TransactionRecord__TagContainer,
-        Tag: TransactionTable__TransactionRecord__Tag
+        Tag: TransactionTable__TransactionRecord__Tag,
+        ProgressStripes: TransactionTable__TransactionRecord__ProgressStripes
+    };
+};
+
+const TransactionTable__DisplayPanel: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: 58.4,
+        backgroundColor: Color.Background,
+        dynamics: [
+            () => TransactionTableAnimationHook.useDisplayPanelFadeOutAnimation()
+        ]
+    };
+};
+
+const TransactionTable__DisplayIcon: IconStyle = function (iconProps)
+{
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+
+    const isAnimationPlaying = transactionTableContext.props.displayPanel?.isIconAnimationPlaying;
+    const theme = transactionTableContext.props.displayPanel?.theme;
+
+    return {
+        ...IconVariant.Default(iconProps),
+        height: 30,
+        marginTop: 2,
+        fontSize: 22,
+        dynamics: [
+            () => TransactionTableAnimationHook.useDisplayIconAnimation(isAnimationPlaying)
+        ],
+        color: theme === DisplayPanelTheme.Negative
+            ? Color.Negative
+            : theme === DisplayPanelTheme.Cautious
+                ? Color.Warning
+                : theme === DisplayPanelTheme.Positive
+                    ? Color.Positive
+                    : theme === DisplayPanelTheme.Highlighted
+                        ? Color.Primary
+                        : Color.Neutral
+    };
+};
+
+const TransactionTable__DisplayMessage: LabelStyle = function (labelProps)
+{
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+
+    const theme = transactionTableContext.props.displayPanel?.theme;
+
+    return {
+        ...LabelVariant.Default(labelProps),
+        flex: 1,
+        justifyContent: "flex-start",
+        fontSize: 18,
+        fontWeight: "bold",
+        color: theme === DisplayPanelTheme.Negative
+            ? Color.Negative
+            : theme === DisplayPanelTheme.Cautious
+                ? Color.Warning
+                : theme === DisplayPanelTheme.Positive
+                    ? Color.Positive
+                    : theme === DisplayPanelTheme.Highlighted
+                        ? Color.Primary
+                        : Color.Neutral
     };
 };
 
@@ -1062,8 +1180,8 @@ const TransactionTable__Hr: ViewStyle = function (viewProps)
         height: 2,
         zIndex: Layer.Lower,
         backgroundColor: Color.Neutral,
-        ...hrPosition === "top" && {top: 58},
-        ...hrPosition === "bottom" && {bottom: 0}
+        ...hrPosition === "top" && {top: 58.4},
+        ...hrPosition === "bottom" && {bottom: -0.4}
     };
 };
 
@@ -1075,6 +1193,9 @@ export const Default: TransactionTableStyle = function ()
         DatePicker: TransactionTable__DatePicker,
         Summary: TransactionTable__Summary,
         TransactionDetails: TransactionTable__TransactionDetails,
+        DisplayPanel: TransactionTable__DisplayPanel,
+        DisplayIcon: TransactionTable__DisplayIcon,
+        DisplayMessage: TransactionTable__DisplayMessage,
         ControlPanel: TransactionTable__ControlPanel,
         ControlButton: TransactionTable__ControlButton,
         TransactionContainer: TransactionTable__TransactionContainer,

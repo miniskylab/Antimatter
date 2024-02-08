@@ -1,6 +1,7 @@
 import {
     ComponentProps,
     GestureResponderEventHandler,
+    IsBoolean,
     IsDate,
     IsDefined,
     IsEnum,
@@ -51,6 +52,14 @@ export class Props extends ComponentProps<Style>
     @IsNumber()
     @IsOptional()
     readonly maxSelectedTagCount?: number;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly showProgressStripes?: boolean;
 
 
     /**

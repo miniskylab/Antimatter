@@ -2,7 +2,7 @@ import {ComponentName, ComponentProps, IsDate, IsEnum, IsInteger, IsNumber, IsPo
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {Summary, TransactionRecord} from "../components";
-import {ControlButton, Transaction, TransactionChangeData} from "../types";
+import {ControlButton, DisplayPanel, SelectedTransaction, TransactionChangeData} from "../types";
 import {TransactionTableStyle} from "./style";
 
 @ComponentName("Transaction Table")
@@ -39,8 +39,8 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
      */
     @IsOptional()
     @ValidateNested()
-    @Type(() => Transaction)
-    readonly selectedTransaction?: Transaction;
+    @Type(() => SelectedTransaction)
+    readonly selectedTransaction?: SelectedTransaction;
 
 
     /**
@@ -61,6 +61,15 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     @IsNumber()
     @IsOptional()
     readonly maxSelectedTagCount?: number;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => DisplayPanel)
+    readonly displayPanel?: DisplayPanel;
 
 
     /**

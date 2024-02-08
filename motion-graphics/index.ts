@@ -1,1 +1,2 @@
-export * from "./loading-animations";
+export * from "./progress-stripes";
+export * from "./spinning-double-gear";

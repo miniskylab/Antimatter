@@ -20,7 +20,7 @@ const Toggle__Container: PressableStyle = function (pressableProps, pressableSta
         width: 80,
         height: 40,
         borderRadius: 20,
-        animations: [
+        dynamics: [
             () => ToggleAnimationHook.useContainerAnimation()
         ]
     };
@@ -34,7 +34,7 @@ const Toggle__Icon: IconStyle = function (iconProps)
         marginLeft: 6,
         fontSize: 30,
         color: Color.White,
-        animations: [
+        dynamics: [
             () => ToggleAnimationHook.useIconAnimation()
         ]
     };

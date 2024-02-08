@@ -17,6 +17,7 @@ export function isHighlightedTransaction(transaction: TransactionRecord.Data): b
 }
 
 export function getSummaryFigures(
+    mode: TransactionTableProps["mode"],
     transactions: TransactionTableProps["transactions"],
     transactionGroup1Filter: (transaction: TransactionRecord.Data) => boolean,
     transactionGroup2Filter: (transaction: TransactionRecord.Data) => boolean,
@@ -25,7 +26,7 @@ export function getSummaryFigures(
 ): Pick<NonNullable<TransactionTableProps["summary"]>, "section1Value" | "section2Value" | "progressBarValue">
 {
     const selectedMonthTransactions = filterTransactionsForSelectedMonth(transactions, selectedDate);
-    mergeData(selectedMonthTransactions, selectedTransaction);
+    mergeData(mode, selectedMonthTransactions, selectedTransaction);
 
     const transactionGroup1: TransactionTableProps["transactions"] = {};
     Object.keys(selectedMonthTransactions)
@@ -66,6 +67,7 @@ function filterTransactionsForSelectedMonth(
 }
 
 function mergeData(
+    mode: TransactionTableProps["mode"],
     transactions: TransactionTableProps["transactions"],
     selectedTransaction: TransactionTableProps["selectedTransaction"]
 ): void
@@ -76,13 +78,13 @@ function mergeData(
         return;
     }
 
-    if (selectedTransaction.data)
+    if (mode === TransactionRecord.Mode.Delete)
     {
-        transactions[selectedTransaction.id] = selectedTransaction.data;
+        delete transactions[selectedTransaction.id];
     }
     else
     {
-        delete transactions[selectedTransaction.id];
+        transactions[selectedTransaction.id] = selectedTransaction.data;
     }
 }
 

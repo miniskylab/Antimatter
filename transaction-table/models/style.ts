@@ -2,6 +2,8 @@ import {ButtonStyle} from "@miniskylab/antimatter-button";
 import {CalendarStyle} from "@miniskylab/antimatter-calendar";
 import {DatePickerStyle} from "@miniskylab/antimatter-date-picker";
 import {WithoutStyle} from "@miniskylab/antimatter-framework";
+import {IconStyle} from "@miniskylab/antimatter-icon";
+import {LabelStyle} from "@miniskylab/antimatter-label";
 import {ScrollViewStyle} from "@miniskylab/antimatter-scroll-view";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Summary, TransactionRecord} from "../components";
@@ -17,6 +19,9 @@ export type TransactionTableStyle = (
     DatePicker: DatePickerStyle;
     Summary: Summary.Style;
     TransactionDetails: ViewStyle;
+    DisplayPanel?: ViewStyle;
+    DisplayIcon?: IconStyle;
+    DisplayMessage?: LabelStyle;
     ControlPanel: ViewStyle;
     ControlButton: ButtonStyle;
     TransactionContainer: ScrollViewStyle;

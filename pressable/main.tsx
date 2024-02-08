@@ -51,6 +51,7 @@ export const Pressable = forwardRef(function Pressable(
                 style={computedStyle}
                 onHoverIn={() => { setState(prevState => ({...prevState, hovered: !disabled})); }}
                 onHoverOut={() => { setState(prevState => ({...prevState, hovered: false})); }}
+                onResponderEnd={() => { setState(prevState => ({...prevState, hovered: false})); }}
                 onPressIn={() => { setState(prevState => ({...prevState, pressed: !disabled})); }}
                 onPressOut={() => { setState(prevState => ({...prevState, pressed: false})); }}
                 onPress={!disabled && onPress ? onPress : undefined}

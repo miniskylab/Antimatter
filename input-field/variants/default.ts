@@ -3,7 +3,7 @@ import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {TextInputStyle, TextInputVariant} from "@miniskylab/antimatter-text-input";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {InputFieldAnimationHook, InputFieldContextHook} from "../hooks";
+import {InputFieldAnimationHook} from "../hooks";
 import {InputFieldStyle} from "../models";
 
 const InputField__Root: ViewStyle = function (viewProps)
@@ -28,8 +28,6 @@ const InputField__Container: ViewStyle = function (viewProps)
 
 const InputField__TextBox: TextInputStyle = function (textInputProps)
 {
-    const inputFieldContext = InputFieldContextHook.useInputFieldContext();
-
     return {
         ...TextInputVariant.Default(textInputProps),
         width: "100%",
@@ -38,8 +36,8 @@ const InputField__TextBox: TextInputStyle = function (textInputProps)
         fontSize: 14,
         color: Color.Neutral,
         backgroundColor: Color.Transparent,
-        animations: [
-            () => InputFieldAnimationHook.useTextBoxAnimation(inputFieldContext.props)
+        dynamics: [
+            () => InputFieldAnimationHook.useTextBoxAnimation()
         ]
     };
 };
@@ -66,7 +64,7 @@ const InputField__Placeholder: LabelStyle = function (labelProps)
         width: "100%",
         paddingLeft: 12,
         color: Color.Gray,
-        animations: [
+        dynamics: [
             () => InputFieldAnimationHook.usePlaceholderAnimation()
         ]
     };

@@ -1,8 +1,9 @@
 export type {TransactionTableStyle} from "./models";
 
-export {Transaction, TransactionChangeData} from "./types";
+export {SelectedTransaction, TransactionChangeData} from "./types";
+export {DisplayPanelTheme} from "./enums";
 export {TransactionRecord, Summary} from "./components";
-export {TransactionTableProps} from "./models";
+export {TransactionTableProps, TransactionTableRef} from "./models";
 export {TransactionTable} from "./main";
 export {TransactionTableContextHook} from "./hooks";
 export * as TransactionTableService from "./services";

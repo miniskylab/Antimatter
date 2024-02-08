@@ -1,7 +1,7 @@
 import {ComponentProps} from "../classes";
-import {Animated} from "../types";
+import {Dynamic} from "../types";
 
-type Style = (props: unknown, state: unknown) => Animated<object> | Style;
+type Style = (props: unknown, state: unknown) => Dynamic<object | false> | Style;
 export function useComputedStyle<TStyle extends Style>(style: TStyle, props: ComponentProps<TStyle>, state?: unknown): ReturnType<TStyle>
 {
     const {style: _, ...propsWithoutStyle} = props;
@@ -9,8 +9,10 @@ export function useComputedStyle<TStyle extends Style>(style: TStyle, props: Com
 
     if (typeof computedStyle === "object")
     {
-        const {animations: _, ...computedStyleWithoutAnimations} = computedStyle;
-        computedStyle.animations?.forEach(animation => { computedStyle = {...computedStyleWithoutAnimations, ...animation()}; });
+        const dynamics = computedStyle.dynamics;
+        delete computedStyle.dynamics;
+
+        dynamics?.forEach(dynamic => { computedStyle = {...computedStyle, ...dynamic()}; });
     }
 
     return computedStyle as ReturnType<TStyle>;

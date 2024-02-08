@@ -18,3 +18,19 @@ export function throwIfNullOrUndefined<T>(anything: T): asserts anything is NonN
         throw new Error("Unexpected null or undefined value here");
     }
 }
+
+export function toSerializable(anyError: Error | string): object | string
+{
+    if (typeof anyError === "string")
+    {
+        return anyError;
+    }
+
+    const serializableError = JSON.parse(JSON.stringify(anyError));
+    if (isDefaultJavaScriptError(anyError))
+    {
+        delete serializableError["stack"];
+    }
+
+    return serializableError;
+}

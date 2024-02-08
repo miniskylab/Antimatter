@@ -1,10 +1,8 @@
-import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {useEffect, useRef} from "react";
-import {Animated, DimensionValue, Easing} from "react-native";
-import {InputFieldProps} from "../models";
+import ReactNative, {Animated, DimensionValue, Easing} from "react-native";
 import {useInputFieldContext} from "./context";
 
-export function usePlaceholderAnimation()
+export function usePlaceholderAnimation(): ReactNative.TextStyle
 {
     const inputFieldContext = useInputFieldContext();
 
@@ -44,33 +42,35 @@ export function usePlaceholderAnimation()
     };
 }
 
-export function useTextBoxAnimation(inputFieldProps: WithoutStyle<InputFieldProps>)
+export function useTextBoxAnimation(): ReactNative.ViewStyle
 {
-    const initialPaddingTop = inputFieldProps.placeholder && inputFieldProps.value ? 19 : 0;
-    const initialPaddingBottom = inputFieldProps.placeholder && inputFieldProps.value ? 3 : 0;
+    const inputFieldContext = useInputFieldContext();
+
+    const initialPaddingTop = inputFieldContext.props.placeholder && inputFieldContext.props.value ? 19 : 0;
+    const initialPaddingBottom = inputFieldContext.props.placeholder && inputFieldContext.props.value ? 3 : 0;
     const animatedPaddingTop = useRef(new Animated.Value(initialPaddingTop)).current;
     const animatedPaddingBottom = useRef(new Animated.Value(initialPaddingBottom)).current;
 
     useEffect(() =>
     {
-        if (inputFieldProps.placeholder)
+        if (inputFieldContext.props.placeholder)
         {
             Animated.parallel([
                 Animated.timing(animatedPaddingTop, {
-                    toValue: inputFieldProps.value ? 19 : 0,
+                    toValue: inputFieldContext.props.value ? 19 : 0,
                     duration: 100,
                     easing: Easing.out(Easing.ease),
                     useNativeDriver: false
                 }),
                 Animated.timing(animatedPaddingBottom, {
-                    toValue: inputFieldProps.value ? 3 : 0,
+                    toValue: inputFieldContext.props.value ? 3 : 0,
                     duration: 100,
                     easing: Easing.out(Easing.ease),
                     useNativeDriver: false
                 })
             ]).start();
         }
-    }, [inputFieldProps.value]);
+    }, [inputFieldContext.props.value]);
 
     return {
         paddingTop: animatedPaddingTop as unknown as number,

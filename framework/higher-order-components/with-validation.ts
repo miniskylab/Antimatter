@@ -1,6 +1,15 @@
 import {plainToClass} from "class-transformer";
 import {validateSync, ValidationError} from "class-validator";
-import {ComponentType, createElement, JSX} from "react";
+import {
+    ComponentType,
+    createElement,
+    forwardRef,
+    ForwardRefExoticComponent,
+    JSX,
+    MutableRefObject,
+    PropsWithoutRef,
+    RefAttributes
+} from "react";
 import {ComponentProps} from "../classes";
 import {EMPTY_STRING, ErrorMessage, Reflection} from "../consts";
 import {ComponentName} from "../decorators";
@@ -9,11 +18,11 @@ import {Ts} from "../functions";
 export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
     component: ComponentType<TProps>,
     propsType: new () => TProps
-): ComponentType<TProps>
+): ForwardRefExoticComponent<PropsWithoutRef<TProps> & RefAttributes<unknown>>
 {
-    const validator: ComponentType<TProps> = (props: TProps): JSX.Element | null =>
+    const validator = forwardRef((props: TProps, ref: MutableRefObject<unknown>): JSX.Element | null =>
     {
-        return validateProps(props) ? createElement(component, props) : null;
+        return validateProps(props) ? createElement(component, {...props, ref}) : null;
         function validateProps(props: TProps): boolean
         {
             const errors = validateSync(
@@ -95,9 +104,8 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
 
             return !errors || errors.length === 0;
         }
-    };
+    });
 
     validator.displayName = component.displayName;
-    validator.defaultProps = component.defaultProps;
     return validator;
 }

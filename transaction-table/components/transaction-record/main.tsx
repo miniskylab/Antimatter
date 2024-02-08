@@ -3,40 +3,46 @@ import {AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useCo
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Label} from "@miniskylab/antimatter-label";
+import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useMemo} from "react";
 import {Mode, TagMetadata, TagStatus} from "./enums";
-import {Props, TagMetadataContext, TransactionRecordContext} from "./models";
+import {Props, Ref, TagMetadataContext, TransactionRecordContext} from "./models";
 import {Tag} from "./types";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Component({
-    style,
-    id,
-    name = EMPTY_STRING,
-    tags = {},
-    amount = 0,
-    maxSelectedTagCount = 3,
-    executedDate,
-    modifiedDate,
-    createdDate,
-    mode = Mode.ReadOnly,
-    onPress,
-    onChange
-}: Props): JSX.Element
+export const Component = forwardRef(function Component(
+    {
+        style,
+        id,
+        name = EMPTY_STRING,
+        tags = {},
+        amount = 0,
+        maxSelectedTagCount = 3,
+        showProgressStripes,
+        executedDate,
+        modifiedDate,
+        createdDate,
+        mode = Mode.ReadOnly,
+        onPress,
+        onChange
+    }: Props,
+    ref: MutableRefObject<Ref>
+): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, id, name, tags, amount, maxSelectedTagCount, executedDate, modifiedDate, createdDate, mode, onPress, onChange
+        style, id, name, tags, amount, maxSelectedTagCount, showProgressStripes, executedDate, modifiedDate, createdDate, mode, onPress,
+        onChange
     };
 
     const context = useMemo<TransactionRecordContext>(
-        () => ({props}),
-        [...Object.values(props)]
+        () => ({props, ref}),
+        [...Object.values(props), ref]
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
@@ -45,6 +51,7 @@ export function Component({
     return (
         <TransactionRecordContext.Provider value={context}>
             <Pressable style={computedStyle.Root} onPress={onPress}>
+                {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={getIcon()}/>
                 <View style={computedStyle.NameAndTagContainer}>
                     {renderName()}
@@ -239,4 +246,4 @@ export function Component({
             createdDate
         });
     }
-}
+});

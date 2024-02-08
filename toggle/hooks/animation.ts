@@ -1,10 +1,10 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {useEffect, useRef} from "react";
-import {Animated, ColorValue, Easing} from "react-native";
+import ReactNative, {Animated, ColorValue, Easing} from "react-native";
 import {Status} from "../enums";
 import {useToggleContext} from "./context";
 
-export function useContainerAnimation()
+export function useContainerAnimation(): ReactNative.ViewStyle
 {
     const toggleContext = useToggleContext();
 
@@ -30,7 +30,7 @@ export function useContainerAnimation()
     };
 }
 
-export function useIconAnimation()
+export function useIconAnimation(): ReactNative.ViewStyle
 {
     const toggleContext = useToggleContext();
 

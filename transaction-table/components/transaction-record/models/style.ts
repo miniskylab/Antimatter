@@ -3,6 +3,7 @@ import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {InputFieldStyle} from "@miniskylab/antimatter-input-field";
 import {LabelStyle} from "@miniskylab/antimatter-label";
+import {ProgressStripesStyle} from "@miniskylab/antimatter-motion-graphics";
 import {NumericInputFieldStyle} from "@miniskylab/antimatter-numeric-input-field";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ViewStyle} from "@miniskylab/antimatter-view";
@@ -19,4 +20,5 @@ export type Style = (transactionRecordProps: WithoutStyle<Props>) => {
     TagSelector: DropdownMenuStyle;
     TagContainer: ViewStyle;
     Tag: LabelStyle;
+    ProgressStripes: ProgressStripesStyle;
 };

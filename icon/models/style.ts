@@ -1,5 +1,5 @@
-import {Animated, WithoutStyle} from "@miniskylab/antimatter-framework";
+import {Dynamic, WithoutStyle} from "@miniskylab/antimatter-framework";
 import {TextStyle} from "react-native";
 import {IconProps} from "./props";
 
-export type IconStyle = (iconProps: WithoutStyle<IconProps>) => Animated<TextStyle>;
+export type IconStyle = (iconProps: WithoutStyle<IconProps>) => Dynamic<TextStyle>;

@@ -46,7 +46,7 @@ const NavButton__Button__Icon: IconStyle = function (iconProps)
         ...inheritedStyle,
         minWidth: 25,
         fontSize: 18,
-        animations: [
+        dynamics: [
             () => NavButtonAnimationHook.useIconHoverAnimation()
         ]
     };
