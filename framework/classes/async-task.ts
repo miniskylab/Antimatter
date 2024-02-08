@@ -1,22 +1,17 @@
 import {AsyncTaskStatus} from "../enums";
-import {isNotNullAndUndefined} from "../functions";
-import {PayloadError} from "./payload-error";
 
-export class AsyncTask
+export class AsyncTask<TData = unknown>
 {
     readonly id: string;
+    readonly name: string;
+    readonly fingerprint: string;
     status: AsyncTaskStatus;
-    error?: PayloadError;
+    data?: TData;
 
     private constructor() { /* Do nothing! */ }
 
-    static deriveIdFrom(...anyStrings: (string | undefined)[]): string
+    static from<TData = unknown>(id: string, name: string, status: AsyncTaskStatus, data?: TData): AsyncTask<TData>
     {
-        return anyStrings.filter(isNotNullAndUndefined).join("_");
-    }
-
-    static from(id: string, status: AsyncTaskStatus, error?: PayloadError): AsyncTask
-    {
-        return {id, status, error};
+        return {id, name, status, data, fingerprint: [id, name].join("_")};
     }
 }
