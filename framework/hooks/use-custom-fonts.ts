@@ -3,11 +3,13 @@ import {useEffect, useState} from "react";
 
 export function useCustomFonts(fontMap: string | Record<string, FontSource>): ReturnType<typeof useFonts>
 {
-    const [loaded, setLoaded] = useState(isFontMapLoaded(fontMap));
+    const [componentDidMount, setComponentDidMount] = useState(false);
+    const [loaded, setLoaded] = useState(componentDidMount ? isFontMapLoaded(fontMap) : false);
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() =>
     {
+        setComponentDidMount(true);
         loadAsync(fontMap)
             .then(() => setLoaded(true))
             .catch(setError);

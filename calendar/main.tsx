@@ -7,7 +7,7 @@ import {Control, DateView, Header, MonthView, YearView} from "./components";
 import {ViewType} from "./enums";
 import {CalendarContext, CalendarProps, CalendarState} from "./models";
 import {canNavigateBackward, canNavigateForward, getDateViewData, getMonthViewData, getViewId, getYearViewData} from "./services";
-import {Cache, TimeFrame} from "./types";
+import {TimeFrame} from "./types";
 import * as Variant from "./variants";
 
 /**
@@ -54,11 +54,18 @@ export function Calendar({
     const computedStyle = useComputedStyle(style, props, state);
 
     const calendarWidthRef = useRef<number>(NaN);
-    const cacheRef = useRef<Cache>({
-        dateViewData: new Map(),
-        monthViewData: new Map(),
-        yearViewData: new Map()
-    });
+    const dateViewData = useMemo<DateView.DateInfo[][]>(
+        () => getDateViewData(state.view.timeFrame.monthAndYear),
+        [`${state.view.timeFrame.monthAndYear.getMonth()}${state.view.timeFrame.monthAndYear.getFullYear()}`]
+    );
+    const monthViewData = useMemo<MonthView.MonthInfo[]>(
+        () => getMonthViewData(state.view.timeFrame.monthAndYear.getFullYear()),
+        [state.view.timeFrame.monthAndYear.getFullYear()]
+    );
+    const yearViewData = useMemo<YearView.YearInfo[]>(
+        () => getYearViewData(state.view.timeFrame.decade),
+        [state.view.timeFrame.decade]
+    );
 
     return (
         <CalendarContext.Provider value={context}>
@@ -134,7 +141,7 @@ export function Calendar({
                         key={getViewId(state.view)}
                         style={computedStyle.DateView}
                         today={state.today}
-                        data={getDateViewDataWithCache(state.view.timeFrame.monthAndYear)}
+                        data={dateViewData}
                         onDatePress={onDatePress}
                     />
                 );
@@ -147,7 +154,7 @@ export function Calendar({
                         key={getViewId(state.view)}
                         style={computedStyle.MonthView}
                         selectedMonth={state.today}
-                        data={getMonthViewDataWithCache(state.view.timeFrame.monthAndYear.getFullYear())}
+                        data={monthViewData}
                         onMonthPress={onMonthPress}
                     />
                 );
@@ -160,7 +167,7 @@ export function Calendar({
                         key={getViewId(state.view)}
                         style={computedStyle.YearView}
                         selectedYear={state.today.getFullYear()}
-                        data={getYearViewDataWithCache(state.view.timeFrame.decade)}
+                        data={yearViewData}
                         onYearPress={onYearPress}
                     />
                 );
@@ -363,39 +370,6 @@ export function Calendar({
                     ? SlideDirection.Left
                     : SlideDirection.Right
             };
-    }
-
-    function getDateViewDataWithCache(month: Date): DateView.DateInfo[][]
-    {
-        const cacheKey = `${month.getMonth()}${month.getFullYear()}`;
-        if (!cacheRef.current.dateViewData.has(cacheKey))
-        {
-            cacheRef.current.dateViewData.set(cacheKey, getDateViewData(month));
-        }
-
-        return cacheRef.current.dateViewData.get(cacheKey) ?? [];
-    }
-
-    function getMonthViewDataWithCache(year: number): MonthView.MonthInfo[]
-    {
-        const cacheKey = `${year}`;
-        if (!cacheRef.current.monthViewData.has(cacheKey))
-        {
-            cacheRef.current.monthViewData.set(cacheKey, getMonthViewData(year));
-        }
-
-        return cacheRef.current.monthViewData.get(cacheKey) ?? [];
-    }
-
-    function getYearViewDataWithCache(decade: Decade): YearView.YearInfo[]
-    {
-        const cacheKey = `${decade}`;
-        if (!cacheRef.current.yearViewData.has(cacheKey))
-        {
-            cacheRef.current.yearViewData.set(cacheKey, getYearViewData(decade));
-        }
-
-        return cacheRef.current.yearViewData.get(cacheKey) ?? [];
     }
 
     function onDatePress(pressedDate: Date): void
