@@ -41,7 +41,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
         selectedTransaction,
         mode = TransactionRecord.Mode.ReadOnly,
         maxSelectedTagCount = 3,
-        displayPanel = {icon: DefaultIconSet.None, message: EMPTY_STRING},
+        displayPanel,
         addNewTransactionButton,
         saveTransactionButton,
         deleteTransactionButton,
@@ -218,7 +218,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                         datePickerIsOpened: false
                     }));
 
-                    newlySelectedDate && setTodayHours(newlySelectedDate);
+                    newlySelectedDate && setHours(newlySelectedDate);
                     newlySelectedDate && onSelectDate?.(newlySelectedDate);
                 }}
                 onAddonPress={() =>
@@ -243,7 +243,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                     selectedDate={selectedDate}
                     onSelectedDateChange={newlySelectedDate =>
                     {
-                        newlySelectedDate && setTodayHours(newlySelectedDate);
+                        newlySelectedDate && setHours(newlySelectedDate);
                         newlySelectedDate && onSelectDate?.(newlySelectedDate);
                     }}
                 />
@@ -258,10 +258,13 @@ export const TransactionTable = forwardRef(function TransactionTable(
 
     function renderDisplayPanel(): JSX.Element
     {
+        const displayIcon = displayPanel?.icon ?? DefaultIconSet.None;
+        const displayMessage = displayPanel?.message ?? EMPTY_STRING;
+
         return (
-            <View style={computedStyle.DisplayPanel} pointerEvents={displayPanel.isVisible ? "auto" : "none"}>
-                <Icon style={computedStyle.DisplayIcon} name={displayPanel.icon} pointerEvents={"none"} selectable={false}/>
-                <Label style={computedStyle.DisplayMessage} pointerEvents={"none"} selectable={false}>{displayPanel.message}</Label>
+            <View style={computedStyle.DisplayPanel} pointerEvents={displayPanel?.isVisible ? "auto" : "none"}>
+                <Icon style={computedStyle.DisplayIcon} name={displayIcon} pointerEvents={"none"} selectable={false}/>
+                <Label style={computedStyle.DisplayMessage} pointerEvents={"none"} selectable={false}>{displayMessage}</Label>
             </View>
         );
     }
@@ -351,9 +354,29 @@ export const TransactionTable = forwardRef(function TransactionTable(
         }
     }
 
-    function setTodayHours(date: Date): void
+    function setHours(date: Date): void
     {
+        const clonedDate = new Date(date);
+        clonedDate.setHours(0, 0, 0, 0);
+
         const today = new Date();
+        const clonedToday = new Date(today);
+        clonedToday.setHours(0, 0, 0, 0);
+
+        const isInThePast = clonedDate.getTime() < clonedToday.getTime();
+        if (isInThePast)
+        {
+            date.setHours(23, 59, 59, 999);
+            return;
+        }
+
+        const isInTheFuture = clonedDate.getTime() > clonedToday.getTime();
+        if (isInTheFuture)
+        {
+            date.setHours(0, 0, 0, 0);
+            return;
+        }
+
         date.setHours(today.getHours(), today.getMinutes(), today.getSeconds(), today.getMilliseconds());
     }
 });

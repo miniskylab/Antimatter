@@ -1,5 +1,4 @@
 import "@expo/match-media";
-import {useTypography} from "@miniskylab/antimatter-typography";
 import {useEffect, useState} from "react";
 import {ImageStyle, Platform, TextStyle, ViewStyle} from "react-native";
 import {MediaQueryAllQueryable, useMediaQuery} from "react-responsive";
@@ -66,21 +65,6 @@ export function useResponsiveStyle(breakpoint: Breakpoint, style: ViewStyle | Te
     }
 
     return mediaQueryMatched ? style : {};
-}
-
-export function useSuspense(): ViewStyle & TextStyle & ImageStyle
-{
-    if (ssrIsEnabled())
-    {
-        const typographyLoaded = !!useTypography();
-        return typographyLoaded
-            ? {}
-            : {display: "none"};
-    }
-
-    return isEnvironment("NativeApp") || isEnvironment("WebBrowser")
-        ? {}
-        : {display: "none"};
 }
 
 export function ssrIsEnabled(): boolean

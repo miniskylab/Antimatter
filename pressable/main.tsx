@@ -22,10 +22,9 @@ export const Pressable = forwardRef(function Pressable(
         style, children, disabled, onPress
     };
 
-    const [state, setState] = useState<PressableState>({
-        hovered: false,
-        pressed: false
-    });
+    const [hovered, setHovered] = useState(false);
+    const [pressed, setPressed] = useState(false);
+    const state: PressableState = {hovered, pressed};
 
     const context = useMemo<PressableContext>(
         () => ({props, state}),
@@ -35,13 +34,10 @@ export const Pressable = forwardRef(function Pressable(
     Ts.Error.throwIfNullOrUndefined(style);
     const computedStyle = useComputedStyle(style, props, state);
 
-    if (disabled && (state.hovered || state.pressed))
+    if (disabled && (hovered || pressed))
     {
-        setState(prevState => ({
-            ...prevState,
-            hovered: false,
-            pressed: false
-        }));
+        setHovered(false);
+        setPressed(false);
     }
 
     return (
@@ -49,10 +45,10 @@ export const Pressable = forwardRef(function Pressable(
             <AnimatedPressable
                 ref={ref}
                 style={computedStyle}
-                onPointerEnter={() => { state.hovered !== !disabled && setState(prevState => ({...prevState, hovered: !disabled})); }}
-                onPointerLeave={() => { state.hovered && setState(prevState => ({...prevState, hovered: false})); }}
-                onPressIn={() => { state.pressed !== !disabled && setState(prevState => ({...prevState, pressed: !disabled})); }}
-                onPressOut={() => { state.pressed && setState(prevState => ({...prevState, pressed: false})); }}
+                onHoverIn={() => { setHovered(!disabled); }}
+                onHoverOut={() => { setHovered(false); }}
+                onPressIn={() => { setPressed(!disabled); }}
+                onPressOut={() => { setPressed(false); }}
                 onPress={!disabled && onPress ? onPress : undefined}
             >
                 {children}

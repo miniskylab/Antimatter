@@ -1,5 +1,5 @@
-import {EMPTY_STRING, isEnvironment} from "@miniskylab/antimatter-framework";
-import {TextStyle} from "react-native";
+import {EMPTY_STRING, isEnvironment, ssrIsEnabled} from "@miniskylab/antimatter-framework";
+import {ImageStyle, TextStyle, ViewStyle} from "react-native";
 import {useRobotoFont} from "./font";
 import {IcomoonSettings, useDefaultIconSet} from "./icomoon";
 
@@ -81,4 +81,19 @@ export function useTypography<TStyle extends TextStyle>(style?: TStyle): Typogra
         fontWeight: "normal",
         fontStyle: "normal"
     };
+}
+
+export function useSuspenseUntilTypographyIsLoaded(): ViewStyle & TextStyle & ImageStyle
+{
+    if (ssrIsEnabled())
+    {
+        const typographyLoaded = !!useTypography();
+        return typographyLoaded
+            ? {}
+            : {display: "none"};
+    }
+
+    return isEnvironment("NativeApp") || isEnvironment("WebBrowser")
+        ? {}
+        : {display: "none"};
 }
