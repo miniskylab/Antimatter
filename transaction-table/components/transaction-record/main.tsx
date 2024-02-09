@@ -53,7 +53,7 @@ export const Component = forwardRef(function Component(
             <Pressable style={computedStyle.Root} onPress={onPress}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
-                <View style={computedStyle.NameAndTagContainer} pointerEvents={"none"}>
+                <View style={computedStyle.NameAndTagContainer}>
                     {renderName()}
                     {renderTags()}
                 </View>
