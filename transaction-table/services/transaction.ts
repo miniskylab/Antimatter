@@ -2,6 +2,33 @@ import {Ts} from "@miniskylab/antimatter-framework";
 import {TransactionRecord} from "../components";
 import {TransactionTableProps} from "../models";
 
+export function getExecutedDateFrom(date: Date): Date
+{
+    const clonedDate = new Date(date);
+    clonedDate.setHours(0, 0, 0, 0);
+
+    const today = new Date();
+    const clonedToday = new Date(today);
+    clonedToday.setHours(0, 0, 0, 0);
+
+    const isInThePast = clonedDate.getTime() < clonedToday.getTime();
+    if (isInThePast)
+    {
+        clonedDate.setHours(23, 59, 59, 999);
+        return clonedDate;
+    }
+
+    const isInTheFuture = clonedDate.getTime() > clonedToday.getTime();
+    if (isInTheFuture)
+    {
+        clonedDate.setHours(0, 0, 0, 0);
+        return clonedDate;
+    }
+
+    clonedDate.setHours(today.getHours(), today.getMinutes(), today.getSeconds(), today.getMilliseconds());
+    return clonedDate;
+}
+
 export function isHighlightedTransaction(transaction: TransactionRecord.Data): boolean
 {
     if (!transaction.tags)

@@ -7,6 +7,7 @@ import {TransactionRecord} from "../components";
 import {DisplayPanelTheme} from "../enums";
 import {TransactionTable} from "../main";
 import {TransactionTableProps, TransactionTableRef} from "../models";
+import {getExecutedDateFrom} from "../services";
 import * as Variant from "../variants";
 import {TestData} from "./test-data";
 
@@ -92,7 +93,7 @@ export default {
                                 name: EMPTY_STRING,
                                 tags: TestData.tags,
                                 amount: 0,
-                                executedDate: args.selectedDate
+                                executedDate: getExecutedDateFrom(args.selectedDate)
                             }
                         };
 

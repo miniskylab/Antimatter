@@ -52,8 +52,8 @@ export const Component = forwardRef(function Component(
         <TransactionRecordContext.Provider value={context}>
             <Pressable style={computedStyle.Root} onPress={onPress}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
-                <Icon style={computedStyle.Icon} name={getIcon()}/>
-                <View style={computedStyle.NameAndTagContainer}>
+                <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
+                <View style={computedStyle.NameAndTagContainer} pointerEvents={"none"}>
                     {renderName()}
                     {renderTags()}
                 </View>
@@ -130,7 +130,7 @@ export const Component = forwardRef(function Component(
                     value={name}
                     onChangeText={onNameChange}
                 />
-                : <Label style={computedStyle.NameLabel} numberOfLines={1}>{name}</Label>
+                : <Label style={computedStyle.NameLabel} numberOfLines={1} pointerEvents={"none"}>{name}</Label>
         );
     }
 
@@ -155,7 +155,7 @@ export const Component = forwardRef(function Component(
                     keyboardType={"number-pad"}
                     onChange={onAmountChange}
                 />
-                : <Label style={computedStyle.AmountLabel}>
+                : <Label style={computedStyle.AmountLabel} pointerEvents={"none"}>
                     {`${explicitPlusSymbol ? "+" : EMPTY_STRING}${amount.toLocaleString("en-us")}`}
                 </Label>
         );
@@ -180,13 +180,13 @@ export const Component = forwardRef(function Component(
         {
             const dropdownMenuItemValues = Object.keys(dropdownMenuItems);
             return (
-                <View style={computedStyle.TagContainer}>
+                <View style={computedStyle.TagContainer} pointerEvents={"none"}>
                     {
                         [...Object.keys(tags).filter(x => tags[x].status === TagStatus.Selected)]
                             .sort((a, b) => dropdownMenuItemValues.indexOf(a) - dropdownMenuItemValues.indexOf(b))
                             .map(tagId => (
                                 <TagMetadataContext.Provider key={tagId} value={Array.from(tags[tagId].metadata ?? []).sort().join(",")}>
-                                    <Label style={computedStyle.Tag}>{tags[tagId].name ?? tagId}</Label>
+                                    <Label style={computedStyle.Tag} pointerEvents={"none"}>{tags[tagId].name ?? tagId}</Label>
                                 </TagMetadataContext.Provider>
                             ))
                     }

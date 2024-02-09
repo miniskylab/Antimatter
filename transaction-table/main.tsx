@@ -218,7 +218,6 @@ export const TransactionTable = forwardRef(function TransactionTable(
                         datePickerIsOpened: false
                     }));
 
-                    newlySelectedDate && setHours(newlySelectedDate);
                     newlySelectedDate && onSelectDate?.(newlySelectedDate);
                 }}
                 onAddonPress={() =>
@@ -241,11 +240,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                 <Calendar
                     style={computedStyle.Calendar}
                     selectedDate={selectedDate}
-                    onSelectedDateChange={newlySelectedDate =>
-                    {
-                        newlySelectedDate && setHours(newlySelectedDate);
-                        newlySelectedDate && onSelectDate?.(newlySelectedDate);
-                    }}
+                    onSelectedDateChange={newlySelectedDate => { newlySelectedDate && onSelectDate?.(newlySelectedDate); }}
                 />
             </>);
         }
@@ -352,31 +347,5 @@ export const TransactionTable = forwardRef(function TransactionTable(
             default:
                 throw new Error(`No valid mode to switch to from mode "${Ts.Enum.getName(TransactionRecord.Mode, mode)}"`);
         }
-    }
-
-    function setHours(date: Date): void
-    {
-        const clonedDate = new Date(date);
-        clonedDate.setHours(0, 0, 0, 0);
-
-        const today = new Date();
-        const clonedToday = new Date(today);
-        clonedToday.setHours(0, 0, 0, 0);
-
-        const isInThePast = clonedDate.getTime() < clonedToday.getTime();
-        if (isInThePast)
-        {
-            date.setHours(23, 59, 59, 999);
-            return;
-        }
-
-        const isInTheFuture = clonedDate.getTime() > clonedToday.getTime();
-        if (isInTheFuture)
-        {
-            date.setHours(0, 0, 0, 0);
-            return;
-        }
-
-        date.setHours(today.getHours(), today.getMinutes(), today.getSeconds(), today.getMilliseconds());
     }
 });
