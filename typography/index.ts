@@ -11,13 +11,13 @@ export function useIcomoon(): IcomoonSettings
 }
 
 type Typography = { fontFamily?: string; fontWeight?: TextStyle["fontWeight"]; fontStyle?: TextStyle["fontStyle"]; }
-export function useTypography<TStyle extends TextStyle>(style?: TStyle): Typography
+export function useTypography<TStyle extends TextStyle>(style?: TStyle): Typography | undefined
 {
     const fontLoaded = useRobotoFont();
     const [iconLoaded, , glyphName] = useDefaultIconSet();
     if (!fontLoaded || !iconLoaded)
     {
-        return {};
+        return undefined;
     }
 
     let fontStyleSuffix;

@@ -49,11 +49,10 @@ export const Pressable = forwardRef(function Pressable(
             <AnimatedPressable
                 ref={ref}
                 style={computedStyle}
-                onHoverIn={() => { setState(prevState => ({...prevState, hovered: !disabled})); }}
-                onHoverOut={() => { setState(prevState => ({...prevState, hovered: false})); }}
-                onResponderEnd={() => { setState(prevState => ({...prevState, hovered: false})); }}
-                onPressIn={() => { setState(prevState => ({...prevState, pressed: !disabled})); }}
-                onPressOut={() => { setState(prevState => ({...prevState, pressed: false})); }}
+                onPointerEnter={() => { state.hovered !== !disabled && setState(prevState => ({...prevState, hovered: !disabled})); }}
+                onPointerLeave={() => { state.hovered && setState(prevState => ({...prevState, hovered: false})); }}
+                onPressIn={() => { state.pressed !== !disabled && setState(prevState => ({...prevState, pressed: !disabled})); }}
+                onPressOut={() => { state.pressed && setState(prevState => ({...prevState, pressed: false})); }}
                 onPress={!disabled && onPress ? onPress : undefined}
             >
                 {children}

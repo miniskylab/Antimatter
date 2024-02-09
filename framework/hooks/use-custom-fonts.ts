@@ -1,10 +1,11 @@
 import {FontSource, isLoaded, loadAsync, useFonts} from "expo-font";
 import {useEffect, useState} from "react";
+import {ssrIsEnabled} from "./responsive";
 
 export function useCustomFonts(fontMap: string | Record<string, FontSource>): ReturnType<typeof useFonts>
 {
     const [componentDidMount, setComponentDidMount] = useState(false);
-    const [loaded, setLoaded] = useState(componentDidMount ? isFontMapLoaded(fontMap) : false);
+    const [loaded, setLoaded] = useState(ssrIsEnabled() && !componentDidMount ? false : isFontMapLoaded(fontMap));
     const [error, setError] = useState<Error | null>(null);
 
     useEffect(() =>

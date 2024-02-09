@@ -1,4 +1,5 @@
 import "@expo/match-media";
+import {useTypography} from "@miniskylab/antimatter-typography";
 import {useEffect, useState} from "react";
 import {ImageStyle, Platform, TextStyle, ViewStyle} from "react-native";
 import {MediaQueryAllQueryable, useMediaQuery} from "react-responsive";
@@ -71,10 +72,8 @@ export function useSuspense(): ViewStyle & TextStyle & ImageStyle
 {
     if (ssrIsEnabled())
     {
-        const [componentDidMount, setComponentDidMount] = useState(false);
-        useEffect(() => { setComponentDidMount(true); }, []);
-
-        return componentDidMount
+        const typographyLoaded = !!useTypography();
+        return typographyLoaded
             ? {}
             : {display: "none"};
     }
@@ -82,6 +81,11 @@ export function useSuspense(): ViewStyle & TextStyle & ImageStyle
     return isEnvironment("NativeApp") || isEnvironment("WebBrowser")
         ? {}
         : {display: "none"};
+}
+
+export function ssrIsEnabled(): boolean
+{
+    return isEnvironment("WebBrowser") && !!(window as never)?.["ANTIMATTER"]?.["ssr"];
 }
 
 function useSsrSupportedMediaQuery(settings: MediaQueryAllQueryable): boolean
@@ -97,9 +101,4 @@ function useSsrSupportedMediaQuery(settings: MediaQueryAllQueryable): boolean
     }
 
     return useMediaQuery(settings);
-}
-
-function ssrIsEnabled(): boolean
-{
-    return isEnvironment("WebBrowser") && !!(window as never)?.["ANTIMATTER"]?.["ssr"];
 }

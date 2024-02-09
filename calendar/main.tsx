@@ -177,22 +177,22 @@ export function Calendar({
 
     function renderControl(): JSX.Element
     {
-        let dateViewData;
+        let flattenedDateViewData;
         if (state.view.type === ViewType.Date)
         {
-            dateViewData = getDateViewData(state.view.timeFrame.monthAndYear).flat();
+            flattenedDateViewData = dateViewData.flat();
         }
 
         let canNavigateToToday = true;
         if (state.view.type === ViewType.Date)
         {
-            canNavigateToToday = !dateViewData?.some(dateInfo => Ts.Date.isEqualDate(dateInfo.value, state.today));
+            canNavigateToToday = !flattenedDateViewData?.some(dateInfo => Ts.Date.isEqualDate(dateInfo.value, state.today));
         }
 
         let canNavigateToSelectedDate = !!selectedDate;
         if (selectedDate && state.view.type === ViewType.Date)
         {
-            canNavigateToSelectedDate = !dateViewData?.some(dateInfo => Ts.Date.isEqualDate(dateInfo.value, selectedDate));
+            canNavigateToSelectedDate = !flattenedDateViewData?.some(dateInfo => Ts.Date.isEqualDate(dateInfo.value, selectedDate));
         }
 
         return (
