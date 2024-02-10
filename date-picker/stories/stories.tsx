@@ -29,7 +29,9 @@ export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
         dateFormat: Sb.enumDropdown(DateFormat),
+        placeholder: Sb.text(),
         selectedDate: Sb.datePicker(),
+        calendarIsOpen: Sb.boolean(),
         autoFocus: Sb.locked,
         editable: Sb.locked,
         focusable: Sb.locked,

@@ -17,6 +17,8 @@ export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
         icon: Sb.enumDropdown(DefaultIconSet),
+        label: Sb.text(),
+        disabled: Sb.boolean(),
         onPress: Sb.locked
     },
     args: {

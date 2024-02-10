@@ -37,7 +37,7 @@ export function enumDropdown(anyEnum: Record<string, string>)
     };
 }
 
-export function number(min: number, max: number, step: number)
+export function number(min: number = -Infinity, max: number = Infinity, step: number = 1)
 {
     return {
         control: {
@@ -49,7 +49,7 @@ export function number(min: number, max: number, step: number)
     };
 }
 
-export function rangeSlider(min: number, max: number, step: number)
+export function rangeSlider(min: number, max: number, step: number = 1)
 {
     return {
         control: {
@@ -66,6 +66,15 @@ export function datePicker()
     return {
         control: {
             type: "date"
+        }
+    };
+}
+
+export function boolean()
+{
+    return {
+        control: {
+            type: "boolean"
         }
     };
 }

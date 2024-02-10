@@ -17,7 +17,8 @@ export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
         name: Sb.enumDropdown(DefaultIconSet),
-        pointerEvents: Sb.select()
+        pointerEvents: Sb.select(),
+        selectable: Sb.boolean()
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Inflated),

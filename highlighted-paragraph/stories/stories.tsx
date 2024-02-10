@@ -16,7 +16,9 @@ type Story = StoryObj<typeof HighlightedParagraph>;
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
-        icon: Sb.enumDropdown(DefaultIconSet)
+        icon: Sb.enumDropdown(DefaultIconSet),
+        title: Sb.text(),
+        content: Sb.text()
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),

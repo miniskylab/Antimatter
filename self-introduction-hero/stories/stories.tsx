@@ -19,6 +19,13 @@ export const Playground: Story = {
         style: Sb.styleSelector(Variant),
         coverPhoto: Sb.locked,
         avatar: Sb.locked,
+        name: Sb.text(),
+        alternativeName: Sb.text(),
+        description: Sb.text(),
+        locationTitle: Sb.text(),
+        location: Sb.text(),
+        emailTitle: Sb.text(),
+        emailAddress: Sb.text(),
         downloadButton: Sb.locked
     },
     args: {

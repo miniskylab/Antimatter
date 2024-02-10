@@ -17,6 +17,8 @@ export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
         logo: Sb.enumDropdown(DefaultIconSet),
+        title: Sb.text(),
+        subtitle: Sb.text(),
         usernameInputField: Sb.locked,
         passwordInputField: Sb.locked,
         loginButton: Sb.locked

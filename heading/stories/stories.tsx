@@ -14,7 +14,9 @@ type Story = StoryObj<typeof Heading>;
 
 export const Playground: Story = {
     argTypes: {
-        style: Sb.styleSelector(Variant)
+        style: Sb.styleSelector(Variant),
+        title: Sb.text(),
+        subtitle: Sb.text()
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),

@@ -49,7 +49,10 @@ export const Playground: Story = {
     decorators: [Story => <div style={{display: "flex", alignItems: "center", height: 570}}>{<Story/>}</div>],
     argTypes: {
         style: Sb.styleSelector(Variant),
+        placeholder: Sb.text(),
         dropDirection: Sb.enumDropdown(DropDirection),
+        isOpen: Sb.boolean(),
+        enableMenuHorizontalScrolling: Sb.boolean(),
         menuItems: Sb.locked
     },
     args: {

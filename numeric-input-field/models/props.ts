@@ -4,8 +4,8 @@ import {
     IsBoolean,
     IsInteger,
     IsNumber,
-    IsPositive,
     IsString,
+    Min,
     TextInputFocusEventHandler,
     TextInputKeyPressEventHandler
 } from "@miniskylab/antimatter-framework";
@@ -59,7 +59,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsPositive()
+    @Min(0)
     @IsInteger()
     @IsOptional()
     readonly maximumFractionDigitCount?: number;
@@ -68,7 +68,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsPositive()
+    @Min(0)
     @IsInteger()
     @IsOptional()
     readonly maximumDigitCount?: number;

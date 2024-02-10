@@ -98,6 +98,9 @@ type Story = StoryObj<typeof DataTable>;
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
+        title: Sb.text(),
+        subtitle: Sb.text(),
+        minRowCount: Sb.rangeSlider(1, 100),
         columns: Sb.locked,
         rows: Sb.locked,
         selectedRow: Sb.locked,

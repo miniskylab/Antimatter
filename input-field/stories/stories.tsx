@@ -28,7 +28,16 @@ type Story = StoryObj<typeof InputField>;
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
+        placeholder: Sb.text(),
         icon: Sb.enumDropdown(DefaultIconSet),
+        value: Sb.text(),
+        focusable: Sb.boolean(),
+        autoFocus: Sb.boolean(),
+        editable: Sb.boolean(),
+        isPasswordField: Sb.boolean(),
+        contextMenuHidden: Sb.boolean(),
+        autoCorrect: Sb.boolean(),
+        maxLength: Sb.number(0),
         selection: Sb.locked,
         onBlur: Sb.locked,
         onFocus: Sb.locked,

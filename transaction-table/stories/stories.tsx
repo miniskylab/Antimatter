@@ -290,6 +290,7 @@ const today = new Date();
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
+        maxSelectedTagCount: Sb.number(0),
         summary: Sb.locked,
         transactions: Sb.locked,
         selectedDate: Sb.locked,

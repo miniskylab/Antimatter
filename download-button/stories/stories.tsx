@@ -17,7 +17,10 @@ type Story = StoryObj<typeof DownloadButton>;
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
+        label: Sb.text(),
         icon: Sb.enumDropdown(DefaultIconSet),
+        fileName: Sb.text(),
+        disabled: Sb.boolean(),
         href: Sb.locked
     },
     args: {

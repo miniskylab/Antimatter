@@ -15,9 +15,10 @@ type Story = StoryObj<typeof Label>;
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
-        pointerEvents: Sb.select(),
         children: Sb.text(),
-        numberOfLines: Sb.number(0, Infinity, 1)
+        pointerEvents: Sb.select(),
+        selectable: Sb.boolean(),
+        numberOfLines: Sb.number(0)
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),

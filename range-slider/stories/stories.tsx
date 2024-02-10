@@ -28,6 +28,10 @@ type Story = StoryObj<typeof RangeSlider>;
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
+        minValue: Sb.number(),
+        maxValue: Sb.number(),
+        value: Sb.number(),
+        disabled: Sb.boolean(),
         knobIcon: Sb.enumDropdown(DefaultIconSet),
         pipsSettings: Sb.locked,
         onChange: Sb.locked

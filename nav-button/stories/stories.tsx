@@ -17,9 +17,11 @@ type Story = StoryObj<typeof NavButton>;
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
-        icon: Sb.enumDropdown(DefaultIconSet),
+        destination: Sb.locked,
         openIn: Sb.enumDropdown(Target),
-        destination: Sb.locked
+        label: Sb.text(),
+        icon: Sb.enumDropdown(DefaultIconSet),
+        disabled: Sb.boolean()
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),

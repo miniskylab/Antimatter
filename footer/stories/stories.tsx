@@ -14,7 +14,8 @@ type Story = StoryObj<typeof Footer>;
 
 export const Playground: Story = {
     argTypes: {
-        style: Sb.styleSelector(Variant)
+        style: Sb.styleSelector(Variant),
+        text: Sb.text()
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
