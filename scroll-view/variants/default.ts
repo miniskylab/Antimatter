@@ -1,4 +1,4 @@
-import {useSuspenseUntilTypographyIsLoaded} from "@miniskylab/antimatter-typography";
+import {useSuspense} from "@miniskylab/antimatter-typography";
 import {ScrollViewStyle} from "../models";
 
 export const Default: ScrollViewStyle = function ()
@@ -6,6 +6,6 @@ export const Default: ScrollViewStyle = function ()
     return {
         flex: 1,
         overscrollBehavior: "contain",
-        ...useSuspenseUntilTypographyIsLoaded()
+        ...useSuspense()
     };
 };

@@ -1,5 +1,5 @@
-import {useCustomFonts} from "@miniskylab/antimatter-framework";
 import {FontDisplay} from "expo-font";
+import {useCustomFonts} from "../../hooks";
 import RobotoBlackItalic from "./Roboto-Black-Italic.ttf";
 import RobotoBlack from "./Roboto-Black.ttf";
 import RobotoBoldItalic from "./Roboto-Bold-Italic.ttf";

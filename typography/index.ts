@@ -1,4 +1,5 @@
 import {EMPTY_STRING, isEnvironment, ssrIsEnabled} from "@miniskylab/antimatter-framework";
+import {useEffect, useState} from "react";
 import {ImageStyle, TextStyle, ViewStyle} from "react-native";
 import {useRobotoFont} from "./font";
 import {IcomoonSettings, useDefaultIconSet} from "./icomoon";
@@ -83,12 +84,15 @@ export function useTypography<TStyle extends TextStyle>(style?: TStyle): Typogra
     };
 }
 
-export function useSuspenseUntilTypographyIsLoaded(): ViewStyle & TextStyle & ImageStyle
+export function useSuspense(): ViewStyle & TextStyle & ImageStyle
 {
+    const [componentDidMount, setComponentDidMount] = useState(false);
+    useEffect(() => { setComponentDidMount(true); }, []);
+
     if (ssrIsEnabled())
     {
         const typographyLoaded = !!useTypography();
-        return typographyLoaded
+        return componentDidMount && typographyLoaded
             ? {}
             : {display: "none"};
     }

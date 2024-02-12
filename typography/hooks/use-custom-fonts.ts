@@ -1,6 +1,6 @@
+import {ssrIsEnabled} from "@miniskylab/antimatter-framework";
 import {FontSource, isLoaded, loadAsync, useFonts} from "expo-font";
 import {useEffect, useState} from "react";
-import {ssrIsEnabled} from "./responsive";
 
 export function useCustomFonts(fontMap: string | Record<string, FontSource>): ReturnType<typeof useFonts>
 {

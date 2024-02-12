@@ -20,7 +20,7 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
     propsType: new () => TProps
 ): ForwardRefExoticComponent<PropsWithoutRef<TProps> & RefAttributes<unknown>>
 {
-    const validator = forwardRef((props: TProps, ref: MutableRefObject<unknown>): JSX.Element | null =>
+    const validatedComponent = forwardRef((props: TProps, ref: MutableRefObject<unknown>): JSX.Element | null =>
     {
         return validateProps(props) ? createElement(component, {...props, ref}) : null;
         function validateProps(props: TProps): boolean
@@ -106,6 +106,6 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
         }
     });
 
-    validator.displayName = component.displayName;
-    return validator;
+    validatedComponent.displayName = component.displayName;
+    return validatedComponent;
 }

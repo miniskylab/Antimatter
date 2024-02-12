@@ -1,4 +1,4 @@
-import {useSuspenseUntilTypographyIsLoaded} from "@miniskylab/antimatter-typography";
+import {useSuspense} from "@miniskylab/antimatter-typography";
 import {ViewStyle} from "../models";
 
 export const Default: ViewStyle = function ()
@@ -6,6 +6,6 @@ export const Default: ViewStyle = function ()
     return {
         alignItems: "center",
         justifyContent: "center",
-        ...useSuspenseUntilTypographyIsLoaded()
+        ...useSuspense()
     };
 };

@@ -1,5 +1,5 @@
-import {useCustomFonts} from "@miniskylab/antimatter-framework";
 import {FontDisplay} from "expo-font";
+import {useCustomFonts} from "../../hooks";
 import {IcomoonSettings} from "../types";
 import glyph from "./glyph.ttf";
 import selection from "./selection.json";
