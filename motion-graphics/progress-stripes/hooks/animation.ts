@@ -1,8 +1,9 @@
+import {ComponentAnimation} from "@miniskylab/antimatter-framework";
 import {useEffect, useRef} from "react";
-import ReactNative, {Animated, Easing} from "react-native";
+import {Animated, Easing} from "react-native";
 import {useProgressStripesContext} from "./context";
 
-export function useStripeAnimation(): ReactNative.ViewStyle
+export function useStripeAnimation(): ComponentAnimation
 {
     const initialTranslateX = 0;
     const animatedTranslateX = useRef(new Animated.Value(initialTranslateX)).current;
@@ -21,9 +22,11 @@ export function useStripeAnimation(): ReactNative.ViewStyle
     }, [progressStripesContext.state.stripeWidth, progressStripesContext.props.msAnimationDuration]);
 
     return {
-        transform: [
-            {skewX: "-45deg"},
-            {translateX: animatedTranslateX}
-        ]
+        animatedStyle: {
+            transform: [
+                {skewX: "-45deg"},
+                {translateX: animatedTranslateX}
+            ]
+        }
     };
 }

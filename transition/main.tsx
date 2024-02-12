@@ -29,7 +29,7 @@ export function Transition({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props, state);
+    const {computedStyle} = useComputedStyle(style, props, state);
 
     const transitionableStyle: Transitionable.Style = function (transitionableProps: Transitionable.Props): ViewStyle
     {

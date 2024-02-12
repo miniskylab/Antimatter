@@ -8,7 +8,7 @@ import {
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
-import React, {forwardRef, JSX, MutableRefObject, useEffect, useMemo, useRef, useState} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
 import {Keypress} from "./enums";
 import {NumericInputFieldContext, NumericInputFieldProps, NumericInputFieldState} from "./models";
@@ -56,7 +56,10 @@ export const NumericInputField = forwardRef(function NumericInputField(
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props, state);
+    const {computedStyle, imperativeHandles} = useComputedStyle(style, props, state);
+
+    const internalRef = useRef<NumericInputField>(null);
+    useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
 
     const lastKeypressRef = useRef<Keypress>();
     const ignoreNextSelectionChangeEventRef = useRef(false);
@@ -86,18 +89,18 @@ export const NumericInputField = forwardRef(function NumericInputField(
     {
         if (state.selection)
         {
-            ref?.current?.setSelection(
+            internalRef?.current?.setSelection?.(
                 state.selection.start,
                 state.selection.end ?? state.selection.start
             );
         }
-    });
+    }, [internalRef?.current?.setSelection, state.selection]);
 
     validateAndThrow();
     return (
         <NumericInputFieldContext.Provider value={context}>
             <InputField
-                ref={ref}
+                ref={internalRef}
                 style={computedStyle}
                 value={state.userInput}
                 selection={state.selection}

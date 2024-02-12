@@ -34,7 +34,7 @@ export function DropdownMenu({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     const selectedValues = Object.keys(menuItems).filter(x => menuItems[x].status === MenuItemStatus.Selected);
     const hasSelection = selectedValues.length > 0;

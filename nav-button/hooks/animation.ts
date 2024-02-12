@@ -1,10 +1,11 @@
+import {ComponentAnimation} from "@miniskylab/antimatter-framework";
 import {PressableContextHook} from "@miniskylab/antimatter-pressable";
 import {useEffect, useRef} from "react";
-import ReactNative, {Animated, Easing} from "react-native";
+import {Animated, Easing} from "react-native";
 import {Target} from "../enums";
 import {useNavButtonContext} from "./context";
 
-export function useIconHoverAnimation(): ReactNative.ViewStyle
+export function useIconHoverAnimation(): ComponentAnimation
 {
     const navButtonContext = useNavButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
@@ -42,9 +43,11 @@ export function useIconHoverAnimation(): ReactNative.ViewStyle
     }, [pressableContext.state.hovered]);
 
     return {
-        transform: [
-            {scale: iconScale as unknown as number},
-            {translateX: iconTranslateX as unknown as number}
-        ]
+        animatedStyle: {
+            transform: [
+                {scale: iconScale as unknown as number},
+                {translateX: iconTranslateX as unknown as number}
+            ]
+        }
     };
 }

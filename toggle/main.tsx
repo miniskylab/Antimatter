@@ -28,7 +28,7 @@ export function Toggle({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     return (
         <ToggleContext.Provider value={context}>

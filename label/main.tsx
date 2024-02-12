@@ -29,7 +29,7 @@ export function Label({
     };
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     const isWebEnvironment = isEnvironment("Web");
 

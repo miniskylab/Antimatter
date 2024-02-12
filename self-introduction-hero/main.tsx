@@ -35,7 +35,7 @@ export function SelfIntroductionHero({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     return (
         <SelfIntroductionHeroContext.Provider value={context}>

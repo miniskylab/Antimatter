@@ -63,7 +63,7 @@ const Navbar__Tab__Icon: IconStyle = function (iconProps)
 
     return {
         ...inheritedStyle,
-        dynamics: undefined,
+        animations: undefined,
         height: 32,
         paddingTop: 5,
         fontSize: 25,

@@ -36,7 +36,7 @@ const InputField__TextBox: TextInputStyle = function (textInputProps)
         fontSize: 14,
         color: Color.Neutral,
         backgroundColor: Color.Transparent,
-        dynamics: [
+        animations: [
             () => InputFieldAnimationHook.useTextBoxAnimation()
         ]
     };
@@ -64,7 +64,7 @@ const InputField__Placeholder: LabelStyle = function (labelProps)
         width: "100%",
         paddingLeft: 12,
         color: Color.Gray,
-        dynamics: [
+        animations: [
             () => InputFieldAnimationHook.usePlaceholderAnimation()
         ]
     };

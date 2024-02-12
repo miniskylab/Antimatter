@@ -470,7 +470,7 @@ const TransactionTable__Summary: Summary.Style = function ()
     };
 };
 
-const TransactionTable__TransactionDetails: ViewStyle = function (viewProps)
+const TransactionTable__MainContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -635,7 +635,7 @@ const TransactionTable__ControlButton: ButtonStyle = function (buttonProps)
     };
 };
 
-const TransactionTable__TransactionContainer: ScrollViewStyle = function (scrollViewProps)
+const TransactionTable__TransactionList: ScrollViewStyle = function (scrollViewProps)
 {
     return {
         ...ScrollViewVariant.Default(scrollViewProps),
@@ -656,7 +656,6 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         ...PressableVariant.Default(pressableProps, pressableState),
         flexDirection: "row",
         justifyContent: "flex-start",
-        height: 66,
         paddingTop: 8,
         paddingBottom: 10,
         borderTopWidth: 2,
@@ -665,9 +664,12 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         borderColor: Color.Neutral,
         marginTop: -2,
         cursor: hasSelectedTransaction ? "default" : "pointer",
-        dynamics: [
+        animations: [
             () => TransactionTableAnimationHook.useFlashHighlightAnimation(),
-            () => ((!hasSelectedTransaction && pressableState.hovered) || isSelectedTransactionRecord) && {
+            () => TransactionTableAnimationHook.useVerticalContractionAnimation(66)
+        ],
+        animationOverride: {
+            ...((!hasSelectedTransaction && pressableState.hovered) || isSelectedTransactionRecord) && {
                 zIndex: Layer.AlwaysOnTop,
                 borderColor: Color.Primary,
                 backgroundColor: Color.Primary__a10,
@@ -676,7 +678,7 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
                     backgroundColor: Color.Negative__a10
                 }
             }
-        ]
+        }
     };
 };
 
@@ -733,7 +735,7 @@ const TransactionTable__TransactionRecord__NameInputField__TextBox: TextInputSty
         paddingRight: 0,
         fontSize: 18,
         fontWeight: "bold",
-        dynamics: undefined
+        animations: undefined
     };
 };
 
@@ -751,7 +753,7 @@ const TransactionTable__TransactionRecord__NameInputField__Placeholder: LabelSty
         fontSize: 16,
         fontWeight: "bold",
         fontStyle: "italic",
-        dynamics: undefined
+        animations: undefined
     };
 };
 
@@ -1112,7 +1114,7 @@ const TransactionTable__DisplayPanel: ViewStyle = function (viewProps)
         right: 0,
         height: 58.4,
         backgroundColor: Color.Background,
-        dynamics: [
+        animations: [
             () => TransactionTableAnimationHook.useDisplayPanelFadeOutAnimation()
         ]
     };
@@ -1130,7 +1132,7 @@ const TransactionTable__DisplayIcon: IconStyle = function (iconProps)
         height: 30,
         marginTop: 2,
         fontSize: 22,
-        dynamics: [
+        animations: [
             () => TransactionTableAnimationHook.useDisplayIconAnimation(isAnimationPlaying)
         ],
         color: theme === DisplayPanelTheme.Negative
@@ -1192,13 +1194,13 @@ export const Default: TransactionTableStyle = function ()
         Calendar: TransactionTable__Calendar,
         DatePicker: TransactionTable__DatePicker,
         Summary: TransactionTable__Summary,
-        TransactionDetails: TransactionTable__TransactionDetails,
+        MainContainer: TransactionTable__MainContainer,
         DisplayPanel: TransactionTable__DisplayPanel,
         DisplayIcon: TransactionTable__DisplayIcon,
         DisplayMessage: TransactionTable__DisplayMessage,
         ControlPanel: TransactionTable__ControlPanel,
         ControlButton: TransactionTable__ControlButton,
-        TransactionContainer: TransactionTable__TransactionContainer,
+        TransactionList: TransactionTable__TransactionList,
         TransactionRecord: TransactionTable__TransactionRecord,
         Hr: TransactionTable__Hr
     };

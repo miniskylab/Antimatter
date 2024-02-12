@@ -42,7 +42,7 @@ export function Component({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     const duration = isOnGoing
         ? GregorianCalendar.getTimeDuration(startDate, new Date(), minimumTimeUnit)

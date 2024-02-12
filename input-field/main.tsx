@@ -3,7 +3,7 @@ import {Icon} from "@miniskylab/antimatter-icon";
 import {Label} from "@miniskylab/antimatter-label";
 import {TextInput} from "@miniskylab/antimatter-text-input";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useMemo} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {InputFieldContext, InputFieldProps} from "./models";
 import * as Variant from "./variants";
 
@@ -45,7 +45,10 @@ export const InputField = forwardRef(function InputField(
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
+
+    const internalRef = useRef<InputField>(null);
+    useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
 
     return (
         <InputFieldContext.Provider value={context}>
@@ -58,7 +61,7 @@ export const InputField = forwardRef(function InputField(
                         </Label>
                     )}
                     <TextInput
-                        ref={ref}
+                        ref={internalRef}
                         style={computedStyle.TextBox}
                         editable={editable}
                         focusable={focusable}

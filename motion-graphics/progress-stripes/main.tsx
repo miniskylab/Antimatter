@@ -29,7 +29,7 @@ export function ProgressStripes({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     useEffect(() =>
     {

@@ -1,8 +1,9 @@
+import {ComponentAnimation} from "@miniskylab/antimatter-framework";
 import {useEffect, useRef} from "react";
-import ReactNative, {Animated, DimensionValue, Easing} from "react-native";
+import {Animated, DimensionValue, Easing} from "react-native";
 import {useInputFieldContext} from "./context";
 
-export function usePlaceholderAnimation(): ReactNative.TextStyle
+export function usePlaceholderAnimation(): ComponentAnimation
 {
     const inputFieldContext = useInputFieldContext();
 
@@ -37,12 +38,14 @@ export function usePlaceholderAnimation(): ReactNative.TextStyle
     }, [inputFieldContext.props.value]);
 
     return {
-        height: interpolatedHeight as unknown as DimensionValue,
-        fontSize: animatedFontSize as unknown as number
+        animatedStyle: {
+            height: interpolatedHeight as unknown as DimensionValue,
+            fontSize: animatedFontSize as unknown as number
+        }
     };
 }
 
-export function useTextBoxAnimation(): ReactNative.ViewStyle
+export function useTextBoxAnimation(): ComponentAnimation
 {
     const inputFieldContext = useInputFieldContext();
 
@@ -73,7 +76,9 @@ export function useTextBoxAnimation(): ReactNative.ViewStyle
     }, [inputFieldContext.props.value]);
 
     return {
-        paddingTop: animatedPaddingTop as unknown as number,
-        paddingBottom: animatedPaddingBottom as unknown as number
+        animatedStyle: {
+            paddingTop: animatedPaddingTop as unknown as number,
+            paddingBottom: animatedPaddingBottom as unknown as number
+        }
     };
 }

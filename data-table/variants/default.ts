@@ -294,7 +294,7 @@ const DataTable__Row__CellInputField__TextBox: TextInputStyle = function (textIn
 
     return {
         ...inheritedStyle,
-        dynamics: undefined,
+        animations: undefined,
         paddingTop: 0,
         paddingBottom: 0,
         paddingLeft: 0,
@@ -311,7 +311,7 @@ const DataTable__Row__CellInputField__Placeholder: LabelStyle = function (labelP
 
     return {
         ...inheritedStyle,
-        dynamics: undefined,
+        animations: undefined,
         display: inputFieldContext.props.value ? "none" : "flex",
         height: "100%",
         paddingLeft: 0,

@@ -1,7 +1,7 @@
 import {AllPropertiesMustPresent, EMPTY_STRING, inheritTextStyleFrom, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
 import * as ReactNative from "react-native";
 import {TextInputProps} from "./models";
 import * as Variant from "./variants";
@@ -37,12 +37,15 @@ export const TextInput = forwardRef(function TextInput(
     };
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
+
+    const internalRef = useRef<TextInput>(null);
+    useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
 
     return (
         <View style={() => computedStyle}>
             <ReactNative.TextInput
-                ref={ref}
+                ref={internalRef}
                 editable={editable}
                 focusable={focusable}
                 autoCorrect={autoCorrect}
@@ -69,4 +72,4 @@ export const TextInput = forwardRef(function TextInput(
     );
 });
 
-export type TextInput = ReactNative.TextInput;
+export type TextInput<TExtra extends object = object> = Omit<ReactNative.TextInput, keyof TExtra> & TExtra;

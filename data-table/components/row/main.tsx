@@ -40,7 +40,7 @@ export function Component({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props, state);
+    const {computedStyle} = useComputedStyle(style, props, state);
 
     const ref = useRef<Pressable>(null);
 

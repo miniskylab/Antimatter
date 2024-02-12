@@ -62,25 +62,28 @@ export const TransactionTable = forwardRef(function TransactionTable(
     };
 
     const [state, setState] = useState<TransactionTableState>({
-        datePickerIsOpened: false,
-        flashHighlightTransactionIds: []
+        datePickerIsOpened: false
     });
 
     const context = useMemo<TransactionTableContext>(
-        () => ({props, state, ref}),
-        [...Object.values(props), ...Object.values(state), ref]
+        () => ({props, state}),
+        [...Object.values(props), ...Object.values(state)]
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props, state);
+    const {computedStyle} = useComputedStyle(style, props, state);
 
+    const toBeFlashHighlightedTransactionIdsRef = useRef<string[]>([]);
+    const toBeVerticalContractedTransactionIdsRef = useRef<string[]>([]);
+    const onVerticalContractionAnimationEndRef = useRef<(transactionId: string) => void>();
     const transactionRecordsRef = useRef<Record<string, Nullable<TransactionRecord.Ref>>>({});
-    const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useBreakpoint("Large");
 
     useImperativeHandle(ref, () => ({
-        flashHighlightTransactions(...transactionIds: string[]): void
+        flashHighlightTransactions(transactionIds) { toBeFlashHighlightedTransactionIdsRef.current = [...transactionIds]; },
+        verticalContractTransactions(transactionIds, onAnimationEnd)
         {
-            setState(prevState => ({...prevState, flashHighlightTransactionIds: transactionIds}));
+            onVerticalContractionAnimationEndRef.current = onAnimationEnd;
+            toBeVerticalContractedTransactionIdsRef.current = [...transactionIds];
         }
     }), []);
 
@@ -92,23 +95,43 @@ export const TransactionTable = forwardRef(function TransactionTable(
             .forEach(x => { delete transactionRecordsRef.current[x]; });
     }, [transactions]);
 
-    useEffect(
-        () => { state.flashHighlightTransactionIds.forEach(x => { transactionRecordsRef.current[x]?.flashHighlight(); }); },
-        [state.flashHighlightTransactionIds]
-    );
+    useEffect(() =>
+    {
+        let transactionId = toBeFlashHighlightedTransactionIdsRef.current.pop();
+        while (transactionId)
+        {
+            transactionRecordsRef.current[transactionId]?.flashHighlight?.();
+            transactionId = toBeFlashHighlightedTransactionIdsRef.current.pop();
+        }
+    }, [toBeFlashHighlightedTransactionIdsRef.current]);
+
+    useEffect(() =>
+    {
+        let transactionId = toBeVerticalContractedTransactionIdsRef.current.pop();
+        while (transactionId)
+        {
+            const sampledTransactionId = transactionId;
+            transactionRecordsRef.current[transactionId]?.verticalContract?.(() =>
+            {
+                onVerticalContractionAnimationEndRef.current?.(sampledTransactionId);
+            });
+
+            transactionId = toBeVerticalContractedTransactionIdsRef.current.pop();
+        }
+    }, [toBeVerticalContractedTransactionIdsRef.current]);
 
     return (
         <TransactionTableContext.Provider value={context}>
             <View style={computedStyle.Root}>
                 {renderDateSelectorAndSummary()}
-                <View style={computedStyle.TransactionDetails}>
+                <View style={computedStyle.MainContainer}>
                     {renderControlPanel()}
                     {renderDisplayPanel()}
                     <HrPositionContext.Provider value={"top"}>
                         <View style={computedStyle.Hr}/>
                     </HrPositionContext.Provider>
                     <ScrollView
-                        style={computedStyle.TransactionContainer}
+                        style={computedStyle.TransactionList}
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
                     >
@@ -233,6 +256,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
 
     function renderDateSelectorAndSummary(): JSX.Element
     {
+        const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useBreakpoint("Large");
         if (ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint)
         {
             return (<>

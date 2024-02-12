@@ -1,5 +1,5 @@
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import React, {forwardRef, JSX, MutableRefObject} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ViewProps} from "./models";
 import * as Variant from "./variants";
@@ -26,11 +26,14 @@ export const View = forwardRef(function View(
     };
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
+
+    const internalRef = useRef<View>(null);
+    useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
 
     return (
         <Animated.View
-            ref={ref}
+            ref={internalRef}
             style={computedStyle}
             pointerEvents={pointerEvents}
             onLayout={onLayout}
@@ -44,4 +47,4 @@ export const View = forwardRef(function View(
     );
 });
 
-export type View = ReactNative.View;
+export type View<TExtra extends object = object> = Omit<ReactNative.View, keyof TExtra> & TExtra;

@@ -20,7 +20,7 @@ const ProgressStripes__Slider: ViewStyle = function ()
         flex: 1,
         flexDirection: "row",
         transformOrigin: "bottom",
-        dynamics: [
+        animations: [
             () => ProgressStripesAnimationHook.useStripeAnimation()
         ]
     };

@@ -21,7 +21,7 @@ export function Icon({
     };
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     const [assetLoaded, selection, expoFontName, expoAssetId] = useIcomoon();
     if (!assetLoaded)

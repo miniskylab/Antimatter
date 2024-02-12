@@ -8,7 +8,7 @@ import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useMemo} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {Mode, TagMetadata, TagStatus} from "./enums";
 import {Props, Ref, TagMetadataContext, TransactionRecordContext} from "./models";
 import {Tag} from "./types";
@@ -41,16 +41,22 @@ export const Component = forwardRef(function Component(
     };
 
     const context = useMemo<TransactionRecordContext>(
-        () => ({props, ref}),
-        [...Object.values(props), ref]
+        () => ({props}),
+        [...Object.values(props)]
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
+
+    const rootContainerRef = useRef<Pressable<Ref>>(null);
+    useImperativeHandle(ref, () => ({
+        flashHighlight: rootContainerRef.current?.flashHighlight,
+        verticalContract: rootContainerRef.current?.verticalContract
+    }), []);
 
     return (
         <TransactionRecordContext.Provider value={context}>
-            <Pressable style={computedStyle.Root} onPress={onPress}>
+            <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
                 <View style={computedStyle.NameAndTagContainer}>

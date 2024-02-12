@@ -126,7 +126,7 @@ export default {
                         if (args.selectedTransaction.id === EMPTY_STRING)
                         {
                             const newlyAddedTransactionId = `${Date.now()}`;
-                            transactionTableRef.current?.flashHighlightTransactions(newlyAddedTransactionId);
+                            transactionTableRef.current?.flashHighlightTransactions([newlyAddedTransactionId]);
 
                             TestData.transactions[newlyAddedTransactionId] = {
                                 name: args.selectedTransaction.data.name,
@@ -138,7 +138,7 @@ export default {
                         }
                         else
                         {
-                            transactionTableRef.current?.flashHighlightTransactions(args.selectedTransaction.id);
+                            transactionTableRef.current?.flashHighlightTransactions([args.selectedTransaction.id]);
                             TestData.transactions[args.selectedTransaction.id] = {
                                 ...args.transactions[args.selectedTransaction.id],
                                 name: args.selectedTransaction.data.name,

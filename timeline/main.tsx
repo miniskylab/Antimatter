@@ -26,7 +26,7 @@ export function Timeline({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     return (
         <TimelineContext.Provider value={context}>

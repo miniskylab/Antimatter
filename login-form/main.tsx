@@ -37,7 +37,7 @@ export function LoginForm({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props, state);
+    const {computedStyle} = useComputedStyle(style, props, state);
 
     return (
         <LoginFormContext.Provider value={context}>

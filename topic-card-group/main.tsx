@@ -23,7 +23,7 @@ export function TopicCardGroup({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     return (
         <TopicCardGroupContext.Provider value={context}>

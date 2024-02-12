@@ -1,10 +1,11 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {ComponentAnimation} from "@miniskylab/antimatter-framework";
 import {useEffect, useRef} from "react";
-import ReactNative, {Animated, ColorValue, Easing} from "react-native";
+import {Animated, ColorValue, Easing} from "react-native";
 import {Status} from "../enums";
 import {useToggleContext} from "./context";
 
-export function useContainerAnimation(): ReactNative.ViewStyle
+export function useContainerAnimation(): ComponentAnimation
 {
     const toggleContext = useToggleContext();
 
@@ -26,11 +27,13 @@ export function useContainerAnimation(): ReactNative.ViewStyle
     }, [toggleContext.props.status]);
 
     return {
-        backgroundColor: interpolatedBackgroundColor as unknown as ColorValue
+        animatedStyle: {
+            backgroundColor: interpolatedBackgroundColor as unknown as ColorValue
+        }
     };
 }
 
-export function useIconAnimation(): ReactNative.ViewStyle
+export function useIconAnimation(): ComponentAnimation
 {
     const toggleContext = useToggleContext();
 
@@ -48,6 +51,8 @@ export function useIconAnimation(): ReactNative.ViewStyle
     }, [toggleContext.props.status]);
 
     return {
-        left: animatedIconPosition as unknown as number
+        animatedStyle: {
+            left: animatedIconPosition as unknown as number
+        }
     };
 }

@@ -1,5 +1,5 @@
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import React, {forwardRef, JSX, MutableRefObject, useMemo, useState} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef, useState} from "react";
 import ReactNative from "react-native";
 import {AnimatedPressable} from "./components";
 import {PressableContext, PressableProps, PressableState} from "./models";
@@ -32,7 +32,10 @@ export const Pressable = forwardRef(function Pressable(
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props, state);
+    const {computedStyle, imperativeHandles} = useComputedStyle(style, props, state);
+
+    const internalRef = useRef<Pressable>(null);
+    useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
 
     if (disabled && (hovered || pressed))
     {
@@ -43,7 +46,7 @@ export const Pressable = forwardRef(function Pressable(
     return (
         <PressableContext.Provider value={context}>
             <AnimatedPressable
-                ref={ref}
+                ref={internalRef}
                 style={computedStyle}
                 onHoverIn={() => { setHovered(!disabled); }}
                 onHoverOut={() => { setHovered(false); }}
@@ -57,4 +60,4 @@ export const Pressable = forwardRef(function Pressable(
     );
 });
 
-export type Pressable = ReactNative.View;
+export type Pressable<TExtra extends object = object> = Omit<ReactNative.View, keyof TExtra> & TExtra;

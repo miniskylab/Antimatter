@@ -1,5 +1,5 @@
 import {AllPropertiesMustPresent, Ts, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
-import React, {forwardRef, JSX, MutableRefObject, useEffect, useRef, WheelEvent} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef, WheelEvent} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ScrollViewProps} from "./models";
 import * as Variant from "./variants";
@@ -24,19 +24,21 @@ export const ScrollView = forwardRef(function ScrollView(
     };
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
 
-    ref = ref ?? useRef<ScrollView>();
+    const internalRef = useRef<ScrollView>(null);
+    useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
+
     const runningOnDesktopWeb = useEnvironment("DesktopWeb");
 
     useEffect(() =>
     {
-        if (!runningOnDesktopWeb || !horizontal)
+        if (!runningOnDesktopWeb || !horizontal || !internalRef)
         {
             return;
         }
 
-        const scrollableNode = ref.current.getScrollableNode();
+        const scrollableNode = internalRef.current?.getScrollableNode();
         const wheelEventListener = scrollableNode.addEventListener("wheel", (event: WheelEvent) =>
         {
             if (event.deltaY === 0)
@@ -44,18 +46,18 @@ export const ScrollView = forwardRef(function ScrollView(
                 return;
             }
 
-            ref.current.scrollTo({
+            internalRef.current?.scrollTo({
                 x: scrollableNode.scrollLeft + event.deltaY,
                 animated: true
             });
         });
 
         return () => scrollableNode.removeEventListener("wheel", wheelEventListener);
-    }, [runningOnDesktopWeb, horizontal]);
+    }, [internalRef, horizontal]);
 
     return (
         <Animated.ScrollView
-            ref={ref}
+            ref={internalRef}
             style={{
                 ...computedStyle,
                 paddingTop: 0,
@@ -84,4 +86,4 @@ export const ScrollView = forwardRef(function ScrollView(
     );
 });
 
-export type ScrollView = ReactNative.ScrollView;
+export type ScrollView<TExtra extends object = object> = Omit<ReactNative.ScrollView, keyof TExtra> & TExtra;

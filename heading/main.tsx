@@ -25,7 +25,7 @@ export function Heading({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     return (
         <HeadingContext.Provider value={context}>

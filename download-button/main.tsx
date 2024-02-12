@@ -36,7 +36,7 @@ export function DownloadButton({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props, state);
+    const {computedStyle} = useComputedStyle(style, props, state);
 
     useEffect(() =>
     {

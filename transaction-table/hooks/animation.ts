@@ -1,11 +1,10 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Layer} from "@miniskylab/antimatter-framework";
-import {useEffect, useImperativeHandle, useLayoutEffect, useRef} from "react";
-import ReactNative, {Animated, ColorValue, Easing} from "react-native";
-import {TransactionRecord} from "../components";
+import {ComponentAnimation, Layer} from "@miniskylab/antimatter-framework";
+import {useEffect, useLayoutEffect, useRef} from "react";
+import {Animated, ColorValue, Easing} from "react-native";
 import {useTransactionTableContext} from "./context";
 
-export function useDisplayIconAnimation(isAnimationPlaying?: boolean): ReactNative.ViewStyle
+export function useDisplayIconAnimation(isAnimationPlaying?: boolean): ComponentAnimation
 {
     const initialRotation = 0;
     const animatedRotation = useRef(new Animated.Value(initialRotation)).current;
@@ -34,69 +33,13 @@ export function useDisplayIconAnimation(isAnimationPlaying?: boolean): ReactNati
     }, [isAnimationPlaying]);
 
     return {
-        transform: [{rotate: interpolatedRotation}]
-    };
-}
-
-export function useFlashHighlightAnimation(): ReactNative.ViewStyle
-{
-    const initialColor = 0;
-    const initialLayer = Layer.Default;
-    const animatedColor = useRef(new Animated.Value(initialColor)).current;
-    const animatedLayer = useRef(new Animated.Value(initialLayer)).current;
-    const interpolatedBorderColor = animatedColor.interpolate({
-        inputRange: [0, 1, 2],
-        outputRange: [Color.Neutral, Color.Positive, Color.Neutral]
-    });
-    const interpolatedBackgroundColor = animatedColor.interpolate({
-        inputRange: [0, 1, 2],
-        outputRange: [Color.Transparent, Color.Positive__b10, Color.Transparent]
-    });
-
-    const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
-    useImperativeHandle(transactionRecordContext.ref, () => ({
-        flashHighlight()
-        {
-            const msFadeOutDuration = 2500;
-            Animated.parallel([
-                Animated.sequence([
-                    Animated.timing(animatedColor, {
-                        toValue: 1,
-                        duration: 0,
-                        useNativeDriver: false
-                    }),
-                    Animated.timing(animatedColor, {
-                        toValue: 2,
-                        duration: msFadeOutDuration,
-                        easing: Easing.in(Easing.ease),
-                        useNativeDriver: false
-                    })
-                ]),
-                Animated.sequence([
-                    Animated.timing(animatedLayer, {
-                        toValue: Layer.Higher,
-                        duration: 0,
-                        useNativeDriver: false
-                    }),
-                    Animated.timing(animatedLayer, {
-                        toValue: Layer.Default,
-                        duration: 0,
-                        delay: msFadeOutDuration,
-                        useNativeDriver: false
-                    })
-                ])
-            ]).start();
+        animatedStyle: {
+            transform: [{rotate: interpolatedRotation}]
         }
-    }), []);
-
-    return {
-        borderColor: interpolatedBorderColor as unknown as ColorValue,
-        backgroundColor: interpolatedBackgroundColor as unknown as ColorValue,
-        zIndex: animatedLayer as unknown as number
     };
 }
 
-export function useDisplayPanelFadeOutAnimation(): ReactNative.ViewStyle
+export function useDisplayPanelFadeOutAnimation(): ComponentAnimation
 {
     const transactionTableContext = useTransactionTableContext();
 
@@ -115,6 +58,89 @@ export function useDisplayPanelFadeOutAnimation(): ReactNative.ViewStyle
     }, [!!transactionTableContext.props.displayPanel?.isVisible]);
 
     return {
-        opacity: animatedOpacity
+        animatedStyle: {
+            opacity: animatedOpacity
+        }
+    };
+}
+
+export function useFlashHighlightAnimation(): ComponentAnimation
+{
+    const initialColor = 0;
+    const initialLayer = Layer.Default;
+    const animatedColor = useRef(new Animated.Value(initialColor)).current;
+    const animatedLayer = useRef(new Animated.Value(initialLayer)).current;
+    const interpolatedBorderColor = animatedColor.interpolate({
+        inputRange: [0, 1, 2],
+        outputRange: [Color.Neutral, Color.Positive, Color.Neutral]
+    });
+    const interpolatedBackgroundColor = animatedColor.interpolate({
+        inputRange: [0, 1, 2],
+        outputRange: [Color.Transparent, Color.Positive__b10, Color.Transparent]
+    });
+
+    return {
+        animatedStyle: {
+            borderColor: interpolatedBorderColor as unknown as ColorValue,
+            backgroundColor: interpolatedBackgroundColor as unknown as ColorValue,
+            zIndex: animatedLayer as unknown as number
+        },
+        imperativeAnimationHandles: {
+            flashHighlight()
+            {
+                const msFadeOutDuration = 2500;
+                Animated.parallel([
+                    Animated.sequence([
+                        Animated.timing(animatedColor, {
+                            toValue: 1,
+                            duration: 0,
+                            useNativeDriver: false
+                        }),
+                        Animated.timing(animatedColor, {
+                            toValue: 2,
+                            duration: msFadeOutDuration,
+                            easing: Easing.in(Easing.ease),
+                            useNativeDriver: false
+                        })
+                    ]),
+                    Animated.sequence([
+                        Animated.timing(animatedLayer, {
+                            toValue: Layer.Higher,
+                            duration: 0,
+                            useNativeDriver: false
+                        }),
+                        Animated.timing(animatedLayer, {
+                            toValue: Layer.Default,
+                            duration: 0,
+                            delay: msFadeOutDuration,
+                            useNativeDriver: false
+                        })
+                    ])
+                ]).start();
+            }
+        }
+    };
+}
+
+export function useVerticalContractionAnimation(initialHeight: number): ComponentAnimation
+{
+    const animatedHeight = useRef(new Animated.Value(initialHeight)).current;
+
+    return {
+        animatedStyle: {
+            height: animatedHeight
+        },
+        imperativeAnimationHandles: {
+            verticalContract(onAnimationEnd: () => void)
+            {
+                Animated.timing(animatedHeight, {
+                    toValue: 0,
+                    duration: 1000,
+                    delay: 500,
+                    easing: Easing.linear,
+                    useNativeDriver: false
+                }).start(onAnimationEnd);
+            }
+        }
     };
 }

@@ -28,7 +28,7 @@ export function NavButton({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     const navigationContext = useContext(NavigationContext);
     const navigationContainerRefContext = useContext(NavigationContainerRefContext);

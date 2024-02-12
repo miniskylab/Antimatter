@@ -26,7 +26,7 @@ export function HighlightedParagraph({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     return (
         <HighlightedParagraphContext.Provider value={context}>

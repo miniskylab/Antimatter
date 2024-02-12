@@ -31,7 +31,7 @@ export function Button({
         style = label ? Variant.OutlinedRectangular : Variant.OutlinedCircular;
     }
 
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     return (
         <ButtonContext.Provider value={context}>

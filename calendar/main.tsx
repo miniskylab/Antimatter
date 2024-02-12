@@ -51,7 +51,7 @@ export function Calendar({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props, state);
+    const {computedStyle} = useComputedStyle(style, props, state);
 
     const calendarWidthRef = useRef<number>(NaN);
     const dateViewData = useMemo<DateView.DateInfo[][]>(

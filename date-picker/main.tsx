@@ -41,7 +41,7 @@ export function DatePicker({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     return (
         <DatePickerContext.Provider value={context}>

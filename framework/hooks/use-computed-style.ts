@@ -1,19 +1,34 @@
 import {ComponentProps} from "../classes";
-import {Dynamic} from "../types";
+import {Animated} from "../types";
 
-type Style = (props: unknown, state: unknown) => Dynamic<object | false> | Style;
-export function useComputedStyle<TStyle extends Style>(style: TStyle, props: ComponentProps<TStyle>, state?: unknown): ReturnType<TStyle>
+type Style = (props: unknown, state: unknown) => Animated<object | false> | Style;
+export function useComputedStyle<TStyle extends Style>(style: TStyle, props: ComponentProps<TStyle>, state?: unknown)
 {
     const {style: _, ...propsWithoutStyle} = props;
     let computedStyle = style(propsWithoutStyle, state);
+    let imperativeHandles: object | undefined;
 
     if (typeof computedStyle === "object")
     {
-        const dynamics = computedStyle.dynamics;
-        delete computedStyle.dynamics;
+        const animations = computedStyle.animations;
+        delete computedStyle.animations;
 
-        dynamics?.forEach(dynamic => { computedStyle = {...computedStyle, ...dynamic()}; });
+        const animationOverride = computedStyle.animationOverride;
+        delete computedStyle.animationOverride;
+
+        animations?.forEach(animation =>
+        {
+            const {animatedStyle, imperativeAnimationHandles} = animation();
+
+            computedStyle = {...computedStyle, ...animatedStyle};
+            imperativeHandles = {...imperativeHandles, ...imperativeAnimationHandles};
+        });
+
+        computedStyle = {...computedStyle, ...animationOverride};
     }
 
-    return computedStyle as ReturnType<TStyle>;
+    return {
+        computedStyle: computedStyle as ReturnType<TStyle>,
+        imperativeHandles
+    };
 }

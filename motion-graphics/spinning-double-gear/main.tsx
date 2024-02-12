@@ -25,7 +25,7 @@ export function SpinningDoubleGear({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     const {clockwiseRotation, antiClockwiseRotation} = SpinningDoubleGearAnimationHook.useDoubleGearAnimation(msAnimationDuration);
 
@@ -34,12 +34,12 @@ export function SpinningDoubleGear({
             <View style={computedStyle.Root}>
                 <View style={computedStyle.GearContainer}>
                     <Icon
-                        style={iconProps => ({...computedStyle.Gear1(iconProps), dynamics: [() => clockwiseRotation]})}
+                        style={iconProps => ({...computedStyle.Gear1(iconProps), animations: [() => clockwiseRotation]})}
                         name={DefaultIconSet.Gear}
                         selectable={false}
                     />
                     <Icon
-                        style={iconProps => ({...computedStyle.Gear2(iconProps), dynamics: [() => antiClockwiseRotation]})}
+                        style={iconProps => ({...computedStyle.Gear2(iconProps), animations: [() => antiClockwiseRotation]})}
                         name={DefaultIconSet.Gear}
                         selectable={false}
                     />

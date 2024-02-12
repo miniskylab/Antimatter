@@ -1,7 +1,13 @@
+import {ComponentAnimation} from "@miniskylab/antimatter-framework";
 import {useEffect, useRef} from "react";
 import {Animated, Easing} from "react-native";
 
-export function useDoubleGearAnimation(msAnimationDuration: number | undefined)
+type DoubleGearAnimation = {
+    clockwiseRotation: ComponentAnimation;
+    antiClockwiseRotation: ComponentAnimation;
+};
+
+export function useDoubleGearAnimation(msAnimationDuration: number | undefined): DoubleGearAnimation
 {
     const initialRotation = 0;
     const animatedRotation = useRef(new Animated.Value(initialRotation)).current;
@@ -27,7 +33,7 @@ export function useDoubleGearAnimation(msAnimationDuration: number | undefined)
     }, [msAnimationDuration]);
 
     return {
-        clockwiseRotation: {transform: [{rotate: interpolatedClockwiseRotation}]},
-        antiClockwiseRotation: {transform: [{rotate: interpolatedAntiClockwiseRotation}]}
+        clockwiseRotation: {animatedStyle: {transform: [{rotate: interpolatedClockwiseRotation}]}},
+        antiClockwiseRotation: {animatedStyle: {transform: [{rotate: interpolatedAntiClockwiseRotation}]}}
     };
 }

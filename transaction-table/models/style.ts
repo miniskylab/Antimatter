@@ -18,13 +18,13 @@ export type TransactionTableStyle = (
     Calendar: CalendarStyle;
     DatePicker: DatePickerStyle;
     Summary: Summary.Style;
-    TransactionDetails: ViewStyle;
+    MainContainer: ViewStyle;
     DisplayPanel?: ViewStyle;
     DisplayIcon?: IconStyle;
     DisplayMessage?: LabelStyle;
     ControlPanel: ViewStyle;
     ControlButton: ButtonStyle;
-    TransactionContainer: ScrollViewStyle;
+    TransactionList: ScrollViewStyle;
     TransactionRecord: TransactionRecord.Style;
     Hr: ViewStyle;
 };

@@ -26,7 +26,7 @@ export function NavMenu({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     return (
         <NavMenuContext.Provider value={context}>

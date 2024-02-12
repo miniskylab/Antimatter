@@ -23,7 +23,7 @@ export function Navbar({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     return (
         <NavbarContext.Provider value={context}>

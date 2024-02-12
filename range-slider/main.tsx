@@ -31,7 +31,7 @@ export function RangeSlider({
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
-    const computedStyle = useComputedStyle(style, props);
+    const {computedStyle} = useComputedStyle(style, props);
 
     const freeZoneWidthRef = useRef<number>(0);
 
