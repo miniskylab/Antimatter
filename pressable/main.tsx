@@ -16,7 +16,7 @@ export const Pressable = forwardRef(function Pressable(
         onPress
     }: PressableProps,
     ref: MutableRefObject<Pressable>
-): JSX.Element
+): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<PressableProps> = {
         style, children, disabled, onPress
@@ -41,6 +41,7 @@ export const Pressable = forwardRef(function Pressable(
     {
         setHovered(false);
         setPressed(false);
+        return null;
     }
 
     return (

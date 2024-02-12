@@ -23,7 +23,7 @@ export function Component({
     mode = Mode.ReadOnly,
     onPress,
     onChange
-}: Props): JSX.Element
+}: Props): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<Props> = {
         style, containerRef, data, columns, mode, onPress, onChange
@@ -46,10 +46,8 @@ export function Component({
 
     if (mode === Mode.ReadOnly && state.openedDropdownMenuColumnIndex)
     {
-        setState(prevState => ({
-            ...prevState,
-            openedDropdownMenuColumnIndex: undefined
-        }));
+        setState(prevState => ({...prevState, openedDropdownMenuColumnIndex: undefined}));
+        return null;
     }
 
     return (

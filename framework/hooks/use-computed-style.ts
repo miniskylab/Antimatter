@@ -10,7 +10,7 @@ export function useComputedStyle<TStyle extends Style>(style: TStyle, props: Com
 
     if (typeof computedStyle === "object")
     {
-        const animations = computedStyle.animations;
+        const animations = typeof computedStyle.animations === "function" ? computedStyle.animations() : computedStyle.animations;
         delete computedStyle.animations;
 
         const animationOverride = computedStyle.animationOverride;

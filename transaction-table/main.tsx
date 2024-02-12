@@ -6,6 +6,7 @@ import {
     DateFormat,
     EMPTY_STRING,
     isNotNullAndUndefined,
+    isNullOrUndefined,
     Nullable,
     Ts,
     useBreakpoint,
@@ -53,7 +54,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
         onSwitchMode
     }: TransactionTableProps,
     ref: MutableRefObject<TransactionTableRef>
-): JSX.Element
+): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<TransactionTableProps> = {
         style, summary, transactions, selectedDate, selectedTransaction, mode, maxSelectedTagCount, displayPanel, customButton,
@@ -62,7 +63,9 @@ export const TransactionTable = forwardRef(function TransactionTable(
     };
 
     const [state, setState] = useState<TransactionTableState>({
-        datePickerIsOpened: false
+        datePickerIsOpened: false,
+        toBeDeletedTransactions: {},
+        previousTransactions: transactions
     });
 
     const context = useMemo<TransactionTableContext>(
@@ -74,17 +77,19 @@ export const TransactionTable = forwardRef(function TransactionTable(
     const {computedStyle} = useComputedStyle(style, props, state);
 
     const toBeFlashHighlightedTransactionIdsRef = useRef<string[]>([]);
-    const toBeVerticalContractedTransactionIdsRef = useRef<string[]>([]);
-    const onVerticalContractionAnimationEndRef = useRef<(transactionId: string) => void>();
     const transactionRecordsRef = useRef<Record<string, Nullable<TransactionRecord.Ref>>>({});
 
+    const unifiedTransactionList = useMemo(
+        () => getUnifiedTransactionList(),
+        [transactions, selectedTransaction, state.toBeDeletedTransactions]
+    );
+    const filteredTransactions = useMemo(
+        () => filterTransactionsForSelectedDate(),
+        [unifiedTransactionList, selectedDate]
+    );
+
     useImperativeHandle(ref, () => ({
-        flashHighlightTransactions(transactionIds) { toBeFlashHighlightedTransactionIdsRef.current = [...transactionIds]; },
-        verticalContractTransactions(transactionIds, onAnimationEnd)
-        {
-            onVerticalContractionAnimationEndRef.current = onAnimationEnd;
-            toBeVerticalContractedTransactionIdsRef.current = [...transactionIds];
-        }
+        flashHighlightTransactions(transactionIds) { toBeFlashHighlightedTransactionIdsRef.current = [...transactionIds]; }
     }), []);
 
     useEffect(() =>
@@ -107,18 +112,38 @@ export const TransactionTable = forwardRef(function TransactionTable(
 
     useEffect(() =>
     {
-        let transactionId = toBeVerticalContractedTransactionIdsRef.current.pop();
-        while (transactionId)
-        {
-            const sampledTransactionId = transactionId;
-            transactionRecordsRef.current[transactionId]?.verticalContract?.(() =>
+        Object.keys(state.toBeDeletedTransactions)
+            .forEach(toBeDeletedTransactionId =>
             {
-                onVerticalContractionAnimationEndRef.current?.(sampledTransactionId);
-            });
+                const playExitAnimation = transactionRecordsRef.current[toBeDeletedTransactionId]?.verticalContract;
+                playExitAnimation ? playExitAnimation(onAnimationEnd) : onAnimationEnd();
 
-            transactionId = toBeVerticalContractedTransactionIdsRef.current.pop();
-        }
-    }, [toBeVerticalContractedTransactionIdsRef.current]);
+                function onAnimationEnd()
+                {
+                    setState(prevState =>
+                    {
+                        const nextToBeDeletedTransactions = {...prevState.toBeDeletedTransactions};
+                        delete nextToBeDeletedTransactions[toBeDeletedTransactionId];
+
+                        return {...prevState, toBeDeletedTransactions: nextToBeDeletedTransactions};
+                    });
+                }
+            });
+    }, [state.toBeDeletedTransactions]);
+
+    if (transactions !== state.previousTransactions)
+    {
+        setState(prevState => ({
+            ...prevState,
+            previousTransactions: transactions,
+            toBeDeletedTransactions: {
+                ...prevState.toBeDeletedTransactions,
+                ...getToBeDeletedTransactions()
+            }
+        }));
+
+        return null;
+    }
 
     return (
         <TransactionTableContext.Provider value={context}>
@@ -189,15 +214,36 @@ export const TransactionTable = forwardRef(function TransactionTable(
             : TransactionRecord.Mode.ReadOnly;
     }
 
-    function filterTransactionsForSelectedDate(): typeof transactions
+    function getUnifiedTransactionList(): Record<string, TransactionRecord.Data>
     {
-        const unifiedTransactionList = {...transactions};
+        const unifiedTransactionList = {...transactions, ...state.toBeDeletedTransactions};
         if (selectedTransaction)
         {
             unifiedTransactionList[selectedTransaction.id] = selectedTransaction.data;
         }
 
-        const filteredTransactions: typeof transactions = {};
+        return unifiedTransactionList;
+    }
+
+    function getToBeDeletedTransactions(): Record<string, TransactionRecord.Data>
+    {
+        if (isNullOrUndefined(state.previousTransactions))
+        {
+            return {};
+        }
+
+        const currentTransactionIds = Object.keys(transactions);
+        const toBeDeletedTransactions: Record<string, TransactionRecord.Data> = {};
+        Object.keys(state.previousTransactions)
+            .filter(prevTransactionId => !currentTransactionIds.includes(prevTransactionId))
+            .forEach(prevTransactionId => { toBeDeletedTransactions[prevTransactionId] = state.previousTransactions[prevTransactionId]; });
+
+        return toBeDeletedTransactions;
+    }
+
+    function filterTransactionsForSelectedDate(): Record<string, TransactionRecord.Data>
+    {
+        const filteredTransactions: Record<string, TransactionRecord.Data> = {};
         Object.keys(unifiedTransactionList)
             .filter(transactionId => Ts.Date.isEqualDate(unifiedTransactionList[transactionId].executedDate, selectedDate))
             .forEach(transactionId => { filteredTransactions[transactionId] = unifiedTransactionList[transactionId]; });
@@ -207,8 +253,8 @@ export const TransactionTable = forwardRef(function TransactionTable(
 
     function byDate(transactionIdA: string, transactionIdB: string): number
     {
-        const transactionA = transactionIdA === selectedTransaction?.id ? selectedTransaction.data : transactions[transactionIdA];
-        const transactionB = transactionIdB === selectedTransaction?.id ? selectedTransaction.data : transactions[transactionIdB];
+        const transactionA = unifiedTransactionList[transactionIdA];
+        const transactionB = unifiedTransactionList[transactionIdB];
 
         const executedDateComparisonResult = transactionA.executedDate.getTime() - transactionB.executedDate.getTime();
         if (executedDateComparisonResult !== 0)
@@ -326,13 +372,13 @@ export const TransactionTable = forwardRef(function TransactionTable(
 
     function renderTransactions(): JSX.Element[]
     {
-        const filteredTransactions = filterTransactionsForSelectedDate();
         const filteredTransactionIds = Object.keys(filteredTransactions).sort(byDate);
         return filteredTransactionIds.map(filteredTransactionId =>
         {
             const transactionMode = getTransactionMode(filteredTransactionId);
             const transactionData = filteredTransactions[filteredTransactionId];
             const isSelectedTransaction = filteredTransactionId === selectedTransaction?.id;
+            const isToBeDeletedTransaction = !!state.toBeDeletedTransactions[filteredTransactionId];
 
             return (
                 <TransactionRecord.Component
@@ -345,6 +391,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                     tags={transactionData?.tags}
                     maxSelectedTagCount={maxSelectedTagCount}
                     showProgressStripes={isSelectedTransaction && selectedTransaction?.showProgressStripes}
+                    toBeDeleted={isToBeDeletedTransaction}
                     onPress={!selectedTransaction ? () => { onSelectTransaction?.(filteredTransactionId); } : undefined}
                     onChange={newTransactionData => { onChangeTransaction?.(newTransactionData); }}
                 />

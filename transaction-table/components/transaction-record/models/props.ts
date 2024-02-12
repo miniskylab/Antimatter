@@ -65,6 +65,14 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsBoolean()
+    @IsOptional()
+    readonly toBeDeleted?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
     @IsOptional()
     readonly tags?: Record<string, Tag>;
 

@@ -2,14 +2,15 @@ import {ImageStyle, TextStyle, ViewStyle} from "react-native";
 import {ComponentProps} from "../classes";
 import {CanBeUndefined} from "../types";
 
+export type WithoutStyle<TProps extends ComponentProps<TProps["style"]>> = Omit<TProps, "style">;
 export type ComponentAnimation = {
     readonly animatedStyle: ViewStyle | TextStyle | ImageStyle;
     readonly imperativeAnimationHandles?: object;
 };
 
-export type WithoutStyle<TProps extends ComponentProps<TProps["style"]>> = Omit<TProps, "style">;
+type ComponentAnimationCreator = () => ComponentAnimation;
 export type Animated<TStyle> = TStyle & {
-    animations?: (() => ComponentAnimation)[];
+    animations?: ComponentAnimationCreator[] | (() => ComponentAnimationCreator[]);
     animationOverride?: ViewStyle | TextStyle | ImageStyle;
 };
 

@@ -122,24 +122,52 @@ export function useFlashHighlightAnimation(): ComponentAnimation
     };
 }
 
-export function useVerticalContractionAnimation(initialHeight: number): ComponentAnimation
+export function useVerticalContractionAnimation(initialHeight: number, targetHeight: number): ComponentAnimation
 {
+    const initialColor = 0;
+    const animatedColor = useRef(new Animated.Value(initialColor)).current;
     const animatedHeight = useRef(new Animated.Value(initialHeight)).current;
+    const interpolatedBackgroundColor = animatedColor.interpolate({
+        inputRange: [0, 1, 2],
+        outputRange: [Color.Transparent, Color.Negative, Color.Transparent]
+    });
+
+    useEffect(() => () =>
+    {
+        animatedColor.setValue(2);
+        animatedHeight.setValue(0);
+    }, []);
 
     return {
         animatedStyle: {
-            height: animatedHeight
+            height: animatedHeight,
+            backgroundColor: interpolatedBackgroundColor as unknown as ColorValue
         },
         imperativeAnimationHandles: {
             verticalContract(onAnimationEnd: () => void)
             {
-                Animated.timing(animatedHeight, {
-                    toValue: 0,
-                    duration: 1000,
-                    delay: 500,
-                    easing: Easing.linear,
-                    useNativeDriver: false
-                }).start(onAnimationEnd);
+                const msDuration = 2000;
+                Animated.parallel([
+                    Animated.sequence([
+                        Animated.timing(animatedColor, {
+                            toValue: 1,
+                            duration: 0,
+                            useNativeDriver: false
+                        }),
+                        Animated.timing(animatedColor, {
+                            toValue: 2,
+                            duration: msDuration,
+                            easing: Easing.in(Easing.circle),
+                            useNativeDriver: false
+                        })
+                    ]),
+                    Animated.timing(animatedHeight, {
+                        toValue: targetHeight,
+                        duration: msDuration,
+                        easing: Easing.out(Easing.circle),
+                        useNativeDriver: false
+                    })
+                ]).start(onAnimationEnd);
             }
         }
     };

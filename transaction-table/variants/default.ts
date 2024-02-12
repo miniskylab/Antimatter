@@ -664,10 +664,15 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         borderColor: Color.Neutral,
         marginTop: -2,
         cursor: hasSelectedTransaction ? "default" : "pointer",
-        animations: [
-            () => TransactionTableAnimationHook.useFlashHighlightAnimation(),
-            () => TransactionTableAnimationHook.useVerticalContractionAnimation(66)
-        ],
+        animations: () =>
+        {
+            const flashHighlightAnimation = TransactionTableAnimationHook.useFlashHighlightAnimation();
+            const verticalContractionAnimation = TransactionTableAnimationHook.useVerticalContractionAnimation(66, 2);
+
+            return transactionRecordContext.props.toBeDeleted
+                ? [() => flashHighlightAnimation, () => verticalContractionAnimation]
+                : [() => verticalContractionAnimation, () => flashHighlightAnimation];
+        },
         animationOverride: {
             ...((!hasSelectedTransaction && pressableState.hovered) || isSelectedTransactionRecord) && {
                 zIndex: Layer.AlwaysOnTop,
@@ -677,6 +682,14 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
                     borderColor: Color.Negative,
                     backgroundColor: Color.Negative__a10
                 }
+            },
+            ...transactionRecordContext.props.toBeDeleted && {
+                paddingTop: 0,
+                paddingBottom: 0,
+                borderTopWidth: 0,
+                borderBottomWidth: 0,
+                cursor: "default",
+                zIndex: Layer.Higher
             }
         }
     };
@@ -684,8 +697,11 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
 
 const TransactionTable__TransactionRecord__Icon: IconStyle = function (iconProps)
 {
+    const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
+
     return {
         ...IconVariant.Default(iconProps),
+        display: transactionRecordContext.props.toBeDeleted ? "none" : "flex",
         width: 30,
         height: 30,
         fontSize: 28,
@@ -695,8 +711,11 @@ const TransactionTable__TransactionRecord__Icon: IconStyle = function (iconProps
 
 const TransactionTable__TransactionRecord__NameAndTagContainer: ViewStyle = function (viewProps)
 {
+    const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
+
     return {
         ...ViewVariant.Default(viewProps),
+        display: transactionRecordContext.props.toBeDeleted ? "none" : "flex",
         flexGrow: 1,
         justifyContent: "space-between",
         alignItems: "flex-start",
@@ -849,6 +868,7 @@ const TransactionTable__TransactionRecord__AmountLabel: LabelStyle = function (l
 
     return {
         ...LabelVariant.Default(labelProps),
+        display: transactionRecordContext.props.toBeDeleted ? "none" : "flex",
         width: 115,
         height: 38,
         marginLeft: "auto",

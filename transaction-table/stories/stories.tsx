@@ -252,11 +252,12 @@ export default {
                 onSelectDate={newDate =>
                 {
                     const mode = args.displayPanel?.isVisible ? args.mode : TransactionRecord.Mode.ReadOnly;
+                    const selectedTransaction = args.displayPanel?.isVisible ? args.selectedTransaction : undefined;
                     setArgs({
                         mode,
+                        selectedTransaction,
                         selectedDate: newDate,
-                        selectedTransaction: args.displayPanel?.isVisible ? args.selectedTransaction : undefined,
-                        summary: {...args.summary, ...TestData.getSummaryFigures(mode, newDate)}
+                        summary: {...args.summary, ...TestData.getSummaryFigures(mode, newDate, selectedTransaction)}
                     });
                 }}
                 onSelectTransaction={transactionId =>

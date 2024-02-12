@@ -13,7 +13,7 @@ export function Transition({
     style,
     settings,
     children
-}: TransitionProps): JSX.Element
+}: TransitionProps): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<TransitionProps> = {
         style, settings, children
@@ -67,6 +67,8 @@ export function Transition({
                 }
             };
         });
+
+        return null;
     }
 
     return (
