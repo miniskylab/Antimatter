@@ -34,7 +34,6 @@ export class ScrollViewProps extends ComponentProps<ScrollViewStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsBoolean()
     @IsOptional()
     readonly contentInsetAdjustmentBehavior?: ReactNative.ScrollViewProps["contentInsetAdjustmentBehavior"];
 
