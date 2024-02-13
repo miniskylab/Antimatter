@@ -132,6 +132,7 @@ export function useVerticalContractionAnimation(initialHeight: number, targetHei
         outputRange: [Color.Transparent, Color.Negative, Color.Transparent]
     });
 
+    const ref = useRef({animationHasStarted: false});
     useEffect(() => () =>
     {
         animatedColor.setValue(2);
@@ -146,7 +147,13 @@ export function useVerticalContractionAnimation(initialHeight: number, targetHei
         imperativeAnimationHandles: {
             verticalContract(onAnimationEnd: () => void)
             {
+                if (ref.current.animationHasStarted)
+                {
+                    return;
+                }
+
                 const msDuration = 2000;
+                ref.current.animationHasStarted = true;
                 Animated.parallel([
                     Animated.sequence([
                         Animated.timing(animatedColor, {
