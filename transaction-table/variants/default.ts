@@ -3,7 +3,7 @@ import {CalendarContextHook, CalendarStyle, CalendarVariant} from "@miniskylab/a
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DatePickerContextHook, DatePickerStyle, DatePickerVariant} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {isEnvironment, Layer, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {Layer, useEnvironment, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -14,6 +14,8 @@ import {Pips, RangeSliderContextHook, RangeSliderStyle, RangeSliderVariant} from
 import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
 import {TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {useEffect, useState} from "react";
+import ReactNative, {Keyboard} from "react-native";
 import {Summary, TransactionRecord} from "../components";
 import {DisplayPanelTheme} from "../enums";
 import {TransactionTableAnimationHook, TransactionTableContextHook} from "../hooks";
@@ -637,13 +639,29 @@ const TransactionTable__ControlButton: ButtonStyle = function (buttonProps)
 
 const TransactionTable__TransactionList: ScrollViewStyle = function (scrollViewProps)
 {
-    const runningOnMobileApp = isEnvironment("NativeApp");
+    let mobileAppStyle: ReactNative.ViewStyle = {};
+    if (useEnvironment("MobileApp"))
+    {
+        const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
+        useEffect(() =>
+        {
+            const keyboardShowListener = Keyboard.addListener("keyboardWillShow", () => { setKeyboardIsVisible(true); });
+            const keyboardHideListener = Keyboard.addListener("keyboardWillHide", () => { setKeyboardIsVisible(false); });
+            return () =>
+            {
+                keyboardShowListener.remove();
+                keyboardHideListener.remove();
+            };
+        });
+
+        mobileAppStyle = {paddingBottom: keyboardIsVisible ? 79 : 45};
+    }
 
     return {
         ...ScrollViewVariant.Default(scrollViewProps),
+        ...mobileAppStyle,
         alignSelf: "stretch",
-        paddingTop: 2,
-        ...runningOnMobileApp && {paddingBottom: 45}
+        paddingTop: 2
     };
 };
 
@@ -1196,9 +1214,8 @@ const TransactionTable__DisplayMessage: LabelStyle = function (labelProps)
 
 const TransactionTable__Hr: ViewStyle = function (viewProps)
 {
+    const runningOnMobileApp = useEnvironment("MobileApp");
     const hrPosition = TransactionTableContextHook.useHrPositionContext();
-
-    const runningOnMobileApp = isEnvironment("NativeApp");
 
     return {
         ...ViewVariant.Default(viewProps),

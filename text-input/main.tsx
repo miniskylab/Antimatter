@@ -43,8 +43,8 @@ export const TextInput = forwardRef(function TextInput(
     useImperativeHandle(ref, () => ({
         ...imperativeHandles,
         ...internalRef.current!,
-        focus: internalRef.current!.focus,
-        setSelection: internalRef.current!.setSelection
+        focus: () => { internalRef.current?.focus(); },
+        setSelection: (start, end) => { internalRef.current?.setSelection?.(start, end); }
     }), []);
 
     return (
