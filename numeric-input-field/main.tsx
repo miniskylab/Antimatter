@@ -89,12 +89,12 @@ export const NumericInputField = forwardRef(function NumericInputField(
     {
         if (state.selection)
         {
-            internalRef?.current?.setSelection?.(
+            internalRef?.current?.setSelection(
                 state.selection.start,
                 state.selection.end ?? state.selection.start
             );
         }
-    }, [internalRef?.current?.setSelection, state.selection]);
+    });
 
     validateAndThrow();
     return (

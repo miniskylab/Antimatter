@@ -40,7 +40,12 @@ export const TextInput = forwardRef(function TextInput(
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
 
     const internalRef = useRef<TextInput>(null);
-    useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
+    useImperativeHandle(ref, () => ({
+        ...imperativeHandles,
+        ...internalRef.current!,
+        focus: internalRef.current!.focus,
+        setSelection: internalRef.current!.setSelection
+    }), []);
 
     return (
         <View style={() => computedStyle}>
