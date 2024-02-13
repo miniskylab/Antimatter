@@ -87,7 +87,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
 
     useEffect(() =>
     {
-        if (state.selection)
+        if (state.selection?.end && state.selection.end !== state.selection.start)
         {
             internalRef?.current?.setSelection(
                 state.selection.start,
