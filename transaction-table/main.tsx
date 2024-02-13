@@ -159,6 +159,8 @@ export const TransactionTable = forwardRef(function TransactionTable(
                         style={computedStyle.TransactionList}
                         showsVerticalScrollIndicator={false}
                         showsHorizontalScrollIndicator={false}
+                        automaticallyAdjustKeyboardInsets={true}
+                        contentInsetAdjustmentBehavior={"scrollableAxes"}
                     >
                         {renderTransactions()}
                     </ScrollView>

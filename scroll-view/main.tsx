@@ -13,14 +13,17 @@ export const ScrollView = forwardRef(function ScrollView(
         children,
         horizontal = false,
         stickyHeaderIndices = [],
+        contentInsetAdjustmentBehavior,
         showsVerticalScrollIndicator = true,
-        showsHorizontalScrollIndicator = true
+        showsHorizontalScrollIndicator = true,
+        automaticallyAdjustKeyboardInsets = false
     }: ScrollViewProps,
     ref: MutableRefObject<ScrollView>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<ScrollViewProps> = {
-        style, children, horizontal, stickyHeaderIndices, showsVerticalScrollIndicator, showsHorizontalScrollIndicator
+        style, children, horizontal, stickyHeaderIndices, contentInsetAdjustmentBehavior, showsVerticalScrollIndicator,
+        showsHorizontalScrollIndicator, automaticallyAdjustKeyboardInsets
     };
 
     Ts.Error.throwIfNullOrUndefined(style);
@@ -79,6 +82,8 @@ export const ScrollView = forwardRef(function ScrollView(
             stickyHeaderIndices={stickyHeaderIndices}
             showsVerticalScrollIndicator={showsVerticalScrollIndicator}
             showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
+            contentInsetAdjustmentBehavior={contentInsetAdjustmentBehavior}
+            automaticallyAdjustKeyboardInsets={automaticallyAdjustKeyboardInsets}
             horizontal={horizontal}
         >
             {children}

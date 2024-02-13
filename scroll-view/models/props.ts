@@ -1,6 +1,7 @@
 import {ComponentName, ComponentProps, IsBoolean, IsInteger, Min} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {ReactNode} from "react";
+import ReactNative from "react-native";
 import {ScrollViewStyle} from "./style";
 
 @ComponentName("Scroll View")
@@ -35,6 +36,14 @@ export class ScrollViewProps extends ComponentProps<ScrollViewStyle>
      */
     @IsBoolean()
     @IsOptional()
+    readonly contentInsetAdjustmentBehavior?: ReactNative.ScrollViewProps["contentInsetAdjustmentBehavior"];
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
     readonly showsVerticalScrollIndicator?: boolean;
 
 
@@ -44,4 +53,12 @@ export class ScrollViewProps extends ComponentProps<ScrollViewStyle>
     @IsBoolean()
     @IsOptional()
     readonly showsHorizontalScrollIndicator?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly automaticallyAdjustKeyboardInsets?: boolean;
 }
