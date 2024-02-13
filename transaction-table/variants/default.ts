@@ -3,7 +3,7 @@ import {CalendarContextHook, CalendarStyle, CalendarVariant} from "@miniskylab/a
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DatePickerContextHook, DatePickerStyle, DatePickerVariant} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {Layer, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {isEnvironment, Layer, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
@@ -637,10 +637,13 @@ const TransactionTable__ControlButton: ButtonStyle = function (buttonProps)
 
 const TransactionTable__TransactionList: ScrollViewStyle = function (scrollViewProps)
 {
+    const runningOnMobileApp = isEnvironment("NativeApp");
+
     return {
         ...ScrollViewVariant.Default(scrollViewProps),
         alignSelf: "stretch",
-        paddingTop: 2
+        paddingTop: 2,
+        ...runningOnMobileApp && {paddingBottom: 45}
     };
 };
 
@@ -1195,6 +1198,8 @@ const TransactionTable__Hr: ViewStyle = function (viewProps)
 {
     const hrPosition = TransactionTableContextHook.useHrPositionContext();
 
+    const runningOnMobileApp = isEnvironment("NativeApp");
+
     return {
         ...ViewVariant.Default(viewProps),
         position: "absolute",
@@ -1203,7 +1208,10 @@ const TransactionTable__Hr: ViewStyle = function (viewProps)
         zIndex: Layer.Lower,
         backgroundColor: Color.Neutral,
         ...hrPosition === "top" && {top: 58.4},
-        ...hrPosition === "bottom" && {bottom: -0.4}
+        ...hrPosition === "bottom" && {
+            bottom: -0.4,
+            ...runningOnMobileApp && {backgroundColor: Color.Transparent}
+        }
     };
 };
 
