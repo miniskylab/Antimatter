@@ -42,10 +42,10 @@ export const Playground: Story = {
             realFeelTemperatureValue: "45°C",
             isHighlighted: true
         },
-        uvIndexData: {icon: DefaultIconSet.Sun, value: "Extreme"},
-        windData: {icon: DefaultIconSet.Sun, speed: "17 km/h", direction: "N", isHighlighted: true},
-        simpleWeatherData1: {icon: DefaultIconSet.Sun, title: "145", subtitle: "Likely Unhealthy"},
-        simpleWeatherData2: {icon: DefaultIconSet.Sun, title: "90% ★★★", subtitle: "In 15 minutes", isHighlighted: true},
+        uvIndexData: {icon: DefaultIconSet.UvIndex, value: "Extreme"},
+        windData: {icon: DefaultIconSet.Direction, speed: "17 km/h", direction: "N", isHighlighted: true},
+        simpleWeatherData1: {icon: DefaultIconSet.AirQualityIndex, title: "145", subtitle: "Likely Unhealthy"},
+        simpleWeatherData2: {icon: DefaultIconSet.Umbrella, title: "90% ★★★", subtitle: "In 15 minutes", isHighlighted: true},
         simpleWeatherData3: {icon: DefaultIconSet.Droplet, title: "97%", subtitle: "Very High"}
     },
     render: args => <WeatherWidgetWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>

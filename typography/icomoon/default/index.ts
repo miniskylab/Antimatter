@@ -48,8 +48,6 @@ export enum DefaultIconSet
     DotNet = "dotnet",
     Dna = "dna",
     StackOverflow = "stack-overflow",
-    Tower = "tower",
-    Strapi = "strapi",
     MiniSkyLab = "miniskylab",
     NewTab = "new-tab",
     Download = "download",
@@ -81,5 +79,9 @@ export enum DefaultIconSet
     Home = "home",
     Gear = "gear",
     Fairshare = "fairshare",
-    Registry = "registry"
+    Registry = "registry",
+    Umbrella = "umbrella",
+    Direction = "direction",
+    UvIndex = "uv-index",
+    AirQualityIndex = "air-quality-index"
 }
