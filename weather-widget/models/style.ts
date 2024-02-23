@@ -1,0 +1,31 @@
+import {WithoutStyle} from "@miniskylab/antimatter-framework";
+import {IconStyle} from "@miniskylab/antimatter-icon";
+import {LabelStyle} from "@miniskylab/antimatter-label";
+import {ViewStyle} from "@miniskylab/antimatter-view";
+import {SimpleWeatherData} from "../components";
+import {WeatherWidgetProps} from "./props";
+
+export type WeatherWidgetStyle = (weatherWidgetProps: WithoutStyle<WeatherWidgetProps>) => {
+    Root: ViewStyle;
+    StatusBar: ViewStyle;
+    StatusContainer: ViewStyle;
+    StatusIcon: IconStyle;
+    StatusValue: LabelStyle;
+    WeatherDescriptionContainer: ViewStyle;
+    WeatherDescriptionIcon: IconStyle;
+    WeatherDescriptionLabel: LabelStyle;
+    MainContainer: ViewStyle;
+    TemperatureRangeValueContainer: ViewStyle;
+    TemperatureRangeValue: LabelStyle;
+    TemperatureRangeLabelContainer: ViewStyle;
+    TemperatureRangeLabel: LabelStyle;
+    RealFeelContainer: ViewStyle;
+    RealFeelLabel: LabelStyle;
+    RealFeelValue: LabelStyle;
+    ShortWeatherDataContainer: ViewStyle;
+    UvIndexIcon: IconStyle;
+    UvIndexDescription: LabelStyle;
+    WindIcon: IconStyle;
+    WindSpeed: LabelStyle;
+    SimpleWeatherData: SimpleWeatherData.Style;
+};
