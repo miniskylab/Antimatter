@@ -83,5 +83,13 @@ export enum DefaultIconSet
     Umbrella = "umbrella",
     Direction = "direction",
     UvIndex = "uv-index",
-    AirQualityIndex = "air-quality-index"
+    AirQualityIndex = "air-quality-index",
+    Cloudy = "cloudy",
+    PartlyCloudyDay = "partly-cloudy-day",
+    PartlyCloudyNight = "partly-cloudy-night",
+    Rain = "rain",
+    ShowerRain = "shower-rain",
+    Thunderstorm = "thunderstorm",
+    Snow = "snow",
+    Mist = "mist"
 }

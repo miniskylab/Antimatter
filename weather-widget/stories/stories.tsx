@@ -30,7 +30,7 @@ export const Playground: Story = {
         style: Sb.getVariantName(Variant, Variant.Default),
         locationData: {icon: DefaultIconSet.Location, value: "Hanoi, Vietnam"},
         lastUpdateData: {icon: DefaultIconSet.History, value: "09:00:15"},
-        weatherDescriptionData: {icon: DefaultIconSet.Sun, value: "Light Freezing Drizzle"},
+        weatherDescriptionData: {icon: DefaultIconSet.Rain, value: "Light Freezing Drizzle"},
         temperatureData: {
             minTemperatureLabel: "Min",
             minTemperatureValue: "29°C",
@@ -46,7 +46,7 @@ export const Playground: Story = {
         windData: {icon: DefaultIconSet.Direction, speed: "17 km/h", direction: "N", isHighlighted: true},
         simpleWeatherData1: {icon: DefaultIconSet.AirQualityIndex, title: "145", subtitle: "Likely Unhealthy"},
         simpleWeatherData2: {icon: DefaultIconSet.Umbrella, title: "90% ★★★", subtitle: "In 15 minutes", isHighlighted: true},
-        simpleWeatherData3: {icon: DefaultIconSet.Droplet, title: "97%", subtitle: "Very High"}
+        simpleWeatherData3: {icon: DefaultIconSet.Droplet, title: "97%", subtitle: "Very Humid"}
     },
     render: args => <WeatherWidgetWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
 };
