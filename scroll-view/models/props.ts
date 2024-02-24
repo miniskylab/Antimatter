@@ -60,4 +60,11 @@ export class ScrollViewProps extends ComponentProps<ScrollViewStyle>
     @IsBoolean()
     @IsOptional()
     readonly automaticallyAdjustKeyboardInsets?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsOptional()
+    readonly refreshControl?: ReactNative.ScrollViewProps["refreshControl"];
 }

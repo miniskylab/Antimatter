@@ -10,11 +10,10 @@ const WeatherWidget__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
-        flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
-        minWidth: 450,
-        maxWidth: 450,
+        minWidth: 400,
+        maxWidth: 400,
         backgroundColor: Color.Ambient,
         shadowOffset: {width: 0, height: 10},
         shadowRadius: 20,
@@ -31,7 +30,7 @@ const WeatherWidget__StatusBar: ViewStyle = function (viewProps)
         flexBasis: "100%",
         justifyContent: "space-between",
         height: 25,
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
         backgroundColor: Color.Mineshaft
     };
 };
@@ -73,7 +72,7 @@ const WeatherWidget__WeatherDescriptionContainer: ViewStyle = function (viewProp
         flexBasis: 110,
         height: 125,
         paddingTop: 4,
-        marginLeft: 20
+        marginLeft: 15
     };
 };
 
@@ -107,8 +106,8 @@ const WeatherWidget__MainContainer: ViewStyle = function (viewProps)
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "space-evenly",
-        paddingLeft: 42,
-        paddingRight: 20
+        paddingLeft: 20,
+        paddingRight: 15
     };
 };
 
@@ -120,10 +119,6 @@ const WeatherWidget__TemperatureRangeValueContainer: ViewStyle = function (viewP
         flexDirection: "row",
         flexBasis: "100%",
         justifyContent: "space-between",
-        height: 0,
-        borderTopWidth: 1,
-        borderBottomWidth: 1,
-        borderColor: Color.Background,
         marginHorizontal: -5
     };
 };
@@ -140,6 +135,17 @@ const WeatherWidget__TemperatureRangeValue: LabelStyle = function (labelProps)
     };
 };
 
+const WeatherWidget__TemperatureRangeHr: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        position: "absolute",
+        width: "100%",
+        height: 2,
+        backgroundColor: Color.Background
+    };
+};
+
 const WeatherWidget__TemperatureRangeLabelContainer: ViewStyle = function (viewProps)
 {
     return {
@@ -147,8 +153,7 @@ const WeatherWidget__TemperatureRangeLabelContainer: ViewStyle = function (viewP
         height: "auto",
         paddingHorizontal: 16,
         borderTopWidth: 0,
-        borderBottomWidth: 0,
-        marginTop: 10
+        borderBottomWidth: 0
     };
 };
 
@@ -168,7 +173,7 @@ const WeatherWidget__RealFeelContainer: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         flexBasis: "100%",
-        marginBottom: 15
+        paddingBottom: 2
     };
 };
 
@@ -200,7 +205,7 @@ const WeatherWidget__ShortWeatherDataContainer: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
-        marginTop: 15
+        paddingTop: 15
     };
 };
 
@@ -261,11 +266,11 @@ const WeatherWidget__SimpleWeatherData__Root: ViewStyle = function (viewProps)
         borderTopColor: Color.Background,
         ...simpleWeatherDataPositionContext === "left" && {
             justifyContent: "flex-start",
-            paddingLeft: 20
+            paddingLeft: 15
         },
         ...simpleWeatherDataPositionContext === "right" && {
             justifyContent: "flex-end",
-            paddingRight: 20
+            paddingRight: 15
         }
     };
 };
@@ -337,6 +342,7 @@ export const Default: WeatherWidgetStyle = function ()
         MainContainer: WeatherWidget__MainContainer,
         TemperatureRangeValueContainer: WeatherWidget__TemperatureRangeValueContainer,
         TemperatureRangeValue: WeatherWidget__TemperatureRangeValue,
+        TemperatureRangeHr: WeatherWidget__TemperatureRangeHr,
         TemperatureRangeLabelContainer: WeatherWidget__TemperatureRangeLabelContainer,
         TemperatureRangeLabel: WeatherWidget__TemperatureRangeLabel,
         RealFeelContainer: WeatherWidget__RealFeelContainer,

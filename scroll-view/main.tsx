@@ -16,14 +16,15 @@ export const ScrollView = forwardRef(function ScrollView(
         contentInsetAdjustmentBehavior,
         showsVerticalScrollIndicator = true,
         showsHorizontalScrollIndicator = true,
-        automaticallyAdjustKeyboardInsets = false
+        automaticallyAdjustKeyboardInsets = false,
+        refreshControl
     }: ScrollViewProps,
     ref: MutableRefObject<ScrollView>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<ScrollViewProps> = {
         style, children, horizontal, stickyHeaderIndices, contentInsetAdjustmentBehavior, showsVerticalScrollIndicator,
-        showsHorizontalScrollIndicator, automaticallyAdjustKeyboardInsets
+        showsHorizontalScrollIndicator, automaticallyAdjustKeyboardInsets, refreshControl
     };
 
     Ts.Error.throwIfNullOrUndefined(style);
@@ -66,7 +67,8 @@ export const ScrollView = forwardRef(function ScrollView(
                 paddingTop: 0,
                 paddingBottom: 0,
                 paddingLeft: 0,
-                paddingRight: 0
+                paddingRight: 0,
+                alignItems: undefined
             }}
             contentContainerStyle={{
                 gap: computedStyle.gap,
@@ -77,8 +79,10 @@ export const ScrollView = forwardRef(function ScrollView(
                 paddingLeft: computedStyle.paddingLeft,
                 paddingRight: computedStyle.paddingRight,
                 paddingVertical: computedStyle.paddingVertical,
-                paddingHorizontal: computedStyle.paddingHorizontal
+                paddingHorizontal: computedStyle.paddingHorizontal,
+                alignItems: computedStyle.alignItems
             }}
+            refreshControl={refreshControl}
             stickyHeaderIndices={stickyHeaderIndices}
             showsVerticalScrollIndicator={showsVerticalScrollIndicator}
             showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}

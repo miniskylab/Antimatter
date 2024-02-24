@@ -54,6 +54,7 @@ export function WeatherWidget({
                         <Label style={computedStyle.RealFeelValue}>{temperatureData.realFeelTemperatureValue}</Label>
                     </View>
                     <View style={computedStyle.TemperatureRangeValueContainer}>
+                        <View style={computedStyle.TemperatureRangeHr}/>
                         <Label style={computedStyle.TemperatureRangeValue}>{temperatureData.minTemperatureValue}</Label>
                         <Label style={computedStyle.TemperatureRangeValue}>{temperatureData.currentTemperatureValue}</Label>
                         <Label style={computedStyle.TemperatureRangeValue}>{temperatureData.maxTemperatureValue}</Label>
