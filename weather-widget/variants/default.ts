@@ -167,7 +167,7 @@ const WeatherWidget__TemperatureRangeLabel: LabelStyle = function (labelProps)
     };
 };
 
-const WeatherWidget__RealFeelContainer: ViewStyle = function (viewProps)
+const WeatherWidget__FeelsLikeContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -177,7 +177,7 @@ const WeatherWidget__RealFeelContainer: ViewStyle = function (viewProps)
     };
 };
 
-const WeatherWidget__RealFeelLabel: LabelStyle = function (labelProps)
+const WeatherWidget__FeelsLikeLabel: LabelStyle = function (labelProps)
 {
     return {
         ...LabelVariant.Default(labelProps),
@@ -188,7 +188,7 @@ const WeatherWidget__RealFeelLabel: LabelStyle = function (labelProps)
     };
 };
 
-const WeatherWidget__RealFeelValue: LabelStyle = function (labelProps)
+const WeatherWidget__FeelsLikeValue: LabelStyle = function (labelProps)
 {
     const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
 
@@ -345,9 +345,9 @@ export const Default: WeatherWidgetStyle = function ()
         TemperatureRangeHr: WeatherWidget__TemperatureRangeHr,
         TemperatureRangeLabelContainer: WeatherWidget__TemperatureRangeLabelContainer,
         TemperatureRangeLabel: WeatherWidget__TemperatureRangeLabel,
-        RealFeelContainer: WeatherWidget__RealFeelContainer,
-        RealFeelLabel: WeatherWidget__RealFeelLabel,
-        RealFeelValue: WeatherWidget__RealFeelValue,
+        FeelsLikeContainer: WeatherWidget__FeelsLikeContainer,
+        FeelsLikeLabel: WeatherWidget__FeelsLikeLabel,
+        FeelsLikeValue: WeatherWidget__FeelsLikeValue,
         ShortWeatherDataContainer: WeatherWidget__ShortWeatherDataContainer,
         UvIndexIcon: WeatherWidget__UvIndexIcon,
         UvIndexDescription: WeatherWidget__UvIndexDescription,

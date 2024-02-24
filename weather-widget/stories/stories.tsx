@@ -38,12 +38,12 @@ export const Playground: Story = {
             currentTemperatureValue: "34°C",
             maxTemperatureLabel: "Max",
             maxTemperatureValue: "41°C",
-            realFeelTemperatureLabel: "Real Feel:",
-            realFeelTemperatureValue: "45°C",
+            feelsLikeTemperatureLabel: "Feels Like:",
+            feelsLikeTemperatureValue: "45°C",
             isHighlighted: true
         },
         uvIndexData: {icon: DefaultIconSet.UvIndex, value: "Extreme"},
-        windData: {icon: DefaultIconSet.Direction, speed: "17 km/h", direction: "N", isHighlighted: true},
+        windData: {icon: DefaultIconSet.Direction, speed: "17 km/h", direction: 0, isHighlighted: true},
         simpleWeatherData1: {icon: DefaultIconSet.AirQualityIndex, title: "145", subtitle: "Likely Unhealthy"},
         simpleWeatherData2: {icon: DefaultIconSet.Umbrella, title: "90% •⁑⁂", subtitle: "In 15 minutes", isHighlighted: true},
         simpleWeatherData3: {icon: DefaultIconSet.Droplet, title: "97%", subtitle: "Very Humid"}

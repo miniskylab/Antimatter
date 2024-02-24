@@ -20,9 +20,9 @@ export type WeatherWidgetStyle = (weatherWidgetProps: WithoutStyle<WeatherWidget
     TemperatureRangeHr: ViewStyle;
     TemperatureRangeLabelContainer: ViewStyle;
     TemperatureRangeLabel: LabelStyle;
-    RealFeelContainer: ViewStyle;
-    RealFeelLabel: LabelStyle;
-    RealFeelValue: LabelStyle;
+    FeelsLikeContainer: ViewStyle;
+    FeelsLikeLabel: LabelStyle;
+    FeelsLikeValue: LabelStyle;
     ShortWeatherDataContainer: ViewStyle;
     UvIndexIcon: IconStyle;
     UvIndexDescription: LabelStyle;

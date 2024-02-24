@@ -49,9 +49,9 @@ export function WeatherWidget({
                     <Label style={computedStyle.WeatherDescriptionLabel}>{weatherDescriptionData.value}</Label>
                 </View>
                 <View style={computedStyle.MainContainer}>
-                    <View style={computedStyle.RealFeelContainer}>
-                        <Label style={computedStyle.RealFeelLabel}>{temperatureData.realFeelTemperatureLabel}</Label>
-                        <Label style={computedStyle.RealFeelValue}>{temperatureData.realFeelTemperatureValue}</Label>
+                    <View style={computedStyle.FeelsLikeContainer}>
+                        <Label style={computedStyle.FeelsLikeLabel}>{temperatureData.feelsLikeTemperatureLabel}</Label>
+                        <Label style={computedStyle.FeelsLikeValue}>{temperatureData.feelsLikeTemperatureValue}</Label>
                     </View>
                     <View style={computedStyle.TemperatureRangeValueContainer}>
                         <View style={computedStyle.TemperatureRangeHr}/>

@@ -9,7 +9,7 @@ export class TemperatureData
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly realFeelTemperatureLabel: string;
+    readonly feelsLikeTemperatureLabel: string;
 
 
     /**
@@ -18,7 +18,7 @@ export class TemperatureData
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly realFeelTemperatureValue: string;
+    readonly feelsLikeTemperatureValue: string;
 
 
     /**

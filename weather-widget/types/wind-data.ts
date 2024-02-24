@@ -1,4 +1,4 @@
-import {IsBoolean, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
+import {IsBoolean, IsDefined, IsEnum, IsNotEmpty, IsNumber, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 
@@ -26,10 +26,9 @@ export class WindData
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsNotEmpty()
-    @IsString()
+    @IsNumber()
     @IsDefined()
-    readonly direction: "N" | "E" | "W" | "S";
+    readonly direction: number;
 
 
     /**
