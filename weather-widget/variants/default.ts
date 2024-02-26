@@ -151,7 +151,7 @@ const WeatherWidget__TemperatureRangeLabelContainer: ViewStyle = function (viewP
     return {
         ...WeatherWidget__TemperatureRangeValueContainer(viewProps),
         height: "auto",
-        paddingHorizontal: 16,
+        paddingHorizontal: 6,
         borderTopWidth: 0,
         borderBottomWidth: 0
     };
@@ -159,11 +159,17 @@ const WeatherWidget__TemperatureRangeLabelContainer: ViewStyle = function (viewP
 
 const WeatherWidget__TemperatureRangeLabel: LabelStyle = function (labelProps)
 {
+    const positionContext = WeatherWidgetContextHook.usePositionContext();
+    const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
+
+    const minTemperatureValueStringLength = weatherWidgetContext.props.temperatureData?.minTemperatureValue.length ?? 0;
+
     return {
         ...LabelVariant.Default(labelProps),
         fontSize: 11,
         fontStyle: "italic",
-        color: Color.Gray
+        color: Color.Gray,
+        ...positionContext === "middle" && minTemperatureValueStringLength < 4 && {paddingRight: 10}
     };
 };
 
@@ -276,7 +282,7 @@ const WeatherWidget__WindSpeed: LabelStyle = function (labelProps)
 
 const WeatherWidget__SimpleWeatherData__Root: ViewStyle = function (viewProps)
 {
-    const simpleWeatherDataPositionContext = WeatherWidgetContextHook.useSimpleWeatherDataPositionContext();
+    const positionContext = WeatherWidgetContextHook.usePositionContext();
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -285,11 +291,11 @@ const WeatherWidget__SimpleWeatherData__Root: ViewStyle = function (viewProps)
         height: 64,
         borderTopWidth: 1,
         borderTopColor: Color.Background,
-        ...simpleWeatherDataPositionContext === "left" && {
+        ...positionContext === "left" && {
             justifyContent: "flex-start",
             paddingLeft: 15
         },
-        ...simpleWeatherDataPositionContext === "right" && {
+        ...positionContext === "right" && {
             justifyContent: "flex-end",
             paddingRight: 15
         }

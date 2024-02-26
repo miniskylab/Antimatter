@@ -1,5 +1,5 @@
-import {ComponentProps} from "@miniskylab/antimatter-framework";
 import {ComponentType, createElement, JSX} from "react";
+import {ComponentProps} from "../classes";
 
 export function withDeserializer<TSerializedProps, TProps extends ComponentProps<TProps["style"]>>(
     component: ComponentType<TProps>,

@@ -1,4 +1,4 @@
-import {useSuspense} from "@miniskylab/antimatter-typography";
+import {useSuspense} from "@miniskylab/antimatter-framework";
 import {TextInputStyle} from "../models";
 
 export const Default: TextInputStyle = function ()

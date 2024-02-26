@@ -1,9 +1,6 @@
 import {useContextOrThrow} from "@miniskylab/antimatter-framework";
-import {SimpleWeatherDataPositionContext, WeatherWidgetContext} from "../models";
+import {PositionContext, WeatherWidgetContext} from "../models";
 
 export function useWeatherWidgetContext(): NonNullable<WeatherWidgetContext> { return useContextOrThrow(WeatherWidgetContext); }
 
-export function useSimpleWeatherDataPositionContext(): NonNullable<SimpleWeatherDataPositionContext>
-{
-    return useContextOrThrow(SimpleWeatherDataPositionContext);
-}
+export function usePositionContext(): NonNullable<PositionContext> { return useContextOrThrow(PositionContext); }

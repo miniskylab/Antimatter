@@ -4,9 +4,9 @@ import {
     isEnvironment,
     Ts,
     useComputedStyle,
+    useTypography,
     WYSIWYG
 } from "@miniskylab/antimatter-framework";
-import {useTypography} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import {Animated} from "react-native";

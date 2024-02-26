@@ -61,7 +61,7 @@ export const Playground: Story = {
         },
         simpleWeatherData2: {
             icon: DefaultIconSet.Umbrella,
-            title: "90% •⁑⁂",
+            title: "90% ⁂",
             subtitle: "In 15 minutes",
             highlightColor: SimpleWeatherData.HighlightColor.Tomato
         },

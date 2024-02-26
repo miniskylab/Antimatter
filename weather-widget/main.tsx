@@ -5,7 +5,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {SimpleWeatherData} from "./components";
-import {SimpleWeatherDataPositionContext, WeatherWidgetContext, WeatherWidgetProps} from "./models";
+import {PositionContext, WeatherWidgetContext, WeatherWidgetProps} from "./models";
 import * as Variant from "./variants";
 
 /**
@@ -61,14 +61,14 @@ export function WeatherWidget({
                     </View>
                     <View style={computedStyle.TemperatureRangeValueContainer}>
                         <View style={computedStyle.TemperatureRangeHr}/>
-                        <Label style={computedStyle.TemperatureRangeValue}>{temperatureData?.minTemperatureValue ?? "--"}</Label>
-                        <Label style={computedStyle.TemperatureRangeValue}>{temperatureData?.currentTemperatureValue ?? "--"}</Label>
-                        <Label style={computedStyle.TemperatureRangeValue}>{temperatureData?.maxTemperatureValue ?? "--"}</Label>
+                        {renderTemperatureRangeValue("left", temperatureData?.minTemperatureValue ?? "--")}
+                        {renderTemperatureRangeValue("middle", temperatureData?.currentTemperatureValue ?? "--")}
+                        {renderTemperatureRangeValue("right", temperatureData?.maxTemperatureValue ?? "--")}
                     </View>
                     <View style={computedStyle.TemperatureRangeLabelContainer}>
-                        <Label style={computedStyle.TemperatureRangeLabel}>{temperatureData?.minTemperatureLabel ?? "Min"}</Label>
-                        <Label style={computedStyle.TemperatureRangeLabel}>{temperatureData?.currentTemperatureLabel ?? "Current"}</Label>
-                        <Label style={computedStyle.TemperatureRangeLabel}>{temperatureData?.maxTemperatureLabel ?? "Max"}</Label>
+                        {renderTemperatureRangeLabel("left", temperatureData?.minTemperatureLabel ?? "Min")}
+                        {renderTemperatureRangeLabel("middle", temperatureData?.currentTemperatureLabel ?? "Current")}
+                        {renderTemperatureRangeLabel("right", temperatureData?.maxTemperatureLabel ?? "Max")}
                     </View>
                     <View style={computedStyle.ShortWeatherDataContainer}>
                         <Icon style={computedStyle.UvIndexIcon} name={uvIndexData?.icon ?? DefaultIconSet.UvIndex}/>
@@ -79,17 +79,35 @@ export function WeatherWidget({
                         <Label style={computedStyle.WindSpeed}>{windData?.speed ?? "--"}</Label>
                     </View>
                 </View>
-                {renderSimpleWeatherDataBlock("left", simpleWeatherData1)}
-                {renderSimpleWeatherDataBlock("middle", simpleWeatherData2)}
-                {renderSimpleWeatherDataBlock("right", simpleWeatherData3)}
+                {renderSimpleWeatherDataSection("left", simpleWeatherData1)}
+                {renderSimpleWeatherDataSection("middle", simpleWeatherData2)}
+                {renderSimpleWeatherDataSection("right", simpleWeatherData3)}
             </View>
         </WeatherWidgetContext.Provider>
     );
 
-    function renderSimpleWeatherDataBlock(position: SimpleWeatherDataPositionContext, simpleWeatherData?: SimpleWeatherData.Props)
+    function renderTemperatureRangeValue(position: PositionContext, value: string)
     {
         return (
-            <SimpleWeatherDataPositionContext.Provider value={position}>
+            <PositionContext.Provider value={position}>
+                <Label style={computedStyle.TemperatureRangeValue}>{value}</Label>
+            </PositionContext.Provider>
+        );
+    }
+
+    function renderTemperatureRangeLabel(position: PositionContext, label: string)
+    {
+        return (
+            <PositionContext.Provider value={position}>
+                <Label style={computedStyle.TemperatureRangeLabel}>{label}</Label>
+            </PositionContext.Provider>
+        );
+    }
+
+    function renderSimpleWeatherDataSection(position: PositionContext, simpleWeatherData?: SimpleWeatherData.Props)
+    {
+        return (
+            <PositionContext.Provider value={position}>
                 <SimpleWeatherData.Component
                     style={computedStyle.SimpleWeatherData}
                     icon={DefaultIconSet.NotAllowed}
@@ -97,7 +115,7 @@ export function WeatherWidget({
                     subtitle={"--"}
                     {...simpleWeatherData}
                 />
-            </SimpleWeatherDataPositionContext.Provider>
+            </PositionContext.Provider>
         );
     }
 }

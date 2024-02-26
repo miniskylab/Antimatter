@@ -1,5 +1,11 @@
-import {AllPropertiesMustPresent, EMPTY_STRING, inheritTextStyleFrom, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {useTypography} from "@miniskylab/antimatter-typography";
+import {
+    AllPropertiesMustPresent,
+    EMPTY_STRING,
+    inheritTextStyleFrom,
+    Ts,
+    useComputedStyle,
+    useTypography
+} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
 import * as ReactNative from "react-native";
