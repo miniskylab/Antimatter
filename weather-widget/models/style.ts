@@ -11,9 +11,9 @@ export type WeatherWidgetStyle = (weatherWidgetProps: WithoutStyle<WeatherWidget
     StatusContainer: ViewStyle;
     StatusIcon: IconStyle;
     StatusValue: LabelStyle;
-    WeatherDescriptionContainer: ViewStyle;
-    WeatherDescriptionIcon: IconStyle;
-    WeatherDescriptionLabel: LabelStyle;
+    WeatherConditionContainer: ViewStyle;
+    WeatherConditionIcon: IconStyle;
+    WeatherConditionLabel: LabelStyle;
     MainContainer: ViewStyle;
     TemperatureRangeValueContainer: ViewStyle;
     TemperatureRangeValue: LabelStyle;

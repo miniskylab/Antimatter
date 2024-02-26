@@ -54,7 +54,7 @@ export function withValidation<TProps extends ComponentProps<TProps["style"]>>(
                 getValidationErrorMessages(error).forEach(errorMessage =>
                 {
                     const componentName = Reflection.getDecoratorValue<string>(ComponentName, error.target);
-                    console.error(`${Ts.String.format(ErrorMessage.PropsValidationErrorOccurred, componentName)} ${errorMessage}`);
+                    console.error(`${Ts.String.format(ErrorMessage.PropsValidation.ErrorOccurred, componentName)} ${errorMessage}`);
                 });
 
                 function getValidationErrorMessages(validationError: ValidationError, parentPropertyName = EMPTY_STRING): string[]

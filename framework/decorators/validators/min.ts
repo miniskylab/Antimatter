@@ -12,7 +12,7 @@ export function Min(minValue: number, validationOptions?: Omit<ValidationOptions
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return min(thisPropertyValue, minValue); },
-                defaultMessage() { return ErrorMessage.CannotBeLessThanValue(minValue); }
+                defaultMessage() { return ErrorMessage.PropsValidation.CannotBeLessThanValue(minValue); }
             }
         });
     };

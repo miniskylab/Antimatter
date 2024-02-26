@@ -12,7 +12,7 @@ export function IsHexColor(validationOptions?: Omit<ValidationOptions, "message"
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isHexColor(thisPropertyValue); },
-                defaultMessage() { return ErrorMessage.MustBeHexColor; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeHexColor; }
             }
         });
     };

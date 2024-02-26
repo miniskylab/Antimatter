@@ -18,7 +18,7 @@ export const Playground: Story = {
         style: Sb.styleSelector(Variant),
         locationData: Sb.locked,
         lastUpdateData: Sb.locked,
-        weatherDescriptionData: Sb.locked,
+        weatherConditionData: Sb.locked,
         temperatureData: Sb.locked,
         uvIndexData: Sb.locked,
         windData: Sb.locked,
@@ -30,7 +30,7 @@ export const Playground: Story = {
         style: Sb.getVariantName(Variant, Variant.Default),
         locationData: {icon: DefaultIconSet.Location, value: "Hanoi, Vietnam"},
         lastUpdateData: {icon: DefaultIconSet.History, value: "09:00:15"},
-        weatherDescriptionData: {icon: DefaultIconSet.Rain, value: "Light Freezing Drizzle"},
+        weatherConditionData: {icon: DefaultIconSet.Rain, value: "Light Freezing Drizzle"},
         temperatureData: {
             minTemperatureLabel: "Min",
             minTemperatureValue: "29°C",

@@ -11,7 +11,7 @@ export function Max(maxValue: number)
             propertyName: thisPropertyName,
             validator: {
                 validate(thisPropertyValue: unknown) { return max(thisPropertyValue, maxValue); },
-                defaultMessage() { return ErrorMessage.CannotBeGreaterThanValue(maxValue); }
+                defaultMessage() { return ErrorMessage.PropsValidation.CannotBeGreaterThanValue(maxValue); }
             }
         });
     };

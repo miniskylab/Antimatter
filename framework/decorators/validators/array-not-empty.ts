@@ -11,7 +11,7 @@ export function ArrayNotEmpty()
             propertyName: thisPropertyName,
             validator: {
                 validate(thisPropertyValue: unknown) { return arrayNotEmpty(thisPropertyValue); },
-                defaultMessage() { return ErrorMessage.CannotBeEmptyArray; }
+                defaultMessage() { return ErrorMessage.PropsValidation.CannotBeEmptyArray; }
             }
         });
     };

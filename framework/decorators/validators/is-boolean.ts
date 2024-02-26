@@ -12,7 +12,7 @@ export function IsBoolean(validationOptions?: Omit<ValidationOptions, "message">
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isBoolean(thisPropertyValue); },
-                defaultMessage() { return ErrorMessage.MustBeBoolean; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeBoolean; }
             }
         });
     };

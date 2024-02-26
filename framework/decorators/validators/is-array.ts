@@ -11,7 +11,7 @@ export function IsArray()
             propertyName: thisPropertyName,
             validator: {
                 validate(thisPropertyValue: unknown) { return isArray(thisPropertyValue); },
-                defaultMessage() { return ErrorMessage.MustBeArray; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeArray; }
             }
         });
     };

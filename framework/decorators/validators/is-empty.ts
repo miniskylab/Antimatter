@@ -12,7 +12,7 @@ export function IsEmpty(validationOptions?: Omit<ValidationOptions, "message">)
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isEmpty(thisPropertyValue); },
-                defaultMessage() { return ErrorMessage.MustBeEmpty; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeEmpty; }
             }
         });
     };

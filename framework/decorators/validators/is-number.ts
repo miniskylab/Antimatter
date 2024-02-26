@@ -12,7 +12,7 @@ export function IsNumber(options?: IsNumberOptions, validationOptions?: Omit<Val
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isNumber(thisPropertyValue, options); },
-                defaultMessage() { return ErrorMessage.MustBeNumber; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeNumber; }
             }
         });
     };

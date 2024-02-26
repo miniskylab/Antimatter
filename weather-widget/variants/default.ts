@@ -64,7 +64,7 @@ const WeatherWidget__StatusValue: LabelStyle = function (labelProps)
     };
 };
 
-const WeatherWidget__WeatherDescriptionContainer: ViewStyle = function (viewProps)
+const WeatherWidget__WeatherConditionContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -76,7 +76,7 @@ const WeatherWidget__WeatherDescriptionContainer: ViewStyle = function (viewProp
     };
 };
 
-const WeatherWidget__WeatherDescriptionIcon: IconStyle = function (iconProps)
+const WeatherWidget__WeatherConditionIcon: IconStyle = function (iconProps)
 {
     return {
         ...IconVariant.Default(iconProps),
@@ -85,7 +85,7 @@ const WeatherWidget__WeatherDescriptionIcon: IconStyle = function (iconProps)
     };
 };
 
-const WeatherWidget__WeatherDescriptionLabel: LabelStyle = function (labelProps)
+const WeatherWidget__WeatherConditionLabel: LabelStyle = function (labelProps)
 {
     return {
         ...LabelVariant.Default(labelProps),
@@ -233,11 +233,14 @@ const WeatherWidget__UvIndexDescription: LabelStyle = function (labelProps)
 
 const WeatherWidget__WindIcon: IconStyle = function (iconProps)
 {
+    const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
+
     return {
         ...IconVariant.Default(iconProps),
         marginRight: 6,
         color: Color.Neutral,
-        fontSize: 14
+        fontSize: 14,
+        transform: [{rotate: `${225 + weatherWidgetContext.props.windData.direction}deg`}]
     };
 };
 
@@ -336,9 +339,9 @@ export const Default: WeatherWidgetStyle = function ()
         StatusContainer: WeatherWidget__StatusContainer,
         StatusIcon: WeatherWidget__StatusIcon,
         StatusValue: WeatherWidget__StatusValue,
-        WeatherDescriptionContainer: WeatherWidget__WeatherDescriptionContainer,
-        WeatherDescriptionIcon: WeatherWidget__WeatherDescriptionIcon,
-        WeatherDescriptionLabel: WeatherWidget__WeatherDescriptionLabel,
+        WeatherConditionContainer: WeatherWidget__WeatherConditionContainer,
+        WeatherConditionIcon: WeatherWidget__WeatherConditionIcon,
+        WeatherConditionLabel: WeatherWidget__WeatherConditionLabel,
         MainContainer: WeatherWidget__MainContainer,
         TemperatureRangeValueContainer: WeatherWidget__TemperatureRangeValueContainer,
         TemperatureRangeValue: WeatherWidget__TemperatureRangeValue,

@@ -12,7 +12,7 @@ export function IsDefined(validationOptions?: Omit<ValidationOptions, "message">
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isDefined(thisPropertyValue); },
-                defaultMessage() { return ErrorMessage.Required; }
+                defaultMessage() { return ErrorMessage.PropsValidation.Required; }
             }
         });
     };

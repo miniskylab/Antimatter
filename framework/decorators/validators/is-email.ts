@@ -12,7 +12,7 @@ export function IsEmail(validationOptions?: Omit<ValidationOptions, "message">)
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isEmail(thisPropertyValue); },
-                defaultMessage() { return ErrorMessage.MustBeEmail; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeEmail; }
             }
         });
     };

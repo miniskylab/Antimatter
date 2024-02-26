@@ -7,6 +7,7 @@ import * as ExpoCrypto from "expo-crypto";
 import * as ExpoSecureStore from "expo-secure-store";
 import * as WebBrowser from "expo-web-browser";
 import {useEffect, useRef, useState} from "react";
+import {ErrorMessage} from "../consts";
 import {isEnvironment, Ts} from "../functions";
 
 export class NativeAuthentication
@@ -172,8 +173,12 @@ export class NativeAuthentication
             try
             {
                 const {refreshToken} = await this.retrieveTokenAsync();
-                const discovery = await AuthSession.fetchDiscoveryAsync(this.issuer);
+                if (!refreshToken)
+                {
+                    reject(ErrorMessage.Authentication.RefreshTokenNotFound);
+                }
 
+                const discovery = await AuthSession.fetchDiscoveryAsync(this.issuer);
                 const tokenResponse = await AuthSession.refreshAsync(
                     {
                         refreshToken,

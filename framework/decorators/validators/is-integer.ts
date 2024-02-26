@@ -12,7 +12,7 @@ export function IsInteger(validationOptions?: Omit<ValidationOptions, "message">
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isInt(thisPropertyValue); },
-                defaultMessage() { return ErrorMessage.MustBeInteger; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeInteger; }
             }
         });
     };

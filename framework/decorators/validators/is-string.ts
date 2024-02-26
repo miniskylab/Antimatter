@@ -12,7 +12,7 @@ export function IsString(validationOptions?: ValidationOptions)
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isString(thisPropertyValue); },
-                defaultMessage() { return ErrorMessage.MustBeString; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeString; }
             }
         });
     };

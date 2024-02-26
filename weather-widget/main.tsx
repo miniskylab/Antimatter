@@ -15,7 +15,7 @@ export function WeatherWidget({
     style = Variant.Default,
     locationData,
     lastUpdateData,
-    weatherDescriptionData,
+    weatherConditionData,
     temperatureData,
     uvIndexData,
     windData,
@@ -25,7 +25,7 @@ export function WeatherWidget({
 }: WeatherWidgetProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<WeatherWidgetProps> = {
-        style, locationData, lastUpdateData, weatherDescriptionData, temperatureData, uvIndexData, windData, simpleWeatherData1,
+        style, locationData, lastUpdateData, weatherConditionData, temperatureData, uvIndexData, windData, simpleWeatherData1,
         simpleWeatherData2, simpleWeatherData3
     };
 
@@ -44,9 +44,9 @@ export function WeatherWidget({
                     {renderStatusEntry(locationData)}
                     {renderStatusEntry(lastUpdateData)}
                 </View>
-                <View style={computedStyle.WeatherDescriptionContainer}>
-                    <Icon style={computedStyle.WeatherDescriptionIcon} name={weatherDescriptionData.icon}/>
-                    <Label style={computedStyle.WeatherDescriptionLabel}>{weatherDescriptionData.value}</Label>
+                <View style={computedStyle.WeatherConditionContainer}>
+                    <Icon style={computedStyle.WeatherConditionIcon} name={weatherConditionData.icon}/>
+                    <Label style={computedStyle.WeatherConditionLabel}>{weatherConditionData.value}</Label>
                 </View>
                 <View style={computedStyle.MainContainer}>
                     <View style={computedStyle.FeelsLikeContainer}>

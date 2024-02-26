@@ -12,7 +12,7 @@ export function IsDate(validationOptions?: Omit<ValidationOptions, "message">)
             options: validationOptions,
             validator: {
                 validate(thisPropertyValue: unknown) { return isDate(thisPropertyValue); },
-                defaultMessage() { return ErrorMessage.MustBeDate; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeDate; }
             }
         });
     };

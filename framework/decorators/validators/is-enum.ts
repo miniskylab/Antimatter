@@ -21,7 +21,7 @@ export function IsEnum(anyEnum: Enum, validationOptions?: Omit<ValidationOptions
                            );
                 },
 
-                defaultMessage() { return ErrorMessage.MustBeEnum; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeEnum; }
             }
         });
     };

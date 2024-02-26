@@ -30,7 +30,7 @@ export function IsMultipleOf(otherPropertyName: string)
                     return wholeNumberThisPropertyValue % wholeNumberOtherPropertyValue === 0;
                 },
 
-                defaultMessage() { return ErrorMessage.MustBeMultipleOf; }
+                defaultMessage() { return ErrorMessage.PropsValidation.MustBeMultipleOf; }
             }
         });
     };

@@ -33,8 +33,8 @@ export function IsGreaterThanOrEqualTo(otherPropertyName: string)
                     const otherPropertyValue = (validationArguments.object as Record<string, unknown>)[otherPropertyName];
 
                     return !isNumber(thisPropertyValue) || !isNumber(otherPropertyValue)
-                        ? ErrorMessage.CannotCompareForInequality
-                        : ErrorMessage.CannotBeLessThanOtherProperty;
+                        ? ErrorMessage.PropsValidation.CannotCompareForInequality
+                        : ErrorMessage.PropsValidation.CannotBeLessThanOtherProperty;
                 }
             }
         });

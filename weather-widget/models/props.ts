@@ -32,7 +32,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
     @IsDefined()
     @ValidateNested()
     @Type(() => ShortWeatherData)
-    readonly weatherDescriptionData: ShortWeatherData;
+    readonly weatherConditionData: ShortWeatherData;
 
 
     /**
