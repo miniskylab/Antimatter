@@ -196,11 +196,11 @@ const WeatherWidget__FeelsLikeValue: LabelStyle = function (labelProps)
         ...LabelVariant.Default(labelProps),
         fontSize: 23,
         fontWeight: "bold",
-        color: weatherWidgetContext.props.temperatureData.highlightColor === SimpleWeatherData.HighlightColor.Purple
+        color: weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Purple
             ? Color.Purple
-            : weatherWidgetContext.props.temperatureData.highlightColor === SimpleWeatherData.HighlightColor.Tomato
+            : weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Tomato
                 ? Color.Tomato
-                : weatherWidgetContext.props.temperatureData.highlightColor === SimpleWeatherData.HighlightColor.Blue
+                : weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
                     ? Color.Blue
                     : Color.Neutral
     };
@@ -233,11 +233,11 @@ const WeatherWidget__UvIndexDescription: LabelStyle = function (labelProps)
         ...LabelVariant.Default(labelProps),
         fontSize: 13,
         fontWeight: "bold",
-        color: weatherWidgetContext.props.uvIndexData.highlightColor === SimpleWeatherData.HighlightColor.Purple
+        color: weatherWidgetContext.props.uvIndexData?.highlightColor === SimpleWeatherData.HighlightColor.Purple
             ? Color.Purple
-            : weatherWidgetContext.props.uvIndexData.highlightColor === SimpleWeatherData.HighlightColor.Tomato
+            : weatherWidgetContext.props.uvIndexData?.highlightColor === SimpleWeatherData.HighlightColor.Tomato
                 ? Color.Tomato
-                : weatherWidgetContext.props.uvIndexData.highlightColor === SimpleWeatherData.HighlightColor.Blue
+                : weatherWidgetContext.props.uvIndexData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
                     ? Color.Blue
                     : Color.Neutral
     };
@@ -252,7 +252,7 @@ const WeatherWidget__WindIcon: IconStyle = function (iconProps)
         marginRight: 6,
         color: Color.Neutral,
         fontSize: 14,
-        transform: [{rotate: `${225 + weatherWidgetContext.props.windData.direction}deg`}]
+        ...weatherWidgetContext.props.windData && {transform: [{rotate: `${225 + weatherWidgetContext.props.windData.direction}deg`}]}
     };
 };
 
@@ -264,11 +264,11 @@ const WeatherWidget__WindSpeed: LabelStyle = function (labelProps)
         ...LabelVariant.Default(labelProps),
         fontSize: 13,
         fontWeight: "bold",
-        color: weatherWidgetContext.props.windData.highlightColor === SimpleWeatherData.HighlightColor.Purple
+        color: weatherWidgetContext.props.windData?.highlightColor === SimpleWeatherData.HighlightColor.Purple
             ? Color.Purple
-            : weatherWidgetContext.props.windData.highlightColor === SimpleWeatherData.HighlightColor.Tomato
+            : weatherWidgetContext.props.windData?.highlightColor === SimpleWeatherData.HighlightColor.Tomato
                 ? Color.Tomato
-                : weatherWidgetContext.props.windData.highlightColor === SimpleWeatherData.HighlightColor.Blue
+                : weatherWidgetContext.props.windData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
                     ? Color.Blue
                     : Color.Neutral
     };

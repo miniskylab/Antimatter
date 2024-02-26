@@ -1,6 +1,6 @@
-import {ComponentName, ComponentProps, IsDefined} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
-import {ValidateNested} from "class-validator";
+import {IsOptional, ValidateNested} from "class-validator";
 import {SimpleWeatherData} from "../components";
 import {ShortWeatherData, TemperatureData, WindData} from "../types";
 import {WeatherWidgetStyle} from "./style";
@@ -11,55 +11,55 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsDefined()
+    @IsOptional()
     @ValidateNested()
     @Type(() => ShortWeatherData)
-    readonly locationData: ShortWeatherData;
+    readonly locationData?: ShortWeatherData;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsDefined()
+    @IsOptional()
     @ValidateNested()
     @Type(() => ShortWeatherData)
-    readonly lastUpdateData: ShortWeatherData;
+    readonly lastUpdateData?: ShortWeatherData;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsDefined()
+    @IsOptional()
     @ValidateNested()
     @Type(() => ShortWeatherData)
-    readonly weatherConditionData: ShortWeatherData;
+    readonly weatherConditionData?: ShortWeatherData;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsDefined()
+    @IsOptional()
     @ValidateNested()
     @Type(() => TemperatureData)
-    readonly temperatureData: TemperatureData;
+    readonly temperatureData?: TemperatureData;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsDefined()
+    @IsOptional()
     @ValidateNested()
     @Type(() => ShortWeatherData)
-    readonly uvIndexData: ShortWeatherData;
+    readonly uvIndexData?: ShortWeatherData;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @IsDefined()
+    @IsOptional()
     @ValidateNested()
     @Type(() => WindData)
-    readonly windData: WindData;
+    readonly windData?: WindData;
 
 
     /**
@@ -67,10 +67,10 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
      *
      * @type SimpleWeatherData
      */
-    @IsDefined()
+    @IsOptional()
     @ValidateNested()
     @Type(() => SimpleWeatherData.Props)
-    readonly simpleWeatherData1: SimpleWeatherData.Props;
+    readonly simpleWeatherData1?: SimpleWeatherData.Props;
 
 
     /**
@@ -78,10 +78,10 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
      *
      * @type SimpleWeatherData
      */
-    @IsDefined()
+    @IsOptional()
     @ValidateNested()
     @Type(() => SimpleWeatherData.Props)
-    readonly simpleWeatherData2: SimpleWeatherData.Props;
+    readonly simpleWeatherData2?: SimpleWeatherData.Props;
 
 
     /**
@@ -89,8 +89,8 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
      *
      * @type SimpleWeatherData
      */
-    @IsDefined()
+    @IsOptional()
     @ValidateNested()
     @Type(() => SimpleWeatherData.Props)
-    readonly simpleWeatherData3: SimpleWeatherData.Props;
+    readonly simpleWeatherData3?: SimpleWeatherData.Props;
 }
