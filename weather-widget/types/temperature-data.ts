@@ -1,5 +1,6 @@
-import {IsBoolean, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
+import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
+import {SimpleWeatherData} from "../components";
 
 export class TemperatureData
 {
@@ -77,8 +78,10 @@ export class TemperatureData
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type HighlightColor
      */
-    @IsBoolean()
+    @IsEnum(SimpleWeatherData.HighlightColor)
     @IsOptional()
-    readonly isHighlighted?: boolean;
+    readonly highlightColor?: SimpleWeatherData.HighlightColor;
 }

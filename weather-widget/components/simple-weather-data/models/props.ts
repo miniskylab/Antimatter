@@ -1,6 +1,7 @@
-import {ComponentProps, IsBoolean, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
+import {ComponentProps, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
+import {HighlightColor} from "../enums";
 import {Style} from "./style";
 
 export class Props extends ComponentProps<Style>
@@ -35,8 +36,10 @@ export class Props extends ComponentProps<Style>
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type HighlightColor
      */
-    @IsBoolean()
+    @IsEnum(HighlightColor)
     @IsOptional()
-    readonly isHighlighted?: boolean;
+    readonly highlightColor?: HighlightColor;
 }

@@ -2,6 +2,7 @@ import {Sb, withValidation} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {SimpleWeatherData} from "../components";
 import {WeatherWidget} from "../main";
 import {WeatherWidgetProps} from "../models";
 import * as Variant from "../variants";
@@ -33,20 +34,42 @@ export const Playground: Story = {
         weatherConditionData: {icon: DefaultIconSet.Rain, value: "Light Freezing Drizzle"},
         temperatureData: {
             minTemperatureLabel: "Min",
-            minTemperatureValue: "29°C",
+            minTemperatureValue: "8°C",
             currentTemperatureLabel: "Current",
-            currentTemperatureValue: "34°C",
+            currentTemperatureValue: "12°C",
             maxTemperatureLabel: "Max",
-            maxTemperatureValue: "41°C",
+            maxTemperatureValue: "16°C",
             feelsLikeTemperatureLabel: "Feels Like:",
-            feelsLikeTemperatureValue: "45°C",
-            isHighlighted: true
+            feelsLikeTemperatureValue: "10°C",
+            highlightColor: SimpleWeatherData.HighlightColor.Blue
         },
-        uvIndexData: {icon: DefaultIconSet.UvIndex, value: "Extreme"},
-        windData: {icon: DefaultIconSet.Direction, speed: "17 km/h", direction: 0, isHighlighted: true},
-        simpleWeatherData1: {icon: DefaultIconSet.AirQualityIndex, title: "145", subtitle: "Likely Unhealthy"},
-        simpleWeatherData2: {icon: DefaultIconSet.Umbrella, title: "90% •⁑⁂", subtitle: "In 15 minutes", isHighlighted: true},
-        simpleWeatherData3: {icon: DefaultIconSet.Droplet, title: "97%", subtitle: "Very Humid"}
+        uvIndexData: {
+            icon: DefaultIconSet.UvIndex,
+            value: "Extreme"
+        },
+        windData: {
+            icon: DefaultIconSet.Direction,
+            speed: "17 km/h",
+            direction: 135,
+            highlightColor: SimpleWeatherData.HighlightColor.Tomato
+        },
+        simpleWeatherData1: {
+            icon: DefaultIconSet.AirQualityIndex,
+            title: "145",
+            subtitle: "Likely Unhealthy",
+            highlightColor: SimpleWeatherData.HighlightColor.Purple
+        },
+        simpleWeatherData2: {
+            icon: DefaultIconSet.Umbrella,
+            title: "90% •⁑⁂",
+            subtitle: "In 15 minutes",
+            highlightColor: SimpleWeatherData.HighlightColor.Tomato
+        },
+        simpleWeatherData3: {
+            icon: DefaultIconSet.Droplet,
+            title: "60%",
+            subtitle: "Comfortable"
+        }
     },
     render: args => <WeatherWidgetWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
 };

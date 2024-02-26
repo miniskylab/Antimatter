@@ -13,11 +13,11 @@ export function Component({
     icon,
     title,
     subtitle,
-    isHighlighted
+    highlightColor
 }: Props): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, icon, title, subtitle, isHighlighted
+        style, icon, title, subtitle, highlightColor
     };
 
     const context = useMemo<SimpleWeatherDataContext>(
