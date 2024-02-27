@@ -49,8 +49,7 @@ const WeatherWidget__StatusIcon: IconStyle = function (iconProps)
     return {
         ...IconVariant.Default(iconProps),
         color: Color.Gray,
-        marginTop: 1,
-        marginRight: 6,
+        marginRight: 5,
         fontSize: 14
     };
 };
