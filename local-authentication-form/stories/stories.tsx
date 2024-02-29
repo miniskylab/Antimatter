@@ -3,16 +3,16 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {LocalAuthenticationStatus} from "../enums";
-import {LocalAuthenticationPrompt} from "../main";
-import {LocalAuthenticationPromptProps} from "../models";
+import {LocalAuthenticationForm} from "../main";
+import {LocalAuthenticationFormProps} from "../models";
 import * as Variant from "../variants";
 
-const LocalAuthenticationPromptWithValidation = withValidation(LocalAuthenticationPrompt, LocalAuthenticationPromptProps);
+const LocalAuthenticationFormWithValidation = withValidation(LocalAuthenticationForm, LocalAuthenticationFormProps);
 export default {
-    component: LocalAuthenticationPrompt,
-    title: "Components/Local Authentication Prompt"
-} satisfies Meta<typeof LocalAuthenticationPrompt>;
-type Story = StoryObj<typeof LocalAuthenticationPrompt>;
+    component: LocalAuthenticationForm,
+    title: "Components/Local Authentication Form"
+} satisfies Meta<typeof LocalAuthenticationForm>;
+type Story = StoryObj<typeof LocalAuthenticationForm>;
 
 export const Playground: Story = {
     argTypes: {
@@ -31,5 +31,5 @@ export const Playground: Story = {
         localAuthenticationStatus: LocalAuthenticationStatus.Unknown,
         onPrompt: () => { alert("Prompted!"); }
     },
-    render: args => <LocalAuthenticationPromptWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
+    render: args => <LocalAuthenticationFormWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
 };

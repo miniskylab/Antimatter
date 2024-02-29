@@ -2,10 +2,10 @@ import {ComponentName, ComponentProps, GestureResponderEventHandler, IsEnum, IsS
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {LocalAuthenticationStatus} from "../enums";
-import {LocalAuthenticationPromptStyle} from "./style";
+import {LocalAuthenticationFormStyle} from "./style";
 
-@ComponentName("Local Authentication Prompt")
-export class LocalAuthenticationPromptProps extends ComponentProps<LocalAuthenticationPromptStyle>
+@ComponentName("Local Authentication Form")
+export class LocalAuthenticationFormProps extends ComponentProps<LocalAuthenticationFormStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

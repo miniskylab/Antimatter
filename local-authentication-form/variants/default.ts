@@ -5,10 +5,10 @@ import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {LocalAuthenticationStatus} from "../enums";
-import {LocalAuthenticationPromptContextHook} from "../hooks";
-import {LocalAuthenticationPromptStyle} from "../models";
+import {LocalAuthenticationFormContextHook} from "../hooks";
+import {LocalAuthenticationFormStyle} from "../models";
 
-const LocalAuthenticationPrompt__Root: ViewStyle = function (viewProps)
+const LocalAuthenticationForm__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -19,24 +19,24 @@ const LocalAuthenticationPrompt__Root: ViewStyle = function (viewProps)
     };
 };
 
-const LocalAuthenticationPrompt__Title: LabelStyle = function (labelProps)
+const LocalAuthenticationForm__Title: LabelStyle = function (labelProps)
 {
-    const localAuthenticationPromptContext = LocalAuthenticationPromptContextHook.useLocalAuthenticationPromptContext();
+    const localAuthenticationFormContext = LocalAuthenticationFormContextHook.useLocalAuthenticationFormContext();
 
     return {
         ...LabelVariant.Default(labelProps),
         marginTop: 65,
         fontSize: 24,
         fontWeight: "bold",
-        color: localAuthenticationPromptContext.props.localAuthenticationStatus === LocalAuthenticationStatus.BiometricHardwareAccessDenied
+        color: localAuthenticationFormContext.props.localAuthenticationStatus === LocalAuthenticationStatus.BiometricHardwareAccessDenied
             ? Color.Tomato
             : Color.White
     };
 };
 
-const LocalAuthenticationPrompt__Subtitle: LabelStyle = function (labelProps)
+const LocalAuthenticationForm__Subtitle: LabelStyle = function (labelProps)
 {
-    const localAuthenticationPromptContext = LocalAuthenticationPromptContextHook.useLocalAuthenticationPromptContext();
+    const localAuthenticationFormContext = LocalAuthenticationFormContextHook.useLocalAuthenticationFormContext();
 
     return {
         ...LabelVariant.Default(labelProps),
@@ -45,14 +45,14 @@ const LocalAuthenticationPrompt__Subtitle: LabelStyle = function (labelProps)
         fontSize: 16,
         textAlign: "center",
         color: Color.Neutral,
-        ...localAuthenticationPromptContext.props.localAuthenticationStatus === LocalAuthenticationStatus.WaitingForConfirmation && {
+        ...localAuthenticationFormContext.props.localAuthenticationStatus === LocalAuthenticationStatus.WaitingForConfirmation && {
             color: Color.Green,
             fontWeight: "bold"
         }
     };
 };
 
-const LocalAuthenticationPrompt__PromptButtonButton__Root: PressableStyle = function (pressableProps, pressableState)
+const LocalAuthenticationForm__PromptButton__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
 
@@ -73,7 +73,7 @@ const LocalAuthenticationPrompt__PromptButtonButton__Root: PressableStyle = func
     };
 };
 
-const LocalAuthenticationPrompt__PromptButtonButton__Icon: IconStyle = function (iconProps)
+const LocalAuthenticationForm__PromptButton__Icon: IconStyle = function (iconProps)
 {
     const pressableContext = PressableContextHook.usePressableContext();
 
@@ -85,21 +85,21 @@ const LocalAuthenticationPrompt__PromptButtonButton__Icon: IconStyle = function 
     };
 };
 
-const LocalAuthenticationPrompt__PromptButton: ButtonStyle = function (buttonProps)
+const LocalAuthenticationForm__PromptButton: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.OutlinedRectangular(buttonProps),
-        Root: LocalAuthenticationPrompt__PromptButtonButton__Root,
-        Icon: LocalAuthenticationPrompt__PromptButtonButton__Icon
+        Root: LocalAuthenticationForm__PromptButton__Root,
+        Icon: LocalAuthenticationForm__PromptButton__Icon
     };
 };
 
-export const Default: LocalAuthenticationPromptStyle = function ()
+export const Default: LocalAuthenticationFormStyle = function ()
 {
     return {
-        Root: LocalAuthenticationPrompt__Root,
-        Title: LocalAuthenticationPrompt__Title,
-        Subtitle: LocalAuthenticationPrompt__Subtitle,
-        PromptButton: LocalAuthenticationPrompt__PromptButton
+        Root: LocalAuthenticationForm__Root,
+        Title: LocalAuthenticationForm__Title,
+        Subtitle: LocalAuthenticationForm__Subtitle,
+        PromptButton: LocalAuthenticationForm__PromptButton
     };
 };
