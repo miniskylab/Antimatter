@@ -79,5 +79,6 @@ export enum DefaultIconSet
     ShowerRain = "shower-rain",
     Thunderstorm = "thunderstorm",
     Snow = "snow",
-    Mist = "mist"
+    Mist = "mist",
+    FaceID = "face-id"
 }

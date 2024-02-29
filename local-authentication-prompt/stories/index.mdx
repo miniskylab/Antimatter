@@ -1,0 +1,12 @@
+import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Sb} from "@miniskylab/antimatter-framework";
+import {LocalAuthenticationPrompt} from "../main";
+import {LocalAuthenticationPromptProps} from "../models";
+import * as Stories from "./stories";
+
+<Meta of={Stories} name="Docs"/>
+<Sb.Intro of={LocalAuthenticationPrompt} propsType={LocalAuthenticationPromptProps} supportedPlatforms={["iOS", "Web"]}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<Controls of={Stories.Playground}/>
