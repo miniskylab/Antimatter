@@ -4,7 +4,7 @@ export enum LocalAuthenticationStatus
     BiometricHardwareAccessDenied = "BiometricHardwareAccessDenied",
     UnauthenticatedAutoPrompt = "UnauthenticatedAutoPrompt",
     UnauthenticatedManualPrompt = "UnauthenticatedManualPrompt",
-    PromptInProgress = "PromptInProgress",
+    InProgress = "InProgress",
     WaitingForConfirmation = "WaitingForConfirmation",
     Authenticated = "Authenticated"
 }

@@ -25,7 +25,7 @@ export const ErrorMessage = {
         CannotBeLessThanOrEqualToValue: (value: number) => `Property \"{0}\" cannot be less than or equal to ${value}. Received value: {0} = {1}`
     },
 
-    Authentication: {
+    RemoteAuthentication: {
         RefreshTokenNotFound: "Refresh token not found while attempting to refresh current session"
     }
 };
