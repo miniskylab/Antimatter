@@ -253,12 +253,7 @@ const WeatherWidget__WindIcon: IconStyle = function (iconProps)
 {
     const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
 
-    let degIconRotation = 180 + (weatherWidgetContext.props.windData?.direction ?? NaN);
-    if (degIconRotation > 360)
-    {
-        degIconRotation -= 360;
-    }
-
+    const degIconRotation = 180 + (weatherWidgetContext.props.windData?.direction ?? NaN);
     const isPointingDownward = 140 < degIconRotation && degIconRotation < 220;
     const complementStrength = isPointingDownward ? 1 : 2;
     const complementOffset = -complementStrength * Math.abs(Math.sin(2 * Ts.Number.degreesToRadians(degIconRotation)));

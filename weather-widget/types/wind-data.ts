@@ -1,4 +1,4 @@
-import {IsDefined, IsEnum, IsNotEmpty, IsNumber, IsString} from "@miniskylab/antimatter-framework";
+import {IsDefined, IsEnum, IsNotEmpty, IsNumber, IsString, Max, Min} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {SimpleWeatherData} from "../components";
@@ -27,6 +27,8 @@ export class WindData
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @Max(360)
+    @Min(0)
     @IsNumber()
     @IsDefined()
     readonly direction: number;
