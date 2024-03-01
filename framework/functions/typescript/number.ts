@@ -68,6 +68,19 @@ export function shorten(anyNumber: number): string
     return `${shortenedValue.toLocaleString("en-us", {useGrouping: true, maximumFractionDigits: 2})}${postFix}`;
 }
 
+export function ensurePercent(anyNumber: number): number
+{
+    if (isNullOrUndefined(anyNumber))
+    {
+        return NaN;
+    }
+
+    if (anyNumber < 0) return 0;
+    if (anyNumber > 1) return 100;
+
+    return anyNumber * 100;
+}
+
 export function percentToRadians(percent: number): number
 {
     if (isNullOrUndefined(percent))
@@ -82,15 +95,13 @@ export function percentToRadians(percent: number): number
     return degrees * (Math.PI / halfRotation);
 }
 
-export function ensurePercent(anyNumber: number): number
+export function degreesToRadians(degrees: number): number
 {
-    if (isNullOrUndefined(anyNumber))
+    if (isNullOrUndefined(degrees))
     {
         return NaN;
     }
 
-    if (anyNumber < 0) return 0;
-    if (anyNumber > 1) return 100;
-
-    return anyNumber * 100;
+    const halfRotation = 180;
+    return degrees * (Math.PI / halfRotation);
 }

@@ -1,4 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {Ts} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
@@ -252,12 +253,28 @@ const WeatherWidget__WindIcon: IconStyle = function (iconProps)
 {
     const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
 
+    let degIconRotation = 180 + (weatherWidgetContext.props.windData?.direction ?? NaN);
+    if (degIconRotation > 360)
+    {
+        degIconRotation -= 360;
+    }
+
+    const isPointingDownward = 140 < degIconRotation && degIconRotation < 220;
+    const complementStrength = isPointingDownward ? 1 : 2;
+    const complementOffset = -complementStrength * Math.abs(Math.sin(2 * Ts.Number.degreesToRadians(degIconRotation)));
+
     return {
         ...IconVariant.Default(iconProps),
-        marginRight: 6,
-        color: Color.Neutral,
+        marginRight: 7,
+        marginTop: isPointingDownward ? -1 : 0,
         fontSize: 14,
-        ...weatherWidgetContext.props.windData && {transform: [{rotate: `${225 + weatherWidgetContext.props.windData.direction}deg`}]}
+        color: Color.Neutral,
+        ...weatherWidgetContext.props.windData && {
+            transform: [
+                {rotate: `${degIconRotation}deg`},
+                {translateY: complementOffset}
+            ]
+        }
     };
 };
 

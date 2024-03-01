@@ -1,4 +1,4 @@
-import {clamp, ensurePercent, percentToRadians, shorten} from "./number";
+import {clamp, degreesToRadians, ensurePercent, percentToRadians, shorten} from "./number";
 
 describe("how to use [clamp(...)]", () =>
 {
@@ -205,5 +205,23 @@ describe("how to use [percentToRadians(...)]", () =>
             {input: 5, expectedResult: 5 * 2 * Math.PI}
         ];
         testCases.forEach(x => { expect(percentToRadians(x.input)).toBe(x.expectedResult); });
+    });
+});
+
+describe("how to use [degreesToRadians(...)]", () =>
+{
+    it("returns radians of given degrees", () =>
+    {
+        const testCases = [
+            {input: NaN, expectedResult: NaN},
+            {input: -NaN, expectedResult: NaN},
+            {input: Infinity, expectedResult: Infinity},
+            {input: -Infinity, expectedResult: -Infinity},
+            {input: 0, expectedResult: 0},
+            {input: 90, expectedResult: Math.PI / 2},
+            {input: 180, expectedResult: Math.PI},
+            {input: 360, expectedResult: 2 * Math.PI}
+        ];
+        testCases.forEach(x => { expect(degreesToRadians(x.input)).toBe(x.expectedResult); });
     });
 });
