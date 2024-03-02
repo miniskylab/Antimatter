@@ -21,7 +21,7 @@ export class WindData
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly speed: string;
+    readonly speedAndGusts: string;
 
 
     /**

@@ -76,7 +76,7 @@ export function WeatherWidget({
                     </View>
                     <View style={computedStyle.ShortWeatherDataContainer}>
                         <Icon style={computedStyle.WindIcon} name={windData?.icon ?? DefaultIconSet.Location}/>
-                        <Label style={computedStyle.WindSpeed}>{windData?.speed ?? "--"}</Label>
+                        <Label style={computedStyle.WindSpeed}>{windData?.speedAndGusts ?? "--"}</Label>
                     </View>
                 </View>
                 {renderSimpleWeatherDataSection("left", simpleWeatherData1)}

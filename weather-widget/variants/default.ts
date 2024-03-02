@@ -255,8 +255,8 @@ const WeatherWidget__WindIcon: IconStyle = function (iconProps)
 
     const degIconRotation = 180 + (weatherWidgetContext.props.windData?.direction ?? NaN);
     const isPointingDownward = 140 < degIconRotation && degIconRotation < 220;
-    const complementStrength = isPointingDownward ? 1 : 2;
-    const complementOffset = -complementStrength * Math.abs(Math.sin(2 * Ts.Number.degreesToRadians(degIconRotation)));
+    const verticalOffsetStrength = isPointingDownward ? 1 : 2;
+    const pxVerticalOffsetDistance = verticalOffsetStrength * Math.abs(Math.sin(2 * Ts.Number.degreesToRadians(degIconRotation)));
 
     return {
         ...IconVariant.Default(iconProps),
@@ -267,7 +267,7 @@ const WeatherWidget__WindIcon: IconStyle = function (iconProps)
         ...weatherWidgetContext.props.windData && {
             transform: [
                 {rotate: `${degIconRotation}deg`},
-                {translateY: complementOffset}
+                {translateY: -pxVerticalOffsetDistance}
             ]
         }
     };

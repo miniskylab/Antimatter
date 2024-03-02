@@ -49,7 +49,7 @@ export const Playground: Story = {
         },
         windData: {
             icon: DefaultIconSet.Direction,
-            speed: "17 km/h",
+            speedAndGusts: "17 - 24 km/h",
             direction: 135,
             highlightColor: SimpleWeatherData.HighlightColor.Tomato
         },
