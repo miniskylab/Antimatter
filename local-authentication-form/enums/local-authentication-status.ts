@@ -5,6 +5,6 @@ export enum LocalAuthenticationStatus
     UnauthenticatedAutoPrompt = "UnauthenticatedAutoPrompt",
     UnauthenticatedManualPrompt = "UnauthenticatedManualPrompt",
     InProgress = "InProgress",
-    WaitingForConfirmation = "WaitingForConfirmation",
+    WaitingForForeground = "WaitingForForeground",
     Authenticated = "Authenticated"
 }
