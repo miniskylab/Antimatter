@@ -45,7 +45,7 @@ const LocalAuthenticationForm__Subtitle: LabelStyle = function (labelProps)
         fontSize: 16,
         textAlign: "center",
         color: Color.Neutral,
-        ...localAuthenticationFormContext.props.localAuthenticationStatus === LocalAuthenticationStatus.WaitingForConfirmation && {
+        ...localAuthenticationFormContext.props.localAuthenticationStatus === LocalAuthenticationStatus.WaitingForForeground && {
             color: Color.Green,
             fontWeight: "bold"
         }
