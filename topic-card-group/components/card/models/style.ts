@@ -1,6 +1,4 @@
-import {ShadowStyle, WithoutStyle} from "@miniskylab/antimatter-framework";
-import {IconStyle} from "@miniskylab/antimatter-icon";
-import {ImageStyle} from "@miniskylab/antimatter-image";
+import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {LabelStyle} from "@miniskylab/antimatter-label";
 import {NavButtonStyle} from "@miniskylab/antimatter-nav-button";
 import {ViewStyle} from "@miniskylab/antimatter-view";
@@ -10,11 +8,7 @@ export type Style = (cardProps: WithoutStyle<Props>) => {
     Root: ViewStyle;
     Content: ViewStyle;
     HorizontalMargin: ViewStyle;
-    Image: ImageStyle;
-    Icon: IconStyle;
-    Title: LabelStyle;
-    Description: LabelStyle;
+    Wysiwyg: LabelStyle;
     CtaContainer: ViewStyle;
     Cta: NavButtonStyle;
-    Shadow: ShadowStyle;
 };

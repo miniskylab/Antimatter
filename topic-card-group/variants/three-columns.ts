@@ -1,8 +1,6 @@
 import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {ShadowStyle, useResponsiveStyle} from "@miniskylab/antimatter-framework";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
+import {useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {NavButtonContextHook, NavButtonStyle, NavButtonVariant} from "@miniskylab/antimatter-nav-button";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
@@ -21,6 +19,7 @@ const TopicCardGroup__Root: ViewStyle = function (viewProps)
         minWidth: 300,
         maxWidth: 1000,
         marginVertical: -10,
+        filter: `drop-shadow(0 -2px 20px ${Color.Black})`,
         ...useResponsiveStyle("Medium", {
             marginHorizontal: -10
         })
@@ -83,47 +82,13 @@ const TopicCardGroup__Card__HorizontalMargin: ViewStyle = function (viewProps)
     };
 };
 
-const TopicCardGroup__Card__Icon: IconStyle = function (iconProps)
-{
-    return {
-        ...IconVariant.Default(iconProps),
-        height: 150,
-        fontSize: 150,
-        color: Color.White
-    };
-};
-
-const TopicCardGroup__Card__Image: ImageStyle = function (imageProps)
-{
-    return {
-        ...ImageVariant.Default(imageProps),
-        width: "100%",
-        height: 150,
-        resizeMode: "contain"
-    };
-};
-
-const TopicCardGroup__Card__Title: LabelStyle = function (labelProps)
-{
-    return {
-        ...LabelVariant.Default(labelProps),
-        width: "100%",
-        marginTop: 30,
-        color: Color.White,
-        fontSize: 32,
-        fontWeight: "bold"
-    };
-};
-
-const TopicCardGroup__Card__Description: LabelStyle = function (labelProps)
+const TopicCardGroup__Card__Wysiwyg: LabelStyle = function (labelProps)
 {
     return {
         ...LabelVariant.Default(labelProps),
         lineHeight: 28,
-        marginTop: 20,
-        color: Color.Neutral,
         fontSize: 16,
-        textAlign: "justify"
+        color: Color.Neutral
     };
 };
 
@@ -132,7 +97,6 @@ const TopicCardGroup__Card__CtaContainer: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         width: "100%",
-        marginTop: 15,
         marginBottom: 5
     };
 };
@@ -162,29 +126,15 @@ const TopicCardGroup__Card__Cta: NavButtonStyle = function (navButtonProps)
     };
 };
 
-const TopicCardGroup__Card__Shadow: ShadowStyle = function ()
-{
-    return {
-        shadowOffset: {width: 0, height: -2},
-        shadowRadius: 40,
-        shadowColor: Color.Black,
-        shadowOpacity: 1
-    };
-};
-
 const TopicCardGroup__Card: Card.Style = function ()
 {
     return {
         Root: TopicCardGroup__Card__Root,
         Content: TopicCardGroup__Card__Content,
         HorizontalMargin: TopicCardGroup__Card__HorizontalMargin,
-        Icon: TopicCardGroup__Card__Icon,
-        Image: TopicCardGroup__Card__Image,
-        Title: TopicCardGroup__Card__Title,
-        Description: TopicCardGroup__Card__Description,
+        Wysiwyg: TopicCardGroup__Card__Wysiwyg,
         CtaContainer: TopicCardGroup__Card__CtaContainer,
-        Cta: TopicCardGroup__Card__Cta,
-        Shadow: TopicCardGroup__Card__Shadow
+        Cta: TopicCardGroup__Card__Cta
     };
 };
 

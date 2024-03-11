@@ -18,11 +18,9 @@
     "@storybook/manager-api": "7.6.17",
     "@storybook/preview-api": "7.6.17",
     "@storybook/react-webpack5": "7.6.17",
-    "@types/sanitize-html": "2.11.0",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.1",
-    "reflect-metadata": "0.2.1",
-    "sanitize-html": "2.12.1"
+    "reflect-metadata": "0.2.1"
   },
   "devDependencies": {
     "expo-screen-orientation": "6.4.1"

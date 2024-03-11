@@ -1,6 +1,4 @@
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Icon} from "@miniskylab/antimatter-icon";
-import {Image} from "@miniskylab/antimatter-image";
 import {Label} from "@miniskylab/antimatter-label";
 import {NavButton} from "@miniskylab/antimatter-nav-button";
 import {View} from "@miniskylab/antimatter-view";
@@ -12,15 +10,13 @@ import {CardContext, Props} from "./models";
  */
 export function Component({
     style,
-    title,
-    illustration,
-    description,
+    wysiwyg,
     ctas = [],
     thisIsPlaceholderCard
 }: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, title, illustration, description, ctas, thisIsPlaceholderCard
+        style, wysiwyg, ctas, thisIsPlaceholderCard
     };
 
     const context = useMemo<CardContext>(
@@ -36,16 +32,7 @@ export function Component({
             <View style={computedStyle.Root}>
                 <View style={computedStyle.HorizontalMargin}/>
                 <View style={computedStyle.Content}>
-                    {illustration?.type === "icon" && <Icon style={computedStyle.Icon} name={illustration.iconName} selectable={false}/>}
-                    {illustration?.type === "image" && (
-                        <Image
-                            style={computedStyle.Image}
-                            source={illustration.source}
-                            alt={illustration.alt}
-                        />
-                    )}
-                    {title && <Label style={computedStyle.Title}>{title}</Label>}
-                    {description && <Label style={computedStyle.Description}>{description}</Label>}
+                    {wysiwyg && <Label style={computedStyle.Wysiwyg}>{wysiwyg}</Label>}
                     {ctas && ctas.length > 0 && (
                         <View style={computedStyle.CtaContainer}>
                             {ctas.map((cta, i) => (
