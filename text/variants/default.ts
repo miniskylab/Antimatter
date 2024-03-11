@@ -1,8 +1,8 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {useSuspense} from "@miniskylab/antimatter-framework";
-import {LabelStyle} from "../models";
+import {TextStyle} from "../models";
 
-export const Default: LabelStyle = function ()
+export const Default: TextStyle = function ()
 {
     return {
         alignItems: "center",

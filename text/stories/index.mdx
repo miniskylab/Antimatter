@@ -1,11 +1,11 @@
 import {Canvas, Meta, Controls} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
-import {Label} from "../main";
-import {LabelProps} from "../models";
+import {Text} from "../main";
+import {TextProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories} name="Docs"/>
-<Sb.Intro of={Label} propsType={LabelProps} supportedPlatforms={["iOS", "Web"]}/>
+<Sb.Intro of={Text} propsType={TextProps} supportedPlatforms={["iOS", "Web"]}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table

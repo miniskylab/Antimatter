@@ -1,16 +1,16 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {LabelStyle} from "../../models";
-import * as LabelVariant from "../../variants";
+import {TextStyle} from "../../models";
+import * as TextVariant from "../../variants";
 
-export const WarningBadge: LabelStyle = function (labelProps)
+export const PositiveBadge: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         paddingVertical: 5,
         paddingHorizontal: 12,
         borderRadius: 17,
         color: Color.White,
-        backgroundColor: Color.Warning,
+        backgroundColor: Color.Positive,
         fontSize: 20,
         fontWeight: "bold"
     };

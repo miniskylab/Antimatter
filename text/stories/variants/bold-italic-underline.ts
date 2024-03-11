@@ -1,11 +1,11 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {LabelStyle} from "../../models";
-import * as LabelVariant from "../../variants";
+import {TextStyle} from "../../models";
+import * as TextVariant from "../../variants";
 
-export const BoldItalicUnderline: LabelStyle = function (labelProps)
+export const BoldItalicUnderline: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         color: Color.White,
         fontSize: 20,
         fontWeight: "bold",

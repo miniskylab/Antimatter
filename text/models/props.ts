@@ -9,10 +9,10 @@ import {
     PointerEvents
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {LabelStyle} from "./style";
+import {TextStyle} from "./style";
 
-@ComponentName("Label")
-export class LabelProps extends ComponentProps<LabelStyle>
+@ComponentName("Text")
+export class TextProps extends ComponentProps<TextStyle>
 {
     /**
      * <i style="color: #9B9B9B">(not available)</i>

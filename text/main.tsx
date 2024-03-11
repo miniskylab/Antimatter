@@ -10,21 +10,21 @@ import {
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import {Animated} from "react-native";
-import {LabelProps} from "./models";
+import {TextProps} from "./models";
 import * as Variant from "./variants";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
-export function Label({
+export function Text({
     style = Variant.Default,
     children,
     selectable = true,
     numberOfLines = 0,
     pointerEvents = "auto"
-}: LabelProps): JSX.Element
+}: TextProps): JSX.Element
 {
-    const props: AllPropertiesMustPresent<LabelProps> = {
+    const props: AllPropertiesMustPresent<TextProps> = {
         style, children, selectable, numberOfLines, pointerEvents
     };
 
