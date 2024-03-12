@@ -9,13 +9,13 @@ import {DataTableContextHook} from "../../hooks";
 import {DataTableStyle} from "../../models";
 import * as DataTableVariant from "../../variants";
 
-const DataTable__Row__CellLabel: TextStyle = function (textProps)
+const DataTable__Row__CellText: TextStyle = function (textProps)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const columnIndexContext = Row.ContextHook.useColumnIndexContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
 
-    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).Row(rowContext.props, rowContext.state).CellLabel(textProps);
+    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).Row(rowContext.props, rowContext.state).CellText(textProps);
 
     return {
         ...inheritedStyle,
@@ -160,7 +160,7 @@ const DataTable__Row: Row.Style = function (rowProps, rowState)
 
     return {
         ...inheritedStyle,
-        CellLabel: DataTable__Row__CellLabel,
+        CellText: DataTable__Row__CellText,
         CellIcon: DataTable__Row__CellIcon,
         CellInputField: DataTable__Row__CellInputField,
         CellDropdownMenu: DataTable__Row__CellDropdownMenu,

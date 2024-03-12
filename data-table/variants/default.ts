@@ -245,7 +245,7 @@ const DataTable__Row__Root: PressableStyle = function (pressableProps, pressable
     };
 };
 
-const DataTable__Row__CellLabel: TextStyle = function (textProps)
+const DataTable__Row__CellText: TextStyle = function (textProps)
 {
     const rowTypeContext = DataTableContextHook.useRowTypeContext();
 
@@ -508,7 +508,7 @@ const DataTable__Row: Row.Style = function ()
 {
     return {
         Root: DataTable__Row__Root,
-        CellLabel: DataTable__Row__CellLabel,
+        CellText: DataTable__Row__CellText,
         CellIcon: DataTable__Row__CellIcon,
         CellInputField: DataTable__Row__CellInputField,
         CellDropdownMenu: DataTable__Row__CellDropdownMenu,

@@ -14,9 +14,9 @@ export type Style = (transactionRecordProps: WithoutStyle<Props>) => {
     Icon: IconStyle;
     NameAndTagContainer: ViewStyle;
     NameInputField: InputFieldStyle;
-    NameLabel: TextStyle;
+    NameText: TextStyle;
     AmountInputField: NumericInputFieldStyle;
-    AmountLabel: TextStyle;
+    AmountText: TextStyle;
     TagSelector: DropdownMenuStyle;
     TagContainer: ViewStyle;
     Tag: TextStyle;

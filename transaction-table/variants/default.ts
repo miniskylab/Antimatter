@@ -807,7 +807,7 @@ const TransactionTable__TransactionRecord__NameInputField: InputFieldStyle = fun
     };
 };
 
-const TransactionTable__TransactionRecord__NameLabel: TextStyle = function (textProps)
+const TransactionTable__TransactionRecord__NameText: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
@@ -877,7 +877,7 @@ const TransactionTable__TransactionRecord__AmountInputField: NumericInputFieldSt
     });
 };
 
-const TransactionTable__TransactionRecord__AmountLabel: TextStyle = function (textProps)
+const TransactionTable__TransactionRecord__AmountText: TextStyle = function (textProps)
 {
     const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
 
@@ -1134,9 +1134,9 @@ const TransactionTable__TransactionRecord: TransactionRecord.Style = function ()
         Icon: TransactionTable__TransactionRecord__Icon,
         NameAndTagContainer: TransactionTable__TransactionRecord__NameAndTagContainer,
         NameInputField: TransactionTable__TransactionRecord__NameInputField,
-        NameLabel: TransactionTable__TransactionRecord__NameLabel,
+        NameText: TransactionTable__TransactionRecord__NameText,
         AmountInputField: TransactionTable__TransactionRecord__AmountInputField,
-        AmountLabel: TransactionTable__TransactionRecord__AmountLabel,
+        AmountText: TransactionTable__TransactionRecord__AmountText,
         TagSelector: TransactionTable__TransactionRecord__TagSelector,
         TagContainer: TransactionTable__TransactionRecord__TagContainer,
         Tag: TransactionTable__TransactionRecord__Tag,

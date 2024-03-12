@@ -137,7 +137,7 @@ export const Component = forwardRef(function Component(
                     value={name}
                     onChangeText={onNameChange}
                 />
-                : <Text style={computedStyle.NameLabel} numberOfLines={1} pointerEvents={"none"}>{name}</Text>
+                : <Text style={computedStyle.NameText} numberOfLines={1} pointerEvents={"none"}>{name}</Text>
         );
     }
 
@@ -162,7 +162,7 @@ export const Component = forwardRef(function Component(
                     keyboardType={"number-pad"}
                     onChange={onAmountChange}
                 />
-                : <Text style={computedStyle.AmountLabel} pointerEvents={"none"}>
+                : <Text style={computedStyle.AmountText} pointerEvents={"none"}>
                     {`${explicitPlusSymbol ? "+" : EMPTY_STRING}${amount.toLocaleString("en-us")}`}
                 </Text>
         );

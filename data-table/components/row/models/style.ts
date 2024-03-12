@@ -13,6 +13,6 @@ export type Style = (rowProps: WithoutStyle<Props>, rowState: State) => {
     CellDropdownMenu: DropdownMenuStyle;
     CellToggle: ToggleStyle;
     CellInputField: InputFieldStyle;
-    CellLabel: TextStyle;
+    CellText: TextStyle;
     CellIcon: IconStyle;
 };

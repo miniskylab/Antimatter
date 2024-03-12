@@ -181,7 +181,7 @@ export function Component({
                             .find(menuItemValue => cellValue[menuItemValue].status === MenuItemStatus.Selected);
 
                         return (
-                            <Text style={computedStyle.CellLabel} numberOfLines={1}>
+                            <Text style={computedStyle.CellText} numberOfLines={1}>
                                 {
                                     isNotNullAndUndefined(selectedMenuItemValue)
                                         ? cellValue[selectedMenuItemValue].displayText
@@ -195,12 +195,12 @@ export function Component({
                     {
                         return cellValue
                             ? <Icon style={computedStyle.CellIcon} name={DefaultIconSet.CheckMark}/>
-                            : <Text style={computedStyle.CellLabel}>{EMPTY_STRING}</Text>;
+                            : <Text style={computedStyle.CellText}>{EMPTY_STRING}</Text>;
                     }
 
                     case "string":
                     {
-                        return (<Text style={computedStyle.CellLabel} numberOfLines={1}>{cellValue}</Text>);
+                        return (<Text style={computedStyle.CellText} numberOfLines={1}>{cellValue}</Text>);
                     }
 
                     default:
