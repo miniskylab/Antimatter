@@ -1,7 +1,7 @@
 import {DropdownMenuContextHook, DropdownMenuStyle} from "@miniskylab/antimatter-dropdown-menu";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle} from "@miniskylab/antimatter-input-field";
-import {LabelStyle} from "@miniskylab/antimatter-label";
+import {TextStyle} from "@miniskylab/antimatter-text";
 import {ToggleContextHook, ToggleStyle} from "@miniskylab/antimatter-toggle";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Row} from "../../components";
@@ -9,13 +9,13 @@ import {DataTableContextHook} from "../../hooks";
 import {DataTableStyle} from "../../models";
 import * as DataTableVariant from "../../variants";
 
-const DataTable__Row__CellLabel: LabelStyle = function (labelProps)
+const DataTable__Row__CellLabel: TextStyle = function (textProps)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const columnIndexContext = Row.ContextHook.useColumnIndexContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
 
-    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).Row(rowContext.props, rowContext.state).CellLabel(labelProps);
+    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).Row(rowContext.props, rowContext.state).CellLabel(textProps);
 
     return {
         ...inheritedStyle,

@@ -1,5 +1,5 @@
-import {wysiwygStyles} from "./wysiwyg-styles";
+import {htmlStyles} from "./html-styles";
 
 export const TestData = {
-    wysiwygStyles
+    htmlStyles
 };

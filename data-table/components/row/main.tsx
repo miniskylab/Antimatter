@@ -2,8 +2,8 @@ import {DropDirection, DropdownMenu, MenuItemStatus} from "@miniskylab/antimatte
 import {AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
-import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
+import {Text} from "@miniskylab/antimatter-text";
 import {Status as CheckboxStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -181,13 +181,13 @@ export function Component({
                             .find(menuItemValue => cellValue[menuItemValue].status === MenuItemStatus.Selected);
 
                         return (
-                            <Label style={computedStyle.CellLabel} numberOfLines={1}>
+                            <Text style={computedStyle.CellLabel} numberOfLines={1}>
                                 {
                                     isNotNullAndUndefined(selectedMenuItemValue)
                                         ? cellValue[selectedMenuItemValue].displayText
                                         : selectedMenuItemValue
                                 }
-                            </Label>
+                            </Text>
                         );
                     }
 
@@ -195,12 +195,12 @@ export function Component({
                     {
                         return cellValue
                             ? <Icon style={computedStyle.CellIcon} name={DefaultIconSet.CheckMark}/>
-                            : <Label style={computedStyle.CellLabel}>{EMPTY_STRING}</Label>;
+                            : <Text style={computedStyle.CellLabel}>{EMPTY_STRING}</Text>;
                     }
 
                     case "string":
                     {
-                        return (<Label style={computedStyle.CellLabel} numberOfLines={1}>{cellValue}</Label>);
+                        return (<Text style={computedStyle.CellLabel} numberOfLines={1}>{cellValue}</Text>);
                     }
 
                     default:

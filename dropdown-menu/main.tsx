@@ -1,8 +1,8 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
+import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -62,16 +62,16 @@ export function DropdownMenu({
     {
         return (
             selectedValues.map((selectedValue, index) => (
-                <Label key={index} style={computedStyle.SelectedItem} numberOfLines={1}>
+                <Text key={index} style={computedStyle.SelectedItem} numberOfLines={1}>
                     {menuItems[selectedValue].displayText ?? selectedValue}
-                </Label>
+                </Text>
             ))
         );
     }
 
     function renderPlaceholder(): JSX.Element
     {
-        return (<Label style={computedStyle.Placeholder}>{placeholder}</Label>);
+        return (<Text style={computedStyle.Placeholder}>{placeholder}</Text>);
     }
 
     function renderMenuItems(): JSX.Element[]

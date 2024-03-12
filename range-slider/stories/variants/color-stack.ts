@@ -1,5 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {LabelStyle} from "@miniskylab/antimatter-label";
+import {TextStyle} from "@miniskylab/antimatter-text";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Pips} from "../../components";
 import {RangeSliderContextHook} from "../../hooks";
@@ -70,7 +70,7 @@ const RangeSlider__Pips__Pip: ViewStyle = function (viewProps)
     };
 };
 
-const RangeSlider__Pips__Label: LabelStyle = function (labelProps)
+const RangeSlider__Pips__Label: TextStyle = function (textProps)
 {
     const pipsContext = Pips.ContextHook.usePipsContext();
     const isHighlighted = Pips.ContextHook.useHighlightedContext();
@@ -78,7 +78,7 @@ const RangeSlider__Pips__Label: LabelStyle = function (labelProps)
 
     const inheritedStyle = RangeSliderVariant.Default(rangeSliderContext.props)
         .Pips(pipsContext.props)
-        .Label(labelProps);
+        .Label(textProps);
 
     return {
         ...inheritedStyle,

@@ -2,7 +2,7 @@ import {DownloadButtonStyle} from "@miniskylab/antimatter-download-button";
 import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {HighlightedParagraphStyle} from "@miniskylab/antimatter-highlighted-paragraph";
 import {ImageStyle} from "@miniskylab/antimatter-image";
-import {LabelStyle} from "@miniskylab/antimatter-label";
+import {TextStyle} from "@miniskylab/antimatter-text";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {SelfIntroductionHeroProps} from "./props";
 
@@ -12,9 +12,9 @@ export type SelfIntroductionHeroStyle = (selfIntroductionHeroProps: WithoutStyle
     Banner: ViewStyle;
     AvatarContainer: ViewStyle;
     Avatar: ImageStyle;
-    Name: LabelStyle;
-    AlternativeName: LabelStyle;
-    Description: LabelStyle;
+    Name: TextStyle;
+    AlternativeName: TextStyle;
+    Description: TextStyle;
     PersonalInfo: HighlightedParagraphStyle;
     DownloadButton: DownloadButtonStyle;
 };

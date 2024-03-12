@@ -4,9 +4,9 @@ import {DropDirection, DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuV
 import {Layer, useEnvironment} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {ToggleContextHook, ToggleStyle, ToggleVariant} from "@miniskylab/antimatter-toggle";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
@@ -58,10 +58,10 @@ const DataTable__TitleContainer: ViewStyle = function (viewProps)
     };
 };
 
-const DataTable__MainTitle: LabelStyle = function (labelProps)
+const DataTable__MainTitle: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         lineHeight: 25,
         fontSize: 20,
         fontWeight: "bold",
@@ -69,10 +69,10 @@ const DataTable__MainTitle: LabelStyle = function (labelProps)
     };
 };
 
-const DataTable__Subtitle: LabelStyle = function (labelProps)
+const DataTable__Subtitle: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         lineHeight: 20,
         fontSize: 14,
         color: Color.Neutral
@@ -134,14 +134,14 @@ const DataTable__ControlButton__Icon: IconStyle = function (iconProps)
     };
 };
 
-const DataTable__ControlButton__Label: LabelStyle = function (labelProps)
+const DataTable__ControlButton__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
     const controlButtonTypeContext = DataTableContextHook.useControlButtonTypeContext();
 
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,
@@ -245,12 +245,12 @@ const DataTable__Row__Root: PressableStyle = function (pressableProps, pressable
     };
 };
 
-const DataTable__Row__CellLabel: LabelStyle = function (labelProps)
+const DataTable__Row__CellLabel: TextStyle = function (textProps)
 {
     const rowTypeContext = DataTableContextHook.useRowTypeContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         flex: 1,
         alignItems: "flex-start",
         fontSize: 16,
@@ -303,11 +303,11 @@ const DataTable__Row__CellInputField__TextBox: TextInputStyle = function (textIn
     };
 };
 
-const DataTable__Row__CellInputField__Placeholder: LabelStyle = function (labelProps)
+const DataTable__Row__CellInputField__Placeholder: TextStyle = function (textProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
-    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Placeholder(labelProps);
+    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Placeholder(textProps);
 
     return {
         ...inheritedStyle,
@@ -362,11 +362,11 @@ const DataTable__Row__CellDropdownMenu__SelectedItemContainer: PressableStyle = 
     };
 };
 
-const DataTable__Row__CellDropdownMenu__SelectedItem: LabelStyle = function (labelProps)
+const DataTable__Row__CellDropdownMenu__SelectedItem: TextStyle = function (textProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
-    const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props).SelectedItem(labelProps);
+    const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props).SelectedItem(textProps);
 
     return {
         ...inheritedStyle,
@@ -427,14 +427,14 @@ const DataTable__Row__CellDropdownMenu__MenuItem__Root: PressableStyle = functio
     };
 };
 
-const DataTable__Row__CellDropdownMenu__MenuItem__Label: LabelStyle = function (labelProps)
+const DataTable__Row__CellDropdownMenu__MenuItem__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
     const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props)
         .MenuItem(buttonContext.props)
-        .Label(labelProps);
+        .Label(textProps);
 
     return {
         ...inheritedStyle,
@@ -455,11 +455,11 @@ const DataTable__Row__CellDropdownMenu__MenuItem: ButtonStyle = function (button
     };
 };
 
-const DataTable__Row__CellDropdownMenu__Placeholder: LabelStyle = function (labelProps)
+const DataTable__Row__CellDropdownMenu__Placeholder: TextStyle = function (textProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
-    const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props).Placeholder(labelProps);
+    const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props).Placeholder(textProps);
 
     return {
         ...inheritedStyle,

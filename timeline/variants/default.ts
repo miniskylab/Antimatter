@@ -2,7 +2,7 @@ import {Color} from "@miniskylab/antimatter-color-scheme";
 import {getScreenSizeFromBreakpoint, Layer, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {BootstrapEvent, Event} from "../components";
 import {TimelineStyle} from "../models";
@@ -174,10 +174,10 @@ const Timeline__Event__TriangleArrow: ViewStyle = function (viewProps)
     };
 };
 
-const Timeline__Event__Name: LabelStyle = function (labelProps)
+const Timeline__Event__Name: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         alignItems: "flex-start",
         alignSelf: "stretch",
         lineHeight: 28,
@@ -242,10 +242,10 @@ const Timeline__Event__BulletinIcon: IconStyle = function (iconProps)
     };
 };
 
-const Timeline__Event__StartDate: LabelStyle = function (labelProps)
+const Timeline__Event__StartDate: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         lineHeight: 25,
         fontSize: 14,
         color: Color.Neutral
@@ -264,20 +264,20 @@ const Timeline__Event__ArrowRightIcon: IconStyle = function (iconProps)
     };
 };
 
-const Timeline__Event__EndDate: LabelStyle = function (labelProps)
+const Timeline__Event__EndDate: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         lineHeight: 25,
         fontSize: 14,
         color: Color.Neutral
     };
 };
 
-const Timeline__Event__Duration: LabelStyle = function (labelProps)
+const Timeline__Event__Duration: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         flex: 1,
         alignItems: "flex-start",
         lineHeight: 25,
@@ -286,10 +286,10 @@ const Timeline__Event__Duration: LabelStyle = function (labelProps)
     };
 };
 
-const Timeline__Event__Location: LabelStyle = function (labelProps)
+const Timeline__Event__Location: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         flex: 1,
         alignItems: "flex-start",
         lineHeight: 25,
@@ -298,10 +298,10 @@ const Timeline__Event__Location: LabelStyle = function (labelProps)
     };
 };
 
-const Timeline__Event__Description: LabelStyle = function (labelProps)
+const Timeline__Event__Description: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         flex: 1,
         alignItems: "flex-start",
         lineHeight: 25,
@@ -395,10 +395,10 @@ const Timeline__BootstrapEvent__Icon: IconStyle = function (iconProps)
     };
 };
 
-const Timeline__BootstrapEvent__Name: LabelStyle = function (labelProps)
+const Timeline__BootstrapEvent__Name: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         lineHeight: 28,
         textAlign: "center",
         fontSize: 20,
@@ -411,10 +411,10 @@ const Timeline__BootstrapEvent__Name: LabelStyle = function (labelProps)
     };
 };
 
-const Timeline__BootstrapEvent__Description: LabelStyle = function (labelProps)
+const Timeline__BootstrapEvent__Description: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         lineHeight: 21,
         textAlign: "center",
         marginTop: 6,

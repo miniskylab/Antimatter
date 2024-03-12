@@ -1,12 +1,12 @@
 import {ButtonStyle} from "@miniskylab/antimatter-button";
 import {WithoutStyle} from "@miniskylab/antimatter-framework";
-import {LabelStyle} from "@miniskylab/antimatter-label";
+import {TextStyle} from "@miniskylab/antimatter-text";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {LocalAuthenticationFormProps} from "./props";
 
 export type LocalAuthenticationFormStyle = (localAuthenticationFormProps: WithoutStyle<LocalAuthenticationFormProps>) => {
     Root: ViewStyle;
-    Title: LabelStyle;
-    Subtitle: LabelStyle;
+    Title: TextStyle;
+    Subtitle: TextStyle;
     PromptButton: ButtonStyle;
 };

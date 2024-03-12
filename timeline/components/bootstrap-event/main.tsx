@@ -1,6 +1,6 @@
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
-import {Label} from "@miniskylab/antimatter-label";
+import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {BootstrapEventContext, Props} from "./models";
@@ -32,8 +32,8 @@ export function Component({
             <View style={computedStyle.Root}>
                 <View style={computedStyle.TriangleArrow}/>
                 <Icon style={computedStyle.Icon} name={icon}/>
-                <Label style={computedStyle.Name}>{name}</Label>
-                <Label style={computedStyle.Description}>{description}</Label>
+                <Text style={computedStyle.Name}>{name}</Text>
+                <Text style={computedStyle.Description}>{description}</Text>
             </View>
         </BootstrapEventContext.Provider>
     );

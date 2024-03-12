@@ -2,8 +2,8 @@ import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimat
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {LoginFormStyle} from "../models";
 
@@ -37,10 +37,10 @@ const LoginForm__Logo: IconStyle = function (iconProps)
     };
 };
 
-const LoginForm__Title: LabelStyle = function (labelProps)
+const LoginForm__Title: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         height: 30,
         marginTop: 25,
         fontSize: 25,
@@ -49,10 +49,10 @@ const LoginForm__Title: LabelStyle = function (labelProps)
     };
 };
 
-const LoginForm__Subtitle: LabelStyle = function (labelProps)
+const LoginForm__Subtitle: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         height: 20,
         marginVertical: 5,
         fontSize: 16,
@@ -94,11 +94,11 @@ const LoginForm__LoginButton__Root: PressableStyle = function (pressableProps, p
     };
 };
 
-const LoginForm__LoginButton__Label: LabelStyle = function (labelProps)
+const LoginForm__LoginButton__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
 
-    const inheritedStyle = ButtonVariant.SolidRectangular(buttonContext.props).Label(labelProps);
+    const inheritedStyle = ButtonVariant.SolidRectangular(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,

@@ -1,6 +1,6 @@
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Label} from "@miniskylab/antimatter-label";
 import {NavButton} from "@miniskylab/antimatter-nav-button";
+import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {CardContext, Props} from "./models";
@@ -10,13 +10,13 @@ import {CardContext, Props} from "./models";
  */
 export function Component({
     style,
-    wysiwyg,
+    text,
     ctas = [],
     thisIsPlaceholderCard
 }: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, wysiwyg, ctas, thisIsPlaceholderCard
+        style, text, ctas, thisIsPlaceholderCard
     };
 
     const context = useMemo<CardContext>(
@@ -32,7 +32,7 @@ export function Component({
             <View style={computedStyle.Root}>
                 <View style={computedStyle.HorizontalMargin}/>
                 <View style={computedStyle.Content}>
-                    {wysiwyg && <Label style={computedStyle.Wysiwyg}>{wysiwyg}</Label>}
+                    {text && <Text style={computedStyle.Text}>{text}</Text>}
                     {ctas && ctas.length > 0 && (
                         <View style={computedStyle.CtaContainer}>
                             {ctas.map((cta, i) => (

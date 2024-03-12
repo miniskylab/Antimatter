@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {Ts} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {SimpleWeatherData} from "../components";
 import {WeatherWidgetContextHook} from "../hooks";
@@ -55,10 +55,10 @@ const WeatherWidget__StatusIcon: IconStyle = function (iconProps)
     };
 };
 
-const WeatherWidget__StatusValue: LabelStyle = function (labelProps)
+const WeatherWidget__StatusValue: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         color: Color.Gray,
         fontSize: 14
     };
@@ -85,10 +85,10 @@ const WeatherWidget__WeatherConditionIcon: IconStyle = function (iconProps)
     };
 };
 
-const WeatherWidget__WeatherConditionLabel: LabelStyle = function (labelProps)
+const WeatherWidget__WeatherConditionLabel: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         marginTop: 8,
         color: Color.Neutral,
         fontSize: 16,
@@ -123,10 +123,10 @@ const WeatherWidget__TemperatureRangeValueContainer: ViewStyle = function (viewP
     };
 };
 
-const WeatherWidget__TemperatureRangeValue: LabelStyle = function (labelProps)
+const WeatherWidget__TemperatureRangeValue: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         paddingHorizontal: 5,
         fontSize: 18,
         fontWeight: "bold",
@@ -157,7 +157,7 @@ const WeatherWidget__TemperatureRangeLabelContainer: ViewStyle = function (viewP
     };
 };
 
-const WeatherWidget__TemperatureRangeLabel: LabelStyle = function (labelProps)
+const WeatherWidget__TemperatureRangeLabel: TextStyle = function (textProps)
 {
     const positionContext = WeatherWidgetContextHook.usePositionContext();
     const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
@@ -165,7 +165,7 @@ const WeatherWidget__TemperatureRangeLabel: LabelStyle = function (labelProps)
     const minTemperatureValueStringLength = weatherWidgetContext.props.temperatureData?.minTemperatureValue.length ?? 0;
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         fontSize: 11,
         fontStyle: "italic",
         color: Color.Gray,
@@ -183,10 +183,10 @@ const WeatherWidget__FeelsLikeContainer: ViewStyle = function (viewProps)
     };
 };
 
-const WeatherWidget__FeelsLikeLabel: LabelStyle = function (labelProps)
+const WeatherWidget__FeelsLikeLabel: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         marginRight: 6,
         color: Color.Neutral,
         fontSize: 20,
@@ -194,12 +194,12 @@ const WeatherWidget__FeelsLikeLabel: LabelStyle = function (labelProps)
     };
 };
 
-const WeatherWidget__FeelsLikeValue: LabelStyle = function (labelProps)
+const WeatherWidget__FeelsLikeValue: TextStyle = function (textProps)
 {
     const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         fontSize: 23,
         fontWeight: "bold",
         color: weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Purple
@@ -231,12 +231,12 @@ const WeatherWidget__UvIndexIcon: IconStyle = function (iconProps)
     };
 };
 
-const WeatherWidget__UvIndexDescription: LabelStyle = function (labelProps)
+const WeatherWidget__UvIndexDescription: TextStyle = function (textProps)
 {
     const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         fontSize: 13,
         fontWeight: "bold",
         color: weatherWidgetContext.props.uvIndexData?.highlightColor === SimpleWeatherData.HighlightColor.Purple
@@ -273,12 +273,12 @@ const WeatherWidget__WindIcon: IconStyle = function (iconProps)
     };
 };
 
-const WeatherWidget__WindSpeed: LabelStyle = function (labelProps)
+const WeatherWidget__WindSpeed: TextStyle = function (textProps)
 {
     const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         fontSize: 13,
         fontWeight: "bold",
         color: weatherWidgetContext.props.windData?.highlightColor === SimpleWeatherData.HighlightColor.Purple
@@ -331,12 +331,12 @@ const WeatherWidget__SimpleWeatherData__TitleContainer: ViewStyle = function (vi
     };
 };
 
-const WeatherWidget__SimpleWeatherData__MainTitle: LabelStyle = function (labelProps)
+const WeatherWidget__SimpleWeatherData__MainTitle: TextStyle = function (textProps)
 {
     const simpleWeatherDataContext = SimpleWeatherData.ContextHook.useSimpleWeatherDataContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         fontSize: 16,
         fontWeight: "bold",
         color: simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Purple
@@ -349,12 +349,12 @@ const WeatherWidget__SimpleWeatherData__MainTitle: LabelStyle = function (labelP
     };
 };
 
-const WeatherWidget__SimpleWeatherData__SubTitle: LabelStyle = function (labelProps)
+const WeatherWidget__SimpleWeatherData__SubTitle: TextStyle = function (textProps)
 {
     const simpleWeatherDataContext = SimpleWeatherData.ContextHook.useSimpleWeatherDataContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         fontSize: 12,
         fontStyle: "italic",
         color: simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Purple

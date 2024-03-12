@@ -1,9 +1,9 @@
 import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {useResponsiveStyle} from "@miniskylab/antimatter-framework";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {NavButtonContextHook, NavButtonStyle, NavButtonVariant} from "@miniskylab/antimatter-nav-button";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {Card} from "../components";
 import {TopicCardGroupStyle} from "../models";
@@ -82,10 +82,10 @@ const TopicCardGroup__Card__HorizontalMargin: ViewStyle = function (viewProps)
     };
 };
 
-const TopicCardGroup__Card__Wysiwyg: LabelStyle = function (labelProps)
+const TopicCardGroup__Card__Text: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         lineHeight: 28,
         fontSize: 16,
         color: Color.Neutral
@@ -132,7 +132,7 @@ const TopicCardGroup__Card: Card.Style = function ()
         Root: TopicCardGroup__Card__Root,
         Content: TopicCardGroup__Card__Content,
         HorizontalMargin: TopicCardGroup__Card__HorizontalMargin,
-        Wysiwyg: TopicCardGroup__Card__Wysiwyg,
+        Text: TopicCardGroup__Card__Text,
         CtaContainer: TopicCardGroup__Card__CtaContainer,
         Cta: TopicCardGroup__Card__Cta
     };

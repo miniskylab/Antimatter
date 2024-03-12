@@ -2,9 +2,9 @@ import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimat
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {Layer} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {DropDirection, MenuItemStatus} from "../enums";
 import {DropdownMenuContextHook} from "../hooks";
@@ -44,10 +44,10 @@ const DropdownMenu__SelectedItemContainer: PressableStyle = function (pressableP
     };
 };
 
-const DropdownMenu__SelectedItem: LabelStyle = function (labelProps)
+const DropdownMenu__SelectedItem: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         maxWidth: "90%",
         lineHeight: 16,
         paddingVertical: 1,
@@ -58,13 +58,13 @@ const DropdownMenu__SelectedItem: LabelStyle = function (labelProps)
     };
 };
 
-const DropdownMenu__Placeholder: LabelStyle = function (labelProps)
+const DropdownMenu__Placeholder: TextStyle = function (textProps)
 {
     const pressableContext = PressableContextHook.usePressableContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         alignItems: "flex-start",
         width: "100%",
         lineHeight: 18,
@@ -169,13 +169,13 @@ const DropdownMenu__MenuItem__Icon: IconStyle = function (iconProps)
     };
 };
 
-const DropdownMenu__MenuItem__Label: LabelStyle = function (labelProps)
+const DropdownMenu__MenuItem__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
     const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
 
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,

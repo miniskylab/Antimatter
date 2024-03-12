@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
+import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef} from "react";
@@ -128,8 +128,8 @@ export function DataTable({
         return (
             <View style={computedStyle.ControlPanel}>
                 <View style={computedStyle.TitleContainer}>
-                    <Label style={computedStyle.MainTitle} numberOfLines={1}>{title}</Label>
-                    <Label style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Label>
+                    <Text style={computedStyle.MainTitle} numberOfLines={1}>{title}</Text>
+                    <Text style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Text>
                 </View>
                 <ControlButtonTypeContext.Provider value={pressButton1.type}>
                     <Button

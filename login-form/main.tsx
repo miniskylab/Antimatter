@@ -2,7 +2,7 @@ import {Button} from "@miniskylab/antimatter-button";
 import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
-import {Label} from "@miniskylab/antimatter-label";
+import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useState} from "react";
 import {LoginFormContext, LoginFormProps, LoginFormState} from "./models";
@@ -43,8 +43,8 @@ export function LoginForm({
         <LoginFormContext.Provider value={context}>
             <View style={computedStyle.Root}>
                 <Icon style={computedStyle.Logo} name={logo}/>
-                <Label style={computedStyle.Title}>{title}</Label>
-                <Label style={computedStyle.Subtitle}>{subtitle}</Label>
+                <Text style={computedStyle.Title}>{title}</Text>
+                <Text style={computedStyle.Subtitle}>{subtitle}</Text>
                 <InputField
                     style={computedStyle.InputField}
                     icon={usernameInputField.icon}

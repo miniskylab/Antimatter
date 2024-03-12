@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
+import {Text} from "@miniskylab/antimatter-text";
 import React, {JSX, useMemo} from "react";
 import {NavMenuContext, NavMenuProps} from "./models";
 import * as Variant from "./variants";
@@ -33,7 +33,7 @@ export function NavMenu({
             <ScrollView style={computedStyle.Root} showsHorizontalScrollIndicator={false} showsVerticalScrollIndicator={false}>
                 {categories.map((category, categoryIndex) => (
                     <React.Fragment key={categoryIndex}>
-                        <Label style={computedStyle.Category}>{category.label}</Label>
+                        <Text style={computedStyle.Category}>{category.label}</Text>
                         {category.menuItems?.map((menuItem, menuItemIndex) => (
                             <Button
                                 key={menuItemIndex}

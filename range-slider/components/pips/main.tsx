@@ -1,5 +1,5 @@
 import {AllPropertiesMustPresent, isNullOrUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Label} from "@miniskylab/antimatter-label";
+import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {HighlightedContext, MilestoneContext, PipsContext, Props} from "./models";
@@ -71,15 +71,15 @@ export function Component({
             const pctPipValue = getPctPipValue(pipIndex);
             labels.push(
                 <HighlightedContext.Provider key={pipIndex} value={isHighlightedPip(pipIndex)}>
-                    <Label
-                        style={labelProps => ({
-                            ...computedStyle.Label(labelProps),
+                    <Text
+                        style={textProps => ({
+                            ...computedStyle.Label(textProps),
                             ...isMilestonePip(pipIndex) && {left: `${Ts.Number.ensurePercent(pctPipValue)}%`}
                         })}
                         selectable={false}
                     >
                         {Ts.Number.shorten(pctPipValue * (maxValue - minValue) + minValue)}
-                    </Label>
+                    </Text>
                 </HighlightedContext.Provider>
             );
         }

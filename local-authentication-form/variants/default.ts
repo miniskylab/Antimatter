@@ -1,8 +1,8 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {LocalAuthenticationStatus} from "../enums";
 import {LocalAuthenticationFormContextHook} from "../hooks";
@@ -19,12 +19,12 @@ const LocalAuthenticationForm__Root: ViewStyle = function (viewProps)
     };
 };
 
-const LocalAuthenticationForm__Title: LabelStyle = function (labelProps)
+const LocalAuthenticationForm__Title: TextStyle = function (textProps)
 {
     const localAuthenticationFormContext = LocalAuthenticationFormContextHook.useLocalAuthenticationFormContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         marginTop: 65,
         fontSize: 24,
         fontWeight: "bold",
@@ -34,12 +34,12 @@ const LocalAuthenticationForm__Title: LabelStyle = function (labelProps)
     };
 };
 
-const LocalAuthenticationForm__Subtitle: LabelStyle = function (labelProps)
+const LocalAuthenticationForm__Subtitle: TextStyle = function (textProps)
 {
     const localAuthenticationFormContext = LocalAuthenticationFormContextHook.useLocalAuthenticationFormContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         lineHeight: 28,
         marginTop: 55,
         fontSize: 16,

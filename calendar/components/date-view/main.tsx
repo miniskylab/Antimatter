@@ -1,6 +1,6 @@
 import {AllPropertiesMustPresent, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Label} from "@miniskylab/antimatter-label";
 import {Pressable} from "@miniskylab/antimatter-pressable";
+import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {DateContext, DateViewContext, Props} from "./models";
@@ -30,7 +30,7 @@ export function Component({
     return (
         <DateViewContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                <Label style={computedStyle.WeekNo} pointerEvents={"none"} selectable={false}>#</Label>
+                <Text style={computedStyle.WeekNo} pointerEvents={"none"} selectable={false}>#</Text>
                 {renderDaysOfWeek()}
                 {renderDates()}
             </View>
@@ -41,7 +41,7 @@ export function Component({
     {
         return (
             ["Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"].map(shortDayName => (
-                <Label key={shortDayName} style={computedStyle.DayOfWeek} pointerEvents={"none"} selectable={false}>{shortDayName}</Label>
+                <Text key={shortDayName} style={computedStyle.DayOfWeek} pointerEvents={"none"} selectable={false}>{shortDayName}</Text>
             ))
         );
     }
@@ -63,9 +63,9 @@ export function Component({
              */
             const thursday = 3;
             week = [
-                <Label key={"#"} style={computedStyle.WeekOfYear} selectable={false}>
+                <Text key={"#"} style={computedStyle.WeekOfYear} selectable={false}>
                     {GregorianCalendar.getWeekNumber(data[weekNo][thursday].value).toString()}
-                </Label>
+                </Text>
             ];
 
             for (let dayNo = 0; dayNo < GregorianCalendar.DAY_COUNT_IN_WEEK; dayNo++)
@@ -82,8 +82,8 @@ export function Component({
                 week.push(
                     <DateContext.Provider key={data[weekNo][dayNo].value.getTime()} value={dateInfo}>
                         <Pressable style={computedStyle.DateContainer} onPress={() => { onDatePress?.(dateInfo.value); }}>
-                            {isToday && <Label style={computedStyle.TodayText} selectable={false}>Today</Label>}
-                            <Label style={computedStyle.DateNumber} selectable={false}>{dateInfo.value.getDate().toString()}</Label>
+                            {isToday && <Text style={computedStyle.TodayText} selectable={false}>Today</Text>}
+                            <Text style={computedStyle.DateNumber} selectable={false}>{dateInfo.value.getDate().toString()}</Text>
                         </Pressable>
                     </DateContext.Provider>
                 );

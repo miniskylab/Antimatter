@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {LabelStyle} from "@miniskylab/antimatter-label";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {TextStyle} from "@miniskylab/antimatter-text";
 import {ButtonStyle} from "../models";
 
 const Button__Root: PressableStyle = function (pressableProps, pressableState)
@@ -45,7 +45,7 @@ const Button__Icon: IconStyle = function (iconProps)
     };
 };
 
-const Button__Label: LabelStyle = function ()
+const Button__Label: TextStyle = function ()
 {
     return {
         display: "none"

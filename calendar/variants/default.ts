@@ -2,8 +2,8 @@ import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimat
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {Ts} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {TransitionStyle, TransitionVariant} from "@miniskylab/antimatter-transition";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {Control, DateView, Header, MonthView, YearView} from "../components";
@@ -113,12 +113,12 @@ const Calendar__Header__Headline__Root: PressableStyle = function (pressableProp
     };
 };
 
-const Calendar__Header__Headline__Label: LabelStyle = function (labelProps)
+const Calendar__Header__Headline__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,
@@ -171,10 +171,10 @@ const Calendar__DateView__Root: ViewStyle = function (viewProps)
     };
 };
 
-const Calendar__DateView__WeekNo: LabelStyle = function (labelProps)
+const Calendar__DateView__WeekNo: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         width: 40,
         height: 40,
         color: Color.White__a10,
@@ -183,10 +183,10 @@ const Calendar__DateView__WeekNo: LabelStyle = function (labelProps)
     };
 };
 
-const Calendar__DateView__WeekOfYear: LabelStyle = function (labelProps)
+const Calendar__DateView__WeekOfYear: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         width: 40,
         height: 40,
         color: Color.White__a10,
@@ -195,10 +195,10 @@ const Calendar__DateView__WeekOfYear: LabelStyle = function (labelProps)
     };
 };
 
-const Calendar__DateView__DayOfWeek: LabelStyle = function (labelProps)
+const Calendar__DateView__DayOfWeek: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         flexDirection: "column",
         width: 40,
         height: 40,
@@ -247,7 +247,7 @@ const Calendar__DateView__DateContainer: PressableStyle = function (pressablePro
     };
 };
 
-const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
+const Calendar__DateView__DateNumber: TextStyle = function (textProps)
 {
     const dateContext = DateView.ContextHook.useDateContext();
     const calendarContext = CalendarContextHook.useCalendarContext();
@@ -258,7 +258,7 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
     const isSelectedDate = Ts.Date.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         fontSize: 12,
         fontWeight: pressableContext.state.pressed || isSelectedDate ? "bold" : "normal",
         color: pressableContext.state.pressed || isSelectedDate
@@ -274,7 +274,7 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
     };
 };
 
-const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
+const Calendar__DateView__TodayText: TextStyle = function (textProps)
 {
     const dateContext = DateView.ContextHook.useDateContext();
     const calendarContext = CalendarContextHook.useCalendarContext();
@@ -283,7 +283,7 @@ const Calendar__DateView__TodayText: LabelStyle = function (labelProps)
     const isSelectedDate = Ts.Date.isEqualDate(dateContext.value, calendarContext.props.selectedDate);
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         flexDirection: "column",
         height: 15,
         marginTop: 3,
@@ -368,7 +368,7 @@ const Calendar__MonthView__GridCell__Icon: IconStyle = function ()
     };
 };
 
-const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
+const Calendar__MonthView__GridCell__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const monthContext = MonthView.ContextHook.useMonthContext();
@@ -377,7 +377,7 @@ const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
 
     const isSelectedMonth = Ts.Date.isEqualMonth(monthContext.value, monthViewContext.props.selectedMonth);
 
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,
@@ -467,7 +467,7 @@ const Calendar__YearView__GridCell__Icon: IconStyle = function ()
     };
 };
 
-const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
+const Calendar__YearView__GridCell__Label: TextStyle = function (textProps)
 {
     const yearContext = YearView.ContextHook.useYearContext();
     const buttonContext = ButtonContextHook.useButtonContext();
@@ -476,7 +476,7 @@ const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
 
     const isSelectedYear = yearContext.value === yearViewContext.props.selectedYear;
 
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,
@@ -559,12 +559,12 @@ const Calendar__Control__Button__Icon: IconStyle = function (iconProps)
     };
 };
 
-const Calendar__Control__Button__Label: LabelStyle = function (labelProps)
+const Calendar__Control__Button__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,

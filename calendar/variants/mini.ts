@@ -1,8 +1,8 @@
 import {ButtonContextHook, ButtonStyle} from "@miniskylab/antimatter-button";
 import {notRequiredAsParentElementIsHidden} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
-import {LabelStyle} from "@miniskylab/antimatter-label";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
+import {TextStyle} from "@miniskylab/antimatter-text";
 import {TransitionStyle} from "@miniskylab/antimatter-transition";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Control, DateView, Header, MonthView, YearView} from "../components";
@@ -74,7 +74,7 @@ const Calendar__Header__Navigator: ButtonStyle = function (buttonProps)
     };
 };
 
-const Calendar__Header__Headline__Label: LabelStyle = function (labelProps)
+const Calendar__Header__Headline__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const headerContext = Header.ContextHook.useHeaderContext();
@@ -83,7 +83,7 @@ const Calendar__Header__Headline__Label: LabelStyle = function (labelProps)
     const inheritedStyle = Default(calendarContext.props, calendarContext.state)
         .Header(headerContext.props)
         .Headline(buttonContext.props)
-        .Label(labelProps);
+        .Label(textProps);
 
     return {
         ...inheritedStyle,
@@ -135,28 +135,28 @@ const Calendar__ViewTransition: TransitionStyle = function (transitionProps, tra
     };
 };
 
-const Calendar__DateView__WeekNo: LabelStyle = function ()
+const Calendar__DateView__WeekNo: TextStyle = function ()
 {
     return {
         display: "none"
     };
 };
 
-const Calendar__DateView__WeekOfYear: LabelStyle = function ()
+const Calendar__DateView__WeekOfYear: TextStyle = function ()
 {
     return {
         display: "none"
     };
 };
 
-const Calendar__DateView__DayOfWeek: LabelStyle = function (labelProps)
+const Calendar__DateView__DayOfWeek: TextStyle = function (textProps)
 {
     const calendarContext = CalendarContextHook.useCalendarContext();
     const dateViewContext = DateView.ContextHook.useDateViewContext();
 
     const inheritedStyle = Default(calendarContext.props, calendarContext.state)
         .DateView(dateViewContext.props)
-        .DayOfWeek(labelProps);
+        .DayOfWeek(textProps);
 
     return {
         ...inheritedStyle,
@@ -183,14 +183,14 @@ const Calendar__DateView__DateContainer: PressableStyle = function (pressablePro
     };
 };
 
-const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
+const Calendar__DateView__DateNumber: TextStyle = function (textProps)
 {
     const calendarContext = CalendarContextHook.useCalendarContext();
     const dateViewContext = DateView.ContextHook.useDateViewContext();
 
     const inheritedStyle = Default(calendarContext.props, calendarContext.state)
         .DateView(dateViewContext.props)
-        .DateNumber(labelProps);
+        .DateNumber(textProps);
 
     return {
         ...inheritedStyle,
@@ -200,7 +200,7 @@ const Calendar__DateView__DateNumber: LabelStyle = function (labelProps)
     };
 };
 
-const Calendar__DateView__TodayText: LabelStyle = function ()
+const Calendar__DateView__TodayText: TextStyle = function ()
 {
     return {
         display: "none"
@@ -243,7 +243,7 @@ const Calendar__MonthView__GridCell__Root: PressableStyle = function (pressableP
     };
 };
 
-const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
+const Calendar__MonthView__GridCell__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const calendarContext = CalendarContextHook.useCalendarContext();
@@ -252,7 +252,7 @@ const Calendar__MonthView__GridCell__Label: LabelStyle = function (labelProps)
     const inheritedStyle = Default(calendarContext.props, calendarContext.state)
         .MonthView(monthViewContext.props)
         .GridCell(buttonContext.props)
-        .Label(labelProps);
+        .Label(textProps);
 
     return {
         ...inheritedStyle,
@@ -307,7 +307,7 @@ const Calendar__YearView__GridCell__Root: PressableStyle = function (pressablePr
     };
 };
 
-const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
+const Calendar__YearView__GridCell__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const calendarContext = CalendarContextHook.useCalendarContext();
@@ -316,7 +316,7 @@ const Calendar__YearView__GridCell__Label: LabelStyle = function (labelProps)
     const inheritedStyle = Default(calendarContext.props, calendarContext.state)
         .YearView(yearViewContext.props)
         .GridCell(buttonContext.props)
-        .Label(labelProps);
+        .Label(textProps);
 
     return {
         ...inheritedStyle,

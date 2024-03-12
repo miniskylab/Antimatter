@@ -1,7 +1,7 @@
 import {AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
-import {Label} from "@miniskylab/antimatter-label";
 import {RangeSlider} from "@miniskylab/antimatter-range-slider";
+import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -37,22 +37,22 @@ export function Component({
             <View style={computedStyle.Root}>
                 <SectionContext.Provider value={"section-1"}>
                     <View style={computedStyle.Section}>
-                        <Label style={computedStyle.SectionLabel}>{section1Label}</Label>
-                        <Label style={computedStyle.SectionAmount}>{section1Value}</Label>
+                        <Text style={computedStyle.SectionLabel}>{section1Label}</Text>
+                        <Text style={computedStyle.SectionAmount}>{section1Value}</Text>
                     </View>
                 </SectionContext.Provider>
                 {indicator && (
                     <SectionContext.Provider value={"indicator"}>
                         <View style={computedStyle.Indicator}>
                             <Icon style={computedStyle.IndicatorIcon} name={indicator.icon ?? DefaultIconSet.None}/>
-                            <Label style={computedStyle.IndicatorLabel}>{indicator.label}</Label>
+                            <Text style={computedStyle.IndicatorLabel}>{indicator.label}</Text>
                         </View>
                     </SectionContext.Provider>
                 )}
                 <SectionContext.Provider value={"section-2"}>
                     <View style={computedStyle.Section}>
-                        <Label style={computedStyle.SectionLabel}>{section2Label}</Label>
-                        <Label style={computedStyle.SectionAmount}>{section2Value}</Label>
+                        <Text style={computedStyle.SectionLabel}>{section2Label}</Text>
+                        <Text style={computedStyle.SectionAmount}>{section2Value}</Text>
                     </View>
                 </SectionContext.Provider>
                 {isNotNullAndUndefined(progressBarValue) && (

@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {Layer} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {Pips} from "../components";
 import {RangeSliderContextHook} from "../hooks";
@@ -144,12 +144,12 @@ const RangeSlider__Pips__Pip: ViewStyle = function (viewProps)
     };
 };
 
-const RangeSlider__Pips__Label: LabelStyle = function (labelProps)
+const RangeSlider__Pips__Label: TextStyle = function (textProps)
 {
     const isHighlighted = Pips.ContextHook.useHighlightedContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         position: "absolute",
         width: 30,
         height: 30,

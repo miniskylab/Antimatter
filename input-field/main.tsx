@@ -1,6 +1,6 @@
 import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
-import {Label} from "@miniskylab/antimatter-label";
+import {Text} from "@miniskylab/antimatter-text";
 import {TextInput} from "@miniskylab/antimatter-text-input";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
@@ -56,9 +56,9 @@ export const InputField = forwardRef(function InputField(
                 {icon && <Icon style={computedStyle.AddOn} name={icon} pointerEvents={"none"}/>}
                 <View style={computedStyle.Container}>
                     {!!placeholder && (
-                        <Label style={computedStyle.Placeholder} pointerEvents={"none"}>
+                        <Text style={computedStyle.Placeholder} pointerEvents={"none"}>
                             {placeholder}
-                        </Label>
+                        </Text>
                     )}
                     <TextInput
                         ref={internalRef}

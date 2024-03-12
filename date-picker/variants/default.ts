@@ -4,8 +4,8 @@ import {Color} from "@miniskylab/antimatter-color-scheme";
 import {Layer} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
-import {LabelStyle} from "@miniskylab/antimatter-label";
 import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
+import {TextStyle} from "@miniskylab/antimatter-text";
 import {TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {DatePickerContextHook} from "../hooks";
@@ -65,12 +65,12 @@ const DatePicker__InputField__TextBox: TextInputStyle = function (textInputProps
     };
 };
 
-const DatePicker__InputField__Placeholder: LabelStyle = function (labelProps)
+const DatePicker__InputField__Placeholder: TextStyle = function (textProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
     const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props)
-        .Placeholder(labelProps);
+        .Placeholder(textProps);
 
     return {
         ...inheritedStyle,

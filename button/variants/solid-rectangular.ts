@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle} from "@miniskylab/antimatter-icon";
-import {LabelStyle} from "@miniskylab/antimatter-label";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
+import {TextStyle} from "@miniskylab/antimatter-text";
 import {ButtonContextHook} from "../hooks";
 import {ButtonStyle} from "../models";
 import {OutlinedRectangular} from "./outlined-rectangular";
@@ -48,11 +48,11 @@ const Button__Icon: IconStyle = function (iconProps)
     };
 };
 
-const Button__Label: LabelStyle = function (labelProps)
+const Button__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
 
-    const inheritedStyle = OutlinedRectangular(buttonContext.props).Label(labelProps);
+    const inheritedStyle = OutlinedRectangular(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,

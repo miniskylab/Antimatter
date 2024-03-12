@@ -9,8 +9,8 @@ import {
 } from "@miniskylab/antimatter-highlighted-paragraph";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {SelfIntroductionHeroContextHook} from "../hooks";
 import {SelfIntroductionHeroStyle} from "../models";
@@ -72,10 +72,10 @@ const SelfIntroductionHero__Avatar: ImageStyle = function (imageProps)
     };
 };
 
-const SelfIntroductionHero__Name: LabelStyle = function (labelProps)
+const SelfIntroductionHero__Name: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         alignSelf: "stretch",
         height: 50,
         marginTop: 45,
@@ -89,10 +89,10 @@ const SelfIntroductionHero__Name: LabelStyle = function (labelProps)
     };
 };
 
-const SelfIntroductionHero__AlternativeName: LabelStyle = function (labelProps)
+const SelfIntroductionHero__AlternativeName: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         alignSelf: "stretch",
         height: 40,
         fontSize: 28,
@@ -105,10 +105,10 @@ const SelfIntroductionHero__AlternativeName: LabelStyle = function (labelProps)
     };
 };
 
-const SelfIntroductionHero__Description: LabelStyle = function (labelProps)
+const SelfIntroductionHero__Description: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         width: "100%",
         lineHeight: 30,
         paddingVertical: 20,
@@ -183,11 +183,11 @@ const SelfIntroductionHero__PersonalInfo__TitleContainer: ViewStyle = function (
     };
 };
 
-const SelfIntroductionHero__PersonalInfo__TitleLabel: LabelStyle = function (labelProps)
+const SelfIntroductionHero__PersonalInfo__TitleLabel: TextStyle = function (textProps)
 {
     const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
 
-    const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).TitleLabel(labelProps);
+    const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).TitleLabel(textProps);
 
     return {
         ...inheritedStyle,
@@ -219,11 +219,11 @@ const SelfIntroductionHero__PersonalInfo__Gap: ViewStyle = function (viewProps)
     };
 };
 
-const SelfIntroductionHero__PersonalInfo__Content: LabelStyle = function (labelProps)
+const SelfIntroductionHero__PersonalInfo__Content: TextStyle = function (textProps)
 {
     const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
 
-    const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).Content(labelProps);
+    const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).Content(textProps);
 
     return {
         ...inheritedStyle,
@@ -279,13 +279,13 @@ const SelfIntroductionHero__DownloadButton__Button__Root: PressableStyle = funct
     };
 };
 
-const SelfIntroductionHero__DownloadButton__Button__Label: LabelStyle = function (labelProps)
+const SelfIntroductionHero__DownloadButton__Button__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const downloadButtonContext = DownloadButtonContextHook.useDownloadButtonContext();
 
     const inheritedStyle = DownloadButtonVariant.Default(downloadButtonContext.props, downloadButtonContext.state)(buttonContext.props)
-        .Label(labelProps);
+        .Label(textProps);
 
     return {
         ...inheritedStyle,

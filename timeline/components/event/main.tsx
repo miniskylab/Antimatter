@@ -9,7 +9,7 @@ import {
 } from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Image} from "@miniskylab/antimatter-image";
-import {Label} from "@miniskylab/antimatter-label";
+import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -55,23 +55,23 @@ export function Component({
             <View style={computedStyle.Root}>
                 <Icon style={computedStyle.Icon} name={icon}/>
                 <View style={computedStyle.TriangleArrow}/>
-                <Label style={computedStyle.Name}>{name}</Label>
+                <Text style={computedStyle.Name}>{name}</Text>
                 <View style={computedStyle.Hr}/>
                 {image && <Image style={computedStyle.Image} source={image}/>}
                 <RowContext.Provider value={"time"}>
                     <View style={computedStyle.Row}>
                         <Icon style={computedStyle.BulletinIcon} name={DefaultIconSet.Clock}/>
-                        <Label style={computedStyle.StartDate}>
+                        <Text style={computedStyle.StartDate}>
                             {GregorianCalendar.toString(startDate, DateFormat.Long, minimumTimeUnit)}
-                        </Label>
+                        </Text>
                         {(isOnGoing || endDate) && <Icon style={computedStyle.ArrowRightIcon} name={DefaultIconSet.ArrowRight}/>}
                         {
-                            isOnGoing && <Label style={computedStyle.EndDate}>Now</Label>
+                            isOnGoing && <Text style={computedStyle.EndDate}>Now</Text>
                             ||
                             endDate && (
-                                <Label style={computedStyle.EndDate}>
+                                <Text style={computedStyle.EndDate}>
                                     {GregorianCalendar.toString(endDate, DateFormat.Long, minimumTimeUnit)}
-                                </Label>
+                                </Text>
                             )
                         }
                     </View>
@@ -80,20 +80,20 @@ export function Component({
                     <RowContext.Provider value={"duration"}>
                         <View style={computedStyle.Row}>
                             <Icon style={computedStyle.BulletinIcon} name={DefaultIconSet.History}/>
-                            <Label style={computedStyle.Duration}>{duration}</Label>
+                            <Text style={computedStyle.Duration}>{duration}</Text>
                         </View>
                     </RowContext.Provider>
                 )}
                 <RowContext.Provider value={"location"}>
                     <View style={computedStyle.Row}>
                         <Icon style={computedStyle.BulletinIcon} name={DefaultIconSet.Location}/>
-                        {location && <Label style={computedStyle.Location}>{location}</Label>}
+                        {location && <Text style={computedStyle.Location}>{location}</Text>}
                     </View>
                 </RowContext.Provider>
                 <RowContext.Provider value={"description"}>
                     <View style={computedStyle.Row}>
                         <Icon style={computedStyle.BulletinIcon} name={DefaultIconSet.Pen}/>
-                        {description && <Label style={computedStyle.Description}>{description}</Label>}
+                        {description && <Text style={computedStyle.Description}>{description}</Text>}
                     </View>
                 </RowContext.Provider>
             </View>

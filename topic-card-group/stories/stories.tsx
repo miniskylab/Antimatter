@@ -25,10 +25,10 @@ export const Playground: Story = {
         style: Sb.getVariantName(Variant, Variant.FourColumns),
         cards: [
             {
-                wysiwyg: `
-                    <div ${TestData.wysiwygStyles.icon}></div>
-                    <div ${TestData.wysiwygStyles.title}>Lorem ipsum</div>
-                    <p ${TestData.wysiwygStyles.paragraph}>
+                text: `
+                    <div ${TestData.htmlStyles.icon}></div>
+                    <div ${TestData.htmlStyles.title}>Lorem ipsum</div>
+                    <p ${TestData.htmlStyles.paragraph}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tortor purus, consequat ac aliquam at, accumsan sit
                         amet quam. Duis finibus nunc ut lectus ornare, at consectetur massa suscipit.
                     </p>
@@ -39,10 +39,10 @@ export const Playground: Story = {
                 ]
             },
             {
-                wysiwyg: `
-                    <img ${TestData.wysiwygStyles.image} src="${StaticAsset.PlaceholderImage}"/>
-                    <div ${TestData.wysiwygStyles.title}>Nullam</div>
-                    <p ${TestData.wysiwygStyles.paragraph}>
+                text: `
+                    <img ${TestData.htmlStyles.image} src="${StaticAsset.PlaceholderImage}"/>
+                    <div ${TestData.htmlStyles.title}>Nullam</div>
+                    <p ${TestData.htmlStyles.paragraph}>
                         Nullam tincidunt metus eros, ac pharetra ante porttitor nec. Praesent in sollicitudin risus. Vestibulum id mattis
                         mauris. Mauris elementum suscipit. Nam blandit non metus vel tincidunt.
                     </p>
@@ -53,10 +53,10 @@ export const Playground: Story = {
                 ]
             },
             {
-                wysiwyg: `
-                    <div ${TestData.wysiwygStyles.icon}></div>
-                    <div ${TestData.wysiwygStyles.title}>Nunc in lacus</div>
-                    <p ${TestData.wysiwygStyles.paragraph}>
+                text: `
+                    <div ${TestData.htmlStyles.icon}></div>
+                    <div ${TestData.htmlStyles.title}>Nunc in lacus</div>
+                    <p ${TestData.htmlStyles.paragraph}>
                         Vestibulum ut justo urna. Etiam a risus eget est egestas consequat ut sit amet elit. Sed hendrerit, elit ut
                         pellentesque vestibulum, justo nisi eleifend arcu, porttitor varius libero nibh ut dolor.
                     </p>
@@ -66,17 +66,17 @@ export const Playground: Story = {
                 ]
             },
             {
-                wysiwyg: `
-                    <div ${TestData.wysiwygStyles.icon}></div>
-                    <div ${TestData.wysiwygStyles.title}>Curabitur</div>
-                    <p ${TestData.wysiwygStyles.paragraph}>
+                text: `
+                    <div ${TestData.htmlStyles.icon}></div>
+                    <div ${TestData.htmlStyles.title}>Curabitur</div>
+                    <p ${TestData.htmlStyles.paragraph}>
                         Pellentesque pellentesque purus sit amet iaculis rutrum. Nam vitae neque et enim aliquet dignissim eget ornare nibh.
                         Vestibulum elementum felis diam, in viverra lacus rutrum at mattis porttitor.
                     </p>
                 `
             },
             {
-                wysiwyg: `
+                text: `
                     <div style="display: flex; flex-wrap: wrap; justify-content: space-around; align-items: center;">
                         <b class="text-color--gold" style="font-size: 90px; line-height: 70px;">A+</b>
                         <b style="font-size: 24px; line-height: 36px; flex-basis: 0;">Lorem of Vestibulum</b>

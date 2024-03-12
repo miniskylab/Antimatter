@@ -2,10 +2,10 @@ import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antim
 import {AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
-import {Label} from "@miniskylab/antimatter-label";
 import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import {Pressable} from "@miniskylab/antimatter-pressable";
+import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
@@ -137,7 +137,7 @@ export const Component = forwardRef(function Component(
                     value={name}
                     onChangeText={onNameChange}
                 />
-                : <Label style={computedStyle.NameLabel} numberOfLines={1} pointerEvents={"none"}>{name}</Label>
+                : <Text style={computedStyle.NameLabel} numberOfLines={1} pointerEvents={"none"}>{name}</Text>
         );
     }
 
@@ -162,9 +162,9 @@ export const Component = forwardRef(function Component(
                     keyboardType={"number-pad"}
                     onChange={onAmountChange}
                 />
-                : <Label style={computedStyle.AmountLabel} pointerEvents={"none"}>
+                : <Text style={computedStyle.AmountLabel} pointerEvents={"none"}>
                     {`${explicitPlusSymbol ? "+" : EMPTY_STRING}${amount.toLocaleString("en-us")}`}
-                </Label>
+                </Text>
         );
     }
 
@@ -193,7 +193,7 @@ export const Component = forwardRef(function Component(
                             .sort((a, b) => dropdownMenuItemValues.indexOf(a) - dropdownMenuItemValues.indexOf(b))
                             .map(tagId => (
                                 <TagMetadataContext.Provider key={tagId} value={Array.from(tags[tagId].metadata ?? []).sort().join(",")}>
-                                    <Label style={computedStyle.Tag} pointerEvents={"none"}>{tags[tagId].name ?? tagId}</Label>
+                                    <Text style={computedStyle.Tag} pointerEvents={"none"}>{tags[tagId].name ?? tagId}</Text>
                                 </TagMetadataContext.Provider>
                             ))
                     }

@@ -6,12 +6,12 @@ import {DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant, MenuIte
 import {Layer, useEnvironment, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {ProgressStripesContextHook, ProgressStripesStyle, ProgressStripesVariant} from "@miniskylab/antimatter-motion-graphics";
 import {NumericInputFieldContextHook, NumericInputFieldStyle, NumericInputFieldVariant} from "@miniskylab/antimatter-numeric-input-field";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {Pips, RangeSliderContextHook, RangeSliderStyle, RangeSliderVariant} from "@miniskylab/antimatter-range-slider";
 import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {useEffect, useState} from "react";
@@ -227,10 +227,10 @@ const TransactionTable__Summary__Section: ViewStyle = function (viewProps)
     };
 };
 
-const TransactionTable__Summary__SectionLabel: LabelStyle = function (labelProps)
+const TransactionTable__Summary__SectionLabel: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         lineHeight: 20,
         fontSize: 15,
         fontWeight: "bold",
@@ -238,12 +238,12 @@ const TransactionTable__Summary__SectionLabel: LabelStyle = function (labelProps
     };
 };
 
-const TransactionTable__Summary__SectionAmount: LabelStyle = function (labelProps)
+const TransactionTable__Summary__SectionAmount: TextStyle = function (textProps)
 {
     const sectionContext = Summary.ContextHook.useSectionContext();
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         lineHeight: 25,
         fontSize: 20,
         fontWeight: "bold",
@@ -275,10 +275,10 @@ const TransactionTable__Summary__Indicator__Icon: IconStyle = function (iconProp
     };
 };
 
-const TransactionTable__Summary__Indicator__Label: LabelStyle = function (labelProps)
+const TransactionTable__Summary__Indicator__Label: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         height: 20,
         fontSize: 15,
         fontWeight: "bold",
@@ -413,7 +413,7 @@ const TransactionTable__Summary__ProgressBar__Pips__Pip: ViewStyle = function (v
     };
 };
 
-const TransactionTable__Summary__ProgressBar__Pips__Label: LabelStyle = function (labelProps)
+const TransactionTable__Summary__ProgressBar__Pips__Label: TextStyle = function (textProps)
 {
     const pipsContext = Pips.ContextHook.usePipsContext();
     const isHighlighted = Pips.ContextHook.useHighlightedContext();
@@ -421,7 +421,7 @@ const TransactionTable__Summary__ProgressBar__Pips__Label: LabelStyle = function
 
     const inheritedStyle = RangeSliderVariant.Default(rangeSliderContext.props)
         .Pips(pipsContext.props)
-        .Label(labelProps);
+        .Label(textProps);
 
     return {
         ...inheritedStyle,
@@ -581,7 +581,7 @@ const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
     };
 };
 
-const TransactionTable__ControlButton__Label: LabelStyle = function (labelProps)
+const TransactionTable__ControlButton__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
@@ -595,7 +595,7 @@ const TransactionTable__ControlButton__Label: LabelStyle = function (labelProps)
     const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
     const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
 
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,
@@ -779,11 +779,11 @@ const TransactionTable__TransactionRecord__NameInputField__TextBox: TextInputSty
     };
 };
 
-const TransactionTable__TransactionRecord__NameInputField__Placeholder: LabelStyle = function (labelProps)
+const TransactionTable__TransactionRecord__NameInputField__Placeholder: TextStyle = function (textProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
-    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Placeholder(labelProps);
+    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Placeholder(textProps);
 
     return {
         ...inheritedStyle,
@@ -807,10 +807,10 @@ const TransactionTable__TransactionRecord__NameInputField: InputFieldStyle = fun
     };
 };
 
-const TransactionTable__TransactionRecord__NameLabel: LabelStyle = function (labelProps)
+const TransactionTable__TransactionRecord__NameLabel: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         alignItems: "flex-start",
         width: "95%",
         height: 23,
@@ -877,7 +877,7 @@ const TransactionTable__TransactionRecord__AmountInputField: NumericInputFieldSt
     });
 };
 
-const TransactionTable__TransactionRecord__AmountLabel: LabelStyle = function (labelProps)
+const TransactionTable__TransactionRecord__AmountLabel: TextStyle = function (textProps)
 {
     const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
 
@@ -888,7 +888,7 @@ const TransactionTable__TransactionRecord__AmountLabel: LabelStyle = function (l
         );
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         display: transactionRecordContext.props.toBeDeleted ? "none" : "flex",
         width: 115,
         height: 38,
@@ -980,7 +980,7 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: Pressabl
     };
 };
 
-const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: LabelStyle = function (labelProps)
+const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
@@ -991,7 +991,7 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: LabelSt
 
     const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props)
         .MenuItem(buttonContext.props)
-        .Label(labelProps);
+        .Label(textProps);
 
     return {
         ...inheritedStyle,
@@ -1062,7 +1062,7 @@ const TransactionTable__TransactionRecord__TagContainer: ViewStyle = function (v
     };
 };
 
-const TransactionTable__TransactionRecord__Tag: LabelStyle = function (labelProps)
+const TransactionTable__TransactionRecord__Tag: TextStyle = function (textProps)
 {
     const tagMetadataContext = TransactionRecord.ContextHook.useTagMetadataContext();
 
@@ -1070,7 +1070,7 @@ const TransactionTable__TransactionRecord__Tag: LabelStyle = function (labelProp
     const isHighlighted = tagMetadata.includes(TransactionRecord.TagMetadata.HighlightTarget);
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         height: "100%",
         paddingHorizontal: 8,
         marginRight: 5,
@@ -1188,14 +1188,14 @@ const TransactionTable__DisplayIcon: IconStyle = function (iconProps)
     };
 };
 
-const TransactionTable__DisplayMessage: LabelStyle = function (labelProps)
+const TransactionTable__DisplayMessage: TextStyle = function (textProps)
 {
     const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
 
     const theme = transactionTableContext.props.displayPanel?.theme;
 
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         flex: 1,
         justifyContent: "flex-start",
         fontSize: 18,

@@ -1,6 +1,6 @@
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
-import {Label} from "@miniskylab/antimatter-label";
+import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -43,21 +43,21 @@ export function WeatherWidget({
                 <View style={computedStyle.StatusBar}>
                     <View style={computedStyle.StatusContainer}>
                         <Icon style={computedStyle.StatusIcon} name={locationData?.icon ?? DefaultIconSet.Location}/>
-                        <Label style={computedStyle.StatusValue}>{locationData?.value ?? "--"}</Label>
+                        <Text style={computedStyle.StatusValue}>{locationData?.value ?? "--"}</Text>
                     </View>
                     <View style={computedStyle.StatusContainer}>
                         <Icon style={computedStyle.StatusIcon} name={lastUpdateData?.icon ?? DefaultIconSet.History}/>
-                        <Label style={computedStyle.StatusValue}>{lastUpdateData?.value ?? "--:--:--"}</Label>
+                        <Text style={computedStyle.StatusValue}>{lastUpdateData?.value ?? "--:--:--"}</Text>
                     </View>
                 </View>
                 <View style={computedStyle.WeatherConditionContainer}>
                     <Icon style={computedStyle.WeatherConditionIcon} name={weatherConditionData?.icon ?? DefaultIconSet.NotAllowed}/>
-                    <Label style={computedStyle.WeatherConditionLabel}>{weatherConditionData?.value ?? "--"}</Label>
+                    <Text style={computedStyle.WeatherConditionLabel}>{weatherConditionData?.value ?? "--"}</Text>
                 </View>
                 <View style={computedStyle.MainContainer}>
                     <View style={computedStyle.FeelsLikeContainer}>
-                        <Label style={computedStyle.FeelsLikeLabel}>{temperatureData?.feelsLikeTemperatureLabel ?? "--: "}</Label>
-                        <Label style={computedStyle.FeelsLikeValue}>{temperatureData?.feelsLikeTemperatureValue ?? "--"}</Label>
+                        <Text style={computedStyle.FeelsLikeLabel}>{temperatureData?.feelsLikeTemperatureLabel ?? "--: "}</Text>
+                        <Text style={computedStyle.FeelsLikeValue}>{temperatureData?.feelsLikeTemperatureValue ?? "--"}</Text>
                     </View>
                     <View style={computedStyle.TemperatureRangeValueContainer}>
                         <View style={computedStyle.TemperatureRangeHr}/>
@@ -72,11 +72,11 @@ export function WeatherWidget({
                     </View>
                     <View style={computedStyle.ShortWeatherDataContainer}>
                         <Icon style={computedStyle.UvIndexIcon} name={uvIndexData?.icon ?? DefaultIconSet.UvIndex}/>
-                        <Label style={computedStyle.UvIndexDescription}>{uvIndexData?.value ?? "--"}</Label>
+                        <Text style={computedStyle.UvIndexDescription}>{uvIndexData?.value ?? "--"}</Text>
                     </View>
                     <View style={computedStyle.ShortWeatherDataContainer}>
                         <Icon style={computedStyle.WindIcon} name={windData?.icon ?? DefaultIconSet.Location}/>
-                        <Label style={computedStyle.WindSpeed}>{windData?.speedAndGusts ?? "--"}</Label>
+                        <Text style={computedStyle.WindSpeed}>{windData?.speedAndGusts ?? "--"}</Text>
                     </View>
                 </View>
                 {renderSimpleWeatherDataSection("left", simpleWeatherData1)}
@@ -90,7 +90,7 @@ export function WeatherWidget({
     {
         return (
             <PositionContext.Provider value={position}>
-                <Label style={computedStyle.TemperatureRangeValue}>{value}</Label>
+                <Text style={computedStyle.TemperatureRangeValue}>{value}</Text>
             </PositionContext.Provider>
         );
     }
@@ -99,7 +99,7 @@ export function WeatherWidget({
     {
         return (
             <PositionContext.Provider value={position}>
-                <Label style={computedStyle.TemperatureRangeLabel}>{label}</Label>
+                <Text style={computedStyle.TemperatureRangeLabel}>{label}</Text>
             </PositionContext.Provider>
         );
     }

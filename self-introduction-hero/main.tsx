@@ -2,7 +2,7 @@ import {DownloadButton} from "@miniskylab/antimatter-download-button";
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {HighlightedParagraph} from "@miniskylab/antimatter-highlighted-paragraph";
 import {Image} from "@miniskylab/antimatter-image";
-import {Label} from "@miniskylab/antimatter-label";
+import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {PersonalInfoContext, SelfIntroductionHeroContext, SelfIntroductionHeroProps} from "./models";
@@ -46,9 +46,9 @@ export function SelfIntroductionHero({
                         <Image style={computedStyle.Avatar} source={avatar}/>
                     </View>
                 </View>
-                <Label style={computedStyle.Name}>{name}</Label>
-                <Label style={computedStyle.AlternativeName}>{alternativeName}</Label>
-                <Label style={computedStyle.Description}>{description}</Label>
+                <Text style={computedStyle.Name}>{name}</Text>
+                <Text style={computedStyle.AlternativeName}>{alternativeName}</Text>
+                <Text style={computedStyle.Description}>{description}</Text>
                 <PersonalInfoContext.Provider value={"location"}>
                     <HighlightedParagraph style={computedStyle.PersonalInfo} title={locationTitle} content={location}/>
                 </PersonalInfoContext.Provider>

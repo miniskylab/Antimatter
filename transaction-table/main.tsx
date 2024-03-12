@@ -13,8 +13,8 @@ import {
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
-import {Label} from "@miniskylab/antimatter-label";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
+import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
@@ -331,7 +331,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
         return (
             <View style={computedStyle.DisplayPanel} pointerEvents={displayPanel?.isVisible ? "auto" : "none"}>
                 <Icon style={computedStyle.DisplayIcon} name={displayIcon} pointerEvents={"none"} selectable={false}/>
-                <Label style={computedStyle.DisplayMessage} pointerEvents={"none"} selectable={false}>{displayMessage}</Label>
+                <Text style={computedStyle.DisplayMessage} pointerEvents={"none"} selectable={false}>{displayMessage}</Text>
             </View>
         );
     }

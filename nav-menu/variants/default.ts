@@ -1,9 +1,9 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle} from "@miniskylab/antimatter-icon";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
 import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {NavMenuStyle} from "../models";
 
 const NavMenu__Root: ScrollViewStyle = function (viewProps)
@@ -19,10 +19,10 @@ const NavMenu__Root: ScrollViewStyle = function (viewProps)
     };
 };
 
-const NavMenu__Category: LabelStyle = function (labelProps)
+const NavMenu__Category: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         alignItems: "stretch",
         alignSelf: "stretch",
         height: 36,
@@ -87,12 +87,12 @@ const NavMenu__Link__Icon: IconStyle = function (iconProps)
     };
 };
 
-const NavMenu__Link__Label: LabelStyle = function (labelProps)
+const NavMenu__Link__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(labelProps);
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,

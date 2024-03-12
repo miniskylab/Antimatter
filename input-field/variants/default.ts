@@ -1,6 +1,6 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {LabelStyle, LabelVariant} from "@miniskylab/antimatter-label";
+import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {TextInputStyle, TextInputVariant} from "@miniskylab/antimatter-text-input";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {InputFieldAnimationHook} from "../hooks";
@@ -54,10 +54,10 @@ const InputField__AddOn: IconStyle = function (iconProps)
     };
 };
 
-const InputField__Placeholder: LabelStyle = function (labelProps)
+const InputField__Placeholder: TextStyle = function (textProps)
 {
     return {
-        ...LabelVariant.Default(labelProps),
+        ...TextVariant.Default(textProps),
         position: "absolute",
         top: 0,
         alignItems: "flex-start",

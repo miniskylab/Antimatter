@@ -1,6 +1,6 @@
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
-import {Label} from "@miniskylab/antimatter-label";
+import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Props, SimpleWeatherDataContext} from "./models";
@@ -33,8 +33,8 @@ export function Component({
             <View style={computedStyle.Root}>
                 <Icon style={computedStyle.Icon} name={icon}/>
                 <View style={computedStyle.TitleContainer}>
-                    <Label style={computedStyle.MainTitle}>{title}</Label>
-                    <Label style={computedStyle.Subtitle}>{subtitle}</Label>
+                    <Text style={computedStyle.MainTitle}>{title}</Text>
+                    <Text style={computedStyle.Subtitle}>{subtitle}</Text>
                 </View>
             </View>
         </SimpleWeatherDataContext.Provider>

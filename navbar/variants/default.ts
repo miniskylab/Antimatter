@@ -1,9 +1,9 @@
 import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {IconStyle} from "@miniskylab/antimatter-icon";
-import {LabelStyle} from "@miniskylab/antimatter-label";
 import {NavButtonContextHook, NavButtonStyle, NavButtonVariant} from "@miniskylab/antimatter-nav-button";
 import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
+import {TextStyle} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {NavbarStyle} from "../models";
 
@@ -75,13 +75,13 @@ const Navbar__Tab__Icon: IconStyle = function (iconProps)
     };
 };
 
-const Navbar__Tab__Label: LabelStyle = function (labelProps)
+const Navbar__Tab__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const navButtonContext = NavButtonContextHook.useNavButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const inheritedStyle = NavButtonVariant.Default(navButtonContext.props)(buttonContext.props).Label(labelProps);
+    const inheritedStyle = NavButtonVariant.Default(navButtonContext.props)(buttonContext.props).Label(textProps);
 
     return {
         ...inheritedStyle,

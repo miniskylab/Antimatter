@@ -20,7 +20,7 @@ export class Props extends ComponentProps<Style>
     @IsNotEmpty()
     @IsString()
     @IsOptional()
-    readonly wysiwyg?: string;
+    readonly text?: string;
 
 
     /**
