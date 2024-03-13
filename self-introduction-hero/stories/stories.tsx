@@ -22,10 +22,10 @@ export const Playground: Story = {
         name: Sb.text(),
         alternativeName: Sb.text(),
         description: Sb.text(),
-        locationTitle: Sb.text(),
-        location: Sb.text(),
-        emailTitle: Sb.text(),
-        emailAddress: Sb.text(),
+        locationLabel: Sb.text(),
+        locationValue: Sb.text(),
+        emailLabel: Sb.text(),
+        emailValue: Sb.text(),
         downloadButton: Sb.locked
     },
     args: {
@@ -36,10 +36,10 @@ export const Playground: Story = {
         alternativeName: "(Mauris)",
         description: "Nam ante arcu, pharetra id orci vitae, finibus fermentum diam. Nulla vehicula urna et mattis. Etiam augue massa, " +
                      "hendrerit aliquet, blandit a magna.",
-        locationTitle: "Vestibulum",
-        location: "Lobortis, Felis eget",
-        emailTitle: "Nulla",
-        emailAddress: "lorem@ipsum.magna",
+        locationLabel: "Vestibulum",
+        locationValue: "Lobortis, Felis eget",
+        emailLabel: "Nulla",
+        emailValue: "lorem@ipsum.magna",
         downloadButton: {
             href: StaticAsset.Avatar,
             label: "Lorem Ipsum",

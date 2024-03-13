@@ -5,5 +5,5 @@ import {SelfIntroductionHeroProps} from "./props";
 export const SelfIntroductionHeroContext = createContext<SelfIntroductionHeroContext>(undefined);
 export type SelfIntroductionHeroContext = ComponentContext<SelfIntroductionHeroProps>;
 
-export const PersonalInfoContext = createContext<PersonalInfoContext>(undefined);
-export type PersonalInfoContext = "location" | "email" | undefined;
+export const SimpleInfoContext = createContext<SimpleInfoContext>(undefined);
+export type SimpleInfoContext = "location" | "email" | undefined;

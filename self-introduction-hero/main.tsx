@@ -1,11 +1,10 @@
 import {DownloadButton} from "@miniskylab/antimatter-download-button";
 import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {HighlightedParagraph} from "@miniskylab/antimatter-highlighted-paragraph";
 import {Image} from "@miniskylab/antimatter-image";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {PersonalInfoContext, SelfIntroductionHeroContext, SelfIntroductionHeroProps} from "./models";
+import {SelfIntroductionHeroContext, SelfIntroductionHeroProps, SimpleInfoContext} from "./models";
 import * as Variant from "./variants";
 
 /**
@@ -17,16 +16,16 @@ export function SelfIntroductionHero({
     avatar,
     name,
     alternativeName,
-    emailTitle,
-    emailAddress,
-    locationTitle,
-    location,
+    emailLabel,
+    emailValue,
+    locationLabel,
+    locationValue,
     description,
     downloadButton
 }: SelfIntroductionHeroProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<SelfIntroductionHeroProps> = {
-        style, coverPhoto, avatar, name, alternativeName, emailTitle, emailAddress, locationTitle, location, description, downloadButton
+        style, coverPhoto, avatar, name, alternativeName, emailLabel, emailValue, locationLabel, locationValue, description, downloadButton
     };
 
     const context = useMemo<SelfIntroductionHeroContext>(
@@ -49,14 +48,22 @@ export function SelfIntroductionHero({
                 <Text style={computedStyle.Name}>{name}</Text>
                 <Text style={computedStyle.AlternativeName}>{alternativeName}</Text>
                 <Text style={computedStyle.Description}>{description}</Text>
-                <PersonalInfoContext.Provider value={"location"}>
-                    <HighlightedParagraph style={computedStyle.PersonalInfo} title={locationTitle} content={location}/>
-                </PersonalInfoContext.Provider>
-                <PersonalInfoContext.Provider value={"email"}>
-                    <HighlightedParagraph style={computedStyle.PersonalInfo} title={emailTitle} content={emailAddress}/>
-                </PersonalInfoContext.Provider>
+                {renderSimpleInfoSection("location", locationLabel, locationValue)}
+                {renderSimpleInfoSection("email", emailLabel, emailValue)}
                 {downloadButton && <DownloadButton style={computedStyle.DownloadButton} {...downloadButton}/>}
             </View>
         </SelfIntroductionHeroContext.Provider>
     );
+
+    function renderSimpleInfoSection(context: SimpleInfoContext, label: string, value: string)
+    {
+        return (
+            <SimpleInfoContext.Provider value={context}>
+                <View style={computedStyle.SimpleInfoSection}>
+                    <Text style={computedStyle.SimpleInfoLabel}>{label}</Text>
+                    <Text style={computedStyle.SimpleInfoValue}>{value}</Text>
+                </View>
+            </SimpleInfoContext.Provider>
+        );
+    }
 }

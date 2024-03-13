@@ -46,7 +46,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly locationTitle: string;
+    readonly locationLabel: string;
 
 
     /**
@@ -55,7 +55,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly location: string;
+    readonly locationValue: string;
 
 
     /**
@@ -64,7 +64,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly emailTitle: string;
+    readonly emailLabel: string;
 
 
     /**
@@ -73,7 +73,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
     @IsEmail()
     @IsString()
     @IsDefined()
-    readonly emailAddress: string;
+    readonly emailValue: string;
 
 
     /**

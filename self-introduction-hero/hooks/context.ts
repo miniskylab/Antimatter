@@ -1,9 +1,9 @@
 import {useContextOrThrow} from "@miniskylab/antimatter-framework";
-import {PersonalInfoContext, SelfIntroductionHeroContext} from "../models";
+import {SelfIntroductionHeroContext, SimpleInfoContext} from "../models";
 
 export function useSelfIntroductionHeroContext(): NonNullable<SelfIntroductionHeroContext>
 {
     return useContextOrThrow(SelfIntroductionHeroContext);
 }
 
-export function usePersonalInfoContext(): NonNullable<PersonalInfoContext> { return useContextOrThrow(PersonalInfoContext); }
+export function useSimpleInfoContext(): NonNullable<SimpleInfoContext> { return useContextOrThrow(SimpleInfoContext); }

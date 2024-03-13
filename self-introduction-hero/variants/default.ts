@@ -2,12 +2,6 @@ import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DownloadButtonContextHook, DownloadButtonStyle, DownloadButtonVariant} from "@miniskylab/antimatter-download-button";
 import {getScreenSizeFromBreakpoint, useResponsiveStyle} from "@miniskylab/antimatter-framework";
-import {
-    HighlightedParagraphContextHook,
-    HighlightedParagraphStyle,
-    HighlightedParagraphVariant
-} from "@miniskylab/antimatter-highlighted-paragraph";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
@@ -127,22 +121,22 @@ const SelfIntroductionHero__Description: TextStyle = function (textProps)
     };
 };
 
-const SelfIntroductionHero__PersonalInfo__Root: ViewStyle = function (viewProps)
+const SelfIntroductionHero__SimpleInfoSection: ViewStyle = function (viewProps)
 {
-    const personalInfoContext = SelfIntroductionHeroContextHook.usePersonalInfoContext();
-    const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
-
-    const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).Root(viewProps);
+    const simpleInfoContext = SelfIntroductionHeroContextHook.useSimpleInfoContext();
 
     return {
-        ...inheritedStyle,
+        ...ViewVariant.Default(viewProps),
         alignSelf: "stretch",
         paddingTop: 6,
         paddingBottom: 10,
         paddingHorizontal: 20,
+        borderWidth: 3,
+        borderColor: Color.Gray,
         marginTop: 10,
         marginHorizontal: 15,
-        ...personalInfoContext === "email" && {
+        backgroundColor: Color.Gray__a10,
+        ...simpleInfoContext === "email" && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary__a10
         },
@@ -157,45 +151,28 @@ const SelfIntroductionHero__PersonalInfo__Root: ViewStyle = function (viewProps)
             paddingHorizontal: 0,
             marginTop: 0,
             marginHorizontal: 0,
-            marginLeft: personalInfoContext === "location" ? -370 : 370,
+            marginLeft: simpleInfoContext === "location" ? -370 : 370,
             borderWidth: 0,
             backgroundColor: Color.Transparent
         }),
         ...useResponsiveStyle("Medium", {
             width: 200,
-            marginLeft: personalInfoContext === "location" ? -500 : 500
+            marginLeft: simpleInfoContext === "location" ? -500 : 500
         })
     };
 };
 
-const SelfIntroductionHero__PersonalInfo__TitleContainer: ViewStyle = function (viewProps)
+const SelfIntroductionHero__SimpleInfoLabel: TextStyle = function (textProps)
 {
-    const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
-
-    const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).TitleContainer(viewProps);
-
     return {
-        ...inheritedStyle,
-        justifyContent: "center",
-        ...useResponsiveStyle("Small", {
-            height: 37
-        })
-    };
-};
-
-const SelfIntroductionHero__PersonalInfo__TitleLabel: TextStyle = function (textProps)
-{
-    const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
-
-    const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).TitleLabel(textProps);
-
-    return {
-        ...inheritedStyle,
+        ...TextVariant.Default(textProps),
+        height: 30,
         fontSize: 16,
+        fontWeight: "bold",
         color: Color.Neutral,
         ...useResponsiveStyle("Small", {
-            fontSize: 17,
-            fontWeight: "bold"
+            height: 37,
+            fontSize: 17
         }),
         ...useResponsiveStyle("Medium", {
             fontSize: 20
@@ -203,60 +180,24 @@ const SelfIntroductionHero__PersonalInfo__TitleLabel: TextStyle = function (text
     };
 };
 
-const SelfIntroductionHero__PersonalInfo__TitleIcon: IconStyle = function (iconProps)
+const SelfIntroductionHero__SimpleInfoValue: TextStyle = function (textProps)
 {
     return {
-        ...IconVariant.Default(iconProps),
-        display: "none"
-    };
-};
-
-const SelfIntroductionHero__PersonalInfo__Gap: ViewStyle = function (viewProps)
-{
-    return {
-        ...ViewVariant.Default(viewProps),
-        display: "none"
-    };
-};
-
-const SelfIntroductionHero__PersonalInfo__Content: TextStyle = function (textProps)
-{
-    const highlightedParagraphContext = HighlightedParagraphContextHook.useHighlightedParagraphContext();
-
-    const inheritedStyle = HighlightedParagraphVariant.Default(highlightedParagraphContext.props).Content(textProps);
-
-    return {
-        ...inheritedStyle,
-        alignSelf: "stretch",
+        ...TextVariant.Default(textProps),
         fontSize: 20,
         fontWeight: "bold",
         ...useResponsiveStyle("Small", {
             height: 33,
-            lineHeight: 20,
             fontSize: 17,
-            fontWeight: "bold",
-            color: Color.White,
             justifyContent: "flex-start",
             borderStyle: "solid",
             borderBottomWidth: 4,
             borderBottomColor: Color.Primary
         }),
         ...useResponsiveStyle("Medium", {
-            fontSize: 20
+            fontSize: 20,
+            lineHeight: 21
         })
-    };
-};
-
-const SelfIntroductionHero__PersonalInfo: HighlightedParagraphStyle = function (highlightedParagraphProps)
-{
-    return {
-        ...HighlightedParagraphVariant.Default(highlightedParagraphProps),
-        Root: SelfIntroductionHero__PersonalInfo__Root,
-        TitleContainer: SelfIntroductionHero__PersonalInfo__TitleContainer,
-        TitleIcon: SelfIntroductionHero__PersonalInfo__TitleIcon,
-        TitleLabel: SelfIntroductionHero__PersonalInfo__TitleLabel,
-        Gap: SelfIntroductionHero__PersonalInfo__Gap,
-        Content: SelfIntroductionHero__PersonalInfo__Content
     };
 };
 
@@ -316,7 +257,9 @@ export const Default: SelfIntroductionHeroStyle = function ()
         Name: SelfIntroductionHero__Name,
         AlternativeName: SelfIntroductionHero__AlternativeName,
         Description: SelfIntroductionHero__Description,
-        PersonalInfo: SelfIntroductionHero__PersonalInfo,
+        SimpleInfoSection: SelfIntroductionHero__SimpleInfoSection,
+        SimpleInfoLabel: SelfIntroductionHero__SimpleInfoLabel,
+        SimpleInfoValue: SelfIntroductionHero__SimpleInfoValue,
         DownloadButton: SelfIntroductionHero__DownloadButton
     };
 };
