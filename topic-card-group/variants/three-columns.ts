@@ -35,6 +35,7 @@ const TopicCardGroup__Card__Root: ViewStyle = function (viewProps)
         flexDirection: "row",
         alignItems: "stretch",
         flexBasis: "100%",
+        maxWidth: 540,
         marginVertical: 10,
         ...useResponsiveStyle("Medium", {flexBasis: "50%"}),
         ...useResponsiveStyle("Large", {flexBasis: "33.33%"}),

@@ -44,12 +44,12 @@
 .antimatter-html i,
 .antimatter-html em,
 .antimatter-html .text-style--italic {
-    font-style: normal;
+    font-style: italic;
     font-family: Roboto-Italic, sans-serif;
 }
 
 .antimatter-html .text-style--bold-italic {
-    font-style: normal;
+    font-style: italic;
     font-weight: normal;
     font-family: Roboto-Bold-Italic, sans-serif;
 }
@@ -64,8 +64,9 @@
 
 .antimatter-html .glyph {
     display: inline-block;
-    padding: 2px 2px 0;
+    padding: 0 2px 2px;
     vertical-align: middle;
+    font-family: glyph, sans-serif;
 }
 
 .antimatter-html .text-color--blue { color: rgb(0, 160, 255); }
@@ -73,6 +74,7 @@
 .antimatter-html .text-color--gold { color: rgb(255, 191, 71); }
 .antimatter-html .text-color--tomato { color: rgb(255, 112, 71); }
 .antimatter-html .text-color--white { color: rgb(255, 255, 255); }
+.antimatter-html .text-color--gray { color: rgb(128, 128, 128); }
 
 .antimatter-html .badge {
     display: inline-block;
@@ -85,4 +87,4 @@
 .antimatter-html .badge.badge--green { background-color: rgb(135, 172, 78); color: rgb(30, 30, 30); }
 .antimatter-html .badge.badge--gold { background-color: rgb(255, 191, 71); color: rgb(30, 30, 30); }
 .antimatter-html .badge.badge--tomato { background-color: rgb(255, 112, 71); color: rgb(30, 30, 30); }
-.antimatter-html .badge.badge--purple { background-color: rgb(137, 89, 168); color: rgb(255, 255, 255); }
+.antimatter-html .badge.badge--purple { background-color: rgb(137, 89, 168); color: rgb(30, 30, 30); }

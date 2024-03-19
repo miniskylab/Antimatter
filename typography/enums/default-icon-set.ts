@@ -14,7 +14,7 @@ export enum DefaultIconSet
     History = "history",
     Location = "location",
     Pen = "pen",
-    Rocket = "rocket",
+    Code = "code",
     Medal = "medal",
     Origin = "origin",
     NoMic = "no-mic",

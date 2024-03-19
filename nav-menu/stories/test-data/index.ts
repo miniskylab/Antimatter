@@ -58,7 +58,7 @@ export const TestData: ITestData = {
                     url: "/placerat"
                 },
                 {
-                    icon: DefaultIconSet.Rocket,
+                    icon: DefaultIconSet.Sun,
                     label: "Pharetra",
                     url: "/pharetra"
                 }

@@ -155,6 +155,7 @@ const RangeSlider__Pips__Label: TextStyle = function (textProps)
         height: 30,
         paddingTop: 20,
         fontSize: 10,
+        textAlign: "center",
         color: isHighlighted ? Color.Primary : Color.Gainsboro,
         transform: [{translateX: -15}]
     };

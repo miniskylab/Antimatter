@@ -76,6 +76,7 @@ const SelfIntroductionHero__Name: TextStyle = function (textProps)
         fontSize: 40,
         fontWeight: "bold",
         color: Color.White,
+        textAlign: "center",
         ...useResponsiveStyle("Small", {
             height: 60,
             fontSize: 50
@@ -92,6 +93,7 @@ const SelfIntroductionHero__AlternativeName: TextStyle = function (textProps)
         fontSize: 28,
         fontWeight: "bold",
         color: Color.White,
+        textAlign: "center",
         ...useResponsiveStyle("Small", {
             height: 50,
             fontSize: 38
@@ -166,12 +168,12 @@ const SelfIntroductionHero__SimpleInfoLabel: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
-        height: 30,
+        lineHeight: 30,
         fontSize: 16,
         fontWeight: "bold",
         color: Color.Neutral,
         ...useResponsiveStyle("Small", {
-            height: 37,
+            lineHeight: 37,
             fontSize: 17
         }),
         ...useResponsiveStyle("Medium", {

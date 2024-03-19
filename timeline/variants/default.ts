@@ -346,7 +346,6 @@ const Timeline__BootstrapEvent__Root: ViewStyle = function (viewProps)
         backgroundColor: Color.Ambient,
         ...useResponsiveStyle("Large", {
             maxWidth: undefined,
-            height: 200,
             marginTop: 10,
             marginLeft: 0
         })
@@ -384,13 +383,13 @@ const Timeline__BootstrapEvent__Icon: IconStyle = function (iconProps)
         width: 35,
         height: 35,
         marginBottom: 18,
-        fontSize: 35,
+        fontSize: 50,
         color: Color.Gray,
         ...useResponsiveStyle("Large", {
             width: 45,
             height: 45,
             marginBottom: 23,
-            fontSize: 45
+            fontSize: 60
         })
     };
 };
@@ -415,9 +414,10 @@ const Timeline__BootstrapEvent__Description: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
+        width: "100%",
         lineHeight: 21,
         textAlign: "center",
-        marginTop: 6,
+        marginTop: 10,
         fontSize: 14,
         color: Color.Gray,
         ...useResponsiveStyle("Large", {

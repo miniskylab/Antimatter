@@ -4,6 +4,7 @@ import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {Timeline} from "../main";
 import {TimelineProps} from "../models";
+import {TestData} from "../test-data";
 import * as Variant from "../variants";
 import * as StaticAsset from "./static-assets";
 
@@ -84,9 +85,34 @@ export const Playground: Story = {
             }
         ],
         bootstrapEvent: {
-            icon: DefaultIconSet.Rocket,
+            icon: DefaultIconSet.Code,
             name: "Aliquam turpis leo, pulvinar ultrices est et",
-            description: "Etiam velit tellus, feugiat vel sollicitudin eget"
+            description: `
+                Etiam velit tellus, feugiat vel sollicitudin eget
+                <div style="${TestData.htmlStyles.bootstrapEventContainer}">
+                    <a href="${StaticAsset.PlaceholderImage}">
+                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                    </a>
+                    <a href="${StaticAsset.PlaceholderImage}">
+                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                    </a>
+                    <a href="${StaticAsset.PlaceholderImage}">
+                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                    </a>
+                    <a href="${StaticAsset.PlaceholderImage}">
+                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                    </a>
+                    <a href="${StaticAsset.PlaceholderImage}">
+                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                    </a>
+                    <a href="${StaticAsset.PlaceholderImage}">
+                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                    </a>
+                    <a href="${StaticAsset.PlaceholderImage}">
+                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                    </a>
+                </div>
+            `
         }
     },
     render: args => <TimelineWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>

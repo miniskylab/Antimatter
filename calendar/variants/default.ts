@@ -179,19 +179,16 @@ const Calendar__DateView__WeekNo: TextStyle = function (textProps)
         height: 40,
         color: Color.White__a10,
         fontSize: 13,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textAlign: "center"
     };
 };
 
 const Calendar__DateView__WeekOfYear: TextStyle = function (textProps)
 {
     return {
-        ...TextVariant.Default(textProps),
-        width: 40,
-        height: 40,
-        color: Color.White__a10,
-        fontSize: 10,
-        fontWeight: "bold"
+        ...Calendar__DateView__WeekNo(textProps),
+        fontSize: 10
     };
 };
 
@@ -204,7 +201,8 @@ const Calendar__DateView__DayOfWeek: TextStyle = function (textProps)
         height: 40,
         color: Color.Gainsboro,
         fontSize: 14,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        textAlign: "center"
     };
 };
 

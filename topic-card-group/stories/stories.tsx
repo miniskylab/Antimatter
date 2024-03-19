@@ -111,6 +111,9 @@ export const Playground: Story = {
                         <b class="badge badge--purple">libero</b>
                         <b class="badge badge--purple">nibh</b>
                     </p>
+                    <div class="text-style--bold-italic text-color--gray" style="line-height: 23px; text-align: justify">
+                        Lorem ipsum dolor sit amet iaculis rutrum at mattis viverra.
+                    </div>
                 `
             },
             {

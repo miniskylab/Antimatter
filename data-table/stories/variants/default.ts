@@ -22,7 +22,7 @@ const DataTable__Row__CellText: TextStyle = function (textProps)
         ...columnIndexContext === 2 && {minWidth: 130},
         ...columnIndexContext === 3 && {
             flexGrow: 0.6,
-            alignItems: "center"
+            textAlign: "center"
         }
     };
 };

@@ -4,14 +4,14 @@ import {
     isEnvironment,
     Ts,
     useComputedStyle,
-    useTypography,
-    WYSIWYG
+    useTypography
 } from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import {Animated} from "react-native";
 import {TextProps} from "./models";
 import * as Variant from "./variants";
+import "./css";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -50,6 +50,7 @@ export function Text({
                 style={{
                     ...inheritTextStyleFrom(computedStyle),
                     ...useTypography(computedStyle),
+                    width: "100%",
                     padding: computedStyle.padding,
                     paddingVertical: computedStyle.paddingVertical,
                     paddingHorizontal: computedStyle.paddingHorizontal,
@@ -60,8 +61,18 @@ export function Text({
                     ...isWebEnvironment && numberOfLines !== 1 && {whiteSpace: "inherit"}
                 }}
             >
-                {children && (isWebEnvironment ? WYSIWYG.render(children) : children)}
+                {children && (isWebEnvironment ? renderRawHtml(children) : children)}
             </Animated.Text>
         </View>
     );
+
+    function renderRawHtml(dangerousHtmlString: string): JSX.Element
+    {
+        return (
+            <div
+                className={"antimatter-html"}
+                dangerouslySetInnerHTML={{__html: dangerousHtmlString}}
+            />
+        );
+    }
 }

@@ -895,6 +895,7 @@ const TransactionTable__TransactionRecord__AmountText: TextStyle = function (tex
         marginLeft: "auto",
         fontSize: 17,
         fontWeight: "bold",
+        textAlign: "center",
         color: Color.Background,
         backgroundColor: isHighlighted ? Color.Positive : Color.Neutral
     };

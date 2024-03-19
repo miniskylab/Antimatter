@@ -8,4 +8,3 @@ export * from "./enums";
 export * from "./types";
 
 export * as Sb from "./storybook";
-export * as WYSIWYG from "./wysiwyg";
