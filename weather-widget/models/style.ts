@@ -15,14 +15,14 @@ export type WeatherWidgetStyle = (weatherWidgetProps: WithoutStyle<WeatherWidget
     WeatherConditionIcon: IconStyle;
     WeatherConditionLabel: TextStyle;
     MainContainer: ViewStyle;
+    FeelsLikeContainer: ViewStyle;
+    FeelsLikeLabel: TextStyle;
+    FeelsLikeValue: TextStyle;
     TemperatureRangeValueContainer: ViewStyle;
     TemperatureRangeValue: TextStyle;
     TemperatureRangeHr: ViewStyle;
     TemperatureRangeLabelContainer: ViewStyle;
     TemperatureRangeLabel: TextStyle;
-    FeelsLikeContainer: ViewStyle;
-    FeelsLikeLabel: TextStyle;
-    FeelsLikeValue: TextStyle;
     ShortWeatherDataContainer: ViewStyle;
     UvIndexIcon: IconStyle;
     UvIndexDescription: TextStyle;

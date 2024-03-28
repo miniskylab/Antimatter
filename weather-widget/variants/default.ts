@@ -71,7 +71,7 @@ const WeatherWidget__WeatherConditionContainer: ViewStyle = function (viewProps)
         flex: 0,
         flexBasis: 110,
         height: 125,
-        paddingTop: 4,
+        paddingTop: 5,
         marginLeft: 15
     };
 };
@@ -89,7 +89,9 @@ const WeatherWidget__WeatherConditionLabel: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
-        marginTop: 8,
+        alignSelf: "stretch",
+        lineHeight: 21,
+        marginTop: 6,
         color: Color.Neutral,
         fontSize: 16,
         fontWeight: "bold",
@@ -108,6 +110,45 @@ const WeatherWidget__MainContainer: ViewStyle = function (viewProps)
         justifyContent: "space-evenly",
         paddingLeft: 20,
         paddingRight: 15
+    };
+};
+
+const WeatherWidget__FeelsLikeContainer: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        flexDirection: "row",
+        flexBasis: "100%",
+        paddingBottom: 6
+    };
+};
+
+const WeatherWidget__FeelsLikeLabel: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        marginRight: 6,
+        color: Color.Neutral,
+        fontSize: 20,
+        fontWeight: "bold"
+    };
+};
+
+const WeatherWidget__FeelsLikeValue: TextStyle = function (textProps)
+{
+    const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
+
+    return {
+        ...TextVariant.Default(textProps),
+        fontSize: 23,
+        fontWeight: "bold",
+        color: weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Purple
+            ? Color.Purple
+            : weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Tomato
+                ? Color.Tomato
+                : weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
+                    ? Color.Blue
+                    : Color.Neutral
     };
 };
 
@@ -173,51 +214,12 @@ const WeatherWidget__TemperatureRangeLabel: TextStyle = function (textProps)
     };
 };
 
-const WeatherWidget__FeelsLikeContainer: ViewStyle = function (viewProps)
-{
-    return {
-        ...ViewVariant.Default(viewProps),
-        flexDirection: "row",
-        flexBasis: "100%",
-        paddingBottom: 2
-    };
-};
-
-const WeatherWidget__FeelsLikeLabel: TextStyle = function (textProps)
-{
-    return {
-        ...TextVariant.Default(textProps),
-        marginRight: 6,
-        color: Color.Neutral,
-        fontSize: 20,
-        fontWeight: "bold"
-    };
-};
-
-const WeatherWidget__FeelsLikeValue: TextStyle = function (textProps)
-{
-    const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
-
-    return {
-        ...TextVariant.Default(textProps),
-        fontSize: 23,
-        fontWeight: "bold",
-        color: weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Purple
-            ? Color.Purple
-            : weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Tomato
-                ? Color.Tomato
-                : weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
-                    ? Color.Blue
-                    : Color.Neutral
-    };
-};
-
 const WeatherWidget__ShortWeatherDataContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
-        paddingTop: 15
+        paddingTop: 14
     };
 };
 
