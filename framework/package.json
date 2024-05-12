@@ -7,22 +7,22 @@
   },
   "dependencies": {
     "@expo/match-media": "0.4.0",
-    "@storybook/addon-a11y": "7.6.17",
-    "@storybook/addon-actions": "7.6.17",
-    "@storybook/addon-controls": "7.6.17",
-    "@storybook/addon-docs": "7.6.17",
-    "@storybook/addon-links": "7.6.17",
-    "@storybook/addon-measure": "7.6.17",
-    "@storybook/blocks": "7.6.17",
-    "@storybook/cli": "7.6.17",
-    "@storybook/manager-api": "7.6.17",
-    "@storybook/preview-api": "7.6.17",
-    "@storybook/react-webpack5": "7.6.17",
+    "@storybook/addon-a11y": "8.0.10",
+    "@storybook/addon-actions": "8.0.10",
+    "@storybook/addon-controls": "8.0.10",
+    "@storybook/addon-docs": "8.0.10",
+    "@storybook/addon-links": "8.0.10",
+    "@storybook/addon-measure": "8.0.10",
+    "@storybook/blocks": "8.0.10",
+    "@storybook/cli": "8.0.10",
+    "@storybook/manager-api": "8.0.10",
+    "@storybook/preview-api": "8.0.10",
+    "@storybook/react-webpack5": "8.0.10",
     "class-transformer": "0.5.1",
     "class-validator": "0.14.1",
-    "reflect-metadata": "0.2.1"
+    "reflect-metadata": "0.2.2"
   },
   "devDependencies": {
-    "expo-screen-orientation": "6.4.1"
+    "expo-screen-orientation": "7.0.4"
   }
 }
