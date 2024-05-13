@@ -1,6 +1,6 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Layer} from "@miniskylab/antimatter-framework";
+import {CursorType, Layer} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
@@ -113,7 +113,7 @@ const DropdownMenu__Menu: ScrollViewStyle = function (scrollViewProps)
         marginVertical: 5,
         backgroundColor: Color.Mineshaft,
         zIndex: Layer.ContextMenu,
-        cursor: "default",
+        cursor: CursorType.Default,
         ...dropdownMenuContext.props.dropDirection === DropDirection.Up && {
             top: "auto",
             bottom: "100%"

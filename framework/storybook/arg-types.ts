@@ -1,3 +1,4 @@
+import {InputType} from "@storybook/types";
 import {Ts} from "../functions";
 
 export function styleSelector(anyObject: Record<string, unknown>): Record<string, unknown>
@@ -17,7 +18,7 @@ export function styleSelector(anyObject: Record<string, unknown>): Record<string
     };
 }
 
-export function enumDropdown(anyEnum: Record<string, string>)
+export function enumDropdown(anyEnum: Record<string, string>): InputType
 {
     const anyEnumWithoutReverseMapping: typeof anyEnum = {};
     Object.keys(anyEnum)
@@ -37,7 +38,7 @@ export function enumDropdown(anyEnum: Record<string, string>)
     };
 }
 
-export function number(min: number = -Infinity, max: number = Infinity, step: number = 1)
+export function number(min: number = -Infinity, max: number = Infinity, step: number = 1): InputType
 {
     return {
         control: {
@@ -49,7 +50,7 @@ export function number(min: number = -Infinity, max: number = Infinity, step: nu
     };
 }
 
-export function rangeSlider(min: number, max: number, step: number = 1)
+export function rangeSlider(min: number, max: number, step: number = 1): InputType
 {
     return {
         control: {
@@ -61,7 +62,7 @@ export function rangeSlider(min: number, max: number, step: number = 1)
     };
 }
 
-export function datePicker()
+export function datePicker(): InputType
 {
     return {
         control: {
@@ -70,7 +71,7 @@ export function datePicker()
     };
 }
 
-export function boolean()
+export function boolean(): InputType
 {
     return {
         control: {
@@ -79,7 +80,7 @@ export function boolean()
     };
 }
 
-export function select()
+export function select(): InputType
 {
     return {
         control: {
@@ -88,7 +89,7 @@ export function select()
     };
 }
 
-export function text()
+export function text(): InputType
 {
     return {
         control: {
@@ -97,6 +98,6 @@ export function text()
     };
 }
 
-export const locked = {
+export const locked: InputType = {
     control: false
 };

@@ -3,7 +3,7 @@ import {CalendarContextHook, CalendarStyle, CalendarVariant} from "@miniskylab/a
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DatePickerContextHook, DatePickerStyle, DatePickerVariant} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {Layer, useEnvironment, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {CursorType, Layer, useEnvironment, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {ProgressStripesContextHook, ProgressStripesStyle, ProgressStripesVariant} from "@miniskylab/antimatter-motion-graphics";
@@ -122,7 +122,7 @@ const TransactionTable__DatePicker__Addon__Root: PressableStyle = function (pres
     return {
         ...inheritedStyle,
         width: "100%",
-        cursor: "pointer"
+        cursor: CursorType.Pointer
     };
 };
 
@@ -684,7 +684,7 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         borderStyle: "solid",
         borderColor: Color.Neutral,
         marginTop: -2,
-        cursor: hasSelectedTransaction ? "default" : "pointer",
+        cursor: hasSelectedTransaction ? CursorType.Default : CursorType.Pointer,
         animations: () =>
         {
             const flashHighlightAnimation = TransactionTableAnimationHook.useFlashHighlightAnimation();
@@ -709,7 +709,7 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
                 paddingBottom: 0,
                 borderTopWidth: 0,
                 borderBottomWidth: 0,
-                cursor: "default",
+                cursor: CursorType.Default,
                 zIndex: Layer.Higher
             }
         }
@@ -914,7 +914,7 @@ const TransactionTable__TransactionRecord__TagSelector__Root: ViewStyle = functi
         minHeight: undefined,
         marginHorizontal: 1,
         overflow: "hidden",
-        cursor: "default"
+        cursor: CursorType.Default
     };
 };
 

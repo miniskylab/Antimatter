@@ -1,7 +1,7 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DropDirection, DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant} from "@miniskylab/antimatter-dropdown-menu";
-import {Layer, useEnvironment} from "@miniskylab/antimatter-framework";
+import {CursorType, Layer, useEnvironment} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
@@ -218,7 +218,7 @@ const DataTable__Row__Root: PressableStyle = function (pressableProps, pressable
         borderStyle: "solid",
         borderColor: Color.Neutral,
         marginTop: runningOnMobileApp ? -2 : -1.6,
-        cursor: selectableAndHovered ? "pointer" : "default",
+        cursor: selectableAndHovered ? CursorType.Pointer : CursorType.Default,
         zIndex: rowContext.props.mode !== Row.Mode.ReadOnly
             ? Layer.AlwaysOnTop
             : pressableState.hovered

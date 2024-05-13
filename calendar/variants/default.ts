@@ -1,6 +1,6 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Ts} from "@miniskylab/antimatter-framework";
+import {CursorType, Ts} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
@@ -108,7 +108,7 @@ const Calendar__Header__Headline__Root: PressableStyle = function (pressableProp
         backgroundColor: Color.Transparent,
         ...pressableProps.disabled && {
             opacity: 1,
-            cursor: "default"
+            cursor: CursorType.Default
         }
     };
 };

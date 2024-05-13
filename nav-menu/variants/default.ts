@@ -1,5 +1,6 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {CursorType} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
 import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
@@ -55,7 +56,7 @@ const NavMenu__Link__Root: PressableStyle = function (pressableProps, pressableS
             : Color.Transparent,
         ...pressableProps.disabled && {
             opacity: 1,
-            cursor: "default",
+            cursor: CursorType.Default,
             height: 30,
             paddingLeft: 20,
             marginVertical: 3,

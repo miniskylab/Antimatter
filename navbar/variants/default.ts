@@ -1,5 +1,6 @@
 import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {CursorType} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {NavButtonContextHook, NavButtonStyle, NavButtonVariant} from "@miniskylab/antimatter-nav-button";
 import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
@@ -40,7 +41,7 @@ const Navbar__Tab__Root: PressableStyle = function (pressableProps, pressableSta
         paddingVertical: 0,
         paddingHorizontal: 0,
         opacity: 1,
-        cursor: navButtonContext.props.disabled ? "default" : "pointer",
+        cursor: navButtonContext.props.disabled ? CursorType.Default : CursorType.Pointer,
         ...pressableState.pressed
             ? {
                 borderColor: Color.Primary,

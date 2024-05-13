@@ -1,4 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {CursorType} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {TextStyle} from "@miniskylab/antimatter-text";
@@ -14,7 +15,7 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
         borderWidth: 2,
         borderStyle: "solid",
         borderColor: Color.Primary,
-        cursor: "pointer",
+        cursor: CursorType.Pointer,
         backgroundColor: pressableState.pressed
             ? Color.Primary
             : pressableState.hovered
@@ -22,7 +23,7 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
                 : Color.Transparent,
         ...pressableProps.disabled && {
             opacity: .2,
-            cursor: "not-allowed",
+            cursor: CursorType.NotAllowed,
             borderColor: Color.Neutral
         }
     };

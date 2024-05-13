@@ -1,5 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {Layer} from "@miniskylab/antimatter-framework";
+import {CursorType, Layer} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
@@ -27,7 +27,7 @@ const RangeSlider__Track: ViewStyle = function (viewProps)
         borderRadius: 8,
         marginVertical: 7,
         backgroundColor: Color.Mineshaft,
-        cursor: rangeSliderContext.props.disabled ? "default" : "pointer"
+        cursor: rangeSliderContext.props.disabled ? CursorType.Default : CursorType.Pointer
     };
 };
 
