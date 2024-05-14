@@ -3,7 +3,7 @@ import {FontSource, isLoaded, loadAsync, useFonts} from "expo-font";
 import {useEffect, useState} from "react";
 import {TextStyle} from "react-native";
 import {EMPTY_STRING} from "../consts";
-import {isEnvironment} from "../functions";
+import {isEnvironment} from "../core";
 import {ssrIsEnabled} from "./responsive";
 
 export function useDefaultFont(): boolean
