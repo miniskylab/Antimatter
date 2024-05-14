@@ -8,10 +8,10 @@ export const TestData = {
         const queryParamaterName = "tab";
         const tabs = [
             [TabName.Lorem, DefaultIconSet.Home],
-            [TabName.Suscipit, DefaultIconSet.Calendar],
-            [TabName.Pellentesque, DefaultIconSet.Money],
-            [TabName.Vestibulum, DefaultIconSet.Statistics],
-            [TabName.Consectetur, DefaultIconSet.Gear]
+            [TabName.Ipsum, DefaultIconSet.Calendar],
+            [TabName.Dolor, DefaultIconSet.Registry],
+            [TabName.Suscipit, DefaultIconSet.Music],
+            [TabName.Libero, DefaultIconSet.Gear]
         ].map((tabData: [TabName, DefaultIconSet]) =>
         {
             Ts.Error.throwIfNullOrUndefined(window.top);
@@ -43,8 +43,8 @@ export const TestData = {
 enum TabName
 {
     Lorem = "Lorem",
+    Ipsum = "Ipsum",
+    Dolor = "Dolor",
     Suscipit = "Suscipit",
-    Pellentesque = "Pellentesque",
-    Vestibulum = "Vestibulum",
-    Consectetur = "Consectetur"
+    Libero = "Libero"
 }
