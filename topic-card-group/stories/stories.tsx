@@ -67,7 +67,7 @@ export const Playground: Story = {
             },
             {
                 text: `
-                    <div ${TestData.htmlStyles.icon}></div>
+                    <div ${TestData.htmlStyles.icon}></div>
                     <div ${TestData.htmlStyles.title}>Curabitur</div>
                     <p ${TestData.htmlStyles.paragraph}>
                         Pellentesque pellentesque purus sit amet iaculis rutrum. Nam vitae neque et enim aliquet dignissim eget ornare nibh.
