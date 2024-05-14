@@ -5,7 +5,7 @@ import React, {JSX} from "react";
 import {Text} from "react-native";
 import {Roboto} from "../fonts";
 
-export default {title: "Typography", tags: ["hidden-from-sidebar"]} satisfies Meta;
+export default {tags: ["hidden-from-sidebar"]} satisfies Meta;
 export function RobotoTypeset(): JSX.Element
 {
     useFonts(Roboto);
