@@ -52,6 +52,7 @@ export enum DefaultIconSet
     Group = "group",
     Road = "road",
     Basket = "basket",
+    Haircut = "haircut",
     Money = "money",
     PriceTag = "price-tag",
     LockInsideShield = "lock-inside-shield",
