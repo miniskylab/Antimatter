@@ -1,9 +1,12 @@
 import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {isEnvironment} from "@miniskylab/antimatter-framework";
 import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
+import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
 import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {SongRow} from "../components";
 import {MusicPlayerContextHook} from "../hooks";
 import {MusicPlayerStyle} from "../models";
 
@@ -11,14 +14,24 @@ const MusicPlayer__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
-        flexDirection: "row",
-        flexWrap: "wrap",
-        justifyContent: "flex-start",
+        flex: 1,
+        alignItems: "stretch",
         minWidth: 400,
         maxWidth: 500,
-        padding: 15,
-        paddingBottom: 12,
+        paddingTop: 15,
         backgroundColor: Color.Background
+    };
+};
+
+const MusicPlayer__NowPlayingContainer: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        flexDirection: "row",
+        alignItems: "stretch",
+        columnGap: 10,
+        height: 50,
+        paddingHorizontal: 15
     };
 };
 
@@ -39,10 +52,7 @@ const MusicPlayer__TitleContainer: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flex: 1,
-        alignItems: "flex-start",
-        justifyContent: "space-around",
-        height: 50,
-        marginLeft: 10
+        justifyContent: "space-around"
     };
 };
 
@@ -66,13 +76,15 @@ const MusicPlayer__Subtitle: TextStyle = function (textProps)
     };
 };
 
-const MusicPlayer__Row: ViewStyle = function (viewProps)
+const MusicPlayer__ControlContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
-        flexBasis: "100%",
-        paddingTop: 10
+        columnGap: 15,
+        paddingTop: 12,
+        paddingBottom: 18,
+        paddingHorizontal: 15
     };
 };
 
@@ -82,18 +94,9 @@ const MusicPlayer__Timer: TextStyle = function (textProps)
         ...TextVariant.Default(textProps),
         paddingLeft: 1,
         marginRight: "auto",
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: "bold",
         color: Color.Neutral
-    };
-};
-
-const MusicPlayer__ControlContainer: ViewStyle = function (viewProps)
-{
-    return {
-        ...ViewVariant.Default(viewProps),
-        flexDirection: "row",
-        columnGap: 15
     };
 };
 
@@ -151,17 +154,94 @@ const MusicPlayer__Button: ButtonStyle = function (buttonProps)
     };
 };
 
+const MusicPlayer__SongList: ScrollViewStyle = function (scrollViewProps)
+{
+    const runningInsideWebBrowser = isEnvironment("WebBrowser");
+
+    return {
+        ...ScrollViewVariant.Default(scrollViewProps),
+        minHeight: 434,
+        paddingTop: 2,
+        paddingBottom: 45,
+        backgroundColor: Color.Ambient,
+        ...runningInsideWebBrowser && {
+            paddingBottom: 0,
+            marginHorizontal: 15,
+            marginBottom: 18
+        }
+    };
+};
+
+const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    const runningInsideWebBrowser = isEnvironment("WebBrowser");
+
+    return {
+        ...PressableVariant.Default(pressableProps, pressableState),
+        flexDirection: "row",
+        columnGap: 25,
+        height: 49,
+        paddingHorizontal: 16,
+        borderTopWidth: 2,
+        borderBottomWidth: 2,
+        borderStyle: "solid",
+        borderColor: Color.Neutral,
+        marginTop: -2,
+        ...runningInsideWebBrowser && {
+            height: 38,
+            paddingHorizontal: 12
+        }
+    };
+};
+
+const MusicPlayer__SongRow__SongName: TextStyle = function (textProps)
+{
+    const runningInsideWebBrowser = isEnvironment("WebBrowser");
+
+    return {
+        ...TextVariant.Default(textProps),
+        flex: 1,
+        fontSize: runningInsideWebBrowser ? 14 : 18,
+        fontWeight: "bold",
+        color: Color.Neutral
+    };
+};
+
+const MusicPlayer__SongRow__SongDuration: TextStyle = function (textProps)
+{
+    const runningInsideWebBrowser = isEnvironment("WebBrowser");
+
+    return {
+        ...TextVariant.Default(textProps),
+        fontSize: runningInsideWebBrowser ? 14 : 18,
+        fontWeight: "bold",
+        textAlign: "right",
+        color: Color.Neutral
+    };
+};
+
+const MusicPlayer__SongRow: SongRow.Style = function ()
+{
+    return {
+        Root: MusicPlayer__SongRow__Root,
+        SongName: MusicPlayer__SongRow__SongName,
+        SongDuration: MusicPlayer__SongRow__SongDuration
+    };
+};
+
 export const Default: MusicPlayerStyle = function ()
 {
     return {
         Root: MusicPlayer__Root,
+        NowPlayingContainer: MusicPlayer__NowPlayingContainer,
         Icon: MusicPlayer__Icon,
         TitleContainer: MusicPlayer__TitleContainer,
         MainTitle: MusicPlayer__MainTitle,
         Subtitle: MusicPlayer__Subtitle,
-        Row: MusicPlayer__Row,
-        Timer: MusicPlayer__Timer,
         ControlContainer: MusicPlayer__ControlContainer,
-        Button: MusicPlayer__Button
+        Timer: MusicPlayer__Timer,
+        Button: MusicPlayer__Button,
+        SongList: MusicPlayer__SongList,
+        SongRow: MusicPlayer__SongRow
     };
 };
