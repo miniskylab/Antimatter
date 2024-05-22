@@ -2,8 +2,8 @@ import {ArrayNotEmpty, ComponentName, ComponentProps, IsArray, IsDefined} from "
 import {Type} from "class-transformer";
 import {ValidateNested} from "class-validator";
 import {Card} from "../components";
-import {CardData} from "../types";
-import {TopicCardGroupStyle} from "./style";
+import type {CardData} from "../types";
+import {type TopicCardGroupStyle} from "./style";
 
 @ComponentName("Topic Card Group")
 export class TopicCardGroupProps extends ComponentProps<TopicCardGroupStyle>

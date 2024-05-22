@@ -4,7 +4,7 @@ import {ImageStyle, Platform, TextStyle, ViewStyle} from "react-native";
 import {MediaQueryAllQueryable, useMediaQuery} from "react-responsive";
 import {isEnvironment} from "../core";
 import {getScreenSizeFromBreakpoint} from "../functions";
-import {Breakpoint, PlatformEnvironment, ResponsiveEnvironment} from "../types";
+import type {Breakpoint, PlatformEnvironment, ResponsiveEnvironment} from "../types";
 
 export function useEnvironment(environment: ResponsiveEnvironment | PlatformEnvironment): boolean
 {

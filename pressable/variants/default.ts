@@ -1,5 +1,5 @@
 import {useSuspense} from "@miniskylab/antimatter-framework";
-import {PressableStyle} from "../models";
+import {type PressableStyle} from "../models";
 
 export const Default: PressableStyle = function ()
 {

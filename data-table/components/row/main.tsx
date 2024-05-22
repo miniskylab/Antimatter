@@ -9,8 +9,8 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef, useState} from "react";
 import {Mode} from "./enums";
-import {ColumnIndexContext, Props, RowContext, State} from "./models";
-import {Measurement} from "./types";
+import {ColumnIndexContext, Props, RowContext, type State} from "./models";
+import type {Measurement} from "./types";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

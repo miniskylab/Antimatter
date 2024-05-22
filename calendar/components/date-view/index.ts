@@ -1,6 +1,4 @@
-export type {Style} from "./models";
-
-export {DateInfo} from "./types";
-export {Props} from "./models";
+export {DateInfo} from "./classes";
+export {Props, type Style} from "./models";
 export {Component} from "./main";
 export {ContextHook} from "./hooks";

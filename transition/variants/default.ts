@@ -1,5 +1,5 @@
 import {ViewVariant} from "@miniskylab/antimatter-view";
-import {TransitionStyle} from "../models";
+import {type TransitionStyle} from "../models";
 
 export const Default: TransitionStyle = function ()
 {

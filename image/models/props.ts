@@ -1,7 +1,7 @@
 import {ComponentName, ComponentProps, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {ImageSourcePropType} from "react-native";
-import {ImageStyle} from "./style";
+import {type ImageSourcePropType} from "react-native";
+import {type ImageStyle} from "./style";
 
 @ComponentName("Image")
 export class ImageProps extends ComponentProps<ImageStyle>

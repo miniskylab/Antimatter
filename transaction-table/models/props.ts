@@ -1,9 +1,10 @@
 import {ComponentName, ComponentProps, IsDate, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
+import {DisplayPanel, SelectedTransaction} from "../classes";
 import {Summary, TransactionRecord} from "../components";
-import {ControlButton, DisplayPanel, SelectedTransaction, TransactionChangeData} from "../types";
-import {TransactionTableStyle} from "./style";
+import type {ControlButton, TransactionChangeData} from "../types";
+import {type TransactionTableStyle} from "./style";
 
 @ComponentName("Transaction Table")
 export class TransactionTableProps extends ComponentProps<TransactionTableStyle>

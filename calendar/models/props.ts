@@ -1,6 +1,6 @@
 import {ComponentName, ComponentProps, IsDate} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {CalendarStyle} from "./style";
+import {type CalendarStyle} from "./style";
 
 @ComponentName("Calendar")
 export class CalendarProps extends ComponentProps<CalendarStyle>

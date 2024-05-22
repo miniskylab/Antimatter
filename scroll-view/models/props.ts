@@ -1,8 +1,8 @@
 import {ComponentName, ComponentProps, IsBoolean, IsInteger, Min} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {ReactNode} from "react";
+import {type ReactNode} from "react";
 import ReactNative from "react-native";
-import {ScrollViewStyle} from "./style";
+import {type ScrollViewStyle} from "./style";
 
 @ComponentName("Scroll View")
 export class ScrollViewProps extends ComponentProps<ScrollViewStyle>

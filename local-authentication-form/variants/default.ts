@@ -1,12 +1,12 @@
-import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {PressableContextHook, type PressableStyle} from "@miniskylab/antimatter-pressable";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {LocalAuthenticationStatus} from "../enums";
 import {LocalAuthenticationFormContextHook} from "../hooks";
-import {LocalAuthenticationFormStyle} from "../models";
+import {type LocalAuthenticationFormStyle} from "../models";
 
 const LocalAuthenticationForm__Root: ViewStyle = function (viewProps)
 {

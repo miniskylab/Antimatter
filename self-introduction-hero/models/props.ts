@@ -2,8 +2,8 @@ import {DownloadButtonProps} from "@miniskylab/antimatter-download-button";
 import {ComponentName, ComponentProps, IsDefined, IsEmail, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {ImageSourcePropType} from "react-native";
-import {SelfIntroductionHeroStyle} from "./style";
+import {type ImageSourcePropType} from "react-native";
+import {type SelfIntroductionHeroStyle} from "./style";
 
 @ComponentName("Self-Introduction Hero")
 export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHeroStyle>

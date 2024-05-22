@@ -1,6 +1,6 @@
 import {IsDefined, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {Row} from "../components";
+import {type Row} from "../components";
 
 export class SelectedRow
 {

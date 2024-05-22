@@ -1,9 +1,9 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {ToggleAnimationHook} from "../hooks";
-import {ToggleStyle} from "../models";
+import {type ToggleStyle} from "../models";
 
 const Toggle__Root: ViewStyle = function (viewProps)
 {

@@ -1,6 +1,6 @@
-import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
-import {ViewStyle} from "@miniskylab/antimatter-view";
-import {NumericInputFieldStyle} from "../models";
+import {InputFieldContextHook, type InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
+import {type ViewStyle} from "@miniskylab/antimatter-view";
+import {type NumericInputFieldStyle} from "../models";
 
 const NumericInputField__InputField__Container: ViewStyle = function (viewProps)
 {

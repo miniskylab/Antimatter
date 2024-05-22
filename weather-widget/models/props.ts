@@ -1,9 +1,9 @@
 import {ComponentName, ComponentProps} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
+import {ShortWeatherData, TemperatureData, WindData} from "../classes";
 import {SimpleWeatherData} from "../components";
-import {ShortWeatherData, TemperatureData, WindData} from "../types";
-import {WeatherWidgetStyle} from "./style";
+import {type WeatherWidgetStyle} from "./style";
 
 @ComponentName("Weather Widget")
 export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>

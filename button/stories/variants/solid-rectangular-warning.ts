@@ -1,10 +1,10 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {IconStyle} from "@miniskylab/antimatter-icon";
-import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
+import {type IconStyle} from "@miniskylab/antimatter-icon";
+import {PressableContextHook, type PressableStyle} from "@miniskylab/antimatter-pressable";
 import {useEffect, useRef} from "react";
 import {Animated, Easing} from "react-native";
 import {ButtonContextHook} from "../../hooks";
-import {ButtonStyle} from "../../models";
+import {type ButtonStyle} from "../../models";
 import * as ButtonVariant from "../../variants";
 
 const Button__Root: PressableStyle = function (pressableProps, pressableState)

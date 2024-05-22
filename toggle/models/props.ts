@@ -2,7 +2,7 @@ import {ComponentName, ComponentProps, IsEnum} from "@miniskylab/antimatter-fram
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {Status} from "../enums";
-import {ToggleStyle} from "./style";
+import {type ToggleStyle} from "./style";
 
 @ComponentName("Toggle")
 export class ToggleProps extends ComponentProps<ToggleStyle>

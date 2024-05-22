@@ -1,10 +1,10 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {TextInputStyle, TextInputVariant} from "@miniskylab/antimatter-text-input";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type TextInputStyle, TextInputVariant} from "@miniskylab/antimatter-text-input";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {InputFieldAnimationHook} from "../hooks";
-import {InputFieldStyle} from "../models";
+import {type InputFieldStyle} from "../models";
 
 const InputField__Root: ViewStyle = function (viewProps)
 {

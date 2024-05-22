@@ -1,6 +1,6 @@
 import {ComponentName, ComponentProps, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {SpinningDoubleGearStyle} from "./style";
+import {type SpinningDoubleGearStyle} from "./style";
 
 @ComponentName("Spinning Double Gear")
 export class SpinningDoubleGearProps extends ComponentProps<SpinningDoubleGearStyle>

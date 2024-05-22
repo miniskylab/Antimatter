@@ -1,6 +1,6 @@
-import {ComponentContext} from "@miniskylab/antimatter-framework";
+import {type ComponentContext} from "@miniskylab/antimatter-framework";
 import {createContext} from "react";
-import {ControlButtonType} from "../types";
+import type {ControlButtonType} from "../types";
 import {DataTableProps} from "./props";
 
 export const DataTableContext = createContext<DataTableContext>(undefined);

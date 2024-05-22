@@ -1,4 +1,4 @@
-import {Enum} from "../../types";
+import type {Enum} from "../../types";
 import {isNotNullAndUndefined} from "../type-guard";
 
 export function getName(anyEnum: Enum, possibleValue: unknown): string | undefined

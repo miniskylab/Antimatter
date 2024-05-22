@@ -1,15 +1,15 @@
-import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
-import {CalendarContextHook, CalendarStyle, CalendarVariant} from "@miniskylab/antimatter-calendar";
+import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {CalendarContextHook, type CalendarStyle, CalendarVariant} from "@miniskylab/antimatter-calendar";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {Layer} from "@miniskylab/antimatter-framework";
-import {IconStyle} from "@miniskylab/antimatter-icon";
-import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
-import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
-import {TextStyle} from "@miniskylab/antimatter-text";
-import {TextInputStyle} from "@miniskylab/antimatter-text-input";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle} from "@miniskylab/antimatter-icon";
+import {InputFieldContextHook, type InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
+import {PressableContextHook, type PressableStyle} from "@miniskylab/antimatter-pressable";
+import {type TextStyle} from "@miniskylab/antimatter-text";
+import {type TextInputStyle} from "@miniskylab/antimatter-text-input";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {DatePickerContextHook} from "../hooks";
-import {DatePickerStyle} from "../models";
+import {type DatePickerStyle} from "../models";
 
 const DatePicker__Root: ViewStyle = function (viewProps)
 {

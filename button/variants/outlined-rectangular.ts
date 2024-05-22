@@ -1,9 +1,9 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {CursorType} from "@miniskylab/antimatter-framework";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {ButtonStyle} from "../models";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {PressableContextHook, type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type ButtonStyle} from "../models";
 
 const Button__Root: PressableStyle = function (pressableProps, pressableState)
 {

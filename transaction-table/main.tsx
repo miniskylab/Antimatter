@@ -27,7 +27,7 @@ import {
     TransactionTableRef,
     TransactionTableState
 } from "./models";
-import {ControlPanel} from "./types";
+import type {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
 /**

@@ -1,5 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {TextStyle} from "../../models";
+import {type TextStyle} from "../../models";
 import * as TextVariant from "../../variants";
 
 export const UnderlineLineThrough: TextStyle = function (textProps)

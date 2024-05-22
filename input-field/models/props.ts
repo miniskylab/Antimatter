@@ -15,8 +15,8 @@ import {Selection} from "@miniskylab/antimatter-text-input";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {KeyboardTypeOptions} from "react-native";
-import {InputFieldStyle} from "./style";
+import {type KeyboardTypeOptions} from "react-native";
+import {type InputFieldStyle} from "./style";
 
 @ComponentName("Input Field")
 export class InputFieldProps extends ComponentProps<InputFieldStyle>

@@ -1,5 +1,5 @@
 import {useSuspense} from "@miniskylab/antimatter-framework";
-import {ImageStyle} from "../models";
+import {type ImageStyle} from "../models";
 
 export const Default: ImageStyle = function ()
 {

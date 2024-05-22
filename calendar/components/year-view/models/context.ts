@@ -1,6 +1,6 @@
 import {ComponentContext} from "@miniskylab/antimatter-framework";
 import {createContext} from "react";
-import {YearInfo} from "../types";
+import {YearInfo} from "../classes";
 import {Props} from "./props";
 
 export const YearViewContext = createContext<YearViewContext>(undefined);

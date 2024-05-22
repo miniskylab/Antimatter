@@ -1,6 +1,6 @@
-import {ViewStyle} from "@miniskylab/antimatter-view";
+import {type ViewStyle} from "@miniskylab/antimatter-view";
 import {InputFieldContextHook} from "../../hooks";
-import {InputFieldStyle} from "../../models";
+import {type InputFieldStyle} from "../../models";
 import * as InputFieldVariant from "../../variants";
 
 const InputField__Root: ViewStyle = function (viewProps)

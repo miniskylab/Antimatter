@@ -7,7 +7,7 @@ import {Control, DateView, Header, MonthView, YearView} from "./components";
 import {ViewType} from "./enums";
 import {CalendarContext, CalendarProps, CalendarState} from "./models";
 import {canNavigateBackward, canNavigateForward, getDateViewData, getMonthViewData, getViewId, getYearViewData} from "./services";
-import {TimeFrame} from "./types";
+import type {TimeFrame} from "./types";
 import * as Variant from "./variants";
 
 /**

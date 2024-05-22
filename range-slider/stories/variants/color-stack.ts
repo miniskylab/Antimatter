@@ -1,9 +1,9 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {TextStyle} from "@miniskylab/antimatter-text";
-import {ViewStyle} from "@miniskylab/antimatter-view";
+import {type TextStyle} from "@miniskylab/antimatter-text";
+import {type ViewStyle} from "@miniskylab/antimatter-view";
 import {Pips} from "../../components";
 import {RangeSliderContextHook} from "../../hooks";
-import {RangeSliderStyle} from "../../models";
+import {type RangeSliderStyle} from "../../models";
 import * as RangeSliderVariant from "../../variants";
 
 const RangeSlider__StopperLeft: ViewStyle = function (viewProps)

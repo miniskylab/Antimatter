@@ -1,5 +1,5 @@
 import {ComponentProps} from "../classes";
-import {Animated} from "../types";
+import type {Animated} from "../types";
 
 type Style = (props: unknown, state: unknown) => Animated<object | false> | Style;
 export function useComputedStyle<TStyle extends Style>(style: TStyle, props: ComponentProps<TStyle>, state?: unknown)

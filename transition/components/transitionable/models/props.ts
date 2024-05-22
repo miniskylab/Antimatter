@@ -1,5 +1,5 @@
 import {ComponentProps, IsDefined, IsString} from "@miniskylab/antimatter-framework";
-import {ReactNode} from "react";
+import {type ReactNode} from "react";
 import {Style} from "./style";
 
 export class Props extends ComponentProps<Style>

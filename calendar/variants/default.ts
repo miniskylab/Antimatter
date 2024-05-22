@@ -1,14 +1,14 @@
-import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {CursorType, Ts} from "@miniskylab/antimatter-framework";
-import {IconStyle} from "@miniskylab/antimatter-icon";
-import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {TransitionStyle, TransitionVariant} from "@miniskylab/antimatter-transition";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle} from "@miniskylab/antimatter-icon";
+import {PressableContextHook, type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type TransitionStyle, TransitionVariant} from "@miniskylab/antimatter-transition";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {Control, DateView, Header, MonthView, YearView} from "../components";
 import {CalendarContextHook} from "../hooks";
-import {CalendarStyle} from "../models";
+import {type CalendarStyle} from "../models";
 
 const Calendar__Root: ViewStyle = function (viewProps)
 {

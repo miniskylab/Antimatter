@@ -2,7 +2,7 @@ import {ComponentName, ComponentProps, IsBoolean, IsDefined, IsEnum, IsNotEmpty,
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {Target} from "../enums";
-import {NavButtonStyle} from "./style";
+import {type NavButtonStyle} from "./style";
 
 @ComponentName("Navigation Button")
 export class NavButtonProps extends ComponentProps<NavButtonStyle>

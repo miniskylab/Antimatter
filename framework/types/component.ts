@@ -1,6 +1,6 @@
 import {ImageStyle, TextStyle, ViewStyle} from "react-native";
 import {ComponentProps} from "../classes";
-import {CanBeUndefined} from "../types";
+import type {CanBeUndefined} from "../types";
 
 export type WithoutStyle<TProps extends ComponentProps<TProps["style"]>> = Omit<TProps, "style">;
 export type ComponentAnimation = {

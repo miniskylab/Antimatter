@@ -1,7 +1,7 @@
 import {ComponentName, ComponentProps, IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
-import {DownloadButtonStyle} from "./style";
+import {type DownloadButtonStyle} from "./style";
 
 @ComponentName("Download Button")
 export class DownloadButtonProps extends ComponentProps<DownloadButtonStyle>

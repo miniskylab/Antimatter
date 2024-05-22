@@ -1,11 +1,11 @@
-import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {CursorType} from "@miniskylab/antimatter-framework";
-import {IconStyle} from "@miniskylab/antimatter-icon";
-import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
-import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {NavMenuStyle} from "../models";
+import {type IconStyle} from "@miniskylab/antimatter-icon";
+import {PressableContextHook, type PressableStyle} from "@miniskylab/antimatter-pressable";
+import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type NavMenuStyle} from "../models";
 
 const NavMenu__Root: ScrollViewStyle = function (viewProps)
 {

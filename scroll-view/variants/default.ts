@@ -1,5 +1,5 @@
 import {useSuspense} from "@miniskylab/antimatter-framework";
-import {ScrollViewStyle} from "../models";
+import {type ScrollViewStyle} from "../models";
 
 export const Default: ScrollViewStyle = function ()
 {

@@ -2,8 +2,8 @@ import {ArrayNotEmpty, ComponentName, ComponentProps, IsArray} from "@miniskylab
 import {NavButtonProps} from "@miniskylab/antimatter-nav-button";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {TabData} from "../types";
-import {NavbarStyle} from "./style";
+import type {TabData} from "../types";
+import {type NavbarStyle} from "./style";
 
 @ComponentName("Navigation Bar")
 export class NavbarProps extends ComponentProps<NavbarStyle>

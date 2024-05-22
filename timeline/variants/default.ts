@@ -1,11 +1,11 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {getScreenSizeFromBreakpoint, Layer, useResponsiveStyle} from "@miniskylab/antimatter-framework";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {type ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {BootstrapEvent, Event} from "../components";
-import {TimelineStyle} from "../models";
+import {type TimelineStyle} from "../models";
 
 const Timeline__Root: ViewStyle = function (viewProps)
 {

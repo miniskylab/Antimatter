@@ -11,8 +11,8 @@ import {
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {PipsSettings} from "../types";
-import {RangeSliderStyle} from "./style";
+import {PipsSettings} from "../classes";
+import {type RangeSliderStyle} from "./style";
 
 @ComponentName("Range Slider")
 export class RangeSliderProps extends ComponentProps<RangeSliderStyle>

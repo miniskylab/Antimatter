@@ -1,6 +1,6 @@
 import {isEnum, isString, registerDecorator, ValidationOptions} from "class-validator";
 import {ErrorMessage} from "../../consts";
-import {Enum} from "../../types";
+import type {Enum} from "../../types";
 
 export function IsEnum(anyEnum: Enum, validationOptions?: Omit<ValidationOptions, "message">)
 {

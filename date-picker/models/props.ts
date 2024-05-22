@@ -1,6 +1,6 @@
 import {ComponentName, ComponentProps, DateFormat, IsBoolean, IsDate, IsEnum, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {DatePickerStyle} from "./style";
+import {type DatePickerStyle} from "./style";
 
 @ComponentName("Date Picker")
 export class DatePickerProps extends ComponentProps<DatePickerStyle>

@@ -12,7 +12,7 @@ import {
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {RepeatMode} from "../enums";
-import {MusicPlayerStyle} from "./style";
+import {type MusicPlayerStyle} from "./style";
 
 @ComponentName("Music Player")
 export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>

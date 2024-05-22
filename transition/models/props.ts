@@ -1,16 +1,11 @@
 import {ComponentName, ComponentProps, IsDefined} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {ReactElement} from "react";
+import {type ReactElement} from "react";
+import {NoneTransitionSettings, SlideTransitionSettings, TransitionSettings, ZoomTransitionSettings} from "../classes";
 import {Animation} from "../enums";
-import {
-    CompositeTransitionSettings,
-    NoneTransitionSettings,
-    SlideTransitionSettings,
-    TransitionSettings,
-    ZoomTransitionSettings
-} from "../types";
-import {TransitionStyle} from "./style";
+import type {CompositeTransitionSettings} from "../types";
+import {type TransitionStyle} from "./style";
 
 @ComponentName("Transition")
 export class TransitionProps extends ComponentProps<TransitionStyle>

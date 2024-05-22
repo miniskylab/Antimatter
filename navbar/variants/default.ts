@@ -1,12 +1,12 @@
 import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {CursorType} from "@miniskylab/antimatter-framework";
-import {IconStyle} from "@miniskylab/antimatter-icon";
-import {NavButtonContextHook, NavButtonStyle, NavButtonVariant} from "@miniskylab/antimatter-nav-button";
-import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
-import {TextStyle} from "@miniskylab/antimatter-text";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {NavbarStyle} from "../models";
+import {type IconStyle} from "@miniskylab/antimatter-icon";
+import {NavButtonContextHook, type NavButtonStyle, NavButtonVariant} from "@miniskylab/antimatter-nav-button";
+import {PressableContextHook, type PressableStyle} from "@miniskylab/antimatter-pressable";
+import {type TextStyle} from "@miniskylab/antimatter-text";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type NavbarStyle} from "../models";
 
 const Navbar__Root: ViewStyle = function (viewProps)
 {

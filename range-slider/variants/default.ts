@@ -1,11 +1,11 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {CursorType, Layer} from "@miniskylab/antimatter-framework";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {Pips} from "../components";
 import {RangeSliderContextHook} from "../hooks";
-import {RangeSliderStyle} from "../models";
+import {type RangeSliderStyle} from "../models";
 
 const RangeSlider__Root: ViewStyle = function (viewProps)
 {

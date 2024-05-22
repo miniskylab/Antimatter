@@ -1,8 +1,8 @@
 import {ComponentContext} from "@miniskylab/antimatter-framework";
 import {createContext} from "react";
-import {ControlButtonType} from "../types";
+import type {ControlButtonType} from "../types";
 import {TransactionTableProps} from "./props";
-import {TransactionTableState} from "./state";
+import {type TransactionTableState} from "./state";
 
 export const TransactionTableContext = createContext<TransactionTableContext>(undefined);
 export type TransactionTableContext = ComponentContext<TransactionTableProps, TransactionTableState>;

@@ -1,5 +1,5 @@
 import {DateFormat, TimeUnit} from "../enums";
-import {Decade} from "../types";
+import type {Decade} from "../types";
 import {EMPTY_STRING} from "./typescript";
 
 export const GregorianCalendar = new class

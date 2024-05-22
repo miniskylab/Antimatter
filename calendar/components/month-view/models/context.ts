@@ -1,6 +1,6 @@
 import {ComponentContext} from "@miniskylab/antimatter-framework";
 import {createContext} from "react";
-import {MonthInfo} from "../types";
+import {MonthInfo} from "../classes";
 import {Props} from "./props";
 
 export const MonthViewContext = createContext<MonthViewContext>(undefined);

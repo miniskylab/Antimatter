@@ -9,9 +9,9 @@ import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
+import {Tag} from "./classes";
 import {Mode, TagMetadata, TagStatus} from "./enums";
 import {Props, Ref, TagMetadataContext, TransactionRecordContext} from "./models";
-import {Tag} from "./types";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>

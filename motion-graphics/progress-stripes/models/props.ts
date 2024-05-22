@@ -1,6 +1,6 @@
 import {ComponentName, ComponentProps, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {ProgressStripesStyle} from "./style";
+import {type ProgressStripesStyle} from "./style";
 
 @ComponentName("Progress Stripes")
 export class ProgressStripesProps extends ComponentProps<ProgressStripesStyle>

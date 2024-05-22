@@ -1,14 +1,14 @@
-import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {CursorType, Layer} from "@miniskylab/antimatter-framework";
-import {IconStyle} from "@miniskylab/antimatter-icon";
-import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
-import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle} from "@miniskylab/antimatter-icon";
+import {PressableContextHook, type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {DropDirection, MenuItemStatus} from "../enums";
 import {DropdownMenuContextHook} from "../hooks";
-import {DropdownMenuStyle} from "../models";
+import {type DropdownMenuStyle} from "../models";
 
 const DropdownMenu__Root: ViewStyle = function (viewProps)
 {

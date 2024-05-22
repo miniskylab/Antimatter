@@ -1,6 +1,6 @@
 import {ComponentContext} from "@miniskylab/antimatter-framework";
 import {createContext} from "react";
-import {DateInfo} from "../types";
+import {DateInfo} from "../classes";
 import {Props} from "./props";
 
 export const DateViewContext = createContext<DateViewContext>(undefined);

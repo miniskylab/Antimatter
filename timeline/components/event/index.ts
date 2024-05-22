@@ -1,5 +1,3 @@
-export type {Style} from "./models";
-
-export {Props} from "./models";
+export {Props, type Style} from "./models";
 export {Component} from "./main";
 export {ContextHook} from "./hooks";

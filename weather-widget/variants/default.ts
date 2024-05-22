@@ -1,11 +1,11 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {Ts} from "@miniskylab/antimatter-framework";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {SimpleWeatherData} from "../components";
 import {WeatherWidgetContextHook} from "../hooks";
-import {WeatherWidgetStyle} from "../models";
+import {type WeatherWidgetStyle} from "../models";
 
 const WeatherWidget__Root: ViewStyle = function (viewProps)
 {

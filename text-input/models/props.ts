@@ -11,9 +11,9 @@ import {
 } from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {KeyboardTypeOptions} from "react-native";
-import {Selection} from "../types";
-import {TextInputStyle} from "./style";
+import {type KeyboardTypeOptions} from "react-native";
+import {Selection} from "../classes";
+import {type TextInputStyle} from "./style";
 
 @ComponentName("Text Input")
 export class TextInputProps extends ComponentProps<TextInputStyle>

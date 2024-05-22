@@ -1,8 +1,8 @@
 import {ComponentName, ComponentProps, IsArray, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {Category} from "../types";
-import {NavMenuStyle} from "./style";
+import {Category} from "../classes";
+import {type NavMenuStyle} from "./style";
 
 @ComponentName("NavMenu")
 export class NavMenuProps extends ComponentProps<NavMenuStyle>

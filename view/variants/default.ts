@@ -1,5 +1,5 @@
 import {useSuspense} from "@miniskylab/antimatter-framework";
-import {ViewStyle} from "../models";
+import {type ViewStyle} from "../models";
 
 export const Default: ViewStyle = function ()
 {

@@ -12,9 +12,9 @@ import {
 } from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
+import {SelectedRow} from "../classes";
 import {Row} from "../components";
-import {SelectedRow} from "../types";
-import {DataTableStyle} from "./style";
+import {type DataTableStyle} from "./style";
 
 @ComponentName("Data Table")
 export class DataTableProps extends ComponentProps<DataTableStyle>

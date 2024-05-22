@@ -1,13 +1,13 @@
 import {ButtonContextHook} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {DownloadButtonContextHook, DownloadButtonStyle, DownloadButtonVariant} from "@miniskylab/antimatter-download-button";
+import {DownloadButtonContextHook, type DownloadButtonStyle, DownloadButtonVariant} from "@miniskylab/antimatter-download-button";
 import {getScreenSizeFromBreakpoint, useResponsiveStyle} from "@miniskylab/antimatter-framework";
-import {ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
-import {PressableStyle} from "@miniskylab/antimatter-pressable";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
+import {type PressableStyle} from "@miniskylab/antimatter-pressable";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {SelfIntroductionHeroContextHook} from "../hooks";
-import {SelfIntroductionHeroStyle} from "../models";
+import {type SelfIntroductionHeroStyle} from "../models";
 
 const SelfIntroductionHero__Root: ViewStyle = function (viewProps)
 {

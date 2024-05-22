@@ -1,6 +1,6 @@
 import {ComponentProps, IsDate} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {DateInfo} from "../types";
+import {DateInfo} from "../classes";
 import {Style} from "./style";
 
 export class Props extends ComponentProps<Style>

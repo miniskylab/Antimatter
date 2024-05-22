@@ -1,1 +1,1 @@
-export * from "./settings";
+export * from "./composite-transition-settings";

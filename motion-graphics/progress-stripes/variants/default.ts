@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {ViewStyle} from "@miniskylab/antimatter-view";
+import {type ViewStyle} from "@miniskylab/antimatter-view";
 import {ProgressStripesAnimationHook, ProgressStripesContextHook} from "../hooks";
-import {ProgressStripesStyle} from "../models";
+import {type ProgressStripesStyle} from "../models";
 
 const ProgressStripes__Root: ViewStyle = function ()
 {

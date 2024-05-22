@@ -1,7 +1,7 @@
 import {ComponentName, ComponentProps, GestureResponderEventHandler, IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
-import {ButtonStyle} from "./style";
+import {type ButtonStyle} from "./style";
 
 @ComponentName("Button")
 export class ButtonProps extends ComponentProps<ButtonStyle>

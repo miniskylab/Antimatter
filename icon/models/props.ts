@@ -1,7 +1,7 @@
-import {ComponentName, ComponentProps, IsBoolean, IsDefined, IsEnum, PointerEvents} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps, IsBoolean, IsDefined, IsEnum, type PointerEvents} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
-import {IconStyle} from "./style";
+import {type IconStyle} from "./style";
 
 @ComponentName("Icon")
 export class IconProps extends ComponentProps<IconStyle>

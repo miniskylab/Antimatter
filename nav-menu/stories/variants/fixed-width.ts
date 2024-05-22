@@ -1,6 +1,6 @@
-import {ScrollViewStyle} from "@miniskylab/antimatter-scroll-view";
+import {type ScrollViewStyle} from "@miniskylab/antimatter-scroll-view";
 import {NavMenuContextHook} from "../../hooks";
-import {NavMenuStyle} from "../../models";
+import {type NavMenuStyle} from "../../models";
 import * as NavMenuVariant from "../../variants";
 
 const NavMenu__Root: ScrollViewStyle = function (scrollViewProps)

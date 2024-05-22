@@ -2,8 +2,8 @@ import {ArrayNotEmpty, ComponentName, ComponentProps, IsArray, IsDefined} from "
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {BootstrapEvent, Event} from "../components";
-import {BootstrapEventData, EventData} from "../types";
-import {TimelineStyle} from "./style";
+import type {BootstrapEventData, EventData} from "../types";
+import {type TimelineStyle} from "./style";
 
 @ComponentName("Timeline")
 export class TimelineProps extends ComponentProps<TimelineStyle>

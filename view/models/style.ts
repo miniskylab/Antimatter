@@ -1,4 +1,4 @@
-import {Animated, WithoutStyle} from "@miniskylab/antimatter-framework";
+import {type Animated, type WithoutStyle} from "@miniskylab/antimatter-framework";
 import * as ReactNative from "react-native";
 import {ViewProps} from "./props";
 

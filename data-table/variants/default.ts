@@ -1,18 +1,18 @@
-import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {DropDirection, DropdownMenuContextHook, DropdownMenuStyle, DropdownMenuVariant} from "@miniskylab/antimatter-dropdown-menu";
+import {DropDirection, DropdownMenuContextHook, type DropdownMenuStyle, DropdownMenuVariant} from "@miniskylab/antimatter-dropdown-menu";
 import {CursorType, Layer, useEnvironment} from "@miniskylab/antimatter-framework";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {InputFieldContextHook, InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
-import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
-import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {TextInputStyle} from "@miniskylab/antimatter-text-input";
-import {ToggleContextHook, ToggleStyle, ToggleVariant} from "@miniskylab/antimatter-toggle";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {InputFieldContextHook, type InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
+import {PressableContextHook, type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type TextInputStyle} from "@miniskylab/antimatter-text-input";
+import {ToggleContextHook, type ToggleStyle, ToggleVariant} from "@miniskylab/antimatter-toggle";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {Row} from "../components";
 import {DataTableContextHook} from "../hooks";
-import {DataTableStyle} from "../models";
+import {type DataTableStyle} from "../models";
 
 const DataTable__Root: ViewStyle = function (viewProps)
 {

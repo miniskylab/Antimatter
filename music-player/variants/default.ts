@@ -1,14 +1,14 @@
-import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {isEnvironment} from "@miniskylab/antimatter-framework";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {PressableContextHook, PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
-import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {PressableContextHook, type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
+import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {SongRow} from "../components";
 import {MusicPlayerContextHook} from "../hooks";
-import {MusicPlayerStyle} from "../models";
+import {type MusicPlayerStyle} from "../models";
 
 const MusicPlayer__Root: ViewStyle = function (viewProps)
 {

@@ -1,8 +1,8 @@
 import {getScreenSizeFromBreakpoint, useResponsiveStyle} from "@miniskylab/antimatter-framework";
-import {ViewStyle} from "@miniskylab/antimatter-view";
+import {type ViewStyle} from "@miniskylab/antimatter-view";
 import {Card} from "../components";
 import {TopicCardGroupContextHook} from "../hooks";
-import {TopicCardGroupStyle} from "../models";
+import {type TopicCardGroupStyle} from "../models";
 import {ThreeColumns} from "./three-columns";
 
 const TopicCardGroup__Root: ViewStyle = function (viewProps)

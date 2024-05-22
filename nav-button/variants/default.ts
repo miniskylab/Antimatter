@@ -1,10 +1,10 @@
 import {ButtonContextHook, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {IconStyle} from "@miniskylab/antimatter-icon";
-import {PressableStyle} from "@miniskylab/antimatter-pressable";
-import {TextStyle} from "@miniskylab/antimatter-text";
+import {type IconStyle} from "@miniskylab/antimatter-icon";
+import {type PressableStyle} from "@miniskylab/antimatter-pressable";
+import {type TextStyle} from "@miniskylab/antimatter-text";
 import {NavButtonAnimationHook} from "../hooks";
-import {NavButtonStyle} from "../models";
+import {type NavButtonStyle} from "../models";
 
 const NavButton__Button__Root: PressableStyle = function (pressableProps, pressableState)
 {

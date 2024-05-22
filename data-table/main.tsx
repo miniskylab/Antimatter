@@ -7,7 +7,7 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef} from "react";
 import {Row} from "./components";
 import {ControlButtonTypeContext, DataTableContext, DataTableProps, RowTypeContext} from "./models";
-import {ControlPanel} from "./types";
+import type {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
 /**

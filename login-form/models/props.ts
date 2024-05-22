@@ -4,7 +4,7 @@ import {InputFieldProps} from "@miniskylab/antimatter-input-field";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {Type} from "class-transformer";
 import {ValidateNested} from "class-validator";
-import {LoginFormStyle} from "./style";
+import {type LoginFormStyle} from "./style";
 
 @ComponentName("Login Form")
 export class LoginFormProps extends ComponentProps<LoginFormStyle>

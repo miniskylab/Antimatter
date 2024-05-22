@@ -1,8 +1,8 @@
 import {ComponentName, ComponentProps, IsBoolean, IsEnum, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
+import {MenuItem} from "../classes";
 import {DropDirection} from "../enums";
-import {MenuItem} from "../types";
-import {DropdownMenuStyle} from "./style";
+import {type DropdownMenuStyle} from "./style";
 
 @ComponentName("Dropdown Menu")
 export class DropdownMenuProps extends ComponentProps<DropdownMenuStyle>

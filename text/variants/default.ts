@@ -1,6 +1,6 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {useSuspense} from "@miniskylab/antimatter-framework";
-import {TextStyle} from "../models";
+import {type TextStyle} from "../models";
 
 export const Default: TextStyle = function ()
 {

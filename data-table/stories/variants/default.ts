@@ -1,12 +1,12 @@
-import {DropdownMenuContextHook, DropdownMenuStyle} from "@miniskylab/antimatter-dropdown-menu";
-import {IconStyle} from "@miniskylab/antimatter-icon";
-import {InputFieldContextHook, InputFieldStyle} from "@miniskylab/antimatter-input-field";
-import {TextStyle} from "@miniskylab/antimatter-text";
-import {ToggleContextHook, ToggleStyle} from "@miniskylab/antimatter-toggle";
-import {ViewStyle} from "@miniskylab/antimatter-view";
+import {DropdownMenuContextHook, type DropdownMenuStyle} from "@miniskylab/antimatter-dropdown-menu";
+import {type IconStyle} from "@miniskylab/antimatter-icon";
+import {InputFieldContextHook, type InputFieldStyle} from "@miniskylab/antimatter-input-field";
+import {type TextStyle} from "@miniskylab/antimatter-text";
+import {ToggleContextHook, type ToggleStyle} from "@miniskylab/antimatter-toggle";
+import {type ViewStyle} from "@miniskylab/antimatter-view";
 import {Row} from "../../components";
 import {DataTableContextHook} from "../../hooks";
-import {DataTableStyle} from "../../models";
+import {type DataTableStyle} from "../../models";
 import * as DataTableVariant from "../../variants";
 
 const DataTable__Row__CellText: TextStyle = function (textProps)

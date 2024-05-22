@@ -1,5 +1,3 @@
-export type {IconStyle} from "./models";
-
-export {IconProps} from "./models";
+export {IconProps, type IconStyle} from "./models";
 export {Icon} from "./main";
 export * as IconVariant from "./variants";

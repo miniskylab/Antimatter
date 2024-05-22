@@ -3,12 +3,12 @@ import {
     ComponentProps,
     GestureResponderEventHandler,
     LayoutChangeEventHandler,
-    PointerEvents,
+    type PointerEvents,
     ShouldSetResponderPredicate
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {ReactNode} from "react";
-import {ViewStyle} from "./style";
+import {type ReactNode} from "react";
+import {type ViewStyle} from "./style";
 
 @ComponentName("View")
 export class ViewProps extends ComponentProps<ViewStyle>

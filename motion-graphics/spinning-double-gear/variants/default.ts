@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {SpinningDoubleGearStyle} from "../models";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type SpinningDoubleGearStyle} from "../models";
 
 const SpinningDoubleGear__Root: ViewStyle = function (viewProps)
 {

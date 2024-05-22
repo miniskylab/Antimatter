@@ -1,7 +1,7 @@
 import {ComponentName, ComponentProps, GestureResponderEventHandler, IsBoolean} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {ReactNode} from "react";
-import {PressableStyle} from "./style";
+import {type ReactNode} from "react";
+import {type PressableStyle} from "./style";
 
 @ComponentName("Pressable")
 export class PressableProps extends ComponentProps<PressableStyle>

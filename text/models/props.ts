@@ -6,10 +6,10 @@ import {
     IsNumber,
     IsString,
     Min,
-    PointerEvents
+    type PointerEvents
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {TextStyle} from "./style";
+import {type TextStyle} from "./style";
 
 @ComponentName("Text")
 export class TextProps extends ComponentProps<TextStyle>
