@@ -3,16 +3,20 @@ import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import React, {JSX, useMemo} from "react";
 import {Props, SongRowContext} from "./models";
+import {getFormattedTime} from "./services";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
  */
 export function Component({
-    style
+    style,
+    songName,
+    secSongDuration,
+    isSelected = false
 }: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style
+        style, songName, secSongDuration, isSelected
     };
 
     const context = useMemo<SongRowContext>(
@@ -26,8 +30,8 @@ export function Component({
     return (
         <SongRowContext.Provider value={context}>
             <Pressable style={computedStyle.Root}>
-                <Text style={computedStyle.SongName} numberOfLines={1}>Lorem ipsum dolor sit amet Lorem ipsum dolor sit amet Lorem</Text>
-                <Text style={computedStyle.SongDuration} numberOfLines={1}>01:00</Text>
+                <Text style={computedStyle.SongName} numberOfLines={1}>{songName}</Text>
+                <Text style={computedStyle.SongDuration} numberOfLines={1}>{getFormattedTime(secSongDuration)}</Text>
             </Pressable>
         </SongRowContext.Provider>
     );

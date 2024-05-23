@@ -1,15 +1,15 @@
 import {TransactionRecord} from "../../components";
 import {TransactionTableProps} from "../../models";
-import {tags} from "./tags";
+import {Tags} from "./tags";
 
 const today = new Date();
 const yesterday = new Date(today);
 yesterday.setDate(yesterday.getDate() - 1);
 
-export const transactions: NonNullable<TransactionTableProps["transactions"]> = {
+export const Transactions: NonNullable<TransactionTableProps["transactions"]> = {
     "1": {
         name: "Pulvinar",
-        tags: deepCopyWithSelection(tags, "feugiat", "mauris"),
+        tags: deepCopyWithSelection(Tags, "feugiat", "mauris"),
         amount: 13400000,
         executedDate: today,
         modifiedDate: today,
@@ -17,7 +17,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "2": {
         name: "Pretium",
-        tags: deepCopyWithSelection(tags, "dolore", "tortor"),
+        tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
         amount: 237000,
         executedDate: today,
         modifiedDate: today,
@@ -25,7 +25,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "3": {
         name: "Turpis massa tincidunt",
-        tags: deepCopyWithSelection(tags, "semper"),
+        tags: deepCopyWithSelection(Tags, "semper"),
         amount: 10000,
         executedDate: today,
         modifiedDate: today,
@@ -33,7 +33,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "4": {
         name: "Nulla pharetra",
-        tags: deepCopyWithSelection(tags, "interdum"),
+        tags: deepCopyWithSelection(Tags, "interdum"),
         amount: 180000,
         executedDate: today,
         modifiedDate: today,
@@ -41,7 +41,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "5": {
         name: "Pellentesque",
-        tags: deepCopyWithSelection(tags, "feugiat"),
+        tags: deepCopyWithSelection(Tags, "feugiat"),
         amount: 450000,
         executedDate: today,
         modifiedDate: today,
@@ -49,7 +49,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "6": {
         name: "Risus",
-        tags: deepCopyWithSelection(tags, "mauris"),
+        tags: deepCopyWithSelection(Tags, "mauris"),
         amount: 30000,
         executedDate: today,
         modifiedDate: today,
@@ -57,7 +57,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "7": {
         name: "Diam donec",
-        tags: deepCopyWithSelection(tags, "dolore", "feugiat"),
+        tags: deepCopyWithSelection(Tags, "dolore", "feugiat"),
         amount: 390000,
         executedDate: today,
         modifiedDate: today,
@@ -65,7 +65,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "8": {
         name: "Quam",
-        tags: deepCopyWithSelection(tags, "volutpat"),
+        tags: deepCopyWithSelection(Tags, "volutpat"),
         amount: 79000,
         executedDate: today,
         modifiedDate: today,
@@ -73,7 +73,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "9": {
         name: "Urna molestie",
-        tags: deepCopyWithSelection(tags, "iaculis"),
+        tags: deepCopyWithSelection(Tags, "iaculis"),
         amount: 215000000,
         executedDate: today,
         modifiedDate: today,
@@ -81,7 +81,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "10": {
         name: "Iaculis eu non",
-        tags: deepCopyWithSelection(tags, "viverra", "metus"),
+        tags: deepCopyWithSelection(Tags, "viverra", "metus"),
         amount: 5000,
         executedDate: today,
         modifiedDate: today,
@@ -89,7 +89,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "11": {
         name: "Phasellus vestibulum",
-        tags: deepCopyWithSelection(tags, "imperdiet"),
+        tags: deepCopyWithSelection(Tags, "imperdiet"),
         amount: 26000,
         executedDate: today,
         modifiedDate: today,
@@ -97,7 +97,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "12": {
         name: "Nisi lacus sed",
-        tags: deepCopyWithSelection(tags, "massa"),
+        tags: deepCopyWithSelection(Tags, "massa"),
         amount: 2560000,
         executedDate: today,
         modifiedDate: today,
@@ -105,7 +105,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "13": {
         name: "Risus ultricies",
-        tags: deepCopyWithSelection(tags, "adipiscing"),
+        tags: deepCopyWithSelection(Tags, "adipiscing"),
         amount: 125000000,
         executedDate: today,
         modifiedDate: today,
@@ -113,7 +113,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "14": {
         name: "Cursus turpis",
-        tags: deepCopyWithSelection(tags, "dolore", "tortor"),
+        tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
         amount: 45000,
         executedDate: yesterday,
         modifiedDate: yesterday,
@@ -121,7 +121,7 @@ export const transactions: NonNullable<TransactionTableProps["transactions"]> = 
     },
     "15": {
         name: "Morbi tincidunt",
-        tags: deepCopyWithSelection(tags, "dolore", "tortor"),
+        tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
         amount: 70000,
         executedDate: yesterday,
         modifiedDate: yesterday,

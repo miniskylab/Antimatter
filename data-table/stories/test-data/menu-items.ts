@@ -1,6 +1,6 @@
 import {DropdownMenuProps} from "@miniskylab/antimatter-dropdown-menu";
 
-export const menuItems: DropdownMenuProps["menuItems"] = {
+export const MenuItems: DropdownMenuProps["menuItems"] = {
     "scelerisque": {displayText: "Scelerisque"},
     "ullamcorper": {displayText: "Ullamcorper"},
     "viverra": {displayText: "Viverra"},

@@ -2,7 +2,7 @@ import {Ts} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {TransactionRecord} from "../../components";
 
-export const tags: TransactionRecord.Props["tags"] = {
+export const Tags: TransactionRecord.Props["tags"] = {
     "viverra": {name: "viverra"},
     "metus": {name: "metus"},
     "iaculis": {

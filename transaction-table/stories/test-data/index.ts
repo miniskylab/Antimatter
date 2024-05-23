@@ -1,11 +1,11 @@
 import {TransactionTableProps} from "../../models";
 import * as Service from "../../services";
-import {tags} from "./tags";
-import {transactions} from "./transactions";
+import {Tags} from "./tags";
+import {Transactions} from "./transactions";
 
 export const TestData = {
-    tags,
-    transactions,
+    Tags,
+    Transactions,
     getSummaryFigures(
         mode: TransactionTableProps["mode"],
         selectedDate: TransactionTableProps["selectedDate"],
@@ -14,7 +14,7 @@ export const TestData = {
     {
         return Service.getSummaryFigures(
             mode,
-            transactions,
+            Transactions,
             transactionData => Service.isHighlightedTransaction(transactionData),
             transactionData => !Service.isHighlightedTransaction(transactionData),
             selectedDate,

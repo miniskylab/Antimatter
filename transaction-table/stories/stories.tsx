@@ -91,7 +91,7 @@ export default {
                             id: EMPTY_STRING,
                             data: {
                                 name: EMPTY_STRING,
-                                tags: TestData.tags,
+                                tags: TestData.Tags,
                                 amount: 0,
                                 executedDate: getExecutedDateFrom(args.selectedDate)
                             }
@@ -128,7 +128,7 @@ export default {
                             const newlyAddedTransactionId = `${Date.now()}`;
                             transactionTableRef.current?.flashHighlightTransactions([newlyAddedTransactionId]);
 
-                            TestData.transactions[newlyAddedTransactionId] = {
+                            TestData.Transactions[newlyAddedTransactionId] = {
                                 name: args.selectedTransaction.data.name,
                                 amount: args.selectedTransaction.data.amount,
                                 tags: args.selectedTransaction.data.tags,
@@ -139,7 +139,7 @@ export default {
                         else
                         {
                             transactionTableRef.current?.flashHighlightTransactions([args.selectedTransaction.id]);
-                            TestData.transactions[args.selectedTransaction.id] = {
+                            TestData.Transactions[args.selectedTransaction.id] = {
                                 ...args.transactions[args.selectedTransaction.id],
                                 name: args.selectedTransaction.data.name,
                                 amount: args.selectedTransaction.data.amount,
@@ -152,7 +152,7 @@ export default {
                         setArgs({
                             ...unbusySettings,
                             selectedTransaction: undefined,
-                            transactions: {...TestData.transactions},
+                            transactions: {...TestData.Transactions},
                             displayPanel: {
                                 icon: DefaultIconSet.CheckMark,
                                 theme: DisplayPanelTheme.Positive,
@@ -179,12 +179,12 @@ export default {
                         });
 
                         await new Promise(resolve => { setTimeout(resolve, 2000); });
-                        delete TestData.transactions[args.selectedTransaction.id];
+                        delete TestData.Transactions[args.selectedTransaction.id];
 
                         setArgs({
                             ...unbusySettings,
                             mode: TransactionRecord.Mode.ReadOnly,
-                            transactions: {...TestData.transactions},
+                            transactions: {...TestData.Transactions},
                             selectedTransaction: undefined,
                             displayPanel: {
                                 icon: DefaultIconSet.CheckMark,
@@ -317,6 +317,6 @@ export const Playground: Story = {
         },
         selectedDate: today,
         maxSelectedTagCount: 3,
-        transactions: {...TestData.transactions}
+        transactions: {...TestData.Transactions}
     }
 };

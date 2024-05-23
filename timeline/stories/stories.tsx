@@ -4,9 +4,9 @@ import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {Timeline} from "../main";
 import {TimelineProps} from "../models";
-import {TestData} from "../test-data";
 import * as Variant from "../variants";
 import * as StaticAsset from "./static-assets";
+import {TestData} from "./test-data";
 
 const TimelineWithValidation = withValidation(Timeline, TimelineProps);
 export default {
@@ -89,27 +89,27 @@ export const Playground: Story = {
             name: "Aliquam turpis leo, pulvinar ultrices est et",
             description: `
                 Etiam velit tellus, feugiat vel sollicitudin eget
-                <div style="${TestData.htmlStyles.bootstrapEventContainer}">
+                <div style="${TestData.HtmlStyles.bootstrapEventContainer}">
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.htmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                 </div>
             `

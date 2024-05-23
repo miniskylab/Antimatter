@@ -1,9 +1,9 @@
-import {columns} from "./columns";
-import {menuItems} from "./menu-items";
-import {rows} from "./rows";
+import {Columns} from "./columns";
+import {MenuItems} from "./menu-items";
+import {Rows} from "./rows";
 
 export const TestData = {
-    menuItems,
-    columns,
-    rows
+    Columns,
+    MenuItems,
+    Rows
 };

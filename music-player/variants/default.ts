@@ -213,6 +213,7 @@ const MusicPlayer__SongRow__SongDuration: TextStyle = function (textProps)
 
     return {
         ...TextVariant.Default(textProps),
+        minWidth: 45,
         fontSize: runningInsideWebBrowser ? 14 : 18,
         fontWeight: "bold",
         textAlign: "right",

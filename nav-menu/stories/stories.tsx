@@ -22,8 +22,8 @@ export const Playground: Story = {
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.FixedWidth),
-        selectedUrl: TestData.selectedUrl,
-        categories: TestData.categories
+        selectedUrl: TestData.SelectedUrl,
+        categories: TestData.Categories
     },
     render: args =>
     {

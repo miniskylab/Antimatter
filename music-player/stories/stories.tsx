@@ -5,6 +5,7 @@ import {RepeatMode} from "../enums";
 import {MusicPlayer} from "../main";
 import {MusicPlayerProps} from "../models";
 import * as Variant from "../variants";
+import {TestData} from "./test-data";
 
 const MusicPlayerWithValidation = withValidation(MusicPlayer, MusicPlayerProps);
 export default {
@@ -18,10 +19,11 @@ export const Playground: Story = {
         style: Sb.styleSelector(Variant),
         title: Sb.text(),
         subtitle: Sb.text(),
-        secTimer: Sb.number(0),
+        secTimer: Sb.number(0, 3600, 1),
         isShuffleEnabled: Sb.boolean(),
         isPlaylistSelectionEnabled: Sb.boolean(),
         repeatMode: Sb.enumDropdown(RepeatMode),
+        songs: Sb.locked,
         onPlay: Sb.locked,
         onPause: Sb.locked,
         onNext: Sb.locked,
@@ -32,12 +34,13 @@ export const Playground: Story = {
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
-        title: "Neque porro quisquam est qui dolorem Neque porro quisquam",
+        title: "Neque porro quisquam est qui dolorem malesuada dui non facilisis",
         subtitle: "Lorem ipsum dolor sit amet",
-        secTimer: 0,
+        secTimer: undefined,
         isShuffleEnabled: false,
         isPlaylistSelectionEnabled: false,
-        repeatMode: RepeatMode.None
+        repeatMode: RepeatMode.None,
+        songs: TestData.Songs
     },
     render: args => <MusicPlayerWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
 };

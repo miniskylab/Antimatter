@@ -26,9 +26,9 @@ export const Playground: Story = {
         cards: [
             {
                 text: `
-                    <div ${TestData.htmlStyles.icon}></div>
-                    <div ${TestData.htmlStyles.title}>Lorem ipsum</div>
-                    <p ${TestData.htmlStyles.paragraph}>
+                    <div ${TestData.HtmlStyles.icon}></div>
+                    <div ${TestData.HtmlStyles.title}>Lorem ipsum</div>
+                    <p ${TestData.HtmlStyles.paragraph}>
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc tortor purus, consequat ac aliquam at, accumsan sit
                         amet quam. Duis finibus nunc ut lectus ornare, at consectetur massa suscipit.
                     </p>
@@ -40,9 +40,9 @@ export const Playground: Story = {
             },
             {
                 text: `
-                    <img ${TestData.htmlStyles.image} src="${StaticAsset.PlaceholderImage}"/>
-                    <div ${TestData.htmlStyles.title}>Nullam</div>
-                    <p ${TestData.htmlStyles.paragraph}>
+                    <img ${TestData.HtmlStyles.image} src="${StaticAsset.PlaceholderImage}"/>
+                    <div ${TestData.HtmlStyles.title}>Nullam</div>
+                    <p ${TestData.HtmlStyles.paragraph}>
                         Nullam tincidunt metus eros, ac pharetra ante porttitor nec. Praesent in sollicitudin risus. Vestibulum id mattis
                         mauris. Mauris elementum suscipit. Nam blandit non metus vel tincidunt.
                     </p>
@@ -54,9 +54,9 @@ export const Playground: Story = {
             },
             {
                 text: `
-                    <div ${TestData.htmlStyles.icon}></div>
-                    <div ${TestData.htmlStyles.title}>Nunc in lacus</div>
-                    <p ${TestData.htmlStyles.paragraph}>
+                    <div ${TestData.HtmlStyles.icon}></div>
+                    <div ${TestData.HtmlStyles.title}>Nunc in lacus</div>
+                    <p ${TestData.HtmlStyles.paragraph}>
                         Vestibulum ut justo urna. Etiam a risus eget est egestas consequat ut sit amet elit. Sed hendrerit, elit ut
                         pellentesque vestibulum, justo nisi eleifend arcu, porttitor varius libero nibh ut dolor.
                     </p>
@@ -67,9 +67,9 @@ export const Playground: Story = {
             },
             {
                 text: `
-                    <div ${TestData.htmlStyles.icon}></div>
-                    <div ${TestData.htmlStyles.title}>Curabitur</div>
-                    <p ${TestData.htmlStyles.paragraph}>
+                    <div ${TestData.HtmlStyles.icon}></div>
+                    <div ${TestData.HtmlStyles.title}>Curabitur</div>
+                    <p ${TestData.HtmlStyles.paragraph}>
                         Pellentesque pellentesque purus sit amet iaculis rutrum. Nam vitae neque et enim aliquet dignissim eget ornare nibh.
                         Vestibulum elementum felis diam, in viverra lacus rutrum at mattis porttitor.
                     </p>

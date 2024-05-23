@@ -54,7 +54,7 @@ export default {
                         mode: Row.Mode.Draft,
                         selectedRow: {
                             id: EMPTY_STRING,
-                            data: [EMPTY_STRING, EMPTY_STRING, TestData.menuItems, false]
+                            data: [EMPTY_STRING, EMPTY_STRING, TestData.MenuItems, false]
                         }
                     });
                 }}
@@ -118,7 +118,7 @@ export const Playground: Story = {
         title: "Lorem ipsum dolor sit amet",
         subtitle: "Lorem ipsum dolor sit amet",
         minRowCount: 15,
-        rows: TestData.rows,
-        columns: TestData.columns
+        rows: TestData.Rows,
+        columns: TestData.Columns
     }
 };

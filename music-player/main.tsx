@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";
@@ -17,11 +17,12 @@ import * as Variant from "./variants";
 export function MusicPlayer({
     style = Variant.Default,
     title,
-    subtitle,
-    secTimer,
+    subtitle = EMPTY_STRING,
+    secTimer = undefined,
     isShuffleEnabled = false,
     repeatMode = RepeatMode.None,
     isPlaylistSelectionEnabled = false,
+    songs = [],
     onPlay,
     onPause,
     onNext,
@@ -32,8 +33,8 @@ export function MusicPlayer({
 }: MusicPlayerProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<MusicPlayerProps> = {
-        style, title, subtitle, secTimer, isShuffleEnabled, repeatMode, isPlaylistSelectionEnabled, onPlay, onPause, onNext, onPrevious,
-        onShuffleModeToggle, onRepeatModeChange, onPlaylistSelectionToggle
+        style, title, subtitle, secTimer, isShuffleEnabled, repeatMode, isPlaylistSelectionEnabled, songs, onPlay, onPause, onNext,
+        onPrevious, onShuffleModeToggle, onRepeatModeChange, onPlaylistSelectionToggle
     };
 
     const context = useMemo<MusicPlayerContext>(
@@ -51,11 +52,11 @@ export function MusicPlayer({
                     <Icon style={computedStyle.Icon} name={DefaultIconSet.Music} selectable={false}/>
                     <View style={computedStyle.TitleContainer}>
                         <Text style={computedStyle.MainTitle} numberOfLines={1}>{title}</Text>
-                        <Text style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Text>
+                        <Text style={computedStyle.Subtitle} numberOfLines={1}>{subtitle ? subtitle : "Unknown Singer"}</Text>
                     </View>
                 </View>
                 <View style={computedStyle.ControlContainer}>
-                    <Text style={computedStyle.Timer} selectable={false}>00:00</Text>
+                    <Text style={computedStyle.Timer} selectable={false}>{SongRow.Service.getFormattedTime(secTimer)}</Text>
                     <ButtonTypeContext.Provider value={"shuffle"}>
                         <Button style={computedStyle.Button} icon={DefaultIconSet.Shuffle} onPress={undefined}/>
                     </ButtonTypeContext.Provider>
@@ -75,40 +76,15 @@ export function MusicPlayer({
                         <Button style={computedStyle.Button} icon={DefaultIconSet.Document} onPress={undefined}/>
                     </ButtonTypeContext.Provider>
                 </View>
-                <ScrollView
-                    style={computedStyle.SongList}
-                    showsVerticalScrollIndicator={false}
-                    showsHorizontalScrollIndicator={false}
-                >
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
-                    <SongRow.Component style={computedStyle.SongRow}/>
+                <ScrollView style={computedStyle.SongList} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+                    {songs.map(x => (
+                        <SongRow.Component
+                            key={x.songName}
+                            style={computedStyle.SongRow}
+                            songName={x.songName}
+                            secSongDuration={x.secSongDuration}
+                        />
+                    ))}
                 </ScrollView>
             </View>
         </MusicPlayerContext.Provider>
