@@ -1,9 +1,7 @@
 import {
-    ArrayNotEmpty,
     ComponentName,
     ComponentProps,
     GestureResponderEventHandler,
-    IsArray,
     IsBoolean,
     IsDefined,
     IsEnum,
@@ -12,10 +10,9 @@ import {
     IsString,
     Min
 } from "@miniskylab/antimatter-framework";
-import {Type} from "class-transformer";
-import {IsOptional, ValidateNested} from "class-validator";
-import {SongRow} from "../components";
+import {IsOptional} from "class-validator";
 import {RepeatMode} from "../enums";
+import type {Tracklist} from "../types";
 import {type MusicPlayerStyle} from "./style";
 
 @ComponentName("Music Player")
@@ -84,12 +81,8 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    @ArrayNotEmpty()
-    @IsArray()
     @IsOptional()
-    @ValidateNested({each: true})
-    @Type(() => SongRow.Props)
-    readonly songs?: SongRow.SongData;
+    readonly tracklist?: Tracklist;
 
 
     /**

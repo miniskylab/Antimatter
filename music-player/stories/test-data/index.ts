@@ -1,5 +1,5 @@
-import {Songs} from "./songs";
+import {Tracklist} from "./tracklist";
 
 export const TestData = {
-    Songs
+    Tracklist
 };

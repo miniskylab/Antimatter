@@ -1,6 +1,6 @@
 import {MusicPlayerProps} from "../../models";
 
-export const Songs: MusicPlayerProps["songs"] = [
+export const Tracklist: MusicPlayerProps["tracklist"] = [
     {songName: "Praesent dolor orci", secSongDuration: 232},
     {songName: "Curabitur mollis malesuada dui non facilisis", secSongDuration: 291, isPlaying: true},
     {songName: "Lorem ipsum dolor sit amet aliquam consectetur adipiscing elit", secSongDuration: 3650},

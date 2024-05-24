@@ -23,7 +23,7 @@ export function MusicPlayer({
     isShuffleEnabled = false,
     repeatMode = RepeatMode.None,
     isPlaylistSelectionEnabled = false,
-    songs = [],
+    tracklist = [],
     onPlay,
     onPause,
     onNext,
@@ -34,7 +34,7 @@ export function MusicPlayer({
 }: MusicPlayerProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<MusicPlayerProps> = {
-        style, title, subtitle, secTimer, isPlaying, isShuffleEnabled, repeatMode, isPlaylistSelectionEnabled, songs, onPlay, onPause,
+        style, title, subtitle, secTimer, isPlaying, isShuffleEnabled, repeatMode, isPlaylistSelectionEnabled, tracklist, onPlay, onPause,
         onNext, onPrevious, onShuffleModeToggle, onRepeatModeChange, onPlaylistSelectionToggle
     };
 
@@ -91,12 +91,12 @@ export function MusicPlayer({
                 </View>
                 <ScrollView style={computedStyle.SongList} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
                     {
-                        songs.filter(x => isPlaylistSelectionEnabled ? true : x.isPlaying || !x.isExcludedFromActivePlaylist)
+                        tracklist.filter(song => isPlaylistSelectionEnabled ? true : song.isPlaying || !song.isExcludedFromActivePlaylist)
                             .map(song => (
                                 <SongRow.Component
                                     key={song.songName}
                                     style={computedStyle.SongRow}
-                                    onPress={song.isPlaying && !isPlaylistSelectionEnabled ? undefined : () => { onSongRowPress(song); }}
+                                    onPress={song.isPlaying && !isPlaylistSelectionEnabled ? undefined : () => { onSongPress(song); }}
                                     {...song}
                                 />
                             ))
@@ -123,7 +123,7 @@ export function MusicPlayer({
         }
     }
 
-    function onSongRowPress(song: typeof songs[number]): void
+    function onSongPress(song: typeof tracklist[number]): void
     {
         console.log(song.songName);
     }

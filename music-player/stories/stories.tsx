@@ -24,7 +24,7 @@ export const Playground: Story = {
         isShuffleEnabled: Sb.boolean(),
         isPlaylistSelectionEnabled: Sb.boolean(),
         repeatMode: Sb.enumDropdown(RepeatMode),
-        songs: Sb.locked,
+        tracklist: Sb.locked,
         onPlay: Sb.locked,
         onPause: Sb.locked,
         onNext: Sb.locked,
@@ -42,7 +42,7 @@ export const Playground: Story = {
         isShuffleEnabled: false,
         isPlaylistSelectionEnabled: false,
         repeatMode: RepeatMode.None,
-        songs: TestData.Songs
+        tracklist: TestData.Tracklist
     },
     render: args => <MusicPlayerWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
 };
