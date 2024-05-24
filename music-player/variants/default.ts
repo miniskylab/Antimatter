@@ -180,7 +180,7 @@ const MusicPlayer__SongList: ScrollViewStyle = function (scrollViewProps)
         ...isRunningInsideWebBrowser && {
             paddingBottom: 0,
             marginHorizontal: 15,
-            marginBottom: 18
+            marginBottom: 15
         }
     };
 };
