@@ -19,6 +19,7 @@ export function MusicPlayer({
     title,
     subtitle = EMPTY_STRING,
     secTimer = undefined,
+    isPlaying = false,
     isShuffleEnabled = false,
     repeatMode = RepeatMode.None,
     isPlaylistSelectionEnabled = false,
@@ -33,8 +34,8 @@ export function MusicPlayer({
 }: MusicPlayerProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<MusicPlayerProps> = {
-        style, title, subtitle, secTimer, isShuffleEnabled, repeatMode, isPlaylistSelectionEnabled, songs, onPlay, onPause, onNext,
-        onPrevious, onShuffleModeToggle, onRepeatModeChange, onPlaylistSelectionToggle
+        style, title, subtitle, secTimer, isPlaying, isShuffleEnabled, repeatMode, isPlaylistSelectionEnabled, songs, onPlay, onPause,
+        onNext, onPrevious, onShuffleModeToggle, onRepeatModeChange, onPlaylistSelectionToggle
     };
 
     const context = useMemo<MusicPlayerContext>(
@@ -52,41 +53,78 @@ export function MusicPlayer({
                     <Icon style={computedStyle.Icon} name={DefaultIconSet.Music} selectable={false}/>
                     <View style={computedStyle.TitleContainer}>
                         <Text style={computedStyle.MainTitle} numberOfLines={1}>{title}</Text>
-                        <Text style={computedStyle.Subtitle} numberOfLines={1}>{subtitle ? subtitle : "Unknown Singer"}</Text>
+                        <Text style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Text>
                     </View>
                 </View>
                 <View style={computedStyle.ControlContainer}>
                     <Text style={computedStyle.Timer} selectable={false}>{SongRow.Service.getFormattedTime(secTimer)}</Text>
                     <ButtonTypeContext.Provider value={"shuffle"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.Shuffle} onPress={undefined}/>
+                        <Button
+                            style={computedStyle.Button}
+                            icon={DefaultIconSet.Shuffle}
+                            onPress={() => onShuffleModeToggle?.(!isShuffleEnabled)}
+                        />
                     </ButtonTypeContext.Provider>
                     <ButtonTypeContext.Provider value={"previous"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.Previous} onPress={undefined}/>
+                        <Button style={computedStyle.Button} icon={DefaultIconSet.Previous} onPress={onPrevious}/>
                     </ButtonTypeContext.Provider>
                     <ButtonTypeContext.Provider value={"play-pause"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.Play} onPress={undefined}/>
+                        <Button
+                            style={computedStyle.Button}
+                            icon={isPlaying ? DefaultIconSet.Pause : DefaultIconSet.Play}
+                            onPress={isPlaying ? onPause : onPlay}
+                        />
                     </ButtonTypeContext.Provider>
                     <ButtonTypeContext.Provider value={"next"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.Next} onPress={undefined}/>
+                        <Button style={computedStyle.Button} icon={DefaultIconSet.Next} onPress={onNext}/>
                     </ButtonTypeContext.Provider>
                     <ButtonTypeContext.Provider value={"repeat"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.RepeatAll} onPress={undefined}/>
+                        <Button style={computedStyle.Button} icon={DefaultIconSet.RepeatAll} onPress={changeRepeatMode}/>
                     </ButtonTypeContext.Provider>
                     <ButtonTypeContext.Provider value={"playlist"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.Document} onPress={undefined}/>
+                        <Button
+                            style={computedStyle.Button}
+                            icon={DefaultIconSet.Document}
+                            onPress={() => onPlaylistSelectionToggle?.(!isPlaylistSelectionEnabled)}
+                        />
                     </ButtonTypeContext.Provider>
                 </View>
                 <ScrollView style={computedStyle.SongList} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-                    {songs.map(x => (
-                        <SongRow.Component
-                            key={x.songName}
-                            style={computedStyle.SongRow}
-                            songName={x.songName}
-                            secSongDuration={x.secSongDuration}
-                        />
-                    ))}
+                    {
+                        songs.filter(x => isPlaylistSelectionEnabled ? true : x.isPlaying || !x.isExcludedFromActivePlaylist)
+                            .map(song => (
+                                <SongRow.Component
+                                    key={song.songName}
+                                    style={computedStyle.SongRow}
+                                    onPress={song.isPlaying && !isPlaylistSelectionEnabled ? undefined : () => { onSongRowPress(song); }}
+                                    {...song}
+                                />
+                            ))
+                    }
                 </ScrollView>
             </View>
         </MusicPlayerContext.Provider>
     );
+
+    function changeRepeatMode(): void
+    {
+        switch (repeatMode)
+        {
+            case RepeatMode.None:
+                onRepeatModeChange?.(RepeatMode.All);
+                return;
+
+            case RepeatMode.All:
+                onRepeatModeChange?.(RepeatMode.None);
+                return;
+
+            default:
+                throw new Error(`No valid mode to switch to from mode "${Ts.Enum.getName(RepeatMode, repeatMode)}"`);
+        }
+    }
+
+    function onSongRowPress(song: typeof songs[number]): void
+    {
+        console.log(song.songName);
+    }
 }

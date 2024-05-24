@@ -203,8 +203,8 @@ const DataTable__Row__Root: PressableStyle = function (pressableProps, pressable
     const rowContext = Row.ContextHook.useRowContext();
     const rowTypeContext = DataTableContextHook.useRowTypeContext();
 
-    const runningOnMobileApp = useEnvironment("MobileApp");
-    const selectableAndHovered = rowContext.props.onPress && pressableState.hovered;
+    const isRunningOnMobileApp = useEnvironment("MobileApp");
+    const isPressableAndHovered = rowContext.props.onPress && pressableState.hovered;
 
     return {
         ...PressableVariant.Default(pressableProps, pressableState),
@@ -217,14 +217,14 @@ const DataTable__Row__Root: PressableStyle = function (pressableProps, pressable
         borderBottomWidth: 2,
         borderStyle: "solid",
         borderColor: Color.Neutral,
-        marginTop: runningOnMobileApp ? -2 : -1.6,
-        cursor: selectableAndHovered ? CursorType.Pointer : CursorType.Default,
+        marginTop: isRunningOnMobileApp ? -2 : -1.6,
+        cursor: isPressableAndHovered ? CursorType.Pointer : CursorType.Default,
         zIndex: rowContext.props.mode !== Row.Mode.ReadOnly
             ? Layer.AlwaysOnTop
             : pressableState.hovered
                 ? Layer.Higher
                 : Layer.Default,
-        ...(selectableAndHovered || rowContext.props.mode === Row.Mode.Draft || rowContext.props.mode === Row.Mode.Edit) && {
+        ...(isPressableAndHovered || rowContext.props.mode === Row.Mode.Draft || rowContext.props.mode === Row.Mode.Edit) && {
             backgroundColor: Color.Primary__a10,
             borderColor: Color.Primary
         },

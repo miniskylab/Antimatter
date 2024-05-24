@@ -33,11 +33,11 @@ export const ScrollView = forwardRef(function ScrollView(
     const internalRef = useRef<ScrollView>(null);
     useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
 
-    const runningOnDesktopWeb = useEnvironment("DesktopWeb");
+    const isRunningOnDesktopWeb = useEnvironment("DesktopWeb");
 
     useEffect(() =>
     {
-        if (!runningOnDesktopWeb || !horizontal || !internalRef)
+        if (!isRunningOnDesktopWeb || !horizontal || !internalRef)
         {
             return;
         }

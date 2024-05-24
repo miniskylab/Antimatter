@@ -12,11 +12,13 @@ export function Component({
     style,
     songName,
     secSongDuration,
-    isSelected = false
+    isPlaying = false,
+    isExcludedFromActivePlaylist = false,
+    onPress
 }: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, songName, secSongDuration, isSelected
+        style, songName, secSongDuration, isPlaying, isExcludedFromActivePlaylist, onPress
     };
 
     const context = useMemo<SongRowContext>(
@@ -29,9 +31,9 @@ export function Component({
 
     return (
         <SongRowContext.Provider value={context}>
-            <Pressable style={computedStyle.Root}>
-                <Text style={computedStyle.SongName} numberOfLines={1}>{songName}</Text>
-                <Text style={computedStyle.SongDuration} numberOfLines={1}>{getFormattedTime(secSongDuration)}</Text>
+            <Pressable style={computedStyle.Root} onPress={onPress}>
+                <Text style={computedStyle.SongName} numberOfLines={1} selectable={false}>{songName}</Text>
+                <Text style={computedStyle.SongDuration} numberOfLines={1} selectable={false}>{getFormattedTime(secSongDuration)}</Text>
             </Pressable>
         </SongRowContext.Provider>
     );

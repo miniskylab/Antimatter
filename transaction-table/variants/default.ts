@@ -1219,7 +1219,7 @@ const TransactionTable__DisplayMessage: TextStyle = function (textProps)
 
 const TransactionTable__Hr: ViewStyle = function (viewProps)
 {
-    const runningOnMobileApp = useEnvironment("MobileApp");
+    const isRunningOnMobileApp = useEnvironment("MobileApp");
     const hrPosition = TransactionTableContextHook.useHrPositionContext();
 
     return {
@@ -1232,7 +1232,7 @@ const TransactionTable__Hr: ViewStyle = function (viewProps)
         ...hrPosition === "top" && {top: 58.4},
         ...hrPosition === "bottom" && {
             bottom: -0.4,
-            ...runningOnMobileApp && {backgroundColor: Color.Transparent}
+            ...isRunningOnMobileApp && {backgroundColor: Color.Transparent}
         }
     };
 };

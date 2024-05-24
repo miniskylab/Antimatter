@@ -1,12 +1,13 @@
 import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {isEnvironment} from "@miniskylab/antimatter-framework";
+import {CursorType, isEnvironment, Layer} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {PressableContextHook, type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {SongRow} from "../components";
+import {RepeatMode} from "../enums";
 import {MusicPlayerContextHook} from "../hooks";
 import {type MusicPlayerStyle} from "../models";
 
@@ -61,6 +62,7 @@ const MusicPlayer__MainTitle: TextStyle = function (textProps)
     return {
         ...TextVariant.Default(textProps),
         width: "100%",
+        minHeight: 22,
         fontSize: 18,
         fontWeight: "bold",
         color: Color.Neutral
@@ -71,6 +73,7 @@ const MusicPlayer__Subtitle: TextStyle = function (textProps)
 {
     return {
         ...MusicPlayer__MainTitle(textProps),
+        minHeight: 20,
         fontSize: 15,
         fontWeight: "normal"
     };
@@ -92,6 +95,7 @@ const MusicPlayer__Timer: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
+        minWidth: 58,
         paddingLeft: 1,
         marginRight: "auto",
         fontSize: 18,
@@ -125,23 +129,32 @@ const MusicPlayer__Button__Icon: IconStyle = function (iconProps)
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
     const buttonTypeContext = MusicPlayerContextHook.useButtonTypeContext();
+    const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
+
+    const getButtonColor = (isInActiveState?: boolean) => pressableContext.state.pressed
+        ? isInActiveState ? Color.Neutral : Color.Primary
+        : pressableContext.state.hovered
+            ? Color.White
+            : isInActiveState ? Color.Primary : Color.Neutral;
 
     const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Icon(iconProps);
 
     return {
         ...inheritedStyle,
-        color: pressableContext.state.pressed
-            ? Color.Primary
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Neutral,
         fontSize: buttonTypeContext === "play-pause"
             ? 30
             : buttonTypeContext === "shuffle"
                 ? 23
                 : buttonTypeContext === "repeat"
                     ? 32
-                    : 20
+                    : 20,
+        color: buttonTypeContext === "repeat"
+            ? getButtonColor(musicPlayerContext.props.repeatMode !== RepeatMode.None)
+            : buttonTypeContext === "shuffle"
+                ? getButtonColor(musicPlayerContext.props.isShuffleEnabled)
+                : buttonTypeContext === "playlist"
+                    ? getButtonColor(musicPlayerContext.props.isPlaylistSelectionEnabled)
+                    : getButtonColor()
     };
 };
 
@@ -156,7 +169,7 @@ const MusicPlayer__Button: ButtonStyle = function (buttonProps)
 
 const MusicPlayer__SongList: ScrollViewStyle = function (scrollViewProps)
 {
-    const runningInsideWebBrowser = isEnvironment("WebBrowser");
+    const isRunningInsideWebBrowser = isEnvironment("WebBrowser");
 
     return {
         ...ScrollViewVariant.Default(scrollViewProps),
@@ -164,7 +177,7 @@ const MusicPlayer__SongList: ScrollViewStyle = function (scrollViewProps)
         paddingTop: 2,
         paddingBottom: 45,
         backgroundColor: Color.Ambient,
-        ...runningInsideWebBrowser && {
+        ...isRunningInsideWebBrowser && {
             paddingBottom: 0,
             marginHorizontal: 15,
             marginBottom: 18
@@ -174,7 +187,11 @@ const MusicPlayer__SongList: ScrollViewStyle = function (scrollViewProps)
 
 const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pressableState)
 {
-    const runningInsideWebBrowser = isEnvironment("WebBrowser");
+    const songRowContext = SongRow.ContextHook.useSongRowContext();
+    const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
+
+    const isRunningInsideWebBrowser = isEnvironment("WebBrowser");
+    const isPressableAndHovered = songRowContext.props.onPress && pressableState.hovered;
 
     return {
         ...PressableVariant.Default(pressableProps, pressableState),
@@ -187,37 +204,87 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
         borderStyle: "solid",
         borderColor: Color.Neutral,
         marginTop: -2,
-        ...runningInsideWebBrowser && {
+        cursor: isPressableAndHovered ? CursorType.Pointer : CursorType.Default,
+        ...isRunningInsideWebBrowser && {
             height: 38,
             paddingHorizontal: 12
-        }
+        },
+        ...musicPlayerContext.props.isPlaylistSelectionEnabled
+            ? {
+                borderColor: Color.Ambient,
+                backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Green,
+                ...pressableState.hovered && {
+                    borderStyle: "dashed",
+                    borderColor: Color.White,
+                    zIndex: Layer.AlwaysOnTop
+                },
+                ...pressableState.pressed && {
+                    borderStyle: "dashed",
+                    borderColor: Color.White,
+                    backgroundColor: Color.White,
+                    zIndex: Layer.AlwaysOnTop
+                }
+            }
+            : {
+                ...pressableState.hovered && {
+                    backgroundColor: Color.Neutral,
+                    borderColor: Color.Neutral,
+                    zIndex: Layer.AlwaysOnTop
+                },
+                ...pressableState.pressed && {
+                    backgroundColor: Color.Primary,
+                    borderColor: Color.Primary,
+                    zIndex: Layer.AlwaysOnTop
+                },
+                ...songRowContext.props.isPlaying && {
+                    backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Primary,
+                    borderColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Primary,
+                    zIndex: Layer.Higher
+                }
+            }
     };
 };
 
 const MusicPlayer__SongRow__SongName: TextStyle = function (textProps)
 {
-    const runningInsideWebBrowser = isEnvironment("WebBrowser");
+    const songRowContext = SongRow.ContextHook.useSongRowContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+    const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
+
+    const isRunningInsideWebBrowser = isEnvironment("WebBrowser");
 
     return {
         ...TextVariant.Default(textProps),
         flex: 1,
-        fontSize: runningInsideWebBrowser ? 14 : 18,
+        fontSize: isRunningInsideWebBrowser ? 14 : 18,
         fontWeight: "bold",
-        color: Color.Neutral
+        color: musicPlayerContext.props.isPlaylistSelectionEnabled
+            ? Color.Ambient
+            : songRowContext.props.isPlaying || pressableContext.state.hovered || pressableContext.state.pressed
+                ? Color.Ambient
+                : Color.Neutral
     };
 };
 
 const MusicPlayer__SongRow__SongDuration: TextStyle = function (textProps)
 {
-    const runningInsideWebBrowser = isEnvironment("WebBrowser");
+    const songRowContext = SongRow.ContextHook.useSongRowContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+    const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
+
+    const isRunningInsideWebBrowser = isEnvironment("WebBrowser");
 
     return {
         ...TextVariant.Default(textProps),
         minWidth: 45,
-        fontSize: runningInsideWebBrowser ? 14 : 18,
+        fontSize: isRunningInsideWebBrowser ? 14 : 18,
         fontWeight: "bold",
         textAlign: "right",
-        color: Color.Neutral
+        color: musicPlayerContext.props.isPlaylistSelectionEnabled
+            ? Color.Ambient
+            : songRowContext.props.isPlaying || pressableContext.state.hovered || pressableContext.state.pressed
+                ? Color.Ambient
+                : Color.Neutral
     };
 };
 

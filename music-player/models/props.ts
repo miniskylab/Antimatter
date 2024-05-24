@@ -10,8 +10,7 @@ import {
     IsInteger,
     IsNumber,
     IsString,
-    Min,
-    WithoutStyle
+    Min
 } from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
@@ -53,6 +52,14 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
      */
     @IsBoolean()
     @IsOptional()
+    readonly isPlaying?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
     readonly isShuffleEnabled?: boolean;
 
 
@@ -76,15 +83,13 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
-     *
-     * @type SongRow.Props[]
      */
     @ArrayNotEmpty()
     @IsArray()
     @IsOptional()
     @ValidateNested({each: true})
     @Type(() => SongRow.Props)
-    readonly songs?: WithoutStyle<SongRow.Props>[];
+    readonly songs?: SongRow.SongData;
 
 
     /**

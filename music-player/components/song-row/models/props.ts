@@ -1,4 +1,14 @@
-import {ComponentProps, IsBoolean, IsDefined, IsInteger, IsNotEmpty, IsNumber, IsString, Min} from "@miniskylab/antimatter-framework";
+import {
+    ComponentProps,
+    GestureResponderEventHandler,
+    IsBoolean,
+    IsDefined,
+    IsInteger,
+    IsNotEmpty,
+    IsNumber,
+    IsString,
+    Min
+} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {Style} from "./style";
 
@@ -28,5 +38,19 @@ export class Props extends ComponentProps<Style>
      */
     @IsBoolean()
     @IsOptional()
-    readonly isSelected?: boolean;
+    readonly isPlaying?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly isExcludedFromActivePlaylist?: boolean;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly onPress?: GestureResponderEventHandler;
 }
