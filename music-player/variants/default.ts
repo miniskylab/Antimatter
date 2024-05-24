@@ -229,17 +229,17 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
                 ...pressableState.hovered && {
                     backgroundColor: Color.Neutral,
                     borderColor: Color.Neutral,
-                    zIndex: Layer.AlwaysOnTop
+                    zIndex: Layer.Higher
                 },
                 ...pressableState.pressed && {
                     backgroundColor: Color.Primary,
                     borderColor: Color.Primary,
-                    zIndex: Layer.AlwaysOnTop
+                    zIndex: Layer.Higher
                 },
                 ...songRowContext.props.isPlaying && {
                     backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Primary,
-                    borderColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Primary,
-                    zIndex: Layer.Higher
+                    borderColor: Color.Ambient,
+                    zIndex: Layer.AlwaysOnTop
                 }
             }
     };

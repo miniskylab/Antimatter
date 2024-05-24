@@ -12,13 +12,14 @@ export function Component({
     style,
     songName,
     secSongDuration,
+    singer,
     isPlaying = false,
     isExcludedFromActivePlaylist = false,
     onPress
 }: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, songName, secSongDuration, isPlaying, isExcludedFromActivePlaylist, onPress
+        style, songName, secSongDuration, singer, isPlaying, isExcludedFromActivePlaylist, onPress
     };
 
     const context = useMemo<SongRowContext>(

@@ -36,6 +36,14 @@ export class Props extends ComponentProps<Style>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsString()
+    @IsOptional()
+    readonly singer?: string;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
     @IsBoolean()
     @IsOptional()
     readonly isPlaying?: boolean;
