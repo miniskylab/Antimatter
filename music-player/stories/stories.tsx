@@ -1,4 +1,5 @@
-import {Sb, withValidation} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, Sb, withValidation} from "@miniskylab/antimatter-framework";
+import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {RepeatMode} from "../enums";
@@ -10,20 +11,50 @@ import {TestData} from "./test-data";
 const MusicPlayerWithValidation = withValidation(MusicPlayer, MusicPlayerProps);
 export default {
     component: MusicPlayer,
-    title: "Components/Music Player"
+    title: "Components/Music Player",
+    render: (args: Required<MusicPlayerProps>) =>
+    {
+        const [, setArgs] = useArgs<MusicPlayerProps>();
+
+        return (
+            <MusicPlayerWithValidation
+                {...args}
+                key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
+                onPause={() => setArgs({isPlaying: false})}
+                onShuffleModeToggle={isShuffleEnabled => setArgs({isShuffleEnabled})}
+                onRepeatModeChange={newRepeatMode => setArgs({repeatMode: newRepeatMode})}
+                onPlaylistSelectionToggle={isPlaylistSelectionEnabled => setArgs({isPlaylistSelectionEnabled})}
+                onPlay={song => setArgs({selectedSongName: song.songName, secTimer: song.secSongDuration, isPlaying: true})}
+                onSongExclusionStatusToggle={songName =>
+                {
+                    const excludedSongIndex = args.tracklist.findIndex(x => x.songName === songName);
+                    if (excludedSongIndex > -1)
+                    {
+                        const copyOfExcludedSong = {...args.tracklist[excludedSongIndex]};
+                        copyOfExcludedSong.isExcludedFromActivePlaylist = !copyOfExcludedSong.isExcludedFromActivePlaylist;
+
+                        const copyOfTracklist = [...args.tracklist];
+                        copyOfTracklist[excludedSongIndex] = copyOfExcludedSong;
+                        setArgs({tracklist: copyOfTracklist});
+                    }
+                }}
+            />
+        );
+    }
 } satisfies Meta<typeof MusicPlayer>;
 type Story = StoryObj<typeof MusicPlayer>;
 
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
-        title: Sb.text(),
-        subtitle: Sb.text(),
+        titlePlaceholder: Sb.text(),
+        subtitlePlaceholder: Sb.text(),
         secTimer: Sb.number(0, 3601, 1),
         isPlaying: Sb.boolean(),
         isShuffleEnabled: Sb.boolean(),
         isPlaylistSelectionEnabled: Sb.boolean(),
         repeatMode: Sb.enumDropdown(RepeatMode),
+        selectedSongName: Sb.locked,
         tracklist: Sb.locked,
         onPlay: Sb.locked,
         onPause: Sb.locked,
@@ -35,14 +66,14 @@ export const Playground: Story = {
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
-        title: "Neque porro quisquam est qui dolorem malesuada dui non facilisis",
-        subtitle: "Lorem ipsum dolor sit amet",
+        titlePlaceholder: "Not Playing",
+        subtitlePlaceholder: EMPTY_STRING,
         secTimer: undefined,
+        selectedSongName: undefined,
         isPlaying: false,
         isShuffleEnabled: false,
         isPlaylistSelectionEnabled: false,
         repeatMode: RepeatMode.None,
         tracklist: TestData.Tracklist
-    },
-    render: args => <MusicPlayerWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
+    }
 };

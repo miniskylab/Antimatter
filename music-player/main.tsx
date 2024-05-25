@@ -16,9 +16,10 @@ import * as Variant from "./variants";
  */
 export function MusicPlayer({
     style = Variant.Default,
-    title,
-    subtitle = EMPTY_STRING,
+    titlePlaceholder,
+    subtitlePlaceholder = EMPTY_STRING,
     secTimer = undefined,
+    selectedSongName = undefined,
     isPlaying = false,
     isShuffleEnabled = false,
     repeatMode = RepeatMode.None,
@@ -30,12 +31,14 @@ export function MusicPlayer({
     onPrevious,
     onShuffleModeToggle,
     onRepeatModeChange,
-    onPlaylistSelectionToggle
+    onPlaylistSelectionToggle,
+    onSongExclusionStatusToggle
 }: MusicPlayerProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<MusicPlayerProps> = {
-        style, title, subtitle, secTimer, isPlaying, isShuffleEnabled, repeatMode, isPlaylistSelectionEnabled, tracklist, onPlay, onPause,
-        onNext, onPrevious, onShuffleModeToggle, onRepeatModeChange, onPlaylistSelectionToggle
+        style, titlePlaceholder, subtitlePlaceholder, secTimer, selectedSongName, isPlaying, isShuffleEnabled, repeatMode,
+        isPlaylistSelectionEnabled, tracklist, onPlay, onPause, onNext, onPrevious, onShuffleModeToggle, onRepeatModeChange,
+        onPlaylistSelectionToggle, onSongExclusionStatusToggle
     };
 
     const context = useMemo<MusicPlayerContext>(
@@ -46,14 +49,17 @@ export function MusicPlayer({
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
 
+    const selectedSong = tracklist.find(x => x.songName === selectedSongName);
+    const subTitle = selectedSong?.singer ?? subtitlePlaceholder;
+
     return (
         <MusicPlayerContext.Provider value={context}>
             <View style={computedStyle.Root}>
                 <View style={computedStyle.NowPlayingContainer}>
                     <Icon style={computedStyle.Icon} name={DefaultIconSet.Music} selectable={false}/>
                     <View style={computedStyle.TitleContainer}>
-                        <Text style={computedStyle.MainTitle} numberOfLines={1}>{title}</Text>
-                        <Text style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Text>
+                        <Text style={computedStyle.MainTitle} numberOfLines={1}>{selectedSongName ?? titlePlaceholder}</Text>
+                        {!!subTitle && <Text style={computedStyle.Subtitle} numberOfLines={1}>{subTitle}</Text>}
                     </View>
                 </View>
                 <View style={computedStyle.ControlContainer}>
@@ -72,7 +78,7 @@ export function MusicPlayer({
                         <Button
                             style={computedStyle.Button}
                             icon={isPlaying ? DefaultIconSet.Pause : DefaultIconSet.Play}
-                            onPress={isPlaying ? onPause : onPlay}
+                            onPress={onPlayPauseButtonPress}
                         />
                     </ButtonTypeContext.Provider>
                     <ButtonTypeContext.Provider value={"next"}>
@@ -90,21 +96,26 @@ export function MusicPlayer({
                     </ButtonTypeContext.Provider>
                 </View>
                 <ScrollView style={computedStyle.SongList} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-                    {
-                        tracklist.filter(song => isPlaylistSelectionEnabled ? true : song.isPlaying || !song.isExcludedFromActivePlaylist)
-                            .map(song => (
-                                <SongRow.Component
-                                    key={song.songName}
-                                    style={computedStyle.SongRow}
-                                    onPress={song.isPlaying && !isPlaylistSelectionEnabled ? undefined : () => { onSongPress(song); }}
-                                    {...song}
-                                />
-                            ))
-                    }
+                    {tracklist
+                        .filter(song => isPlaylistSelectionEnabled || !song.isExcludedFromActivePlaylist)
+                        .map(song => (
+                            <SongRow.Component
+                                key={song.songName}
+                                style={computedStyle.SongRow}
+                                isSelected={isSelectedSong(song)}
+                                onPress={isSelectedSong(song) && !isPlaylistSelectionEnabled ? undefined : () => { onSongRowPress(song); }}
+                                {...song}
+                            />
+                        ))}
                 </ScrollView>
             </View>
         </MusicPlayerContext.Provider>
     );
+
+    function isSelectedSong(song: SongRow.SongData): boolean
+    {
+        return selectedSongName === song.songName;
+    }
 
     function changeRepeatMode(): void
     {
@@ -123,8 +134,27 @@ export function MusicPlayer({
         }
     }
 
-    function onSongPress(song: typeof tracklist[number]): void
+    function onPlayPauseButtonPress(): void
     {
-        console.log(song.songName);
+        if (isPlaying)
+        {
+            return onPause?.();
+        }
+
+        const toBePlayedSong = selectedSong ?? tracklist[0];
+        if (toBePlayedSong)
+        {
+            return onPlay?.(toBePlayedSong);
+        }
+    }
+
+    function onSongRowPress(song: SongRow.SongData): void
+    {
+        if (isPlaylistSelectionEnabled)
+        {
+            return onSongExclusionStatusToggle?.(song.songName);
+        }
+
+        return onPlay?.(song);
     }
 }

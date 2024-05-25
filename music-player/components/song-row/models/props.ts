@@ -46,7 +46,7 @@ export class Props extends ComponentProps<Style>
      */
     @IsBoolean()
     @IsOptional()
-    readonly isPlaying?: boolean;
+    readonly isSelected?: boolean;
 
 
     /**

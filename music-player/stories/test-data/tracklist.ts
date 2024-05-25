@@ -1,8 +1,8 @@
 import {MusicPlayerProps} from "../../models";
 
-export const Tracklist: MusicPlayerProps["tracklist"] = [
+export const Tracklist: NonNullable<MusicPlayerProps["tracklist"]> = [
     {songName: "Praesent dolor orci", singer: "Duis Eget", secSongDuration: 232},
-    {songName: "Curabitur mollis malesuada dui non facilisis", singer: "Ulamcorper Lacinia", secSongDuration: 291, isPlaying: true},
+    {songName: "Curabitur mollis malesuada dui non facilisis", singer: "Ulamcorper Lacinia", secSongDuration: 291},
     {songName: "Lorem ipsum dolor sit amet aliquam consectetur adipiscing elit", singer: "Finibus Diam", secSongDuration: 3650},
     {songName: "Sed nec sapien eros curabitur ut mauris sem", singer: "Conubia Nostra", secSongDuration: 770},
     {songName: "Sit amet maximus turpis efficitur ut", singer: "Rhoncus Lobortis", secSongDuration: 214},

@@ -1,6 +1,6 @@
 import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {CursorType, isEnvironment, Layer} from "@miniskylab/antimatter-framework";
+import {CursorType, isEnvironment, isNotNullAndUndefined, Layer} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {PressableContextHook, type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
@@ -131,11 +131,17 @@ const MusicPlayer__Button__Icon: IconStyle = function (iconProps)
     const buttonTypeContext = MusicPlayerContextHook.useButtonTypeContext();
     const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
 
-    const getButtonColor = (isInActiveState?: boolean) => pressableContext.state.pressed
-        ? isInActiveState ? Color.Neutral : Color.Primary
-        : pressableContext.state.hovered
+    const getButtonColor = (isInActiveState?: boolean) => isNotNullAndUndefined(isInActiveState)
+        ? pressableContext.state.pressed
             ? Color.White
-            : isInActiveState ? Color.Primary : Color.Neutral;
+            : isInActiveState
+                ? Color.Primary
+                : Color.Neutral
+        : pressableContext.state.pressed
+            ? Color.Primary
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral;
 
     const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Icon(iconProps);
 
@@ -228,15 +234,15 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
             : {
                 ...pressableState.hovered && {
                     backgroundColor: Color.Neutral,
-                    borderColor: Color.Neutral,
+                    borderColor: Color.Ambient,
                     zIndex: Layer.Higher
                 },
                 ...pressableState.pressed && {
                     backgroundColor: Color.Primary,
-                    borderColor: Color.Primary,
+                    borderColor: Color.Ambient,
                     zIndex: Layer.Higher
                 },
-                ...songRowContext.props.isPlaying && {
+                ...songRowContext.props.isSelected && {
                     backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Primary,
                     borderColor: Color.Ambient,
                     zIndex: Layer.AlwaysOnTop
@@ -260,7 +266,7 @@ const MusicPlayer__SongRow__SongName: TextStyle = function (textProps)
         fontWeight: "bold",
         color: musicPlayerContext.props.isPlaylistSelectionEnabled
             ? Color.Ambient
-            : songRowContext.props.isPlaying || pressableContext.state.hovered || pressableContext.state.pressed
+            : songRowContext.props.isSelected || pressableContext.state.hovered || pressableContext.state.pressed
                 ? Color.Ambient
                 : Color.Neutral
     };
@@ -282,7 +288,7 @@ const MusicPlayer__SongRow__SongDuration: TextStyle = function (textProps)
         textAlign: "right",
         color: musicPlayerContext.props.isPlaylistSelectionEnabled
             ? Color.Ambient
-            : songRowContext.props.isPlaying || pressableContext.state.hovered || pressableContext.state.pressed
+            : songRowContext.props.isSelected || pressableContext.state.hovered || pressableContext.state.pressed
                 ? Color.Ambient
                 : Color.Neutral
     };

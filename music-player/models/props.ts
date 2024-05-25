@@ -1,18 +1,18 @@
 import {
     ComponentName,
     ComponentProps,
-    GestureResponderEventHandler,
     IsBoolean,
     IsDefined,
     IsEnum,
     IsInteger,
+    IsNotEmpty,
     IsNumber,
     IsString,
     Min
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
+import type {SongRow} from "../components";
 import {RepeatMode} from "../enums";
-import type {Tracklist} from "../types";
 import {type MusicPlayerStyle} from "./style";
 
 @ComponentName("Music Player")
@@ -21,9 +21,10 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
+    @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly title: string;
+    readonly titlePlaceholder: string;
 
 
     /**
@@ -31,7 +32,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
      */
     @IsString()
     @IsOptional()
-    readonly subtitle?: string;
+    readonly subtitlePlaceholder?: string;
 
 
     /**
@@ -42,6 +43,15 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
     @IsNumber()
     @IsOptional()
     readonly secTimer?: number;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    @IsNotEmpty()
+    @IsString()
+    @IsOptional()
+    readonly selectedSongName?: string;
 
 
     /**
@@ -82,31 +92,31 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @IsOptional()
-    readonly tracklist?: Tracklist;
+    readonly tracklist?: SongRow.SongData[];
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onPlay?: GestureResponderEventHandler;
+    readonly onPlay?: (song: SongRow.SongData) => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onPause?: GestureResponderEventHandler;
+    readonly onPause?: () => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onNext?: GestureResponderEventHandler;
+    readonly onNext?: () => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onPrevious?: GestureResponderEventHandler;
+    readonly onPrevious?: () => void;
 
 
     /**
@@ -125,4 +135,10 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
      * <i style="color: #9B9B9B">(not available)</i>
      */
     readonly onPlaylistSelectionToggle?: (isPlaylistSelectionEnabled: boolean) => void;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     */
+    readonly onSongExclusionStatusToggle?: (songName: string) => void;
 }
