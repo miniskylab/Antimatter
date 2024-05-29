@@ -54,7 +54,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
         onSwitchMode
     }: TransactionTableProps,
     ref: MutableRefObject<TransactionTableRef>
-): JSX.Element
+): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<TransactionTableProps> = {
         style, summary, transactions, selectedDate, selectedTransaction, mode, maxSelectedTagCount, displayPanel, customButton,
