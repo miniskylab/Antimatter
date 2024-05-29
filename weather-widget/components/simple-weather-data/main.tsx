@@ -14,7 +14,7 @@ export function Component({
     title,
     subtitle,
     highlightColor
-}: Props): JSX.Element | null
+}: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
         style, icon, title, subtitle, highlightColor

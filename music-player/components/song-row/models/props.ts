@@ -3,7 +3,6 @@ import {
     GestureResponderEventHandler,
     IsBoolean,
     IsDefined,
-    IsInteger,
     IsNotEmpty,
     IsNumber,
     IsString,
@@ -27,7 +26,6 @@ export class Props extends ComponentProps<Style>
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @Min(0)
-    @IsInteger()
     @IsNumber()
     @IsDefined()
     readonly secSongDuration: number;

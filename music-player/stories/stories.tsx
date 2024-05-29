@@ -27,14 +27,14 @@ export default {
                 onPlay={song => setArgs({selectedSongName: song.songName, secTimer: song.secSongDuration, isPlaying: true})}
                 onSongExclusionStatusToggle={songName =>
                 {
-                    const excludedSongIndex = args.tracklist.findIndex(x => x.songName === songName);
-                    if (excludedSongIndex > -1)
+                    const songIndex = args.tracklist.findIndex(x => x.songName === songName);
+                    if (songIndex > -1)
                     {
-                        const copyOfExcludedSong = {...args.tracklist[excludedSongIndex]};
-                        copyOfExcludedSong.isExcludedFromActivePlaylist = !copyOfExcludedSong.isExcludedFromActivePlaylist;
+                        const copyOfSong = {...args.tracklist[songIndex]};
+                        copyOfSong.isExcludedFromActivePlaylist = !copyOfSong.isExcludedFromActivePlaylist;
 
                         const copyOfTracklist = [...args.tracklist];
-                        copyOfTracklist[excludedSongIndex] = copyOfExcludedSong;
+                        copyOfTracklist[songIndex] = copyOfSong;
                         setArgs({tracklist: copyOfTracklist});
                     }
                 }}

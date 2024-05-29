@@ -95,7 +95,12 @@ export function MusicPlayer({
                         />
                     </ButtonTypeContext.Provider>
                 </View>
-                <ScrollView style={computedStyle.SongList} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+                <ScrollView
+                    style={computedStyle.SongList}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                    contentInsetAdjustmentBehavior={"scrollableAxes"}
+                >
                     {tracklist
                         .filter(song => isPlaylistSelectionEnabled || !song.isExcludedFromActivePlaylist)
                         .map(song => (

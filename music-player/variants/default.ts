@@ -208,7 +208,7 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
         borderTopWidth: 2,
         borderBottomWidth: 2,
         borderStyle: "solid",
-        borderColor: Color.Neutral,
+        borderColor: Color.Mineshaft,
         marginTop: -2,
         cursor: isPressableAndHovered ? CursorType.Pointer : CursorType.Default,
         ...isRunningInsideWebBrowser && {
@@ -219,26 +219,26 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
             ? {
                 borderColor: Color.Ambient,
                 backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Green,
-                ...pressableState.hovered && {
+                ...isRunningInsideWebBrowser && pressableState.hovered && {
                     borderStyle: "dashed",
                     borderColor: Color.White,
                     zIndex: Layer.AlwaysOnTop
                 },
-                ...pressableState.pressed && {
-                    borderStyle: "dashed",
-                    borderColor: Color.White,
+                ...isRunningInsideWebBrowser && pressableState.pressed && {
+                    borderStyle: "solid",
+                    borderColor: Color.Ambient,
                     backgroundColor: Color.White,
                     zIndex: Layer.AlwaysOnTop
                 }
             }
             : {
-                ...pressableState.hovered && {
+                ...isRunningInsideWebBrowser && pressableState.hovered && {
                     backgroundColor: Color.Neutral,
                     borderColor: Color.Ambient,
                     zIndex: Layer.Higher
                 },
-                ...pressableState.pressed && {
-                    backgroundColor: Color.Primary,
+                ...isRunningInsideWebBrowser && pressableState.pressed && {
+                    backgroundColor: Color.White,
                     borderColor: Color.Ambient,
                     zIndex: Layer.Higher
                 },
@@ -258,15 +258,16 @@ const MusicPlayer__SongRow__SongName: TextStyle = function (textProps)
     const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
 
     const isRunningInsideWebBrowser = isEnvironment("WebBrowser");
+    const isHoveredOrPressed = pressableContext.state.hovered || pressableContext.state.pressed;
 
     return {
         ...TextVariant.Default(textProps),
         flex: 1,
-        fontSize: isRunningInsideWebBrowser ? 14 : 18,
-        fontWeight: "bold",
+        fontSize: isRunningInsideWebBrowser ? 14 : 17,
+        fontWeight: !musicPlayerContext.props.isPlaylistSelectionEnabled && songRowContext.props.isSelected ? "bold" : "normal",
         color: musicPlayerContext.props.isPlaylistSelectionEnabled
             ? Color.Ambient
-            : songRowContext.props.isSelected || pressableContext.state.hovered || pressableContext.state.pressed
+            : songRowContext.props.isSelected || (isRunningInsideWebBrowser && isHoveredOrPressed)
                 ? Color.Ambient
                 : Color.Neutral
     };
@@ -279,16 +280,17 @@ const MusicPlayer__SongRow__SongDuration: TextStyle = function (textProps)
     const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
 
     const isRunningInsideWebBrowser = isEnvironment("WebBrowser");
+    const isHoveredOrPressed = pressableContext.state.hovered || pressableContext.state.pressed;
 
     return {
         ...TextVariant.Default(textProps),
         minWidth: 45,
-        fontSize: isRunningInsideWebBrowser ? 14 : 18,
-        fontWeight: "bold",
         textAlign: "right",
+        fontSize: isRunningInsideWebBrowser ? 14 : 17,
+        fontWeight: !musicPlayerContext.props.isPlaylistSelectionEnabled && songRowContext.props.isSelected ? "bold" : "normal",
         color: musicPlayerContext.props.isPlaylistSelectionEnabled
             ? Color.Ambient
-            : songRowContext.props.isSelected || pressableContext.state.hovered || pressableContext.state.pressed
+            : songRowContext.props.isSelected || (isRunningInsideWebBrowser && isHoveredOrPressed)
                 ? Color.Ambient
                 : Color.Neutral
     };

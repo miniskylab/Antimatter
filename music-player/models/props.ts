@@ -4,7 +4,6 @@ import {
     IsBoolean,
     IsDefined,
     IsEnum,
-    IsInteger,
     IsNotEmpty,
     IsNumber,
     IsString,
@@ -39,7 +38,6 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
      * <i style="color: #9B9B9B">(not available)</i>
      */
     @Min(0)
-    @IsInteger()
     @IsNumber()
     @IsOptional()
     readonly secTimer?: number;

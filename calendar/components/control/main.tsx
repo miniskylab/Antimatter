@@ -12,7 +12,7 @@ export function Component({
     style,
     onTodayButtonPress,
     onSelectionButtonPress
-}: Props): JSX.Element | null
+}: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
         style, onTodayButtonPress, onSelectionButtonPress
