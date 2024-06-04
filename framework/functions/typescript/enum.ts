@@ -11,7 +11,7 @@ export function getName(anyEnum: Enum, possibleValue: unknown): string | undefin
 export function getNames(anyEnum: Enum): string[]
 {
     return Object.keys(anyEnum)
-        .filter(x => isNaN(parseInt(x, 10)));
+        .filter(x => Number.isNaN(parseInt(x, 10)));
 }
 
 export function getValues(anyEnum: Enum): (number | string)[]

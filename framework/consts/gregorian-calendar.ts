@@ -18,7 +18,7 @@ export const GregorianCalendar = new class
     isValidYear(year: number): boolean
     {
         if (!year) return false;
-        if (isNaN(year)) return false;
+        if (Number.isNaN(year)) return false;
 
         return (this.MIN_YEAR <= year && year <= this.MAX_YEAR);
     }
@@ -33,7 +33,7 @@ export const GregorianCalendar = new class
     isValidMonth(month: number): boolean
     {
         if (month === null || month === undefined) return false;
-        if (isNaN(month)) return false;
+        if (Number.isNaN(month)) return false;
 
         return (this.MIN_MONTH <= month && month <= this.MAX_MONTH);
     }
@@ -41,7 +41,7 @@ export const GregorianCalendar = new class
     isValidDay(day: number, month: number, year: number): boolean
     {
         if (!day) return false;
-        if (isNaN(day)) return false;
+        if (Number.isNaN(day)) return false;
         if (!this.isValidMonth(month)) return false;
         if (!this.isValidYear(year)) return false;
 

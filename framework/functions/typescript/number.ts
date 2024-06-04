@@ -8,17 +8,17 @@ export function clamp(value: number, min?: number, max?: number): number
         throw new Error("Invalid arguments: 'min' cannot be greater than 'max'");
     }
 
-    if (isNullOrUndefined(value) || isNaN(value))
+    if (isNullOrUndefined(value) || Number.isNaN(value))
     {
         return NaN;
     }
 
-    if (isNotNullAndUndefined(min) && !isNaN(min) && value < min)
+    if (isNotNullAndUndefined(min) && !Number.isNaN(min) && value < min)
     {
         return min;
     }
 
-    if (isNotNullAndUndefined(max) && !isNaN(max) && value > max)
+    if (isNotNullAndUndefined(max) && !Number.isNaN(max) && value > max)
     {
         return max;
     }

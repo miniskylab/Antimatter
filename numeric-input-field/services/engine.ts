@@ -225,7 +225,7 @@ export function getNextNumericInputFieldState(
     function reformatAndExtractNumericValueFrom(anyString: string): { numericValue: number; formattedUserInput: string }
     {
         const numericValue = Ts.Number.clamp(tryParse(anyString), minValue, maxValue);
-        if (isNaN(numericValue))
+        if (Number.isNaN(numericValue))
         {
             return {
                 numericValue: NaN,
