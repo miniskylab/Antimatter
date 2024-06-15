@@ -6,7 +6,7 @@ function normalize(stringArray: string[]): string[]
     return stringArray.filter((value, index, array) => array.indexOf(value) === index).sort();
 }
 
-describe("turn shuffle on and off", () =>
+describe("how to use [setIsShuffleEnabled(...)]", () =>
 {
     // Test Data
     const indexedTracklist = {
@@ -16,17 +16,30 @@ describe("turn shuffle on and off", () =>
     };
 
     it.each([
-        {target: undefined, expected: true},
-        {target: null, expected: true},
-        {target: false, expected: true},
-        {target: true, expected: false}
-    ])("changes value from '$target' to '$expected'", ({target, expected}) =>
+        {var: "on", target: true},
+        {var: "off", target: false}
+    ])("turns shuffle $var", ({target}) =>
     {
         // Arrange
-        MusicPlayerStateManager.resetState({isShuffleEnabled: target});
+        MusicPlayerStateManager.resetState();
 
         // Act
-        MusicPlayerStateManager.setIsShuffleEnabled(expected);
+        MusicPlayerStateManager.setIsShuffleEnabled(target);
+
+        // Assert
+        expect(MusicPlayerStateManager.getState().isShuffleEnabled).toBe(target);
+    });
+
+    it.each([
+        {target: undefined, expected: false},
+        {target: null, expected: false}
+    ])("treats '$target' as '$expected'", ({target, expected}) =>
+    {
+        // Arrange
+        MusicPlayerStateManager.resetState();
+
+        // Act
+        MusicPlayerStateManager.setIsShuffleEnabled(target);
 
         // Assert
         expect(MusicPlayerStateManager.getState().isShuffleEnabled).toBe(expected);
@@ -87,7 +100,7 @@ describe("turn shuffle on and off", () =>
         expect(MusicPlayerStateManager.getState().playQueue).toStrictEqual(["song-3"]);
     });
 
-    it("queues up new songs if turned on and there is a song selected for playing", () =>
+    it("queues up new songs if set to 'true' and there is a song selected for playing", () =>
     {
         // Arrange
         MusicPlayerStateManager.resetState({indexedTracklist: {...indexedTracklist}});
@@ -138,7 +151,7 @@ describe("turn shuffle on and off", () =>
         expect(MusicPlayerStateManager.getState().playQueue.slice(3).sort()).toStrictEqual(["song-2", "song-3"]);
     });
 
-    it("clears upcoming songs if turned off and there is a song selected for playing", () =>
+    it("clears upcoming songs if set to 'false' and there is a song selected for playing", () =>
     {
         // Arrange
         MusicPlayerStateManager.resetState({indexedTracklist: {...indexedTracklist}});
@@ -196,7 +209,7 @@ describe("turn shuffle on and off", () =>
     });
 });
 
-describe("set repeat mode", () =>
+describe("how to use [setRepeatMode(...)]", () =>
 {
     it.each([
         {target: RepeatMode.None},
@@ -229,7 +242,7 @@ describe("set repeat mode", () =>
     });
 });
 
-describe("set playback status", () =>
+describe("how to use [setIsPlaying(...)]", () =>
 {
     // Test Data
     const indexedTracklist = {
@@ -239,7 +252,7 @@ describe("set playback status", () =>
         "song-4": {songName: "Song 4", secSongDuration: 264}
     };
 
-    it("plays first song in the playlist if set to playing and there is no song selected for playing", () =>
+    it("plays first song in the playlist if set to 'true' and there is no song selected for playing", () =>
     {
         // Arrange: Shuffle is off
         MusicPlayerStateManager.resetState({indexedTracklist: {...indexedTracklist}});
@@ -288,7 +301,7 @@ describe("set playback status", () =>
     });
 });
 
-describe("set playback progress", () =>
+describe("how to use [setPlaybackProgress(...)]", () =>
 {
     it.each([
         {target: 0},
@@ -371,7 +384,7 @@ describe("set playback progress", () =>
     });
 });
 
-describe("play a specific song", () =>
+describe("how to use [playSongNamed(...)]", () =>
 {
     // Test Data
     const indexedTracklist = {
@@ -510,7 +523,7 @@ describe("play a specific song", () =>
     });
 });
 
-describe("include and exclude songs", () =>
+describe("how to use [setSongExclusionStatus(...)]", () =>
 {
     it("marks the songs as included or excluded", () =>
     {
@@ -1462,7 +1475,7 @@ test("invoking actions when tracklist is empty works correctly", () =>
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(false);
 
     // Act & Assert
-    MusicPlayerStateManager.setIsPlaying(false);
+    MusicPlayerStateManager.setIsPlaying(true);
     expect(MusicPlayerStateManager.getState().indexedTracklist).toStrictEqual({});
     expect(MusicPlayerStateManager.getState().playQueue).toStrictEqual([]);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBeUndefined();
