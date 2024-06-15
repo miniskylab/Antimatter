@@ -93,17 +93,18 @@ export const MusicPlayerStateManager = new class
 
     playNext()
     {
-        if (isNullOrUndefined(this._playingSongIndex))
+        if (isNullOrUndefined(this._playingSongIndex) || this._playingSongIndex === Infinity)
         {
             this._secPlaybackProgress = undefined;
             this._isPlaying = false;
             return;
         }
 
-        if (this._playingSongIndex < this._playQueue.length - 1)
+        const toBePlayedSongIndex = this.searchPlayQueueForTheFirstNonExcludedSongIndex(this._playingSongIndex);
+        if (isNotNullAndUndefined(toBePlayedSongIndex) && toBePlayedSongIndex < this._playQueue.length)
         {
+            this._playingSongIndex = toBePlayedSongIndex;
             this._secPlaybackProgress = undefined;
-            this._playingSongIndex += 1;
             this._isPlaying = true;
 
             return;
@@ -119,22 +120,19 @@ export const MusicPlayerStateManager = new class
             return;
         }
 
-        const lastPlayedSongIndex = this._playingSongIndex === Infinity
-            ? this._playQueue.length - 1
-            : this._playingSongIndex;
-
-        const lastPlayedSongUri = this.getSongUriBySongIndex(lastPlayedSongIndex);
+        const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
         if (!this._isShuffleEnabled)
         {
-            const lastPlayedTrackIndex = this.getTrackIndex(lastPlayedSongUri);
-            if (isNotNullAndUndefined(lastPlayedTrackIndex))
+            const playingTrackIndex = this.getTrackIndex(playingSongUri);
+            if (isNotNullAndUndefined(playingTrackIndex))
             {
-                const toBePlayedTrackIndex = lastPlayedTrackIndex + 1;
-                if (toBePlayedTrackIndex < playableTrackUris.length)
+                const trackUris = this.getTrackUris();
+                const toBePlayedTrackIndex = this.searchTracklistForTheFirstNonExcludedTrackIndex(playingTrackIndex);
+                if (isNotNullAndUndefined(toBePlayedTrackIndex))
                 {
-                    this._playQueue.push(playableTrackUris[toBePlayedTrackIndex]);
-                    this._playingSongIndex = lastPlayedSongIndex + 1;
+                    this._playQueue.push(trackUris[toBePlayedTrackIndex]);
                     this._secPlaybackProgress = undefined;
+                    this._playingSongIndex += 1;
                     this._isPlaying = true;
 
                     return;
@@ -142,8 +140,8 @@ export const MusicPlayerStateManager = new class
                 else if (this._repeatMode === RepeatMode.All)
                 {
                     this._playQueue.push(playableTrackUris[0]);
-                    this._playingSongIndex = lastPlayedSongIndex + 1;
                     this._secPlaybackProgress = undefined;
+                    this._playingSongIndex += 1;
                     this._isPlaying = true;
 
                     return;
@@ -152,12 +150,12 @@ export const MusicPlayerStateManager = new class
         }
         else if (this._repeatMode === RepeatMode.All)
         {
-            const upcomingSongUris = this.getUpcomingSongUris(lastPlayedSongUri);
+            const upcomingSongUris = this.getUpcomingSongUris(playingSongUri);
             if (upcomingSongUris.length > 0)
             {
                 this._playQueue.push(...upcomingSongUris);
-                this._playingSongIndex = lastPlayedSongIndex + 1;
                 this._secPlaybackProgress = undefined;
+                this._playingSongIndex += 1;
                 this._isPlaying = true;
 
                 return;
@@ -181,7 +179,7 @@ export const MusicPlayerStateManager = new class
 
         if (this._isShuffleEnabled)
         {
-            const firstNonExcludedSongIndex = this.searchPlayQueueBackwardForTheFirstNonExcludedSongIndex(this._playingSongIndex);
+            const firstNonExcludedSongIndex = this.searchPlayQueueForTheFirstNonExcludedSongIndex(this._playingSongIndex, true);
             if (isNotNullAndUndefined(firstNonExcludedSongIndex))
             {
                 this._playingSongIndex = firstNonExcludedSongIndex;
@@ -201,7 +199,7 @@ export const MusicPlayerStateManager = new class
             if (isNotNullAndUndefined(playingTrackIndex))
             {
                 const trackUris = this.getTrackUris();
-                const firstNonExcludedSongIndex = this.searchPlayQueueBackwardForTheFirstNonExcludedSongIndex(playingTrackIndex);
+                const firstNonExcludedSongIndex = this.searchTracklistForTheFirstNonExcludedTrackIndex(playingTrackIndex, true);
                 if (isNotNullAndUndefined(firstNonExcludedSongIndex))
                 {
                     const firstNonExcludedSongSongUri = trackUris[firstNonExcludedSongIndex];
@@ -357,25 +355,51 @@ export const MusicPlayerStateManager = new class
         return upcomingSongUris;
     }
 
-    private searchPlayQueueBackwardForTheFirstNonExcludedSongIndex(startIndexExcluded: number)
+    private searchPlayQueueForTheFirstNonExcludedSongIndex(startIndexExcluded: number, isSearchingBackward = false)
     {
         let firstNonExcludedSongIndex = startIndexExcluded > this._playQueue.length ? this._playQueue.length : startIndexExcluded;
         while (true)
         {
-            firstNonExcludedSongIndex -= 1;
+            firstNonExcludedSongIndex = isSearchingBackward ? firstNonExcludedSongIndex - 1 : firstNonExcludedSongIndex + 1;
             if (firstNonExcludedSongIndex < 0)
             {
                 return undefined;
             }
 
-            const songUri = this.getSongUriBySongIndex(firstNonExcludedSongIndex);
-            const song = isNotNullAndUndefined(songUri) ? this._indexedTracklist[songUri] : undefined;
-            if (song && !song.isExcludedFromActivePlaylist)
+            const firstNonExcludedSongUri = this.getSongUriBySongIndex(firstNonExcludedSongIndex);
+            const firstNonExcludedSong = isNotNullAndUndefined(firstNonExcludedSongUri)
+                ? this._indexedTracklist[firstNonExcludedSongUri]
+                : undefined;
+
+            if (!firstNonExcludedSong?.isExcludedFromActivePlaylist)
             {
                 break;
             }
         }
 
         return firstNonExcludedSongIndex;
+    }
+
+    private searchTracklistForTheFirstNonExcludedTrackIndex(startIndexExcluded: number, isSearchingBackward = false)
+    {
+        const trackUris = this.getTrackUris();
+        let firstNonExcludedTrackIndex = startIndexExcluded > trackUris.length ? trackUris.length : startIndexExcluded;
+        while (true)
+        {
+            firstNonExcludedTrackIndex = isSearchingBackward ? firstNonExcludedTrackIndex - 1 : firstNonExcludedTrackIndex + 1;
+            if (firstNonExcludedTrackIndex < 0 || trackUris.length <= firstNonExcludedTrackIndex)
+            {
+                return undefined;
+            }
+
+            const firstNonExcludedTrackUri = trackUris[firstNonExcludedTrackIndex];
+            const firstNonExcludedTrack = this._indexedTracklist[firstNonExcludedTrackUri];
+            if (!firstNonExcludedTrack?.isExcludedFromActivePlaylist)
+            {
+                break;
+            }
+        }
+
+        return firstNonExcludedTrackIndex;
     }
 };
