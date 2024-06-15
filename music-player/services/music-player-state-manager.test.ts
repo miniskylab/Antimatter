@@ -15,19 +15,18 @@ describe("how to use [setIsShuffleEnabled(...)]", () =>
         "song-3": {songName: "Song 3", secSongDuration: 149}
     };
 
-    it.each([
-        {var: "on", target: true},
-        {var: "off", target: false}
-    ])("turns shuffle $var", ({target}) =>
+    it("turns shuffle on and off", () =>
     {
         // Arrange
         MusicPlayerStateManager.resetState();
 
-        // Act
-        MusicPlayerStateManager.setIsShuffleEnabled(target);
+        // Act & Assert
+        MusicPlayerStateManager.setIsShuffleEnabled(true);
+        expect(MusicPlayerStateManager.getState().isShuffleEnabled).toBe(true);
 
-        // Assert
-        expect(MusicPlayerStateManager.getState().isShuffleEnabled).toBe(target);
+        // Act & Assert
+        MusicPlayerStateManager.setIsShuffleEnabled(false);
+        expect(MusicPlayerStateManager.getState().isShuffleEnabled).toBe(false);
     });
 
     it.each([
@@ -303,28 +302,27 @@ describe("how to use [setIsPlaying(...)]", () =>
 
 describe("how to use [setPlaybackProgress(...)]", () =>
 {
-    it.each([
-        {target: 0},
-        {target: 30}
-    ])("sets playback progress to '$target' seconds", ({target}) =>
+    it("sets current playback progress in seconds", () =>
     {
         // Arrange
         MusicPlayerStateManager.resetState({indexedTracklist: {"song-1": {songName: "Song 1", secSongDuration: 74}}});
         MusicPlayerStateManager.playSongNamed("Song 1");
 
-        // Act
-        MusicPlayerStateManager.setPlaybackProgress(target);
+        // Act & Assert
+        MusicPlayerStateManager.setPlaybackProgress(0);
+        expect(MusicPlayerStateManager.getState().secPlaybackProgress).toBe(0);
 
-        // Assert
-        expect(MusicPlayerStateManager.getState().secPlaybackProgress).toBe(target);
+        // Act & Assert
+        MusicPlayerStateManager.setPlaybackProgress(30);
+        expect(MusicPlayerStateManager.getState().secPlaybackProgress).toBe(30);
     });
 
     it.each([
-        {secPlaybackProgress: undefined},
-        {secPlaybackProgress: NaN},
-        {secPlaybackProgress: -Infinity},
-        {secPlaybackProgress: -1}
-    ])("treats '$secPlaybackProgress' as '0' if there is a song selected for playing", ({secPlaybackProgress}) =>
+        {var: "'undefined'", secPlaybackProgress: undefined},
+        {var: "'NaN'", secPlaybackProgress: NaN},
+        {var: "'-Infinity'", secPlaybackProgress: -Infinity},
+        {var: "negative numbers", secPlaybackProgress: -1}
+    ])("treats $var as '0' if there is a song selected for playing", ({secPlaybackProgress}) =>
     {
         // Arrange
         MusicPlayerStateManager.resetState({indexedTracklist: {"song-1": {songName: "Song 1", secSongDuration: 74}}});
@@ -414,7 +412,7 @@ describe("how to use [playSongNamed(...)]", () =>
         expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(4);
         expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
 
-        // Assert: Navigating forward sequentially to last song in the playlist
+        // Assert: Navigating forward sequentially to last song in the playlist works correctly
         MusicPlayerStateManager.playNext();
         expect(MusicPlayerStateManager.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4", "song-2", "song-3"]);
         expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(5);
@@ -437,7 +435,7 @@ describe("how to use [playSongNamed(...)]", () =>
         expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(7);
         expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
 
-        // Assert: Navigating backward sequentially to first song in the playlist
+        // Assert: Navigating backward sequentially to first song in the playlist works correctly
         MusicPlayerStateManager.playPrevious();
         expect(MusicPlayerStateManager.getState().playQueue).toStrictEqual([
             "song-1", "song-2", "song-3", "song-4", "song-2", "song-3", "song-4", "song-3", "song-2"
@@ -452,7 +450,7 @@ describe("how to use [playSongNamed(...)]", () =>
         expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
     });
 
-    it("refreshes upcoming songs if shuffle is on", () =>
+    it("queues up the song being played and refreshes upcoming songs if shuffle is on", () =>
     {
         // Arrange
         MusicPlayerStateManager.resetState({indexedTracklist: {...indexedTracklist}});
