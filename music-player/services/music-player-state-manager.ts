@@ -12,16 +12,7 @@ export const MusicPlayerStateManager = new class
     private _isShuffleEnabled: boolean;
     private _repeatMode: RepeatMode;
 
-    constructor()
-    {
-        this._indexedTracklist = {};
-        this._playQueue = [];
-        this._playingSongIndex = undefined;
-        this._isPlaying = false;
-        this._secPlaybackProgress = undefined;
-        this._isShuffleEnabled = false;
-        this._repeatMode = RepeatMode.None;
-    }
+    constructor() { this.resetState(); }
 
     resetState(newState?: {
         indexedTracklist?: Record<string, SongRow.SongData>,
@@ -171,8 +162,8 @@ export const MusicPlayerStateManager = new class
     {
         if (isNullOrUndefined(this._playingSongIndex))
         {
-            this._isPlaying = false;
             this._secPlaybackProgress = undefined;
+            this._isPlaying = false;
 
             return;
         }
@@ -199,11 +190,11 @@ export const MusicPlayerStateManager = new class
             if (isNotNullAndUndefined(playingTrackIndex))
             {
                 const trackUris = this.getTrackUris();
-                const firstNonExcludedSongIndex = this.searchTracklistForTheFirstNonExcludedTrackIndex(playingTrackIndex, true);
-                if (isNotNullAndUndefined(firstNonExcludedSongIndex))
+                const firstNonExcludedTrackIndex = this.searchTracklistForTheFirstNonExcludedTrackIndex(playingTrackIndex, true);
+                if (isNotNullAndUndefined(firstNonExcludedTrackIndex))
                 {
-                    const firstNonExcludedSongSongUri = trackUris[firstNonExcludedSongIndex];
-                    this._playQueue.push(firstNonExcludedSongSongUri);
+                    const firstNonExcludedTrackUri = trackUris[firstNonExcludedTrackIndex];
+                    this._playQueue.push(firstNonExcludedTrackUri);
                     this._playingSongIndex = this._playQueue.length - 1;
                     this._secPlaybackProgress = undefined;
                     this._isPlaying = true;
