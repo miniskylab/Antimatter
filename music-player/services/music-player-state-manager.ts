@@ -234,7 +234,7 @@ export const MusicPlayerStateManager = new class
                     : 0;
     }
 
-    togglePlaybackStatus()
+    setIsPlaying(isPlaying: boolean | null | undefined)
     {
         if (isNullOrUndefined(this._indexedTracklist) || Object.keys(this._indexedTracklist).length === 0)
         {
@@ -242,7 +242,7 @@ export const MusicPlayerStateManager = new class
             return;
         }
 
-        this._isPlaying = !this._isPlaying;
+        this._isPlaying = !!isPlaying;
         if (this._isPlaying && isNullOrUndefined(this._playingSongIndex))
         {
             const firstPlayableTrackUri = this.getTrackUris(true)[0];
@@ -261,9 +261,9 @@ export const MusicPlayerStateManager = new class
         }
     }
 
-    toggleShuffle()
+    setIsShuffleEnabled(isShuffleEnabled: boolean | null | undefined)
     {
-        this._isShuffleEnabled = !this._isShuffleEnabled;
+        this._isShuffleEnabled = !!isShuffleEnabled;
         if (isNotNullAndUndefined(this._playingSongIndex) && isFinite(this._playingSongIndex))
         {
             this.clearPlayQueueStartingFrom(this._playingSongIndex);
@@ -275,21 +275,28 @@ export const MusicPlayerStateManager = new class
         }
     }
 
-    toggleSongExclusionStatus(songName: string)
+    setSongExclusionStatus(songName: string, isExcluded: boolean | null | undefined)
     {
         const songUri = this.getSongUriByName(songName);
-        if (songUri)
+        if (!songUri)
         {
-            const copyOfSong = {...this._indexedTracklist[songUri]};
-            copyOfSong.isExcludedFromActivePlaylist = !copyOfSong.isExcludedFromActivePlaylist;
+            return;
+        }
 
-            this._indexedTracklist[songUri] = copyOfSong;
-            if (isNotNullAndUndefined(this._playingSongIndex) && isFinite(this._playingSongIndex))
-            {
-                const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
-                this.clearPlayQueueStartingFrom(this._playingSongIndex);
-                this._playQueue.push(...this.getUpcomingSongUris(playingSongUri));
-            }
+        if (this._indexedTracklist[songUri].isExcludedFromActivePlaylist === !!isExcluded)
+        {
+            return;
+        }
+
+        const copyOfSong = {...this._indexedTracklist[songUri]};
+        copyOfSong.isExcludedFromActivePlaylist = !!isExcluded;
+
+        this._indexedTracklist[songUri] = copyOfSong;
+        if (isNotNullAndUndefined(this._playingSongIndex) && isFinite(this._playingSongIndex))
+        {
+            const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
+            this.clearPlayQueueStartingFrom(this._playingSongIndex);
+            this._playQueue.push(...this.getUpcomingSongUris(playingSongUri));
         }
     }
 
