@@ -764,6 +764,46 @@ describe("how to use [resetState(...)]", () =>
     });
 });
 
+// TODO:
+describe("how to use [playNext(...)]", () =>
+{
+    describe("when shuffle is off and repeat mode is 'None'", () =>
+    {
+        it("plays next song in the playlist", () => {});
+
+        it("stops playback if last song in the playlist is being played", () => {});
+
+        it("does nothing after last song in the playlist finished playing", () => {});
+    });
+
+    describe("when shuffle is on and repeat mode is 'None'", () =>
+    {
+        it("plays next song in the play queue", () => {});
+
+        it("stops playback if last song in the play queue is being played", () => {});
+
+        it("does nothing after last song in the play queue finished playing", () => {});
+    });
+});
+
+// TODO:
+describe("how to use [playPrevious(...)]", () =>
+{
+    describe("when shuffle is off and repeat mode is 'None'", () =>
+    {
+        it("plays previous song in the playlist", () => {});
+
+        it("pauses and resets playback progress if first song in the playlist is selected for playing", () => {});
+    });
+
+    describe("when shuffle is on and repeat mode is 'None'", () =>
+    {
+        it("plays previous song in the play queue", () => {});
+
+        it("pauses and resets playback progress if first song in the play queue is selected for playing", () => {});
+    });
+});
+
 test("navigating through playlist when shuffle is off and repeat mode is 'None' works correctly", () =>
 {
     // Arrange
