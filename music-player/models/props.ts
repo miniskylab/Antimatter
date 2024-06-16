@@ -96,7 +96,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onPlay?: (song: SongRow.SongData) => void;
+    readonly onPlay?: (songName?: string) => void;
 
 
     /**
@@ -108,13 +108,13 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onNext?: () => void;
+    readonly onPlayNext?: () => void;
 
 
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onPrevious?: () => void;
+    readonly onPlayPrevious?: () => void;
 
 
     /**
@@ -138,5 +138,5 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
     /**
      * <i style="color: #9B9B9B">(not available)</i>
      */
-    readonly onSongExclusionStatusToggle?: (songName: string) => void;
+    readonly onSongExclusionStatusToggle?: (songName: string, isExcluded: boolean) => void;
 }

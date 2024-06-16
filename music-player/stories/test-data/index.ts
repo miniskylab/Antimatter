@@ -1,5 +1,5 @@
-import {Tracklist} from "./tracklist";
+import {IndexedTracklist} from "./indexed-tracklist";
 
 export const TestData = {
-    Tracklist
+    IndexedTracklist
 };

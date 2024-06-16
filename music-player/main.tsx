@@ -27,8 +27,8 @@ export function MusicPlayer({
     tracklist = [],
     onPlay,
     onPause,
-    onNext,
-    onPrevious,
+    onPlayNext,
+    onPlayPrevious,
     onShuffleModeToggle,
     onRepeatModeChange,
     onPlaylistSelectionToggle,
@@ -37,7 +37,7 @@ export function MusicPlayer({
 {
     const props: AllPropertiesMustPresent<MusicPlayerProps> = {
         style, titlePlaceholder, subtitlePlaceholder, secTimer, selectedSongName, isPlaying, isShuffleEnabled, repeatMode,
-        isPlaylistSelectionEnabled, tracklist, onPlay, onPause, onNext, onPrevious, onShuffleModeToggle, onRepeatModeChange,
+        isPlaylistSelectionEnabled, tracklist, onPlay, onPause, onPlayNext, onPlayPrevious, onShuffleModeToggle, onRepeatModeChange,
         onPlaylistSelectionToggle, onSongExclusionStatusToggle
     };
 
@@ -72,7 +72,7 @@ export function MusicPlayer({
                         />
                     </ButtonTypeContext.Provider>
                     <ButtonTypeContext.Provider value={"previous"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.Previous} onPress={onPrevious}/>
+                        <Button style={computedStyle.Button} icon={DefaultIconSet.Previous} onPress={onPlayPrevious}/>
                     </ButtonTypeContext.Provider>
                     <ButtonTypeContext.Provider value={"play-pause"}>
                         <Button
@@ -82,7 +82,7 @@ export function MusicPlayer({
                         />
                     </ButtonTypeContext.Provider>
                     <ButtonTypeContext.Provider value={"next"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.Next} onPress={onNext}/>
+                        <Button style={computedStyle.Button} icon={DefaultIconSet.Next} onPress={onPlayNext}/>
                     </ButtonTypeContext.Provider>
                     <ButtonTypeContext.Provider value={"repeat"}>
                         <Button style={computedStyle.Button} icon={DefaultIconSet.RepeatAll} onPress={changeRepeatMode}/>
@@ -146,20 +146,16 @@ export function MusicPlayer({
             return onPause?.();
         }
 
-        const toBePlayedSong = selectedSong ?? tracklist[0];
-        if (toBePlayedSong)
-        {
-            return onPlay?.(toBePlayedSong);
-        }
+        return onPlay?.(selectedSong?.songName);
     }
 
     function onSongRowPress(song: SongRow.SongData): void
     {
         if (isPlaylistSelectionEnabled)
         {
-            return onSongExclusionStatusToggle?.(song.songName);
+            return onSongExclusionStatusToggle?.(song.songName, !song.isExcludedFromActivePlaylist);
         }
 
-        return onPlay?.(song);
+        return onPlay?.(song.songName);
     }
 }
