@@ -2,7 +2,7 @@ import {isNotNullAndUndefined, isNullOrUndefined, Ts} from "@miniskylab/antimatt
 import {SongRow} from "../components";
 import {RepeatMode} from "../enums";
 
-export const MusicPlayerStateManager = new class
+export const MusicPlayerStateMachine = new class
 {
     private _indexedTracklist: Record<string, SongRow.SongData>;
     private _playQueue: string[];

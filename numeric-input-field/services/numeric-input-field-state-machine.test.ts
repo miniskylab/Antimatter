@@ -1,5 +1,5 @@
 import {Keypress} from "../enums";
-import {getNextNumericInputFieldState} from "./numeric-input-field-state-manager";
+import {getNextNumericInputFieldState} from "./numeric-input-field-state-machine";
 
 describe("enter single digit continuously", () =>
 {

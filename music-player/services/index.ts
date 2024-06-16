@@ -1,1 +1,1 @@
-export * from "./music-player-state-manager";
+export * from "./music-player-state-machine";
