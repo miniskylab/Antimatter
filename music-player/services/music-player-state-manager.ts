@@ -225,13 +225,26 @@ export const MusicPlayerStateManager = new class
 
     setPlaybackProgress(secPlaybackProgress: number)
     {
-        this._secPlaybackProgress = isNullOrUndefined(this._playingSongIndex) || !isFinite(this._playingSongIndex)
-            ? undefined
-            : secPlaybackProgress === Infinity
-                ? this._indexedTracklist[this._playQueue[this._playingSongIndex]].secSongDuration
-                : isNotNullAndUndefined(secPlaybackProgress) && !isNaN(secPlaybackProgress) && secPlaybackProgress >= 0
-                    ? secPlaybackProgress
-                    : 0;
+        if (isNullOrUndefined(this._playingSongIndex) || !isFinite(this._playingSongIndex))
+        {
+            this._secPlaybackProgress = undefined;
+            return;
+        }
+
+        const playingSongDuration = this._indexedTracklist[this._playQueue[this._playingSongIndex]].secSongDuration;
+        if (secPlaybackProgress > playingSongDuration)
+        {
+            this._secPlaybackProgress = playingSongDuration;
+            return;
+        }
+
+        if (isNullOrUndefined(secPlaybackProgress) || isNaN(secPlaybackProgress) || secPlaybackProgress < 0)
+        {
+            this._secPlaybackProgress = 0;
+            return;
+        }
+
+        this._secPlaybackProgress = secPlaybackProgress;
     }
 
     setIsPlaying(isPlaying: boolean | null | undefined)
