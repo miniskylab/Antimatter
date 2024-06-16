@@ -1,8 +1,8 @@
-import {clamp, degreesToRadians, ensurePercent, percentToRadians, shorten} from "./number";
+import {clamp, degreesToRadians, ensurePercent, percentToRadians, random, shorten} from "./number";
 
 describe("how to use [clamp(...)]", () =>
 {
-    it("throws error when 1st argument is greater than 2nd argument", () =>
+    it("throws error when 2nd argument is greater than 3rd argument", () =>
     {
         const values = [-Infinity, Infinity, -10, 0, 10];
         values.forEach(value =>
@@ -165,6 +165,54 @@ describe("how to use [shorten(...)]", () =>
             {input: 1234567890, expectedResult: "1.23B"}
         ];
         testCases.forEach(x => { expect(shorten(x.input)).toBe(x.expectedResult); });
+    });
+});
+
+describe("how to use [random(...)]", () =>
+{
+    it("throws error when 1st argument is greater than 2nd argument", () =>
+    {
+        expect(() => { random(5, 2); }).toThrow(Error);
+        expect(() => { random(5, 2); }).toThrow("Invalid arguments: 'min' cannot be greater than 'max'");
+    });
+
+    it("throws error if any of the arguments is not number", () =>
+    {
+        const values = [undefined, null, -Infinity, Infinity, NaN];
+
+        values.forEach(min =>
+        {
+            expect(() => { random(min, 5); }).toThrow(Error);
+            expect(() => { random(min, 5); }).toThrow(`Invalid arguments: 'min' cannot be '${min}'`);
+        });
+
+        values.forEach(max =>
+        {
+            expect(() => { random(2, max); }).toThrow(Error);
+            expect(() => { random(2, max); }).toThrow(`Invalid arguments: 'max' cannot be '${max}'`);
+        });
+
+        values.forEach(min =>
+        {
+            values.forEach(max =>
+            {
+                expect(() => { random(min, max); }).toThrow(Error);
+            });
+        });
+    });
+
+    it("returns a random number between 1st and 2nd arguments", () =>
+    {
+        const values = [-10, -5, -2, -1, 0, 1, 2, 5, 10];
+        for (let min = 0; min < values.length; min++)
+        {
+            for (let max = min; max < values.length; max++)
+            {
+                const result = random(min, max);
+                expect(result).toBeGreaterThanOrEqual(min);
+                expect(result).toBeLessThanOrEqual(max);
+            }
+        }
     });
 });
 

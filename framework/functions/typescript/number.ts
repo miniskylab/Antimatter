@@ -68,6 +68,26 @@ export function shorten(anyNumber: number): string
     return `${shortenedValue.toLocaleString("en-us", {useGrouping: true, maximumFractionDigits: 2})}${postFix}`;
 }
 
+export function random(min: number, max: number): number
+{
+    if (isNullOrUndefined(min) || !isFinite(min))
+    {
+        throw new Error(`Invalid arguments: 'min' cannot be '${min}'`);
+    }
+
+    if (isNullOrUndefined(max) || !isFinite(max))
+    {
+        throw new Error(`Invalid arguments: 'max' cannot be '${max}'`);
+    }
+
+    if (min > max)
+    {
+        throw new Error("Invalid arguments: 'min' cannot be greater than 'max'");
+    }
+
+    return Math.random() * (max - min) + min;
+}
+
 export function ensurePercent(anyNumber: number): number
 {
     if (isNullOrUndefined(anyNumber))

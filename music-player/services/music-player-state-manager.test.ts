@@ -271,37 +271,129 @@ test("pausing and resuming playback works correctly", () =>
     expect(MusicPlayerStateManager.getState().playQueue).toStrictEqual(["song-1"]);
 });
 
-test("resuming playback plays first song in the playlist if there is no song selected for playing", () =>
+test("resuming playback plays first song in the playlist when shuffle is off and there is no song selected for playing", () =>
 {
     // Test Data
     const indexedTracklist = {
         "song-1": {songName: "Song 1", secSongDuration: 74},
         "song-2": {songName: "Song 2", secSongDuration: 86},
-        "song-3": {songName: "Song 3", secSongDuration: 149},
-        "song-4": {songName: "Song 4", secSongDuration: 264}
+        "song-3": {songName: "Song 3", secSongDuration: 149}
     };
 
-    // Arrange: Shuffle is off
+    [RepeatMode.None, RepeatMode.All].forEach(repeatMode =>
+    {
+        // Arrange
+        MusicPlayerStateManager.resetState({indexedTracklist: {...indexedTracklist}});
+        MusicPlayerStateManager.setRepeatMode(repeatMode);
+
+        // Act & Assert
+        MusicPlayerStateManager.setIsPlaying(true);
+        expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
+        expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(0);
+        expect(MusicPlayerStateManager.getState().playQueue).toStrictEqual(["song-1"]);
+    });
+
+
+    // Arrange
     MusicPlayerStateManager.resetState({indexedTracklist: {...indexedTracklist}});
+    MusicPlayerStateManager.playSongNamed("Song 3");
+    MusicPlayerStateManager.playNext();
+    expect(MusicPlayerStateManager.getState().isPlaying).toBe(false);
+    expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(Infinity);
+    expect(MusicPlayerStateManager.getState().playQueue).toStrictEqual(["song-3"]);
 
     // Act & Assert
     MusicPlayerStateManager.setIsPlaying(true);
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
-    expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(0);
-    expect(MusicPlayerStateManager.getState().playQueue).toStrictEqual(["song-1"]);
+    expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(1);
+    expect(MusicPlayerStateManager.getState().playQueue).toStrictEqual(["song-3", "song-1"]);
+});
 
+test("resuming playback plays a random song in the playlist when shuffle is on and there is no song selected for playing", () =>
+{
+    // Test Data
+    const indexedTracklist = {
+        "song-1": {songName: "Song 1", secSongDuration: 74},
+        "song-2": {songName: "Song 2", secSongDuration: 86},
+        "song-3": {songName: "Song 3", secSongDuration: 149}
+    };
 
-    // Arrange: Shuffle is on
-    MusicPlayerStateManager.resetState({indexedTracklist: {...indexedTracklist}});
-    MusicPlayerStateManager.setIsShuffleEnabled(true);
+    const tryCount = 50;
+    let playedSongUriFromPreviousTest: string = undefined;
+    [RepeatMode.None, RepeatMode.All].forEach(repeatMode =>
+    {
+        for (let i = 1; i <= tryCount; i++)
+        {
+            // Arrange
+            MusicPlayerStateManager.resetState({indexedTracklist: {...indexedTracklist}});
+            MusicPlayerStateManager.setIsShuffleEnabled(true);
+            MusicPlayerStateManager.setRepeatMode(repeatMode);
 
-    // Act & Assert: Also refreshes upcoming songs
-    MusicPlayerStateManager.setIsPlaying(true);
-    expect(MusicPlayerStateManager.getState().playQueue.length).toBe(4);
-    expect(MusicPlayerStateManager.getState().playQueue.slice(0, 1)).toStrictEqual(["song-1"]);
-    expect(MusicPlayerStateManager.getState().playQueue.slice(1).sort()).toStrictEqual(["song-2", "song-3", "song-4"]);
-    expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(0);
-    expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
+            // Act & Assert
+            MusicPlayerStateManager.setIsPlaying(true);
+            expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
+            expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(0);
+            expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3"]);
+
+            const state = MusicPlayerStateManager.getState();
+            const playingSongUri = state.playQueue[state.playingSongIndex];
+            if (playedSongUriFromPreviousTest !== undefined && playedSongUriFromPreviousTest !== playingSongUri)
+            {
+                break;
+            }
+            else if (i === tryCount)
+            {
+                throw new Error(`played song is expected to be random but instead is '${playingSongUri}' ${tryCount} times in a row!`);
+            }
+
+            playedSongUriFromPreviousTest = playingSongUri;
+        }
+    });
+
+    playedSongUriFromPreviousTest = undefined;
+    for (let i = 1; i <= tryCount; i++)
+    {
+        // Arrange
+        MusicPlayerStateManager.resetState({indexedTracklist: {...indexedTracklist}});
+        MusicPlayerStateManager.setIsShuffleEnabled(true);
+        MusicPlayerStateManager.playSongNamed("Song 1");
+        MusicPlayerStateManager.playNext();
+        MusicPlayerStateManager.playNext();
+        MusicPlayerStateManager.playNext();
+        expect(MusicPlayerStateManager.getState().isPlaying).toBe(false);
+        expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(Infinity);
+        expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3"]);
+
+        // Act
+        MusicPlayerStateManager.setIsPlaying(true);
+
+        // Assert
+        expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
+        if (MusicPlayerStateManager.getState().playingSongIndex === 2)
+        {
+            expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3"]);
+        }
+        else
+        {
+            expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(3);
+            expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual([
+                "song-1", "song-1", "song-2", "song-2", "song-3", "song-3"
+            ]);
+        }
+
+        const state = MusicPlayerStateManager.getState();
+        const playingSongUri = state.playQueue[state.playingSongIndex];
+        if (playedSongUriFromPreviousTest !== undefined && playedSongUriFromPreviousTest !== playingSongUri)
+        {
+            break;
+        }
+        else if (i === tryCount)
+        {
+            throw new Error(`played song is expected to be random but instead is '${playingSongUri}' ${tryCount} times in a row!`);
+        }
+
+        playedSongUriFromPreviousTest = playingSongUri;
+    }
 });
 
 test("playing a specific song when shuffle is off works correctly", () =>
@@ -384,22 +476,21 @@ test("playing a specific song when shuffle is on works correctly", () =>
 
     // Act & Assert
     MusicPlayerStateManager.playSongNamed("Song 1");
-    expect(MusicPlayerStateManager.getState().playQueue.sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+    expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(0);
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
 
 
     // Arrange
-    MusicPlayerStateManager.playNext();
-    const playbackHistorySnapshot = MusicPlayerStateManager.getState().playQueue.slice(0, 2);
+    MusicPlayerStateManager.playSongNamed("Song 3");
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(1);
 
     // Act
     MusicPlayerStateManager.playSongNamed("Song 4");
 
     // Assert: State is correct
+    expect(MusicPlayerStateManager.getState().playQueue.slice(0, 2)).toStrictEqual(["song-1", "song-3"]);
     expect(MusicPlayerStateManager.getState().playQueue[2]).toBe("song-4");
-    expect(MusicPlayerStateManager.getState().playQueue.slice(0, 2)).toStrictEqual(playbackHistorySnapshot);
     expect(MusicPlayerStateManager.getState().playQueue.slice(3).sort()).toStrictEqual(["song-1", "song-2", "song-3"]);
     expect(MusicPlayerStateManager.getState().playQueue.length).toBe(6);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(2);
@@ -827,22 +918,22 @@ test("navigating through playlist when shuffle is on and repeat mode is 'None' w
 
     // Act & Assert: Navigating forward only increases playing song index
     MusicPlayerStateManager.playNext();
-    expect(MusicPlayerStateManager.getState().playQueue.sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+    expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(1);
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
     MusicPlayerStateManager.playNext();
-    expect(MusicPlayerStateManager.getState().playQueue.sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+    expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(2);
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
     MusicPlayerStateManager.playNext();
-    expect(MusicPlayerStateManager.getState().playQueue.sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+    expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(3);
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
 
 
     // Act & Assert: Navigating forward when the last song is being played stops playback
     MusicPlayerStateManager.playNext();
-    expect(MusicPlayerStateManager.getState().playQueue.sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+    expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(Infinity);
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(false);
 
@@ -851,7 +942,7 @@ test("navigating through playlist when shuffle is on and repeat mode is 'None' w
     for (let i = 0; i < 5; i++)
     {
         MusicPlayerStateManager.playNext();
-        expect(MusicPlayerStateManager.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+        expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
         expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(Infinity);
         expect(MusicPlayerStateManager.getState().isPlaying).toBe(false);
     }
@@ -859,19 +950,19 @@ test("navigating through playlist when shuffle is on and repeat mode is 'None' w
 
     // Act & Assert: Navigating backward only decreases playing song index
     MusicPlayerStateManager.playPrevious();
-    expect(MusicPlayerStateManager.getState().playQueue.sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+    expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(3);
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
     MusicPlayerStateManager.playPrevious();
-    expect(MusicPlayerStateManager.getState().playQueue.sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+    expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(2);
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
     MusicPlayerStateManager.playPrevious();
-    expect(MusicPlayerStateManager.getState().playQueue.sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+    expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(1);
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
     MusicPlayerStateManager.playPrevious();
-    expect(MusicPlayerStateManager.getState().playQueue.sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+    expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(0);
     expect(MusicPlayerStateManager.getState().isPlaying).toBe(true);
 
@@ -884,7 +975,7 @@ test("navigating through playlist when shuffle is on and repeat mode is 'None' w
         MusicPlayerStateManager.playPrevious();
 
         // Assert: Navigating backward when the first song is selected for playing pauses and resets playback progress
-        expect(MusicPlayerStateManager.getState().playQueue.sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+        expect(MusicPlayerStateManager.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
         expect(MusicPlayerStateManager.getState().playingSongIndex).toBe(0);
         expect(MusicPlayerStateManager.getState().secPlaybackProgress).toBeUndefined();
         expect(MusicPlayerStateManager.getState().isPlaying).toBe(false);

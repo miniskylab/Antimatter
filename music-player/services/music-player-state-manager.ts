@@ -256,21 +256,23 @@ export const MusicPlayerStateManager = new class
         }
 
         this._isPlaying = !!isPlaying;
-        if (this._isPlaying && isNullOrUndefined(this._playingSongIndex))
+        if (this._isPlaying && (isNullOrUndefined(this._playingSongIndex) || this._playingSongIndex === Infinity))
         {
-            const firstPlayableTrackUri = this.getTrackUris(true)[0];
-            if (!firstPlayableTrackUri)
+            const playableTrackUris = this.getTrackUris(true);
+            const toBePlayedTrackIndex = this._isShuffleEnabled ? Math.round(Ts.Number.random(0, playableTrackUris.length - 1)) : 0;
+            const toBePlayedTrackUri = playableTrackUris[toBePlayedTrackIndex];
+            if (!toBePlayedTrackUri)
             {
                 return;
             }
 
-            const firstPlayableTrack = this._indexedTracklist[firstPlayableTrackUri];
-            if (!firstPlayableTrack)
+            const toBePlayedTrack = this._indexedTracklist[toBePlayedTrackUri];
+            if (!toBePlayedTrack)
             {
                 return;
             }
 
-            this.playSongNamed(firstPlayableTrack.songName);
+            this.playSongNamed(toBePlayedTrack.songName);
         }
     }
 
