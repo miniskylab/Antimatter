@@ -19,10 +19,13 @@ test("resetting state works correctly", () =>
     expect(MusicPlayerStateMachine.getState().repeatMode).toBe(RepeatMode.None);
 
     // Act & Assert
+    const playQueue = ["test-song"];
     const indexedTracklist = {"test-song": {songName: "Test Song", secSongDuration: 98}};
-    MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}, isShuffleEnabled: true, repeatMode: RepeatMode.All});
+    MusicPlayerStateMachine.resetState({indexedTracklist, playQueue, isShuffleEnabled: true, repeatMode: RepeatMode.All});
     expect(MusicPlayerStateMachine.getState().indexedTracklist).toStrictEqual(indexedTracklist);
-    expect(MusicPlayerStateMachine.getState().playQueue).toStrictEqual([]);
+    expect(MusicPlayerStateMachine.getState().indexedTracklist).not.toBe(indexedTracklist);
+    expect(MusicPlayerStateMachine.getState().playQueue).toStrictEqual(playQueue);
+    expect(MusicPlayerStateMachine.getState().playQueue).not.toBe(playQueue);
     expect(MusicPlayerStateMachine.getState().playingSongIndex).toBeUndefined();
     expect(MusicPlayerStateMachine.getState().isPlaying).toBe(false);
     expect(MusicPlayerStateMachine.getState().secPlaybackProgress).toBeUndefined();
@@ -51,7 +54,7 @@ test("indexing tracklist works correctly", () =>
     expect(MusicPlayerStateMachine.getState().isPlaying).toBe(true);
 
     // Act
-    MusicPlayerStateMachine.setIndexedTracklist({...indexedTracklist});
+    MusicPlayerStateMachine.setIndexedTracklist(indexedTracklist);
 
     // Assert
     expect(MusicPlayerStateMachine.getState().indexedTracklist).toStrictEqual(indexedTracklist);
@@ -93,7 +96,7 @@ test("turning shuffle on queues up new songs if there is a song selected for pla
     };
 
     // Arrange: Playback is playing
-    MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}});
+    MusicPlayerStateMachine.resetState({indexedTracklist});
     MusicPlayerStateMachine.playSongNamed("Song 1");
     expect(MusicPlayerStateMachine.getState().playingSongIndex).toBe(0);
     expect(MusicPlayerStateMachine.getState().playQueue).toStrictEqual(["song-1"]);
@@ -107,7 +110,7 @@ test("turning shuffle on queues up new songs if there is a song selected for pla
 
 
     // Arrange: Playback is paused
-    MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}});
+    MusicPlayerStateMachine.resetState({indexedTracklist});
     MusicPlayerStateMachine.playSongNamed("Song 1");
     MusicPlayerStateMachine.setIsPlaying(false);
     expect(MusicPlayerStateMachine.getState().playingSongIndex).toBe(0);
@@ -132,7 +135,7 @@ test("turning shuffle off clears upcoming songs if there is a song selected for 
     };
 
     // Arrange: Playback is playing
-    MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}});
+    MusicPlayerStateMachine.resetState({indexedTracklist});
     MusicPlayerStateMachine.setIsShuffleEnabled(true);
     MusicPlayerStateMachine.playSongNamed("Song 1");
     expect(MusicPlayerStateMachine.getState().playingSongIndex).toBe(0);
@@ -147,7 +150,7 @@ test("turning shuffle off clears upcoming songs if there is a song selected for 
 
 
     // Arrange: Playback is paused
-    MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}});
+    MusicPlayerStateMachine.resetState({indexedTracklist});
     MusicPlayerStateMachine.setIsShuffleEnabled(true);
     MusicPlayerStateMachine.playSongNamed("Song 1");
     MusicPlayerStateMachine.setIsPlaying(false);
@@ -184,7 +187,7 @@ test("turning shuffle on and off doesn't alter play queue if there is no song se
 
 
     // Arrange: Only play queue is empty
-    MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}});
+    MusicPlayerStateMachine.resetState({indexedTracklist});
 
     // Act & Assert
     MusicPlayerStateMachine.setIsShuffleEnabled(true);
@@ -196,7 +199,7 @@ test("turning shuffle on and off doesn't alter play queue if there is no song se
 
 
     // Arrange: All songs have finished playing
-    MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}});
+    MusicPlayerStateMachine.resetState({indexedTracklist});
     MusicPlayerStateMachine.playSongNamed("Song 3");
     MusicPlayerStateMachine.playNext();
     expect(MusicPlayerStateMachine.getState().playQueue).toStrictEqual(["song-3"]);
@@ -283,7 +286,7 @@ test("resuming playback plays first song in the playlist when shuffle is off and
     [RepeatMode.None, RepeatMode.All].forEach(repeatMode =>
     {
         // Arrange
-        MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}});
+        MusicPlayerStateMachine.resetState({indexedTracklist});
         MusicPlayerStateMachine.setRepeatMode(repeatMode);
 
         // Act & Assert
@@ -295,7 +298,7 @@ test("resuming playback plays first song in the playlist when shuffle is off and
 
 
     // Arrange
-    MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}});
+    MusicPlayerStateMachine.resetState({indexedTracklist});
     MusicPlayerStateMachine.playSongNamed("Song 3");
     MusicPlayerStateMachine.playNext();
     expect(MusicPlayerStateMachine.getState().isPlaying).toBe(false);
@@ -325,7 +328,7 @@ test("resuming playback plays a random song in the playlist when shuffle is on a
         for (let i = 1; i <= tryCount; i++)
         {
             // Arrange
-            MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}});
+            MusicPlayerStateMachine.resetState({indexedTracklist});
             MusicPlayerStateMachine.setIsShuffleEnabled(true);
             MusicPlayerStateMachine.setRepeatMode(repeatMode);
 
@@ -354,7 +357,7 @@ test("resuming playback plays a random song in the playlist when shuffle is on a
     for (let i = 1; i <= tryCount; i++)
     {
         // Arrange
-        MusicPlayerStateMachine.resetState({indexedTracklist: {...indexedTracklist}});
+        MusicPlayerStateMachine.resetState({indexedTracklist});
         MusicPlayerStateMachine.setIsShuffleEnabled(true);
         MusicPlayerStateMachine.playSongNamed("Song 1");
         MusicPlayerStateMachine.playNext();
@@ -572,7 +575,7 @@ test("setting playback progress works correctly", () =>
         expect(MusicPlayerStateMachine.getState().secPlaybackProgress).toBe(secPlaybackProgress);
     });
 
-    [undefined, NaN, -Infinity, -1].forEach(secPlaybackProgress =>
+    [undefined, null, NaN, -Infinity, -1].forEach(secPlaybackProgress =>
     {
         // Arrange
         MusicPlayerStateMachine.setIsPlaying(true);

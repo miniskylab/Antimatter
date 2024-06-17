@@ -29,15 +29,11 @@ export default {
             ? musicPlayerState.indexedTracklist[playingSongUri]
             : undefined;
 
-        const titlePlaceholder = musicPlayerState.playingSongIndex === Infinity
-            ? "All Songs Have Been Played"
-            : "Not Playing";
-
         return (
             <MusicPlayerWithValidation
                 {...args}
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
-                titlePlaceholder={titlePlaceholder}
+                titlePlaceholder={musicPlayerState.playingSongIndex === Infinity ? "All Songs Have Been Played" : "Not Playing"}
                 tracklist={Object.values(musicPlayerState.indexedTracklist)}
                 selectedSongName={playingSong?.songName}
                 isPlaying={musicPlayerState.isPlaying}

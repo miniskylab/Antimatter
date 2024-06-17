@@ -8,7 +8,7 @@ export const MusicPlayerStateMachine = new class
     private _playQueue: string[];
     private _playingSongIndex: number | undefined;
     private _isPlaying: boolean;
-    private _secPlaybackProgress: number | undefined;
+    private _secPlaybackProgress: number | null | undefined;
     private _isShuffleEnabled: boolean;
     private _repeatMode: RepeatMode;
 
@@ -17,15 +17,15 @@ export const MusicPlayerStateMachine = new class
     resetState(newState?: {
         indexedTracklist?: Record<string, SongRow.SongData>,
         playQueue?: string[],
-        playingSongIndex?: number,
+        playingSongIndex?: number | undefined,
         isPlaying?: boolean,
-        secPlaybackProgress?: number,
+        secPlaybackProgress?: number | null | undefined,
         isShuffleEnabled?: boolean,
         repeatMode?: RepeatMode
     })
     {
-        this._indexedTracklist = newState?.indexedTracklist ?? {};
-        this._playQueue = newState?.playQueue ?? [];
+        this._indexedTracklist = newState?.indexedTracklist ? {...newState.indexedTracklist} : {};
+        this._playQueue = newState?.playQueue ? [...newState.playQueue] : [];
         this._playingSongIndex = newState?.playingSongIndex;
         this._isPlaying = newState?.isPlaying ?? false;
         this._secPlaybackProgress = newState?.secPlaybackProgress;
@@ -223,7 +223,7 @@ export const MusicPlayerStateMachine = new class
         this._repeatMode = newRepeatMode ?? RepeatMode.None;
     }
 
-    setPlaybackProgress(secPlaybackProgress: number)
+    setPlaybackProgress(secPlaybackProgress: number | null | undefined)
     {
         if (isNullOrUndefined(this._playingSongIndex) || !isFinite(this._playingSongIndex))
         {
@@ -231,16 +231,16 @@ export const MusicPlayerStateMachine = new class
             return;
         }
 
+        if (isNullOrUndefined(secPlaybackProgress) || isNaN(secPlaybackProgress) || secPlaybackProgress < 0)
+        {
+            this._secPlaybackProgress = 0;
+            return;
+        }
+
         const playingSongDuration = this._indexedTracklist[this._playQueue[this._playingSongIndex]].secSongDuration;
         if (secPlaybackProgress > playingSongDuration)
         {
             this._secPlaybackProgress = playingSongDuration;
-            return;
-        }
-
-        if (isNullOrUndefined(secPlaybackProgress) || isNaN(secPlaybackProgress) || secPlaybackProgress < 0)
-        {
-            this._secPlaybackProgress = 0;
             return;
         }
 
