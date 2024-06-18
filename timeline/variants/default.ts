@@ -330,6 +330,15 @@ const Timeline__Event: Event.Style = function ()
     };
 };
 
+const Timeline__EventPlaceholder: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        flexGrow: 1,
+        flexBasis: "34%"
+    };
+};
+
 const Timeline__BootstrapEvent__Root: ViewStyle = function (viewProps)
 {
     return {
@@ -445,6 +454,7 @@ export const Default: TimelineStyle = function ()
         VerticalLine: Timeline__VerticalLine,
         Origin: Timeline__Origin,
         Event: Timeline__Event,
+        EventPlaceholder: Timeline__EventPlaceholder,
         BootstrapEvent: Timeline__BootstrapEvent
     };
 };

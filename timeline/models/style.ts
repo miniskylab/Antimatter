@@ -10,5 +10,6 @@ export type TimelineStyle = (timelineProps: WithoutStyle<TimelineProps>) => {
     VerticalLine: ViewStyle;
     Origin: IconStyle;
     Event: Event.Style;
+    EventPlaceholder: ViewStyle;
     BootstrapEvent: BootstrapEvent.Style;
 };

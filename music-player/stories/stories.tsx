@@ -4,7 +4,7 @@ import type {Meta, StoryObj} from "@storybook/react";
 import React, {useState} from "react";
 import {MusicPlayer} from "../main";
 import {MusicPlayerProps} from "../models";
-import {MusicPlayerStateMachine} from "../services";
+import {StateMachine} from "../services";
 import * as Variant from "../variants";
 import {TestData} from "./test-data";
 
@@ -17,8 +17,8 @@ export default {
         const [, setArgs] = useArgs<MusicPlayerProps>();
         const [musicPlayerState, setMusicPlayerState] = useState(() =>
         {
-            MusicPlayerStateMachine.resetState({indexedTracklist: {...TestData.IndexedTracklist}});
-            return MusicPlayerStateMachine.getState();
+            StateMachine.resetState({indexedTracklist: {...TestData.IndexedTracklist}});
+            return StateMachine.getState();
         });
 
         const playingSongUri = isNotNullAndUndefined(musicPlayerState.playingSongIndex)
@@ -44,44 +44,44 @@ export default {
                 {
                     if (isNotNullAndUndefined(songName))
                     {
-                        MusicPlayerStateMachine.playSongNamed(songName);
+                        StateMachine.playSongNamed(songName);
                     }
                     else
                     {
-                        MusicPlayerStateMachine.setIsPlaying(true);
+                        StateMachine.setIsPlaying(true);
                     }
 
-                    setMusicPlayerState(MusicPlayerStateMachine.getState());
+                    setMusicPlayerState(StateMachine.getState());
                 }}
                 onPause={() =>
                 {
-                    MusicPlayerStateMachine.setIsPlaying(false);
-                    setMusicPlayerState(MusicPlayerStateMachine.getState());
+                    StateMachine.setIsPlaying(false);
+                    setMusicPlayerState(StateMachine.getState());
                 }}
                 onPlayNext={() =>
                 {
-                    MusicPlayerStateMachine.playNext();
-                    setMusicPlayerState(MusicPlayerStateMachine.getState());
+                    StateMachine.playNext();
+                    setMusicPlayerState(StateMachine.getState());
                 }}
                 onPlayPrevious={() =>
                 {
-                    MusicPlayerStateMachine.playPrevious();
-                    setMusicPlayerState(MusicPlayerStateMachine.getState());
+                    StateMachine.playPrevious();
+                    setMusicPlayerState(StateMachine.getState());
                 }}
                 onShuffleModeToggle={isShuffleEnabled =>
                 {
-                    MusicPlayerStateMachine.setIsShuffleEnabled(isShuffleEnabled);
-                    setMusicPlayerState(MusicPlayerStateMachine.getState());
+                    StateMachine.setIsShuffleEnabled(isShuffleEnabled);
+                    setMusicPlayerState(StateMachine.getState());
                 }}
                 onRepeatModeChange={newRepeatMode =>
                 {
-                    MusicPlayerStateMachine.setRepeatMode(newRepeatMode);
-                    setMusicPlayerState(MusicPlayerStateMachine.getState());
+                    StateMachine.setRepeatMode(newRepeatMode);
+                    setMusicPlayerState(StateMachine.getState());
                 }}
                 onSongExclusionStatusToggle={(songName, isExcluded) =>
                 {
-                    MusicPlayerStateMachine.setSongExclusionStatus(songName, isExcluded);
-                    setMusicPlayerState(MusicPlayerStateMachine.getState());
+                    StateMachine.setSongExclusionStatus(songName, isExcluded);
+                    setMusicPlayerState(StateMachine.getState());
                 }}
                 onPlaylistSelectionToggle={isPlaylistSelectionEnabled => setArgs({isPlaylistSelectionEnabled})}
             />

@@ -33,6 +33,7 @@ export function Timeline({
             <View style={computedStyle.Root}>
                 <View style={computedStyle.EventStream}>
                     {events.map((event, i) => <Event.Component key={i} {...event} style={computedStyle.Event} index={i}/>)}
+                    {events.length % 2 !== 0 && <View style={computedStyle.EventPlaceholder}/>}
                     <View style={computedStyle.VerticalLine}/>
                     <Icon style={computedStyle.Origin} name={DefaultIconSet.Origin}/>
                 </View>
