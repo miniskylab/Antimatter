@@ -9,6 +9,7 @@ export const StateMachine = new class
     private _playingSongIndex: number | undefined;
     private _isPlaying: boolean;
     private _secPlaybackProgress: number | null | undefined;
+    private _secSeekerPosition: number | null | undefined;
     private _isShuffleEnabled: boolean;
     private _repeatMode: RepeatMode;
 
@@ -20,6 +21,7 @@ export const StateMachine = new class
         playingSongIndex?: number | undefined,
         isPlaying?: boolean,
         secPlaybackProgress?: number | null | undefined,
+        secSeekerPosition?: number | null | undefined,
         isShuffleEnabled?: boolean,
         repeatMode?: RepeatMode
     })
@@ -29,6 +31,7 @@ export const StateMachine = new class
         this._playingSongIndex = newState?.playingSongIndex;
         this._isPlaying = newState?.isPlaying ?? false;
         this._secPlaybackProgress = newState?.secPlaybackProgress;
+        this._secSeekerPosition = newState?.secSeekerPosition;
         this._isShuffleEnabled = newState?.isShuffleEnabled ?? false;
         this._repeatMode = newState?.repeatMode ?? RepeatMode.None;
     }
@@ -41,6 +44,7 @@ export const StateMachine = new class
             playingSongIndex: this._playingSongIndex,
             isPlaying: this._isPlaying,
             secPlaybackProgress: this._secPlaybackProgress,
+            secSeekerPosition: this._secSeekerPosition,
             isShuffleEnabled: this._isShuffleEnabled,
             repeatMode: this._repeatMode
         };
@@ -52,6 +56,7 @@ export const StateMachine = new class
         if (!toBePlayedSongUri)
         {
             this._secPlaybackProgress = undefined;
+            this._secSeekerPosition = undefined;
             return;
         }
 
@@ -64,6 +69,7 @@ export const StateMachine = new class
         {
             this._playingSongIndex = lastPlayedSongIndex;
             this._secPlaybackProgress = undefined;
+            this._secSeekerPosition = undefined;
             this._isPlaying = true;
 
             return;
@@ -79,6 +85,7 @@ export const StateMachine = new class
         }
 
         this._secPlaybackProgress = undefined;
+        this._secSeekerPosition = undefined;
         this._isPlaying = true;
     }
 
@@ -87,6 +94,7 @@ export const StateMachine = new class
         if (isNullOrUndefined(this._playingSongIndex) || this._playingSongIndex === Infinity)
         {
             this._secPlaybackProgress = undefined;
+            this._secSeekerPosition = undefined;
             this._isPlaying = false;
             return;
         }
@@ -96,6 +104,7 @@ export const StateMachine = new class
         {
             this._playingSongIndex = toBePlayedSongIndex;
             this._secPlaybackProgress = undefined;
+            this._secSeekerPosition = undefined;
             this._isPlaying = true;
 
             return;
@@ -105,6 +114,7 @@ export const StateMachine = new class
         if (playableTrackUris.length <= 0)
         {
             this._secPlaybackProgress = undefined;
+            this._secSeekerPosition = undefined;
             this._playingSongIndex = undefined;
             this._isPlaying = false;
 
@@ -123,6 +133,7 @@ export const StateMachine = new class
                 {
                     this._playQueue.push(trackUris[toBePlayedTrackIndex]);
                     this._secPlaybackProgress = undefined;
+                    this._secSeekerPosition = undefined;
                     this._playingSongIndex += 1;
                     this._isPlaying = true;
 
@@ -132,6 +143,7 @@ export const StateMachine = new class
                 {
                     this._playQueue.push(playableTrackUris[0]);
                     this._secPlaybackProgress = undefined;
+                    this._secSeekerPosition = undefined;
                     this._playingSongIndex += 1;
                     this._isPlaying = true;
 
@@ -146,6 +158,7 @@ export const StateMachine = new class
             {
                 this._playQueue.push(...upcomingSongUris);
                 this._secPlaybackProgress = undefined;
+                this._secSeekerPosition = undefined;
                 this._playingSongIndex += 1;
                 this._isPlaying = true;
 
@@ -154,6 +167,7 @@ export const StateMachine = new class
         }
 
         this._secPlaybackProgress = undefined;
+        this._secSeekerPosition = undefined;
         this._playingSongIndex = Infinity;
         this._isPlaying = false;
     }
@@ -163,6 +177,7 @@ export const StateMachine = new class
         if (isNullOrUndefined(this._playingSongIndex))
         {
             this._secPlaybackProgress = undefined;
+            this._secSeekerPosition = undefined;
             this._isPlaying = false;
 
             return;
@@ -175,6 +190,7 @@ export const StateMachine = new class
             {
                 this._playingSongIndex = firstNonExcludedSongIndex;
                 this._secPlaybackProgress = undefined;
+                this._secSeekerPosition = undefined;
                 this._isPlaying = true;
 
                 return;
@@ -183,10 +199,7 @@ export const StateMachine = new class
         else
         {
             const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
-            const playingTrackIndex = this._playingSongIndex !== Infinity
-                ? this.getTrackIndex(playingSongUri)
-                : Infinity;
-
+            const playingTrackIndex = this._playingSongIndex !== Infinity ? this.getTrackIndex(playingSongUri) : Infinity;
             if (isNotNullAndUndefined(playingTrackIndex))
             {
                 const trackUris = this.getTrackUris();
@@ -197,6 +210,7 @@ export const StateMachine = new class
                     this._playQueue.push(firstNonExcludedTrackUri);
                     this._playingSongIndex = this._playQueue.length - 1;
                     this._secPlaybackProgress = undefined;
+                    this._secSeekerPosition = undefined;
                     this._isPlaying = true;
 
                     return;
@@ -205,7 +219,7 @@ export const StateMachine = new class
         }
 
         this._secPlaybackProgress = undefined;
-        this._secPlaybackProgress = undefined;
+        this._secSeekerPosition = undefined;
         this._isPlaying = false;
     }
 
@@ -215,6 +229,7 @@ export const StateMachine = new class
         this._playQueue = [];
         this._playingSongIndex = undefined;
         this._isPlaying = false;
+        this._secSeekerPosition = undefined;
         this._secPlaybackProgress = undefined;
     }
 
@@ -256,24 +271,59 @@ export const StateMachine = new class
         }
 
         this._isPlaying = !!isPlaying;
-        if (this._isPlaying && (isNullOrUndefined(this._playingSongIndex) || this._playingSongIndex === Infinity))
+        if (this._isPlaying)
         {
-            const playableTrackUris = this.getTrackUris(true);
-            const toBePlayedTrackIndex = this._isShuffleEnabled ? Math.round(Ts.Number.random(0, playableTrackUris.length - 1)) : 0;
-            const toBePlayedTrackUri = playableTrackUris[toBePlayedTrackIndex];
-            if (!toBePlayedTrackUri)
+            if (isNotNullAndUndefined(this._secSeekerPosition) && isFinite(this._secSeekerPosition))
             {
-                return;
+                this._secPlaybackProgress = this._secSeekerPosition;
+                this._secSeekerPosition = undefined;
             }
 
-            const toBePlayedTrack = this._indexedTracklist[toBePlayedTrackUri];
-            if (!toBePlayedTrack)
+            if (isNullOrUndefined(this._playingSongIndex) || this._playingSongIndex === Infinity)
             {
-                return;
-            }
+                const playableTrackUris = this.getTrackUris(true);
+                const toBePlayedTrackIndex = this._isShuffleEnabled ? Math.round(Ts.Number.random(0, playableTrackUris.length - 1)) : 0;
+                const toBePlayedTrackUri = playableTrackUris[toBePlayedTrackIndex];
+                if (!toBePlayedTrackUri)
+                {
+                    return;
+                }
 
-            this.playSongNamed(toBePlayedTrack.songName);
+                const toBePlayedTrack = this._indexedTracklist[toBePlayedTrackUri];
+                if (!toBePlayedTrack)
+                {
+                    return;
+                }
+
+                this.playSongNamed(toBePlayedTrack.songName);
+            }
         }
+    }
+
+    setSeekerPosition(secSeekerPosition: number | null | undefined)
+    {
+        if (isNullOrUndefined(this._playingSongIndex) || !isFinite(this._playingSongIndex))
+        {
+            this._secSeekerPosition = undefined;
+            return;
+        }
+
+        if (isNullOrUndefined(secSeekerPosition) || isNaN(secSeekerPosition) || secSeekerPosition < 0)
+        {
+            this._secSeekerPosition = undefined;
+            return;
+        }
+
+        const playingSongDuration = this._indexedTracklist[this._playQueue[this._playingSongIndex]].secSongDuration;
+        if (secSeekerPosition > playingSongDuration)
+        {
+            this._secSeekerPosition = playingSongDuration;
+            this._isPlaying = false;
+            return;
+        }
+
+        this._secSeekerPosition = secSeekerPosition;
+        this._isPlaying = false;
     }
 
     setIsShuffleEnabled(isShuffleEnabled: boolean | null | undefined)
