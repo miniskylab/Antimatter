@@ -153,7 +153,9 @@ const MusicPlayer__Button__Icon: IconStyle = function (iconProps)
                 ? 23
                 : buttonTypeContext === "repeat"
                     ? 32
-                    : 20,
+                    : buttonTypeContext === "playlist"
+                        ? 25
+                        : 20,
         color: buttonTypeContext === "repeat"
             ? getButtonColor(musicPlayerContext.props.repeatMode !== RepeatMode.None)
             : buttonTypeContext === "shuffle"
