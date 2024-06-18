@@ -90,7 +90,7 @@ export function MusicPlayer({
                     <ButtonTypeContext.Provider value={"playlist"}>
                         <Button
                             style={computedStyle.Button}
-                            icon={DefaultIconSet.Document}
+                            icon={DefaultIconSet.Playlist}
                             onPress={() => onPlaylistSelectionToggle?.(!isPlaylistSelectionEnabled)}
                         />
                     </ButtonTypeContext.Provider>

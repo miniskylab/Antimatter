@@ -85,5 +85,6 @@ export enum DefaultIconSet
     Previous = "previous",
     Next = "next",
     Shuffle = "shuffle",
-    RepeatAll = "repeat-all"
+    RepeatAll = "repeat-all",
+    Playlist = "playlist"
 }

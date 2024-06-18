@@ -119,7 +119,7 @@ const MusicPlayer__Button__Root: PressableStyle = function (pressableProps, pres
         backgroundColor: Color.Transparent,
         ...buttonTypeContext === "playlist" && {
             marginLeft: "auto",
-            transform: [{translateX: 10}]
+            alignItems: "flex-end"
         }
     };
 };
