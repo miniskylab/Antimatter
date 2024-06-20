@@ -14,7 +14,9 @@ test("resetting state works correctly", () =>
     expect(StateMachine.getState().playQueue).toStrictEqual([]);
     expect(StateMachine.getState().playingSongIndex).toBeUndefined();
     expect(StateMachine.getState().isPlaying).toBe(false);
+    expect(StateMachine.getState().secSeekerPosition).toBeUndefined();
     expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
+    expect(StateMachine.getState().secBackSkipRestartThreshold).toBeUndefined();
     expect(StateMachine.getState().isShuffleEnabled).toBe(false);
     expect(StateMachine.getState().repeatMode).toBe(RepeatMode.None);
 
@@ -28,7 +30,9 @@ test("resetting state works correctly", () =>
     expect(StateMachine.getState().playQueue).not.toBe(playQueue);
     expect(StateMachine.getState().playingSongIndex).toBeUndefined();
     expect(StateMachine.getState().isPlaying).toBe(false);
+    expect(StateMachine.getState().secSeekerPosition).toBeUndefined();
     expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
+    expect(StateMachine.getState().secBackSkipRestartThreshold).toBeUndefined();
     expect(StateMachine.getState().isShuffleEnabled).toBe(true);
     expect(StateMachine.getState().repeatMode).toBe(RepeatMode.All);
 });
@@ -43,10 +47,11 @@ test("indexing tracklist works correctly", () =>
         "song-4": {songName: "Song 4", secSongDuration: 264}
     };
 
-    // Arrange
+    // Arrange: Seeker position not set
     StateMachine.resetState({indexedTracklist: {"test-song": {songName: "Test Song", secSongDuration: 98}}});
     StateMachine.setRepeatMode(RepeatMode.All);
     StateMachine.setIsShuffleEnabled(true);
+    StateMachine.setBackSkipRestartThreshold(10);
     StateMachine.playSongNamed("Test Song");
     StateMachine.setPlaybackProgress(30);
     expect(StateMachine.getState().playQueue).toStrictEqual(["test-song"]);
@@ -58,16 +63,18 @@ test("indexing tracklist works correctly", () =>
     expect(StateMachine.getState().indexedTracklist).toStrictEqual(indexedTracklist);
     expect(StateMachine.getState().repeatMode).toBe(RepeatMode.All);
     expect(StateMachine.getState().isShuffleEnabled).toBe(true);
+    expect(StateMachine.getState().secBackSkipRestartThreshold).toBe(10);
     expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
     expect(StateMachine.getState().playQueue).toStrictEqual([]);
     expect(StateMachine.getState().playingSongIndex).toBeUndefined();
     expect(StateMachine.getState().isPlaying).toBe(false);
 
 
-    // Arrange
+    // Arrange: Seeker position is set
     StateMachine.resetState({indexedTracklist: {"test-song": {songName: "Test Song", secSongDuration: 98}}});
     StateMachine.setRepeatMode(RepeatMode.All);
     StateMachine.setIsShuffleEnabled(true);
+    StateMachine.setBackSkipRestartThreshold(10);
     StateMachine.playSongNamed("Test Song");
     StateMachine.setPlaybackProgress(30);
     StateMachine.setSeekerPosition(40);
@@ -80,6 +87,7 @@ test("indexing tracklist works correctly", () =>
     expect(StateMachine.getState().indexedTracklist).toStrictEqual(indexedTracklist);
     expect(StateMachine.getState().repeatMode).toBe(RepeatMode.All);
     expect(StateMachine.getState().isShuffleEnabled).toBe(true);
+    expect(StateMachine.getState().secBackSkipRestartThreshold).toBe(10);
     expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
     expect(StateMachine.getState().secSeekerPosition).toBeUndefined();
     expect(StateMachine.getState().playQueue).toStrictEqual([]);
@@ -1350,6 +1358,46 @@ test("navigating away from the end of playlist does nothing if all songs are exc
     expect(StateMachine.getState().isPlaying).toBe(false);
     expect(StateMachine.getState().playingSongIndex).toBe(Infinity);
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-4"]);
+});
+
+test("navigating backward resets playback progress if the playing song has been played for some time", () =>
+{
+    // Arrange
+    StateMachine.resetState({
+        indexedTracklist: {
+            "song-1": {songName: "Song 1", secSongDuration: 74},
+            "song-2": {songName: "Song 2", secSongDuration: 86},
+            "song-3": {songName: "Song 3", secSongDuration: 149},
+            "song-4": {songName: "Song 4", secSongDuration: 264}
+        }
+    });
+    StateMachine.setBackSkipRestartThreshold(10);
+    StateMachine.playSongNamed("Song 3");
+    StateMachine.setPlaybackProgress(15);
+    expect(StateMachine.getState().isPlaying).toBe(true);
+    expect(StateMachine.getState().playingSongIndex).toBe(0);
+    expect(StateMachine.getState().playQueue).toStrictEqual(["song-3"]);
+
+    // Act & Assert
+    StateMachine.playPrevious();
+    expect(StateMachine.getState().secPlaybackProgress).toBe(0);
+    expect(StateMachine.getState().isPlaying).toBe(true);
+    expect(StateMachine.getState().playingSongIndex).toBe(0);
+    expect(StateMachine.getState().playQueue).toStrictEqual(["song-3"]);
+
+    // Act & Assert
+    StateMachine.playPrevious();
+    expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
+    expect(StateMachine.getState().isPlaying).toBe(true);
+    expect(StateMachine.getState().playingSongIndex).toBe(1);
+    expect(StateMachine.getState().playQueue).toStrictEqual(["song-3", "song-2"]);
+
+    // Act & Assert
+    StateMachine.playPrevious();
+    expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
+    expect(StateMachine.getState().isPlaying).toBe(true);
+    expect(StateMachine.getState().playingSongIndex).toBe(2);
+    expect(StateMachine.getState().playQueue).toStrictEqual(["song-3", "song-2", "song-1"]);
 });
 
 test("altering playlist marks songs as included or excluded", () =>

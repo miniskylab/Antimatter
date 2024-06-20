@@ -8,6 +8,7 @@ export const StateMachine = new class
     private _playQueue: string[];
     private _playingSongIndex: number | undefined;
     private _isPlaying: boolean;
+    private _secBackSkipRestartThreshold: number | null | undefined;
     private _secPlaybackProgress: number | null | undefined;
     private _secSeekerPosition: number | null | undefined;
     private _isShuffleEnabled: boolean;
@@ -20,6 +21,7 @@ export const StateMachine = new class
         playQueue?: string[],
         playingSongIndex?: number | undefined,
         isPlaying?: boolean,
+        secBackSkipRestartThreshold?: number | null | undefined,
         secPlaybackProgress?: number | null | undefined,
         secSeekerPosition?: number | null | undefined,
         isShuffleEnabled?: boolean,
@@ -30,6 +32,7 @@ export const StateMachine = new class
         this._playQueue = newState?.playQueue ? [...newState.playQueue] : [];
         this._playingSongIndex = newState?.playingSongIndex;
         this._isPlaying = newState?.isPlaying ?? false;
+        this._secBackSkipRestartThreshold = newState?.secBackSkipRestartThreshold;
         this._secPlaybackProgress = newState?.secPlaybackProgress;
         this._secSeekerPosition = newState?.secSeekerPosition;
         this._isShuffleEnabled = newState?.isShuffleEnabled ?? false;
@@ -43,6 +46,7 @@ export const StateMachine = new class
             playQueue: this._playQueue,
             playingSongIndex: this._playingSongIndex,
             isPlaying: this._isPlaying,
+            secBackSkipRestartThreshold: this._secBackSkipRestartThreshold,
             secPlaybackProgress: this._secPlaybackProgress,
             secSeekerPosition: this._secSeekerPosition,
             isShuffleEnabled: this._isShuffleEnabled,
@@ -183,6 +187,18 @@ export const StateMachine = new class
             return;
         }
 
+        if (
+            isNotNullAndUndefined(this._secBackSkipRestartThreshold) && isFinite(this._secBackSkipRestartThreshold) &&
+            isNotNullAndUndefined(this._secPlaybackProgress) && isFinite(this._secPlaybackProgress) &&
+            this._secPlaybackProgress > this._secBackSkipRestartThreshold
+        )
+        {
+            this.setSeekerPosition(0);
+            this.setIsPlaying(true);
+
+            return;
+        }
+
         if (this._isShuffleEnabled)
         {
             const firstNonExcludedSongIndex = this.searchPlayQueueForTheFirstNonExcludedSongIndex(this._playingSongIndex, true);
@@ -236,6 +252,11 @@ export const StateMachine = new class
     setRepeatMode(newRepeatMode: RepeatMode)
     {
         this._repeatMode = newRepeatMode ?? RepeatMode.None;
+    }
+
+    setBackSkipRestartThreshold(secBackSkipRestartThreshold: number | null | undefined)
+    {
+        this._secBackSkipRestartThreshold = secBackSkipRestartThreshold;
     }
 
     setPlaybackProgress(secPlaybackProgress: number | null | undefined)
