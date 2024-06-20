@@ -274,6 +274,36 @@ test("setting repeat mode works correctly", () =>
     });
 });
 
+test("setting back skip restart threshold works correctly", () =>
+{
+    // Arrange
+    StateMachine.resetState();
+
+    // Act & Assert
+    StateMachine.setBackSkipRestartThreshold(10);
+    expect(StateMachine.getState().secBackSkipRestartThreshold).toBe(10);
+
+    [undefined, null, NaN, Infinity, -Infinity].forEach(secBackSkipRestartThreshold =>
+    {
+        // Arrange
+        StateMachine.resetState();
+
+        // Act & Assert
+        StateMachine.setBackSkipRestartThreshold(secBackSkipRestartThreshold);
+        expect(StateMachine.getState().secBackSkipRestartThreshold).toBe(undefined);
+    });
+
+    [-1, 0, 1, 2, 5].forEach(secBackSkipRestartThreshold =>
+    {
+        // Arrange
+        StateMachine.resetState();
+
+        // Act & Assert
+        StateMachine.setBackSkipRestartThreshold(secBackSkipRestartThreshold);
+        expect(StateMachine.getState().secBackSkipRestartThreshold).toBe(5);
+    });
+});
+
 test("pausing and resuming playback works correctly", () =>
 {
     // Arrange

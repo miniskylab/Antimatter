@@ -256,6 +256,18 @@ export const StateMachine = new class
 
     setBackSkipRestartThreshold(secBackSkipRestartThreshold: number | null | undefined)
     {
+        if (isNullOrUndefined(secBackSkipRestartThreshold) || !isFinite(secBackSkipRestartThreshold))
+        {
+            this._secBackSkipRestartThreshold = undefined;
+            return;
+        }
+
+        if (secBackSkipRestartThreshold <= 5)
+        {
+            this._secBackSkipRestartThreshold = 5;
+            return;
+        }
+
         this._secBackSkipRestartThreshold = secBackSkipRestartThreshold;
     }
 
