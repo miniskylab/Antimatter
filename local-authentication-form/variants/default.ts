@@ -14,7 +14,7 @@ const LocalAuthenticationForm__Root: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flex: 1,
         justifyContent: "flex-start",
-        minHeight: 500,
+        minHeight: 700,
         paddingHorizontal: 20
     };
 };
@@ -60,7 +60,7 @@ const LocalAuthenticationForm__PromptButton__Root: PressableStyle = function (pr
 
     return {
         ...inheritedStyle,
-        marginTop: 80,
+        marginTop: 150,
         width: 100,
         height: 100,
         minWidth: undefined,
