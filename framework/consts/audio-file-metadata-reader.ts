@@ -1,5 +1,6 @@
 import {toByteArray} from "base64-js";
 import * as FileSystem from "expo-file-system";
+import * as UTF8 from "utf8";
 import {EMPTY_STRING} from "./typescript";
 
 type AudioMetadata = { readonly TITLE: string; readonly ARTIST: string; };
@@ -87,7 +88,7 @@ export const AudioFileMetadataReader = new class
     private async readFLACMetadataBlockAsync()
     {
         const metadataBlockType = this.bytesToBinaryString(await this.readFromAudioFileAsync(1));
-        const isVorbisCommentBlock = metadataBlockType.endsWith("100");
+        const isVorbisCommentBlock = metadataBlockType.endsWith("0000100");
         if (!isVorbisCommentBlock)
         {
             const metadataBlockSizeInByte = this.bytesToInt32(await this.readFromAudioFileAsync(3));
@@ -217,16 +218,16 @@ export const AudioFileMetadataReader = new class
 
     private bytesToDecodedString(bytes: Uint8Array)
     {
-        let decodedString = EMPTY_STRING;
+        let text = EMPTY_STRING;
         for (let i = 0; i < bytes.length; i++)
         {
-            if (bytes[i] >= 32 && bytes[i] <= 126)
+            if (bytes[i] > 0)
             {
-                decodedString += String.fromCharCode(bytes[i]);
+                text += String.fromCharCode(bytes[i]);
             }
         }
 
-        return decodedString;
+        return UTF8.decode(text);
     }
 
     private bytesToInt32(bytes: Uint8Array)
