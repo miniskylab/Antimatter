@@ -17,6 +17,7 @@ test("resetting state works correctly", () =>
     expect(StateMachine.getState().secSeekerPosition).toBeUndefined();
     expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
     expect(StateMachine.getState().secBackSkipRestartThreshold).toBeUndefined();
+    expect(StateMachine.getState().isSeekingInProgress).toBe(false);
     expect(StateMachine.getState().isShuffleEnabled).toBe(false);
     expect(StateMachine.getState().repeatMode).toBe(RepeatMode.None);
 
@@ -33,6 +34,7 @@ test("resetting state works correctly", () =>
     expect(StateMachine.getState().secSeekerPosition).toBeUndefined();
     expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
     expect(StateMachine.getState().secBackSkipRestartThreshold).toBeUndefined();
+    expect(StateMachine.getState().isSeekingInProgress).toBe(false);
     expect(StateMachine.getState().isShuffleEnabled).toBe(true);
     expect(StateMachine.getState().repeatMode).toBe(RepeatMode.All);
 });
@@ -63,6 +65,7 @@ test("indexing tracklist works correctly", () =>
     StateMachine.setIndexedTracklist(indexedTracklist);
     expect(StateMachine.getState().indexedTracklist).toStrictEqual(indexedTracklist);
     expect(StateMachine.getState().repeatMode).toBe(RepeatMode.All);
+    expect(StateMachine.getState().isSeekingInProgress).toBe(false);
     expect(StateMachine.getState().isShuffleEnabled).toBe(true);
     expect(StateMachine.getState().secBackSkipRestartThreshold).toBe(10);
     expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
@@ -293,6 +296,7 @@ test("pausing and resuming playback works correctly", () =>
         }
     });
     StateMachine.playSongNamed("Song 1");
+    StateMachine.setPlaybackProgress(30);
     expect(StateMachine.getState().isPlaying).toBe(true);
     expect(StateMachine.getState().playingSongIndex).toBe(0);
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1"]);
@@ -302,12 +306,14 @@ test("pausing and resuming playback works correctly", () =>
     expect(StateMachine.getState().isPlaying).toBe(false);
     expect(StateMachine.getState().playingSongIndex).toBe(0);
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1"]);
+    expect(StateMachine.getState().secPlaybackProgress).toBe(30);
 
     // Act & Assert
     StateMachine.setIsPlaying(true);
     expect(StateMachine.getState().isPlaying).toBe(true);
     expect(StateMachine.getState().playingSongIndex).toBe(0);
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1"]);
+    expect(StateMachine.getState().secPlaybackProgress).toBe(30);
 });
 
 test("resuming playback plays first song in the playlist when shuffle is off and there is no song selected for playing", () =>
@@ -515,14 +521,27 @@ test("playing a specific song when shuffle is off works correctly", () =>
     StateMachine.playNext();
     StateMachine.playNext();
     StateMachine.playNext();
+    StateMachine.setPlaybackProgress(30);
+    StateMachine.setSeekerPosition(45);
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(StateMachine.getState().playingSongIndex).toBe(3);
     expect(StateMachine.getState().isPlaying).toBe(true);
+
+    // Act & Assert
+    StateMachine.playSongNamed("Song 4");
+    expect(StateMachine.getState().secPlaybackProgress).toBe(30);
+    expect(StateMachine.getState().secSeekerPosition).toBeUndefined();
+    expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
+    expect(StateMachine.getState().playingSongIndex).toBe(3);
+    expect(StateMachine.getState().isPlaying).toBe(true);
+
 
     // Act
     StateMachine.playSongNamed("Song 2");
 
     // Assert: State is correct
+    expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
+    expect(StateMachine.getState().secSeekerPosition).toBeUndefined();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4", "song-2"]);
     expect(StateMachine.getState().playingSongIndex).toBe(4);
     expect(StateMachine.getState().isPlaying).toBe(true);
@@ -544,6 +563,8 @@ test("playing a specific song when shuffle is off works correctly", () =>
     StateMachine.playSongNamed("Song 3");
 
     // Assert: State is correct
+    expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
+    expect(StateMachine.getState().secSeekerPosition).toBeUndefined();
     expect(StateMachine.getState().playQueue).toStrictEqual([
         "song-1", "song-2", "song-3", "song-4", "song-2", "song-3", "song-4", "song-3"
     ]);

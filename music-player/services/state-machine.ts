@@ -11,6 +11,7 @@ export const StateMachine = new class
     private _secBackSkipRestartThreshold: number | null | undefined;
     private _secPlaybackProgress: number | null | undefined;
     private _secSeekerPosition: number | null | undefined;
+    private _isSeekingInProgress: boolean;
     private _isShuffleEnabled: boolean;
     private _repeatMode: RepeatMode;
 
@@ -24,6 +25,7 @@ export const StateMachine = new class
         secBackSkipRestartThreshold?: number | null | undefined,
         secPlaybackProgress?: number | null | undefined,
         secSeekerPosition?: number | null | undefined,
+        isSeekingInProgress?: boolean,
         isShuffleEnabled?: boolean,
         repeatMode?: RepeatMode
     })
@@ -35,6 +37,7 @@ export const StateMachine = new class
         this._secBackSkipRestartThreshold = newState?.secBackSkipRestartThreshold;
         this._secPlaybackProgress = newState?.secPlaybackProgress;
         this._secSeekerPosition = newState?.secSeekerPosition;
+        this._isSeekingInProgress = newState?.isSeekingInProgress ?? false;
         this._isShuffleEnabled = newState?.isShuffleEnabled ?? false;
         this._repeatMode = newState?.repeatMode ?? RepeatMode.None;
     }
@@ -49,6 +52,7 @@ export const StateMachine = new class
             secBackSkipRestartThreshold: this._secBackSkipRestartThreshold,
             secPlaybackProgress: this._secPlaybackProgress,
             secSeekerPosition: this._secSeekerPosition,
+            isSeekingInProgress: this._isSeekingInProgress,
             isShuffleEnabled: this._isShuffleEnabled,
             repeatMode: this._repeatMode
         };
@@ -72,7 +76,6 @@ export const StateMachine = new class
         if (toBePlayedSongUri === lastPlayedSongUri)
         {
             this._playingSongIndex = lastPlayedSongIndex;
-            this._secPlaybackProgress = undefined;
             this._secSeekerPosition = undefined;
             this._isPlaying = true;
 
