@@ -115,58 +115,51 @@ export const StateMachine = new class
         }
 
         const playableTrackUris = this.getTrackUris(true);
-        if (playableTrackUris.length <= 0)
+        if (playableTrackUris.length > 0)
         {
-            this._secPlaybackProgress = undefined;
-            this._secSeekerPosition = undefined;
-            this._playingSongIndex = undefined;
-            this._isPlaying = false;
-
-            return;
-        }
-
-        const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
-        if (!this._isShuffleEnabled)
-        {
-            const playingTrackIndex = this.getTrackIndex(playingSongUri);
-            if (isNotNullAndUndefined(playingTrackIndex))
+            const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
+            if (!this._isShuffleEnabled)
             {
-                const trackUris = this.getTrackUris();
-                const toBePlayedTrackIndex = this.searchTracklistForTheFirstNonExcludedTrackIndex(playingTrackIndex);
-                if (isNotNullAndUndefined(toBePlayedTrackIndex))
+                const playingTrackIndex = this.getTrackIndex(playingSongUri);
+                if (isNotNullAndUndefined(playingTrackIndex))
                 {
-                    this._playQueue.push(trackUris[toBePlayedTrackIndex]);
-                    this._secPlaybackProgress = undefined;
-                    this._secSeekerPosition = undefined;
-                    this._playingSongIndex += 1;
-                    this._isPlaying = true;
+                    const trackUris = this.getTrackUris();
+                    const toBePlayedTrackIndex = this.searchTracklistForTheFirstNonExcludedTrackIndex(playingTrackIndex);
+                    if (isNotNullAndUndefined(toBePlayedTrackIndex))
+                    {
+                        this._playQueue.push(trackUris[toBePlayedTrackIndex]);
+                        this._secPlaybackProgress = undefined;
+                        this._secSeekerPosition = undefined;
+                        this._playingSongIndex += 1;
+                        this._isPlaying = true;
 
-                    return;
-                }
-                else if (this._repeatMode === RepeatMode.All)
-                {
-                    this._playQueue.push(playableTrackUris[0]);
-                    this._secPlaybackProgress = undefined;
-                    this._secSeekerPosition = undefined;
-                    this._playingSongIndex += 1;
-                    this._isPlaying = true;
+                        return;
+                    }
+                    else if (this._repeatMode === RepeatMode.All)
+                    {
+                        this._playQueue.push(playableTrackUris[0]);
+                        this._secPlaybackProgress = undefined;
+                        this._secSeekerPosition = undefined;
+                        this._playingSongIndex += 1;
+                        this._isPlaying = true;
 
-                    return;
+                        return;
+                    }
                 }
             }
-        }
-        else if (this._repeatMode === RepeatMode.All)
-        {
-            const upcomingSongUris = this.getUpcomingSongUris(playingSongUri);
-            if (upcomingSongUris.length > 0)
+            else if (this._repeatMode === RepeatMode.All)
             {
-                this._playQueue.push(...upcomingSongUris);
-                this._secPlaybackProgress = undefined;
-                this._secSeekerPosition = undefined;
-                this._playingSongIndex += 1;
-                this._isPlaying = true;
+                const upcomingSongUris = this.getUpcomingSongUris(playingSongUri);
+                if (upcomingSongUris.length > 0)
+                {
+                    this._playQueue.push(...upcomingSongUris);
+                    this._secPlaybackProgress = undefined;
+                    this._secSeekerPosition = undefined;
+                    this._playingSongIndex += 1;
+                    this._isPlaying = true;
 
-                return;
+                    return;
+                }
             }
         }
 
@@ -187,24 +180,14 @@ export const StateMachine = new class
             return;
         }
 
-        if (this.getTrackUris(true).length <= 0 && isFinite(this._playingSongIndex))
-        {
-            this._secPlaybackProgress = undefined;
-            this._secSeekerPosition = undefined;
-            this._playingSongIndex = undefined;
-            this._isPlaying = false;
-
-            return;
-        }
-
         if (
             isNotNullAndUndefined(this._secBackSkipRestartThreshold) && isFinite(this._secBackSkipRestartThreshold) &&
             isNotNullAndUndefined(this._secPlaybackProgress) && isFinite(this._secPlaybackProgress) &&
             this._secPlaybackProgress > this._secBackSkipRestartThreshold
         )
         {
-            this.setSeekerPosition(0);
-            this.setIsPlaying(true);
+            this._secPlaybackProgress = undefined;
+            this._secSeekerPosition = 0;
 
             return;
         }
@@ -249,7 +232,7 @@ export const StateMachine = new class
         }
 
         this._secPlaybackProgress = undefined;
-        this._secSeekerPosition = undefined;
+        this._secSeekerPosition = 0;
         this._isPlaying = false;
     }
 
@@ -365,12 +348,10 @@ export const StateMachine = new class
         if (secSeekerPosition > playingSongDuration)
         {
             this._secSeekerPosition = playingSongDuration;
-            this._isPlaying = false;
             return;
         }
 
         this._secSeekerPosition = secSeekerPosition;
-        this._isPlaying = false;
     }
 
     setIsShuffleEnabled(isShuffleEnabled: boolean | null | undefined)
