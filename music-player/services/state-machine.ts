@@ -218,12 +218,16 @@ export const StateMachine = new class
             const playingTrackIndex = this._playingSongIndex !== Infinity ? this.getTrackIndex(playingSongUri) : Infinity;
             if (isNotNullAndUndefined(playingTrackIndex))
             {
-                const trackUris = this.getTrackUris();
                 const firstNonExcludedTrackIndex = this.searchTracklistForTheFirstNonExcludedTrackIndex(playingTrackIndex, true);
-                if (isNotNullAndUndefined(firstNonExcludedTrackIndex))
+                const toBePlayedTrackUri = isNotNullAndUndefined(firstNonExcludedTrackIndex)
+                    ? this.getTrackUris()[firstNonExcludedTrackIndex]
+                    : this._repeatMode === RepeatMode.All
+                        ? this.getTrackUris(true).at(-1)
+                        : undefined;
+
+                if (isNotNullAndUndefined(toBePlayedTrackUri))
                 {
-                    const firstNonExcludedTrackUri = trackUris[firstNonExcludedTrackIndex];
-                    this._playQueue.push(firstNonExcludedTrackUri);
+                    this._playQueue.push(toBePlayedTrackUri);
                     this._playingSongIndex = this._playQueue.length - 1;
                     this._secPlaybackProgress = undefined;
                     this._secSeekerPosition = undefined;

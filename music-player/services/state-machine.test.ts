@@ -1022,7 +1022,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'All' w
     StateMachine.setRepeatMode(RepeatMode.All);
 
 
-    // Act & Assert: Navigating forward jumps back to first song after last song in the playlist finished playing
+    // Act & Assert: Navigating forward jumps to first song when last song in the playlist is selected for playing
     StateMachine.playSongNamed("Song 1");
     StateMachine.playNext();
     StateMachine.playNext();
@@ -1038,30 +1038,16 @@ test("navigating through playlist when shuffle is off and repeat mode is 'All' w
     expect(StateMachine.getState().isPlaying).toBe(true);
 
 
-    // Act & Assert: navigating backward sequentially to first song in the playlist
+    // Act & Assert: navigating backward jumps to last song when first song in the playlist is selected for playing
+    StateMachine.playPrevious();
     StateMachine.playPrevious();
     StateMachine.playPrevious();
     StateMachine.playPrevious();
     expect(StateMachine.getState().playQueue).toStrictEqual([
-        "song-1", "song-2", "song-3", "song-4", "song-1", "song-2", "song-3", "song-4", "song-3", "song-2", "song-1"
+        "song-1", "song-2", "song-3", "song-4", "song-1", "song-2", "song-3", "song-4", "song-3", "song-2", "song-1", "song-4"
     ]);
-    expect(StateMachine.getState().playingSongIndex).toBe(10);
+    expect(StateMachine.getState().playingSongIndex).toBe(11);
     expect(StateMachine.getState().isPlaying).toBe(true);
-
-
-    // Act & Assert: Navigating backward when first song in the playlist is selected for playing pauses and resets playback progress
-    StateMachine.setPlaybackProgress(30);
-    for (let i = 0; i < 5; i++)
-    {
-        StateMachine.playPrevious();
-        expect(StateMachine.getState().playQueue).toStrictEqual([
-            "song-1", "song-2", "song-3", "song-4", "song-1", "song-2", "song-3", "song-4", "song-3", "song-2", "song-1"
-        ]);
-        expect(StateMachine.getState().playingSongIndex).toBe(10);
-        expect(StateMachine.getState().secSeekerPosition).toBe(0);
-        expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
-        expect(StateMachine.getState().isPlaying).toBe(false);
-    }
 });
 
 test("navigating through playlist when shuffle is off and playlist is being updated works correctly", () =>
