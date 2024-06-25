@@ -1339,6 +1339,58 @@ test("navigating through playlist when all songs are excluded works correctly", 
     });
 });
 
+test("navigating through playlist when it has only 1 song works correctly", () =>
+{
+    [RepeatMode.None, RepeatMode.All].forEach(repeatMode =>
+    {
+        [false, true].forEach(isShuffleEnabled =>
+        {
+            ["playNext", "playPrevious"].forEach(action =>
+            {
+                // Arrange
+                StateMachine.resetState({
+                    indexedTracklist: {
+                        "song-1": {songName: "Song 1", secSongDuration: 74},
+                        "song-2": {songName: "Song 2", secSongDuration: 86},
+                        "song-3": {songName: "Song 3", secSongDuration: 149},
+                        "song-4": {songName: "Song 4", secSongDuration: 264}
+                    }
+                });
+                StateMachine.setRepeatMode(repeatMode);
+                StateMachine.setIsShuffleEnabled(isShuffleEnabled);
+                StateMachine.playSongNamed("Song 3");
+                StateMachine.setPlaybackProgress(30);
+                StateMachine.setSongExclusionStatus("Song 1", true);
+                StateMachine.setSongExclusionStatus("Song 2", true);
+                StateMachine.setSongExclusionStatus("Song 4", true);
+
+                // Act & Assert
+                switch (action)
+                {
+                    case "playNext":
+                        StateMachine.playNext();
+                        expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
+                        expect(StateMachine.getState().playQueue).toStrictEqual(["song-3"]);
+                        expect(StateMachine.getState().playingSongIndex).toBe(Infinity);
+                        expect(StateMachine.getState().isPlaying).toBe(false);
+                        break;
+
+                    case "playPrevious":
+                        StateMachine.playPrevious();
+                        expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
+                        expect(StateMachine.getState().playQueue).toStrictEqual(["song-3"]);
+                        expect(StateMachine.getState().playingSongIndex).toBe(0);
+                        expect(StateMachine.getState().isPlaying).toBe(false);
+                        break;
+
+                    default:
+                        throw new Error(`Not Supported Action: ${action}`);
+                }
+            });
+        });
+    });
+});
+
 test("navigating through playback history when shuffle is on skips excluded songs", () =>
 {
     // Arrange

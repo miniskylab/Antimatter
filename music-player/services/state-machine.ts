@@ -117,10 +117,10 @@ export const StateMachine = new class
             return;
         }
 
-        const playableTrackUris = this.getTrackUris(true);
+        const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
+        const playableTrackUris = this.getTrackUris(true).filter(x => x !== playingSongUri);
         if (playableTrackUris.length > 0)
         {
-            const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
             if (!this._isShuffleEnabled)
             {
                 const playingTrackIndex = this.getTrackIndex(playingSongUri);
@@ -222,7 +222,7 @@ export const StateMachine = new class
                 const toBePlayedTrackUri = isNotNullAndUndefined(firstNonExcludedTrackIndex)
                     ? this.getTrackUris()[firstNonExcludedTrackIndex]
                     : this._repeatMode === RepeatMode.All
-                        ? this.getTrackUris(true).at(-1)
+                        ? this.getTrackUris(true).filter(x => x !== playingSongUri).at(-1)
                         : undefined;
 
                 if (isNotNullAndUndefined(toBePlayedTrackUri))
