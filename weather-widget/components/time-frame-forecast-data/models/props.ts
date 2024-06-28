@@ -12,7 +12,7 @@ export class Props extends ComponentProps<Style>
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly timeFrame: string;
+    readonly timeFrameName: string;
 
 
     /**
@@ -22,15 +22,6 @@ export class Props extends ComponentProps<Style>
     @ValidateNested()
     @Type(() => ForecastData)
     readonly temperatureRangeForecastData: ForecastData;
-
-
-    /**
-     * <i style="color: #9B9B9B">(not available)</i>
-     */
-    @IsDefined()
-    @ValidateNested()
-    @Type(() => ForecastData)
-    readonly humidityForecastData: ForecastData;
 
 
     /**

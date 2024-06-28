@@ -4,7 +4,7 @@ import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {SimpleForecastData, SimpleWeatherData} from "./components";
+import {SimpleWeatherData, TimeFrameForecastData} from "./components";
 import {PositionContext, WeatherWidgetContext, WeatherWidgetProps} from "./models";
 import * as Variant from "./variants";
 
@@ -22,12 +22,12 @@ export function WeatherWidget({
     simpleWeatherData1,
     simpleWeatherData2,
     simpleWeatherData3,
-    simpleForecastData
+    timeFrameForecastData
 }: WeatherWidgetProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<WeatherWidgetProps> = {
         style, locationData, lastUpdateData, weatherConditionData, temperatureData, uvIndexData, windData, simpleWeatherData1,
-        simpleWeatherData2, simpleWeatherData3, simpleForecastData
+        simpleWeatherData2, simpleWeatherData3, timeFrameForecastData
     };
 
     const context = useMemo<WeatherWidgetContext>(
@@ -83,10 +83,10 @@ export function WeatherWidget({
                 {renderSimpleWeatherDataSection("left", simpleWeatherData1)}
                 {renderSimpleWeatherDataSection("middle", simpleWeatherData2)}
                 {renderSimpleWeatherDataSection("right", simpleWeatherData3)}
-                {simpleForecastData && simpleForecastData.length > 0 && (
-                    <View style={computedStyle.SimpleForecastDataContainer}>
-                        {simpleForecastData.map(x => (
-                            <SimpleForecastData.Component key={x.timeFrame} style={computedStyle.SimpleForecastData} {...x}/>
+                {timeFrameForecastData && timeFrameForecastData.length > 0 && (
+                    <View style={computedStyle.TimeFrameForecastDataContainer}>
+                        {timeFrameForecastData.map(x => (
+                            <TimeFrameForecastData.Component key={x.timeFrameName} style={computedStyle.TimeFrameForecastDataRow} {...x}/>
                         ))}
                     </View>
                 )}

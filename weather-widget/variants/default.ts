@@ -3,7 +3,7 @@ import {Ts} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {SimpleForecastData, SimpleWeatherData} from "../components";
+import {SimpleWeatherData, TimeFrameForecastData} from "../components";
 import {WeatherWidgetContextHook} from "../hooks";
 import {type WeatherWidgetStyle} from "../models";
 
@@ -380,7 +380,7 @@ const WeatherWidget__SimpleWeatherData: SimpleWeatherData.Style = function ()
     };
 };
 
-const WeatherWidget__SimpleForecastDataContainer: ViewStyle = function (viewProps)
+const WeatherWidget__TimeFrameForecastDataContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -394,18 +394,17 @@ const WeatherWidget__SimpleForecastDataContainer: ViewStyle = function (viewProp
     };
 };
 
-const WeatherWidget__SimpleForecastData__Root: ViewStyle = function (viewProps)
+const WeatherWidget__TimeFrameForecastData__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         justifyContent: "space-between",
-        columnGap: 12,
         height: 36
     };
 };
 
-const WeatherWidget__SimpleForecastData__TimeFrame: TextStyle = function (textProps)
+const WeatherWidget__TimeFrameForecastData__TimeFrameName: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
@@ -416,18 +415,19 @@ const WeatherWidget__SimpleForecastData__TimeFrame: TextStyle = function (textPr
     };
 };
 
-const WeatherWidget__SimpleForecastData__TemperatureForecastDataContainer: ViewStyle = function (viewProps)
+const WeatherWidget__TimeFrameForecastData__TemperatureContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         justifyContent: "flex-start",
-        columnGap: 8,
-        width: 99
+        columnGap: 10,
+        width: 101,
+        marginRight: 36
     };
 };
 
-const WeatherWidget__SimpleForecastData__TemperatureForecastDataIcon: IconStyle = function (iconProps)
+const WeatherWidget__TimeFrameForecastData__TemperatureIcon: IconStyle = function (iconProps)
 {
     return {
         ...IconVariant.Default(iconProps),
@@ -436,38 +436,39 @@ const WeatherWidget__SimpleForecastData__TemperatureForecastDataIcon: IconStyle 
     };
 };
 
-const WeatherWidget__SimpleForecastData__TemperatureForecastDataValue: TextStyle = function (textProps)
+const WeatherWidget__TimeFrameForecastData__TemperatureValue: TextStyle = function (textProps)
 {
-    const simpleForecastDataContext = SimpleForecastData.ContextHook.useSimpleForecastDataContext();
+    const timeFrameForecastDataContext = TimeFrameForecastData.ContextHook.useTimeFrameForecastDataContext();
 
-    const temperatureRangeForecastData = simpleForecastDataContext.props.temperatureRangeForecastData;
+    const temperatureRangeForecastData = timeFrameForecastDataContext.props.temperatureRangeForecastData;
 
     return {
         ...TextVariant.Default(textProps),
         fontSize: 16,
         fontWeight: "bold",
-        color: temperatureRangeForecastData.highlightColor === SimpleForecastData.HighlightColor.Purple
+        color: temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Purple
             ? Color.Purple
-            : temperatureRangeForecastData.highlightColor === SimpleForecastData.HighlightColor.Tomato
+            : temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Tomato
                 ? Color.Tomato
-                : temperatureRangeForecastData.highlightColor === SimpleForecastData.HighlightColor.Blue
+                : temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
                     ? Color.Blue
                     : Color.Neutral
     };
 };
 
-const WeatherWidget__SimpleForecastData__HumidityForecastDataContainer: ViewStyle = function (viewProps)
+const WeatherWidget__TimeFrameForecastData__PrecipitationProbabilityContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         justifyContent: "flex-start",
-        columnGap: 6,
-        width: 62
+        columnGap: 8,
+        width: 64,
+        marginRight: 36
     };
 };
 
-const WeatherWidget__SimpleForecastData__HumidityForecastDataIcon: IconStyle = function (iconProps)
+const WeatherWidget__TimeFrameForecastData__PrecipitationProbabilityIcon: IconStyle = function (iconProps)
 {
     return {
         ...IconVariant.Default(iconProps),
@@ -476,67 +477,27 @@ const WeatherWidget__SimpleForecastData__HumidityForecastDataIcon: IconStyle = f
     };
 };
 
-const WeatherWidget__SimpleForecastData__HumidityForecastDataValue: TextStyle = function (textProps)
+const WeatherWidget__TimeFrameForecastData__PrecipitationProbabilityValue: TextStyle = function (textProps)
 {
-    const simpleForecastDataContext = SimpleForecastData.ContextHook.useSimpleForecastDataContext();
+    const timeFrameForecastDataContext = TimeFrameForecastData.ContextHook.useTimeFrameForecastDataContext();
 
-    const humidityForecastData = simpleForecastDataContext.props.humidityForecastData;
+    const precipitationProbabilityForecastData = timeFrameForecastDataContext.props.precipitationProbabilityForecastData;
 
     return {
         ...TextVariant.Default(textProps),
         fontSize: 16,
         fontWeight: "bold",
-        color: humidityForecastData.highlightColor === SimpleForecastData.HighlightColor.Purple
+        color: precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Purple
             ? Color.Purple
-            : humidityForecastData.highlightColor === SimpleForecastData.HighlightColor.Tomato
+            : precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Tomato
                 ? Color.Tomato
-                : humidityForecastData.highlightColor === SimpleForecastData.HighlightColor.Blue
+                : precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
                     ? Color.Blue
                     : Color.Neutral
     };
 };
 
-const WeatherWidget__SimpleForecastData__PrecipitationProbabilityForecastDataContainer: ViewStyle = function (viewProps)
-{
-    return {
-        ...ViewVariant.Default(viewProps),
-        flexDirection: "row",
-        justifyContent: "flex-start",
-        columnGap: 6,
-        width: 62
-    };
-};
-
-const WeatherWidget__SimpleForecastData__PrecipitationProbabilityForecastDataIcon: IconStyle = function (iconProps)
-{
-    return {
-        ...IconVariant.Default(iconProps),
-        color: Color.Neutral,
-        fontSize: 16
-    };
-};
-
-const WeatherWidget__SimpleForecastData__PrecipitationProbabilityForecastDataValue: TextStyle = function (textProps)
-{
-    const simpleForecastDataContext = SimpleForecastData.ContextHook.useSimpleForecastDataContext();
-
-    const precipitationProbabilityForecastData = simpleForecastDataContext.props.precipitationProbabilityForecastData;
-
-    return {
-        ...TextVariant.Default(textProps),
-        fontSize: 16,
-        fontWeight: "bold",
-        color: precipitationProbabilityForecastData.highlightColor === SimpleForecastData.HighlightColor.Purple
-            ? Color.Purple
-            : precipitationProbabilityForecastData.highlightColor === SimpleForecastData.HighlightColor.Tomato
-                ? Color.Tomato
-                : precipitationProbabilityForecastData.highlightColor === SimpleForecastData.HighlightColor.Blue
-                    ? Color.Blue
-                    : Color.Neutral
-    };
-};
-
-const WeatherWidget__SimpleForecastData__AirQualityIndexForecastDataContainer: ViewStyle = function (viewProps)
+const WeatherWidget__TimeFrameForecastData__AirQualityIndexContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -547,7 +508,7 @@ const WeatherWidget__SimpleForecastData__AirQualityIndexForecastDataContainer: V
     };
 };
 
-const WeatherWidget__SimpleForecastData__AirQualityIndexForecastDataIcon: IconStyle = function (iconProps)
+const WeatherWidget__TimeFrameForecastData__AirQualityIndexIcon: IconStyle = function (iconProps)
 {
     return {
         ...IconVariant.Default(iconProps),
@@ -556,43 +517,40 @@ const WeatherWidget__SimpleForecastData__AirQualityIndexForecastDataIcon: IconSt
     };
 };
 
-const WeatherWidget__SimpleForecastData__AirQualityIndexForecastDataValue: TextStyle = function (textProps)
+const WeatherWidget__TimeFrameForecastData__AirQualityIndexValue: TextStyle = function (textProps)
 {
-    const simpleForecastDataContext = SimpleForecastData.ContextHook.useSimpleForecastDataContext();
+    const timeFrameForecastDataContext = TimeFrameForecastData.ContextHook.useTimeFrameForecastDataContext();
 
-    const airQualityIndexForecastData = simpleForecastDataContext.props.airQualityIndexForecastData;
+    const airQualityIndexForecastData = timeFrameForecastDataContext.props.airQualityIndexForecastData;
 
     return {
         ...TextVariant.Default(textProps),
         fontSize: 16,
         fontWeight: "bold",
-        color: airQualityIndexForecastData.highlightColor === SimpleForecastData.HighlightColor.Purple
+        color: airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Purple
             ? Color.Purple
-            : airQualityIndexForecastData.highlightColor === SimpleForecastData.HighlightColor.Tomato
+            : airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Tomato
                 ? Color.Tomato
-                : airQualityIndexForecastData.highlightColor === SimpleForecastData.HighlightColor.Blue
+                : airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
                     ? Color.Blue
                     : Color.Neutral
     };
 };
 
-const WeatherWidget__SimpleForecastData: SimpleForecastData.Style = function ()
+const WeatherWidget__TimeFrameForecastDataRow: TimeFrameForecastData.Style = function ()
 {
     return {
-        Root: WeatherWidget__SimpleForecastData__Root,
-        TimeFrame: WeatherWidget__SimpleForecastData__TimeFrame,
-        TemperatureForecastDataContainer: WeatherWidget__SimpleForecastData__TemperatureForecastDataContainer,
-        TemperatureForecastDataIcon: WeatherWidget__SimpleForecastData__TemperatureForecastDataIcon,
-        TemperatureForecastDataValue: WeatherWidget__SimpleForecastData__TemperatureForecastDataValue,
-        HumidityForecastDataContainer: WeatherWidget__SimpleForecastData__HumidityForecastDataContainer,
-        HumidityForecastDataIcon: WeatherWidget__SimpleForecastData__HumidityForecastDataIcon,
-        HumidityForecastDataValue: WeatherWidget__SimpleForecastData__HumidityForecastDataValue,
-        PrecipitationProbabilityForecastDataContainer: WeatherWidget__SimpleForecastData__PrecipitationProbabilityForecastDataContainer,
-        PrecipitationProbabilityForecastDataIcon: WeatherWidget__SimpleForecastData__PrecipitationProbabilityForecastDataIcon,
-        PrecipitationProbabilityForecastDataValue: WeatherWidget__SimpleForecastData__PrecipitationProbabilityForecastDataValue,
-        AirQualityIndexForecastDataContainer: WeatherWidget__SimpleForecastData__AirQualityIndexForecastDataContainer,
-        AirQualityIndexForecastDataIcon: WeatherWidget__SimpleForecastData__AirQualityIndexForecastDataIcon,
-        AirQualityIndexForecastDataValue: WeatherWidget__SimpleForecastData__AirQualityIndexForecastDataValue
+        Root: WeatherWidget__TimeFrameForecastData__Root,
+        TimeFrameName: WeatherWidget__TimeFrameForecastData__TimeFrameName,
+        TemperatureContainer: WeatherWidget__TimeFrameForecastData__TemperatureContainer,
+        TemperatureIcon: WeatherWidget__TimeFrameForecastData__TemperatureIcon,
+        TemperatureValue: WeatherWidget__TimeFrameForecastData__TemperatureValue,
+        PrecipitationProbabilityContainer: WeatherWidget__TimeFrameForecastData__PrecipitationProbabilityContainer,
+        PrecipitationProbabilityIcon: WeatherWidget__TimeFrameForecastData__PrecipitationProbabilityIcon,
+        PrecipitationProbabilityValue: WeatherWidget__TimeFrameForecastData__PrecipitationProbabilityValue,
+        AirQualityIndexContainer: WeatherWidget__TimeFrameForecastData__AirQualityIndexContainer,
+        AirQualityIndexIcon: WeatherWidget__TimeFrameForecastData__AirQualityIndexIcon,
+        AirQualityIndexValue: WeatherWidget__TimeFrameForecastData__AirQualityIndexValue
     };
 };
 
@@ -622,7 +580,7 @@ export const Default: WeatherWidgetStyle = function ()
         WindIcon: WeatherWidget__WindIcon,
         WindSpeed: WeatherWidget__WindSpeed,
         SimpleWeatherData: WeatherWidget__SimpleWeatherData,
-        SimpleForecastDataContainer: WeatherWidget__SimpleForecastDataContainer,
-        SimpleForecastData: WeatherWidget__SimpleForecastData
+        TimeFrameForecastDataContainer: WeatherWidget__TimeFrameForecastDataContainer,
+        TimeFrameForecastDataRow: WeatherWidget__TimeFrameForecastDataRow
     };
 };
