@@ -2,7 +2,7 @@ import {ComponentName, ComponentProps} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {ShortWeatherData, TemperatureData, WindData} from "../classes";
-import {SimpleWeatherData} from "../components";
+import {SimpleForecastData, SimpleWeatherData} from "../components";
 import {type WeatherWidgetStyle} from "./style";
 
 @ComponentName("Weather Widget")
@@ -93,4 +93,15 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
     @ValidateNested()
     @Type(() => SimpleWeatherData.Props)
     readonly simpleWeatherData3?: SimpleWeatherData.Props;
+
+
+    /**
+     * <i style="color: #9B9B9B">(not available)</i>
+     *
+     * @type SimpleForecastData
+     */
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => SimpleForecastData.Props)
+    readonly simpleForecastData?: SimpleForecastData.Props[];
 }

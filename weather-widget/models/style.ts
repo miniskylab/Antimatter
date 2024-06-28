@@ -2,7 +2,7 @@ import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
 import {TextStyle} from "@miniskylab/antimatter-text";
 import {ViewStyle} from "@miniskylab/antimatter-view";
-import {SimpleWeatherData} from "../components";
+import {SimpleForecastData, SimpleWeatherData} from "../components";
 import {WeatherWidgetProps} from "./props";
 
 export type WeatherWidgetStyle = (weatherWidgetProps: WithoutStyle<WeatherWidgetProps>) => {
@@ -29,4 +29,6 @@ export type WeatherWidgetStyle = (weatherWidgetProps: WithoutStyle<WeatherWidget
     WindIcon: IconStyle;
     WindSpeed: TextStyle;
     SimpleWeatherData: SimpleWeatherData.Style;
+    SimpleForecastDataContainer: ViewStyle;
+    SimpleForecastData: SimpleForecastData.Style;
 };

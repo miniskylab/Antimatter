@@ -4,7 +4,7 @@ import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {SimpleWeatherData} from "./components";
+import {SimpleForecastData, SimpleWeatherData} from "./components";
 import {PositionContext, WeatherWidgetContext, WeatherWidgetProps} from "./models";
 import * as Variant from "./variants";
 
@@ -21,12 +21,13 @@ export function WeatherWidget({
     windData,
     simpleWeatherData1,
     simpleWeatherData2,
-    simpleWeatherData3
+    simpleWeatherData3,
+    simpleForecastData
 }: WeatherWidgetProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<WeatherWidgetProps> = {
         style, locationData, lastUpdateData, weatherConditionData, temperatureData, uvIndexData, windData, simpleWeatherData1,
-        simpleWeatherData2, simpleWeatherData3
+        simpleWeatherData2, simpleWeatherData3, simpleForecastData
     };
 
     const context = useMemo<WeatherWidgetContext>(
@@ -82,6 +83,13 @@ export function WeatherWidget({
                 {renderSimpleWeatherDataSection("left", simpleWeatherData1)}
                 {renderSimpleWeatherDataSection("middle", simpleWeatherData2)}
                 {renderSimpleWeatherDataSection("right", simpleWeatherData3)}
+                {simpleForecastData && simpleForecastData.length > 0 && (
+                    <View style={computedStyle.SimpleForecastDataContainer}>
+                        {simpleForecastData.map(x => (
+                            <SimpleForecastData.Component key={x.timeFrame} style={computedStyle.SimpleForecastData} {...x}/>
+                        ))}
+                    </View>
+                )}
             </View>
         </WeatherWidgetContext.Provider>
     );
