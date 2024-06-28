@@ -400,7 +400,7 @@ const WeatherWidget__SimpleForecastData__Root: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         justifyContent: "space-between",
-        columnGap: 16,
+        columnGap: 12,
         height: 36
     };
 };
@@ -411,6 +411,7 @@ const WeatherWidget__SimpleForecastData__TimeFrame: TextStyle = function (textPr
         ...TextVariant.Default(textProps),
         flex: 1,
         color: Color.Neutral,
+        fontSize: 16,
         fontWeight: "bold"
     };
 };
@@ -422,7 +423,7 @@ const WeatherWidget__SimpleForecastData__TemperatureForecastDataContainer: ViewS
         flexDirection: "row",
         justifyContent: "flex-start",
         columnGap: 8,
-        width: 89
+        width: 99
     };
 };
 
@@ -431,7 +432,7 @@ const WeatherWidget__SimpleForecastData__TemperatureForecastDataIcon: IconStyle 
     return {
         ...IconVariant.Default(iconProps),
         color: Color.Neutral,
-        fontSize: 21
+        fontSize: 23
     };
 };
 
@@ -443,6 +444,7 @@ const WeatherWidget__SimpleForecastData__TemperatureForecastDataValue: TextStyle
 
     return {
         ...TextVariant.Default(textProps),
+        fontSize: 16,
         fontWeight: "bold",
         color: temperatureRangeForecastData.highlightColor === SimpleForecastData.HighlightColor.Purple
             ? Color.Purple
@@ -461,7 +463,7 @@ const WeatherWidget__SimpleForecastData__HumidityForecastDataContainer: ViewStyl
         flexDirection: "row",
         justifyContent: "flex-start",
         columnGap: 6,
-        width: 57
+        width: 62
     };
 };
 
@@ -482,6 +484,7 @@ const WeatherWidget__SimpleForecastData__HumidityForecastDataValue: TextStyle = 
 
     return {
         ...TextVariant.Default(textProps),
+        fontSize: 16,
         fontWeight: "bold",
         color: humidityForecastData.highlightColor === SimpleForecastData.HighlightColor.Purple
             ? Color.Purple
@@ -500,7 +503,7 @@ const WeatherWidget__SimpleForecastData__PrecipitationProbabilityForecastDataCon
         flexDirection: "row",
         justifyContent: "flex-start",
         columnGap: 6,
-        width: 57
+        width: 62
     };
 };
 
@@ -521,6 +524,7 @@ const WeatherWidget__SimpleForecastData__PrecipitationProbabilityForecastDataVal
 
     return {
         ...TextVariant.Default(textProps),
+        fontSize: 16,
         fontWeight: "bold",
         color: precipitationProbabilityForecastData.highlightColor === SimpleForecastData.HighlightColor.Purple
             ? Color.Purple
@@ -539,7 +543,7 @@ const WeatherWidget__SimpleForecastData__AirQualityIndexForecastDataContainer: V
         flexDirection: "row",
         justifyContent: "flex-start",
         columnGap: 6,
-        width: 48
+        width: 51
     };
 };
 
@@ -560,6 +564,7 @@ const WeatherWidget__SimpleForecastData__AirQualityIndexForecastDataValue: TextS
 
     return {
         ...TextVariant.Default(textProps),
+        fontSize: 16,
         fontWeight: "bold",
         color: airQualityIndexForecastData.highlightColor === SimpleForecastData.HighlightColor.Purple
             ? Color.Purple
