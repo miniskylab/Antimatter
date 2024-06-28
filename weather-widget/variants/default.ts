@@ -537,7 +537,7 @@ const WeatherWidget__TimeFrameForecastData__AirQualityIndexValue: TextStyle = fu
     };
 };
 
-const WeatherWidget__TimeFrameForecastDataRow: TimeFrameForecastData.Style = function ()
+const WeatherWidget__TimeFrameForecastData: TimeFrameForecastData.Style = function ()
 {
     return {
         Root: WeatherWidget__TimeFrameForecastData__Root,
@@ -581,6 +581,6 @@ export const Default: WeatherWidgetStyle = function ()
         WindSpeed: WeatherWidget__WindSpeed,
         SimpleWeatherData: WeatherWidget__SimpleWeatherData,
         TimeFrameForecastDataContainer: WeatherWidget__TimeFrameForecastDataContainer,
-        TimeFrameForecastDataRow: WeatherWidget__TimeFrameForecastDataRow
+        TimeFrameForecastData: WeatherWidget__TimeFrameForecastData
     };
 };

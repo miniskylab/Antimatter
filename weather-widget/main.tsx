@@ -86,7 +86,7 @@ export function WeatherWidget({
                 {timeFrameForecastData && timeFrameForecastData.length > 0 && (
                     <View style={computedStyle.TimeFrameForecastDataContainer}>
                         {timeFrameForecastData.map(x => (
-                            <TimeFrameForecastData.Component key={x.timeFrameName} style={computedStyle.TimeFrameForecastDataRow} {...x}/>
+                            <TimeFrameForecastData.Component key={x.timeFrameName} style={computedStyle.TimeFrameForecastData} {...x}/>
                         ))}
                     </View>
                 )}

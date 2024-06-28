@@ -30,5 +30,5 @@ export type WeatherWidgetStyle = (weatherWidgetProps: WithoutStyle<WeatherWidget
     WindSpeed: TextStyle;
     SimpleWeatherData: SimpleWeatherData.Style;
     TimeFrameForecastDataContainer: ViewStyle;
-    TimeFrameForecastDataRow: TimeFrameForecastData.Style;
+    TimeFrameForecastData: TimeFrameForecastData.Style;
 };
