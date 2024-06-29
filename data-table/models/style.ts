@@ -15,5 +15,7 @@ export type DataTableStyle = (dataTableProps: WithoutStyle<DataTableProps>) => {
     ControlButton: ButtonStyle;
     Scroll: ScrollViewStyle;
     Hr: ViewStyle;
-    Row: Row.Style;
+    DataRow: Row.Style;
+    EmptyRow: Row.Style;
+    HeaderRow: Row.Style;
 };

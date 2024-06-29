@@ -9,13 +9,13 @@ import {DataTableContextHook} from "../../hooks";
 import {type DataTableStyle} from "../../models";
 import * as DataTableVariant from "../../variants";
 
-const DataTable__Row__CellText: TextStyle = function (textProps)
+const DataTable__DataRow__CellText: TextStyle = function (textProps)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const columnIndexContext = Row.ContextHook.useColumnIndexContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
 
-    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).Row(rowContext.props, rowContext.state).CellText(textProps);
+    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).DataRow(rowContext.props, rowContext.state).CellText(textProps);
 
     return {
         ...inheritedStyle,
@@ -27,13 +27,13 @@ const DataTable__Row__CellText: TextStyle = function (textProps)
     };
 };
 
-const DataTable__Row__CellIcon: IconStyle = function (iconProps)
+const DataTable__DataRow__CellIcon: IconStyle = function (iconProps)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const columnIndexContext = Row.ContextHook.useColumnIndexContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
 
-    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).Row(rowContext.props, rowContext.state).CellIcon(iconProps);
+    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).DataRow(rowContext.props, rowContext.state).CellIcon(iconProps);
 
     return {
         ...inheritedStyle,
@@ -45,7 +45,7 @@ const DataTable__Row__CellIcon: IconStyle = function (iconProps)
     };
 };
 
-const DataTable__Row__CellInputField__Root: ViewStyle = function (viewProps)
+const DataTable__DataRow__CellInputField__Root: ViewStyle = function (viewProps)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const columnIndexContext = Row.ContextHook.useColumnIndexContext();
@@ -53,7 +53,7 @@ const DataTable__Row__CellInputField__Root: ViewStyle = function (viewProps)
     const dataTableContext = DataTableContextHook.useDataTableContext();
 
     const inheritedStyle = DataTableVariant.Default(dataTableContext.props)
-        .Row(rowContext.props, rowContext.state)
+        .DataRow(rowContext.props, rowContext.state)
         .CellInputField(inputFieldContext.props)
         .Root(viewProps);
 
@@ -67,21 +67,22 @@ const DataTable__Row__CellInputField__Root: ViewStyle = function (viewProps)
     };
 };
 
-const DataTable__Row__CellInputField: InputFieldStyle = function (inputFieldProps)
+const DataTable__DataRow__CellInputField: InputFieldStyle = function (inputFieldProps)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
 
-    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).Row(rowContext.props, rowContext.state)
+    const inheritedStyle = DataTableVariant.Default(dataTableContext.props)
+        .DataRow(rowContext.props, rowContext.state)
         .CellInputField(inputFieldProps);
 
     return {
         ...inheritedStyle,
-        Root: DataTable__Row__CellInputField__Root
+        Root: DataTable__DataRow__CellInputField__Root
     };
 };
 
-const DataTable__Row__CellDropdownMenu__Root: ViewStyle = function (viewProps)
+const DataTable__DataRow__CellDropdownMenu__Root: ViewStyle = function (viewProps)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const columnIndexContext = Row.ContextHook.useColumnIndexContext();
@@ -89,7 +90,7 @@ const DataTable__Row__CellDropdownMenu__Root: ViewStyle = function (viewProps)
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
     const inheritedStyle = DataTableVariant.Default(dataTableContext.props)
-        .Row(rowContext.props, rowContext.state)
+        .DataRow(rowContext.props, rowContext.state)
         .CellDropdownMenu(dropdownMenuContext.props)
         .Root(viewProps);
 
@@ -103,21 +104,22 @@ const DataTable__Row__CellDropdownMenu__Root: ViewStyle = function (viewProps)
     };
 };
 
-const DataTable__Row__CellDropdownMenu: DropdownMenuStyle = function (dropdownMenuProps)
+const DataTable__DataRow__CellDropdownMenu: DropdownMenuStyle = function (dropdownMenuProps)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
 
-    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).Row(rowContext.props, rowContext.state)
+    const inheritedStyle = DataTableVariant.Default(dataTableContext.props)
+        .DataRow(rowContext.props, rowContext.state)
         .CellDropdownMenu(dropdownMenuProps);
 
     return {
         ...inheritedStyle,
-        Root: DataTable__Row__CellDropdownMenu__Root
+        Root: DataTable__DataRow__CellDropdownMenu__Root
     };
 };
 
-const DataTable__Row__CellToggle__Root: ViewStyle = function (viewProps)
+const DataTable__DataRow__CellToggle__Root: ViewStyle = function (viewProps)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const toggleContext = ToggleContextHook.useToggleContext();
@@ -125,7 +127,7 @@ const DataTable__Row__CellToggle__Root: ViewStyle = function (viewProps)
     const dataTableContext = DataTableContextHook.useDataTableContext();
 
     const inheritedStyle = DataTableVariant.Default(dataTableContext.props)
-        .Row(rowContext.props, rowContext.state)
+        .DataRow(rowContext.props, rowContext.state)
         .CellToggle(toggleContext.props)
         .Root(viewProps);
 
@@ -139,32 +141,66 @@ const DataTable__Row__CellToggle__Root: ViewStyle = function (viewProps)
     };
 };
 
-const DataTable__Row__CellToggle: ToggleStyle = function (toggleProps)
+const DataTable__DataRow__CellToggle: ToggleStyle = function (toggleProps)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
 
-    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).Row(rowContext.props, rowContext.state).CellToggle(toggleProps);
+    const inheritedStyle = DataTableVariant.Default(dataTableContext.props)
+        .DataRow(rowContext.props, rowContext.state)
+        .CellToggle(toggleProps);
 
     return {
         ...inheritedStyle,
-        Root: DataTable__Row__CellToggle__Root
+        Root: DataTable__DataRow__CellToggle__Root
     };
 };
 
-const DataTable__Row: Row.Style = function (rowProps, rowState)
+const DataTable__DataRow: Row.Style = function (rowProps, rowState)
 {
     const dataTableContext = DataTableContextHook.useDataTableContext();
 
-    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).Row(rowProps, rowState);
+    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).DataRow(rowProps, rowState);
 
     return {
         ...inheritedStyle,
-        CellText: DataTable__Row__CellText,
-        CellIcon: DataTable__Row__CellIcon,
-        CellInputField: DataTable__Row__CellInputField,
-        CellDropdownMenu: DataTable__Row__CellDropdownMenu,
-        CellToggle: DataTable__Row__CellToggle
+        CellText: DataTable__DataRow__CellText,
+        CellIcon: DataTable__DataRow__CellIcon,
+        CellInputField: DataTable__DataRow__CellInputField,
+        CellDropdownMenu: DataTable__DataRow__CellDropdownMenu,
+        CellToggle: DataTable__DataRow__CellToggle
+    };
+};
+
+const DataTable__HeaderRow__CellText: TextStyle = function (textProps)
+{
+    const rowContext = Row.ContextHook.useRowContext();
+    const columnIndexContext = Row.ContextHook.useColumnIndexContext();
+    const dataTableContext = DataTableContextHook.useDataTableContext();
+
+    const inheritedStyle = DataTableVariant.Default(dataTableContext.props)
+        .HeaderRow(rowContext.props, rowContext.state)
+        .CellText(textProps);
+
+    return {
+        ...inheritedStyle,
+        ...columnIndexContext === 2 && {minWidth: 130},
+        ...columnIndexContext === 3 && {
+            flexGrow: 0.6,
+            textAlign: "center"
+        }
+    };
+};
+
+const DataTable__HeaderRow: Row.Style = function (rowProps, rowState)
+{
+    const dataTableContext = DataTableContextHook.useDataTableContext();
+
+    const inheritedStyle = DataTableVariant.Default(dataTableContext.props).HeaderRow(rowProps, rowState);
+
+    return {
+        ...inheritedStyle,
+        CellText: DataTable__HeaderRow__CellText
     };
 };
 
@@ -172,6 +208,7 @@ export const Default: DataTableStyle = function (dataTableProps)
 {
     return {
         ...DataTableVariant.Default(dataTableProps),
-        Row: DataTable__Row
+        DataRow: DataTable__DataRow,
+        HeaderRow: DataTable__HeaderRow
     };
 };

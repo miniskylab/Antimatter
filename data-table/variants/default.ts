@@ -198,10 +198,9 @@ const DataTable__Hr: ViewStyle = function (viewProps)
     };
 };
 
-const DataTable__Row__Root: PressableStyle = function (pressableProps, pressableState)
+const DataTable__DataRow__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const rowContext = Row.ContextHook.useRowContext();
-    const rowTypeContext = DataTableContextHook.useRowTypeContext();
 
     const isRunningOnMobileApp = useEnvironment("MobileApp");
     const isPressableAndHovered = rowContext.props.onPress && pressableState.hovered;
@@ -231,38 +230,22 @@ const DataTable__Row__Root: PressableStyle = function (pressableProps, pressable
         ...rowContext.props.mode === Row.Mode.Delete && {
             backgroundColor: Color.Negative__a10,
             borderColor: Color.Negative
-        },
-        ...rowTypeContext === "header" && {
-            alignSelf: "stretch",
-            height: 40,
-            backgroundColor: Color.Ambient,
-            borderTopWidth: 0,
-            borderBottomWidth: 0
-        },
-        ...rowTypeContext === "empty" && {
-            pointerEvents: "none"
         }
     };
 };
 
-const DataTable__Row__CellText: TextStyle = function (textProps)
+const DataTable__DataRow__CellText: TextStyle = function (textProps)
 {
-    const rowTypeContext = DataTableContextHook.useRowTypeContext();
-
     return {
         ...TextVariant.Default(textProps),
         flex: 1,
         alignItems: "flex-start",
         fontSize: 16,
-        color: Color.Neutral,
-        ...rowTypeContext === "header" && {
-            color: Color.White,
-            fontWeight: "bold"
-        }
+        color: Color.Neutral
     };
 };
 
-const DataTable__Row__CellIcon: IconStyle = function (iconProps)
+const DataTable__DataRow__CellIcon: IconStyle = function (iconProps)
 {
     return {
         ...IconVariant.Default(iconProps),
@@ -272,7 +255,7 @@ const DataTable__Row__CellIcon: IconStyle = function (iconProps)
     };
 };
 
-const DataTable__Row__CellInputField__Root: ViewStyle = function (viewProps)
+const DataTable__DataRow__CellInputField__Root: ViewStyle = function (viewProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
@@ -286,7 +269,7 @@ const DataTable__Row__CellInputField__Root: ViewStyle = function (viewProps)
     };
 };
 
-const DataTable__Row__CellInputField__TextBox: TextInputStyle = function (textInputProps)
+const DataTable__DataRow__CellInputField__TextBox: TextInputStyle = function (textInputProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
@@ -303,7 +286,7 @@ const DataTable__Row__CellInputField__TextBox: TextInputStyle = function (textIn
     };
 };
 
-const DataTable__Row__CellInputField__Placeholder: TextStyle = function (textProps)
+const DataTable__DataRow__CellInputField__Placeholder: TextStyle = function (textProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
@@ -320,17 +303,17 @@ const DataTable__Row__CellInputField__Placeholder: TextStyle = function (textPro
     };
 };
 
-const DataTable__Row__CellInputField: InputFieldStyle = function (inputFieldProps)
+const DataTable__DataRow__CellInputField: InputFieldStyle = function (inputFieldProps)
 {
     return {
         ...InputFieldVariant.Default(inputFieldProps),
-        Root: DataTable__Row__CellInputField__Root,
-        TextBox: DataTable__Row__CellInputField__TextBox,
-        Placeholder: DataTable__Row__CellInputField__Placeholder
+        Root: DataTable__DataRow__CellInputField__Root,
+        TextBox: DataTable__DataRow__CellInputField__TextBox,
+        Placeholder: DataTable__DataRow__CellInputField__Placeholder
     };
 };
 
-const DataTable__Row__CellDropdownMenu__Root: ViewStyle = function (viewProps)
+const DataTable__DataRow__CellDropdownMenu__Root: ViewStyle = function (viewProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -345,7 +328,7 @@ const DataTable__Row__CellDropdownMenu__Root: ViewStyle = function (viewProps)
     };
 };
 
-const DataTable__Row__CellDropdownMenu__SelectedItemContainer: PressableStyle = function (pressableProps, pressableState)
+const DataTable__DataRow__CellDropdownMenu__SelectedItemContainer: PressableStyle = function (pressableProps, pressableState)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -362,7 +345,7 @@ const DataTable__Row__CellDropdownMenu__SelectedItemContainer: PressableStyle = 
     };
 };
 
-const DataTable__Row__CellDropdownMenu__SelectedItem: TextStyle = function (textProps)
+const DataTable__DataRow__CellDropdownMenu__SelectedItem: TextStyle = function (textProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -381,7 +364,7 @@ const DataTable__Row__CellDropdownMenu__SelectedItem: TextStyle = function (text
     };
 };
 
-const DataTable__Row__CellDropdownMenu__Caret: ViewStyle = function (viewProps)
+const DataTable__DataRow__CellDropdownMenu__Caret: ViewStyle = function (viewProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -393,7 +376,7 @@ const DataTable__Row__CellDropdownMenu__Caret: ViewStyle = function (viewProps)
     };
 };
 
-const DataTable__Row__CellDropdownMenu__Menu: ScrollViewStyle = function (scrollViewProps)
+const DataTable__DataRow__CellDropdownMenu__Menu: ScrollViewStyle = function (scrollViewProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -411,7 +394,7 @@ const DataTable__Row__CellDropdownMenu__Menu: ScrollViewStyle = function (scroll
     };
 };
 
-const DataTable__Row__CellDropdownMenu__MenuItem__Root: PressableStyle = function (pressableProps, pressableState)
+const DataTable__DataRow__CellDropdownMenu__MenuItem__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
@@ -427,7 +410,7 @@ const DataTable__Row__CellDropdownMenu__MenuItem__Root: PressableStyle = functio
     };
 };
 
-const DataTable__Row__CellDropdownMenu__MenuItem__Label: TextStyle = function (textProps)
+const DataTable__DataRow__CellDropdownMenu__MenuItem__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
@@ -442,7 +425,7 @@ const DataTable__Row__CellDropdownMenu__MenuItem__Label: TextStyle = function (t
     };
 };
 
-const DataTable__Row__CellDropdownMenu__MenuItem: ButtonStyle = function (buttonProps)
+const DataTable__DataRow__CellDropdownMenu__MenuItem: ButtonStyle = function (buttonProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -450,12 +433,12 @@ const DataTable__Row__CellDropdownMenu__MenuItem: ButtonStyle = function (button
 
     return {
         ...inheritedStyle,
-        Root: DataTable__Row__CellDropdownMenu__MenuItem__Root,
-        Label: DataTable__Row__CellDropdownMenu__MenuItem__Label
+        Root: DataTable__DataRow__CellDropdownMenu__MenuItem__Root,
+        Label: DataTable__DataRow__CellDropdownMenu__MenuItem__Label
     };
 };
 
-const DataTable__Row__CellDropdownMenu__Placeholder: TextStyle = function (textProps)
+const DataTable__DataRow__CellDropdownMenu__Placeholder: TextStyle = function (textProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -470,21 +453,21 @@ const DataTable__Row__CellDropdownMenu__Placeholder: TextStyle = function (textP
     };
 };
 
-const DataTable__Row__CellDropdownMenu: DropdownMenuStyle = function (dropdownMenuProps)
+const DataTable__DataRow__CellDropdownMenu: DropdownMenuStyle = function (dropdownMenuProps)
 {
     return {
         ...DropdownMenuVariant.Default(dropdownMenuProps),
-        Root: DataTable__Row__CellDropdownMenu__Root,
-        SelectedItemContainer: DataTable__Row__CellDropdownMenu__SelectedItemContainer,
-        SelectedItem: DataTable__Row__CellDropdownMenu__SelectedItem,
-        Caret: DataTable__Row__CellDropdownMenu__Caret,
-        Menu: DataTable__Row__CellDropdownMenu__Menu,
-        MenuItem: DataTable__Row__CellDropdownMenu__MenuItem,
-        Placeholder: DataTable__Row__CellDropdownMenu__Placeholder
+        Root: DataTable__DataRow__CellDropdownMenu__Root,
+        SelectedItemContainer: DataTable__DataRow__CellDropdownMenu__SelectedItemContainer,
+        SelectedItem: DataTable__DataRow__CellDropdownMenu__SelectedItem,
+        Caret: DataTable__DataRow__CellDropdownMenu__Caret,
+        Menu: DataTable__DataRow__CellDropdownMenu__Menu,
+        MenuItem: DataTable__DataRow__CellDropdownMenu__MenuItem,
+        Placeholder: DataTable__DataRow__CellDropdownMenu__Placeholder
     };
 };
 
-const DataTable__Row__CellToggle__Root: ViewStyle = function (viewProps)
+const DataTable__DataRow__CellToggle__Root: ViewStyle = function (viewProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
 
@@ -496,23 +479,69 @@ const DataTable__Row__CellToggle__Root: ViewStyle = function (viewProps)
     };
 };
 
-const DataTable__Row__CellToggle: ToggleStyle = function (toggleProps)
+const DataTable__DataRow__CellToggle: ToggleStyle = function (toggleProps)
 {
     return {
         ...ToggleVariant.Checkbox(toggleProps),
-        Root: DataTable__Row__CellToggle__Root
+        Root: DataTable__DataRow__CellToggle__Root
     };
 };
 
-const DataTable__Row: Row.Style = function ()
+const DataTable__DataRow: Row.Style = function ()
 {
     return {
-        Root: DataTable__Row__Root,
-        CellText: DataTable__Row__CellText,
-        CellIcon: DataTable__Row__CellIcon,
-        CellInputField: DataTable__Row__CellInputField,
-        CellDropdownMenu: DataTable__Row__CellDropdownMenu,
-        CellToggle: DataTable__Row__CellToggle
+        Root: DataTable__DataRow__Root,
+        CellText: DataTable__DataRow__CellText,
+        CellIcon: DataTable__DataRow__CellIcon,
+        CellInputField: DataTable__DataRow__CellInputField,
+        CellDropdownMenu: DataTable__DataRow__CellDropdownMenu,
+        CellToggle: DataTable__DataRow__CellToggle
+    };
+};
+
+const DataTable__HeaderRow__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    return {
+        ...DataTable__DataRow__Root(pressableProps, pressableState),
+        alignSelf: "stretch",
+        height: 40,
+        backgroundColor: Color.Ambient,
+        borderTopWidth: 0,
+        borderBottomWidth: 0
+    };
+};
+
+const DataTable__HeaderRow__CellText: TextStyle = function (textProps)
+{
+    return {
+        ...DataTable__DataRow__CellText(textProps),
+        color: Color.White,
+        fontWeight: "bold"
+    };
+};
+
+const DataTable__HeaderRow: Row.Style = function (rowProps, rowState)
+{
+    return {
+        ...DataTable__DataRow(rowProps, rowState),
+        Root: DataTable__HeaderRow__Root,
+        CellText: DataTable__HeaderRow__CellText
+    };
+};
+
+const DataTable__EmptyRow__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    return {
+        ...DataTable__DataRow__Root(pressableProps, pressableState),
+        pointerEvents: "none"
+    };
+};
+
+const DataTable__EmptyRow: Row.Style = function (rowProps, rowState)
+{
+    return {
+        ...DataTable__DataRow(rowProps, rowState),
+        Root: DataTable__EmptyRow__Root
     };
 };
 
@@ -527,6 +556,8 @@ export const Default: DataTableStyle = function ()
         ControlButton: DataTable__ControlButton,
         Scroll: DataTable__Scroll,
         Hr: DataTable__Hr,
-        Row: DataTable__Row
+        DataRow: DataTable__DataRow,
+        EmptyRow: DataTable__EmptyRow,
+        HeaderRow: DataTable__HeaderRow
     };
 };

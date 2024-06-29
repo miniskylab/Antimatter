@@ -6,7 +6,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef} from "react";
 import {Row} from "./components";
-import {ControlButtonTypeContext, DataTableContext, DataTableProps, RowTypeContext} from "./models";
+import {ControlButtonTypeContext, DataTableContext, DataTableProps} from "./models";
 import type {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
@@ -51,11 +51,7 @@ export function DataTable({
         <DataTableContext.Provider value={context}>
             <View style={computedStyle.Root}>
                 {renderControlPanel()}
-                {(headerData && headerData.length > 0) && (
-                    <RowTypeContext.Provider value={"header"}>
-                        <Row.Component style={computedStyle.Row} data={headerData}/>
-                    </RowTypeContext.Provider>
-                )}
+                {(headerData && headerData.length > 0) && <Row.Component style={computedStyle.HeaderRow} data={headerData}/>}
                 <ScrollView
                     ref={scrollViewRef}
                     style={computedStyle.Scroll}
@@ -185,17 +181,16 @@ export function DataTable({
             const canSelect = !isEmptyRow(rowId) && mode === Row.Mode.ReadOnly;
             const canEdit = !isEmptyRow(rowId) && (rowMode === Row.Mode.Edit || rowMode === Row.Mode.Draft);
             rowJsxElements.push(
-                <RowTypeContext.Provider key={rowIndex} value={isEmptyRow(rowId) ? "empty" : "data"}>
-                    <Row.Component
-                        containerRef={scrollViewRef}
-                        data={rowData}
-                        mode={rowMode}
-                        columns={columns}
-                        style={computedStyle.Row}
-                        onPress={canSelect ? () => { onSelectRow(rowId); } : undefined}
-                        onChange={canEdit ? newData => { onChangeRow(newData); } : undefined}
-                    />
-                </RowTypeContext.Provider>
+                <Row.Component
+                    containerRef={scrollViewRef}
+                    key={isEmptyRow(rowId) ? `empty-row-${rowIndex}` : rowId}
+                    data={rowData}
+                    mode={rowMode}
+                    columns={columns}
+                    style={isEmptyRow(rowId) ? computedStyle.EmptyRow : computedStyle.DataRow}
+                    onPress={canSelect ? () => { onSelectRow(rowId); } : undefined}
+                    onChange={canEdit ? newData => { onChangeRow(newData); } : undefined}
+                />
             );
         }
 
