@@ -12,8 +12,14 @@ export type Style = (eventProps: WithoutStyle<Props>) => {
     Name: TextStyle;
     Hr: ViewStyle;
     Image: ImageStyle;
-    Row: ViewStyle;
-    BulletinIcon: IconStyle;
+    TimeRow: ViewStyle;
+    TimeBulletinIcon: IconStyle;
+    DurationRow: ViewStyle;
+    DurationBulletinIcon: IconStyle;
+    LocationRow: ViewStyle;
+    LocationBulletinIcon: IconStyle;
+    DescriptionRow: ViewStyle;
+    DescriptionBulletinIcon: IconStyle;
     StartDate: TextStyle;
     ArrowRightIcon: IconStyle;
     EndDate: TextStyle;

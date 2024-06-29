@@ -212,7 +212,7 @@ const Timeline__Event__Image: ImageStyle = function (imageProps)
     };
 };
 
-const Timeline__Event__Row: ViewStyle = function (viewProps)
+const Timeline__Event__TimeRow: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -225,20 +225,58 @@ const Timeline__Event__Row: ViewStyle = function (viewProps)
     };
 };
 
-const Timeline__Event__BulletinIcon: IconStyle = function (iconProps)
+const Timeline__Event__TimeBulletinIcon: IconStyle = function (iconProps)
 {
-    const rowContext = Event.ContextHook.useRowContext();
-
     return {
         ...IconVariant.Default(iconProps),
         minWidth: 20,
         lineHeight: 25,
         marginRight: 10,
         fontSize: 18,
-        color: Color.Neutral,
-        ...rowContext === "description" && {
-            alignSelf: "baseline"
-        }
+        color: Color.Neutral
+    };
+};
+
+const Timeline__Event__DurationRow: ViewStyle = function (viewProps)
+{
+    return {
+        ...Timeline__Event__TimeRow(viewProps)
+    };
+};
+
+const Timeline__Event__DurationBulletinIcon: IconStyle = function (iconProps)
+{
+    return {
+        ...Timeline__Event__TimeBulletinIcon(iconProps)
+    };
+};
+
+const Timeline__Event__LocationRow: ViewStyle = function (viewProps)
+{
+    return {
+        ...Timeline__Event__TimeRow(viewProps)
+    };
+};
+
+const Timeline__Event__LocationBulletinIcon: IconStyle = function (iconProps)
+{
+    return {
+        ...Timeline__Event__TimeBulletinIcon(iconProps)
+    };
+};
+
+const Timeline__Event__DescriptionRow: ViewStyle = function (viewProps)
+{
+    return {
+        ...Timeline__Event__TimeRow(viewProps)
+    };
+};
+
+const Timeline__Event__DescriptionBulletinIcon: IconStyle = function (iconProps)
+{
+    return {
+        ...Timeline__Event__TimeBulletinIcon(iconProps),
+        alignSelf: "baseline"
     };
 };
 
@@ -319,8 +357,14 @@ const Timeline__Event: Event.Style = function ()
         Name: Timeline__Event__Name,
         Hr: Timeline__Event__Hr,
         Image: Timeline__Event__Image,
-        Row: Timeline__Event__Row,
-        BulletinIcon: Timeline__Event__BulletinIcon,
+        TimeRow: Timeline__Event__TimeRow,
+        TimeBulletinIcon: Timeline__Event__TimeBulletinIcon,
+        DurationRow: Timeline__Event__DurationRow,
+        DurationBulletinIcon: Timeline__Event__DurationBulletinIcon,
+        LocationRow: Timeline__Event__LocationRow,
+        LocationBulletinIcon: Timeline__Event__LocationBulletinIcon,
+        DescriptionRow: Timeline__Event__DescriptionRow,
+        DescriptionBulletinIcon: Timeline__Event__DescriptionBulletinIcon,
         StartDate: Timeline__Event__StartDate,
         ArrowRightIcon: Timeline__Event__ArrowRightIcon,
         EndDate: Timeline__Event__EndDate,

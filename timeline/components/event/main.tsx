@@ -13,7 +13,7 @@ import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {EventContext, Props, RowContext} from "./models";
+import {EventContext, Props} from "./models";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -58,44 +58,34 @@ export function Component({
                 <Text style={computedStyle.Name}>{name}</Text>
                 <View style={computedStyle.Hr}/>
                 {image && <Image style={computedStyle.Image} source={image}/>}
-                <RowContext.Provider value={"time"}>
-                    <View style={computedStyle.Row}>
-                        <Icon style={computedStyle.BulletinIcon} name={DefaultIconSet.Clock}/>
-                        <Text style={computedStyle.StartDate}>
-                            {GregorianCalendar.toString(startDate, DateFormat.Long, minimumTimeUnit)}
-                        </Text>
-                        {(isOnGoing || endDate) && <Icon style={computedStyle.ArrowRightIcon} name={DefaultIconSet.ArrowRight}/>}
-                        {
-                            isOnGoing && <Text style={computedStyle.EndDate}>Now</Text>
-                            ||
-                            endDate && (
-                                <Text style={computedStyle.EndDate}>
-                                    {GregorianCalendar.toString(endDate, DateFormat.Long, minimumTimeUnit)}
-                                </Text>
-                            )
-                        }
-                    </View>
-                </RowContext.Provider>
+                <View style={computedStyle.TimeRow}>
+                    <Icon style={computedStyle.TimeBulletinIcon} name={DefaultIconSet.Clock}/>
+                    <Text style={computedStyle.StartDate}>{GregorianCalendar.toString(startDate, DateFormat.Long, minimumTimeUnit)}</Text>
+                    {(isOnGoing || endDate) && <Icon style={computedStyle.ArrowRightIcon} name={DefaultIconSet.ArrowRight}/>}
+                    {
+                        isOnGoing && <Text style={computedStyle.EndDate}>Now</Text>
+                        ||
+                        endDate && (
+                            <Text style={computedStyle.EndDate}>
+                                {GregorianCalendar.toString(endDate, DateFormat.Long, minimumTimeUnit)}
+                            </Text>
+                        )
+                    }
+                </View>
                 {duration && (
-                    <RowContext.Provider value={"duration"}>
-                        <View style={computedStyle.Row}>
-                            <Icon style={computedStyle.BulletinIcon} name={DefaultIconSet.History}/>
-                            <Text style={computedStyle.Duration}>{duration}</Text>
-                        </View>
-                    </RowContext.Provider>
+                    <View style={computedStyle.DurationRow}>
+                        <Icon style={computedStyle.DurationBulletinIcon} name={DefaultIconSet.History}/>
+                        <Text style={computedStyle.Duration}>{duration}</Text>
+                    </View>
                 )}
-                <RowContext.Provider value={"location"}>
-                    <View style={computedStyle.Row}>
-                        <Icon style={computedStyle.BulletinIcon} name={DefaultIconSet.Location}/>
-                        {location && <Text style={computedStyle.Location}>{location}</Text>}
-                    </View>
-                </RowContext.Provider>
-                <RowContext.Provider value={"description"}>
-                    <View style={computedStyle.Row}>
-                        <Icon style={computedStyle.BulletinIcon} name={DefaultIconSet.Pen}/>
-                        {description && <Text style={computedStyle.Description}>{description}</Text>}
-                    </View>
-                </RowContext.Provider>
+                <View style={computedStyle.LocationRow}>
+                    <Icon style={computedStyle.LocationBulletinIcon} name={DefaultIconSet.Location}/>
+                    {location && <Text style={computedStyle.Location}>{location}</Text>}
+                </View>
+                <View style={computedStyle.DescriptionRow}>
+                    <Icon style={computedStyle.DescriptionBulletinIcon} name={DefaultIconSet.Pen}/>
+                    {description && <Text style={computedStyle.Description}>{description}</Text>}
+                </View>
             </View>
         </EventContext.Provider>
     );
