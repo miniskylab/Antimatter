@@ -6,7 +6,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef} from "react";
 import {Row} from "./components";
-import {ControlButtonTypeContext, DataTableContext, DataTableProps} from "./models";
+import {DataTableContext, DataTableProps} from "./models";
 import type {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
@@ -82,31 +82,31 @@ export function DataTable({
         {
             case Row.Mode.Draft:
                 return {
-                    pressButton1: {type: "action", icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
-                    switchButton: {type: "mode", icon: DefaultIconSet.Quill, text: "Draft-Mode"},
-                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    button1: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
+                    button2: {icon: DefaultIconSet.Quill, text: "Draft-Mode"},
+                    button3: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case Row.Mode.Edit:
                 return {
-                    pressButton1: {type: "action", icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
-                    switchButton: {type: "mode", icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
-                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    button1: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
+                    button2: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
+                    button3: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             case Row.Mode.Delete:
                 return {
-                    pressButton1: {type: "action", icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteRow},
-                    switchButton: {type: "mode", icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
-                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    button1: {icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteRow},
+                    button2: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
+                    button3: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
                 };
 
             default:
             case Row.Mode.ReadOnly:
                 return {
-                    pressButton1: {type: "action", icon: DefaultIconSet.PlusCircle, text: "Add New", onPress: onAddNewRow},
-                    switchButton: {type: "mode", icon: DefaultIconSet.Eye, text: "Read-Only"},
-                    pressButton2: {type: "cancel", icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
+                    button1: {icon: DefaultIconSet.PlusCircle, text: "Add New", onPress: onAddNewRow},
+                    button2: {icon: DefaultIconSet.Eye, text: "Read-Only"},
+                    button3: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
                 };
         }
     }
@@ -120,40 +120,34 @@ export function DataTable({
 
     function renderControlPanel(): JSX.Element
     {
-        const {pressButton1, switchButton, pressButton2} = getControlPanel();
+        const {button1, button2, button3} = getControlPanel();
         return (
             <View style={computedStyle.ControlPanel}>
                 <View style={computedStyle.TitleContainer}>
                     <Text style={computedStyle.MainTitle} numberOfLines={1}>{title}</Text>
                     <Text style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Text>
                 </View>
-                <ControlButtonTypeContext.Provider value={pressButton1.type}>
-                    <Button
-                        style={computedStyle.ControlButton}
-                        icon={pressButton1.icon}
-                        label={pressButton1.text}
-                        disabled={!pressButton1.onPress}
-                        onPress={pressButton1.onPress}
-                    />
-                </ControlButtonTypeContext.Provider>
-                <ControlButtonTypeContext.Provider value={switchButton.type}>
-                    <Button
-                        style={computedStyle.ControlButton}
-                        icon={switchButton.icon}
-                        label={switchButton.text}
-                        disabled={!switchButton.onPress}
-                        onPress={switchButton.onPress}
-                    />
-                </ControlButtonTypeContext.Provider>
-                <ControlButtonTypeContext.Provider value={pressButton2.type}>
-                    <Button
-                        style={computedStyle.ControlButton}
-                        icon={pressButton2.icon}
-                        label={pressButton2.text}
-                        disabled={!pressButton2.onPress}
-                        onPress={pressButton2.onPress}
-                    />
-                </ControlButtonTypeContext.Provider>
+                <Button
+                    style={computedStyle.Button1}
+                    icon={button1.icon}
+                    label={button1.text}
+                    disabled={!button1.onPress}
+                    onPress={button1.onPress}
+                />
+                <Button
+                    style={computedStyle.Button2}
+                    icon={button2.icon}
+                    label={button2.text}
+                    disabled={!button2.onPress}
+                    onPress={button2.onPress}
+                />
+                <Button
+                    style={computedStyle.Button3}
+                    icon={button3.icon}
+                    label={button3.text}
+                    disabled={!button3.onPress}
+                    onPress={button3.onPress}
+                />
             </View>
         );
     }

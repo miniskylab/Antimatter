@@ -79,18 +79,17 @@ const DataTable__Subtitle: TextStyle = function (textProps)
     };
 };
 
-const DataTable__ControlButton__Root: PressableStyle = function (pressableProps, pressableState)
+const DataTable__Button1__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
-    const controlButtonTypeContext = DataTableContextHook.useControlButtonTypeContext();
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,
         flexDirection: "column",
-        minWidth: controlButtonTypeContext === "mode" ? 70 : 45,
+        minWidth: 45,
         height: 45,
         paddingTop: 0,
         paddingBottom: 0,
@@ -103,12 +102,11 @@ const DataTable__ControlButton__Root: PressableStyle = function (pressableProps,
     };
 };
 
-const DataTable__ControlButton__Icon: IconStyle = function (iconProps)
+const DataTable__Button1__Icon: IconStyle = function (iconProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
-    const controlButtonTypeContext = DataTableContextHook.useControlButtonTypeContext();
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
 
@@ -117,29 +115,19 @@ const DataTable__ControlButton__Icon: IconStyle = function (iconProps)
         flex: 1,
         fontSize: 24,
         color: Color.Neutral,
-        ...dataTableContext.props.mode === Row.Mode.Draft && {
-            ...controlButtonTypeContext === "action" && {color: Color.Primary},
-            ...controlButtonTypeContext === "mode" && {color: Color.Primary__a65}
-        },
-        ...dataTableContext.props.mode === Row.Mode.Edit && {
-            ...controlButtonTypeContext === "action" && {color: Color.Primary},
-            ...controlButtonTypeContext === "mode" && {color: Color.Primary}
-        },
-        ...dataTableContext.props.mode === Row.Mode.Delete && {
-            ...controlButtonTypeContext === "action" && {color: Color.Negative},
-            ...controlButtonTypeContext === "mode" && {color: Color.Negative}
-        },
+        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Primary},
+        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Primary},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Negative},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
 };
 
-const DataTable__ControlButton__Label: TextStyle = function (textProps)
+const DataTable__Button1__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
     const dataTableContext = DataTableContextHook.useDataTableContext();
-    const controlButtonTypeContext = DataTableContextHook.useControlButtonTypeContext();
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
@@ -153,30 +141,102 @@ const DataTable__ControlButton__Label: TextStyle = function (textProps)
         fontSize: 12,
         fontWeight: "bold",
         color: Color.Neutral,
-        ...dataTableContext.props.mode === Row.Mode.Draft && {
-            ...controlButtonTypeContext === "action" && {color: Color.Primary},
-            ...controlButtonTypeContext === "mode" && {color: Color.Primary__a65}
-        },
-        ...dataTableContext.props.mode === Row.Mode.Edit && {
-            ...controlButtonTypeContext === "action" && {color: Color.Primary},
-            ...controlButtonTypeContext === "mode" && {color: Color.Primary}
-        },
-        ...dataTableContext.props.mode === Row.Mode.Delete && {
-            ...controlButtonTypeContext === "action" && {color: Color.Negative},
-            ...controlButtonTypeContext === "mode" && {color: Color.Negative}
-        },
+        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Primary},
+        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Primary},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Negative},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
 };
 
-const DataTable__ControlButton: ButtonStyle = function (buttonProps)
+const DataTable__Button1: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.OutlinedRectangular(buttonProps),
-        Root: DataTable__ControlButton__Root,
-        Icon: DataTable__ControlButton__Icon,
-        Label: DataTable__ControlButton__Label
+        Root: DataTable__Button1__Root,
+        Icon: DataTable__Button1__Icon,
+        Label: DataTable__Button1__Label
+    };
+};
+
+const DataTable__Button2__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    return {
+        ...DataTable__Button1__Root(pressableProps, pressableState),
+        minWidth: 70
+    };
+};
+
+const DataTable__Button2__Icon: IconStyle = function (iconProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+    const dataTableContext = DataTableContextHook.useDataTableContext();
+
+    return {
+        ...DataTable__Button1__Icon(iconProps),
+        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Primary__a65},
+        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Primary},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Negative},
+        ...pressableContext.state.hovered && {color: Color.White},
+        ...pressableContext.state.pressed && {color: Color.Gray}
+    };
+};
+
+const DataTable__Button2__Label: TextStyle = function (textProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+    const dataTableContext = DataTableContextHook.useDataTableContext();
+
+    return {
+        ...DataTable__Button1__Label(textProps),
+        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Primary__a65},
+        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Primary},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Negative},
+        ...pressableContext.state.hovered && {color: Color.White},
+        ...pressableContext.state.pressed && {color: Color.Gray}
+    };
+};
+
+const DataTable__Button2: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...DataTable__Button1(buttonProps),
+        Root: DataTable__Button2__Root,
+        Icon: DataTable__Button2__Icon,
+        Label: DataTable__Button2__Label
+    };
+};
+
+const DataTable__Button3__Icon: IconStyle = function (iconProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    return {
+        ...DataTable__Button1__Icon(iconProps),
+        color: Color.Neutral,
+        ...pressableContext.state.hovered && {color: Color.White},
+        ...pressableContext.state.pressed && {color: Color.Gray}
+    };
+};
+
+const DataTable__Button3__Label: TextStyle = function (textProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    return {
+        ...DataTable__Button1__Label(textProps),
+        color: Color.Neutral,
+        ...pressableContext.state.hovered && {color: Color.White},
+        ...pressableContext.state.pressed && {color: Color.Gray}
+    };
+};
+
+const DataTable__Button3: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...DataTable__Button1(buttonProps),
+        Icon: DataTable__Button3__Icon,
+        Label: DataTable__Button3__Label
     };
 };
 
@@ -553,7 +613,9 @@ export const Default: DataTableStyle = function ()
         TitleContainer: DataTable__TitleContainer,
         MainTitle: DataTable__MainTitle,
         Subtitle: DataTable__Subtitle,
-        ControlButton: DataTable__ControlButton,
+        Button1: DataTable__Button1,
+        Button2: DataTable__Button2,
+        Button3: DataTable__Button3,
         Scroll: DataTable__Scroll,
         Hr: DataTable__Hr,
         DataRow: DataTable__DataRow,

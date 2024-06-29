@@ -12,7 +12,9 @@ export type DataTableStyle = (dataTableProps: WithoutStyle<DataTableProps>) => {
     TitleContainer: ViewStyle;
     MainTitle: TextStyle;
     Subtitle: TextStyle;
-    ControlButton: ButtonStyle;
+    Button1: ButtonStyle;
+    Button2: ButtonStyle;
+    Button3: ButtonStyle;
     Scroll: ScrollViewStyle;
     Hr: ViewStyle;
     DataRow: Row.Style;
