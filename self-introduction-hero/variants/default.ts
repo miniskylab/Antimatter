@@ -6,7 +6,6 @@ import {type ImageStyle, ImageVariant} from "@miniskylab/antimatter-image";
 import {type PressableStyle} from "@miniskylab/antimatter-pressable";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {SelfIntroductionHeroContextHook} from "../hooks";
 import {type SelfIntroductionHeroStyle} from "../models";
 
 const SelfIntroductionHero__Root: ViewStyle = function (viewProps)
@@ -123,10 +122,8 @@ const SelfIntroductionHero__Description: TextStyle = function (textProps)
     };
 };
 
-const SelfIntroductionHero__SimpleInfoSection: ViewStyle = function (viewProps)
+const SelfIntroductionHero__SimpleInfoSection1: ViewStyle = function (viewProps)
 {
-    const simpleInfoContext = SelfIntroductionHeroContextHook.useSimpleInfoContext();
-
     return {
         ...ViewVariant.Default(viewProps),
         alignSelf: "stretch",
@@ -138,10 +135,6 @@ const SelfIntroductionHero__SimpleInfoSection: ViewStyle = function (viewProps)
         marginTop: 10,
         marginHorizontal: 15,
         backgroundColor: Color.Gray__a10,
-        ...simpleInfoContext === "email" && {
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary__a10
-        },
         ...useResponsiveStyle("Small", {
             alignSelf: "center",
             position: "absolute",
@@ -153,18 +146,18 @@ const SelfIntroductionHero__SimpleInfoSection: ViewStyle = function (viewProps)
             paddingHorizontal: 0,
             marginTop: 0,
             marginHorizontal: 0,
-            marginLeft: simpleInfoContext === "location" ? -370 : 370,
+            marginLeft: -370,
             borderWidth: 0,
             backgroundColor: Color.Transparent
         }),
         ...useResponsiveStyle("Medium", {
             width: 200,
-            marginLeft: simpleInfoContext === "location" ? -500 : 500
+            marginLeft: -500
         })
     };
 };
 
-const SelfIntroductionHero__SimpleInfoLabel: TextStyle = function (textProps)
+const SelfIntroductionHero__SimpleInfoSection1Label: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
@@ -182,7 +175,7 @@ const SelfIntroductionHero__SimpleInfoLabel: TextStyle = function (textProps)
     };
 };
 
-const SelfIntroductionHero__SimpleInfoValue: TextStyle = function (textProps)
+const SelfIntroductionHero__SimpleInfoSection1Value: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
@@ -200,6 +193,36 @@ const SelfIntroductionHero__SimpleInfoValue: TextStyle = function (textProps)
             fontSize: 20,
             lineHeight: 21
         })
+    };
+};
+
+const SelfIntroductionHero__SimpleInfoSection2: ViewStyle = function (viewProps)
+{
+    return {
+        ...SelfIntroductionHero__SimpleInfoSection1(viewProps),
+        borderColor: Color.Primary,
+        backgroundColor: Color.Primary__a10,
+        ...useResponsiveStyle("Small", {
+            marginLeft: 370,
+            backgroundColor: Color.Transparent
+        }),
+        ...useResponsiveStyle("Medium", {
+            marginLeft: 500
+        })
+    };
+};
+
+const SelfIntroductionHero__SimpleInfoSection2Label: TextStyle = function (textProps)
+{
+    return {
+        ...SelfIntroductionHero__SimpleInfoSection1Label(textProps)
+    };
+};
+
+const SelfIntroductionHero__SimpleInfoSection2Value: TextStyle = function (textProps)
+{
+    return {
+        ...SelfIntroductionHero__SimpleInfoSection1Value(textProps)
     };
 };
 
@@ -259,9 +282,12 @@ export const Default: SelfIntroductionHeroStyle = function ()
         Name: SelfIntroductionHero__Name,
         AlternativeName: SelfIntroductionHero__AlternativeName,
         Description: SelfIntroductionHero__Description,
-        SimpleInfoSection: SelfIntroductionHero__SimpleInfoSection,
-        SimpleInfoLabel: SelfIntroductionHero__SimpleInfoLabel,
-        SimpleInfoValue: SelfIntroductionHero__SimpleInfoValue,
+        SimpleInfoSection1: SelfIntroductionHero__SimpleInfoSection1,
+        SimpleInfoSection1Label: SelfIntroductionHero__SimpleInfoSection1Label,
+        SimpleInfoSection1Value: SelfIntroductionHero__SimpleInfoSection1Value,
+        SimpleInfoSection2: SelfIntroductionHero__SimpleInfoSection2,
+        SimpleInfoSection2Label: SelfIntroductionHero__SimpleInfoSection2Label,
+        SimpleInfoSection2Value: SelfIntroductionHero__SimpleInfoSection2Value,
         DownloadButton: SelfIntroductionHero__DownloadButton
     };
 };

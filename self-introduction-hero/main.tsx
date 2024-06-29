@@ -4,7 +4,7 @@ import {Image} from "@miniskylab/antimatter-image";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {SelfIntroductionHeroContext, SelfIntroductionHeroProps, SimpleInfoContext} from "./models";
+import {SelfIntroductionHeroContext, SelfIntroductionHeroProps} from "./models";
 import * as Variant from "./variants";
 
 /**
@@ -48,22 +48,16 @@ export function SelfIntroductionHero({
                 <Text style={computedStyle.Name}>{name}</Text>
                 <Text style={computedStyle.AlternativeName}>{alternativeName}</Text>
                 <Text style={computedStyle.Description}>{description}</Text>
-                {renderSimpleInfoSection("location", locationLabel, locationValue)}
-                {renderSimpleInfoSection("email", emailLabel, emailValue)}
+                <View style={computedStyle.SimpleInfoSection1}>
+                    <Text style={computedStyle.SimpleInfoSection1Label}>{locationLabel}</Text>
+                    <Text style={computedStyle.SimpleInfoSection1Value}>{locationValue}</Text>
+                </View>
+                <View style={computedStyle.SimpleInfoSection2}>
+                    <Text style={computedStyle.SimpleInfoSection2Label}>{emailLabel}</Text>
+                    <Text style={computedStyle.SimpleInfoSection2Value}>{emailValue}</Text>
+                </View>
                 {downloadButton && <DownloadButton style={computedStyle.DownloadButton} {...downloadButton}/>}
             </View>
         </SelfIntroductionHeroContext.Provider>
     );
-
-    function renderSimpleInfoSection(context: SimpleInfoContext, label: string, value: string)
-    {
-        return (
-            <SimpleInfoContext.Provider value={context}>
-                <View style={computedStyle.SimpleInfoSection}>
-                    <Text style={computedStyle.SimpleInfoLabel}>{label}</Text>
-                    <Text style={computedStyle.SimpleInfoValue}>{value}</Text>
-                </View>
-            </SimpleInfoContext.Provider>
-        );
-    }
 }
