@@ -22,58 +22,6 @@ const Calendar__Root: ViewStyle = function (viewProps)
     };
 };
 
-const Calendar__Header__Navigator__Root: PressableStyle = function (pressableProps, pressableState)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-    const headerContext = Header.ContextHook.useHeaderContext();
-    const calendarContext = CalendarContextHook.useCalendarContext();
-
-    const inheritedStyle = Default(calendarContext.props, calendarContext.state)
-        .Header(headerContext.props)
-        .Navigator(buttonContext.props)
-        .Root(pressableProps, pressableState);
-
-    return {
-        ...inheritedStyle,
-        width: 36,
-        height: 36,
-        borderRadius: 18
-    };
-};
-
-const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-    const headerContext = Header.ContextHook.useHeaderContext();
-    const calendarContext = CalendarContextHook.useCalendarContext();
-
-    const inheritedStyle = Default(calendarContext.props, calendarContext.state)
-        .Header(headerContext.props)
-        .Navigator(buttonContext.props)
-        .Icon(iconProps);
-
-    return {
-        ...inheritedStyle,
-        fontSize: 18
-    };
-};
-
-const Calendar__Header__Navigator: ButtonStyle = function (buttonProps)
-{
-    const headerContext = Header.ContextHook.useHeaderContext();
-    const calendarContext = CalendarContextHook.useCalendarContext();
-
-    const inheritedStyle = Default(calendarContext.props, calendarContext.state)
-        .Header(headerContext.props)
-        .Navigator(buttonProps);
-
-    return {
-        ...inheritedStyle,
-        Root: Calendar__Header__Navigator__Root,
-        Icon: Calendar__Header__Navigator__Icon
-    };
-};
-
 const Calendar__Header__Headline__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
@@ -106,6 +54,83 @@ const Calendar__Header__Headline: ButtonStyle = function (buttonProps)
     };
 };
 
+const Calendar__Header__BackwardNavigator__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const headerContext = Header.ContextHook.useHeaderContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+
+    const inheritedStyle = Default(calendarContext.props, calendarContext.state)
+        .Header(headerContext.props)
+        .BackwardNavigator(buttonContext.props)
+        .Root(pressableProps, pressableState);
+
+    return {
+        ...inheritedStyle,
+        width: 36,
+        height: 36,
+        borderRadius: 18
+    };
+};
+
+const Calendar__Header__BackwardNavigator__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const headerContext = Header.ContextHook.useHeaderContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+
+    const inheritedStyle = Default(calendarContext.props, calendarContext.state)
+        .Header(headerContext.props)
+        .BackwardNavigator(buttonContext.props)
+        .Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        fontSize: 18
+    };
+};
+
+const Calendar__Header__BackwardNavigator: ButtonStyle = function (buttonProps)
+{
+    const headerContext = Header.ContextHook.useHeaderContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+
+    const inheritedStyle = Default(calendarContext.props, calendarContext.state)
+        .Header(headerContext.props)
+        .BackwardNavigator(buttonProps);
+
+    return {
+        ...inheritedStyle,
+        Root: Calendar__Header__BackwardNavigator__Root,
+        Icon: Calendar__Header__BackwardNavigator__Icon
+    };
+};
+
+const Calendar__Header__ForwardNavigator__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const headerContext = Header.ContextHook.useHeaderContext();
+    const calendarContext = CalendarContextHook.useCalendarContext();
+
+    const inheritedStyle = Default(calendarContext.props, calendarContext.state)
+        .Header(headerContext.props)
+        .ForwardNavigator(buttonContext.props)
+        .Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        fontSize: 18
+    };
+};
+
+const Calendar__Header__ForwardNavigator: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...Calendar__Header__BackwardNavigator(buttonProps),
+        Icon: Calendar__Header__ForwardNavigator__Icon
+    };
+};
+
 const Calendar__Header: Header.Style = function (headerProps)
 {
     const calendarContext = CalendarContextHook.useCalendarContext();
@@ -114,8 +139,9 @@ const Calendar__Header: Header.Style = function (headerProps)
 
     return {
         ...inheritedStyle,
-        Navigator: Calendar__Header__Navigator,
-        Headline: Calendar__Header__Headline
+        Headline: Calendar__Header__Headline,
+        BackwardNavigator: Calendar__Header__BackwardNavigator,
+        ForwardNavigator: Calendar__Header__ForwardNavigator
     };
 };
 

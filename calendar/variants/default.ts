@@ -27,67 +27,6 @@ const Calendar__Header__Root: ViewStyle = function (viewProps)
     };
 };
 
-const Calendar__Header__Navigator__Root: PressableStyle = function (pressableProps, pressableState)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Root(pressableProps, pressableState);
-
-    return {
-        ...inheritedStyle,
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        borderWidth: 3,
-        borderStyle: "solid",
-        userSelect: "none",
-        ...pressableState.pressed
-            ? {
-                borderColor: Color.Primary,
-                backgroundColor: Color.Primary
-            }
-            : pressableState.hovered
-                ? {
-                    borderColor: Color.Primary,
-                    backgroundColor: Color.Primary__a10
-                }
-                : {
-                    borderColor: Color.Transparent,
-                    backgroundColor: Color.Transparent
-                }
-    };
-};
-
-const Calendar__Header__Navigator__Icon: IconStyle = function (iconProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-    const pressableContext = PressableContextHook.usePressableContext();
-    const navigatorDirectionContext = Header.ContextHook.useNavigatorDirectionContext();
-
-    const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Icon(iconProps);
-
-    return {
-        ...inheritedStyle,
-        fontSize: 16,
-        color: pressableContext.state.pressed
-            ? Color.Ambient
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Neutral,
-        ...navigatorDirectionContext === "backward" && {paddingRight: 2},
-        ...navigatorDirectionContext === "forward" && {paddingLeft: 2}
-    };
-};
-
-const Calendar__Header__Navigator: ButtonStyle = function (buttonProps)
-{
-    return {
-        ...ButtonVariant.OutlinedCircular(buttonProps),
-        Root: Calendar__Header__Navigator__Root,
-        Icon: Calendar__Header__Navigator__Icon
-    };
-};
-
 const Calendar__Header__Headline__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
@@ -141,12 +80,89 @@ const Calendar__Header__Headline: ButtonStyle = function (buttonProps)
     };
 };
 
+const Calendar__Header__BackwardNavigator__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+
+    const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Root(pressableProps, pressableState);
+
+    return {
+        ...inheritedStyle,
+        width: 40,
+        height: 40,
+        borderRadius: 20,
+        borderWidth: 3,
+        borderStyle: "solid",
+        userSelect: "none",
+        ...pressableState.pressed
+            ? {
+                borderColor: Color.Primary,
+                backgroundColor: Color.Primary
+            }
+            : pressableState.hovered
+                ? {
+                    borderColor: Color.Primary,
+                    backgroundColor: Color.Primary__a10
+                }
+                : {
+                    borderColor: Color.Transparent,
+                    backgroundColor: Color.Transparent
+                }
+    };
+};
+
+const Calendar__Header__BackwardNavigator__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        paddingRight: 2,
+        fontSize: 16,
+        color: pressableContext.state.pressed
+            ? Color.Ambient
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
+    };
+};
+
+const Calendar__Header__BackwardNavigator: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...ButtonVariant.OutlinedCircular(buttonProps),
+        Root: Calendar__Header__BackwardNavigator__Root,
+        Icon: Calendar__Header__BackwardNavigator__Icon
+    };
+};
+
+const Calendar__Header__ForwardNavigator__Icon: IconStyle = function (iconProps)
+{
+    return {
+        ...Calendar__Header__BackwardNavigator__Icon(iconProps),
+        paddingRight: 0,
+        paddingLeft: 2
+    };
+};
+
+const Calendar__Header__ForwardNavigator: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...Calendar__Header__BackwardNavigator(buttonProps),
+        Icon: Calendar__Header__ForwardNavigator__Icon
+    };
+};
+
 const Calendar__Header: Header.Style = function ()
 {
     return {
         Root: Calendar__Header__Root,
-        Navigator: Calendar__Header__Navigator,
-        Headline: Calendar__Header__Headline
+        Headline: Calendar__Header__Headline,
+        BackwardNavigator: Calendar__Header__BackwardNavigator,
+        ForwardNavigator: Calendar__Header__ForwardNavigator
     };
 };
 

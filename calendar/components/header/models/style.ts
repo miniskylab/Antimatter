@@ -6,5 +6,6 @@ import {Props} from "./props";
 export type Style = (headerProps: WithoutStyle<Props>) => {
     Root: ViewStyle;
     Headline: ButtonStyle;
-    Navigator: ButtonStyle;
+    BackwardNavigator: ButtonStyle;
+    ForwardNavigator: ButtonStyle;
 };

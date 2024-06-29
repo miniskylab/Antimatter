@@ -3,7 +3,7 @@ import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antima
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {HeaderContext, NavigatorDirectionContext, Props} from "./models";
+import {HeaderContext, Props} from "./models";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -31,28 +31,24 @@ export function Component({
     return (
         <HeaderContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                <NavigatorDirectionContext.Provider value={"backward"}>
-                    <Button
-                        style={computedStyle.Navigator}
-                        icon={DefaultIconSet.ChevronLeft}
-                        disabled={!onPrevPress}
-                        onPress={onPrevPress}
-                    />
-                </NavigatorDirectionContext.Provider>
+                <Button
+                    style={computedStyle.BackwardNavigator}
+                    icon={DefaultIconSet.ChevronLeft}
+                    disabled={!onPrevPress}
+                    onPress={onPrevPress}
+                />
                 <Button
                     style={computedStyle.Headline}
                     label={headline}
                     disabled={!onHeadlinePress}
                     onPress={onHeadlinePress}
                 />
-                <NavigatorDirectionContext.Provider value={"forward"}>
-                    <Button
-                        style={computedStyle.Navigator}
-                        icon={DefaultIconSet.ChevronRight}
-                        disabled={!onNextPress}
-                        onPress={onNextPress}
-                    />
-                </NavigatorDirectionContext.Provider>
+                <Button
+                    style={computedStyle.ForwardNavigator}
+                    icon={DefaultIconSet.ChevronRight}
+                    disabled={!onNextPress}
+                    onPress={onNextPress}
+                />
             </View>
         </HeaderContext.Provider>
     );
