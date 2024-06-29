@@ -16,7 +16,12 @@ export type MusicPlayerStyle = (musicPlayerProps: WithoutStyle<MusicPlayerProps>
     Subtitle: TextStyle;
     ControlContainer: ViewStyle;
     Timer: TextStyle;
-    Button: ButtonStyle;
+    ShuffleButton: ButtonStyle;
+    PlayPreviousButton: ButtonStyle;
+    PlayPauseButton: ButtonStyle;
+    PlayNextButton: ButtonStyle;
+    RepeatModeButton: ButtonStyle;
+    PlaylistButton: ButtonStyle;
     SongList: ScrollViewStyle;
     SongRow: SongRow.Style;
 };

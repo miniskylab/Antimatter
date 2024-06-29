@@ -1,6 +1,6 @@
 import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {CursorType, isEnvironment, isNotNullAndUndefined, Layer} from "@miniskylab/antimatter-framework";
+import {CursorType, isEnvironment, Layer} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {PressableContextHook, type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
@@ -104,10 +104,9 @@ const MusicPlayer__Timer: TextStyle = function (textProps)
     };
 };
 
-const MusicPlayer__Button__Root: PressableStyle = function (pressableProps, pressableState)
+const MusicPlayer__ShuffleButton__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
-    const buttonTypeContext = MusicPlayerContextHook.useButtonTypeContext();
 
     const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Root(pressableProps, pressableState);
 
@@ -116,62 +115,139 @@ const MusicPlayer__Button__Root: PressableStyle = function (pressableProps, pres
         width: 40,
         height: 40,
         borderColor: Color.Transparent,
-        backgroundColor: Color.Transparent,
-        ...buttonTypeContext === "playlist" && {
-            marginLeft: "auto",
-            alignItems: "flex-end"
-        }
+        backgroundColor: Color.Transparent
     };
 };
 
-const MusicPlayer__Button__Icon: IconStyle = function (iconProps)
+const MusicPlayer__ShuffleButton__Icon: IconStyle = function (iconProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
-    const buttonTypeContext = MusicPlayerContextHook.useButtonTypeContext();
     const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
-
-    const getButtonColor = (isInActiveState?: boolean) => isNotNullAndUndefined(isInActiveState)
-        ? pressableContext.state.pressed
-            ? Color.White
-            : isInActiveState
-                ? Color.Primary
-                : Color.Neutral
-        : pressableContext.state.pressed
-            ? Color.Primary
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Neutral;
 
     const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Icon(iconProps);
 
     return {
         ...inheritedStyle,
-        fontSize: buttonTypeContext === "play-pause"
-            ? 30
-            : buttonTypeContext === "shuffle"
-                ? 23
-                : buttonTypeContext === "repeat"
-                    ? 32
-                    : buttonTypeContext === "playlist"
-                        ? 25
-                        : 20,
-        color: buttonTypeContext === "repeat"
-            ? getButtonColor(musicPlayerContext.props.repeatMode !== RepeatMode.None)
-            : buttonTypeContext === "shuffle"
-                ? getButtonColor(musicPlayerContext.props.isShuffleEnabled)
-                : buttonTypeContext === "playlist"
-                    ? getButtonColor(musicPlayerContext.props.isPlaylistSelectionEnabled)
-                    : getButtonColor()
+        fontSize: 23,
+        color: pressableContext.state.pressed
+            ? Color.White
+            : musicPlayerContext.props.isShuffleEnabled
+                ? Color.Primary
+                : Color.Neutral
     };
 };
 
-const MusicPlayer__Button: ButtonStyle = function (buttonProps)
+const MusicPlayer__ShuffleButton: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.OutlinedCircular(buttonProps),
-        Root: MusicPlayer__Button__Root,
-        Icon: MusicPlayer__Button__Icon
+        Root: MusicPlayer__ShuffleButton__Root,
+        Icon: MusicPlayer__ShuffleButton__Icon
+    };
+};
+
+const MusicPlayer__PlayPreviousButton__Icon: IconStyle = function (iconProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    return {
+        ...MusicPlayer__ShuffleButton__Icon(iconProps),
+        fontSize: 20,
+        color: pressableContext.state.pressed
+            ? Color.Primary
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
+    };
+};
+
+const MusicPlayer__PlayPreviousButton: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...MusicPlayer__ShuffleButton(buttonProps),
+        Icon: MusicPlayer__PlayPreviousButton__Icon
+    };
+};
+
+const MusicPlayer__PlayPauseButton__Icon: IconStyle = function (iconProps)
+{
+    return {
+        ...MusicPlayer__PlayPreviousButton__Icon(iconProps),
+        fontSize: 30
+    };
+};
+
+const MusicPlayer__PlayPauseButton: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...MusicPlayer__PlayPreviousButton(buttonProps),
+        Icon: MusicPlayer__PlayPauseButton__Icon
+    };
+};
+
+const MusicPlayer__PlayNextButton: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...MusicPlayer__PlayPreviousButton(buttonProps)
+    };
+};
+
+const MusicPlayer__RepeatModeButton__Icon: IconStyle = function (iconProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+    const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
+
+    return {
+        ...MusicPlayer__ShuffleButton__Icon(iconProps),
+        fontSize: 32,
+        color: pressableContext.state.pressed
+            ? Color.White
+            : musicPlayerContext.props.repeatMode !== RepeatMode.None
+                ? Color.Primary
+                : Color.Neutral
+    };
+};
+
+const MusicPlayer__RepeatModeButton: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...MusicPlayer__ShuffleButton(buttonProps),
+        Icon: MusicPlayer__RepeatModeButton__Icon
+    };
+};
+
+const MusicPlayer__PlaylistButton__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    return {
+        ...MusicPlayer__ShuffleButton__Root(pressableProps, pressableState),
+        marginLeft: "auto",
+        alignItems: "flex-end"
+    };
+};
+
+const MusicPlayer__PlaylistButton__Icon: IconStyle = function (iconProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+    const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
+
+    return {
+        ...MusicPlayer__ShuffleButton__Icon(iconProps),
+        fontSize: 25,
+        color: pressableContext.state.pressed
+            ? Color.White
+            : musicPlayerContext.props.isPlaylistSelectionEnabled
+                ? Color.Primary
+                : Color.Neutral
+    };
+};
+
+const MusicPlayer__PlaylistButton: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...MusicPlayer__ShuffleButton(buttonProps),
+        Root: MusicPlayer__PlaylistButton__Root,
+        Icon: MusicPlayer__PlaylistButton__Icon
     };
 };
 
@@ -318,7 +394,12 @@ export const Default: MusicPlayerStyle = function ()
         Subtitle: MusicPlayer__Subtitle,
         ControlContainer: MusicPlayer__ControlContainer,
         Timer: MusicPlayer__Timer,
-        Button: MusicPlayer__Button,
+        ShuffleButton: MusicPlayer__ShuffleButton,
+        PlayPreviousButton: MusicPlayer__PlayPreviousButton,
+        PlayPauseButton: MusicPlayer__PlayPauseButton,
+        PlayNextButton: MusicPlayer__PlayNextButton,
+        RepeatModeButton: MusicPlayer__RepeatModeButton,
+        PlaylistButton: MusicPlayer__PlaylistButton,
         SongList: MusicPlayer__SongList,
         SongRow: MusicPlayer__SongRow
     };

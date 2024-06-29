@@ -8,7 +8,7 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {SongRow} from "./components";
 import {RepeatMode} from "./enums";
-import {ButtonTypeContext, MusicPlayerContext, MusicPlayerProps} from "./models";
+import {MusicPlayerContext, MusicPlayerProps} from "./models";
 import * as Variant from "./variants";
 
 /**
@@ -64,36 +64,24 @@ export function MusicPlayer({
                 </View>
                 <View style={computedStyle.ControlContainer}>
                     <Text style={computedStyle.Timer} selectable={false}>{SongRow.Service.getFormattedTime(secTimer)}</Text>
-                    <ButtonTypeContext.Provider value={"shuffle"}>
-                        <Button
-                            style={computedStyle.Button}
-                            icon={DefaultIconSet.Shuffle}
-                            onPress={() => onShuffleModeToggle?.(!isShuffleEnabled)}
-                        />
-                    </ButtonTypeContext.Provider>
-                    <ButtonTypeContext.Provider value={"previous"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.Previous} onPress={onPlayPrevious}/>
-                    </ButtonTypeContext.Provider>
-                    <ButtonTypeContext.Provider value={"play-pause"}>
-                        <Button
-                            style={computedStyle.Button}
-                            icon={isPlaying ? DefaultIconSet.Pause : DefaultIconSet.Play}
-                            onPress={onPlayPauseButtonPress}
-                        />
-                    </ButtonTypeContext.Provider>
-                    <ButtonTypeContext.Provider value={"next"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.Next} onPress={onPlayNext}/>
-                    </ButtonTypeContext.Provider>
-                    <ButtonTypeContext.Provider value={"repeat"}>
-                        <Button style={computedStyle.Button} icon={DefaultIconSet.RepeatAll} onPress={changeRepeatMode}/>
-                    </ButtonTypeContext.Provider>
-                    <ButtonTypeContext.Provider value={"playlist"}>
-                        <Button
-                            style={computedStyle.Button}
-                            icon={DefaultIconSet.Playlist}
-                            onPress={() => onPlaylistSelectionToggle?.(!isPlaylistSelectionEnabled)}
-                        />
-                    </ButtonTypeContext.Provider>
+                    <Button
+                        style={computedStyle.ShuffleButton}
+                        icon={DefaultIconSet.Shuffle}
+                        onPress={() => onShuffleModeToggle?.(!isShuffleEnabled)}
+                    />
+                    <Button style={computedStyle.PlayPreviousButton} icon={DefaultIconSet.Previous} onPress={onPlayPrevious}/>
+                    <Button
+                        style={computedStyle.PlayPauseButton}
+                        icon={isPlaying ? DefaultIconSet.Pause : DefaultIconSet.Play}
+                        onPress={onPlayPauseButtonPress}
+                    />
+                    <Button style={computedStyle.PlayNextButton} icon={DefaultIconSet.Next} onPress={onPlayNext}/>
+                    <Button style={computedStyle.RepeatModeButton} icon={DefaultIconSet.RepeatAll} onPress={changeRepeatMode}/>
+                    <Button
+                        style={computedStyle.PlaylistButton}
+                        icon={DefaultIconSet.Playlist}
+                        onPress={() => onPlaylistSelectionToggle?.(!isPlaylistSelectionEnabled)}
+                    />
                 </View>
                 <ScrollView
                     style={computedStyle.SongList}
