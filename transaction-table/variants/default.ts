@@ -214,24 +214,18 @@ const TransactionTable__Summary__Root: ViewStyle = function (viewProps)
     };
 };
 
-const TransactionTable__Summary__Section: ViewStyle = function (viewProps)
+const TransactionTable__Summary__Section1: ViewStyle = function (viewProps)
 {
-    const sectionContext = Summary.ContextHook.useSectionContext();
-
     return {
         ...ViewVariant.Default(viewProps),
         flexGrow: 1,
         flexBasis: "33%",
         marginBottom: -5,
-        alignItems: sectionContext === "section-1"
-            ? "flex-start"
-            : sectionContext === "section-2"
-                ? "flex-end"
-                : "center"
+        alignItems: "flex-start"
     };
 };
 
-const TransactionTable__Summary__SectionLabel: TextStyle = function (textProps)
+const TransactionTable__Summary__Section1Label: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
@@ -242,29 +236,51 @@ const TransactionTable__Summary__SectionLabel: TextStyle = function (textProps)
     };
 };
 
-const TransactionTable__Summary__SectionAmount: TextStyle = function (textProps)
+const TransactionTable__Summary__Section1Amount: TextStyle = function (textProps)
 {
-    const sectionContext = Summary.ContextHook.useSectionContext();
-
     return {
         ...TextVariant.Default(textProps),
         lineHeight: 25,
         fontSize: 20,
         fontWeight: "bold",
-        color: sectionContext === "section-1" ? Color.Positive : Color.Warning,
+        color: Color.Positive,
         ...useResponsiveStyle("Large", {
             lineHeight: 30
         })
     };
 };
 
+const TransactionTable__Summary__Section2: ViewStyle = function (viewProps)
+{
+    return {
+        ...TransactionTable__Summary__Section1(viewProps),
+        alignItems: "flex-end"
+    };
+};
+
+const TransactionTable__Summary__Section2Label: TextStyle = function (textProps)
+{
+    return {
+        ...TransactionTable__Summary__Section1Label(textProps)
+    };
+};
+
+const TransactionTable__Summary__Section2Amount: TextStyle = function (textProps)
+{
+    return {
+        ...TransactionTable__Summary__Section1Amount(textProps),
+        color: Color.Warning
+    };
+};
+
 const TransactionTable__Summary__Indicator: ViewStyle = function (viewProps)
 {
     return {
-        ...TransactionTable__Summary__Section(viewProps),
+        ...TransactionTable__Summary__Section1(viewProps),
         flexGrow: 0,
         flexShrink: 0,
-        flexBasis: 135
+        flexBasis: 135,
+        alignItems: "center"
     };
 };
 
@@ -466,9 +482,12 @@ const TransactionTable__Summary: Summary.Style = function ()
 {
     return {
         Root: TransactionTable__Summary__Root,
-        Section: TransactionTable__Summary__Section,
-        SectionLabel: TransactionTable__Summary__SectionLabel,
-        SectionAmount: TransactionTable__Summary__SectionAmount,
+        Section1: TransactionTable__Summary__Section1,
+        Section1Label: TransactionTable__Summary__Section1Label,
+        Section1Amount: TransactionTable__Summary__Section1Amount,
+        Section2: TransactionTable__Summary__Section2,
+        Section2Label: TransactionTable__Summary__Section2Label,
+        Section2Amount: TransactionTable__Summary__Section2Amount,
         Indicator: TransactionTable__Summary__Indicator,
         IndicatorIcon: TransactionTable__Summary__Indicator__Icon,
         IndicatorLabel: TransactionTable__Summary__Indicator__Label,

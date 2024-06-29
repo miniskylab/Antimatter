@@ -6,9 +6,12 @@ import {Props} from "./props";
 
 export type Style = (summaryProps: WithoutStyle<Props>) => {
     Root: ViewStyle;
-    Section: ViewStyle;
-    SectionLabel: TextStyle;
-    SectionAmount: TextStyle;
+    Section1: ViewStyle;
+    Section1Label: TextStyle;
+    Section1Amount: TextStyle;
+    Section2: ViewStyle;
+    Section2Label: TextStyle;
+    Section2Amount: TextStyle;
     Indicator: ViewStyle;
     IndicatorIcon: TextStyle;
     IndicatorLabel: TextStyle;
