@@ -23,7 +23,9 @@ export type TransactionTableStyle = (
     DisplayIcon?: IconStyle;
     DisplayMessage?: TextStyle;
     ControlPanel: ViewStyle;
-    ControlButton: ButtonStyle;
+    Button1: ButtonStyle;
+    Button2: ButtonStyle;
+    Button3: ButtonStyle;
     TransactionList: ScrollViewStyle;
     TransactionRecord: TransactionRecord.Style;
     TopHr: ViewStyle;

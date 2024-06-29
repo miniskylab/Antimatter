@@ -19,13 +19,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
 import {Summary, TransactionRecord} from "./components";
-import {
-    ControlButtonTypeContext,
-    TransactionTableContext,
-    TransactionTableProps,
-    TransactionTableRef,
-    TransactionTableState
-} from "./models";
+import {TransactionTableContext, TransactionTableProps, TransactionTableRef, TransactionTableState} from "./models";
 import type {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
@@ -173,33 +167,31 @@ export const TransactionTable = forwardRef(function TransactionTable(
         {
             case TransactionRecord.Mode.Draft:
                 return {
-                    pressButton1: {type: "action", ...saveTransactionButton},
-                    switchButton: {type: "mode", icon: DefaultIconSet.Quill, text: "Draft-Mode", disabled: true},
-                    pressButton2: {type: "cancel", ...cancelButton}
+                    button1: {...saveTransactionButton},
+                    button2: {icon: DefaultIconSet.Quill, text: "Draft-Mode", disabled: true},
+                    button3: {...cancelButton}
                 };
 
             case TransactionRecord.Mode.Edit:
                 return {
-                    pressButton1: {type: "action", ...saveTransactionButton},
-                    switchButton: {type: "mode", icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
-                    pressButton2: {type: "cancel", ...cancelButton}
+                    button1: {...saveTransactionButton},
+                    button2: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
+                    button3: {...cancelButton}
                 };
 
             case TransactionRecord.Mode.Delete:
                 return {
-                    pressButton1: {type: "action", ...deleteTransactionButton},
-                    switchButton: {type: "mode", icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
-                    pressButton2: {type: "cancel", ...cancelButton}
+                    button1: {...deleteTransactionButton},
+                    button2: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
+                    button3: {...cancelButton}
                 };
 
             default:
             case TransactionRecord.Mode.ReadOnly:
                 return {
-                    pressButton1: {type: "action", ...addNewTransactionButton},
-                    switchButton: {type: "mode", icon: DefaultIconSet.Eye, text: "Read-Only", disabled: true},
-                    pressButton2: customButton
-                        ? {type: "custom", ...customButton}
-                        : {type: "cancel", ...cancelButton, disabled: true}
+                    button1: {...addNewTransactionButton},
+                    button2: {icon: DefaultIconSet.Eye, text: "Read-Only", disabled: true},
+                    button3: customButton ? {...customButton} : {...cancelButton, disabled: true}
                 };
         }
     }
@@ -333,36 +325,30 @@ export const TransactionTable = forwardRef(function TransactionTable(
 
     function renderControlPanel(): JSX.Element
     {
-        const {pressButton1, switchButton, pressButton2} = getControlPanel();
+        const {button1, button2, button3} = getControlPanel();
         return (
             <View style={computedStyle.ControlPanel}>
-                <ControlButtonTypeContext.Provider value={pressButton1.type}>
-                    <Button
-                        style={computedStyle.ControlButton}
-                        icon={pressButton1.icon}
-                        label={pressButton1.text}
-                        disabled={pressButton1.disabled}
-                        onPress={pressButton1.onPress}
-                    />
-                </ControlButtonTypeContext.Provider>
-                <ControlButtonTypeContext.Provider value={switchButton.type}>
-                    <Button
-                        style={computedStyle.ControlButton}
-                        icon={switchButton.icon}
-                        label={switchButton.text}
-                        disabled={switchButton.disabled}
-                        onPress={switchButton.onPress}
-                    />
-                </ControlButtonTypeContext.Provider>
-                <ControlButtonTypeContext.Provider value={pressButton2.type}>
-                    <Button
-                        style={computedStyle.ControlButton}
-                        icon={pressButton2.icon}
-                        label={pressButton2.text}
-                        disabled={pressButton2.disabled}
-                        onPress={pressButton2.onPress}
-                    />
-                </ControlButtonTypeContext.Provider>
+                <Button
+                    style={computedStyle.Button1}
+                    icon={button1.icon}
+                    label={button1.text}
+                    disabled={button1.disabled}
+                    onPress={button1.onPress}
+                />
+                <Button
+                    style={computedStyle.Button2}
+                    icon={button2.icon}
+                    label={button2.text}
+                    disabled={button2.disabled}
+                    onPress={button2.onPress}
+                />
+                <Button
+                    style={computedStyle.Button3}
+                    icon={button3.icon}
+                    label={button3.text}
+                    disabled={button3.disabled}
+                    onPress={button3.onPress}
+                />
             </View>
         );
     }

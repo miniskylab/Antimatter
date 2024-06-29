@@ -526,15 +526,9 @@ const TransactionTable__ControlPanel: ViewStyle = function (viewProps)
     };
 };
 
-const TransactionTable__ControlButton__Root: PressableStyle = function (pressableProps, pressableState)
+const TransactionTable__Button1__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
-    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
-    const controlButtonTypeContext = TransactionTableContextHook.useControlButtonTypeContext();
-
-    const isModeButton = controlButtonTypeContext === "mode";
-    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
-    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
@@ -548,33 +542,19 @@ const TransactionTable__ControlButton__Root: PressableStyle = function (pressabl
         paddingTop: 5,
         paddingBottom: 4,
         borderWidth: 0,
-        backgroundColor: Color.Transparent,
-        ...isModeButton && {
-            opacity: 1,
-            paddingLeft: 15,
-            paddingRight: 15,
-            backgroundColor: isDraftMode
-                ? Color.Primary
-                : isReadOnlyMode
-                    ? Color.Neutral
-                    : Color.Transparent
-        }
+        backgroundColor: Color.Transparent
     };
 };
 
-const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
+const TransactionTable__Button1__Icon: IconStyle = function (iconProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
     const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
-    const controlButtonTypeContext = TransactionTableContextHook.useControlButtonTypeContext();
 
-    const isModeButton = controlButtonTypeContext === "mode";
-    const isActionButton = controlButtonTypeContext === "action";
     const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
     const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
     const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
-    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
 
@@ -582,41 +562,27 @@ const TransactionTable__ControlButton__Icon: IconStyle = function (iconProps)
         ...inheritedStyle,
         flexGrow: 1,
         fontSize: 28,
-        color: Color.Neutral,
-        ...isActionButton && !buttonContext.props.disabled && {
-            color: isDraftMode || isEditMode
-                ? Color.Primary
-                : isDeleteMode
-                    ? Color.Tomato
-                    : Color.Neutral
-        },
-        ...isModeButton && {
-            color: isDraftMode || isReadOnlyMode
-                ? Color.Background
-                : isEditMode
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : isDraftMode || isEditMode
                     ? Color.Primary
                     : isDeleteMode
                         ? Color.Tomato
                         : Color.Neutral
-        },
-        ...pressableContext.state.hovered && {color: Color.White},
-        ...pressableContext.state.pressed && {color: Color.Gray}
     };
 };
 
-const TransactionTable__ControlButton__Label: TextStyle = function (textProps)
+const TransactionTable__Button1__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
     const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
-    const controlButtonTypeContext = TransactionTableContextHook.useControlButtonTypeContext();
 
-    const isModeButton = controlButtonTypeContext === "mode";
-    const isActionButton = controlButtonTypeContext === "action";
     const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
     const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
     const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
-    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
@@ -628,35 +594,144 @@ const TransactionTable__ControlButton__Label: TextStyle = function (textProps)
         paddingHorizontal: 0,
         fontSize: 12,
         fontWeight: "bold",
-        color: Color.Neutral,
-        ...isActionButton && !buttonContext.props.disabled && {
-            color: isDraftMode || isEditMode
-                ? Color.Primary
-                : isDeleteMode
-                    ? Color.Tomato
-                    : Color.Neutral
-        },
-        ...isModeButton && {
-            color: isDraftMode || isReadOnlyMode
-                ? Color.Background
-                : isEditMode
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : isDraftMode || isEditMode
                     ? Color.Primary
                     : isDeleteMode
                         ? Color.Tomato
                         : Color.Neutral
-        },
-        ...pressableContext.state.hovered && {color: Color.White},
-        ...pressableContext.state.pressed && {color: Color.Gray}
     };
 };
 
-const TransactionTable__ControlButton: ButtonStyle = function (buttonProps)
+const TransactionTable__Button1: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.OutlinedRectangular(buttonProps),
-        Root: TransactionTable__ControlButton__Root,
-        Icon: TransactionTable__ControlButton__Icon,
-        Label: TransactionTable__ControlButton__Label
+        Root: TransactionTable__Button1__Root,
+        Icon: TransactionTable__Button1__Icon,
+        Label: TransactionTable__Button1__Label
+    };
+};
+
+const TransactionTable__Button2__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
+
+    return {
+        ...TransactionTable__Button1__Root(pressableProps, pressableState),
+        opacity: 1,
+        paddingLeft: 15,
+        paddingRight: 15,
+        backgroundColor: isDraftMode
+            ? Color.Primary
+            : isReadOnlyMode
+                ? Color.Neutral
+                : Color.Transparent
+    };
+};
+
+const TransactionTable__Button2__Icon: IconStyle = function (iconProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
+    const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
+    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
+
+    return {
+        ...TransactionTable__Button1__Icon(iconProps),
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : isDraftMode || isReadOnlyMode
+                    ? Color.Background
+                    : isEditMode
+                        ? Color.Primary
+                        : isDeleteMode
+                            ? Color.Tomato
+                            : Color.Neutral
+    };
+};
+
+const TransactionTable__Button2__Label: TextStyle = function (textProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
+    const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
+    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
+
+    return {
+        ...TransactionTable__Button1__Label(textProps),
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : isDraftMode || isReadOnlyMode
+                    ? Color.Background
+                    : isEditMode
+                        ? Color.Primary
+                        : isDeleteMode
+                            ? Color.Tomato
+                            : Color.Neutral
+    };
+};
+
+const TransactionTable__Button2: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...TransactionTable__Button1(buttonProps),
+        Root: TransactionTable__Button2__Root,
+        Icon: TransactionTable__Button2__Icon,
+        Label: TransactionTable__Button2__Label
+    };
+};
+
+const TransactionTable__Button3__Icon: IconStyle = function (iconProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    return {
+        ...TransactionTable__Button1__Icon(iconProps),
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
+    };
+};
+
+const TransactionTable__Button3__Label: TextStyle = function (textProps)
+{
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    return {
+        ...TransactionTable__Button1__Label(textProps),
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
+    };
+};
+
+const TransactionTable__Button3: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...TransactionTable__Button1(buttonProps),
+        Icon: TransactionTable__Button3__Icon,
+        Label: TransactionTable__Button3__Label
     };
 };
 
@@ -1273,7 +1348,9 @@ export const Default: TransactionTableStyle = function ()
         DisplayIcon: TransactionTable__DisplayIcon,
         DisplayMessage: TransactionTable__DisplayMessage,
         ControlPanel: TransactionTable__ControlPanel,
-        ControlButton: TransactionTable__ControlButton,
+        Button1: TransactionTable__Button1,
+        Button2: TransactionTable__Button2,
+        Button3: TransactionTable__Button3,
         TransactionList: TransactionTable__TransactionList,
         TransactionRecord: TransactionTable__TransactionRecord,
         TopHr: TransactionTable__TopHr,
