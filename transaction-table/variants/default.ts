@@ -1217,23 +1217,28 @@ const TransactionTable__DisplayMessage: TextStyle = function (textProps)
     };
 };
 
-const TransactionTable__Hr: ViewStyle = function (viewProps)
+const TransactionTable__TopHr: ViewStyle = function (viewProps)
 {
-    const isRunningOnMobileApp = useEnvironment("MobileApp");
-    const hrPosition = TransactionTableContextHook.useHrPositionContext();
-
     return {
         ...ViewVariant.Default(viewProps),
         position: "absolute",
+        top: 58.4,
         width: "100%",
         height: 2,
         zIndex: Layer.Lower,
-        backgroundColor: Color.Neutral,
-        ...hrPosition === "top" && {top: 58.4},
-        ...hrPosition === "bottom" && {
-            bottom: -0.4,
-            ...isRunningOnMobileApp && {backgroundColor: Color.Transparent}
-        }
+        backgroundColor: Color.Neutral
+    };
+};
+
+const TransactionTable__BottomHr: ViewStyle = function (viewProps)
+{
+    const isRunningOnMobileApp = useEnvironment("MobileApp");
+
+    return {
+        ...TransactionTable__TopHr(viewProps),
+        top: undefined,
+        bottom: -0.4,
+        ...isRunningOnMobileApp && {backgroundColor: Color.Transparent}
     };
 };
 
@@ -1252,6 +1257,7 @@ export const Default: TransactionTableStyle = function ()
         ControlButton: TransactionTable__ControlButton,
         TransactionList: TransactionTable__TransactionList,
         TransactionRecord: TransactionTable__TransactionRecord,
-        Hr: TransactionTable__Hr
+        TopHr: TransactionTable__TopHr,
+        BottomHr: TransactionTable__BottomHr
     };
 };

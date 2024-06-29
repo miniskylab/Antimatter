@@ -21,7 +21,6 @@ import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle
 import {Summary, TransactionRecord} from "./components";
 import {
     ControlButtonTypeContext,
-    HrPositionContext,
     TransactionTableContext,
     TransactionTableProps,
     TransactionTableRef,
@@ -152,9 +151,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                 <View style={computedStyle.MainContainer}>
                     {renderControlPanel()}
                     {renderDisplayPanel()}
-                    <HrPositionContext.Provider value={"top"}>
-                        <View style={computedStyle.Hr}/>
-                    </HrPositionContext.Provider>
+                    <View style={computedStyle.TopHr}/>
                     <ScrollView
                         style={computedStyle.TransactionList}
                         showsVerticalScrollIndicator={false}
@@ -164,9 +161,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                     >
                         {renderTransactions()}
                     </ScrollView>
-                    <HrPositionContext.Provider value={"bottom"}>
-                        <View style={computedStyle.Hr}/>
-                    </HrPositionContext.Provider>
+                    <View style={computedStyle.BottomHr}/>
                 </View>
             </View>
         </TransactionTableContext.Provider>

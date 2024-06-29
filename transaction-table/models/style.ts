@@ -26,5 +26,6 @@ export type TransactionTableStyle = (
     ControlButton: ButtonStyle;
     TransactionList: ScrollViewStyle;
     TransactionRecord: TransactionRecord.Style;
-    Hr: ViewStyle;
+    TopHr: ViewStyle;
+    BottomHr: ViewStyle;
 };
