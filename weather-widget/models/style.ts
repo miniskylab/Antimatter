@@ -32,9 +32,9 @@ export type WeatherWidgetStyle = (weatherWidgetProps: WithoutStyle<WeatherWidget
     UvIndexDescription: TextStyle;
     WindIcon: IconStyle;
     WindSpeed: TextStyle;
-    SimpleWeatherDataLeft: SimpleWeatherData.Style;
-    SimpleWeatherDataMiddle: SimpleWeatherData.Style;
-    SimpleWeatherDataRight: SimpleWeatherData.Style;
+    SimpleWeatherData1: SimpleWeatherData.Style;
+    SimpleWeatherData2: SimpleWeatherData.Style;
+    SimpleWeatherData3: SimpleWeatherData.Style;
     TimeFrameForecastDataContainer: ViewStyle;
     TimeFrameForecastData: TimeFrameForecastData.Style;
 };

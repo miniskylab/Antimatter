@@ -320,7 +320,7 @@ const WeatherWidget__WindSpeed: TextStyle = function (textProps)
     };
 };
 
-const WeatherWidget__SimpleWeatherDataLeft__Root: ViewStyle = function (viewProps)
+const WeatherWidget__SimpleWeatherData1__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -334,7 +334,7 @@ const WeatherWidget__SimpleWeatherDataLeft__Root: ViewStyle = function (viewProp
     };
 };
 
-const WeatherWidget__SimpleWeatherDataLeft__Icon: IconStyle = function (iconProps)
+const WeatherWidget__SimpleWeatherData1__Icon: IconStyle = function (iconProps)
 {
     return {
         ...IconVariant.Default(iconProps),
@@ -343,7 +343,7 @@ const WeatherWidget__SimpleWeatherDataLeft__Icon: IconStyle = function (iconProp
     };
 };
 
-const WeatherWidget__SimpleWeatherDataLeft__TitleContainer: ViewStyle = function (viewProps)
+const WeatherWidget__SimpleWeatherData1__TitleContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -352,7 +352,7 @@ const WeatherWidget__SimpleWeatherDataLeft__TitleContainer: ViewStyle = function
     };
 };
 
-const WeatherWidget__SimpleWeatherDataLeft__MainTitle: TextStyle = function (textProps)
+const WeatherWidget__SimpleWeatherData1__MainTitle: TextStyle = function (textProps)
 {
     const simpleWeatherDataContext = SimpleWeatherData.ContextHook.useSimpleWeatherDataContext();
 
@@ -370,7 +370,7 @@ const WeatherWidget__SimpleWeatherDataLeft__MainTitle: TextStyle = function (tex
     };
 };
 
-const WeatherWidget__SimpleWeatherDataLeft__SubTitle: TextStyle = function (textProps)
+const WeatherWidget__SimpleWeatherData1__SubTitle: TextStyle = function (textProps)
 {
     const simpleWeatherDataContext = SimpleWeatherData.ContextHook.useSimpleWeatherDataContext();
 
@@ -388,49 +388,49 @@ const WeatherWidget__SimpleWeatherDataLeft__SubTitle: TextStyle = function (text
     };
 };
 
-const WeatherWidget__SimpleWeatherDataLeft: SimpleWeatherData.Style = function ()
+const WeatherWidget__SimpleWeatherData1: SimpleWeatherData.Style = function ()
 {
     return {
-        Root: WeatherWidget__SimpleWeatherDataLeft__Root,
-        Icon: WeatherWidget__SimpleWeatherDataLeft__Icon,
-        TitleContainer: WeatherWidget__SimpleWeatherDataLeft__TitleContainer,
-        MainTitle: WeatherWidget__SimpleWeatherDataLeft__MainTitle,
-        Subtitle: WeatherWidget__SimpleWeatherDataLeft__SubTitle
+        Root: WeatherWidget__SimpleWeatherData1__Root,
+        Icon: WeatherWidget__SimpleWeatherData1__Icon,
+        TitleContainer: WeatherWidget__SimpleWeatherData1__TitleContainer,
+        MainTitle: WeatherWidget__SimpleWeatherData1__MainTitle,
+        Subtitle: WeatherWidget__SimpleWeatherData1__SubTitle
     };
 };
 
-const WeatherWidget__SimpleWeatherDataMiddle__Root: ViewStyle = function (viewProps)
+const WeatherWidget__SimpleWeatherData2__Root: ViewStyle = function (viewProps)
 {
     return {
-        ...WeatherWidget__SimpleWeatherDataLeft__Root(viewProps),
+        ...WeatherWidget__SimpleWeatherData1__Root(viewProps),
         justifyContent: "center",
         paddingLeft: 0
     };
 };
 
-const WeatherWidget__SimpleWeatherDataMiddle: SimpleWeatherData.Style = function (simpleWeatherDataProps)
+const WeatherWidget__SimpleWeatherData2: SimpleWeatherData.Style = function (simpleWeatherDataProps)
 {
     return {
-        ...WeatherWidget__SimpleWeatherDataLeft(simpleWeatherDataProps),
-        Root: WeatherWidget__SimpleWeatherDataMiddle__Root
+        ...WeatherWidget__SimpleWeatherData1(simpleWeatherDataProps),
+        Root: WeatherWidget__SimpleWeatherData2__Root
     };
 };
 
-const WeatherWidget__SimpleWeatherDataRight__Root: ViewStyle = function (viewProps)
+const WeatherWidget__SimpleWeatherData3__Root: ViewStyle = function (viewProps)
 {
     return {
-        ...WeatherWidget__SimpleWeatherDataLeft__Root(viewProps),
+        ...WeatherWidget__SimpleWeatherData1__Root(viewProps),
         justifyContent: "flex-end",
         paddingLeft: 0,
         paddingRight: 15
     };
 };
 
-const WeatherWidget__SimpleWeatherDataRight: SimpleWeatherData.Style = function (simpleWeatherDataProps)
+const WeatherWidget__SimpleWeatherData3: SimpleWeatherData.Style = function (simpleWeatherDataProps)
 {
     return {
-        ...WeatherWidget__SimpleWeatherDataLeft(simpleWeatherDataProps),
-        Root: WeatherWidget__SimpleWeatherDataRight__Root
+        ...WeatherWidget__SimpleWeatherData1(simpleWeatherDataProps),
+        Root: WeatherWidget__SimpleWeatherData3__Root
     };
 };
 
@@ -637,9 +637,9 @@ export const Default: WeatherWidgetStyle = function ()
         UvIndexDescription: WeatherWidget__UvIndexDescription,
         WindIcon: WeatherWidget__WindIcon,
         WindSpeed: WeatherWidget__WindSpeed,
-        SimpleWeatherDataLeft: WeatherWidget__SimpleWeatherDataLeft,
-        SimpleWeatherDataMiddle: WeatherWidget__SimpleWeatherDataMiddle,
-        SimpleWeatherDataRight: WeatherWidget__SimpleWeatherDataRight,
+        SimpleWeatherData1: WeatherWidget__SimpleWeatherData1,
+        SimpleWeatherData2: WeatherWidget__SimpleWeatherData2,
+        SimpleWeatherData3: WeatherWidget__SimpleWeatherData3,
         TimeFrameForecastDataContainer: WeatherWidget__TimeFrameForecastDataContainer,
         TimeFrameForecastData: WeatherWidget__TimeFrameForecastData
     };

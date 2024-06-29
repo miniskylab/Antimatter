@@ -81,21 +81,21 @@ export function WeatherWidget({
                     </View>
                 </View>
                 <SimpleWeatherData.Component
-                    style={computedStyle.SimpleWeatherDataLeft}
+                    style={computedStyle.SimpleWeatherData1}
                     icon={DefaultIconSet.NotAllowed}
                     title={"--"}
                     subtitle={"--"}
                     {...simpleWeatherData1}
                 />
                 <SimpleWeatherData.Component
-                    style={computedStyle.SimpleWeatherDataMiddle}
+                    style={computedStyle.SimpleWeatherData2}
                     icon={DefaultIconSet.NotAllowed}
                     title={"--"}
                     subtitle={"--"}
                     {...simpleWeatherData2}
                 />
                 <SimpleWeatherData.Component
-                    style={computedStyle.SimpleWeatherDataRight}
+                    style={computedStyle.SimpleWeatherData3}
                     icon={DefaultIconSet.NotAllowed}
                     title={"--"}
                     subtitle={"--"}

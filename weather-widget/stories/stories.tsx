@@ -140,7 +140,7 @@ export const Playground: Story = {
             {
                 timeFrameName: "Today",
                 temperatureRangeForecastData: {
-                    icon: DefaultIconSet.Rain,
+                    icon: DefaultIconSet.Thunderstorm,
                     value: "7 - 15°C",
                     highlightColor: TimeFrameForecastData.HighlightColor.Blue
                 },
@@ -157,23 +157,6 @@ export const Playground: Story = {
             {
                 timeFrameName: "Tue",
                 temperatureRangeForecastData: {
-                    icon: DefaultIconSet.Thunderstorm,
-                    value: "12 - 14°C",
-                    highlightColor: TimeFrameForecastData.HighlightColor.Blue
-                },
-                precipitationProbabilityForecastData: {
-                    icon: DefaultIconSet.Umbrella,
-                    value: "70%"
-                },
-                airQualityIndexForecastData: {
-                    icon: DefaultIconSet.AirQualityIndex,
-                    value: "168",
-                    highlightColor: TimeFrameForecastData.HighlightColor.Purple
-                }
-            },
-            {
-                timeFrameName: "Wed",
-                temperatureRangeForecastData: {
                     icon: DefaultIconSet.Cloudy,
                     value: "18 - 24°C"
                 },
@@ -188,7 +171,7 @@ export const Playground: Story = {
                 }
             },
             {
-                timeFrameName: "Thu",
+                timeFrameName: "Wed",
                 temperatureRangeForecastData: {
                     icon: DefaultIconSet.PartlyCloudyDay,
                     value: "19 - 28°C"
@@ -205,7 +188,7 @@ export const Playground: Story = {
                 }
             },
             {
-                timeFrameName: "Fri",
+                timeFrameName: "Thu",
                 temperatureRangeForecastData: {
                     icon: DefaultIconSet.Sun,
                     value: "29 - 38°C",
