@@ -5,7 +5,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {SimpleWeatherData, TimeFrameForecastData} from "./components";
-import {PositionContext, WeatherWidgetContext, WeatherWidgetProps} from "./models";
+import {WeatherWidgetContext, WeatherWidgetProps} from "./models";
 import * as Variant from "./variants";
 
 /**
@@ -62,14 +62,14 @@ export function WeatherWidget({
                     </View>
                     <View style={computedStyle.TemperatureRangeValueContainer}>
                         <View style={computedStyle.TemperatureRangeHr}/>
-                        {renderTemperatureRangeValue("left", temperatureData?.minTemperatureValue ?? "--")}
-                        {renderTemperatureRangeValue("middle", temperatureData?.currentTemperatureValue ?? "--")}
-                        {renderTemperatureRangeValue("right", temperatureData?.maxTemperatureValue ?? "--")}
+                        <Text style={computedStyle.TemperatureRangeMinValue}>{temperatureData?.minTemperatureValue ?? "--"}</Text>
+                        <Text style={computedStyle.TemperatureRangeCurrentValue}>{temperatureData?.currentTemperatureValue ?? "--"}</Text>
+                        <Text style={computedStyle.TemperatureRangeMaxValue}>{temperatureData?.maxTemperatureValue ?? "--"}</Text>
                     </View>
                     <View style={computedStyle.TemperatureRangeLabelContainer}>
-                        {renderTemperatureRangeLabel("left", temperatureData?.minTemperatureLabel ?? "Min")}
-                        {renderTemperatureRangeLabel("middle", temperatureData?.currentTemperatureLabel ?? "Current")}
-                        {renderTemperatureRangeLabel("right", temperatureData?.maxTemperatureLabel ?? "Max")}
+                        <Text style={computedStyle.TemperatureRangeMinLabel}>{temperatureData?.minTemperatureLabel}</Text>
+                        <Text style={computedStyle.TemperatureRangeCurrentLabel}>{temperatureData?.currentTemperatureLabel}</Text>
+                        <Text style={computedStyle.TemperatureRangeMaxLabel}>{temperatureData?.maxTemperatureLabel}</Text>
                     </View>
                     <View style={computedStyle.ShortWeatherDataContainer}>
                         <Icon style={computedStyle.UvIndexIcon} name={uvIndexData?.icon ?? DefaultIconSet.UvIndex}/>
@@ -80,9 +80,27 @@ export function WeatherWidget({
                         <Text style={computedStyle.WindSpeed}>{windData?.speedAndGusts ?? "--"}</Text>
                     </View>
                 </View>
-                {renderSimpleWeatherDataSection("left", simpleWeatherData1)}
-                {renderSimpleWeatherDataSection("middle", simpleWeatherData2)}
-                {renderSimpleWeatherDataSection("right", simpleWeatherData3)}
+                <SimpleWeatherData.Component
+                    style={computedStyle.SimpleWeatherDataLeft}
+                    icon={DefaultIconSet.NotAllowed}
+                    title={"--"}
+                    subtitle={"--"}
+                    {...simpleWeatherData1}
+                />
+                <SimpleWeatherData.Component
+                    style={computedStyle.SimpleWeatherDataMiddle}
+                    icon={DefaultIconSet.NotAllowed}
+                    title={"--"}
+                    subtitle={"--"}
+                    {...simpleWeatherData2}
+                />
+                <SimpleWeatherData.Component
+                    style={computedStyle.SimpleWeatherDataRight}
+                    icon={DefaultIconSet.NotAllowed}
+                    title={"--"}
+                    subtitle={"--"}
+                    {...simpleWeatherData3}
+                />
                 {timeFrameForecastData && timeFrameForecastData.length > 0 && (
                     <View style={computedStyle.TimeFrameForecastDataContainer}>
                         {timeFrameForecastData.map(x => (
@@ -93,37 +111,4 @@ export function WeatherWidget({
             </View>
         </WeatherWidgetContext.Provider>
     );
-
-    function renderTemperatureRangeValue(position: PositionContext, value: string)
-    {
-        return (
-            <PositionContext.Provider value={position}>
-                <Text style={computedStyle.TemperatureRangeValue}>{value}</Text>
-            </PositionContext.Provider>
-        );
-    }
-
-    function renderTemperatureRangeLabel(position: PositionContext, label: string)
-    {
-        return (
-            <PositionContext.Provider value={position}>
-                <Text style={computedStyle.TemperatureRangeLabel}>{label}</Text>
-            </PositionContext.Provider>
-        );
-    }
-
-    function renderSimpleWeatherDataSection(position: PositionContext, simpleWeatherData?: SimpleWeatherData.Props)
-    {
-        return (
-            <PositionContext.Provider value={position}>
-                <SimpleWeatherData.Component
-                    style={computedStyle.SimpleWeatherData}
-                    icon={DefaultIconSet.NotAllowed}
-                    title={"--"}
-                    subtitle={"--"}
-                    {...simpleWeatherData}
-                />
-            </PositionContext.Provider>
-        );
-    }
 }

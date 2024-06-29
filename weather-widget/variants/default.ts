@@ -164,7 +164,7 @@ const WeatherWidget__TemperatureRangeValueContainer: ViewStyle = function (viewP
     };
 };
 
-const WeatherWidget__TemperatureRangeValue: TextStyle = function (textProps)
+const WeatherWidget__TemperatureRangeMinValue: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
@@ -173,6 +173,20 @@ const WeatherWidget__TemperatureRangeValue: TextStyle = function (textProps)
         fontWeight: "bold",
         color: Color.Neutral,
         backgroundColor: Color.Ambient
+    };
+};
+
+const WeatherWidget__TemperatureRangeCurrentValue: TextStyle = function (textProps)
+{
+    return {
+        ...WeatherWidget__TemperatureRangeMinValue(textProps)
+    };
+};
+
+const WeatherWidget__TemperatureRangeMaxValue: TextStyle = function (textProps)
+{
+    return {
+        ...WeatherWidget__TemperatureRangeMinValue(textProps)
     };
 };
 
@@ -198,19 +212,32 @@ const WeatherWidget__TemperatureRangeLabelContainer: ViewStyle = function (viewP
     };
 };
 
-const WeatherWidget__TemperatureRangeLabel: TextStyle = function (textProps)
+const WeatherWidget__TemperatureRangeMinLabel: TextStyle = function (textProps)
 {
-    const positionContext = WeatherWidgetContextHook.usePositionContext();
+    return {
+        ...TextVariant.Default(textProps),
+        fontSize: 11,
+        fontStyle: "italic",
+        color: Color.Gray
+    };
+};
+
+const WeatherWidget__TemperatureRangeCurrentLabel: TextStyle = function (textProps)
+{
     const weatherWidgetContext = WeatherWidgetContextHook.useWeatherWidgetContext();
 
     const minTemperatureValueStringLength = weatherWidgetContext.props.temperatureData?.minTemperatureValue.length ?? 0;
 
     return {
-        ...TextVariant.Default(textProps),
-        fontSize: 11,
-        fontStyle: "italic",
-        color: Color.Gray,
-        ...positionContext === "middle" && minTemperatureValueStringLength < 4 && {paddingRight: 10}
+        ...WeatherWidget__TemperatureRangeMinLabel(textProps),
+        ...minTemperatureValueStringLength < 4 && {paddingRight: 10}
+    };
+};
+
+const WeatherWidget__TemperatureRangeMaxLabel: TextStyle = function (textProps)
+{
+    return {
+        ...WeatherWidget__TemperatureRangeMinLabel(textProps)
     };
 };
 
@@ -293,29 +320,21 @@ const WeatherWidget__WindSpeed: TextStyle = function (textProps)
     };
 };
 
-const WeatherWidget__SimpleWeatherData__Root: ViewStyle = function (viewProps)
+const WeatherWidget__SimpleWeatherDataLeft__Root: ViewStyle = function (viewProps)
 {
-    const positionContext = WeatherWidgetContextHook.usePositionContext();
-
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         flexBasis: "33.333333%",
+        justifyContent: "flex-start",
         height: 64,
+        paddingLeft: 15,
         borderTopWidth: 1,
-        borderTopColor: Color.Background,
-        ...positionContext === "left" && {
-            justifyContent: "flex-start",
-            paddingLeft: 15
-        },
-        ...positionContext === "right" && {
-            justifyContent: "flex-end",
-            paddingRight: 15
-        }
+        borderTopColor: Color.Background
     };
 };
 
-const WeatherWidget__SimpleWeatherData__Icon: IconStyle = function (iconProps)
+const WeatherWidget__SimpleWeatherDataLeft__Icon: IconStyle = function (iconProps)
 {
     return {
         ...IconVariant.Default(iconProps),
@@ -324,7 +343,7 @@ const WeatherWidget__SimpleWeatherData__Icon: IconStyle = function (iconProps)
     };
 };
 
-const WeatherWidget__SimpleWeatherData__TitleContainer: ViewStyle = function (viewProps)
+const WeatherWidget__SimpleWeatherDataLeft__TitleContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -333,7 +352,7 @@ const WeatherWidget__SimpleWeatherData__TitleContainer: ViewStyle = function (vi
     };
 };
 
-const WeatherWidget__SimpleWeatherData__MainTitle: TextStyle = function (textProps)
+const WeatherWidget__SimpleWeatherDataLeft__MainTitle: TextStyle = function (textProps)
 {
     const simpleWeatherDataContext = SimpleWeatherData.ContextHook.useSimpleWeatherDataContext();
 
@@ -351,7 +370,7 @@ const WeatherWidget__SimpleWeatherData__MainTitle: TextStyle = function (textPro
     };
 };
 
-const WeatherWidget__SimpleWeatherData__SubTitle: TextStyle = function (textProps)
+const WeatherWidget__SimpleWeatherDataLeft__SubTitle: TextStyle = function (textProps)
 {
     const simpleWeatherDataContext = SimpleWeatherData.ContextHook.useSimpleWeatherDataContext();
 
@@ -369,14 +388,49 @@ const WeatherWidget__SimpleWeatherData__SubTitle: TextStyle = function (textProp
     };
 };
 
-const WeatherWidget__SimpleWeatherData: SimpleWeatherData.Style = function ()
+const WeatherWidget__SimpleWeatherDataLeft: SimpleWeatherData.Style = function ()
 {
     return {
-        Root: WeatherWidget__SimpleWeatherData__Root,
-        Icon: WeatherWidget__SimpleWeatherData__Icon,
-        TitleContainer: WeatherWidget__SimpleWeatherData__TitleContainer,
-        MainTitle: WeatherWidget__SimpleWeatherData__MainTitle,
-        Subtitle: WeatherWidget__SimpleWeatherData__SubTitle
+        Root: WeatherWidget__SimpleWeatherDataLeft__Root,
+        Icon: WeatherWidget__SimpleWeatherDataLeft__Icon,
+        TitleContainer: WeatherWidget__SimpleWeatherDataLeft__TitleContainer,
+        MainTitle: WeatherWidget__SimpleWeatherDataLeft__MainTitle,
+        Subtitle: WeatherWidget__SimpleWeatherDataLeft__SubTitle
+    };
+};
+
+const WeatherWidget__SimpleWeatherDataMiddle__Root: ViewStyle = function (viewProps)
+{
+    return {
+        ...WeatherWidget__SimpleWeatherDataLeft__Root(viewProps),
+        justifyContent: "center",
+        paddingLeft: 0
+    };
+};
+
+const WeatherWidget__SimpleWeatherDataMiddle: SimpleWeatherData.Style = function (simpleWeatherDataProps)
+{
+    return {
+        ...WeatherWidget__SimpleWeatherDataLeft(simpleWeatherDataProps),
+        Root: WeatherWidget__SimpleWeatherDataMiddle__Root
+    };
+};
+
+const WeatherWidget__SimpleWeatherDataRight__Root: ViewStyle = function (viewProps)
+{
+    return {
+        ...WeatherWidget__SimpleWeatherDataLeft__Root(viewProps),
+        justifyContent: "flex-end",
+        paddingLeft: 0,
+        paddingRight: 15
+    };
+};
+
+const WeatherWidget__SimpleWeatherDataRight: SimpleWeatherData.Style = function (simpleWeatherDataProps)
+{
+    return {
+        ...WeatherWidget__SimpleWeatherDataLeft(simpleWeatherDataProps),
+        Root: WeatherWidget__SimpleWeatherDataRight__Root
     };
 };
 
@@ -567,10 +621,14 @@ export const Default: WeatherWidgetStyle = function ()
         WeatherConditionLabel: WeatherWidget__WeatherConditionLabel,
         MainContainer: WeatherWidget__MainContainer,
         TemperatureRangeValueContainer: WeatherWidget__TemperatureRangeValueContainer,
-        TemperatureRangeValue: WeatherWidget__TemperatureRangeValue,
+        TemperatureRangeMinValue: WeatherWidget__TemperatureRangeMinValue,
+        TemperatureRangeCurrentValue: WeatherWidget__TemperatureRangeCurrentValue,
+        TemperatureRangeMaxValue: WeatherWidget__TemperatureRangeMaxValue,
         TemperatureRangeHr: WeatherWidget__TemperatureRangeHr,
         TemperatureRangeLabelContainer: WeatherWidget__TemperatureRangeLabelContainer,
-        TemperatureRangeLabel: WeatherWidget__TemperatureRangeLabel,
+        TemperatureRangeMinLabel: WeatherWidget__TemperatureRangeMinLabel,
+        TemperatureRangeCurrentLabel: WeatherWidget__TemperatureRangeCurrentLabel,
+        TemperatureRangeMaxLabel: WeatherWidget__TemperatureRangeMaxLabel,
         FeelsLikeContainer: WeatherWidget__FeelsLikeContainer,
         FeelsLikeLabel: WeatherWidget__FeelsLikeLabel,
         FeelsLikeValue: WeatherWidget__FeelsLikeValue,
@@ -579,7 +637,9 @@ export const Default: WeatherWidgetStyle = function ()
         UvIndexDescription: WeatherWidget__UvIndexDescription,
         WindIcon: WeatherWidget__WindIcon,
         WindSpeed: WeatherWidget__WindSpeed,
-        SimpleWeatherData: WeatherWidget__SimpleWeatherData,
+        SimpleWeatherDataLeft: WeatherWidget__SimpleWeatherDataLeft,
+        SimpleWeatherDataMiddle: WeatherWidget__SimpleWeatherDataMiddle,
+        SimpleWeatherDataRight: WeatherWidget__SimpleWeatherDataRight,
         TimeFrameForecastDataContainer: WeatherWidget__TimeFrameForecastDataContainer,
         TimeFrameForecastData: WeatherWidget__TimeFrameForecastData
     };
