@@ -73,7 +73,7 @@ export const Playground: Story = {
         },
         timeFrameForecastData: [
             {
-                timeFrameName: "+1H",
+                timeFrameName: "01:00",
                 temperatureRangeForecastData: {
                     icon: DefaultIconSet.Snow,
                     value: "9°C",
@@ -89,7 +89,7 @@ export const Playground: Story = {
                 }
             },
             {
-                timeFrameName: "+2H",
+                timeFrameName: "02:00",
                 temperatureRangeForecastData: {
                     icon: DefaultIconSet.Mist,
                     value: "11°C",
@@ -105,7 +105,7 @@ export const Playground: Story = {
                 }
             },
             {
-                timeFrameName: "+4H",
+                timeFrameName: "04:00",
                 temperatureRangeForecastData: {
                     icon: DefaultIconSet.Rain,
                     value: "13°C",
@@ -121,7 +121,7 @@ export const Playground: Story = {
                 }
             },
             {
-                timeFrameName: "+6H",
+                timeFrameName: "06:00",
                 temperatureRangeForecastData: {
                     icon: DefaultIconSet.ShowerRain,
                     value: "15°C",
