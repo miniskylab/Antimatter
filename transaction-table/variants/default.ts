@@ -420,8 +420,18 @@ const TransactionTable__Summary__ProgressBar__KnobIcon: IconStyle = function (ic
 const TransactionTable__Summary__ProgressBar__Pips__Pip: ViewStyle = function (viewProps)
 {
     const pipsContext = Pips.ContextHook.usePipsContext();
-    const isHighlighted = Pips.ContextHook.useHighlightedContext();
+    const pipIndex = Pips.ContextHook.usePipIndexContext();
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
+
+    const pipCount = Pips.Service.getPipCount(pipsContext.props.step, pipsContext.props.minValue, pipsContext.props.maxValue);
+    const isHighlighted = Pips.Service.isHighlightedPip(
+        pipIndex,
+        pipCount,
+        pipsContext.props.minValue,
+        pipsContext.props.maxValue,
+        pipsContext.props.startValue,
+        pipsContext.props.endValue
+    );
 
     const inheritedStyle = RangeSliderVariant.Default(rangeSliderContext.props)
         .Pips(pipsContext.props)
@@ -436,8 +446,18 @@ const TransactionTable__Summary__ProgressBar__Pips__Pip: ViewStyle = function (v
 const TransactionTable__Summary__ProgressBar__Pips__Label: TextStyle = function (textProps)
 {
     const pipsContext = Pips.ContextHook.usePipsContext();
-    const isHighlighted = Pips.ContextHook.useHighlightedContext();
+    const pipIndex = Pips.ContextHook.usePipIndexContext();
     const rangeSliderContext = RangeSliderContextHook.useRangeSliderContext();
+
+    const pipCount = Pips.Service.getPipCount(pipsContext.props.step, pipsContext.props.minValue, pipsContext.props.maxValue);
+    const isHighlighted = Pips.Service.isHighlightedPip(
+        pipIndex,
+        pipCount,
+        pipsContext.props.minValue,
+        pipsContext.props.maxValue,
+        pipsContext.props.startValue,
+        pipsContext.props.endValue
+    );
 
     const inheritedStyle = RangeSliderVariant.Default(rangeSliderContext.props)
         .Pips(pipsContext.props)

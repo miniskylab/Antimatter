@@ -130,8 +130,19 @@ const RangeSlider__Pips__Root: ViewStyle = function (viewProps)
 
 const RangeSlider__Pips__Pip: ViewStyle = function (viewProps)
 {
-    const isMilestone = Pips.ContextHook.useMilestoneContext();
-    const isHighlighted = Pips.ContextHook.useHighlightedContext();
+    const pipsContext = Pips.ContextHook.usePipsContext();
+    const pipIndex = Pips.ContextHook.usePipIndexContext();
+
+    const pipCount = Pips.Service.getPipCount(pipsContext.props.step, pipsContext.props.minValue, pipsContext.props.maxValue);
+    const isMilestone = Pips.Service.isMilestonePip(pipIndex, pipsContext.props.step, pipsContext.props.milestoneStep);
+    const isHighlighted = Pips.Service.isHighlightedPip(
+        pipIndex,
+        pipCount,
+        pipsContext.props.minValue,
+        pipsContext.props.maxValue,
+        pipsContext.props.startValue,
+        pipsContext.props.endValue
+    );
 
     return {
         ...ViewVariant.Default(viewProps),
@@ -146,7 +157,18 @@ const RangeSlider__Pips__Pip: ViewStyle = function (viewProps)
 
 const RangeSlider__Pips__Label: TextStyle = function (textProps)
 {
-    const isHighlighted = Pips.ContextHook.useHighlightedContext();
+    const pipsContext = Pips.ContextHook.usePipsContext();
+    const pipIndex = Pips.ContextHook.usePipIndexContext();
+
+    const pipCount = Pips.Service.getPipCount(pipsContext.props.step, pipsContext.props.minValue, pipsContext.props.maxValue);
+    const isHighlighted = Pips.Service.isHighlightedPip(
+        pipIndex,
+        pipCount,
+        pipsContext.props.minValue,
+        pipsContext.props.maxValue,
+        pipsContext.props.startValue,
+        pipsContext.props.endValue
+    );
 
     return {
         ...TextVariant.Default(textProps),

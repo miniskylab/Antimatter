@@ -1,8 +1,9 @@
-import {AllPropertiesMustPresent, isNullOrUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {HighlightedContext, MilestoneContext, PipsContext, Props} from "./models";
+import {PipIndexContext, PipsContext, Props} from "./models";
+import {getPctPipValue, getPipCount, isMilestonePip} from "./services";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -29,7 +30,7 @@ export function Component({
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
 
-    const pipCount = Math.round((maxValue - minValue) / step);
+    const pipCount = getPipCount(step, minValue, maxValue);
 
     return (
         <PipsContext.Provider value={context}>
@@ -45,13 +46,11 @@ export function Component({
         const pips: JSX.Element[] = [];
         for (let pipIndex = 0; pipIndex <= pipCount; pipIndex++)
         {
-            const pctPipValue = getPctPipValue(pipIndex);
+            const pctPipValue = getPctPipValue(pipIndex, pipCount);
             pips.push(
-                <HighlightedContext.Provider key={pipIndex} value={isHighlightedPip(pipIndex)}>
-                    <MilestoneContext.Provider value={isMilestonePip(pipIndex)}>
-                        <View style={viewProps => ({...computedStyle.Pip(viewProps), left: `${Ts.Number.ensurePercent(pctPipValue)}%`})}/>
-                    </MilestoneContext.Provider>
-                </HighlightedContext.Provider>
+                <PipIndexContext.Provider key={pipIndex} value={pipIndex}>
+                    <View style={viewProps => ({...computedStyle.Pip(viewProps), left: `${Ts.Number.ensurePercent(pctPipValue)}%`})}/>
+                </PipIndexContext.Provider>
             );
         }
 
@@ -63,58 +62,27 @@ export function Component({
         const labels: JSX.Element[] = [];
         for (let pipIndex = 0; pipIndex <= pipCount; pipIndex++)
         {
-            if (!isMilestonePip(pipIndex))
+            if (!isMilestonePip(pipIndex, step, milestoneStep))
             {
                 continue;
             }
 
-            const pctPipValue = getPctPipValue(pipIndex);
+            const pctPipValue = getPctPipValue(pipIndex, pipCount);
             labels.push(
-                <HighlightedContext.Provider key={pipIndex} value={isHighlightedPip(pipIndex)}>
+                <PipIndexContext.Provider key={pipIndex} value={pipIndex}>
                     <Text
                         style={textProps => ({
                             ...computedStyle.Label(textProps),
-                            ...isMilestonePip(pipIndex) && {left: `${Ts.Number.ensurePercent(pctPipValue)}%`}
+                            ...isMilestonePip(pipIndex, step, milestoneStep) && {left: `${Ts.Number.ensurePercent(pctPipValue)}%`}
                         })}
                         selectable={false}
                     >
                         {Ts.Number.shorten(pctPipValue * (maxValue - minValue) + minValue)}
                     </Text>
-                </HighlightedContext.Provider>
+                </PipIndexContext.Provider>
             );
         }
 
         return labels;
-    }
-
-    function getPctPipValue(pipIndex: number): number { return pipIndex * (1 / pipCount); }
-
-    function isMilestonePip(pipIndex: number): boolean
-    {
-        if (isNullOrUndefined(milestoneStep))
-        {
-            return false;
-        }
-
-        let wholeNumberPipIndex = pipIndex;
-        let wholeNumberMilestoneIndexStep = milestoneStep / step;
-        while (!Number.isInteger(wholeNumberPipIndex) || !Number.isInteger(wholeNumberMilestoneIndexStep))
-        {
-            wholeNumberPipIndex *= 10;
-            wholeNumberMilestoneIndexStep *= 10;
-        }
-
-        return wholeNumberPipIndex % wholeNumberMilestoneIndexStep === 0;
-    }
-
-    function isHighlightedPip(pipIndex: number): boolean
-    {
-        const pctPipValue = getPctPipValue(pipIndex);
-        const pctStartValue = (startValue - minValue) / (maxValue - minValue);
-        const pctEndValue = (endValue - minValue) / (maxValue - minValue);
-
-        return Math.abs(pctPipValue - pctStartValue) < 0.001 ||
-               Math.abs(pctPipValue - pctEndValue) < 0.001 ||
-               (pctStartValue < pctPipValue && pctPipValue < pctEndValue);
     }
 }
