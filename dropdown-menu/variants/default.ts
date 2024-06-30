@@ -124,7 +124,10 @@ const DropdownMenu__Menu: ScrollViewStyle = function (scrollViewProps)
 const DropdownMenu__MenuItem__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
-    const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
+    const menuItemKey = DropdownMenuContextHook.useMenuItemKeyContext();
+    const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
+
+    const menuItem = dropdownMenuContext.props.menuItems?.[menuItemKey];
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
@@ -135,12 +138,12 @@ const DropdownMenu__MenuItem__Root: PressableStyle = function (pressableProps, p
         height: 30,
         paddingTop: 0,
         paddingBottom: 0,
-        backgroundColor: menuItemContext.status === MenuItemStatus.Selected || pressableState.pressed
+        backgroundColor: menuItem?.status === MenuItemStatus.Selected || pressableState.pressed
             ? Color.Primary
             : pressableState.hovered
                 ? Color.Primary__a10
                 : Color.Transparent,
-        borderColor: menuItemContext.status === MenuItemStatus.Selected || pressableState.hovered
+        borderColor: menuItem?.status === MenuItemStatus.Selected || pressableState.hovered
             ? Color.Primary
             : Color.Transparent
     };
@@ -150,7 +153,10 @@ const DropdownMenu__MenuItem__Icon: IconStyle = function (iconProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
-    const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
+    const menuItemKey = DropdownMenuContextHook.useMenuItemKeyContext();
+    const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
+
+    const menuItem = dropdownMenuContext.props.menuItems?.[menuItemKey];
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
 
@@ -159,7 +165,7 @@ const DropdownMenu__MenuItem__Icon: IconStyle = function (iconProps)
         position: "absolute",
         right: 7,
         fontSize: 16,
-        color: menuItemContext.status === MenuItemStatus.Selected
+        color: menuItem?.status === MenuItemStatus.Selected
             ? Color.Ambient
             : pressableContext.state.pressed
                 ? Color.Ambient
@@ -173,7 +179,10 @@ const DropdownMenu__MenuItem__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
-    const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
+    const menuItemKey = DropdownMenuContextHook.useMenuItemKeyContext();
+    const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
+
+    const menuItem = dropdownMenuContext.props.menuItems?.[menuItemKey];
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
@@ -183,7 +192,7 @@ const DropdownMenu__MenuItem__Label: TextStyle = function (textProps)
         alignItems: "flex-start",
         paddingLeft: 0,
         paddingRight: 20,
-        color: menuItemContext.status === MenuItemStatus.Selected
+        color: menuItem?.status === MenuItemStatus.Selected
             ? Color.Ambient
             : pressableContext.state.pressed
                 ? Color.Ambient

@@ -7,7 +7,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {DropDirection, MenuItemStatus} from "./enums";
-import {DropdownMenuContext, DropdownMenuProps, MenuItemContext} from "./models";
+import {DropdownMenuContext, DropdownMenuProps, MenuItemKeyContext} from "./models";
 import * as Variant from "./variants";
 
 /**
@@ -92,7 +92,7 @@ export function DropdownMenu({
             }
 
             menuItemJsxElements.push(
-                <MenuItemContext.Provider key={menuItemKey} value={menuItem}>
+                <MenuItemKeyContext.Provider key={menuItemKey} value={menuItemKey}>
                     <Button
                         style={computedStyle.MenuItem}
                         label={menuItem.displayText || menuItemKey}
@@ -100,7 +100,7 @@ export function DropdownMenu({
                         disabled={menuItem.status !== MenuItemStatus.Selected && menuItem.status !== undefined}
                         onPress={() => { onMenuItemPress?.(menuItemKey); }}
                     />
-                </MenuItemContext.Provider>
+                </MenuItemKeyContext.Provider>
             );
         }
 

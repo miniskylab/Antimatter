@@ -72,13 +72,10 @@ export function Component({
             {
                 const dateInfo = useMemo(
                     () => data[weekNo][dayNo],
-                    [
-                        data[weekNo][dayNo].value.getTime(),
-                        data[weekNo][dayNo].isExtraneous
-                    ]
+                    [data[weekNo][dayNo].value.getTime(), data[weekNo][dayNo].isExtraneous]
                 );
-                const isToday = Ts.Date.isEqualDate(dateInfo.value, today);
 
+                const isToday = Ts.Date.isEqualDate(dateInfo.value, today);
                 week.push(
                     <DateContext.Provider key={data[weekNo][dayNo].value.getTime()} value={dateInfo}>
                         <Pressable style={computedStyle.DateContainer} onPress={() => { onDatePress?.(dateInfo.value); }}>

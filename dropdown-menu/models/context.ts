@@ -1,10 +1,9 @@
 import {ComponentContext} from "@miniskylab/antimatter-framework";
 import {createContext} from "react";
-import {MenuItem} from "../classes";
 import {DropdownMenuProps} from "./props";
 
 export const DropdownMenuContext = createContext<DropdownMenuContext>(undefined);
 export type DropdownMenuContext = ComponentContext<DropdownMenuProps>;
 
-export const MenuItemContext = createContext<MenuItemContext>(undefined);
-export type MenuItemContext = MenuItem | undefined;
+export const MenuItemKeyContext = createContext<MenuItemKeyContext>(undefined);
+export type MenuItemKeyContext = string | undefined;

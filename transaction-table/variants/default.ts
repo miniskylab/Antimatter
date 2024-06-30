@@ -1070,10 +1070,11 @@ const TransactionTable__TransactionRecord__TagSelector__Menu: ScrollViewStyle = 
 const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
-    const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
+    const menuItemKey = DropdownMenuContextHook.useMenuItemKeyContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
-    const isHighlighted = menuItemContext.context?.includes(TransactionRecord.TagMetadata.HighlightTarget);
+    const menuItem = dropdownMenuContext.props.menuItems?.[menuItemKey];
+    const isHighlighted = menuItem?.context?.includes(TransactionRecord.TagMetadata.HighlightTarget);
 
     const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props)
         .MenuItem(buttonContext.props)
@@ -1091,7 +1092,7 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: Pressabl
         borderWidth: 1,
         borderStyle: "solid",
         borderColor: isHighlighted ? Color.Positive : Color.Neutral,
-        backgroundColor: menuItemContext.status === MenuItemStatus.Selected || pressableState.pressed
+        backgroundColor: menuItem?.status === MenuItemStatus.Selected || pressableState.pressed
             ? isHighlighted ? Color.Positive : Color.Neutral
             : pressableState.hovered
                 ? isHighlighted ? Color.Positive__a10 : Color.Neutral__a10
@@ -1103,10 +1104,11 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: TextSty
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
-    const menuItemContext = DropdownMenuContextHook.useMenuItemContext();
+    const menuItemKey = DropdownMenuContextHook.useMenuItemKeyContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
-    const isHighlighted = menuItemContext.context?.includes(TransactionRecord.TagMetadata.HighlightTarget);
+    const menuItem = dropdownMenuContext.props.menuItems?.[menuItemKey];
+    const isHighlighted = menuItem?.context?.includes(TransactionRecord.TagMetadata.HighlightTarget);
 
     const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props)
         .MenuItem(buttonContext.props)
@@ -1116,7 +1118,7 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: TextSty
         ...inheritedStyle,
         paddingRight: 0,
         fontSize: 12,
-        color: menuItemContext.status === MenuItemStatus.Selected || pressableContext.state.pressed
+        color: menuItem?.status === MenuItemStatus.Selected || pressableContext.state.pressed
             ? Color.Ambient
             : pressableContext.state.hovered
                 ? Color.White

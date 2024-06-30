@@ -36,10 +36,7 @@ export function Component({
                                                     yearInfo.value > GregorianCalendar.MAX_YEAR;
 
                     return (
-                        <YearContext.Provider
-                            key={yearInfo.value}
-                            value={useMemo(() => yearInfo, [...Object.values(yearInfo)])}
-                        >
+                        <YearContext.Provider key={yearInfo.value} value={useMemo(() => yearInfo, [...Object.values(yearInfo)])}>
                             <Button
                                 style={computedStyle.GridCell}
                                 disabled={outOfSupportedYearRange}

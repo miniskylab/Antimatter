@@ -1,6 +1,6 @@
 import {useContextOrThrow} from "@miniskylab/antimatter-framework";
-import {DropdownMenuContext, MenuItemContext} from "../models";
+import {DropdownMenuContext, MenuItemKeyContext} from "../models";
 
 export function useDropdownMenuContext(): NonNullable<DropdownMenuContext> { return useContextOrThrow(DropdownMenuContext); }
 
-export function useMenuItemContext(): NonNullable<MenuItemContext> { return useContextOrThrow(MenuItemContext); }
+export function useMenuItemKeyContext(): NonNullable<MenuItemKeyContext> { return useContextOrThrow(MenuItemKeyContext); }
