@@ -68,11 +68,7 @@ export function Component({
             const column = columns[columnIndex];
             rows.push(
                 <ColumnIndexContext.Provider key={columnIndex} value={columnIndex}>
-                    {
-                        mode === Mode.Draft || mode === Mode.Edit
-                            ? renderEditor()
-                            : renderValue()
-                    }
+                    {mode === Mode.Draft || mode === Mode.Edit ? renderEditor() : renderValue()}
                 </ColumnIndexContext.Provider>
             );
 

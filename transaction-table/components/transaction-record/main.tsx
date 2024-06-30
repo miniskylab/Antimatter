@@ -11,7 +11,7 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {Tag} from "./classes";
 import {Mode, TagMetadata, TagStatus} from "./enums";
-import {Props, Ref, TagMetadataContext, TransactionRecordContext} from "./models";
+import {Props, Ref, TransactionRecordContext} from "./models";
 
 /**
  * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
@@ -192,9 +192,7 @@ export const Component = forwardRef(function Component(
                         [...Object.keys(tags).filter(x => tags[x].status === TagStatus.Selected)]
                             .sort((a, b) => dropdownMenuItemValues.indexOf(a) - dropdownMenuItemValues.indexOf(b))
                             .map(tagId => (
-                                <TagMetadataContext.Provider key={tagId} value={Array.from(tags[tagId].metadata ?? []).sort().join(",")}>
-                                    <Text style={computedStyle.Tag} pointerEvents={"none"}>{tags[tagId].name ?? tagId}</Text>
-                                </TagMetadataContext.Provider>
+                                <Text key={tagId} style={computedStyle.Tag} pointerEvents={"none"}>{tags[tagId].name ?? tagId}</Text>
                             ))
                     }
                 </View>
