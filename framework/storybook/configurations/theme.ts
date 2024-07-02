@@ -4,6 +4,8 @@ export const theme = {
     dark: create({
         base: "dark",
         brandImage: "logo.png",
-        brandTitle: "Antimatter"
+        brandTitle: "Antimatter",
+        brandUrl: "/storybook",
+        brandTarget: "_self"
     })
 };
