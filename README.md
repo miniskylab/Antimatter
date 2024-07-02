@@ -12,4 +12,4 @@
 
 ## Documentation
 
-Check the components and their usage on my website: https://www.miniskylab.com/storybook
+Check the components and their usage here: https://www.miniskylab.com/storybook
