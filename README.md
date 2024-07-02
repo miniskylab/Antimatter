@@ -1,7 +1,7 @@
 ![Antimatter Logo](https://github.com/miniskylab/Antimatter/assets/89077642/91baf445-ef3c-41e3-9100-ea4777b6caeb)
 
 <h3 align="center">
-  A collection of reusable and customizable UI components that work on iOS, Android & Web
+  Reusable and customizable UI components that work on iOS, Android & Web
 </h3>
 
 <div align="center">
