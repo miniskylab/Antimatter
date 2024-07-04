@@ -20,7 +20,7 @@ export class DownloadButtonProps extends ComponentProps<DownloadButtonStyle>
 
 
     /**
-     * Specify the text to be displayed on the button.
+     * Specify the text that will be displayed on the button.
      */
     @IsString()
     @IsOptional()
@@ -28,7 +28,7 @@ export class DownloadButtonProps extends ComponentProps<DownloadButtonStyle>
 
 
     /**
-     * Specify the icon to be displayed on the button.
+     * Specify the icon that will be displayed on the button.
      *
      * @type DefaultIconSet
      */

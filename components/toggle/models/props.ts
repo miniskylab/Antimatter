@@ -18,7 +18,7 @@ export class ToggleProps extends ComponentProps<ToggleStyle>
 
 
     /**
-     * Specify the icon to be displayed on the toggle.
+     * Specify the icon that will be displayed on the toggle.
      *
      * @type DefaultIconSet
      */
@@ -28,7 +28,7 @@ export class ToggleProps extends ComponentProps<ToggleStyle>
 
 
     /**
-     * A piece of code that will be executed when the toggle changes status.
+     * Specify the piece of code that will be executed when the toggle changes status.
      */
     readonly onChange?: (newStatus: Status) => void;
 }

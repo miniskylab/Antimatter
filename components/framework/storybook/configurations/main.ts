@@ -37,7 +37,7 @@ export default {
         reactDocgen: "react-docgen-typescript",
         reactDocgenTypescriptOptions: {
             shouldRemoveUndefinedFromOptional: true,
-            shouldExtractLiteralValuesFromEnum: false,
+            shouldExtractLiteralValuesFromEnum: true,
             tsconfigPath: pathToTypeScriptConfigFile,
             propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true)
         }

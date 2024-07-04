@@ -8,7 +8,7 @@ import {InputFieldContext, InputFieldProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component that allows users to input text.
  */
 export const InputField = forwardRef(function InputField(
     {

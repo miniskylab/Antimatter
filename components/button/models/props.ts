@@ -7,7 +7,7 @@ import {type ButtonStyle} from "./style";
 export class ButtonProps extends ComponentProps<ButtonStyle>
 {
     /**
-     * Specify the text to be displayed on the button.
+     * Specify the text that will be displayed on the button.
      */
     @IsString()
     @IsOptional()
@@ -15,7 +15,7 @@ export class ButtonProps extends ComponentProps<ButtonStyle>
 
 
     /**
-     * Specify the icon to be displayed on the button.
+     * Specify the icon that will be displayed on the button.
      *
      * @type DefaultIconSet
      */
@@ -33,7 +33,7 @@ export class ButtonProps extends ComponentProps<ButtonStyle>
 
 
     /**
-     * A piece of code that will be executed when users press the button.
+     * Specify the piece of code that will be executed when users press the button.
      */
     readonly onPress?: GestureResponderEventHandler;
 }
