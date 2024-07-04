@@ -9,7 +9,7 @@ import {ToggleContext, ToggleProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * This component allows users to switch between two mutually exclusive states (for example: ***On*** and ***Off***).
+ * A component that allows users to switch between two mutually exclusive states (for example: ***On*** and ***Off***).
  */
 export function Toggle({
     style = Variant.Default,
