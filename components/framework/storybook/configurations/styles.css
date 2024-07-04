@@ -1,8 +1,11 @@
-.docblock-argstable .docblock-argstable-head th:nth-of-type(1),
-.docblock-argstable .docblock-argstable-body td:nth-of-type(1),
+.docblock-argstable .docblock-argstable-head th:nth-of-type(2),
+.docblock-argstable .docblock-argstable-body td:nth-of-type(2) {
+    width: auto !important;
+}
+
 .docblock-argstable .docblock-argstable-head th:nth-of-type(3),
 .docblock-argstable .docblock-argstable-body td:nth-of-type(3) {
-    width: 15% !important;
+    width: 23% !important;
 }
 
 @supports (-webkit-hyphens:none) {

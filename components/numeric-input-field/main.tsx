@@ -16,7 +16,7 @@ import {getNextNumericInputFieldState} from "./services";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component that only allows users to input numbers.
  */
 export const NumericInputField = forwardRef(function NumericInputField(
     {

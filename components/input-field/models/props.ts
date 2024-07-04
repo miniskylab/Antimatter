@@ -56,7 +56,7 @@ export class InputFieldProps extends ComponentProps<InputFieldStyle>
 
 
     /**
-     * Set this option to ***true*** to specify that the input field should automatically get focus when it is mounted.
+     * Set this option to ***true*** to specify that the input field should automatically get focused when it is mounted.
      */
     @IsBoolean()
     @IsOptional()

@@ -17,7 +17,7 @@ import {type NumericInputFieldStyle} from "./style";
 export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to specify that the numeric input field should automatically get focused when it is mounted.
      */
     @IsBoolean()
     @IsOptional()
@@ -25,7 +25,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be displayed before input has been entered.
      */
     @IsString()
     @IsOptional()
@@ -33,7 +33,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the initial value that has been entered into the numeric input field.
      */
     @IsNumber()
     @IsOptional()
@@ -41,7 +41,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the minimum value that can be entered into the numeric input field.
      */
     @IsNumber()
     @IsOptional()
@@ -49,7 +49,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the maximum value that can be entered into the numeric input field.
      */
     @IsNumber()
     @IsOptional()
@@ -57,7 +57,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the maximum number of fraction digits that can be entered into the numeric input field.
      */
     @Min(0)
     @IsInteger()
@@ -66,7 +66,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the maximum number of digits that can be entered into the numeric input field.
      */
     @Min(0)
     @IsInteger()
@@ -75,7 +75,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to make the numeric input field display the `+` symbol in front of non-negative numbers.
      */
     @IsBoolean()
     @IsOptional()
@@ -83,7 +83,7 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to make the numeric input field treat empty input as number ***0***.
      */
     @IsBoolean()
     @IsOptional()
@@ -91,7 +91,8 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to specify that the entire entered number should automatically be selected when the numeric input field
+     * has received focus.
      */
     @IsBoolean()
     @IsOptional()
@@ -99,32 +100,38 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * <b className="property-description__supported-platform-section">
+     *     Supported Platforms:
+     *     <b className="property-description__supported-platform-value--iOS">iOS</b>,
+     *     <b className="property-description__supported-platform-value--android">Android</b>
+     * </b>
+     *
+     * Specify which keyboard to open when the numeric input field has received focus.
      */
     @IsOptional()
     readonly keyboardType?: NumericKeyboardTypeOptions;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the numeric input field has lost focus.
      */
     readonly onBlur?: TextInputFocusEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the numeric input field has received focus.
      */
     readonly onFocus?: TextInputFocusEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when a key is pressed while the numeric input field is being focused.
      */
     readonly onKeyPress?: TextInputKeyPressEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the entered number changes.
      */
     readonly onChange?: (newValue: number) => void;
 }
