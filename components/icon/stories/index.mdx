@@ -1,5 +1,5 @@
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import {Canvas, Meta, Controls, IconGallery} from "@storybook/blocks";
+import {Canvas, Meta, ArgTypes, IconGallery} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
 import {IconShowcase} from "./components";
 import {Icon} from "../main";
@@ -7,11 +7,11 @@ import {IconProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories} name="Docs"/>
-<Sb.Intro of={Icon} propsType={IconProps} supportedPlatforms={["iOS", "Web"]}/>
+<Sb.Intro of={Icon} propsType={IconProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table
-<Controls of={Stories.Playground}/>
+<ArgTypes of={Stories.Playground}/>
 
 ### All icons
 <br/>

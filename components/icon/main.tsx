@@ -6,7 +6,7 @@ import {IconProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component for displaying a single, individual icon from an icon collection.
  */
 export function Icon({
     style = Variant.Default,

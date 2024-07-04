@@ -14,7 +14,7 @@ import * as Variant from "./variants";
 import "./css";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component for displaying text.
  */
 export function Text({
     style = Variant.Default,

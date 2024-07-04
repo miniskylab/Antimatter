@@ -15,7 +15,7 @@ import {type TextStyle} from "./style";
 export class TextProps extends ComponentProps<TextStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set the text to display.
      */
     @IsString()
     @IsOptional()
@@ -23,7 +23,7 @@ export class TextProps extends ComponentProps<TextStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***false*** to prevent users from selecting or highlighting the text.
      */
     @IsBoolean()
     @IsOptional()
@@ -31,7 +31,8 @@ export class TextProps extends ComponentProps<TextStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * This option is used to truncate the text with an ellipsis after computing the text layout, including line wrapping, such that the
+     * total number of lines does not exceed the provided number. Setting this option to **0** will disable all line restrictions.
      */
     @Min(0)
     @IsInteger()
@@ -41,7 +42,12 @@ export class TextProps extends ComponentProps<TextStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * This option determines whether this component can be the target of pointer events.
+     *
+     * <p style="padding:0;margin:0">• `auto`: This component can be the target of pointer events.</p>
+     * <p style="padding:0;margin:0">• `none`: This component is never the target of pointer events.</p>
+     * <p style="padding:0;margin:0">• `box-none`: This component is never the target of pointer events but its subcomponents can be.</p>
+     * <p>• `box-only`: This component can be the target of pointer events but its subcomponents cannot be.</p>
      */
     @IsOptional()
     readonly pointerEvents?: PointerEvents;

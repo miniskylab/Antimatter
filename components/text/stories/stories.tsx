@@ -5,13 +5,10 @@ import {Text} from "../main";
 import {TextProps} from "../models";
 import * as Variant from "./variants";
 
-const TextWithValidation = withValidation(Text, TextProps);
-export default {
-    component: Text,
-    title: "Components/Text"
-} satisfies Meta<typeof Text>;
+export default {component: Text, title: "Components/Text"} satisfies Meta<typeof Text>;
 type Story = StoryObj<typeof Text>;
 
+const TextWithValidation = withValidation(Text, TextProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
