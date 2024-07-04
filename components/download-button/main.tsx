@@ -5,7 +5,7 @@ import {DownloadButtonContext, DownloadButtonProps, DownloadButtonState} from ".
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component that users can press to trigger file download action.
  */
 export function DownloadButton({
     style = Variant.Default,

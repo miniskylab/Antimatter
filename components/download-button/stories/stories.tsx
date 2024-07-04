@@ -7,13 +7,10 @@ import {DownloadButtonProps} from "../models";
 import * as Variant from "../variants";
 import * as StaticAsset from "./static-assets";
 
-const DownloadButtonWithValidation = withValidation(DownloadButton, DownloadButtonProps);
-export default {
-    component: DownloadButton,
-    title: "Components/Download Button"
-} satisfies Meta<typeof DownloadButton>;
+export default {component: DownloadButton, title: "Components/Download Button"} satisfies Meta<typeof DownloadButton>;
 type Story = StoryObj<typeof DownloadButton>;
 
+const DownloadButtonWithValidation = withValidation(DownloadButton, DownloadButtonProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),

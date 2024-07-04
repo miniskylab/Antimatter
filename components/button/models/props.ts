@@ -7,7 +7,7 @@ import {type ButtonStyle} from "./style";
 export class ButtonProps extends ComponentProps<ButtonStyle>
 {
     /**
-     * Set the text displayed on the button.
+     * Specify the text to be displayed on the button.
      */
     @IsString()
     @IsOptional()
@@ -15,7 +15,7 @@ export class ButtonProps extends ComponentProps<ButtonStyle>
 
 
     /**
-     * Set the icon displayed on the button.
+     * Specify the icon to be displayed on the button.
      *
      * @type DefaultIconSet
      */

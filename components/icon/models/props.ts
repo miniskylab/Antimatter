@@ -7,7 +7,7 @@ import {type IconStyle} from "./style";
 export class IconProps extends ComponentProps<IconStyle>
 {
     /**
-     * Set the icon to display.
+     * Specify the name of the icon to display.
      *
      * @type DefaultIconSet
      */

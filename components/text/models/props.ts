@@ -15,7 +15,7 @@ import {type TextStyle} from "./style";
 export class TextProps extends ComponentProps<TextStyle>
 {
     /**
-     * Set the text to display.
+     * Specify the text to display.
      */
     @IsString()
     @IsOptional()

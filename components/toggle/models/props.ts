@@ -18,7 +18,7 @@ export class ToggleProps extends ComponentProps<ToggleStyle>
 
 
     /**
-     * Set the icon displayed on the toggle.
+     * Specify the icon to be displayed on the toggle.
      *
      * @type DefaultIconSet
      */

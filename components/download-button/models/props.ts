@@ -7,7 +7,12 @@ import {type DownloadButtonStyle} from "./style";
 export class DownloadButtonProps extends ComponentProps<DownloadButtonStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * <b className="property-description__supported-platform-section">
+     *     Supported Platforms:
+     *     <b className="property-description__supported-platform-value--web">Web</b>
+     * </b>
+     *
+     * Specify the URL of the file to be downloaded.
      */
     @IsString()
     @IsOptional()
@@ -15,7 +20,7 @@ export class DownloadButtonProps extends ComponentProps<DownloadButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text to be displayed on the button.
      */
     @IsString()
     @IsOptional()
@@ -23,7 +28,7 @@ export class DownloadButtonProps extends ComponentProps<DownloadButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon to be displayed on the button.
      *
      * @type DefaultIconSet
      */
@@ -33,7 +38,12 @@ export class DownloadButtonProps extends ComponentProps<DownloadButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * <b className="property-description__supported-platform-section">
+     *     Supported Platforms:
+     *     <b className="property-description__supported-platform-value--web">Web</b>
+     * </b>
+     *
+     * Specify a new name for the downloaded file.
      */
     @IsString()
     @IsOptional()
@@ -41,7 +51,7 @@ export class DownloadButtonProps extends ComponentProps<DownloadButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to prevent users from pressing the button.
      */
     @IsBoolean()
     @IsOptional()
