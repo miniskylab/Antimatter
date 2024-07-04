@@ -7,7 +7,7 @@ import {type ButtonStyle} from "./style";
 export class ButtonProps extends ComponentProps<ButtonStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Setting text to be displayed on the button.
      */
     @IsString()
     @IsOptional()
@@ -15,7 +15,7 @@ export class ButtonProps extends ComponentProps<ButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Setting icon to be displayed on the button.
      *
      * @type DefaultIconSet
      */
@@ -25,7 +25,7 @@ export class ButtonProps extends ComponentProps<ButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Setting this option to ***true*** will prevent users from pressing the button.
      */
     @IsBoolean()
     @IsOptional()
@@ -33,7 +33,7 @@ export class ButtonProps extends ComponentProps<ButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * A piece of code that will be executed when users press the button.
      */
     readonly onPress?: GestureResponderEventHandler;
 }

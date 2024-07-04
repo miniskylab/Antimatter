@@ -6,13 +6,10 @@ import {Button} from "../main";
 import {ButtonProps} from "../models";
 import * as Variant from "./variants";
 
-const ButtonWithValidation = withValidation(Button, ButtonProps);
-export default {
-    component: Button,
-    title: "Components/Button"
-} satisfies Meta<typeof Button>;
+export default {component: Button, title: "Components/Button"} satisfies Meta<typeof Button>;
 type Story = StoryObj<typeof Button>;
 
+const ButtonWithValidation = withValidation(Button, ButtonProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),

@@ -11,6 +11,7 @@ export const BadgeContainer: ViewStyle = {
     flexDirection: "row",
     height: 28,
     marginTop: 5,
+    marginBottom: 18,
     backgroundColor: Color.Mineshaft
 };
 

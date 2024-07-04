@@ -1,15 +1,15 @@
-import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Canvas, Meta, ArgTypes} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
 import {Button} from "../main";
 import {ButtonProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories} name="Docs"/>
-<Sb.Intro of={Button} propsType={ButtonProps} supportedPlatforms={["iOS", "Web"]}/>
+<Sb.Intro of={Button} propsType={ButtonProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table
-<Controls of={Stories.Playground}/>
+<ArgTypes of={Stories.Playground}/>
 
 ### Styles
 <Canvas of={Stories.Styles}/>
