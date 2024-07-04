@@ -8,13 +8,10 @@ import {Toggle} from "../main";
 import {ToggleProps} from "../models";
 import * as Variant from "../variants";
 
-const ToggleWithValidation = withValidation(Toggle, ToggleProps);
-export default {
-    component: Toggle,
-    title: "Components/Toggle"
-} satisfies Meta<typeof Toggle>;
+export default {component: Toggle, title: "Components/Toggle"} satisfies Meta<typeof Toggle>;
 type Story = StoryObj<typeof Toggle>;
 
+const ToggleWithValidation = withValidation(Toggle, ToggleProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),

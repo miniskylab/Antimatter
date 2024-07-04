@@ -8,7 +8,7 @@ import {type ToggleStyle} from "./style";
 export class ToggleProps extends ComponentProps<ToggleStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set the status of the toggle.
      *
      * @type Status
      */
@@ -18,7 +18,7 @@ export class ToggleProps extends ComponentProps<ToggleStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set the icon displayed on the toggle.
      *
      * @type DefaultIconSet
      */
@@ -28,7 +28,7 @@ export class ToggleProps extends ComponentProps<ToggleStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * A piece of code that will be executed when the toggle changes status.
      */
     readonly onChange?: (newStatus: Status) => void;
 }

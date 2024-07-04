@@ -9,7 +9,7 @@ import {ToggleContext, ToggleProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * This component allows users to switch between two mutually exclusive states (for example: ***On*** and ***Off***).
  */
 export function Toggle({
     style = Variant.Default,
