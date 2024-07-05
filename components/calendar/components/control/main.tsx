@@ -6,7 +6,7 @@ import React, {JSX, useMemo} from "react";
 import {ControlContext, Props} from "./models";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * This section of the calendar contains various controls that allow users to interact with the calendar itself.
  */
 export function Component({
     style,

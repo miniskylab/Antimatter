@@ -6,7 +6,7 @@ import {type CalendarStyle} from "./style";
 export class CalendarProps extends ComponentProps<CalendarStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the selected date.
      */
     @IsDate()
     @IsOptional()
@@ -14,7 +14,7 @@ export class CalendarProps extends ComponentProps<CalendarStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the selected date changes.
      */
     readonly onSelectedDateChange?: (newlySelectedDate: Date | undefined) => void;
 }

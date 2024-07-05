@@ -1,12 +1,12 @@
-import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Canvas, Meta, ArgTypes} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
 import {Calendar} from "../main";
 import {CalendarProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories} name="Docs"/>
-<Sb.Intro of={Calendar} propsType={CalendarProps} supportedPlatforms={["iOS", "Web"]}/>
+<Sb.Intro of={Calendar} propsType={CalendarProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table
-<Controls of={Stories.Playground}/>
+<ArgTypes of={Stories.Playground}/>

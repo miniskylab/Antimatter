@@ -1,9 +1,12 @@
 import {IsBoolean, IsDefined, IsNumber} from "@miniskylab/antimatter-framework";
 
+/**
+ * Represents a single year in a decade.
+ */
 export class YearInfo
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the year value.
      */
     @IsNumber()
     @IsDefined()
@@ -11,7 +14,7 @@ export class YearInfo
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set the option to ***true*** to specify that this year doesn't belong to the displaying decade.
      */
     @IsBoolean()
     @IsDefined()

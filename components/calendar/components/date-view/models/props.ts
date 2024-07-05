@@ -6,7 +6,7 @@ import {Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the ***today*** date.
      */
     @IsDate()
     @IsOptional()
@@ -14,14 +14,14 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the data that will be used to render the date-view.
      */
     @IsOptional()
     readonly data?: DateInfo[][];
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users press a date.
      */
     readonly onDatePress?: (date: Date) => void;
 }

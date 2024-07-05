@@ -7,7 +7,7 @@ import {Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the selected month.
      */
     @IsDate()
     @IsOptional()
@@ -15,7 +15,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the data that will be used to render the month-view.
      */
     @IsArray()
     @IsOptional()
@@ -25,7 +25,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users press a month.
      */
     readonly onMonthPress?: (month: Date) => void;
 }

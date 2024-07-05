@@ -4,13 +4,13 @@ import {Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users request the calendar to show the ***today*** date.
      */
     readonly onTodayButtonPress?: GestureResponderEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users request the calendar to show the selected date.
      */
     readonly onSelectionButtonPress?: GestureResponderEventHandler;
 }

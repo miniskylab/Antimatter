@@ -11,7 +11,7 @@ import type {TimeFrame} from "./types";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component that renders a series of pages showing the days, weeks, months and years and allows users to select a date.
  */
 export function Calendar({
     style = Variant.Default,

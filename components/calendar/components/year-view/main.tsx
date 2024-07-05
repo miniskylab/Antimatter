@@ -5,7 +5,7 @@ import React, {JSX, useMemo} from "react";
 import {Props, YearContext, YearViewContext} from "./models";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * This section of the calendar displays all the years in a decade.
  */
 export function Component({
     style,

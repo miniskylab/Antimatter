@@ -5,7 +5,7 @@ import {Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be displayed at the top of the calendar.
      */
     @IsString()
     @IsOptional()
@@ -13,19 +13,19 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users nagivate backward.
      */
     readonly onPrevPress?: GestureResponderEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users nagivate forward.
      */
     readonly onNextPress?: GestureResponderEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users press the headline.
      */
     readonly onHeadlinePress?: GestureResponderEventHandler;
 }

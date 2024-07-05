@@ -1,9 +1,12 @@
 import {IsBoolean, IsDate, IsDefined} from "@miniskylab/antimatter-framework";
 
+/**
+ * Represents a single date in a month.
+ */
 export class DateInfo
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the date value.
      */
     @IsDate()
     @IsDefined()
@@ -11,7 +14,7 @@ export class DateInfo
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set the option to ***true*** to specify that this date doesn't belong to the displaying month.
      */
     @IsBoolean()
     @IsDefined()
