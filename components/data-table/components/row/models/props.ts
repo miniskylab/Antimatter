@@ -12,21 +12,22 @@ import {type Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the reference to the parent component which contains the row. That reference is used to calculate which direction to open the
+     * context menu.
      */
     @IsOptional()
     readonly containerRef?: RefObject<View | ScrollView>;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the data of the row.
      */
     @IsOptional()
     readonly data?: Data;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the properties of each cell of the row.
      */
     @ArrayNotEmpty()
     @IsArray()
@@ -37,7 +38,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the way the row operates or behaves.
      *
      * @type Mode
      */
@@ -47,13 +48,13 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users press the row.
      */
     readonly onPress?: GestureResponderEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when data of the row changes.
      */
     readonly onChange?: (newData: Data) => void;
 }

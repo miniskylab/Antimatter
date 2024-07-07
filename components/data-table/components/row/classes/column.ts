@@ -1,10 +1,13 @@
 import {IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 
+/**
+ * A group of cells aligned vertically in the data table.
+ */
 export class Column
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification or description of the column.
      */
     @IsString()
     @IsOptional()
@@ -12,7 +15,7 @@ export class Column
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be displayed in the empty cells of the column.
      */
     @IsString()
     @IsOptional()

@@ -11,7 +11,8 @@ import type {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A grid that organizes data into rows and columns, where each row represents a unique record, and each column represents a particular
+ * attribute of the record.
  */
 export function DataTable({
     style = Variant.Default,

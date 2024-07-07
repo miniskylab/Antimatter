@@ -5,7 +5,7 @@ import {Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * Specify the text that will be displayed at the top of the calendar.
+     * Specify the text that will be displayed at the top of the calendar describing what time frame the calendar is showing.
      */
     @IsString()
     @IsOptional()

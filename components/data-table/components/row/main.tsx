@@ -13,7 +13,7 @@ import {ColumnIndexContext, Props, RowContext, type State} from "./models";
 import type {Measurement} from "./types";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A group of cells aligned horizontally in the data table.
  */
 export function Component({
     style,

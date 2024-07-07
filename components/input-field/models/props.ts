@@ -22,7 +22,7 @@ import {type InputFieldStyle} from "./style";
 export class InputFieldProps extends ComponentProps<InputFieldStyle>
 {
     /**
-     * Specify the icon that will be displayed on the input field.
+     * Specify the icon that will be inscribed onto the input field.
      *
      * @type DefaultIconSet
      */

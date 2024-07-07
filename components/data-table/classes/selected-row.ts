@@ -2,10 +2,13 @@ import {IsDefined, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {type Row} from "../components";
 
+/**
+ * A group of cells aligned horizontally and highlighted in the data table.
+ */
 export class SelectedRow
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification of the selected row.
      */
     @IsString()
     @IsDefined()
@@ -13,7 +16,7 @@ export class SelectedRow
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the data of the selected row.
      */
     @IsOptional()
     readonly data: Row.Data;

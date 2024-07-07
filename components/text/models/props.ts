@@ -32,7 +32,7 @@ export class TextProps extends ComponentProps<TextStyle>
 
     /**
      * This option is used to truncate the text with an ellipsis after computing the text layout, including line wrapping, such that the
-     * total number of lines does not exceed the provided number. Setting this option to **0** will disable all line restrictions.
+     * total number of lines does not exceed this number. Setting this option to **0** will disable all line restrictions.
      */
     @Min(0)
     @IsInteger()

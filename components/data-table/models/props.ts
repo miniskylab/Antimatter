@@ -20,7 +20,7 @@ import {type DataTableStyle} from "./style";
 export class DataTableProps extends ComponentProps<DataTableStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that provides a succinct description of the content of the data table.
      */
     @IsString()
     @IsDefined()
@@ -28,7 +28,7 @@ export class DataTableProps extends ComponentProps<DataTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that clarifies or provides context to the title.
      */
     @IsString()
     @IsOptional()
@@ -36,7 +36,7 @@ export class DataTableProps extends ComponentProps<DataTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify all the columns of the data table.
      */
     @ArrayNotEmpty()
     @IsArray()
@@ -47,14 +47,14 @@ export class DataTableProps extends ComponentProps<DataTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify all the rows of the data table.
      */
     @IsOptional()
     readonly rows?: Record<string, Row.Data>;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the selected row of the data table.
      */
     @IsOptional()
     @ValidateNested()
@@ -63,7 +63,7 @@ export class DataTableProps extends ComponentProps<DataTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the way the data table operates or behaves.
      *
      * @type Row.Mode
      */
@@ -73,7 +73,8 @@ export class DataTableProps extends ComponentProps<DataTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * When there aren't enough data rows, empty rows will be inserted into the data table to make sure the total number of rows is never
+     * less than this number.
      */
     @IsPositive()
     @IsInteger()
@@ -82,43 +83,43 @@ export class DataTableProps extends ComponentProps<DataTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the data table changes mode.
      */
     readonly onSwitchMode: (newMode: Row.Mode) => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when data of the selected row changes.
      */
     readonly onChangeRow: (newData: Row.Data) => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when a row is selected.
      */
     readonly onSelectRow: (rowId: string) => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when a new row is added to the data table.
      */
     readonly onAddNewRow: GestureResponderEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when changes made to data of the selected row are saved.
      */
     readonly onSaveRow: GestureResponderEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the selected row is deleted from the data table.
      */
     readonly onDeleteRow: GestureResponderEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when changes made to data of the selected row are discarded.
      */
     readonly onCancel: GestureResponderEventHandler;
 }
