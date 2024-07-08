@@ -4,13 +4,14 @@ import {InputFieldProps} from "@miniskylab/antimatter-input-field";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {Type} from "class-transformer";
 import {ValidateNested} from "class-validator";
+import {InputField, LoginButton} from "../types";
 import {type LoginFormStyle} from "./style";
 
 @ComponentName("Login Form")
 export class LoginFormProps extends ComponentProps<LoginFormStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon that will be inscribed onto the login form.
      *
      * @type DefaultIconSet
      */
@@ -20,7 +21,7 @@ export class LoginFormProps extends ComponentProps<LoginFormStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that provides a succinct description of the login form.
      */
     @IsNotEmpty()
     @IsString()
@@ -29,7 +30,7 @@ export class LoginFormProps extends ComponentProps<LoginFormStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that clarifies or provides context to the title.
      */
     @IsNotEmpty()
     @IsString()
@@ -38,34 +39,34 @@ export class LoginFormProps extends ComponentProps<LoginFormStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the username input field.
      */
     @IsDefined()
     @ValidateNested()
     @Type(() => InputFieldProps)
-    readonly usernameInputField: Pick<InputFieldProps, "icon" | "placeholder">;
+    readonly usernameInputField: InputField;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the password input field.
      */
     @IsDefined()
     @ValidateNested()
     @Type(() => InputFieldProps)
-    readonly passwordInputField: Pick<InputFieldProps, "icon" | "placeholder">;
+    readonly passwordInputField: InputField;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the login button.
      */
     @IsDefined()
     @ValidateNested()
     @Type(() => ButtonProps)
-    readonly loginButton: Pick<ButtonProps, "label">;
+    readonly loginButton: LoginButton;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users log in.
      */
     readonly onLogin?: (username: string, password: string) => void;
 }
