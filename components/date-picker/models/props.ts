@@ -64,7 +64,7 @@ export class DatePickerProps extends ComponentProps<DatePickerStyle>
 
 
     /**
-     * Specify the piece of code that will be executed when users press the addon to open the calendar.
+     * Specify the piece of code that will be executed when users press the addon to open or close the calendar.
      */
     readonly onAddonPress?: () => void;
 
