@@ -55,7 +55,7 @@ export class DropdownMenuProps extends ComponentProps<DropdownMenuStyle>
 
 
     /**
-     * Specify the piece of code that will be executed when users press an item in the menu.
+     * Specify the piece of code that will be executed when users press an item in the opened menu.
      */
     readonly onMenuItemPress?: (pressedMenuItemKey: string) => void;
 }
