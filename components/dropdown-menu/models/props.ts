@@ -8,14 +8,14 @@ import {type DropdownMenuStyle} from "./style";
 export class DropdownMenuProps extends ComponentProps<DropdownMenuStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify all possible values for users to select from.
      */
     @IsOptional()
     readonly menuItems?: Record<string, MenuItem>;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be displayed before any values have been selected.
      */
     @IsString()
     @IsOptional()
@@ -23,7 +23,7 @@ export class DropdownMenuProps extends ComponentProps<DropdownMenuStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to open the menu allowing users to select one or more values from.
      */
     @IsBoolean()
     @IsOptional()
@@ -31,7 +31,7 @@ export class DropdownMenuProps extends ComponentProps<DropdownMenuStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to allow users to scroll through the menu horizontally.
      */
     @IsBoolean()
     @IsOptional()
@@ -39,7 +39,7 @@ export class DropdownMenuProps extends ComponentProps<DropdownMenuStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the direction to open the menu in.
      *
      * @type DropDirection
      */
@@ -49,13 +49,13 @@ export class DropdownMenuProps extends ComponentProps<DropdownMenuStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users press the selected item container to open or close the menu.
      */
     readonly onSelectedItemContainerPress?: () => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users press an item in the menu.
      */
     readonly onMenuItemPress?: (pressedMenuItemKey: string) => void;
 }

@@ -11,7 +11,7 @@ import {DropdownMenuContext, DropdownMenuProps, MenuItemKeyContext} from "./mode
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component that allows users to select one or more values from a predefined list.
  */
 export function DropdownMenu({
     style = Variant.Default,

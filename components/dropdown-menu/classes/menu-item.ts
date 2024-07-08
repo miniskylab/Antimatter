@@ -2,10 +2,13 @@ import {IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {MenuItemStatus} from "../enums";
 
+/**
+ * Represents a single value that can be selected in the dropdown menu.
+ */
 export class MenuItem
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the way the menu item is displayed to users.
      *
      * @type MenuItemStatus
      */
@@ -15,7 +18,7 @@ export class MenuItem
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be inscribed onto the menu item for description.
      */
     @IsNotEmpty()
     @IsString()
@@ -24,7 +27,7 @@ export class MenuItem
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify additional information about the menu item which can then be used to alter the way the menu item is displayed to users.
      */
     @IsString({each: true})
     @IsOptional()
