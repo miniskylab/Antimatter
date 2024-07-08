@@ -9,7 +9,8 @@ import {LocalAuthenticationFormContext, LocalAuthenticationFormProps} from "./mo
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component that authenticates users against credentials stored locally on the device - for example, fingerprint, face, passphrase, or
+ * PIN.
  */
 export function LocalAuthenticationForm({
     style = Variant.Default,

@@ -7,13 +7,13 @@ import {LocalAuthenticationForm} from "../main";
 import {LocalAuthenticationFormProps} from "../models";
 import * as Variant from "../variants";
 
-const LocalAuthenticationFormWithValidation = withValidation(LocalAuthenticationForm, LocalAuthenticationFormProps);
 export default {
     component: LocalAuthenticationForm,
     title: "Components/Local Authentication Form"
 } satisfies Meta<typeof LocalAuthenticationForm>;
 type Story = StoryObj<typeof LocalAuthenticationForm>;
 
+const LocalAuthenticationFormWithValidation = withValidation(LocalAuthenticationForm, LocalAuthenticationFormProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),

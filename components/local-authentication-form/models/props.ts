@@ -8,7 +8,7 @@ import {type LocalAuthenticationFormStyle} from "./style";
 export class LocalAuthenticationFormProps extends ComponentProps<LocalAuthenticationFormStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that provides a succinct description of the local authentication form.
      */
     @IsString()
     @IsOptional()
@@ -16,7 +16,7 @@ export class LocalAuthenticationFormProps extends ComponentProps<LocalAuthentica
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that clarifies or provides context to the title.
      */
     @IsString()
     @IsOptional()
@@ -24,7 +24,7 @@ export class LocalAuthenticationFormProps extends ComponentProps<LocalAuthentica
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon that will be inscribed onto the local authentication form.
      *
      * @type DefaultIconSet
      */
@@ -34,7 +34,7 @@ export class LocalAuthenticationFormProps extends ComponentProps<LocalAuthentica
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the way the local authentication form operates or behaves.
      *
      * @type LocalAuthenticationStatus
      */
@@ -44,7 +44,7 @@ export class LocalAuthenticationFormProps extends ComponentProps<LocalAuthentica
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when local authentication is prompted.
      */
     readonly onPrompt?: GestureResponderEventHandler;
 }

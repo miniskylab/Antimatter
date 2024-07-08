@@ -8,7 +8,7 @@ import {MenuItemStatus} from "../enums";
 export class MenuItem
 {
     /**
-     * Specify the way the menu item is displayed to users.
+     * Specify the way the menu item operates or behaves.
      *
      * @type MenuItemStatus
      */
@@ -27,7 +27,7 @@ export class MenuItem
 
 
     /**
-     * Specify additional information about the menu item which can then be used to alter the way the menu item is displayed to users.
+     * Specify additional information about the menu item which can then be used to alter the way the menu item operates or behaves.
      */
     @IsString({each: true})
     @IsOptional()
