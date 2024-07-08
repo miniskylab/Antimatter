@@ -1,15 +1,15 @@
-import {Canvas, Meta, Controls} from "@storybook/blocks";
+import {Canvas, Meta, ArgTypes} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-framework";
 import {DatePicker} from "../main";
 import {DatePickerProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories} name="Docs"/>
-<Sb.Intro of={DatePicker} propsType={DatePickerProps} supportedPlatforms={["iOS", "Web"]}/>
+<Sb.Intro of={DatePicker} propsType={DatePickerProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
 <Canvas of={Stories.Playground} story={{height: "380px"}} sourceState={"none"}/>
 
 ### Props table
-<Controls of={Stories.Playground}/>
+<ArgTypes of={Stories.Playground}/>
 
 ### Prefilled
 <Canvas of={Stories.Prefilled} story={{height: "380px"}}/>
