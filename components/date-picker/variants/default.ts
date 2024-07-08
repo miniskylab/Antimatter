@@ -117,7 +117,7 @@ const DatePicker__Addon__Icon: IconStyle = function (iconProps)
     return {
         ...inheritedStyle,
         fontSize: 16,
-        color: datePickerContext.props.calendarIsOpen
+        color: datePickerContext.props.isCalendarOpen
             ? pressableContext.state.pressed
                 ? Color.White
                 : Color.Primary

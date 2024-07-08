@@ -36,7 +36,7 @@ export class DatePickerProps extends ComponentProps<DatePickerStyle>
      */
     @IsBoolean()
     @IsOptional()
-    readonly calendarIsOpen?: boolean;
+    readonly isCalendarOpen?: boolean;
 
 
     /**

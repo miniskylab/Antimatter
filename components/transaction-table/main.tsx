@@ -268,7 +268,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                 style={computedStyle.DatePicker}
                 selectedDate={selectedDate}
                 dateFormat={DateFormat.Full}
-                calendarIsOpen={state.datePickerIsOpened}
+                isCalendarOpen={state.datePickerIsOpened}
                 onSelectedDateChange={newlySelectedDate =>
                 {
                     setState(prevState => ({

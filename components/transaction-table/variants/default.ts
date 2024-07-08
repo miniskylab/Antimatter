@@ -73,7 +73,7 @@ const TransactionTable__DatePicker__Root: ViewStyle = function (viewProps)
         width: 276,
         height: 34,
         marginBottom: 5,
-        ...datePickerContext.props.calendarIsOpen && {
+        ...datePickerContext.props.isCalendarOpen && {
             shadowOffset: {width: 0, height: 10},
             shadowRadius: 20,
             shadowColor: Color.Black,

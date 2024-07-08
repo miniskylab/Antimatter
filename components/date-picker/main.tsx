@@ -23,7 +23,7 @@ export function DatePicker({
     selectedDate,
     placeholder = EMPTY_STRING,
     dateFormat = DateFormat.Short,
-    calendarIsOpen = false,
+    isCalendarOpen = false,
     focusable = false,
     autoFocus = false,
     editable = false,
@@ -32,7 +32,7 @@ export function DatePicker({
 }: DatePickerProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<DatePickerProps> = {
-        style, selectedDate, placeholder, dateFormat, calendarIsOpen, focusable, autoFocus, editable, onAddonPress, onSelectedDateChange
+        style, selectedDate, placeholder, dateFormat, isCalendarOpen, focusable, autoFocus, editable, onAddonPress, onSelectedDateChange
     };
 
     const context = useMemo<DatePickerContext>(
@@ -59,7 +59,7 @@ export function DatePicker({
                     icon={DefaultIconSet.Calendar}
                     onPress={onAddonPress}
                 />
-                {calendarIsOpen && (
+                {isCalendarOpen && (
                     <>
                         <View style={computedStyle.Caret} pointerEvents={"none"}/>
                         <Calendar

@@ -17,7 +17,7 @@ export default {
             <DatePickerWithValidation
                 {...args}
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
-                onAddonPress={() => { setArgs({calendarIsOpen: !args.calendarIsOpen}); }}
+                onAddonPress={() => { setArgs({isCalendarOpen: !args.isCalendarOpen}); }}
                 onSelectedDateChange={newlySelectedDate => { setArgs({selectedDate: newlySelectedDate}); }}
             />
         );
@@ -31,7 +31,7 @@ export const Playground: Story = {
         dateFormat: Sb.enumDropdown(DateFormat),
         placeholder: Sb.text(),
         selectedDate: Sb.datePicker(),
-        calendarIsOpen: Sb.boolean(),
+        isCalendarOpen: Sb.boolean(),
         autoFocus: Sb.locked,
         editable: Sb.locked,
         focusable: Sb.locked,
@@ -43,7 +43,7 @@ export const Playground: Story = {
         placeholder: "DD / MM / YYYY",
         selectedDate: undefined,
         dateFormat: DateFormat.Short,
-        calendarIsOpen: false
+        isCalendarOpen: false
     }
 };
 
