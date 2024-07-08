@@ -4,7 +4,7 @@ import {InputFieldProps} from "@miniskylab/antimatter-input-field";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {Type} from "class-transformer";
 import {ValidateNested} from "class-validator";
-import {InputField, LoginButton} from "../types";
+import type {InputField, LoginButton} from "../types";
 import {type LoginFormStyle} from "./style";
 
 @ComponentName("Login Form")
