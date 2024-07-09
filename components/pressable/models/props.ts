@@ -7,14 +7,14 @@ import {type PressableStyle} from "./style";
 export class PressableProps extends ComponentProps<PressableStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Either children or a function that receives a boolean reflecting whether the component is currently pressed.
      */
     @IsOptional()
     readonly children?: ReactNode;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Whether the press behavior is disabled.
      */
     @IsBoolean()
     @IsOptional()
@@ -22,7 +22,7 @@ export class PressableProps extends ComponentProps<PressableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Called after `onPressOut`.
      */
     readonly onPress?: GestureResponderEventHandler;
 }

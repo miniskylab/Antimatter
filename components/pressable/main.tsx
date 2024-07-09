@@ -6,7 +6,7 @@ import {PressableContext, PressableProps, PressableState} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component for handling various stages of press interactions.
  */
 export const Pressable = forwardRef(function Pressable(
     {
