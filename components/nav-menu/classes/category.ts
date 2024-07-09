@@ -17,7 +17,7 @@ export class Category
     readonly label: string;
 
     /**
-     * Specify all URLs in the category.
+     * Specify all URLs of the category.
      */
     @IsArray()
     @IsOptional()

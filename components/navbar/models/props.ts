@@ -9,7 +9,7 @@ import {type NavbarStyle} from "./style";
 export class NavbarProps extends ComponentProps<NavbarStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify all navigation buttons of the navigation bar.
      */
     @ArrayNotEmpty()
     @IsArray()

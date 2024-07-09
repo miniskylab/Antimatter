@@ -5,7 +5,7 @@ import {NavbarProps} from "../../models";
 export const TestData = {
     getTabs(): NavbarProps["tabs"]
     {
-        const queryParamaterName = "tab";
+        const queryParamaterName = "selectedTab";
         const tabs = [
             [TabName.Lorem, DefaultIconSet.Home],
             [TabName.Ipsum, DefaultIconSet.Calendar],

@@ -6,7 +6,8 @@ import {NavbarContext, NavbarProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A long, narrow, horizontal area on screen that contains navigation buttons that users can press to navigate to different locations within
+ * a system.
  */
 export function Navbar({
     style = Variant.Default,
