@@ -3,10 +3,13 @@ import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {MenuItem} from "./menu-item";
 
+/**
+ * Represents a single group into which URLs might be distributed.
+ */
 export class Category
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification or description of the category.
      */
     @IsNotEmpty()
     @IsString()
@@ -14,7 +17,7 @@ export class Category
     readonly label: string;
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify all URLs in the category.
      */
     @IsArray()
     @IsOptional()

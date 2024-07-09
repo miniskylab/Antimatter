@@ -4,11 +4,11 @@ import {IsOptional, ValidateNested} from "class-validator";
 import {Category} from "../classes";
 import {type NavMenuStyle} from "./style";
 
-@ComponentName("NavMenu")
+@ComponentName("Navigation Menu")
 export class NavMenuProps extends ComponentProps<NavMenuStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the selected menu item by its URL.
      */
     @IsNotEmpty()
     @IsString()
@@ -17,7 +17,7 @@ export class NavMenuProps extends ComponentProps<NavMenuStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the groups among which all URLs might be distributed.
      */
     @IsArray()
     @IsOptional()
@@ -27,7 +27,7 @@ export class NavMenuProps extends ComponentProps<NavMenuStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users press a menu item in the navigation menu.
      */
     readonly onMenuItemPress?: (targetUrl: string) => void;
 }

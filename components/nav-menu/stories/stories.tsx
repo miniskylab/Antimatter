@@ -7,13 +7,10 @@ import {NavMenuProps} from "../models";
 import {TestData} from "./test-data";
 import * as Variant from "./variants";
 
-const NavMenuWithValidation = withValidation(NavMenu, NavMenuProps);
-export default {
-    component: NavMenu,
-    title: "Components/Navigation Menu"
-} satisfies Meta<typeof NavMenu>;
+export default {component: NavMenu, title: "Components/Navigation Menu"} satisfies Meta<typeof NavMenu>;
 type Story = StoryObj<typeof NavMenu>;
 
+const NavMenuWithValidation = withValidation(NavMenu, NavMenuProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),

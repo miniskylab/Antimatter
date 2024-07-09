@@ -1,10 +1,13 @@
 import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 
+/**
+ * Represents a single menu item in the navigation menu.
+ */
 export class MenuItem
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon associated with the menu item.
      *
      * @type DefaultIconSet
      */
@@ -14,7 +17,7 @@ export class MenuItem
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification or description of the menu item.
      */
     @IsNotEmpty()
     @IsString()
@@ -23,7 +26,7 @@ export class MenuItem
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the URL associated with the menu item.
      */
     @IsNotEmpty()
     @IsString()

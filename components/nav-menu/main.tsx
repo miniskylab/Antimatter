@@ -7,7 +7,7 @@ import {NavMenuContext, NavMenuProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * An organized list of URLs to different locations within a system.
  */
 export function NavMenu({
     style = Variant.Default,
