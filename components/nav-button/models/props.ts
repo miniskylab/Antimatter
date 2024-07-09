@@ -8,7 +8,7 @@ import {type NavButtonStyle} from "./style";
 export class NavButtonProps extends ComponentProps<NavButtonStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the location to which users will be sent when they press the navigation button.
      */
     @IsNotEmpty()
     @IsString()
@@ -32,7 +32,7 @@ export class NavButtonProps extends ComponentProps<NavButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be inscribed onto the navigation button for identification or description.
      */
     @IsString()
     @IsOptional()
@@ -40,7 +40,7 @@ export class NavButtonProps extends ComponentProps<NavButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon that will be inscribed onto the navigation button.
      *
      * @type DefaultIconSet
      */
@@ -50,7 +50,7 @@ export class NavButtonProps extends ComponentProps<NavButtonStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to prevent users from pressing the navigation button.
      */
     @IsBoolean()
     @IsOptional()

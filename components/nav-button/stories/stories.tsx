@@ -7,13 +7,10 @@ import {NavButton} from "../main";
 import {NavButtonProps} from "../models";
 import * as Variant from "../variants";
 
-const NavButtonWithValidation = withValidation(NavButton, NavButtonProps);
-export default {
-    component: NavButton,
-    title: "Components/Navigation Button"
-} satisfies Meta<typeof NavButton>;
+export default {component: NavButton, title: "Components/Navigation Button"} satisfies Meta<typeof NavButton>;
 type Story = StoryObj<typeof NavButton>;
 
+const NavButtonWithValidation = withValidation(NavButton, NavButtonProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
