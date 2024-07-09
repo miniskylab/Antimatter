@@ -18,7 +18,7 @@ import {type MusicPlayerStyle} from "./style";
 export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that provides a succinct description of the music player before any audio files have been played.
      */
     @IsNotEmpty()
     @IsString()
@@ -27,7 +27,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that clarifies or provides context to the title before any audio files have been played.
      */
     @IsString()
     @IsOptional()
@@ -35,7 +35,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the timer value in seconds.
      */
     @Min(0)
     @IsNumber()
@@ -44,7 +44,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the selected song by its name.
      */
     @IsNotEmpty()
     @IsString()
@@ -53,7 +53,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to specify that the music player is playing an audio file.
      */
     @IsBoolean()
     @IsOptional()
@@ -61,7 +61,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to enable shuffle mode.
      */
     @IsBoolean()
     @IsOptional()
@@ -69,7 +69,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify what will happen when the music player finishes playing one or all the audio files.
      *
      * @type RepeatMode
      */
@@ -79,7 +79,8 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to enter playlist selection mode. In this mode, users can include or exclude the audio files from the
+     * playlist. Excluded audio files will not be played. Set this option to ***false*** to exit playlist selection mode.
      */
     @IsBoolean()
     @IsOptional()
@@ -87,56 +88,56 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify all the audio files to which the music player has access.
      */
     @IsOptional()
     readonly tracklist?: SongRow.SongData[];
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the music player starts playing an audio file or resumes playback.
      */
     readonly onPlay?: (songName?: string) => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the music player temporarily stops playback.
      */
     readonly onPause?: () => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the music player plays the next audio file.
      */
     readonly onPlayNext?: () => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the music player plays the previous audio file.
      */
     readonly onPlayPrevious?: () => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when shuffle mode changes.
      */
     readonly onShuffleModeToggle?: (isShuffleEnabled: boolean) => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when repeat mode changes.
      */
     readonly onRepeatModeChange?: (newRepeatMode: RepeatMode) => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when playlist-selection mode changes.
      */
     readonly onPlaylistSelectionToggle?: (isPlaylistSelectionEnabled: boolean) => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when an audio file is included or excluded from the playlist.
      */
     readonly onSongExclusionStatusToggle?: (songName: string, isExcluded: boolean) => void;
 }
