@@ -2,7 +2,7 @@ import {IsBoolean, IsDefined, IsMultipleOf, IsNumber, IsPositive} from "@minisky
 import {IsOptional} from "class-validator";
 
 /**
- * Represents the settings of the marking present along the range slider.
+ * Determines how the marking present along the range slider is displayed.
  */
 export class PipsSettings
 {

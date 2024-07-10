@@ -46,7 +46,7 @@ export class RangeSliderProps extends ComponentProps<RangeSliderStyle>
 
 
     /**
-     * Specify the settings of the marking present along the range slider.
+     * Specify how the marking present along the range slider is displayed.
      */
     @IsOptional()
     @ValidateNested()
