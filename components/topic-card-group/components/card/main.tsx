@@ -12,11 +12,11 @@ export function Component({
     style,
     text,
     ctas = [],
-    thisIsPlaceholderCard
+    isPlaceholderCard
 }: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, text, ctas, thisIsPlaceholderCard
+        style, text, ctas, isPlaceholderCard
     };
 
     const context = useMemo<CardContext>(

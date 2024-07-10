@@ -11,7 +11,7 @@ export class Props extends ComponentProps<Style>
      */
     @IsBoolean()
     @IsOptional()
-    readonly thisIsPlaceholderCard?: boolean;
+    readonly isPlaceholderCard?: boolean;
 
 
     /**

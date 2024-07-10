@@ -39,7 +39,7 @@ const TopicCardGroup__Card__Root: ViewStyle = function (viewProps)
         marginVertical: 10,
         ...useResponsiveStyle("Medium", {flexBasis: "50%"}),
         ...useResponsiveStyle("Large", {flexBasis: "33.33%"}),
-        ...cardContext.props.thisIsPlaceholderCard && {
+        ...cardContext.props.isPlaceholderCard && {
             marginTop: 0,
             marginBottom: 0,
             marginLeft: 0,
@@ -61,7 +61,7 @@ const TopicCardGroup__Card__Content: ViewStyle = function (viewProps)
         paddingBottom: 20,
         paddingHorizontal: 20,
         backgroundColor: Color.Background,
-        ...cardContext.props.thisIsPlaceholderCard && {
+        ...cardContext.props.isPlaceholderCard && {
             height: 0,
             paddingTop: 0,
             paddingBottom: 0,

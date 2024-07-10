@@ -114,13 +114,13 @@ export const Playground: Story = {
                 `
             },
             {
-                thisIsPlaceholderCard: true
+                isPlaceholderCard: true
             },
             {
-                thisIsPlaceholderCard: true
+                isPlaceholderCard: true
             },
             {
-                thisIsPlaceholderCard: true
+                isPlaceholderCard: true
             }
         ]
     },
