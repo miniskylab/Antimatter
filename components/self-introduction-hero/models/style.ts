@@ -15,9 +15,11 @@ export type SelfIntroductionHeroStyle = (selfIntroductionHeroProps: WithoutStyle
     AlternativeName: TextStyle;
     Description: TextStyle;
     SimpleInfoSection1: ViewStyle;
+    SimpleInfoSection1Container: ViewStyle;
     SimpleInfoSection1Label: TextStyle;
     SimpleInfoSection1Value: TextStyle;
     SimpleInfoSection2: ViewStyle;
+    SimpleInfoSection2Container: ViewStyle;
     SimpleInfoSection2Label: TextStyle;
     SimpleInfoSection2Value: TextStyle;
     DownloadButton: DownloadButtonStyle;

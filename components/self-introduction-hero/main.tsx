@@ -49,12 +49,16 @@ export function SelfIntroductionHero({
                 <Text style={computedStyle.AlternativeName}>{alternativeName}</Text>
                 <Text style={computedStyle.Description}>{description}</Text>
                 <View style={computedStyle.SimpleInfoSection1}>
-                    <Text style={computedStyle.SimpleInfoSection1Label}>{locationLabel}</Text>
-                    <Text style={computedStyle.SimpleInfoSection1Value}>{locationValue}</Text>
+                    <View style={computedStyle.SimpleInfoSection1Container}>
+                        <Text style={computedStyle.SimpleInfoSection1Label}>{locationLabel}</Text>
+                        <Text style={computedStyle.SimpleInfoSection1Value}>{locationValue}</Text>
+                    </View>
                 </View>
                 <View style={computedStyle.SimpleInfoSection2}>
-                    <Text style={computedStyle.SimpleInfoSection2Label}>{emailLabel}</Text>
-                    <Text style={computedStyle.SimpleInfoSection2Value}>{emailValue}</Text>
+                    <View style={computedStyle.SimpleInfoSection2Container}>
+                        <Text style={computedStyle.SimpleInfoSection2Label}>{emailLabel}</Text>
+                        <Text style={computedStyle.SimpleInfoSection2Value}>{emailValue}</Text>
+                    </View>
                 </View>
                 {downloadButton && <DownloadButton style={computedStyle.DownloadButton} {...downloadButton}/>}
             </View>

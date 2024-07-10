@@ -136,6 +136,7 @@ const SelfIntroductionHero__SimpleInfoSection1: ViewStyle = function (viewProps)
         marginHorizontal: 15,
         backgroundColor: Color.Gray__a10,
         ...useResponsiveStyle("Small", {
+            alignItems: "flex-start",
             alignSelf: "center",
             position: "absolute",
             top: 300,
@@ -154,6 +155,13 @@ const SelfIntroductionHero__SimpleInfoSection1: ViewStyle = function (viewProps)
             width: 200,
             marginLeft: -500
         })
+    };
+};
+
+const SelfIntroductionHero__SimpleInfoSection1Container: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps)
     };
 };
 
@@ -203,12 +211,20 @@ const SelfIntroductionHero__SimpleInfoSection2: ViewStyle = function (viewProps)
         borderColor: Color.Primary,
         backgroundColor: Color.Primary__a10,
         ...useResponsiveStyle("Small", {
+            alignItems: "flex-end",
             marginLeft: 370,
             backgroundColor: Color.Transparent
         }),
         ...useResponsiveStyle("Medium", {
             marginLeft: 500
         })
+    };
+};
+
+const SelfIntroductionHero__SimpleInfoSection2Container: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps)
     };
 };
 
@@ -283,9 +299,11 @@ export const Default: SelfIntroductionHeroStyle = function ()
         AlternativeName: SelfIntroductionHero__AlternativeName,
         Description: SelfIntroductionHero__Description,
         SimpleInfoSection1: SelfIntroductionHero__SimpleInfoSection1,
+        SimpleInfoSection1Container: SelfIntroductionHero__SimpleInfoSection1Container,
         SimpleInfoSection1Label: SelfIntroductionHero__SimpleInfoSection1Label,
         SimpleInfoSection1Value: SelfIntroductionHero__SimpleInfoSection1Value,
         SimpleInfoSection2: SelfIntroductionHero__SimpleInfoSection2,
+        SimpleInfoSection2Container: SelfIntroductionHero__SimpleInfoSection2Container,
         SimpleInfoSection2Label: SelfIntroductionHero__SimpleInfoSection2Label,
         SimpleInfoSection2Value: SelfIntroductionHero__SimpleInfoSection2Value,
         DownloadButton: SelfIntroductionHero__DownloadButton
