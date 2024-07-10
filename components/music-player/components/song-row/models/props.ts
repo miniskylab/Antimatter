@@ -11,9 +11,6 @@ import {
 import {IsOptional} from "class-validator";
 import {Style} from "./style";
 
-/**
- * Represents a single digital audio file that can be played in the music player.
- */
 export class Props extends ComponentProps<Style>
 {
     /**

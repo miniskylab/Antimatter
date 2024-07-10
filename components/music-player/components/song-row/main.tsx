@@ -6,7 +6,7 @@ import {Props, SongRowContext} from "./models";
 import {getFormattedTime} from "./services";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * Represents a single digital audio file that can be played in the music player.
  */
 export function Component({
     style,
