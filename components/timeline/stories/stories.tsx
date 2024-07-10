@@ -8,13 +8,10 @@ import * as Variant from "../variants";
 import * as StaticAsset from "./static-assets";
 import {TestData} from "./test-data";
 
-const TimelineWithValidation = withValidation(Timeline, TimelineProps);
-export default {
-    component: Timeline,
-    title: "Components/Timeline"
-} satisfies Meta<typeof Timeline>;
+export default {component: Timeline, title: "Components/Timeline"} satisfies Meta<typeof Timeline>;
 type Story = StoryObj<typeof Timeline>;
 
+const TimelineWithValidation = withValidation(Timeline, TimelineProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),

@@ -5,7 +5,7 @@ import {Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon associated with the bootstrap event.
      *
      * @type DefaultIconSet
      */
@@ -15,7 +15,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification of the bootstrap event.
      */
     @IsNotEmpty()
     @IsString()
@@ -24,7 +24,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify what happens during the bootstrap event.
      */
     @IsNotEmpty()
     @IsString()

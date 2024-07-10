@@ -9,7 +9,7 @@ import {type TimelineStyle} from "./style";
 export class TimelineProps extends ComponentProps<TimelineStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify all events of the timeline.
      */
     @ArrayNotEmpty()
     @IsArray()
@@ -20,7 +20,7 @@ export class TimelineProps extends ComponentProps<TimelineStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the event at the origin of the timeline.
      */
     @IsOptional()
     @ValidateNested()

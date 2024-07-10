@@ -7,13 +7,13 @@ import {type Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the location of the event on the timeline.
      */
     readonly index: number;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification of the event.
      */
     @IsNotEmpty()
     @IsString()
@@ -22,14 +22,14 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the image associated with the event.
      */
     @IsOptional()
     readonly image?: ImageSourcePropType;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify what happens during the event.
      */
     @IsString()
     @IsOptional()
@@ -37,7 +37,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon associated with the event.
      *
      * @type DefaultIconSet
      */
@@ -47,7 +47,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the date on which the event starts.
      */
     @IsDate()
     @IsDefined()
@@ -55,7 +55,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the date on which the event ends.
      */
     @IsDate()
     @IsOptional()
@@ -63,7 +63,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to specify that the event has not ended.
      */
     @IsBoolean()
     @IsOptional()
@@ -71,7 +71,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the location at which the event occurs.
      */
     @IsString()
     @IsOptional()
@@ -79,7 +79,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify how dates and times are displayed on the event.
      */
     @IsEnum(TimeUnit)
     @IsOptional()

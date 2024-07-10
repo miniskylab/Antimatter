@@ -6,7 +6,7 @@ import React, {JSX, useMemo} from "react";
 import {BootstrapEventContext, Props} from "./models";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * The event at the origin of the timeline.
  */
 export function Component({
     style,

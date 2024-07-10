@@ -16,7 +16,7 @@ import React, {JSX, useMemo} from "react";
 import {EventContext, Props} from "./models";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * An important thing that happens on the timeline.
  */
 export function Component({
     style,

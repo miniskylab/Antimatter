@@ -8,7 +8,7 @@ import {TimelineContext, TimelineProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A chronological arrangement of important events in the order of their occurrence.
  */
 export function Timeline({
     style = Variant.Default,
