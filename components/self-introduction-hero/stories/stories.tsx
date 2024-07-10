@@ -7,13 +7,10 @@ import {SelfIntroductionHeroProps} from "../models";
 import * as Variant from "../variants";
 import * as StaticAsset from "./static-assets";
 
-const SelfIntroductionHeroWithValidation = withValidation(SelfIntroductionHero, SelfIntroductionHeroProps);
-export default {
-    component: SelfIntroductionHero,
-    title: "Components/Self-Introduction Hero"
-} satisfies Meta<typeof SelfIntroductionHero>;
+export default {component: SelfIntroductionHero, title: "Components/Self-Introduction Hero"} satisfies Meta<typeof SelfIntroductionHero>;
 type Story = StoryObj<typeof SelfIntroductionHero>;
 
+const SelfIntroductionHeroWithValidation = withValidation(SelfIntroductionHero, SelfIntroductionHeroProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),

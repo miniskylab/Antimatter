@@ -8,7 +8,7 @@ import {SelfIntroductionHeroContext, SelfIntroductionHeroProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A large banner which is featured at the top of a webpage and provides information about a person.
  */
 export function SelfIntroductionHero({
     style = Variant.Default,

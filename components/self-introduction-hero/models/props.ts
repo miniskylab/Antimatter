@@ -9,21 +9,21 @@ import {type SelfIntroductionHeroStyle} from "./style";
 export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHeroStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the large image at the top of the self-introduction hero.
      */
     @IsDefined()
     readonly coverPhoto: ImageSourcePropType;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the image of the person.
      */
     @IsDefined()
     readonly avatar: ImageSourcePropType;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the name of the person.
      */
     @IsNotEmpty()
     @IsString()
@@ -32,7 +32,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the alternative name of the person.
      */
     @IsNotEmpty()
     @IsString()
@@ -41,7 +41,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification or description of the location of the person.
      */
     @IsNotEmpty()
     @IsString()
@@ -50,7 +50,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the location of the person.
      */
     @IsNotEmpty()
     @IsString()
@@ -59,7 +59,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification or description of the email address of the person.
      */
     @IsNotEmpty()
     @IsString()
@@ -68,7 +68,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the email address of the person.
      */
     @IsEmail()
     @IsString()
@@ -77,7 +77,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the short description of the person.
      */
     @IsNotEmpty()
     @IsString()
@@ -86,7 +86,7 @@ export class SelfIntroductionHeroProps extends ComponentProps<SelfIntroductionHe
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the button that can be pressed to download the files related to the person.
      */
     @IsOptional()
     @ValidateNested()
