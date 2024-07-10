@@ -1,10 +1,13 @@
 import {IsBoolean, IsDefined, IsMultipleOf, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 
+/**
+ * Represents the settings of the marking present along the range slider.
+ */
 export class PipsSettings
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the distance between two consecutive pips.
      */
     @IsPositive()
     @IsNumber()
@@ -13,7 +16,7 @@ export class PipsSettings
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the distance between two consecutive long pips.
      */
     @IsMultipleOf("step")
     @IsPositive()
@@ -23,7 +26,7 @@ export class PipsSettings
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to restrict the movement of the knob slider to the defined steps.
      */
     @IsBoolean()
     @IsOptional()

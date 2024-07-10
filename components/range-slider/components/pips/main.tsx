@@ -6,7 +6,7 @@ import {PipIndexContext, PipsContext, Props} from "./models";
 import {getPctPipValue, getPipCount, isMilestonePip} from "./services";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * The marking that present along the range slider.
  */
 export function Component({
     style,

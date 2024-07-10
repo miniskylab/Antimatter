@@ -13,7 +13,7 @@ import {Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the minimum value of the pips.
      */
     @IsLessThanOrEqualTo("maxValue")
     @IsNumber()
@@ -22,7 +22,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the maximum value of the pips.
      */
     @IsGreaterThanOrEqualTo("minValue")
     @IsNumber()
@@ -31,7 +31,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the distance between two consecutive pips.
      */
     @IsPositive()
     @IsNumber()
@@ -40,7 +40,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the minimum value of the selectable range.
      */
     @IsGreaterThanOrEqualTo("minValue")
     @IsLessThanOrEqualTo("maxValue")
@@ -50,7 +50,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the maximum value of the selectable range.
      */
     @IsGreaterThanOrEqualTo("minValue")
     @IsLessThanOrEqualTo("maxValue")
@@ -60,7 +60,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the distance between two consecutive long pips.
      */
     @IsMultipleOf("step")
     @IsPositive()

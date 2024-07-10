@@ -8,7 +8,7 @@ import {RangeSliderContext, RangeSliderProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component that allows users to select a single value in the range between two values.
  */
 export function RangeSlider({
     style = Variant.Default,

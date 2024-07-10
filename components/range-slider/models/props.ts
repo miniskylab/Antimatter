@@ -18,7 +18,7 @@ import {type RangeSliderStyle} from "./style";
 export class RangeSliderProps extends ComponentProps<RangeSliderStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the minimum value of the range slider.
      */
     @IsLessThanOrEqualTo("maxValue")
     @IsNumber()
@@ -27,7 +27,7 @@ export class RangeSliderProps extends ComponentProps<RangeSliderStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the maximum value of the range slider.
      */
     @IsGreaterThanOrEqualTo("minValue")
     @IsNumber()
@@ -36,7 +36,7 @@ export class RangeSliderProps extends ComponentProps<RangeSliderStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the selected value of the range slider.
      */
     @IsGreaterThanOrEqualTo("minValue")
     @IsLessThanOrEqualTo("maxValue")
@@ -46,7 +46,7 @@ export class RangeSliderProps extends ComponentProps<RangeSliderStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the settings of the marking present along the range slider.
      */
     @IsOptional()
     @ValidateNested()
@@ -55,7 +55,7 @@ export class RangeSliderProps extends ComponentProps<RangeSliderStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon that will be inscribed onto the knob of the range slider.
      *
      * @type DefaultIconSet
      */
@@ -65,7 +65,7 @@ export class RangeSliderProps extends ComponentProps<RangeSliderStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to prevent users from moving the knob slider.
      */
     @IsBoolean()
     @IsOptional()
@@ -73,7 +73,7 @@ export class RangeSliderProps extends ComponentProps<RangeSliderStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the selected value changes.
      */
     readonly onChange?: (newValue: number) => void;
 }
