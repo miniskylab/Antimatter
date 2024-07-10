@@ -9,13 +9,10 @@ import * as Variant from "../variants";
 import * as StaticAsset from "./static-assets";
 import {TestData} from "./test-data";
 
-const TopicCardGroupWithValidation = withValidation(TopicCardGroup, TopicCardGroupProps);
-export default {
-    component: TopicCardGroup,
-    title: "Components/Topic Card Group"
-} satisfies Meta<typeof TopicCardGroup>;
+export default {component: TopicCardGroup, title: "Components/Topic Card Group"} satisfies Meta<typeof TopicCardGroup>;
 type Story = StoryObj<typeof TopicCardGroup>;
 
+const TopicCardGroupWithValidation = withValidation(TopicCardGroup, TopicCardGroupProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),

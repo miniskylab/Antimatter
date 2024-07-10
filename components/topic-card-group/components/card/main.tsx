@@ -6,7 +6,7 @@ import React, {JSX, useMemo} from "react";
 import {CardContext, Props} from "./models";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component that displays content and actions about a single subject.
  */
 export function Component({
     style,

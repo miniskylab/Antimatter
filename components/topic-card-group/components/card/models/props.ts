@@ -7,7 +7,7 @@ import {Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to hide everything inside the card.
      */
     @IsBoolean()
     @IsOptional()
@@ -15,7 +15,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the content of the card.
      */
     @IsNotEmpty()
     @IsString()
@@ -24,7 +24,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the actions of the card.
      */
     @IsArray()
     @IsOptional()
