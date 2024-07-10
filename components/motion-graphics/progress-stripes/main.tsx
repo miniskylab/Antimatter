@@ -6,7 +6,7 @@ import {ProgressStripesContext, ProgressStripesProps, ProgressStripesState, Stri
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * Progress bar with stripes moving left to right.
  */
 export function ProgressStripes({
     style = Variant.Default,

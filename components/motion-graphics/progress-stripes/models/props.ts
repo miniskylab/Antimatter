@@ -6,7 +6,7 @@ import {type ProgressStripesStyle} from "./style";
 export class ProgressStripesProps extends ComponentProps<ProgressStripesStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the time, in milliseconds, the animation takes to complete one cycle.
      */
     @IsPositive()
     @IsNumber()

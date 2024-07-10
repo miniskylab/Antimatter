@@ -8,7 +8,7 @@ import {SpinningDoubleGearContext, SpinningDoubleGearProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * Two gears rotate in opposite directions.
  */
 export function SpinningDoubleGear({
     style = Variant.Default,

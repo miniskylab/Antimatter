@@ -6,7 +6,7 @@ import {type SpinningDoubleGearStyle} from "./style";
 export class SpinningDoubleGearProps extends ComponentProps<SpinningDoubleGearStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the time, in milliseconds, the animation takes to complete one cycle.
      */
     @IsPositive()
     @IsNumber()
