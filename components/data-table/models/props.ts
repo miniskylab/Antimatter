@@ -36,7 +36,7 @@ export class DataTableProps extends ComponentProps<DataTableStyle>
 
 
     /**
-     * Specify all the columns of the data table.
+     * Specify all columns of the data table.
      */
     @ArrayNotEmpty()
     @IsArray()
@@ -47,7 +47,7 @@ export class DataTableProps extends ComponentProps<DataTableStyle>
 
 
     /**
-     * Specify all the rows of the data table.
+     * Specify all rows of the data table.
      */
     @IsOptional()
     readonly rows?: Record<string, Row.Data>;

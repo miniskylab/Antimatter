@@ -9,7 +9,7 @@ import {type TopicCardGroupStyle} from "./style";
 export class TopicCardGroupProps extends ComponentProps<TopicCardGroupStyle>
 {
     /**
-     * Specify all the cards of the topic card group.
+     * Specify all cards of the topic card group.
      */
     @ArrayNotEmpty()
     @IsArray()

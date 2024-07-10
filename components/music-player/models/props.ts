@@ -88,7 +88,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * Specify all the audio files to which the music player has access.
+     * Specify all audio files to which the music player has access.
      */
     @IsOptional()
     readonly tracklist?: SongRow.SongData[];
