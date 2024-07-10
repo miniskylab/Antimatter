@@ -14,45 +14,45 @@ import {type ViewStyle} from "./style";
 export class ViewProps extends ComponentProps<ViewStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the content of the view.
      */
     @IsOptional()
     readonly children?: ReactNode;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/view#pointerevents
      */
     @IsOptional()
     readonly pointerEvents?: PointerEvents;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/view#onlayout
      */
     readonly onLayout?: LayoutChangeEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/view#onstartshouldsetresponder
      */
     readonly onStartShouldSetResponder?: ShouldSetResponderPredicate;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/view#onmoveshouldsetresponder
      */
     readonly onMoveShouldSetResponder?: ShouldSetResponderPredicate;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/view#onresponderstart
      */
     readonly onResponderStart?: GestureResponderEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/view#onrespondermove
      */
     readonly onResponderMove?: GestureResponderEventHandler;
 }
