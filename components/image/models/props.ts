@@ -7,15 +7,14 @@ import {type ImageStyle} from "./style";
 export class ImageProps extends ComponentProps<ImageStyle>
 {
     /**
-     * The image source (either a remote URL or a local file resource).
+     * @see https://reactnative.dev/docs/image#source
      */
     @IsDefined()
     readonly source: ImageSourcePropType;
 
 
     /**
-     * A string that defines an alternative text description of the image, which will be read by the screen reader when the user interacts
-     * with it. Using this will automatically mark this element as accessible.
+     * @see https://reactnative.dev/docs/image#alt
      */
     @IsNotEmpty()
     @IsString()

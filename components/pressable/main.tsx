@@ -6,7 +6,7 @@ import {PressableContext, PressableProps, PressableState} from "./models";
 import * as Variant from "./variants";
 
 /**
- * A component for handling various stages of press interactions.
+ * @see https://reactnative.dev/docs/pressable
  */
 export const Pressable = forwardRef(function Pressable(
     {

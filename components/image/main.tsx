@@ -5,7 +5,7 @@ import {ImageProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * A component for displaying different types of images.
+ * @see https://reactnative.dev/docs/image
  */
 export function Image({
     style = Variant.Default,

@@ -1,10 +1,13 @@
 import {IsDefined, IsNumber} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 
+/**
+ * Represents a text selection.
+ */
 export class Selection
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the start of the text selection.
      */
     @IsNumber()
     @IsDefined()
@@ -12,7 +15,7 @@ export class Selection
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the end of the text selection.
      */
     @IsNumber()
     @IsOptional()

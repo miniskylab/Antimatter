@@ -19,7 +19,7 @@ import {type TextInputStyle} from "./style";
 export class TextInputProps extends ComponentProps<TextInputStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#value
      */
     @IsString()
     @IsOptional()
@@ -27,7 +27,7 @@ export class TextInputProps extends ComponentProps<TextInputStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/view#focusable-android
      */
     @IsBoolean()
     @IsOptional()
@@ -35,7 +35,7 @@ export class TextInputProps extends ComponentProps<TextInputStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#autofocus
      */
     @IsBoolean()
     @IsOptional()
@@ -43,7 +43,7 @@ export class TextInputProps extends ComponentProps<TextInputStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#editable
      */
     @IsBoolean()
     @IsOptional()
@@ -51,7 +51,7 @@ export class TextInputProps extends ComponentProps<TextInputStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#securetextentry
      */
     @IsBoolean()
     @IsOptional()
@@ -59,7 +59,7 @@ export class TextInputProps extends ComponentProps<TextInputStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#contextmenuhidden
      */
     @IsBoolean()
     @IsOptional()
@@ -67,7 +67,7 @@ export class TextInputProps extends ComponentProps<TextInputStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#autocorrect
      */
     @IsBoolean()
     @IsOptional()
@@ -75,7 +75,7 @@ export class TextInputProps extends ComponentProps<TextInputStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#maxlength
      */
     @IsPositive()
     @IsNumber()
@@ -84,14 +84,14 @@ export class TextInputProps extends ComponentProps<TextInputStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#keyboardtype
      */
     @IsOptional()
     readonly keyboardType?: KeyboardTypeOptions;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#selection
      */
     @IsOptional()
     @ValidateNested()
@@ -100,31 +100,31 @@ export class TextInputProps extends ComponentProps<TextInputStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#onblur
      */
     readonly onBlur?: TextInputFocusEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#onfocus
      */
     readonly onFocus?: TextInputFocusEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#onkeypress
      */
     readonly onKeyPress?: TextInputKeyPressEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#onselectionchange
      */
     readonly onSelectionChange?: TextInputSelectionChangeEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * @see https://reactnative.dev/docs/textinput#onchangetext
      */
     readonly onChangeText?: (newText: string) => void;
 }

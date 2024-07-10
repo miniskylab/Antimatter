@@ -5,7 +5,7 @@ import {ScrollViewProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * @see https://reactnative.dev/docs/scrollview
  */
 export const ScrollView = forwardRef(function ScrollView(
     {

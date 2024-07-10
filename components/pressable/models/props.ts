@@ -7,14 +7,14 @@ import {type PressableStyle} from "./style";
 export class PressableProps extends ComponentProps<PressableStyle>
 {
     /**
-     * Either children or a function that receives a boolean reflecting whether the component is currently pressed.
+     * @see https://reactnative.dev/docs/pressable#children
      */
     @IsOptional()
     readonly children?: ReactNode;
 
 
     /**
-     * Whether the press behavior is disabled.
+     * @see https://reactnative.dev/docs/pressable#disabled
      */
     @IsBoolean()
     @IsOptional()
@@ -22,7 +22,7 @@ export class PressableProps extends ComponentProps<PressableStyle>
 
 
     /**
-     * Called after `onPressOut`.
+     * @see https://reactnative.dev/docs/pressable#onpress
      */
     readonly onPress?: GestureResponderEventHandler;
 }
