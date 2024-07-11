@@ -3,7 +3,7 @@ import {IsOptional} from "class-validator";
 import {type Row} from "../components";
 
 /**
- * A group of cells aligned horizontally and highlighted in the data table.
+ * Represents the selected row in the data table.
  */
 export class SelectedRow
 {

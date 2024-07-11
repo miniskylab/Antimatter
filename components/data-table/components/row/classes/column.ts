@@ -2,7 +2,7 @@ import {IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 
 /**
- * A group of cells aligned vertically in the data table.
+ * Represents properties of a group of cells aligned vertically in the data table.
  */
 export class Column
 {
