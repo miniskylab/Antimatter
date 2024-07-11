@@ -8,7 +8,7 @@ import {type ToggleStyle} from "./style";
 export class ToggleProps extends ComponentProps<ToggleStyle>
 {
     /**
-     * Set the status of the toggle.
+     * Specify the state the toggle is in.
      *
      * @type Status
      */

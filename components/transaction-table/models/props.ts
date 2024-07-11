@@ -10,7 +10,7 @@ import {type TransactionTableStyle} from "./style";
 export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify what will be displayed in the summary section of the transaction table.
      *
      * @type Summary.Props
      */
@@ -21,7 +21,8 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the selected date. The transaction table might contain many transactions but only transactions in the selected date will be
+     * displayed and can be modified or deleted. Newly added transactions will automatically belong to the selected date.
      */
     @IsDate()
     @IsOptional()
@@ -29,14 +30,14 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify all transactions that are managed by the transaction table.
      */
     @IsOptional()
     readonly transactions?: Record<string, TransactionRecord.Data>;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the selected transaction. Only the selected transaction can be modified, saved or deleted.
      */
     @IsOptional()
     @ValidateNested()
@@ -45,7 +46,7 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the way the transaction table operates or behaves.
      *
      * @type TransactionRecord.Mode
      */
@@ -55,7 +56,7 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the maximum number of tags that can be assigned to a single transaction.
      */
     @IsPositive()
     @IsInteger()
@@ -65,7 +66,7 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * This option is used to convey temporary messages to users.
      */
     @IsOptional()
     @ValidateNested()
@@ -74,55 +75,55 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the button that users can press to add a new transaction to the table.
      */
     readonly addNewTransactionButton: ControlButton;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the button that users can press to save all changes made to the selected transaction.
      */
     readonly saveTransactionButton: ControlButton;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the button that users can press to delete the selected transaction from the table.
      */
     readonly deleteTransactionButton: ControlButton;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the button that users can press to discard all changes made to the selected transaction.
      */
     readonly cancelButton: ControlButton;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the button that users can press to trigger custom functionalities.
      */
     readonly customButton?: ControlButton;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the transaction table changes mode.
      */
     readonly onSwitchMode?: (newMode: TransactionRecord.Mode) => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when data of the selected transaction changes.
      */
     readonly onChangeTransaction?: (newTransactionData: TransactionChangeData) => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when a transaction is selected.
      */
     readonly onSelectTransaction?: (transactionId: string) => void;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when the selected date changes.
      */
     readonly onSelectDate?: (newDate: Date) => void;
 }

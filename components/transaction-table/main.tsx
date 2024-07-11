@@ -24,7 +24,7 @@ import type {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component for managing personal financial transactions.
  */
 export const TransactionTable = forwardRef(function TransactionTable(
     {

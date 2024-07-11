@@ -8,7 +8,7 @@ import {type Row} from "../components";
 export class SelectedRow
 {
     /**
-     * Specify the text that will be used for identification of the selected row.
+     * Specify the text that will be used to uniquely identify the selected row.
      */
     @IsString()
     @IsDefined()

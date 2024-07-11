@@ -2,10 +2,13 @@ import {IsDate, IsDefined, IsNumber, IsString} from "@miniskylab/antimatter-fram
 import {IsOptional} from "class-validator";
 import {Tag} from "./tag";
 
+/**
+ * Represents data of a particular transaction.
+ */
 export class Data
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the name of the transaction.
      */
     @IsString()
     @IsOptional()
@@ -13,7 +16,7 @@ export class Data
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the transaction amount.
      */
     @IsNumber()
     @IsDefined()
@@ -21,14 +24,14 @@ export class Data
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the tags that can be assigned to the transaction.
      */
     @IsOptional()
     readonly tags?: Record<string, Tag>;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the date and time at which the transaction was executed.
      */
     @IsDate()
     @IsDefined()
@@ -36,7 +39,7 @@ export class Data
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the date and time at which the transaction was last modified.
      */
     @IsDate()
     @IsOptional()
@@ -44,7 +47,7 @@ export class Data
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the date and time at which the transaction was created.
      */
     @IsDate()
     @IsOptional()

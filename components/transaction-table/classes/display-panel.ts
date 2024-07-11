@@ -3,10 +3,13 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {DisplayPanelTheme} from "../enums";
 
+/**
+ * Represents objects that carry display panel data.
+ */
 export class DisplayPanel
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon that will be inscribed onto the display panel.
      *
      * @type DefaultIconSet
      */
@@ -16,7 +19,7 @@ export class DisplayPanel
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text message that will be inscribed onto the display panel.
      */
     @IsString()
     @IsDefined()
@@ -24,7 +27,7 @@ export class DisplayPanel
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the theme of the display panel.
      *
      * @type DisplayPanelTheme
      */
@@ -34,7 +37,7 @@ export class DisplayPanel
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to play the animation associated with the icon inscribed onto the display panel.
      */
     @IsBoolean()
     @IsOptional()
@@ -42,7 +45,7 @@ export class DisplayPanel
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to make the display panel visible to users.
      */
     @IsBoolean()
     @IsOptional()

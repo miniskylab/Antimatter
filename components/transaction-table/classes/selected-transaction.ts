@@ -3,10 +3,13 @@ import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {TransactionRecord} from "../components";
 
+/**
+ * Represents the selected transaction in the transaction table.
+ */
 export class SelectedTransaction
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used to uniquely identify the selected transaction.
      */
     @IsString()
     @IsDefined()
@@ -14,7 +17,7 @@ export class SelectedTransaction
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the data of the selected transaction.
      *
      * @type TransactionRecord.Data
      */
@@ -25,7 +28,7 @@ export class SelectedTransaction
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to display the progress striped animation in the background of the selected transaction.
      */
     @IsBoolean()
     @IsOptional()

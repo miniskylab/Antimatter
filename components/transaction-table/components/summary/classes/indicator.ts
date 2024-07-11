@@ -2,10 +2,13 @@ import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-fr
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 
+/**
+ * Represents objects that carry indicator data.
+ */
 export class Indicator
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon that will be inscribed onto the indicator.
      *
      * @type DefaultIconSet
      */
@@ -15,7 +18,7 @@ export class Indicator
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be inscribed onto the indicator.
      */
     @IsNotEmpty()
     @IsString()

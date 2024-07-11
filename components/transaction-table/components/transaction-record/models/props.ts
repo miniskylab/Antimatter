@@ -19,7 +19,7 @@ import {Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used to uniquely identify the transaction record.
      */
     @IsNotEmpty()
     @IsString()
@@ -28,7 +28,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification or description of the transaction record.
      */
     @IsString()
     @IsOptional()
@@ -36,7 +36,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the transaction amount of the transaction record.
      */
     @IsNumber()
     @IsDefined()
@@ -44,7 +44,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the maximum number of tags that can be assigned to the transaction record.
      */
     @IsPositive()
     @IsInteger()
@@ -54,7 +54,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to display the progress striped animation in the background of the transaction record.
      */
     @IsBoolean()
     @IsOptional()
@@ -62,7 +62,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Set this option to ***true*** to specify that the transaction record is waiting to be deleted from the table.
      */
     @IsBoolean()
     @IsOptional()
@@ -70,14 +70,14 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the tags that can be assigned to the transaction record.
      */
     @IsOptional()
     readonly tags?: Record<string, Tag>;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the date and time at which the transaction associated with the transaction record was executed.
      */
     @IsDate()
     @IsDefined()
@@ -85,7 +85,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the date and time at which the transaction record was last modified.
      */
     @IsDate()
     @IsOptional()
@@ -93,7 +93,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the date and time at which the transaction record was created.
      */
     @IsDate()
     @IsOptional()
@@ -101,7 +101,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the way the transaction record operates or behaves.
      *
      * @type Mode
      */
@@ -111,13 +111,13 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when users press the transaction record.
      */
     readonly onPress?: GestureResponderEventHandler;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the piece of code that will be executed when data of the transaction record changes.
      */
     readonly onChange?: (newTransactionData: Data) => void;
 }

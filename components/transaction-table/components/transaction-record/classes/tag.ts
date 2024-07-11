@@ -2,10 +2,13 @@ import {IsDefined, IsEnum, IsNotEmpty, IsPositive, IsString} from "@miniskylab/a
 import {IsOptional} from "class-validator";
 import {TagMetadata, TagStatus} from "../enums";
 
+/**
+ * Represents a piece of information that describes the transaction records they are assigned to.
+ */
 export class Tag
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the name of the tag.
      */
     @IsNotEmpty()
     @IsString()
@@ -14,7 +17,7 @@ export class Tag
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon associated with the tag.
      */
     @IsNotEmpty()
     @IsString()
@@ -23,7 +26,7 @@ export class Tag
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the order of the tag.
      */
     @IsPositive()
     @IsOptional()
@@ -31,7 +34,7 @@ export class Tag
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the way the tag operates or behaves.
      *
      * @type TagStatus
      */
@@ -41,7 +44,7 @@ export class Tag
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the metadata of the tag.
      */
     @IsEnum(TagMetadata, {each: true})
     @IsOptional()

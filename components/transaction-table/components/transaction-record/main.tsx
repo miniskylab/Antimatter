@@ -14,7 +14,7 @@ import {Mode, TagMetadata, TagStatus} from "./enums";
 import {Props, Ref, TransactionRecordContext} from "./models";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component for displaying a single transaction in the transaction table.
  */
 export const Component = forwardRef(function Component(
     {
