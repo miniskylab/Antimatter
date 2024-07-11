@@ -3,10 +3,13 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {SimpleWeatherData} from "../components";
 
+/**
+ * Represents objects that carry wind data.
+ */
 export class WindData
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon associated with the wind data.
      *
      * @type DefaultIconSet
      */
@@ -16,7 +19,7 @@ export class WindData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify wind speed and gusts.
      */
     @IsNotEmpty()
     @IsString()
@@ -25,7 +28,7 @@ export class WindData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify wind direction.
      */
     @Max(360)
     @Min(0)
@@ -35,7 +38,7 @@ export class WindData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the highlight color associated with the wind data.
      *
      * @type HighlightColor
      */

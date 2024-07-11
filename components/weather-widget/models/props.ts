@@ -9,7 +9,7 @@ import {type WeatherWidgetStyle} from "./style";
 export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the location for which the weather data was fetched.
      */
     @IsOptional()
     @ValidateNested()
@@ -18,7 +18,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the last time the weather data was fetched from the server.
      */
     @IsOptional()
     @ValidateNested()
@@ -27,7 +27,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify weather condition data.
      */
     @IsOptional()
     @ValidateNested()
@@ -36,7 +36,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify temperature data.
      */
     @IsOptional()
     @ValidateNested()
@@ -45,7 +45,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify UV Index data.
      */
     @IsOptional()
     @ValidateNested()
@@ -54,7 +54,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify wind data.
      */
     @IsOptional()
     @ValidateNested()
@@ -63,7 +63,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify additional weather data.
      *
      * @type SimpleWeatherData
      */
@@ -74,7 +74,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify additional weather data.
      *
      * @type SimpleWeatherData
      */
@@ -85,7 +85,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify additional weather data.
      *
      * @type SimpleWeatherData
      */
@@ -96,7 +96,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify weather forecast data.
      *
      * @type TimeFrameForecastData
      */

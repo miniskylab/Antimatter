@@ -3,10 +3,13 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {SimpleWeatherData} from "../components";
 
+/**
+ * Represents objects that carry short weather data.
+ */
 export class ShortWeatherData
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon associated with the short weather data.
      *
      * @type DefaultIconSet
      */
@@ -16,7 +19,7 @@ export class ShortWeatherData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text associated with the short weather data.
      */
     @IsNotEmpty()
     @IsString()
@@ -25,7 +28,7 @@ export class ShortWeatherData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the highlight color associated with the short weather data.
      *
      * @type HighlightColor
      */

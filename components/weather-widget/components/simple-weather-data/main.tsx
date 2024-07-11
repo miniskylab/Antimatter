@@ -6,7 +6,7 @@ import React, {JSX, useMemo} from "react";
 import {Props, SimpleWeatherDataContext} from "./models";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component for displaying additional weather data.
  */
 export function Component({
     style,

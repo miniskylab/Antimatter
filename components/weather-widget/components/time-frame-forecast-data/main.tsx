@@ -6,7 +6,7 @@ import React, {JSX, useMemo} from "react";
 import {Props, TimeFrameForecastDataContext} from "./models";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component for displaying weather forecast data of a particular time frame.
  */
 export function Component({
     style,

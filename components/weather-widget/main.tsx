@@ -9,7 +9,7 @@ import {WeatherWidgetContext, WeatherWidgetProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component for displaying weather conditions and weather forecasts.
  */
 export function WeatherWidget({
     style = Variant.Default,

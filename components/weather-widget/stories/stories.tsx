@@ -7,13 +7,10 @@ import {WeatherWidget} from "../main";
 import {WeatherWidgetProps} from "../models";
 import * as Variant from "../variants";
 
-const WeatherWidgetWithValidation = withValidation(WeatherWidget, WeatherWidgetProps);
-export default {
-    component: WeatherWidget,
-    title: "Components/Weather Widget"
-} satisfies Meta<typeof WeatherWidget>;
+export default {component: WeatherWidget, title: "Components/Weather Widget"} satisfies Meta<typeof WeatherWidget>;
 type Story = StoryObj<typeof WeatherWidget>;
 
+const WeatherWidgetWithValidation = withValidation(WeatherWidget, WeatherWidgetProps);
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),

@@ -7,7 +7,7 @@ import {Style} from "./style";
 export class Props extends ComponentProps<Style>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the icon associated with the simple weather data.
      *
      * @type DefaultIconSet
      */
@@ -17,7 +17,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text associated with the simple weather data.
      */
     @IsNotEmpty()
     @IsString()
@@ -26,7 +26,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that clarifies or provides context to the title.
      */
     @IsNotEmpty()
     @IsString()
@@ -35,7 +35,7 @@ export class Props extends ComponentProps<Style>
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the highlight color associated with the simple weather data.
      *
      * @type HighlightColor
      */

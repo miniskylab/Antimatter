@@ -2,10 +2,13 @@ import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-fr
 import {IsOptional} from "class-validator";
 import {SimpleWeatherData} from "../components";
 
+/**
+ * Represents objects that carry temperature data.
+ */
 export class TemperatureData
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification or description of the current feels-like temperature of the day.
      */
     @IsNotEmpty()
     @IsString()
@@ -14,7 +17,7 @@ export class TemperatureData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the current feels-like temperature of the day.
      */
     @IsNotEmpty()
     @IsString()
@@ -23,7 +26,7 @@ export class TemperatureData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification or description of the lowest temperature recorded during the day.
      */
     @IsNotEmpty()
     @IsString()
@@ -32,7 +35,7 @@ export class TemperatureData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the lowest temperature recorded during the day.
      */
     @IsNotEmpty()
     @IsString()
@@ -41,7 +44,7 @@ export class TemperatureData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification or description of the current temperature of the day.
      */
     @IsNotEmpty()
     @IsString()
@@ -50,7 +53,7 @@ export class TemperatureData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the current temperature of the day.
      */
     @IsNotEmpty()
     @IsString()
@@ -59,7 +62,7 @@ export class TemperatureData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the text that will be used for identification or description of the highest temperature recorded during the day.
      */
     @IsNotEmpty()
     @IsString()
@@ -68,7 +71,7 @@ export class TemperatureData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the highest temperature recorded during the day.
      */
     @IsNotEmpty()
     @IsString()
@@ -77,7 +80,7 @@ export class TemperatureData
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the highlight color associated with the temperature data.
      *
      * @type HighlightColor
      */
