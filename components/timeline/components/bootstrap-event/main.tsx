@@ -6,7 +6,7 @@ import React, {JSX, useMemo} from "react";
 import {BootstrapEventContext, Props} from "./models";
 
 /**
- * The event at the origin of the timeline.
+ * A component for displaying the event at the origin of the timeline.
  */
 export function Component({
     style,

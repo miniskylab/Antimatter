@@ -6,7 +6,7 @@ import {PipIndexContext, PipsContext, Props} from "./models";
 import {getPctPipValue, getPipCount, isMilestonePip} from "./services";
 
 /**
- * The marking that present along the range slider.
+ * A component for displaying the marking present along the range slider.
  */
 export function Component({
     style,

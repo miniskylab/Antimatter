@@ -6,8 +6,7 @@ import React, {JSX, useMemo} from "react";
 import {HeaderContext, Props} from "./models";
 
 /**
- * This section of the calendar shows the current time frame that the calendar is displaying and allows users to navigate to a different
- * time frame.
+ * A component that shows the time frame the calendar is displaying and enables users to navigate to a different time frame.
  */
 export function Component({
     style,

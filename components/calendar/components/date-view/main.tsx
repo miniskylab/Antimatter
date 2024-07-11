@@ -6,7 +6,7 @@ import React, {JSX, useMemo} from "react";
 import {DateContext, DateViewContext, Props} from "./models";
 
 /**
- * This section of the calendar displays all the dates in a month.
+ * A component for displaying all dates in a month.
  */
 export function Component({
     style,

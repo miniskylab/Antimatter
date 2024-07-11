@@ -5,7 +5,7 @@ import React, {JSX, useMemo} from "react";
 import {MonthContext, MonthViewContext, Props} from "./models";
 
 /**
- * This section of the calendar displays all the months in a year.
+ * A component for displaying all months in a year.
  */
 export function Component({
     style,

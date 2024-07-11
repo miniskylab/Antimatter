@@ -16,7 +16,7 @@ import React, {JSX, useMemo} from "react";
 import {EventContext, Props} from "./models";
 
 /**
- * An important thing that happens on the timeline.
+ * A component for displaying an event on the timeline.
  */
 export function Component({
     style,

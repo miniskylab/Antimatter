@@ -6,7 +6,7 @@ import React, {JSX, useMemo} from "react";
 import {ControlContext, Props} from "./models";
 
 /**
- * This section of the calendar contains various controls that allow users to interact with the calendar itself.
+ * A component that enables users to interact with the calendar.
  */
 export function Component({
     style,
