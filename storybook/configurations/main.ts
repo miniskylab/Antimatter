@@ -15,8 +15,8 @@ export default {
     },
     staticDirs: ["../static-assets"],
     stories: [
-        "../../../**/stories/index.mdx",
-        "../../../**/stories/stories.tsx"
+        "../../**/stories/index.mdx",
+        "../../**/stories/stories.tsx"
     ],
     addons: [
         "@storybook/addon-docs",

@@ -1,0 +1,24 @@
+{
+  "name": "@miniskylab/antimatter-storybook",
+  "version": "0.0.0",
+  "license": "MIT",
+  "scripts": {
+    "run-storybook": "sb dev -p 6006 -c configurations"
+  },
+  "dependencies": {
+    "@storybook/addon-a11y": "8.2.2",
+    "@storybook/addon-actions": "8.2.2",
+    "@storybook/addon-controls": "8.2.2",
+    "@storybook/addon-docs": "8.2.2",
+    "@storybook/addon-links": "8.2.2",
+    "@storybook/addon-measure": "8.2.2",
+    "@storybook/blocks": "8.2.2",
+    "@storybook/cli": "8.2.2",
+    "@storybook/manager-api": "8.2.2",
+    "@storybook/preview-api": "8.2.2",
+    "@storybook/react-webpack5": "8.2.2",
+    "@storybook/theming": "8.2.2",
+    "@storybook/types": "8.2.2",
+    "storybook": "8.2.2"
+  }
+}
