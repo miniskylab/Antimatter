@@ -12,7 +12,7 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * Specify what will be displayed in the summary section of the transaction table.
      *
-     * @type Summary.Props
+     * @type Summary
      */
     @IsOptional()
     @ValidateNested()
