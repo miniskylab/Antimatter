@@ -9,7 +9,7 @@ export class ZoomTransitionSettings extends TransitionSettings
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the direction of the zoom transition.
      *
      * @type ZoomDirection
      */

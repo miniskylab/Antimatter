@@ -2,10 +2,13 @@ import {IsEnum} from "@miniskylab/antimatter-framework";
 import {IsDefined} from "class-validator";
 import {Animation} from "../../enums";
 
+/**
+ * Determines how the transition operates or behaves.
+ */
 export abstract class TransitionSettings
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the animation that will be used for the transition.
      *
      * @type Animation
      */

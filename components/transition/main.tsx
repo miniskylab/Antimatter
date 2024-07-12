@@ -7,7 +7,8 @@ import {TransitionAnimationHook, TransitionContextHook} from "./hooks";
 import {TransitionContext, TransitionProps, TransitionState} from "./models";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component for seamlessly transitioning other components from one state to another over time. It is most commonly used to animate the
+ * mounting and unmounting of a component.
  */
 export function Transition({
     style,

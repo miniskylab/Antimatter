@@ -9,7 +9,7 @@ export class SlideTransitionSettings extends TransitionSettings
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the direction of the slide transition.
      *
      * @type SlideDirection
      */
@@ -19,7 +19,7 @@ export class SlideTransitionSettings extends TransitionSettings
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the distance, in pixels, of the slide transition.
      */
     @IsPositive()
     @IsNumber()

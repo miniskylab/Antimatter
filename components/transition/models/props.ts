@@ -11,14 +11,14 @@ import {type TransitionStyle} from "./style";
 export class TransitionProps extends ComponentProps<TransitionStyle>
 {
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify the component that will undergo the transition.
      */
     @IsOptional()
     readonly children?: ReactElement;
 
 
     /**
-     * <i style="color: #9B9B9B">(not available)</i>
+     * Specify how the transition operates or behaves.
      */
     @IsDefined()
     @ValidateNested()

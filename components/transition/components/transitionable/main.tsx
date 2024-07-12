@@ -4,7 +4,7 @@ import React, {JSX} from "react";
 import {Props} from "./models";
 
 /**
- * <p style="color: #9B9B9B; font-style: italic">(no description available)</p>
+ * A component that wraps around another component and makes it transitionable.
  */
 export function Component({
     id,
