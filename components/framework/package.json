@@ -18,6 +18,8 @@
     "@storybook/manager-api": "8.2.2",
     "@storybook/preview-api": "8.2.2",
     "@storybook/react-webpack5": "8.2.2",
+    "@storybook/theming": "8.2.2",
+    "@storybook/types": "8.2.2",
     "@types/utf8": "3.0.3",
     "base64-js": "1.5.1",
     "class-transformer": "0.5.1",
