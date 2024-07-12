@@ -1,4 +1,5 @@
-import {Sb, withValidation} from "@miniskylab/antimatter-framework";
+import {withValidation} from "@miniskylab/antimatter-framework";
+import {Sb} from "@miniskylab/antimatter-storybook";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";

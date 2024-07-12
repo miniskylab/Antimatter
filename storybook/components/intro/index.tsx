@@ -1,8 +1,7 @@
+import {ComponentName, Reflection} from "@miniskylab/antimatter-framework";
 import {Description, Title} from "@storybook/blocks";
 import React, {FunctionComponent, JSX} from "react";
 import {Text, View} from "react-native";
-import {Reflection} from "../../../consts";
-import {ComponentName} from "../../../decorators";
 import * as Styles from "./styles";
 
 export function Intro({

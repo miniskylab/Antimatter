@@ -1,5 +1,5 @@
+import {Ts} from "@miniskylab/antimatter-framework";
 import {InputType} from "@storybook/types";
-import {Ts} from "../functions";
 
 export function styleSelector(anyObject: Record<string, unknown>): Record<string, unknown>
 {

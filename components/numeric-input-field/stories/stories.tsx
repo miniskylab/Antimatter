@@ -1,4 +1,5 @@
-import {EMPTY_STRING, MAX, MIN, Sb, withValidation} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, MAX, MIN, withValidation} from "@miniskylab/antimatter-framework";
+import {Sb} from "@miniskylab/antimatter-storybook";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React, {useRef} from "react";
