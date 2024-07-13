@@ -79,7 +79,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * Set this option to ***true*** to enter playlist selection mode. In this mode, users can include or exclude the audio files from the
+     * Set this option to ***true*** to enter playlist selection mode. In this mode, users can include or exclude audio files from the
      * playlist. Excluded audio files will not be played. Set this option to ***false*** to exit playlist selection mode.
      */
     @IsBoolean()
