@@ -45,7 +45,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * Specify UV Index data.
+     * Specify UV index data.
      */
     @IsOptional()
     @ValidateNested()
@@ -96,7 +96,7 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
 
 
     /**
-     * Specify weather forecast data.
+     * Specify weather forecast data for particular time frames.
      *
      * @type TimeFrameForecastData
      */
