@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ViewProps} from "./models";

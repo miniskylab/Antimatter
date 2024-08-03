@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";

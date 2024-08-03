@@ -1,5 +1,5 @@
 import {DropDirection, DropdownMenu, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Pressable} from "@miniskylab/antimatter-pressable";

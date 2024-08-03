@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {AllPropertiesMustPresent, EMPTY_STRING, isEnvironment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, isEnvironment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {NavigationContainerRefContext, NavigationContext, useNavigation} from "@react-navigation/native";
 import React, {JSX, useContext, useMemo} from "react";
 import {Target} from "./enums";

@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Ts, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef, WheelEvent} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ScrollViewProps} from "./models";

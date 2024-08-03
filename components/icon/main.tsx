@@ -1,5 +1,11 @@
 import {createIconSetFromIcoMoon} from "@expo/vector-icons";
-import {AllPropertiesMustPresent, inheritTextStyleFrom, Ts, useComputedStyle, useDefaultIconSet} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    inheritTextStyleFrom,
+    Ts,
+    useComputedStyle,
+    useDefaultIconSet
+} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import {IconProps} from "./models";

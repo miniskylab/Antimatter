@@ -1,10 +1,10 @@
-import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {View, ViewStyle} from "@miniskylab/antimatter-view";
+import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {View, type ViewStyle} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useState} from "react";
 import {Transitionable} from "./components";
 import {Stage} from "./enums";
 import {TransitionAnimationHook, TransitionContextHook} from "./hooks";
-import {TransitionContext, TransitionProps, TransitionState} from "./models";
+import {TransitionContext, TransitionProps, type TransitionState} from "./models";
 
 /**
  * A component for seamlessly transitioning other components from one state to another over time. It is most commonly used to animate the

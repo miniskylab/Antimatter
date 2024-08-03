@@ -1,5 +1,5 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";

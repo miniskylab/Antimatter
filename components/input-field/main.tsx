@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Text} from "@miniskylab/antimatter-text";
 import {TextInput} from "@miniskylab/antimatter-text-input";

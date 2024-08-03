@@ -1,8 +1,8 @@
-import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useEffect, useMemo, useState} from "react";
-import {LayoutChangeEvent} from "react-native";
-import {ProgressStripesContext, ProgressStripesProps, ProgressStripesState, StripeIndexContext} from "./models";
+import {type LayoutChangeEvent} from "react-native";
+import {ProgressStripesContext, ProgressStripesProps, type ProgressStripesState, StripeIndexContext} from "./models";
 import * as Variant from "./variants";
 
 /**

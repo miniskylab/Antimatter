@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {AllPropertiesMustPresent, EMPTY_STRING, isEnvironment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, isEnvironment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import React, {JSX, useEffect, useMemo, useState} from "react";
-import {DownloadButtonContext, DownloadButtonProps, DownloadButtonState} from "./models";
+import {DownloadButtonContext, DownloadButtonProps, type DownloadButtonState} from "./models";
 import * as Variant from "./variants";
 
 /**

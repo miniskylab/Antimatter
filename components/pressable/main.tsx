@@ -1,8 +1,8 @@
-import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef, useState} from "react";
 import ReactNative from "react-native";
 import {AnimatedPressable} from "./components";
-import {PressableContext, PressableProps, PressableState} from "./models";
+import {PressableContext, PressableProps, type PressableState} from "./models";
 import * as Variant from "./variants";
 
 /**

@@ -1,11 +1,11 @@
-import {AllPropertiesMustPresent, Decade, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {Animation, CompositeTransitionSettings, SlideDirection, Transition, ZoomDirection} from "@miniskylab/antimatter-transition";
+import {type AllPropertiesMustPresent, type Decade, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {Animation, type CompositeTransitionSettings, SlideDirection, Transition, ZoomDirection} from "@miniskylab/antimatter-transition";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef, useState} from "react";
-import {LayoutChangeEvent} from "react-native";
+import {type LayoutChangeEvent} from "react-native";
 import {Control, DateView, Header, MonthView, YearView} from "./components";
 import {ViewType} from "./enums";
-import {CalendarContext, CalendarProps, CalendarState} from "./models";
+import {CalendarContext, CalendarProps, type CalendarState} from "./models";
 import {canNavigateBackward, canNavigateForward, getDateViewData, getMonthViewData, getViewId, getYearViewData} from "./services";
 import type {TimeFrame} from "./types";
 import * as Variant from "./variants";

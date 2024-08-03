@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";

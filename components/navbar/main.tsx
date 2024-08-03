@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {NavButton} from "@miniskylab/antimatter-nav-button";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";

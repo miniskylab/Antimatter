@@ -1,5 +1,5 @@
 import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
@@ -11,7 +11,7 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {Tag} from "./classes";
 import {Mode, TagMetadata, TagStatus} from "./enums";
-import {Props, Ref, TransactionRecordContext} from "./models";
+import {Props, type Ref, TransactionRecordContext} from "./models";
 
 /**
  * A component for displaying a single transaction in the transaction table.

@@ -1,4 +1,4 @@
-import {AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
