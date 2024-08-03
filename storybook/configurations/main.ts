@@ -1,5 +1,5 @@
 import {applyRepositoryWideModifications} from "@miniskylab/webpack";
-import type {StorybookConfig} from "@storybook/react-webpack5";
+import {type StorybookConfig} from "@storybook/react-webpack5";
 import findWorkspaceRoot from "find-yarn-workspace-root";
 import path from "path";
 

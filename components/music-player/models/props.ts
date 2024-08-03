@@ -10,7 +10,7 @@ import {
     Min
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import type {SongRow} from "../components";
+import {type SongRow} from "../components";
 import {RepeatMode} from "../enums";
 import {type MusicPlayerStyle} from "./style";
 
