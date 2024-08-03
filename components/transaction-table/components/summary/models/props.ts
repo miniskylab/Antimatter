@@ -2,7 +2,7 @@ import {ComponentProps, IsDefined, IsNotEmpty, IsNumber, IsString, Max, Min} fro
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {Indicator} from "../classes";
-import {Style} from "./style";
+import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {

@@ -19,9 +19,9 @@ export type TransactionTableStyle = (
     DatePicker: DatePickerStyle;
     Summary: Summary.Style;
     MainContainer: ViewStyle;
-    DisplayPanel?: ViewStyle;
-    DisplayIcon?: IconStyle;
-    DisplayMessage?: TextStyle;
+    DisplayPanel: ViewStyle;
+    DisplayIcon: IconStyle;
+    DisplayMessage: TextStyle;
     ControlPanel: ViewStyle;
     Button1: ButtonStyle;
     Button2: ButtonStyle;

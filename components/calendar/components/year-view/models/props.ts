@@ -2,7 +2,7 @@ import {ComponentProps, IsArray, IsInteger} from "@miniskylab/antimatter-framewo
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {YearInfo} from "../classes";
-import {Style} from "./style";
+import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {

@@ -2,7 +2,7 @@ import {ComponentProps, IsArray, IsBoolean, IsNotEmpty, IsString} from "@minisky
 import {NavButtonProps} from "@miniskylab/antimatter-nav-button";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {Style} from "./style";
+import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {

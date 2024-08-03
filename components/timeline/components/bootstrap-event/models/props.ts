@@ -1,6 +1,6 @@
 import {ComponentProps, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import {Style} from "./style";
+import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {

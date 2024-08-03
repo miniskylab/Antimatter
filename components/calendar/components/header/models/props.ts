@@ -1,6 +1,6 @@
 import {ComponentProps, GestureResponderEventHandler, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {Style} from "./style";
+import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {

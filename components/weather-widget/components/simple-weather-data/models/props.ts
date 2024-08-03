@@ -2,7 +2,7 @@ import {ComponentProps, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskyl
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {HighlightColor} from "../enums";
-import {Style} from "./style";
+import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {

@@ -2,7 +2,7 @@ import {ComponentProps, IsDefined, IsNotEmpty, IsString} from "@miniskylab/antim
 import {Type} from "class-transformer";
 import {ValidateNested} from "class-validator";
 import {ForecastData} from "../classes";
-import {Style} from "./style";
+import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {

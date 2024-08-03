@@ -1,5 +1,5 @@
 import {ComponentProps, GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
-import {Style} from "./style";
+import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {
