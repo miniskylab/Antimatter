@@ -1,7 +1,7 @@
-import {ComponentContext} from "@miniskylab/antimatter-framework";
+import {type ComponentContext} from "@miniskylab/antimatter-framework";
 import {createContext} from "react";
 import {Props} from "./props";
-import {State} from "./state";
+import {type State} from "./state";
 
 export const RowContext = createContext<RowContext>(undefined);
 export type RowContext = ComponentContext<Props, State>;

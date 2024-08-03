@@ -1,4 +1,4 @@
-import {ComponentContext} from "@miniskylab/antimatter-framework";
+import {type ComponentContext} from "@miniskylab/antimatter-framework";
 import {createContext} from "react";
 import {MonthInfo} from "../classes";
 import {Props} from "./props";
