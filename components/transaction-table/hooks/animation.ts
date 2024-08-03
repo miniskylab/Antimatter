@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {ComponentAnimation, Layer} from "@miniskylab/antimatter-framework";
+import {type ComponentAnimation, Layer} from "@miniskylab/antimatter-framework";
 import {useEffect, useLayoutEffect, useRef} from "react";
-import {Animated, ColorValue, Easing} from "react-native";
+import {Animated, type ColorValue, Easing} from "react-native";
 import {useTransactionTableContext} from "./context";
 
 export function useDisplayIconAnimation(isAnimationPlaying?: boolean): ComponentAnimation

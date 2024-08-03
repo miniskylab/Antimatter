@@ -1,4 +1,4 @@
-import {ComponentAnimation} from "@miniskylab/antimatter-framework";
+import {type ComponentAnimation} from "@miniskylab/antimatter-framework";
 import {useEffect, useLayoutEffect, useRef} from "react";
 import {Animated, Easing} from "react-native";
 import {useDataListContext} from "./context";

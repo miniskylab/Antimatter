@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {ComponentAnimation} from "@miniskylab/antimatter-framework";
+import {type ComponentAnimation} from "@miniskylab/antimatter-framework";
 import {useEffect, useRef} from "react";
-import {Animated, ColorValue, Easing} from "react-native";
+import {Animated, type ColorValue, Easing} from "react-native";
 import {Status} from "../enums";
 import {useToggleContext} from "./context";
 

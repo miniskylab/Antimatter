@@ -1,6 +1,6 @@
-import {ComponentAnimation} from "@miniskylab/antimatter-framework";
+import {type ComponentAnimation} from "@miniskylab/antimatter-framework";
 import {useEffect, useRef} from "react";
-import {Animated, DimensionValue, Easing} from "react-native";
+import {Animated, type DimensionValue, Easing} from "react-native";
 import {useInputFieldContext} from "./context";
 
 export function usePlaceholderAnimation(): ComponentAnimation

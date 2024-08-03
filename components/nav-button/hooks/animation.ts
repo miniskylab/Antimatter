@@ -1,4 +1,4 @@
-import {ComponentAnimation} from "@miniskylab/antimatter-framework";
+import {type ComponentAnimation} from "@miniskylab/antimatter-framework";
 import {PressableContextHook} from "@miniskylab/antimatter-pressable";
 import {useEffect, useRef} from "react";
 import {Animated, Easing} from "react-native";
