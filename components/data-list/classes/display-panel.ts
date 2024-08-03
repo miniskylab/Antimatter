@@ -27,7 +27,7 @@ export class DisplayPanel
 
 
     /**
-     * Specify the theme of the display panel.
+     * Specify the overall appearance of the display panel.
      *
      * @type DisplayPanelTheme
      */
