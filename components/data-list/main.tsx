@@ -6,7 +6,7 @@ import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {Mode} from "./enums";
+import {DataListOperationMode} from "./enums";
 import {DataListContext, DataListProps} from "./models";
 import type {ControlPanel} from "./types";
 import * as Variant from "./variants";
@@ -18,7 +18,7 @@ export function DataList({
     style = Variant.Default,
     children,
     displayPanel,
-    mode = Mode.ReadOnly,
+    mode = DataListOperationMode.ReadOnly,
     addNewButton,
     saveButton,
     deleteButton,
@@ -63,21 +63,21 @@ export function DataList({
     {
         switch (mode)
         {
-            case Mode.Draft:
+            case DataListOperationMode.Draft:
                 return {
                     button1: {...saveButton},
                     button2: {icon: DefaultIconSet.Quill, text: "Draft-Mode", disabled: true},
                     button3: {...cancelButton}
                 };
 
-            case Mode.Edit:
+            case DataListOperationMode.Edit:
                 return {
                     button1: {...saveButton},
                     button2: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
                     button3: {...cancelButton}
                 };
 
-            case Mode.Delete:
+            case DataListOperationMode.Delete:
                 return {
                     button1: {...deleteButton},
                     button2: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
@@ -85,7 +85,7 @@ export function DataList({
                 };
 
             default:
-            case Mode.ReadOnly:
+            case DataListOperationMode.ReadOnly:
                 return {
                     button1: {...addNewButton},
                     button2: {icon: DefaultIconSet.Eye, text: "Read-Only", disabled: true},
@@ -141,20 +141,20 @@ export function DataList({
     {
         switch (mode)
         {
-            case Mode.ReadOnly:
-                onSwitchMode?.(Mode.Draft);
+            case DataListOperationMode.ReadOnly:
+                onSwitchMode?.(DataListOperationMode.Draft);
                 break;
 
-            case Mode.Edit:
-                onSwitchMode?.(Mode.Delete);
+            case DataListOperationMode.Edit:
+                onSwitchMode?.(DataListOperationMode.Delete);
                 break;
 
-            case Mode.Delete:
-                onSwitchMode?.(Mode.Edit);
+            case DataListOperationMode.Delete:
+                onSwitchMode?.(DataListOperationMode.Edit);
                 break;
 
             default:
-                throw new Error(`No valid mode to switch to from mode "${Ts.Enum.getName(Mode, mode)}"`);
+                throw new Error(`No valid mode to switch to from mode "${Ts.Enum.getName(DataListOperationMode, mode)}"`);
         }
     }
 }

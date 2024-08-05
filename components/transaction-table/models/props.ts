@@ -1,9 +1,10 @@
 import {ComponentName, ComponentProps, IsDate, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
+import {DataListDisplayPanel, DataListOperationMode, DataListProps} from "@miniskylab/data-list";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {DisplayPanel, SelectedTransaction} from "../classes";
+import {SelectedTransaction} from "../classes";
 import {Summary, TransactionRecord} from "../components";
-import type {ControlButton, TransactionChangeData} from "../types";
+import type {TransactionChangeData} from "../types";
 import {type TransactionTableStyle} from "./style";
 
 @ComponentName("Transaction Table")
@@ -48,11 +49,11 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * Specify the way the transaction table operates or behaves.
      *
-     * @type TransactionRecord.Mode
+     * @type DataListOperationMode
      */
-    @IsEnum(TransactionRecord.Mode)
+    @IsEnum(DataListOperationMode)
     @IsOptional()
-    readonly mode?: TransactionRecord.Mode;
+    readonly mode?: DataListOperationMode;
 
 
     /**
@@ -70,44 +71,44 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
      */
     @IsOptional()
     @ValidateNested()
-    @Type(() => DisplayPanel)
-    readonly displayPanel?: DisplayPanel;
+    @Type(() => DataListDisplayPanel)
+    readonly displayPanel?: DataListDisplayPanel;
 
 
     /**
      * Specify the button that users can press to add a new transaction to the table.
      */
-    readonly addNewTransactionButton: ControlButton;
+    readonly addNewTransactionButton: DataListProps["addNewButton"];
 
 
     /**
      * Specify the button that users can press to save all changes made to the selected transaction.
      */
-    readonly saveTransactionButton: ControlButton;
+    readonly saveTransactionButton: DataListProps["saveButton"];
 
 
     /**
      * Specify the button that users can press to delete the selected transaction from the table.
      */
-    readonly deleteTransactionButton: ControlButton;
+    readonly deleteTransactionButton: DataListProps["deleteButton"];
 
 
     /**
      * Specify the button that users can press to discard all changes made to the selected transaction.
      */
-    readonly cancelButton: ControlButton;
+    readonly cancelButton: DataListProps["cancelButton"];
 
 
     /**
      * Specify the button that users can press to trigger custom functionalities.
      */
-    readonly customButton?: ControlButton;
+    readonly customButton?: DataListProps["customButton"];
 
 
     /**
      * Specify the piece of code that will be executed when the transaction table changes mode.
      */
-    readonly onSwitchMode?: (newMode: TransactionRecord.Mode) => void;
+    readonly onSwitchMode?: (newMode: DataListOperationMode) => void;
 
 
     /**

@@ -1,5 +1,4 @@
 export {TransactionRecord, Summary} from "./components";
-export {DisplayPanelTheme} from "./enums";
 export {SelectedTransaction} from "./classes";
 export type {TransactionChangeData} from "./types";
 export {TransactionTableProps, type TransactionTableRef, type TransactionTableStyle} from "./models";

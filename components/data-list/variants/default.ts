@@ -8,7 +8,7 @@ import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {useEffect, useState} from "react";
 import ReactNative, {Keyboard} from "react-native";
-import {DisplayPanelTheme, Mode} from "../enums";
+import {DataListDisplayPanelTheme, DataListOperationMode} from "../enums";
 import {DataListAnimationHook, DataListContextHook} from "../hooks";
 import {type DataListStyle} from "../models";
 
@@ -35,7 +35,7 @@ const DataList__DisplayPanel: ViewStyle = function (viewProps)
         bottom: 0,
         left: 0,
         right: 0,
-        height: 58.4,
+        height: 58,
         backgroundColor: Color.Background,
         animations: [
             () => DataListAnimationHook.useDisplayPanelFadeOutAnimation()
@@ -58,13 +58,13 @@ const DataList__DisplayIcon: IconStyle = function (iconProps)
         animations: [
             () => DataListAnimationHook.useDisplayIconAnimation(isAnimationPlaying)
         ],
-        color: theme === DisplayPanelTheme.Negative
+        color: theme === DataListDisplayPanelTheme.Negative
             ? Color.Negative
-            : theme === DisplayPanelTheme.Cautious
+            : theme === DataListDisplayPanelTheme.Cautious
                 ? Color.Warning
-                : theme === DisplayPanelTheme.Positive
+                : theme === DataListDisplayPanelTheme.Positive
                     ? Color.Positive
-                    : theme === DisplayPanelTheme.Highlighted
+                    : theme === DataListDisplayPanelTheme.Highlighted
                         ? Color.Primary
                         : Color.Neutral
     };
@@ -82,13 +82,13 @@ const DataList__DisplayMessage: TextStyle = function (textProps)
         justifyContent: "flex-start",
         fontSize: 18,
         fontWeight: "bold",
-        color: theme === DisplayPanelTheme.Negative
+        color: theme === DataListDisplayPanelTheme.Negative
             ? Color.Negative
-            : theme === DisplayPanelTheme.Cautious
+            : theme === DataListDisplayPanelTheme.Cautious
                 ? Color.Warning
-                : theme === DisplayPanelTheme.Positive
+                : theme === DataListDisplayPanelTheme.Positive
                     ? Color.Positive
-                    : theme === DisplayPanelTheme.Highlighted
+                    : theme === DataListDisplayPanelTheme.Highlighted
                         ? Color.Primary
                         : Color.Neutral
     };
@@ -100,7 +100,7 @@ const DataList__ControlPanel: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         alignSelf: "stretch",
-        height: 58.4,
+        height: 58,
         justifyContent: "space-around",
         backgroundColor: Color.Background
     };
@@ -132,9 +132,9 @@ const DataList__Button1__Icon: IconStyle = function (iconProps)
     const dataListContext = DataListContextHook.useDataListContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const isDraftMode = dataListContext.props.mode === Mode.Draft;
-    const isEditMode = dataListContext.props.mode === Mode.Edit;
-    const isDeleteMode = dataListContext.props.mode === Mode.Delete;
+    const isDraftMode = dataListContext.props.mode === DataListOperationMode.Draft;
+    const isEditMode = dataListContext.props.mode === DataListOperationMode.Edit;
+    const isDeleteMode = dataListContext.props.mode === DataListOperationMode.Delete;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
 
@@ -160,9 +160,9 @@ const DataList__Button1__Label: TextStyle = function (textProps)
     const dataListContext = DataListContextHook.useDataListContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const isDraftMode = dataListContext.props.mode === Mode.Draft;
-    const isEditMode = dataListContext.props.mode === Mode.Edit;
-    const isDeleteMode = dataListContext.props.mode === Mode.Delete;
+    const isDraftMode = dataListContext.props.mode === DataListOperationMode.Draft;
+    const isEditMode = dataListContext.props.mode === DataListOperationMode.Edit;
+    const isDeleteMode = dataListContext.props.mode === DataListOperationMode.Delete;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
@@ -200,8 +200,8 @@ const DataList__Button2__Root: PressableStyle = function (pressableProps, pressa
 {
     const dataListContext = DataListContextHook.useDataListContext();
 
-    const isDraftMode = dataListContext.props.mode === Mode.Draft;
-    const isReadOnlyMode = dataListContext.props.mode === Mode.ReadOnly;
+    const isDraftMode = dataListContext.props.mode === DataListOperationMode.Draft;
+    const isReadOnlyMode = dataListContext.props.mode === DataListOperationMode.ReadOnly;
 
     return {
         ...DataList__Button1__Root(pressableProps, pressableState),
@@ -221,10 +221,10 @@ const DataList__Button2__Icon: IconStyle = function (iconProps)
     const dataListContext = DataListContextHook.useDataListContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const isDraftMode = dataListContext.props.mode === Mode.Draft;
-    const isEditMode = dataListContext.props.mode === Mode.Edit;
-    const isDeleteMode = dataListContext.props.mode === Mode.Delete;
-    const isReadOnlyMode = dataListContext.props.mode === Mode.ReadOnly;
+    const isDraftMode = dataListContext.props.mode === DataListOperationMode.Draft;
+    const isEditMode = dataListContext.props.mode === DataListOperationMode.Edit;
+    const isDeleteMode = dataListContext.props.mode === DataListOperationMode.Delete;
+    const isReadOnlyMode = dataListContext.props.mode === DataListOperationMode.ReadOnly;
 
     return {
         ...DataList__Button1__Icon(iconProps),
@@ -247,10 +247,10 @@ const DataList__Button2__Label: TextStyle = function (textProps)
     const dataListContext = DataListContextHook.useDataListContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
-    const isDraftMode = dataListContext.props.mode === Mode.Draft;
-    const isEditMode = dataListContext.props.mode === Mode.Edit;
-    const isDeleteMode = dataListContext.props.mode === Mode.Delete;
-    const isReadOnlyMode = dataListContext.props.mode === Mode.ReadOnly;
+    const isDraftMode = dataListContext.props.mode === DataListOperationMode.Draft;
+    const isEditMode = dataListContext.props.mode === DataListOperationMode.Edit;
+    const isDeleteMode = dataListContext.props.mode === DataListOperationMode.Delete;
+    const isReadOnlyMode = dataListContext.props.mode === DataListOperationMode.ReadOnly;
 
     return {
         ...DataList__Button1__Label(textProps),
@@ -348,7 +348,7 @@ const DataList__TopHr: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         position: "absolute",
-        top: 58.4,
+        top: 58,
         width: "100%",
         height: 2,
         zIndex: Layer.Lower,
@@ -363,7 +363,7 @@ const DataList__BottomHr: ViewStyle = function (viewProps)
     return {
         ...DataList__TopHr(viewProps),
         top: undefined,
-        bottom: -0.4,
+        bottom: 0,
         ...isRunningOnMobileApp && {backgroundColor: Color.Transparent}
     };
 };

@@ -11,9 +11,9 @@ import {
     IsPositive,
     IsString
 } from "@miniskylab/antimatter-framework";
+import {DataListOperationMode} from "@miniskylab/data-list";
 import {IsOptional} from "class-validator";
 import {Data, Tag} from "../classes";
-import {Mode} from "../enums";
 import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
@@ -103,11 +103,11 @@ export class Props extends ComponentProps<Style>
     /**
      * Specify the way the transaction record operates or behaves.
      *
-     * @type Mode
+     * @type DataListOperationMode
      */
-    @IsEnum(Mode)
+    @IsEnum(DataListOperationMode)
     @IsOptional()
-    readonly mode?: Mode;
+    readonly mode?: DataListOperationMode;
 
 
     /**

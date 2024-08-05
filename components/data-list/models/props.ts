@@ -2,8 +2,8 @@ import {ComponentName, ComponentProps, IsEnum} from "@miniskylab/antimatter-fram
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {type ReactNode} from "react";
-import {DisplayPanel} from "../classes";
-import {Mode} from "../enums";
+import {DataListDisplayPanel} from "../classes";
+import {DataListOperationMode} from "../enums";
 import type {ControlButton} from "../types";
 import {type DataListStyle} from "./style";
 
@@ -22,18 +22,18 @@ export class DataListProps extends ComponentProps<DataListStyle>
      */
     @IsOptional()
     @ValidateNested()
-    @Type(() => DisplayPanel)
-    readonly displayPanel?: DisplayPanel;
+    @Type(() => DataListDisplayPanel)
+    readonly displayPanel?: DataListDisplayPanel;
 
 
     /**
      * Specify the way the data list operates or behaves.
      *
-     * @type Mode
+     * @type DataListOperationMode
      */
-    @IsEnum(Mode)
+    @IsEnum(DataListOperationMode)
     @IsOptional()
-    readonly mode?: Mode;
+    readonly mode?: DataListOperationMode;
 
 
     /**
@@ -69,5 +69,5 @@ export class DataListProps extends ComponentProps<DataListStyle>
     /**
      * Specify the piece of code that will be executed when the data list changes mode.
      */
-    readonly onSwitchMode?: (newMode: Mode) => void;
+    readonly onSwitchMode?: (newMode: DataListOperationMode) => void;
 }

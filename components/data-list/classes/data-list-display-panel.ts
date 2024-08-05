@@ -1,12 +1,12 @@
 import {IsBoolean, IsDefined, IsEnum, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
-import {DisplayPanelTheme} from "../enums";
+import {DataListDisplayPanelTheme} from "../enums";
 
 /**
  * Represents objects that carry display panel data.
  */
-export class DisplayPanel
+export class DataListDisplayPanel
 {
     /**
      * Specify the icon that will be inscribed onto the display panel.
@@ -27,13 +27,13 @@ export class DisplayPanel
 
 
     /**
-     * Specify the theme of the display panel.
+     * Specify the overall appearance of the display panel.
      *
-     * @type DisplayPanelTheme
+     * @type DataListDisplayPanelTheme
      */
-    @IsEnum(DisplayPanelTheme)
+    @IsEnum(DataListDisplayPanelTheme)
     @IsOptional()
-    readonly theme?: DisplayPanelTheme;
+    readonly theme?: DataListDisplayPanelTheme;
 
 
     /**

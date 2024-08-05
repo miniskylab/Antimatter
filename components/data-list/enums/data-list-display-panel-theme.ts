@@ -1,4 +1,4 @@
-export enum DisplayPanelTheme
+export enum DataListDisplayPanelTheme
 {
     Neutral = "Neutral",
     Positive = "Positive",

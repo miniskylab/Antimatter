@@ -1,9 +1,9 @@
-import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, type ButtonStyle} from "@miniskylab/antimatter-button";
 import {CalendarContextHook, type CalendarStyle, CalendarVariant} from "@miniskylab/antimatter-calendar";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DatePickerContextHook, type DatePickerStyle, DatePickerVariant} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenuContextHook, type DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {CursorType, Layer, useEnvironment, useResponsiveStyle} from "@miniskylab/antimatter-framework";
+import {CursorType, Layer, useResponsiveStyle} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, type InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {ProgressStripesContextHook, type ProgressStripesStyle, ProgressStripesVariant} from "@miniskylab/antimatter-motion-graphics";
@@ -14,14 +14,12 @@ import {
 } from "@miniskylab/antimatter-numeric-input-field";
 import {PressableContextHook, type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {Pips, RangeSliderContextHook, type RangeSliderStyle, RangeSliderVariant} from "@miniskylab/antimatter-range-slider";
-import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
+import {type ScrollViewStyle} from "@miniskylab/antimatter-scroll-view";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {useEffect, useState} from "react";
-import ReactNative, {Keyboard} from "react-native";
+import {DataListContextHook, DataListOperationMode, type DataListStyle, DataListVariant} from "@miniskylab/data-list";
 import {Summary, TransactionRecord} from "../components";
-import {DisplayPanelTheme} from "../enums";
 import {TransactionTableAnimationHook, TransactionTableContextHook} from "../hooks";
 import {type TransactionTableStyle} from "../models";
 
@@ -515,17 +513,14 @@ const TransactionTable__Summary: Summary.Style = function ()
     };
 };
 
-const TransactionTable__MainContainer: ViewStyle = function (viewProps)
+const TransactionTable__TransactionList__Root: ViewStyle = function (viewProps)
 {
+    const dataListContext = DataListContextHook.useDataListContext();
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props).Root(viewProps);
+
     return {
-        ...ViewVariant.Default(viewProps),
-        flex: 1,
-        alignSelf: "stretch",
-        justifyContent: "flex-start",
-        minWidth: 300,
-        maxWidth: undefined,
-        height: "auto",
-        marginTop: 5,
+        ...inheritedStyle,
         ...useResponsiveStyle("Large", {
             maxWidth: "50%",
             height: 508,
@@ -534,252 +529,11 @@ const TransactionTable__MainContainer: ViewStyle = function (viewProps)
     };
 };
 
-const TransactionTable__ControlPanel: ViewStyle = function (viewProps)
+const TransactionTable__TransactionList: DataListStyle = function (scrollViewProps)
 {
     return {
-        ...ViewVariant.Default(viewProps),
-        flexDirection: "row",
-        alignSelf: "stretch",
-        height: 58.4,
-        justifyContent: "space-around",
-        backgroundColor: Color.Background
-    };
-};
-
-const TransactionTable__Button1__Root: PressableStyle = function (pressableProps, pressableState)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
-
-    return {
-        ...inheritedStyle,
-        flexDirection: "column",
-        minWidth: 100,
-        height: "100%",
-        paddingLeft: 0,
-        paddingRight: 0,
-        paddingTop: 5,
-        paddingBottom: 4,
-        borderWidth: 0,
-        backgroundColor: Color.Transparent
-    };
-};
-
-const TransactionTable__Button1__Icon: IconStyle = function (iconProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-    const pressableContext = PressableContextHook.usePressableContext();
-    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
-
-    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
-    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
-    const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
-
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
-
-    return {
-        ...inheritedStyle,
-        flexGrow: 1,
-        fontSize: 28,
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : isDraftMode || isEditMode
-                    ? Color.Primary
-                    : isDeleteMode
-                        ? Color.Tomato
-                        : Color.Neutral
-    };
-};
-
-const TransactionTable__Button1__Label: TextStyle = function (textProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-    const pressableContext = PressableContextHook.usePressableContext();
-    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
-
-    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
-    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
-    const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
-
-    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
-
-    return {
-        ...inheritedStyle,
-        lineHeight: 15,
-        marginTop: 3,
-        paddingVertical: 0,
-        paddingHorizontal: 0,
-        fontSize: 12,
-        fontWeight: "bold",
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : isDraftMode || isEditMode
-                    ? Color.Primary
-                    : isDeleteMode
-                        ? Color.Tomato
-                        : Color.Neutral
-    };
-};
-
-const TransactionTable__Button1: ButtonStyle = function (buttonProps)
-{
-    return {
-        ...ButtonVariant.OutlinedRectangular(buttonProps),
-        Root: TransactionTable__Button1__Root,
-        Icon: TransactionTable__Button1__Icon,
-        Label: TransactionTable__Button1__Label
-    };
-};
-
-const TransactionTable__Button2__Root: PressableStyle = function (pressableProps, pressableState)
-{
-    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
-
-    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
-    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
-
-    return {
-        ...TransactionTable__Button1__Root(pressableProps, pressableState),
-        opacity: 1,
-        paddingLeft: 15,
-        paddingRight: 15,
-        backgroundColor: isDraftMode
-            ? Color.Primary
-            : isReadOnlyMode
-                ? Color.Neutral
-                : Color.Transparent
-    };
-};
-
-const TransactionTable__Button2__Icon: IconStyle = function (iconProps)
-{
-    const pressableContext = PressableContextHook.usePressableContext();
-    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
-
-    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
-    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
-    const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
-    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
-
-    return {
-        ...TransactionTable__Button1__Icon(iconProps),
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : isDraftMode || isReadOnlyMode
-                    ? Color.Background
-                    : isEditMode
-                        ? Color.Primary
-                        : isDeleteMode
-                            ? Color.Tomato
-                            : Color.Neutral
-    };
-};
-
-const TransactionTable__Button2__Label: TextStyle = function (textProps)
-{
-    const pressableContext = PressableContextHook.usePressableContext();
-    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
-
-    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
-    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
-    const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
-    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
-
-    return {
-        ...TransactionTable__Button1__Label(textProps),
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : isDraftMode || isReadOnlyMode
-                    ? Color.Background
-                    : isEditMode
-                        ? Color.Primary
-                        : isDeleteMode
-                            ? Color.Tomato
-                            : Color.Neutral
-    };
-};
-
-const TransactionTable__Button2: ButtonStyle = function (buttonProps)
-{
-    return {
-        ...TransactionTable__Button1(buttonProps),
-        Root: TransactionTable__Button2__Root,
-        Icon: TransactionTable__Button2__Icon,
-        Label: TransactionTable__Button2__Label
-    };
-};
-
-const TransactionTable__Button3__Icon: IconStyle = function (iconProps)
-{
-    const pressableContext = PressableContextHook.usePressableContext();
-
-    return {
-        ...TransactionTable__Button1__Icon(iconProps),
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Neutral
-    };
-};
-
-const TransactionTable__Button3__Label: TextStyle = function (textProps)
-{
-    const pressableContext = PressableContextHook.usePressableContext();
-
-    return {
-        ...TransactionTable__Button1__Label(textProps),
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Neutral
-    };
-};
-
-const TransactionTable__Button3: ButtonStyle = function (buttonProps)
-{
-    return {
-        ...TransactionTable__Button1(buttonProps),
-        Icon: TransactionTable__Button3__Icon,
-        Label: TransactionTable__Button3__Label
-    };
-};
-
-const TransactionTable__TransactionList: ScrollViewStyle = function (scrollViewProps)
-{
-    let mobileAppStyle: ReactNative.ViewStyle = {};
-    if (useEnvironment("MobileApp"))
-    {
-        const [keyboardIsVisible, setKeyboardIsVisible] = useState(false);
-        useEffect(() =>
-        {
-            const keyboardShowListener = Keyboard.addListener("keyboardWillShow", () => { setKeyboardIsVisible(true); });
-            const keyboardHideListener = Keyboard.addListener("keyboardWillHide", () => { setKeyboardIsVisible(false); });
-            return () =>
-            {
-                keyboardShowListener.remove();
-                keyboardHideListener.remove();
-            };
-        });
-
-        mobileAppStyle = {paddingBottom: keyboardIsVisible ? 79 : 45};
-    }
-
-    return {
-        ...ScrollViewVariant.Default(scrollViewProps),
-        ...mobileAppStyle,
-        alignSelf: "stretch",
-        paddingTop: 2
+        ...DataListVariant.Default(scrollViewProps),
+        Root: TransactionTable__TransactionList__Root
     };
 };
 
@@ -817,7 +571,7 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
                 zIndex: Layer.AlwaysOnTop,
                 borderColor: Color.Primary,
                 backgroundColor: Color.Primary__a10,
-                ...transactionTableContext.props.mode === TransactionRecord.Mode.Delete && {
+                ...transactionTableContext.props.mode === DataListOperationMode.Delete && {
                     borderColor: Color.Negative,
                     backgroundColor: Color.Negative__a10
                 }
@@ -1268,99 +1022,6 @@ const TransactionTable__TransactionRecord: TransactionRecord.Style = function ()
     };
 };
 
-const TransactionTable__DisplayPanel: ViewStyle = function (viewProps)
-{
-    return {
-        ...ViewVariant.Default(viewProps),
-        position: "absolute",
-        top: 0,
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 58.4,
-        backgroundColor: Color.Background,
-        animations: [
-            () => TransactionTableAnimationHook.useDisplayPanelFadeOutAnimation()
-        ]
-    };
-};
-
-const TransactionTable__DisplayIcon: IconStyle = function (iconProps)
-{
-    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
-
-    const isAnimationPlaying = transactionTableContext.props.displayPanel?.isIconAnimationPlaying;
-    const theme = transactionTableContext.props.displayPanel?.theme;
-
-    return {
-        ...IconVariant.Default(iconProps),
-        height: 30,
-        marginTop: 2,
-        fontSize: 22,
-        animations: [
-            () => TransactionTableAnimationHook.useDisplayIconAnimation(isAnimationPlaying)
-        ],
-        color: theme === DisplayPanelTheme.Negative
-            ? Color.Negative
-            : theme === DisplayPanelTheme.Cautious
-                ? Color.Warning
-                : theme === DisplayPanelTheme.Positive
-                    ? Color.Positive
-                    : theme === DisplayPanelTheme.Highlighted
-                        ? Color.Primary
-                        : Color.Neutral
-    };
-};
-
-const TransactionTable__DisplayMessage: TextStyle = function (textProps)
-{
-    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
-
-    const theme = transactionTableContext.props.displayPanel?.theme;
-
-    return {
-        ...TextVariant.Default(textProps),
-        flex: 1,
-        justifyContent: "flex-start",
-        fontSize: 18,
-        fontWeight: "bold",
-        color: theme === DisplayPanelTheme.Negative
-            ? Color.Negative
-            : theme === DisplayPanelTheme.Cautious
-                ? Color.Warning
-                : theme === DisplayPanelTheme.Positive
-                    ? Color.Positive
-                    : theme === DisplayPanelTheme.Highlighted
-                        ? Color.Primary
-                        : Color.Neutral
-    };
-};
-
-const TransactionTable__TopHr: ViewStyle = function (viewProps)
-{
-    return {
-        ...ViewVariant.Default(viewProps),
-        position: "absolute",
-        top: 58.4,
-        width: "100%",
-        height: 2,
-        zIndex: Layer.Lower,
-        backgroundColor: Color.Neutral
-    };
-};
-
-const TransactionTable__BottomHr: ViewStyle = function (viewProps)
-{
-    const isRunningOnMobileApp = useEnvironment("MobileApp");
-
-    return {
-        ...TransactionTable__TopHr(viewProps),
-        top: undefined,
-        bottom: -0.4,
-        ...isRunningOnMobileApp && {backgroundColor: Color.Transparent}
-    };
-};
-
 export const Default: TransactionTableStyle = function ()
 {
     return {
@@ -1368,17 +1029,7 @@ export const Default: TransactionTableStyle = function ()
         Calendar: TransactionTable__Calendar,
         DatePicker: TransactionTable__DatePicker,
         Summary: TransactionTable__Summary,
-        MainContainer: TransactionTable__MainContainer,
-        DisplayPanel: TransactionTable__DisplayPanel,
-        DisplayIcon: TransactionTable__DisplayIcon,
-        DisplayMessage: TransactionTable__DisplayMessage,
-        ControlPanel: TransactionTable__ControlPanel,
-        Button1: TransactionTable__Button1,
-        Button2: TransactionTable__Button2,
-        Button3: TransactionTable__Button3,
         TransactionList: TransactionTable__TransactionList,
-        TransactionRecord: TransactionTable__TransactionRecord,
-        TopHr: TransactionTable__TopHr,
-        BottomHr: TransactionTable__BottomHr
+        TransactionRecord: TransactionTable__TransactionRecord
     };
 };

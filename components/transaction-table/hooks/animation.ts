@@ -1,68 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {type ComponentAnimation, Layer} from "@miniskylab/antimatter-framework";
-import {useEffect, useLayoutEffect, useRef} from "react";
+import {useEffect, useRef} from "react";
 import {Animated, type ColorValue, Easing} from "react-native";
-import {useTransactionTableContext} from "./context";
-
-export function useDisplayIconAnimation(isAnimationPlaying?: boolean): ComponentAnimation
-{
-    const initialRotation = 0;
-    const animatedRotation = useRef(new Animated.Value(initialRotation)).current;
-    const interpolatedRotation = animatedRotation.interpolate({
-        inputRange: [0, 360],
-        outputRange: ["0deg", "360deg"]
-    });
-
-    useLayoutEffect(() =>
-    {
-        if (isAnimationPlaying)
-        {
-            Animated.loop(
-                Animated.timing(animatedRotation, {
-                    toValue: 360,
-                    duration: 2800,
-                    easing: Easing.linear,
-                    useNativeDriver: false
-                })
-            ).start();
-        }
-        else
-        {
-            animatedRotation.setValue(0);
-        }
-    }, [isAnimationPlaying]);
-
-    return {
-        animatedStyle: {
-            transform: [{rotate: interpolatedRotation}]
-        }
-    };
-}
-
-export function useDisplayPanelFadeOutAnimation(): ComponentAnimation
-{
-    const transactionTableContext = useTransactionTableContext();
-
-    const initialOpacity = transactionTableContext.props.displayPanel?.isVisible ? 1 : 0;
-    const animatedOpacity = useRef(new Animated.Value(initialOpacity)).current;
-
-    useEffect(() =>
-    {
-        Animated.timing(animatedOpacity, {
-            toValue: transactionTableContext.props.displayPanel?.isVisible ? 1 : 0,
-            duration: transactionTableContext.props.displayPanel?.isVisible ? 0 : 200,
-            delay: transactionTableContext.props.displayPanel?.isVisible ? 0 : 1800,
-            easing: Easing.linear,
-            useNativeDriver: false
-        }).start();
-    }, [!!transactionTableContext.props.displayPanel?.isVisible]);
-
-    return {
-        animatedStyle: {
-            opacity: animatedOpacity
-        }
-    };
-}
 
 export function useFlashHighlightAnimation(): ComponentAnimation
 {
