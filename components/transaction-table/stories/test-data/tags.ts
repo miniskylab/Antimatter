@@ -19,7 +19,7 @@ export const Tags: TransactionRecord.Props["tags"] = {
     "tortor": {name: "tortor"},
     "feugiat": {name: "feugiat", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Basket)},
     "volutpat": {name: "volutpat", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Road)},
-    "mauris": {name: "mauris", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.GasStation)},
+    "mauris": {name: "mauris", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Alarm)},
     "interdum": {name: "interdum", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Plane)},
     "semper": {name: "semper", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Group)},
     "imperdiet": {name: "imperdiet", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Lightning)},

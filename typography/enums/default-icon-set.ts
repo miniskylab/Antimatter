@@ -45,14 +45,12 @@ export enum DefaultIconSet
     Fire = "fire",
     NotAllowed = "not-allowed",
     Apple = "apple",
-    GasStation = "gas-station",
     Plane = "plane",
     Lightning = "lightning",
     Droplet = "droplet",
     Group = "group",
     Road = "road",
     Basket = "basket",
-    Haircut = "haircut",
     Money = "money",
     PriceTag = "price-tag",
     LockInsideShield = "lock-inside-shield",
@@ -86,5 +84,10 @@ export enum DefaultIconSet
     Next = "next",
     Shuffle = "shuffle",
     RepeatAll = "repeat-all",
-    Playlist = "playlist"
+    Playlist = "playlist",
+    Notification = "notification",
+    Alarm = "alarm",
+    NoSound = "no-sound",
+    CheckMarkInsideCircle = "check-mark-inside-circle",
+    Send = "send"
 }
