@@ -1,5 +1,5 @@
 import {
-    AllPropertiesMustPresent,
+    type AllPropertiesMustPresent,
     EMPTY_STRING,
     isNotNullAndUndefined,
     MAX,
@@ -11,7 +11,7 @@ import {InputField} from "@miniskylab/antimatter-input-field";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
 import {Keypress} from "./enums";
-import {NumericInputFieldContext, NumericInputFieldProps, NumericInputFieldState} from "./models";
+import {NumericInputFieldContext, NumericInputFieldProps, type NumericInputFieldState} from "./models";
 import {getNextNumericInputFieldState} from "./services";
 import * as Variant from "./variants";
 

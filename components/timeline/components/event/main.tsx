@@ -1,5 +1,5 @@
 import {
-    AllPropertiesMustPresent,
+    type AllPropertiesMustPresent,
     DateFormat,
     EMPTY_STRING,
     GregorianCalendar,

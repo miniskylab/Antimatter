@@ -1,7 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {Calendar} from "@miniskylab/antimatter-calendar";
 import {
-    AllPropertiesMustPresent,
+    type AllPropertiesMustPresent,
     DateFormat,
     EMPTY_STRING,
     GregorianCalendar,

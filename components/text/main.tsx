@@ -1,5 +1,5 @@
 import {
-    AllPropertiesMustPresent,
+    type AllPropertiesMustPresent,
     inheritTextStyleFrom,
     isEnvironment,
     Ts,
