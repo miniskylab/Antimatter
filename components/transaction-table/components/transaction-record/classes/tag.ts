@@ -1,38 +1,13 @@
-import {IsDefined, IsEnum, IsNotEmpty, IsPositive, IsString} from "@miniskylab/antimatter-framework";
+import {IsEnum} from "@miniskylab/antimatter-framework";
+import {AbstractTag} from "@miniskylab/data-list";
 import {IsOptional} from "class-validator";
 import {TagMetadata, TagStatus} from "../enums";
 
 /**
  * Represents a piece of information that describes the transaction records they are assigned to.
  */
-export class Tag
+export class Tag extends AbstractTag
 {
-    /**
-     * Specify the name of the tag.
-     */
-    @IsNotEmpty()
-    @IsString()
-    @IsDefined()
-    readonly name: string;
-
-
-    /**
-     * Specify the icon associated with the tag.
-     */
-    @IsNotEmpty()
-    @IsString()
-    @IsOptional()
-    readonly icon?: string;
-
-
-    /**
-     * Specify the order of the tag.
-     */
-    @IsPositive()
-    @IsOptional()
-    readonly order?: number;
-
-
     /**
      * Specify the way the tag operates or behaves.
      *

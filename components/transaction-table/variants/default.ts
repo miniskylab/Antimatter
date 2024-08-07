@@ -18,9 +18,15 @@ import {type ScrollViewStyle} from "@miniskylab/antimatter-scroll-view";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {DataListContextHook, DataListOperationMode, type DataListStyle, DataListVariant} from "@miniskylab/data-list";
+import {
+    DataListAnimationHook,
+    DataListContextHook,
+    DataListOperationMode,
+    type DataListStyle,
+    DataListVariant
+} from "@miniskylab/data-list";
 import {Summary, TransactionRecord} from "../components";
-import {TransactionTableAnimationHook, TransactionTableContextHook} from "../hooks";
+import {TransactionTableContextHook} from "../hooks";
 import {type TransactionTableStyle} from "../models";
 
 const TransactionTable__Root: ViewStyle = function (viewProps)
@@ -559,8 +565,8 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         cursor: hasSelectedTransaction ? CursorType.Default : CursorType.Pointer,
         animations: () =>
         {
-            const flashHighlightAnimation = TransactionTableAnimationHook.useFlashHighlightAnimation();
-            const verticalContractionAnimation = TransactionTableAnimationHook.useVerticalContractionAnimation(66, 2);
+            const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
+            const verticalContractionAnimation = DataListAnimationHook.useVerticalContractionAnimation(66, 2);
 
             return transactionRecordContext.props.toBeDeleted
                 ? [() => flashHighlightAnimation, () => verticalContractionAnimation]

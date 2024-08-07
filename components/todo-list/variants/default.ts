@@ -10,9 +10,9 @@ import {type ScrollViewStyle} from "@miniskylab/antimatter-scroll-view";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {DataListOperationMode, type DataListStyle, DataListVariant} from "@miniskylab/data-list";
+import {DataListAnimationHook, DataListOperationMode, type DataListStyle, DataListVariant} from "@miniskylab/data-list";
 import {Reminder} from "../components";
-import {TodoListAnimationHook, TodoListContextHook} from "../hooks";
+import {TodoListContextHook} from "../hooks";
 import {type TodoListStyle} from "../models";
 
 const TodoList__Root: DataListStyle = function (viewProps)
@@ -44,8 +44,8 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
         cursor: hasSelectedReminder ? CursorType.Default : CursorType.Pointer,
         animations: () =>
         {
-            const flashHighlightAnimation = TodoListAnimationHook.useFlashHighlightAnimation();
-            const verticalContractionAnimation = TodoListAnimationHook.useVerticalContractionAnimation(66, 2);
+            const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
+            const verticalContractionAnimation = DataListAnimationHook.useVerticalContractionAnimation(66, 2);
 
             return reminderContext.props.toBeDeleted
                 ? [() => flashHighlightAnimation, () => verticalContractionAnimation]
