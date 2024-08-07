@@ -8,7 +8,7 @@ import {TextStyle} from "@miniskylab/antimatter-text";
 import {ViewStyle} from "@miniskylab/antimatter-view";
 import {Props} from "./props";
 
-export type Style = (reminderItemProps: WithoutStyle<Props>) => {
+export type Style = (reminderProps: WithoutStyle<Props>) => {
     Root: PressableStyle;
     Icon: IconStyle;
     NameAndTagContainer: ViewStyle;

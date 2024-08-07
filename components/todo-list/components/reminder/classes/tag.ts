@@ -3,7 +3,7 @@ import {IsOptional} from "class-validator";
 import {TagMetadata, TagStatus} from "../enums";
 
 /**
- * Represents a piece of information that describes the reminder items they are assigned to.
+ * Represents a piece of information that describes the reminders they are assigned to.
  */
 export class Tag
 {

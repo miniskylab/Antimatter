@@ -3,12 +3,12 @@ import {IsOptional} from "class-validator";
 import {Tag} from "./tag";
 
 /**
- * Represents data of a particular reminder item.
+ * Represents data of a particular reminder.
  */
 export class Data
 {
     /**
-     * Specify the name of the reminder item.
+     * Specify the name of the reminder.
      */
     @IsString()
     @IsOptional()
@@ -16,14 +16,14 @@ export class Data
 
 
     /**
-     * Specify the tags that can be assigned to the reminder item.
+     * Specify the tags that can be assigned to the reminder.
      */
     @IsOptional()
     readonly tags?: Record<string, Tag>;
 
 
     /**
-     * Specify the date and time at which the reminder item was last modified.
+     * Specify the date and time at which the reminder was last modified.
      */
     @IsDate()
     @IsOptional()
@@ -31,7 +31,7 @@ export class Data
 
 
     /**
-     * Specify the date and time at which the reminder item was created.
+     * Specify the date and time at which the reminder was created.
      */
     @IsDate()
     @IsOptional()

@@ -11,10 +11,10 @@ import {DataListOperationMode} from "@miniskylab/data-list";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {Tag} from "./classes";
 import {TagMetadata, TagStatus} from "./enums";
-import {Props, type Ref, ReminderItemContext} from "./models";
+import {Props, type Ref, ReminderContext} from "./models";
 
 /**
- * A component for displaying a single item in the reminder.
+ * A component for displaying a single reminder in the todo list.
  */
 export const Component = forwardRef(function Component(
     {
@@ -38,7 +38,7 @@ export const Component = forwardRef(function Component(
         style, id, name, tags, maxSelectedTagCount, showProgressStripes, toBeDeleted, modifiedDate, createdDate, mode, onPress, onChange
     };
 
-    const context = useMemo<ReminderItemContext>(
+    const context = useMemo<ReminderContext>(
         () => ({props}),
         [...Object.values(props)]
     );
@@ -53,7 +53,7 @@ export const Component = forwardRef(function Component(
     }), []);
 
     return (
-        <ReminderItemContext.Provider value={context}>
+        <ReminderContext.Provider value={context}>
             <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={toBeDeleted}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
@@ -62,7 +62,7 @@ export const Component = forwardRef(function Component(
                     {renderTags()}
                 </View>
             </Pressable>
-        </ReminderItemContext.Provider>
+        </ReminderContext.Provider>
     );
 
     function byOrder(tagA: Tag, tagB: Tag): number

@@ -1,16 +1,16 @@
 import {Ts} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import {ReminderItem} from "../../components";
+import {Reminder} from "../../components";
 
-export const Tags: ReminderItem.Props["tags"] = {
+export const Tags: Reminder.Props["tags"] = {
     "viverra": {name: "viverra"},
     "metus": {name: "metus"},
     "iaculis": {
         name: "iaculis",
         icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Money),
         metadata: new Set([
-            ReminderItem.TagMetadata.HighlightTarget,
-            ReminderItem.TagMetadata.MutuallyExclusive
+            Reminder.TagMetadata.HighlightTarget,
+            Reminder.TagMetadata.MutuallyExclusive
         ])
     },
     "sagittis": {name: "sagittis"},
