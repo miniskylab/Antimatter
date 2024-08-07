@@ -11,9 +11,13 @@ import {Props} from "./props";
 export type Style = (reminderProps: WithoutStyle<Props>) => {
     Root: PressableStyle;
     Icon: IconStyle;
-    NameAndTagContainer: ViewStyle;
+    NameTagAndDeadlineContainer: ViewStyle;
     NameInputField: InputFieldStyle;
     NameText: TextStyle;
+    DueDateIcon: IconStyle;
+    DueDate: TextStyle;
+    DueDurationIcon: IconStyle;
+    DueDuration: TextStyle;
     TagSelector: DropdownMenuStyle;
     TagContainer: ViewStyle;
     Tag: TextStyle;

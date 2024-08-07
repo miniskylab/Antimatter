@@ -5,6 +5,6 @@ import {TodoListProps} from "./props";
 import {TodoListState} from "./state";
 
 export type TodoListStyle = (todoListProps: WithoutStyle<TodoListProps>, todoListState: TodoListState) => {
-    Root: DataListStyle;
+    DataList: DataListStyle;
     Reminder: Reminder.Style;
 };

@@ -15,10 +15,10 @@ import {Reminder} from "../components";
 import {TodoListContextHook} from "../hooks";
 import {type TodoListStyle} from "../models";
 
-const TodoList__Root: DataListStyle = function (viewProps)
+const TodoList__DataList: DataListStyle = function (dataListProps)
 {
     return {
-        ...DataListVariant.Default(viewProps)
+        ...DataListVariant.Default(dataListProps)
     };
 };
 
@@ -87,7 +87,7 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
     };
 };
 
-const TodoList__Reminder__NameAndTagContainer: ViewStyle = function (viewProps)
+const TodoList__Reminder__NameTagAndDeadlineContainer: ViewStyle = function (viewProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
@@ -95,10 +95,10 @@ const TodoList__Reminder__NameAndTagContainer: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         display: reminderContext.props.toBeDeleted ? "none" : "flex",
         flexGrow: 1,
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        width: 0,
-        height: "100%",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
+        rowGap: 4,
         paddingLeft: 5
     };
 };
@@ -111,7 +111,7 @@ const TodoList__Reminder__NameInputField__Root: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        width: "95%",
+        width: "100%",
         height: 23,
         marginTop: -1,
         backgroundColor: Color.Transparent
@@ -169,12 +169,50 @@ const TodoList__Reminder__NameText: TextStyle = function (textProps)
     return {
         ...TextVariant.Default(textProps),
         alignItems: "flex-start",
-        width: "95%",
+        width: "100%",
         height: 23,
         marginTop: -1,
         fontSize: 18,
         fontWeight: "bold",
         color: Color.Neutral
+    };
+};
+
+const TodoList__Reminder__DueDateIcon: IconStyle = function (iconProps)
+{
+    return {
+        ...IconVariant.Default(iconProps),
+        lineHeight: 17,
+        paddingBottom: 1,
+        marginRight: 5,
+        fontSize: 14,
+        color: Color.Neutral
+    };
+};
+
+const TodoList__Reminder__DueDate: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        lineHeight: 18,
+        marginRight: 10,
+        fontSize: 14,
+        fontWeight: "bold",
+        color: Color.Neutral
+    };
+};
+
+const TodoList__Reminder__DueDurationIcon: IconStyle = function (iconProps)
+{
+    return {
+        ...TodoList__Reminder__DueDateIcon(iconProps)
+    };
+};
+
+const TodoList__Reminder__DueDuration: TextStyle = function (textProps)
+{
+    return {
+        ...TodoList__Reminder__DueDate(textProps)
     };
 };
 
@@ -186,7 +224,6 @@ const TodoList__Reminder__TagSelector__Root: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        width: "95%",
         height: 18,
         minHeight: undefined,
         marginHorizontal: 1,
@@ -334,7 +371,6 @@ const TodoList__Reminder__TagContainer: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         justifyContent: "flex-start",
-        width: "95%",
         height: 18,
         paddingLeft: 1,
         backgroundColor: Color.Transparent,
@@ -415,9 +451,13 @@ const TodoList__Reminder: Reminder.Style = function ()
     return {
         Root: TodoList__Reminder__Root,
         Icon: TodoList__Reminder__Icon,
-        NameAndTagContainer: TodoList__Reminder__NameAndTagContainer,
+        NameTagAndDeadlineContainer: TodoList__Reminder__NameTagAndDeadlineContainer,
         NameInputField: TodoList__Reminder__NameInputField,
         NameText: TodoList__Reminder__NameText,
+        DueDateIcon: TodoList__Reminder__DueDateIcon,
+        DueDate: TodoList__Reminder__DueDate,
+        DueDurationIcon: TodoList__Reminder__DueDurationIcon,
+        DueDuration: TodoList__Reminder__DueDuration,
         TagSelector: TodoList__Reminder__TagSelector,
         TagContainer: TodoList__Reminder__TagContainer,
         Tag: TodoList__Reminder__Tag,
@@ -428,7 +468,7 @@ const TodoList__Reminder: Reminder.Style = function ()
 export const Default: TodoListStyle = function ()
 {
     return {
-        Root: TodoList__Root,
+        DataList: TodoList__DataList,
         Reminder: TodoList__Reminder
     };
 };

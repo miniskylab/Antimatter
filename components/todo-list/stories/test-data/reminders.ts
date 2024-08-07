@@ -9,13 +9,13 @@ yesterday.setDate(yesterday.getDate() - 1);
 export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     "1": {
         name: "Pulvinar",
-        tags: deepCopyWithSelection(Tags, "feugiat", "mauris"),
+        tags: deepCopyWithSelection(Tags, "feugiat"),
         modifiedDate: today,
         createdDate: today
     },
     "2": {
         name: "Pretium",
-        tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
+        tags: deepCopyWithSelection(Tags, "dolore"),
         modifiedDate: today,
         createdDate: today
     },
@@ -45,7 +45,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "7": {
         name: "Diam donec",
-        tags: deepCopyWithSelection(Tags, "dolore", "feugiat"),
+        tags: deepCopyWithSelection(Tags, "feugiat"),
         modifiedDate: today,
         createdDate: today
     },
@@ -63,7 +63,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "10": {
         name: "Iaculis eu non",
-        tags: deepCopyWithSelection(Tags, "viverra", "metus"),
+        tags: deepCopyWithSelection(Tags, "viverra"),
         modifiedDate: today,
         createdDate: today
     },
@@ -87,13 +87,13 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "14": {
         name: "Cursus turpis",
-        tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
+        tags: deepCopyWithSelection(Tags, "dolore"),
         modifiedDate: yesterday,
         createdDate: yesterday
     },
     "15": {
         name: "Morbi tincidunt",
-        tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
+        tags: deepCopyWithSelection(Tags, "tortor"),
         modifiedDate: yesterday,
         createdDate: yesterday
     }

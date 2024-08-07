@@ -22,7 +22,7 @@ export const Component = forwardRef(function Component(
         id,
         name = EMPTY_STRING,
         tags = {},
-        maxSelectedTagCount = 3,
+        maxSelectedTagCount = 1,
         showProgressStripes,
         toBeDeleted,
         modifiedDate,
@@ -57,8 +57,9 @@ export const Component = forwardRef(function Component(
             <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={toBeDeleted}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
-                <View style={computedStyle.NameAndTagContainer}>
+                <View style={computedStyle.NameTagAndDeadlineContainer}>
                     {renderName()}
+                    {renderDeadline()}
                     {renderTags()}
                 </View>
             </Pressable>
@@ -134,6 +135,18 @@ export const Component = forwardRef(function Component(
                     onChangeText={onNameChange}
                 />
                 : <Text style={computedStyle.NameText} numberOfLines={1} pointerEvents={"none"}>{name}</Text>
+        );
+    }
+
+    function renderDeadline(): JSX.Element
+    {
+        return (
+            <>
+                <Icon style={computedStyle.DueDateIcon} name={DefaultIconSet.Calendar}/>
+                <Text style={computedStyle.DueDate}>{"15/08/2024"}</Text>
+                <Icon style={computedStyle.DueDurationIcon} name={DefaultIconSet.Alarm}/>
+                <Text style={computedStyle.DueDuration}>{"In 100 days"}</Text>
+            </>
         );
     }
 

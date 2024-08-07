@@ -13,7 +13,7 @@ export function TodoList({
     reminders = {},
     selectedReminder,
     mode = DataListOperationMode.ReadOnly,
-    maxSelectedTagCount = 3,
+    maxSelectedTagCount = 1,
     displayPanel,
     addNewReminderButton,
     saveReminderButton,
@@ -47,7 +47,7 @@ export function TodoList({
     return (
         <TodoListContext.Provider value={context}>
             <DataList
-                style={computedStyle.Root}
+                style={computedStyle.DataList}
                 mode={mode}
                 displayPanel={displayPanel}
                 addNewButton={addNewReminderButton}

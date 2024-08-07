@@ -616,10 +616,10 @@ const TransactionTable__TransactionRecord__NameAndTagContainer: ViewStyle = func
         ...ViewVariant.Default(viewProps),
         display: transactionRecordContext.props.toBeDeleted ? "none" : "flex",
         flexGrow: 1,
-        justifyContent: "space-between",
-        alignItems: "flex-start",
-        width: 0,
-        height: "100%",
+        flexDirection: "row",
+        flexWrap: "wrap",
+        justifyContent: "flex-start",
+        rowGap: 4,
         paddingLeft: 5
     };
 };
