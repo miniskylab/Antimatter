@@ -11,24 +11,24 @@ import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {DataListOperationMode, type DataListStyle, DataListVariant} from "@miniskylab/data-list";
-import {ReminderItem} from "../components";
-import {ReminderAnimationHook, ReminderContextHook} from "../hooks";
-import {type ReminderStyle} from "../models";
+import {Reminder} from "../components";
+import {TodoListAnimationHook, TodoListContextHook} from "../hooks";
+import {type TodoListStyle} from "../models";
 
-const Reminder__Root: DataListStyle = function (viewProps)
+const TodoList__Root: DataListStyle = function (viewProps)
 {
     return {
         ...DataListVariant.Default(viewProps)
     };
 };
 
-const Reminder__ReminderItem__Root: PressableStyle = function (pressableProps, pressableState)
+const TodoList__Reminder__Root: PressableStyle = function (pressableProps, pressableState)
 {
-    const reminderContext = ReminderContextHook.useReminderContext();
-    const reminderItemContext = ReminderItem.ContextHook.useReminderItemContext();
+    const todoListContext = TodoListContextHook.useTodoListContext();
+    const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const hasSelectedReminderItem = !!reminderContext.props.selectedReminderItem;
-    const isSelectedReminderItem = reminderItemContext.props.id === reminderContext.props.selectedReminderItem?.id;
+    const hasSelectedReminder = !!todoListContext.props.selectedReminder;
+    const isSelectedReminder = reminderContext.props.id === todoListContext.props.selectedReminder?.id;
 
     return {
         ...PressableVariant.Default(pressableProps, pressableState),
@@ -41,18 +41,18 @@ const Reminder__ReminderItem__Root: PressableStyle = function (pressableProps, p
         borderStyle: "solid",
         borderColor: Color.Neutral,
         marginTop: -2,
-        cursor: hasSelectedReminderItem ? CursorType.Default : CursorType.Pointer,
+        cursor: hasSelectedReminder ? CursorType.Default : CursorType.Pointer,
         animations: () =>
         {
-            const flashHighlightAnimation = ReminderAnimationHook.useFlashHighlightAnimation();
-            const verticalContractionAnimation = ReminderAnimationHook.useVerticalContractionAnimation(66, 2);
+            const flashHighlightAnimation = TodoListAnimationHook.useFlashHighlightAnimation();
+            const verticalContractionAnimation = TodoListAnimationHook.useVerticalContractionAnimation(66, 2);
 
-            return reminderItemContext.props.toBeDeleted
+            return reminderContext.props.toBeDeleted
                 ? [() => flashHighlightAnimation, () => verticalContractionAnimation]
                 : [() => verticalContractionAnimation, () => flashHighlightAnimation];
         },
         animationOverride: {
-            ...((!hasSelectedReminderItem && pressableState.hovered) || isSelectedReminderItem) && {
+            ...((!hasSelectedReminder && pressableState.hovered) || isSelectedReminder) && {
                 zIndex: Layer.AlwaysOnTop,
                 borderColor: Color.Primary,
                 backgroundColor: Color.Primary__a10,
@@ -61,7 +61,7 @@ const Reminder__ReminderItem__Root: PressableStyle = function (pressableProps, p
                     backgroundColor: Color.Negative__a10
                 }
             },
-            ...reminderItemContext.props.toBeDeleted && {
+            ...reminderContext.props.toBeDeleted && {
                 paddingTop: 0,
                 paddingBottom: 0,
                 borderTopWidth: 0,
@@ -73,13 +73,13 @@ const Reminder__ReminderItem__Root: PressableStyle = function (pressableProps, p
     };
 };
 
-const Reminder__ReminderItem__Icon: IconStyle = function (iconProps)
+const TodoList__Reminder__Icon: IconStyle = function (iconProps)
 {
-    const reminderItemContext = ReminderItem.ContextHook.useReminderItemContext();
+    const reminderContext = Reminder.ContextHook.useReminderContext();
 
     return {
         ...IconVariant.Default(iconProps),
-        display: reminderItemContext.props.toBeDeleted ? "none" : "flex",
+        display: reminderContext.props.toBeDeleted ? "none" : "flex",
         width: 30,
         height: 30,
         fontSize: 28,
@@ -87,13 +87,13 @@ const Reminder__ReminderItem__Icon: IconStyle = function (iconProps)
     };
 };
 
-const Reminder__ReminderItem__NameAndTagContainer: ViewStyle = function (viewProps)
+const TodoList__Reminder__NameAndTagContainer: ViewStyle = function (viewProps)
 {
-    const reminderItemContext = ReminderItem.ContextHook.useReminderItemContext();
+    const reminderContext = Reminder.ContextHook.useReminderContext();
 
     return {
         ...ViewVariant.Default(viewProps),
-        display: reminderItemContext.props.toBeDeleted ? "none" : "flex",
+        display: reminderContext.props.toBeDeleted ? "none" : "flex",
         flexGrow: 1,
         justifyContent: "space-between",
         alignItems: "flex-start",
@@ -103,7 +103,7 @@ const Reminder__ReminderItem__NameAndTagContainer: ViewStyle = function (viewPro
     };
 };
 
-const Reminder__ReminderItem__NameInputField__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__NameInputField__Root: ViewStyle = function (viewProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
@@ -118,7 +118,7 @@ const Reminder__ReminderItem__NameInputField__Root: ViewStyle = function (viewPr
     };
 };
 
-const Reminder__ReminderItem__NameInputField__TextBox: TextInputStyle = function (textInputProps)
+const TodoList__Reminder__NameInputField__TextBox: TextInputStyle = function (textInputProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
@@ -136,7 +136,7 @@ const Reminder__ReminderItem__NameInputField__TextBox: TextInputStyle = function
     };
 };
 
-const Reminder__ReminderItem__NameInputField__Placeholder: TextStyle = function (textProps)
+const TodoList__Reminder__NameInputField__Placeholder: TextStyle = function (textProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
@@ -154,17 +154,17 @@ const Reminder__ReminderItem__NameInputField__Placeholder: TextStyle = function 
     };
 };
 
-const Reminder__ReminderItem__NameInputField: InputFieldStyle = function (inputFieldProps)
+const TodoList__Reminder__NameInputField: InputFieldStyle = function (inputFieldProps)
 {
     return {
         ...InputFieldVariant.Default(inputFieldProps),
-        Root: Reminder__ReminderItem__NameInputField__Root,
-        TextBox: Reminder__ReminderItem__NameInputField__TextBox,
-        Placeholder: Reminder__ReminderItem__NameInputField__Placeholder
+        Root: TodoList__Reminder__NameInputField__Root,
+        TextBox: TodoList__Reminder__NameInputField__TextBox,
+        Placeholder: TodoList__Reminder__NameInputField__Placeholder
     };
 };
 
-const Reminder__ReminderItem__NameText: TextStyle = function (textProps)
+const TodoList__Reminder__NameText: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
@@ -178,7 +178,7 @@ const Reminder__ReminderItem__NameText: TextStyle = function (textProps)
     };
 };
 
-const Reminder__ReminderItem__TagSelector__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__TagSelector__Root: ViewStyle = function (viewProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -195,21 +195,21 @@ const Reminder__ReminderItem__TagSelector__Root: ViewStyle = function (viewProps
     };
 };
 
-const Reminder__ReminderItem__TagSelector__SelectedItemContainer: PressableStyle = function ()
+const TodoList__Reminder__TagSelector__SelectedItemContainer: PressableStyle = function ()
 {
     return {
         display: "none"
     };
 };
 
-const Reminder__ReminderItem__TagSelector__Caret: ViewStyle = function ()
+const TodoList__Reminder__TagSelector__Caret: ViewStyle = function ()
 {
     return {
         display: "none"
     };
 };
 
-const Reminder__ReminderItem__TagSelector__Menu: ScrollViewStyle = function (scrollViewProps)
+const TodoList__Reminder__TagSelector__Menu: ScrollViewStyle = function (scrollViewProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -226,14 +226,14 @@ const Reminder__ReminderItem__TagSelector__Menu: ScrollViewStyle = function (scr
     };
 };
 
-const Reminder__ReminderItem__TagSelector__MenuItem__Root: PressableStyle = function (pressableProps, pressableState)
+const TodoList__Reminder__TagSelector__MenuItem__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const menuItemKey = DropdownMenuContextHook.useMenuItemKeyContext();
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
     const menuItem = dropdownMenuContext.props.menuItems?.[menuItemKey];
-    const isHighlighted = menuItem?.context?.includes(ReminderItem.TagMetadata.HighlightTarget);
+    const isHighlighted = menuItem?.context?.includes(Reminder.TagMetadata.HighlightTarget);
 
     const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props)
         .MenuItem(buttonContext.props)
@@ -259,7 +259,7 @@ const Reminder__ReminderItem__TagSelector__MenuItem__Root: PressableStyle = func
     };
 };
 
-const Reminder__ReminderItem__TagSelector__MenuItem__Label: TextStyle = function (textProps)
+const TodoList__Reminder__TagSelector__MenuItem__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const pressableContext = PressableContextHook.usePressableContext();
@@ -267,7 +267,7 @@ const Reminder__ReminderItem__TagSelector__MenuItem__Label: TextStyle = function
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
     const menuItem = dropdownMenuContext.props.menuItems?.[menuItemKey];
-    const isHighlighted = menuItem?.context?.includes(ReminderItem.TagMetadata.HighlightTarget);
+    const isHighlighted = menuItem?.context?.includes(Reminder.TagMetadata.HighlightTarget);
 
     const inheritedStyle = DropdownMenuVariant.Default(dropdownMenuContext.props)
         .MenuItem(buttonContext.props)
@@ -287,14 +287,14 @@ const Reminder__ReminderItem__TagSelector__MenuItem__Label: TextStyle = function
     };
 };
 
-const Reminder__ReminderItem__TagSelector__MenuItem__Icon: IconStyle = function ()
+const TodoList__Reminder__TagSelector__MenuItem__Icon: IconStyle = function ()
 {
     return {
         display: "none"
     };
 };
 
-const Reminder__ReminderItem__TagSelector__MenuItem: ButtonStyle = function (buttonProps)
+const TodoList__Reminder__TagSelector__MenuItem: ButtonStyle = function (buttonProps)
 {
     const dropdownMenuContext = DropdownMenuContextHook.useDropdownMenuContext();
 
@@ -302,33 +302,33 @@ const Reminder__ReminderItem__TagSelector__MenuItem: ButtonStyle = function (but
 
     return {
         ...inheritedStyle,
-        Root: Reminder__ReminderItem__TagSelector__MenuItem__Root,
-        Label: Reminder__ReminderItem__TagSelector__MenuItem__Label,
-        Icon: Reminder__ReminderItem__TagSelector__MenuItem__Icon
+        Root: TodoList__Reminder__TagSelector__MenuItem__Root,
+        Label: TodoList__Reminder__TagSelector__MenuItem__Label,
+        Icon: TodoList__Reminder__TagSelector__MenuItem__Icon
     };
 };
 
-const Reminder__ReminderItem__TagSelector__Divider: ViewStyle = function ()
+const TodoList__Reminder__TagSelector__Divider: ViewStyle = function ()
 {
     return {
         display: "none"
     };
 };
 
-const Reminder__ReminderItem__TagSelector: DropdownMenuStyle = function (dropdownMenuProps)
+const TodoList__Reminder__TagSelector: DropdownMenuStyle = function (dropdownMenuProps)
 {
     return {
         ...DropdownMenuVariant.Default(dropdownMenuProps),
-        Root: Reminder__ReminderItem__TagSelector__Root,
-        SelectedItemContainer: Reminder__ReminderItem__TagSelector__SelectedItemContainer,
-        Caret: Reminder__ReminderItem__TagSelector__Caret,
-        Menu: Reminder__ReminderItem__TagSelector__Menu,
-        MenuItem: Reminder__ReminderItem__TagSelector__MenuItem,
-        Divider: Reminder__ReminderItem__TagSelector__Divider
+        Root: TodoList__Reminder__TagSelector__Root,
+        SelectedItemContainer: TodoList__Reminder__TagSelector__SelectedItemContainer,
+        Caret: TodoList__Reminder__TagSelector__Caret,
+        Menu: TodoList__Reminder__TagSelector__Menu,
+        MenuItem: TodoList__Reminder__TagSelector__MenuItem,
+        Divider: TodoList__Reminder__TagSelector__Divider
     };
 };
 
-const Reminder__ReminderItem__TagContainer: ViewStyle = function (viewProps)
+const TodoList__Reminder__TagContainer: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -342,14 +342,14 @@ const Reminder__ReminderItem__TagContainer: ViewStyle = function (viewProps)
     };
 };
 
-const Reminder__ReminderItem__Tag: TextStyle = function (textProps)
+const TodoList__Reminder__Tag: TextStyle = function (textProps)
 {
-    const reminderItemContext = ReminderItem.ContextHook.useReminderItemContext();
+    const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const isHighlighted = Object.values(reminderItemContext.props.tags ?? {})
+    const isHighlighted = Object.values(reminderContext.props.tags ?? {})
         .some(
-            tag => tag.status === ReminderItem.TagStatus.Selected &&
-                   tag.metadata?.has(ReminderItem.TagMetadata.HighlightTarget)
+            tag => tag.status === Reminder.TagStatus.Selected &&
+                   tag.metadata?.has(Reminder.TagMetadata.HighlightTarget)
         );
 
     return {
@@ -366,7 +366,7 @@ const Reminder__ReminderItem__Tag: TextStyle = function (textProps)
     };
 };
 
-const Reminder__ReminderItem__ProgressStripes__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__ProgressStripes__Root: ViewStyle = function (viewProps)
 {
     const progressStripesContext = ProgressStripesContextHook.useProgressStripesContext();
 
@@ -385,7 +385,7 @@ const Reminder__ReminderItem__ProgressStripes__Root: ViewStyle = function (viewP
     };
 };
 
-const Reminder__ReminderItem__ProgressStripes__Stripe: ViewStyle = function (viewProps)
+const TodoList__Reminder__ProgressStripes__Stripe: ViewStyle = function (viewProps)
 {
     const stripeIndex = ProgressStripesContextHook.useStripeIndexContext();
     const progressStripesContext = ProgressStripesContextHook.useProgressStripesContext();
@@ -401,34 +401,34 @@ const Reminder__ReminderItem__ProgressStripes__Stripe: ViewStyle = function (vie
     };
 };
 
-const Reminder__ReminderItem__ProgressStripes: ProgressStripesStyle = function (progressStripesProps)
+const TodoList__Reminder__ProgressStripes: ProgressStripesStyle = function (progressStripesProps)
 {
     return {
         ...ProgressStripesVariant.Default(progressStripesProps),
-        Root: Reminder__ReminderItem__ProgressStripes__Root,
-        Stripe: Reminder__ReminderItem__ProgressStripes__Stripe
+        Root: TodoList__Reminder__ProgressStripes__Root,
+        Stripe: TodoList__Reminder__ProgressStripes__Stripe
     };
 };
 
-const Reminder__ReminderItem: ReminderItem.Style = function ()
+const TodoList__Reminder: Reminder.Style = function ()
 {
     return {
-        Root: Reminder__ReminderItem__Root,
-        Icon: Reminder__ReminderItem__Icon,
-        NameAndTagContainer: Reminder__ReminderItem__NameAndTagContainer,
-        NameInputField: Reminder__ReminderItem__NameInputField,
-        NameText: Reminder__ReminderItem__NameText,
-        TagSelector: Reminder__ReminderItem__TagSelector,
-        TagContainer: Reminder__ReminderItem__TagContainer,
-        Tag: Reminder__ReminderItem__Tag,
-        ProgressStripes: Reminder__ReminderItem__ProgressStripes
+        Root: TodoList__Reminder__Root,
+        Icon: TodoList__Reminder__Icon,
+        NameAndTagContainer: TodoList__Reminder__NameAndTagContainer,
+        NameInputField: TodoList__Reminder__NameInputField,
+        NameText: TodoList__Reminder__NameText,
+        TagSelector: TodoList__Reminder__TagSelector,
+        TagContainer: TodoList__Reminder__TagContainer,
+        Tag: TodoList__Reminder__Tag,
+        ProgressStripes: TodoList__Reminder__ProgressStripes
     };
 };
 
-export const Default: ReminderStyle = function ()
+export const Default: TodoListStyle = function ()
 {
     return {
-        Root: Reminder__Root,
-        ReminderItem: Reminder__ReminderItem
+        Root: TodoList__Root,
+        Reminder: TodoList__Reminder
     };
 };
