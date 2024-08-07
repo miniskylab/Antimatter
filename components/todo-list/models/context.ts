@@ -1,6 +1,7 @@
 import {type ComponentContext} from "@miniskylab/antimatter-framework";
 import {createContext} from "react";
-import {ReminderProps} from "./props";
+import {TodoListProps} from "./props";
+import {TodoListState} from "./state";
 
-export const ReminderContext = createContext<ReminderContext>(undefined);
-export type ReminderContext = ComponentContext<ReminderProps>;
+export const TodoListContext = createContext<TodoListContext>(undefined);
+export type TodoListContext = ComponentContext<TodoListProps, TodoListState>;

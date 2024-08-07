@@ -2,32 +2,32 @@ import {ComponentName, ComponentProps, IsEnum, IsInteger, IsNumber, IsPositive} 
 import {DataListDisplayPanel, DataListOperationMode, DataListProps} from "@miniskylab/data-list";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {SelectedReminderItem} from "../classes";
-import {ReminderItem} from "../components";
-import type {ReminderItemChangeData} from "../types";
-import {type ReminderStyle} from "./style";
+import {SelectedReminder} from "../classes";
+import {Reminder} from "../components";
+import type {ReminderChangeData} from "../types";
+import {type TodoListStyle} from "./style";
 
-@ComponentName("Reminder")
-export class ReminderProps extends ComponentProps<ReminderStyle>
+@ComponentName("Todo List")
+export class TodoListProps extends ComponentProps<TodoListStyle>
 {
     /**
-     * Specify all items that are managed by the reminder.
+     * Specify all reminders that are managed by the todo list.
      */
     @IsOptional()
-    readonly reminderItems?: Record<string, ReminderItem.Data>;
+    readonly reminders?: Record<string, Reminder.Data>;
 
 
     /**
-     * Specify the selected reminder item. Only the selected reminder item can be modified, saved or deleted.
+     * Specify the selected reminder. Only the selected reminder can be modified, saved or deleted.
      */
     @IsOptional()
     @ValidateNested()
-    @Type(() => SelectedReminderItem)
-    readonly selectedReminderItem?: SelectedReminderItem;
+    @Type(() => SelectedReminder)
+    readonly selectedReminder?: SelectedReminder;
 
 
     /**
-     * Specify the way the reminder operates or behaves.
+     * Specify the way the todo list operates or behaves.
      *
      * @type DataListOperationMode
      */
@@ -37,7 +37,7 @@ export class ReminderProps extends ComponentProps<ReminderStyle>
 
 
     /**
-     * Specify the maximum number of tags that can be assigned to a single reminder item.
+     * Specify the maximum number of tags that can be assigned to a single reminder.
      */
     @IsPositive()
     @IsInteger()
@@ -56,25 +56,25 @@ export class ReminderProps extends ComponentProps<ReminderStyle>
 
 
     /**
-     * Specify the button that users can press to add a new item to the reminder.
+     * Specify the button that users can press to add a new reminder to the todo list.
      */
-    readonly addNewReminderItemButton: DataListProps["addNewButton"];
+    readonly addNewReminderButton: DataListProps["addNewButton"];
 
 
     /**
-     * Specify the button that users can press to save all changes made to the selected reminder item.
+     * Specify the button that users can press to save all changes made to the selected reminder.
      */
-    readonly saveReminderItemButton: DataListProps["saveButton"];
+    readonly saveReminderButton: DataListProps["saveButton"];
 
 
     /**
-     * Specify the button that users can press to delete the selected item from the reminder.
+     * Specify the button that users can press to delete the selected reminder from the todo list.
      */
-    readonly deleteReminderItemButton: DataListProps["deleteButton"];
+    readonly deleteReminderButton: DataListProps["deleteButton"];
 
 
     /**
-     * Specify the button that users can press to discard all changes made to the selected reminder item.
+     * Specify the button that users can press to discard all changes made to the selected reminder.
      */
     readonly cancelButton: DataListProps["cancelButton"];
 
@@ -86,19 +86,19 @@ export class ReminderProps extends ComponentProps<ReminderStyle>
 
 
     /**
-     * Specify the piece of code that will be executed when the reminder changes mode.
+     * Specify the piece of code that will be executed when the todo list changes mode.
      */
     readonly onSwitchMode?: (newMode: DataListOperationMode) => void;
 
 
     /**
-     * Specify the piece of code that will be executed when data of the selected reminder item changes.
+     * Specify the piece of code that will be executed when data of the selected reminder changes.
      */
-    readonly onChangeReminderItem?: (newReminderItemData: ReminderItemChangeData) => void;
+    readonly onChangeReminder?: (newReminderData: ReminderChangeData) => void;
 
 
     /**
-     * Specify the piece of code that will be executed when a reminder item is selected.
+     * Specify the piece of code that will be executed when a reminder is selected.
      */
-    readonly onSelectReminderItem?: (reminderItemId: string) => void;
+    readonly onSelectReminder?: (reminderId: string) => void;
 }

@@ -1,4 +1,4 @@
 import {useContextOrThrow} from "@miniskylab/antimatter-framework";
-import {ReminderContext} from "../models";
+import {TodoListContext} from "../models";
 
-export function useReminderContext(): NonNullable<ReminderContext> { return useContextOrThrow(ReminderContext); }
+export function useTodoListContext(): NonNullable<TodoListContext> { return useContextOrThrow(TodoListContext); }

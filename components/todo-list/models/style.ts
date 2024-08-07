@@ -1,10 +1,10 @@
 import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {DataListStyle} from "@miniskylab/data-list";
-import {ReminderItem} from "../components";
-import {ReminderProps} from "./props";
-import {ReminderState} from "./state";
+import {Reminder} from "../components";
+import {TodoListProps} from "./props";
+import {TodoListState} from "./state";
 
-export type ReminderStyle = (reminderProps: WithoutStyle<ReminderProps>, reminderState: ReminderState) => {
+export type TodoListStyle = (todoListProps: WithoutStyle<TodoListProps>, todoListState: TodoListState) => {
     Root: DataListStyle;
-    ReminderItem: ReminderItem.Style;
+    Reminder: Reminder.Style;
 };

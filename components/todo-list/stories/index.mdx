@@ -1,11 +1,11 @@
 import {Canvas, Meta, ArgTypes} from "@storybook/blocks";
 import {Sb} from "@miniskylab/antimatter-storybook";
-import {Reminder} from "../main";
-import {ReminderProps} from "../models";
+import {TodoList} from "../main";
+import {TodoListProps} from "../models";
 import * as Stories from "./stories";
 
 <Meta of={Stories} name="Docs"/>
-<Sb.Intro of={Reminder} propsType={ReminderProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
+<Sb.Intro of={TodoList} propsType={TodoListProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
 <Canvas of={Stories.Playground} sourceState={"none"}/>
 
 ### Props table

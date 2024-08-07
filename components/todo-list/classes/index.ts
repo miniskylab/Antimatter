@@ -1,1 +1,1 @@
-export * from "./selected-reminder-item";
+export * from "./selected-reminder";

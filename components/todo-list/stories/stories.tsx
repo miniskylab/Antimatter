@@ -3,35 +3,35 @@ import {Sb} from "@miniskylab/antimatter-storybook";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
-import {Reminder} from "../main";
-import {ReminderProps} from "../models";
+import {TodoList} from "../main";
+import {TodoListProps} from "../models";
 import * as Variant from "../variants";
 import {TestData} from "./test-data";
 
-const ReminderWithValidation = withValidation(Reminder, ReminderProps);
+const TodoListWithValidation = withValidation(TodoList, TodoListProps);
 export default {
-    component: Reminder,
-    title: "Components/Reminder",
+    component: TodoList,
+    title: "Components/Todo List",
     render: args =>
     {
         return (
-            <ReminderWithValidation
+            <TodoListWithValidation
                 {...args}
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
-                addNewReminderItemButton={{
-                    ...args.addNewReminderItemButton,
+                addNewReminderButton={{
+                    ...args.addNewReminderButton,
                     icon: DefaultIconSet.PlusCircle,
                     text: "Add New",
                     onPress: () => { }
                 }}
-                saveReminderItemButton={{
-                    ...args.saveReminderItemButton,
+                saveReminderButton={{
+                    ...args.saveReminderButton,
                     icon: DefaultIconSet.FloppyDisk,
                     text: "Save",
                     onPress: async () => { }
                 }}
-                deleteReminderItemButton={{
-                    ...args.deleteReminderItemButton,
+                deleteReminderButton={{
+                    ...args.deleteReminderButton,
                     icon: DefaultIconSet.TrashCan,
                     text: "Delete",
                     onPress: async () => { }
@@ -45,29 +45,29 @@ export default {
             />
         );
     }
-} satisfies Meta<typeof Reminder>;
-type Story = StoryObj<typeof Reminder>;
+} satisfies Meta<typeof TodoList>;
+type Story = StoryObj<typeof TodoList>;
 
 export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
         maxSelectedTagCount: Sb.number(0),
-        reminderItems: Sb.locked,
-        selectedReminderItem: Sb.locked,
+        reminders: Sb.locked,
+        selectedReminder: Sb.locked,
         mode: Sb.locked,
         displayPanel: Sb.locked,
-        addNewReminderItemButton: Sb.locked,
-        saveReminderItemButton: Sb.locked,
-        deleteReminderItemButton: Sb.locked,
+        addNewReminderButton: Sb.locked,
+        saveReminderButton: Sb.locked,
+        deleteReminderButton: Sb.locked,
         cancelButton: Sb.locked,
         customButton: Sb.locked,
-        onChangeReminderItem: Sb.locked,
-        onSelectReminderItem: Sb.locked,
+        onChangeReminder: Sb.locked,
+        onSelectReminder: Sb.locked,
         onSwitchMode: Sb.locked
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
         maxSelectedTagCount: 3,
-        reminderItems: {...TestData.ReminderItems}
+        reminders: {...TestData.Reminders}
     }
 };

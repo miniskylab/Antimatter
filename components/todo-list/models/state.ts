@@ -1,5 +1,5 @@
-import {ReminderItem} from "../components";
+import {Reminder} from "../components";
 
-export type ReminderState = {
-    readonly toBeDeletedReminderItems: Record<string, ReminderItem.Data>;
+export type TodoListState = {
+    readonly toBeDeletedReminders: Record<string, Reminder.Data>;
 };

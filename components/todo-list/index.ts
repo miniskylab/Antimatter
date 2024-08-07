@@ -1,4 +1,4 @@
-export {ReminderProps, type ReminderStyle} from "./models";
-export {Reminder} from "./main";
-export {ReminderContextHook} from "./hooks";
-export * as ReminderVariant from "./variants";
+export {TodoListProps, type TodoListStyle} from "./models";
+export {TodoList} from "./main";
+export {TodoListContextHook} from "./hooks";
+export * as TodoListVariant from "./variants";

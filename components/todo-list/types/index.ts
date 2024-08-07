@@ -1,1 +1,1 @@
-export * from "./reminder-item-change-data";
+export * from "./reminder-change-data";

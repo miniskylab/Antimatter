@@ -1,12 +1,12 @@
-import {ReminderItem} from "../../components";
-import {ReminderProps} from "../../models";
+import {Reminder} from "../../components";
+import {TodoListProps} from "../../models";
 import {Tags} from "./tags";
 
 const today = new Date();
 const yesterday = new Date(today);
 yesterday.setDate(yesterday.getDate() - 1);
 
-export const ReminderItems: NonNullable<ReminderProps["reminderItems"]> = {
+export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     "1": {
         name: "Pulvinar",
         tags: deepCopyWithSelection(Tags, "feugiat", "mauris"),
@@ -99,14 +99,14 @@ export const ReminderItems: NonNullable<ReminderProps["reminderItems"]> = {
     }
 };
 
-function deepCopyWithSelection(tags: ReminderItem.Props["tags"], ...selections: string[]): ReminderItem.Props["tags"]
+function deepCopyWithSelection(tags: Reminder.Props["tags"], ...selections: string[]): Reminder.Props["tags"]
 {
     const copy = {...tags};
     selections.forEach(selection =>
     {
         copy[selection] = {
             ...copy[selection],
-            status: ReminderItem.TagStatus.Selected
+            status: Reminder.TagStatus.Selected
         };
     });
 

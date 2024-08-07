@@ -1,1 +1,1 @@
-export * as ReminderItem from "./reminder-item";
+export * as Reminder from "./reminder";

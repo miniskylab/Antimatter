@@ -1,41 +1,40 @@
 import {type AllPropertiesMustPresent, Nullable, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {DataList, DataListOperationMode} from "@miniskylab/data-list";
 import React, {JSX, useMemo, useRef, useState} from "react";
-import {ReminderItem} from "./components";
-import {ReminderContext, ReminderProps, ReminderState} from "./models";
+import {Reminder} from "./components";
+import {TodoListContext, TodoListProps, TodoListState} from "./models";
 import * as Variant from "./variants";
 
 /**
- * A component that alerts users of items they have input previously.
+ * A component that alerts users of reminders they have input previously.
  */
-export function Reminder({
+export function TodoList({
     style = Variant.Default,
-    reminderItems = {},
-    selectedReminderItem,
+    reminders = {},
+    selectedReminder,
     mode = DataListOperationMode.ReadOnly,
     maxSelectedTagCount = 3,
     displayPanel,
-    addNewReminderItemButton,
-    saveReminderItemButton,
-    deleteReminderItemButton,
+    addNewReminderButton,
+    saveReminderButton,
+    deleteReminderButton,
     cancelButton,
     customButton,
     onSwitchMode,
-    onChangeReminderItem,
-    onSelectReminderItem
-}: ReminderProps): JSX.Element
+    onChangeReminder,
+    onSelectReminder
+}: TodoListProps): JSX.Element
 {
-    const props: AllPropertiesMustPresent<ReminderProps> = {
-        style, reminderItems, selectedReminderItem, mode, maxSelectedTagCount, displayPanel, addNewReminderItemButton,
-        saveReminderItemButton, deleteReminderItemButton, cancelButton, customButton, onSwitchMode, onChangeReminderItem,
-        onSelectReminderItem
+    const props: AllPropertiesMustPresent<TodoListProps> = {
+        style, reminders, selectedReminder, mode, maxSelectedTagCount, displayPanel, addNewReminderButton, saveReminderButton,
+        deleteReminderButton, cancelButton, customButton, onSwitchMode, onChangeReminder, onSelectReminder
     };
 
-    const [state, _] = useState<ReminderState>({
-        toBeDeletedReminderItems: {}
+    const [state, _] = useState<TodoListState>({
+        toBeDeletedReminders: {}
     });
 
-    const context = useMemo<ReminderContext>(
+    const context = useMemo<TodoListContext>(
         () => ({props, state}),
         [...Object.values(props), ...Object.values(state)]
     );
@@ -43,56 +42,56 @@ export function Reminder({
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
 
-    const reminderItemsRef = useRef<Record<string, Nullable<ReminderItem.Ref>>>({});
+    const remindersRef = useRef<Record<string, Nullable<Reminder.Ref>>>({});
 
     return (
-        <ReminderContext.Provider value={context}>
+        <TodoListContext.Provider value={context}>
             <DataList
                 style={computedStyle.Root}
                 mode={mode}
                 displayPanel={displayPanel}
-                addNewButton={addNewReminderItemButton}
-                saveButton={saveReminderItemButton}
-                deleteButton={deleteReminderItemButton}
+                addNewButton={addNewReminderButton}
+                saveButton={saveReminderButton}
+                deleteButton={deleteReminderButton}
                 cancelButton={cancelButton}
                 customButton={customButton}
                 onSwitchMode={onSwitchMode}
             >
-                {renderReminderItems()}
+                {renderReminders()}
             </DataList>
-        </ReminderContext.Provider>
+        </TodoListContext.Provider>
     );
 
-    function getReminderItemMode(reminderItemId: string): DataListOperationMode
+    function getReminderMode(reminderId: string): DataListOperationMode
     {
-        return reminderItemId === selectedReminderItem?.id
+        return reminderId === selectedReminder?.id
             ? mode
             : DataListOperationMode.ReadOnly;
     }
 
-    function renderReminderItems(): JSX.Element[]
+    function renderReminders(): JSX.Element[]
     {
-        return Object.keys(reminderItems).map(reminderItemId =>
+        return Object.keys(reminders).map(reminderId =>
         {
-            const reminderItemMode = getReminderItemMode(reminderItemId);
-            const reminderItemData = reminderItems[reminderItemId];
-            const isSelectedReminderItem = reminderItemId === selectedReminderItem?.id;
-            const isToBeDeletedReminderItem = !!state.toBeDeletedReminderItems[reminderItemId];
+            const reminderMode = getReminderMode(reminderId);
+            const reminderData = reminders[reminderId];
+            const isSelectedReminder = reminderId === selectedReminder?.id;
+            const isToBeDeletedReminder = !!state.toBeDeletedReminders[reminderId];
 
             return (
-                <ReminderItem.Component
-                    {...reminderItemData}
-                    key={reminderItemId}
-                    id={reminderItemId}
-                    ref={ref => { reminderItemsRef.current[reminderItemId] = ref; }}
-                    style={computedStyle.ReminderItem}
-                    mode={reminderItemMode}
-                    tags={reminderItemData?.tags}
+                <Reminder.Component
+                    {...reminderData}
+                    key={reminderId}
+                    id={reminderId}
+                    ref={ref => { remindersRef.current[reminderId] = ref; }}
+                    style={computedStyle.Reminder}
+                    mode={reminderMode}
+                    tags={reminderData?.tags}
                     maxSelectedTagCount={maxSelectedTagCount}
-                    showProgressStripes={isSelectedReminderItem && selectedReminderItem?.showProgressStripes}
-                    toBeDeleted={isToBeDeletedReminderItem}
-                    onPress={!selectedReminderItem ? () => { onSelectReminderItem?.(reminderItemId); } : undefined}
-                    onChange={newReminderData => { onChangeReminderItem?.(newReminderData); }}
+                    showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}
+                    toBeDeleted={isToBeDeletedReminder}
+                    onPress={!selectedReminder ? () => { onSelectReminder?.(reminderId); } : undefined}
+                    onChange={newReminderData => { onChangeReminder?.(newReminderData); }}
                 />
             );
         });
