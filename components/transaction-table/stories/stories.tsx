@@ -1,10 +1,11 @@
 import {EMPTY_STRING, withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import {DataListDisplayPanelTheme, DataListOperationMode} from "@miniskylab/data-list";
+import {DataListDisplayPanelTheme} from "@miniskylab/antimatter-data-list";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React, {useRef} from "react";
+import {TransactionRecord} from "../components";
 import {TransactionTable} from "../main";
 import {TransactionTableProps, type TransactionTableRef} from "../models";
 import {getExecutedDateFrom} from "../services";
@@ -86,7 +87,7 @@ export default {
                     text: "Add New",
                     onPress: () =>
                     {
-                        const mode = DataListOperationMode.Draft;
+                        const mode = TransactionRecord.Mode.Draft;
                         const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
                             id: EMPTY_STRING,
                             data: {
@@ -112,7 +113,7 @@ export default {
                     {
                         setArgs({
                             ...busySettings,
-                            mode: DataListOperationMode.ReadOnly,
+                            mode: TransactionRecord.Mode.ReadOnly,
                             displayPanel: {
                                 icon: DefaultIconSet.Gear,
                                 message: "Saving Transaction",
@@ -183,7 +184,7 @@ export default {
 
                         setArgs({
                             ...unbusySettings,
-                            mode: DataListOperationMode.ReadOnly,
+                            mode: TransactionRecord.Mode.ReadOnly,
                             transactions: {...TestData.Transactions},
                             selectedTransaction: undefined,
                             displayPanel: {
@@ -200,7 +201,7 @@ export default {
                     text: "Cancel",
                     onPress: () =>
                     {
-                        const mode = DataListOperationMode.ReadOnly;
+                        const mode = TransactionRecord.Mode.ReadOnly;
                         setArgs({
                             mode,
                             selectedTransaction: undefined,
@@ -251,7 +252,7 @@ export default {
                 }}
                 onSelectDate={newDate =>
                 {
-                    const mode = args.displayPanel?.isVisible ? args.mode : DataListOperationMode.ReadOnly;
+                    const mode = args.displayPanel?.isVisible ? args.mode : TransactionRecord.Mode.ReadOnly;
                     const selectedTransaction = args.displayPanel?.isVisible ? args.selectedTransaction : undefined;
                     setArgs({
                         mode,
@@ -262,7 +263,7 @@ export default {
                 }}
                 onSelectTransaction={transactionId =>
                 {
-                    const mode = DataListOperationMode.Edit;
+                    const mode = TransactionRecord.Mode.Edit;
                     const selectedTransaction: TransactionTableProps["selectedTransaction"] = {
                         id: transactionId,
                         data: {
@@ -313,7 +314,7 @@ export const Playground: Story = {
         summary: {
             section1Label: "Iaculis",
             section2Label: "Lorem",
-            ...TestData.getSummaryFigures(DataListOperationMode.ReadOnly, today)
+            ...TestData.getSummaryFigures(TransactionRecord.Mode.ReadOnly, today)
         },
         selectedDate: today,
         maxSelectedTagCount: 3,

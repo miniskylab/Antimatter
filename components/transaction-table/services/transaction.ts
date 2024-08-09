@@ -1,5 +1,4 @@
 import {Ts} from "@miniskylab/antimatter-framework";
-import {DataListOperationMode} from "@miniskylab/data-list";
 import {TransactionRecord} from "../components";
 import {TransactionTableProps} from "../models";
 
@@ -106,7 +105,7 @@ function mergeData(
         return;
     }
 
-    if (mode === DataListOperationMode.Delete)
+    if (mode === TransactionRecord.Mode.Delete)
     {
         delete transactions[selectedTransaction.id];
     }

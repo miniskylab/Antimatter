@@ -1,4 +1,4 @@
-export enum DataListOperationMode
+export enum Mode
 {
     ReadOnly = "ReadOnly",
     Draft = "Draft",

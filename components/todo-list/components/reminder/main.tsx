@@ -10,10 +10,9 @@ import {Text} from "@miniskylab/antimatter-text";
 import {Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import {DataListOperationMode} from "@miniskylab/data-list";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {Tag} from "./classes";
-import {TagMetadata, TagStatus} from "./enums";
+import {Mode, TagMetadata, TagStatus} from "./enums";
 import {Props, type Ref, ReminderContext} from "./models";
 
 /**
@@ -30,7 +29,7 @@ export const Component = forwardRef(function Component(
         toBeDeleted,
         modifiedDate,
         createdDate,
-        mode = DataListOperationMode.ReadOnly,
+        mode = Mode.ReadOnly,
         onPress,
         onChange
     }: Props,
@@ -52,7 +51,7 @@ export const Component = forwardRef(function Component(
     const rootContainerRef = useRef<Pressable<Ref>>(null);
     useImperativeHandle(ref, () => ({
         flashHighlight: rootContainerRef.current?.flashHighlight,
-        verticalContract: rootContainerRef.current?.verticalContract
+        verticalElastic: rootContainerRef.current?.verticalElastic
     }), []);
 
     return (
@@ -149,7 +148,7 @@ export const Component = forwardRef(function Component(
     function renderName(): JSX.Element
     {
         return (
-            mode === DataListOperationMode.Draft || mode === DataListOperationMode.Edit
+            mode === Mode.Draft || mode === Mode.Edit
                 ? <InputField
                     style={computedStyle.NameInputField}
                     placeholder={"Reminder Name"}
@@ -175,7 +174,7 @@ export const Component = forwardRef(function Component(
     function renderTags(): JSX.Element
     {
         const dropdownMenuItems = getDropdownMenuItems();
-        if (mode === DataListOperationMode.Draft || mode === DataListOperationMode.Edit)
+        if (mode === Mode.Draft || mode === Mode.Edit)
         {
             return (
                 <DropdownMenu

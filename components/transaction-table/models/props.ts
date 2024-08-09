@@ -1,5 +1,5 @@
 import {ComponentName, ComponentProps, IsDate, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
-import {DataListDisplayPanel, DataListOperationMode, DataListProps} from "@miniskylab/data-list";
+import {type DataListControlButton, DataListDisplayPanel} from "@miniskylab/antimatter-data-list";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {SelectedTransaction} from "../classes";
@@ -49,11 +49,11 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * Specify the way the transaction table operates or behaves.
      *
-     * @type DataListOperationMode
+     * @type TransactionRecord.Mode
      */
-    @IsEnum(DataListOperationMode)
+    @IsEnum(TransactionRecord.Mode)
     @IsOptional()
-    readonly mode?: DataListOperationMode;
+    readonly mode?: TransactionRecord.Mode;
 
 
     /**
@@ -78,37 +78,37 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * Specify the button that users can press to add a new transaction to the table.
      */
-    readonly addNewTransactionButton: DataListProps["addNewButton"];
+    readonly addNewTransactionButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to save all changes made to the selected transaction.
      */
-    readonly saveTransactionButton: DataListProps["saveButton"];
+    readonly saveTransactionButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to delete the selected transaction from the table.
      */
-    readonly deleteTransactionButton: DataListProps["deleteButton"];
+    readonly deleteTransactionButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to discard all changes made to the selected transaction.
      */
-    readonly cancelButton: DataListProps["cancelButton"];
+    readonly cancelButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to trigger custom functionalities.
      */
-    readonly customButton?: DataListProps["customButton"];
+    readonly customButton?: DataListControlButton;
 
 
     /**
      * Specify the piece of code that will be executed when the transaction table changes mode.
      */
-    readonly onSwitchMode?: (newMode: DataListOperationMode) => void;
+    readonly onSwitchMode?: (newMode: TransactionRecord.Mode) => void;
 
 
     /**

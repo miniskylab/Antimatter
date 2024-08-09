@@ -122,7 +122,7 @@ export function useFlashHighlightAnimation(): ComponentAnimation
     };
 }
 
-export function useVerticalContractionAnimation(initialHeight: number, targetHeight: number): ComponentAnimation
+export function useVerticalElasticAnimation(initialHeight: number, targetHeight: number): ComponentAnimation
 {
     const initialColor = 0;
     const animatedColor = useRef(new Animated.Value(initialColor)).current;
@@ -145,7 +145,7 @@ export function useVerticalContractionAnimation(initialHeight: number, targetHei
             backgroundColor: interpolatedBackgroundColor as unknown as ColorValue
         },
         imperativeAnimationHandles: {
-            verticalContract(onAnimationEnd: () => void)
+            verticalElastic(onAnimationEnd: () => void)
             {
                 if (ref.current.animationHasStarted)
                 {

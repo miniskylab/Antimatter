@@ -1,14 +1,14 @@
-import {ButtonContextHook, ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {Layer, useEnvironment} from "@miniskylab/antimatter-framework";
-import {IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {PressableContextHook, PressableStyle} from "@miniskylab/antimatter-pressable";
-import {ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
-import {TextStyle, TextVariant} from "@miniskylab/antimatter-text";
-import {ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {type PressableStyle} from "@miniskylab/antimatter-pressable";
+import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
+import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
+import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {useEffect, useState} from "react";
 import ReactNative, {Keyboard} from "react-native";
-import {DataListDisplayPanelTheme, DataListOperationMode} from "../enums";
+import {DataListDisplayPanelTheme} from "../enums";
 import {DataListAnimationHook, DataListContextHook} from "../hooks";
 import {type DataListStyle} from "../models";
 
@@ -129,12 +129,6 @@ const DataList__Button1__Root: PressableStyle = function (pressableProps, pressa
 const DataList__Button1__Icon: IconStyle = function (iconProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
-    const dataListContext = DataListContextHook.useDataListContext();
-    const pressableContext = PressableContextHook.usePressableContext();
-
-    const isDraftMode = dataListContext.props.mode === DataListOperationMode.Draft;
-    const isEditMode = dataListContext.props.mode === DataListOperationMode.Edit;
-    const isDeleteMode = dataListContext.props.mode === DataListOperationMode.Delete;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
 
@@ -142,27 +136,13 @@ const DataList__Button1__Icon: IconStyle = function (iconProps)
         ...inheritedStyle,
         flexGrow: 1,
         fontSize: 28,
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : isDraftMode || isEditMode
-                    ? Color.Primary
-                    : isDeleteMode
-                        ? Color.Tomato
-                        : Color.Neutral
+        color: Color.Neutral
     };
 };
 
 const DataList__Button1__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
-    const dataListContext = DataListContextHook.useDataListContext();
-    const pressableContext = PressableContextHook.usePressableContext();
-
-    const isDraftMode = dataListContext.props.mode === DataListOperationMode.Draft;
-    const isEditMode = dataListContext.props.mode === DataListOperationMode.Edit;
-    const isDeleteMode = dataListContext.props.mode === DataListOperationMode.Delete;
 
     const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
 
@@ -174,15 +154,7 @@ const DataList__Button1__Label: TextStyle = function (textProps)
         paddingHorizontal: 0,
         fontSize: 12,
         fontWeight: "bold",
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : isDraftMode || isEditMode
-                    ? Color.Primary
-                    : isDeleteMode
-                        ? Color.Tomato
-                        : Color.Neutral
+        color: Color.Neutral
     };
 };
 
@@ -198,73 +170,12 @@ const DataList__Button1: ButtonStyle = function (buttonProps)
 
 const DataList__Button2__Root: PressableStyle = function (pressableProps, pressableState)
 {
-    const dataListContext = DataListContextHook.useDataListContext();
-
-    const isDraftMode = dataListContext.props.mode === DataListOperationMode.Draft;
-    const isReadOnlyMode = dataListContext.props.mode === DataListOperationMode.ReadOnly;
-
     return {
         ...DataList__Button1__Root(pressableProps, pressableState),
         opacity: 1,
         paddingLeft: 15,
         paddingRight: 15,
-        backgroundColor: isDraftMode
-            ? Color.Primary
-            : isReadOnlyMode
-                ? Color.Neutral
-                : Color.Transparent
-    };
-};
-
-const DataList__Button2__Icon: IconStyle = function (iconProps)
-{
-    const dataListContext = DataListContextHook.useDataListContext();
-    const pressableContext = PressableContextHook.usePressableContext();
-
-    const isDraftMode = dataListContext.props.mode === DataListOperationMode.Draft;
-    const isEditMode = dataListContext.props.mode === DataListOperationMode.Edit;
-    const isDeleteMode = dataListContext.props.mode === DataListOperationMode.Delete;
-    const isReadOnlyMode = dataListContext.props.mode === DataListOperationMode.ReadOnly;
-
-    return {
-        ...DataList__Button1__Icon(iconProps),
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : isDraftMode || isReadOnlyMode
-                    ? Color.Background
-                    : isEditMode
-                        ? Color.Primary
-                        : isDeleteMode
-                            ? Color.Tomato
-                            : Color.Neutral
-    };
-};
-
-const DataList__Button2__Label: TextStyle = function (textProps)
-{
-    const dataListContext = DataListContextHook.useDataListContext();
-    const pressableContext = PressableContextHook.usePressableContext();
-
-    const isDraftMode = dataListContext.props.mode === DataListOperationMode.Draft;
-    const isEditMode = dataListContext.props.mode === DataListOperationMode.Edit;
-    const isDeleteMode = dataListContext.props.mode === DataListOperationMode.Delete;
-    const isReadOnlyMode = dataListContext.props.mode === DataListOperationMode.ReadOnly;
-
-    return {
-        ...DataList__Button1__Label(textProps),
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : isDraftMode || isReadOnlyMode
-                    ? Color.Background
-                    : isEditMode
-                        ? Color.Primary
-                        : isDeleteMode
-                            ? Color.Tomato
-                            : Color.Neutral
+        backgroundColor: Color.Neutral
     };
 };
 
@@ -272,46 +183,14 @@ const DataList__Button2: ButtonStyle = function (buttonProps)
 {
     return {
         ...DataList__Button1(buttonProps),
-        Root: DataList__Button2__Root,
-        Icon: DataList__Button2__Icon,
-        Label: DataList__Button2__Label
-    };
-};
-
-const DataList__Button3__Icon: IconStyle = function (iconProps)
-{
-    const pressableContext = PressableContextHook.usePressableContext();
-
-    return {
-        ...DataList__Button1__Icon(iconProps),
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Neutral
-    };
-};
-
-const DataList__Button3__Label: TextStyle = function (textProps)
-{
-    const pressableContext = PressableContextHook.usePressableContext();
-
-    return {
-        ...DataList__Button1__Label(textProps),
-        color: pressableContext.state.pressed
-            ? Color.Gray
-            : pressableContext.state.hovered
-                ? Color.White
-                : Color.Neutral
+        Root: DataList__Button2__Root
     };
 };
 
 const DataList__Button3: ButtonStyle = function (buttonProps)
 {
     return {
-        ...DataList__Button1(buttonProps),
-        Icon: DataList__Button3__Icon,
-        Label: DataList__Button3__Label
+        ...DataList__Button1(buttonProps)
     };
 };
 

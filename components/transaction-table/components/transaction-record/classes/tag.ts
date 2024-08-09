@@ -1,5 +1,5 @@
 import {IsEnum} from "@miniskylab/antimatter-framework";
-import {AbstractTag} from "@miniskylab/data-list";
+import {AbstractTag} from "@miniskylab/antimatter-data-list";
 import {IsOptional} from "class-validator";
 import {TagMetadata, TagStatus} from "../enums";
 

@@ -1,10 +1,9 @@
-import {ComponentName, ComponentProps, IsEnum} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {type ReactNode} from "react";
 import {DataListDisplayPanel} from "../classes";
-import {DataListOperationMode} from "../enums";
-import type {ControlButton} from "../types";
+import type {DataListControlButton} from "../types";
 import {type DataListStyle} from "./style";
 
 @ComponentName("Data List")
@@ -27,47 +26,19 @@ export class DataListProps extends ComponentProps<DataListStyle>
 
 
     /**
-     * Specify the way the data list operates or behaves.
-     *
-     * @type DataListOperationMode
+     * Specify button 1.
      */
-    @IsEnum(DataListOperationMode)
-    @IsOptional()
-    readonly mode?: DataListOperationMode;
+    readonly button1: DataListControlButton;
 
 
     /**
-     * Specify the button that users can press to add a new item to the data list.
+     * Specify button 2.
      */
-    readonly addNewButton: ControlButton;
+    readonly button2: DataListControlButton;
 
 
     /**
-     * Specify the button that users can press to save all changes made to the selected item in the data list.
+     * Specify button 3.
      */
-    readonly saveButton: ControlButton;
-
-
-    /**
-     * Specify the button that users can press to delete the selected item from the data list.
-     */
-    readonly deleteButton: ControlButton;
-
-
-    /**
-     * Specify the button that users can press to discard all changes made to the selected item in the data list.
-     */
-    readonly cancelButton: ControlButton;
-
-
-    /**
-     * Specify the button that users can press to trigger custom functionalities.
-     */
-    readonly customButton?: ControlButton;
-
-
-    /**
-     * Specify the piece of code that will be executed when the data list changes mode.
-     */
-    readonly onSwitchMode?: (newMode: DataListOperationMode) => void;
+    readonly button3: DataListControlButton;
 }

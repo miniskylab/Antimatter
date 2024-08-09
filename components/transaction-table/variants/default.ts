@@ -1,6 +1,7 @@
 import {ButtonContextHook, type ButtonStyle} from "@miniskylab/antimatter-button";
 import {CalendarContextHook, type CalendarStyle, CalendarVariant} from "@miniskylab/antimatter-calendar";
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {DataListAnimationHook, DataListContextHook, type DataListStyle, DataListVariant} from "@miniskylab/antimatter-data-list";
 import {DatePickerContextHook, type DatePickerStyle, DatePickerVariant} from "@miniskylab/antimatter-date-picker";
 import {DropdownMenuContextHook, type DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {CursorType, Layer, useResponsiveStyle} from "@miniskylab/antimatter-framework";
@@ -18,13 +19,6 @@ import {type ScrollViewStyle} from "@miniskylab/antimatter-scroll-view";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type TextInputStyle} from "@miniskylab/antimatter-text-input";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {
-    DataListAnimationHook,
-    DataListContextHook,
-    DataListOperationMode,
-    type DataListStyle,
-    DataListVariant
-} from "@miniskylab/data-list";
 import {Summary, TransactionRecord} from "../components";
 import {TransactionTableContextHook} from "../hooks";
 import {type TransactionTableStyle} from "../models";
@@ -535,11 +529,242 @@ const TransactionTable__TransactionList__Root: ViewStyle = function (viewProps)
     };
 };
 
+const TransactionTable__TransactionList__Button1__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const dataListContext = DataListContextHook.useDataListContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
+    const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props)
+        .Button1(buttonContext.props)
+        .Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : isDraftMode || isEditMode
+                    ? Color.Primary
+                    : isDeleteMode
+                        ? Color.Tomato
+                        : Color.Neutral
+    };
+};
+
+const TransactionTable__TransactionList__Button1__Label: TextStyle = function (textProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const dataListContext = DataListContextHook.useDataListContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
+    const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props)
+        .Button1(buttonContext.props)
+        .Label(textProps);
+
+    return {
+        ...inheritedStyle,
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : isDraftMode || isEditMode
+                    ? Color.Primary
+                    : isDeleteMode
+                        ? Color.Tomato
+                        : Color.Neutral
+    };
+};
+
+const TransactionTable__TransactionList__Button1: ButtonStyle = function (buttonProps)
+{
+    const dataListContext = DataListContextHook.useDataListContext();
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props)
+        .Button1(buttonProps);
+
+    return {
+        ...inheritedStyle,
+        Icon: TransactionTable__TransactionList__Button1__Icon,
+        Label: TransactionTable__TransactionList__Button1__Label
+    };
+};
+
+const TransactionTable__TransactionList__Button2__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const dataListContext = DataListContextHook.useDataListContext();
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props)
+        .Button2(buttonContext.props)
+        .Root(pressableProps, pressableState);
+
+    return {
+        ...inheritedStyle,
+        backgroundColor: isDraftMode
+            ? Color.Primary
+            : isReadOnlyMode
+                ? Color.Neutral
+                : Color.Transparent
+    };
+};
+
+const TransactionTable__TransactionList__Button2__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const dataListContext = DataListContextHook.useDataListContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
+    const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
+    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props)
+        .Button2(buttonContext.props)
+        .Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : isDraftMode || isReadOnlyMode
+                    ? Color.Background
+                    : isEditMode
+                        ? Color.Primary
+                        : isDeleteMode
+                            ? Color.Tomato
+                            : Color.Neutral
+    };
+};
+
+const TransactionTable__TransactionList__Button2__Label: TextStyle = function (textProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const dataListContext = DataListContextHook.useDataListContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+    const transactionTableContext = TransactionTableContextHook.useTransactionTableContext();
+
+    const isDraftMode = transactionTableContext.props.mode === TransactionRecord.Mode.Draft;
+    const isEditMode = transactionTableContext.props.mode === TransactionRecord.Mode.Edit;
+    const isDeleteMode = transactionTableContext.props.mode === TransactionRecord.Mode.Delete;
+    const isReadOnlyMode = transactionTableContext.props.mode === TransactionRecord.Mode.ReadOnly;
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props)
+        .Button2(buttonContext.props)
+        .Label(textProps);
+
+    return {
+        ...inheritedStyle,
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : isDraftMode || isReadOnlyMode
+                    ? Color.Background
+                    : isEditMode
+                        ? Color.Primary
+                        : isDeleteMode
+                            ? Color.Tomato
+                            : Color.Neutral
+    };
+};
+
+const TransactionTable__TransactionList__Button2: ButtonStyle = function (buttonProps)
+{
+    const dataListContext = DataListContextHook.useDataListContext();
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props)
+        .Button2(buttonProps);
+
+    return {
+        ...inheritedStyle,
+        Root: TransactionTable__TransactionList__Button2__Root,
+        Icon: TransactionTable__TransactionList__Button2__Icon,
+        Label: TransactionTable__TransactionList__Button2__Label
+    };
+};
+
+const TransactionTable__TransactionList__Button3__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const dataListContext = DataListContextHook.useDataListContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props)
+        .Button3(buttonContext.props)
+        .Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
+    };
+};
+
+const TransactionTable__TransactionList__Button3__Label: TextStyle = function (textProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const dataListContext = DataListContextHook.useDataListContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props)
+        .Button3(buttonContext.props)
+        .Label(textProps);
+
+    return {
+        ...inheritedStyle,
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
+    };
+};
+
+const TransactionTable__TransactionList__Button3: ButtonStyle = function (buttonProps)
+{
+    const dataListContext = DataListContextHook.useDataListContext();
+
+    const inheritedStyle = DataListVariant.Default(dataListContext.props)
+        .Button3(buttonProps);
+
+    return {
+        ...inheritedStyle,
+        Icon: TransactionTable__TransactionList__Button3__Icon,
+        Label: TransactionTable__TransactionList__Button3__Label
+    };
+};
+
 const TransactionTable__TransactionList: DataListStyle = function (scrollViewProps)
 {
     return {
         ...DataListVariant.Default(scrollViewProps),
-        Root: TransactionTable__TransactionList__Root
+        Root: TransactionTable__TransactionList__Root,
+        Button1: TransactionTable__TransactionList__Button1,
+        Button2: TransactionTable__TransactionList__Button2,
+        Button3: TransactionTable__TransactionList__Button3
     };
 };
 
@@ -566,18 +791,18 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         animations: () =>
         {
             const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
-            const verticalContractionAnimation = DataListAnimationHook.useVerticalContractionAnimation(66, 2);
+            const verticalElasticAnimation = DataListAnimationHook.useVerticalElasticAnimation(66, 2);
 
             return transactionRecordContext.props.toBeDeleted
-                ? [() => flashHighlightAnimation, () => verticalContractionAnimation]
-                : [() => verticalContractionAnimation, () => flashHighlightAnimation];
+                ? [() => flashHighlightAnimation, () => verticalElasticAnimation]
+                : [() => verticalElasticAnimation, () => flashHighlightAnimation];
         },
         animationOverride: {
             ...((!hasSelectedTransaction && pressableState.hovered) || isSelectedTransactionRecord) && {
                 zIndex: Layer.AlwaysOnTop,
                 borderColor: Color.Primary,
                 backgroundColor: Color.Primary__a10,
-                ...transactionTableContext.props.mode === DataListOperationMode.Delete && {
+                ...transactionTableContext.props.mode === TransactionRecord.Mode.Delete && {
                     borderColor: Color.Negative,
                     backgroundColor: Color.Negative__a10
                 }

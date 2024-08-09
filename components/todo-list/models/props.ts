@@ -1,5 +1,5 @@
+import {type DataListControlButton, DataListDisplayPanel} from "@miniskylab/antimatter-data-list";
 import {ComponentName, ComponentProps, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
-import {DataListDisplayPanel, DataListOperationMode, DataListProps} from "@miniskylab/data-list";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {SelectedReminder} from "../classes";
@@ -29,11 +29,11 @@ export class TodoListProps extends ComponentProps<TodoListStyle>
     /**
      * Specify the way the todo list operates or behaves.
      *
-     * @type DataListOperationMode
+     * @type Reminder.Mode
      */
-    @IsEnum(DataListOperationMode)
+    @IsEnum(Reminder.Mode)
     @IsOptional()
-    readonly mode?: DataListOperationMode;
+    readonly mode?: Reminder.Mode;
 
 
     /**
@@ -58,37 +58,37 @@ export class TodoListProps extends ComponentProps<TodoListStyle>
     /**
      * Specify the button that users can press to add a new reminder to the todo list.
      */
-    readonly addNewReminderButton: DataListProps["addNewButton"];
+    readonly addNewReminderButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to save all changes made to the selected reminder.
      */
-    readonly saveReminderButton: DataListProps["saveButton"];
+    readonly saveReminderButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to delete the selected reminder from the todo list.
      */
-    readonly deleteReminderButton: DataListProps["deleteButton"];
+    readonly deleteReminderButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to discard all changes made to the selected reminder.
      */
-    readonly cancelButton: DataListProps["cancelButton"];
+    readonly cancelButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to trigger custom functionalities.
      */
-    readonly customButton?: DataListProps["customButton"];
+    readonly customButton?: DataListControlButton;
 
 
     /**
      * Specify the piece of code that will be executed when the todo list changes mode.
      */
-    readonly onSwitchMode?: (newMode: DataListOperationMode) => void;
+    readonly onSwitchMode?: (newMode: Reminder.Mode) => void;
 
 
     /**

@@ -11,9 +11,9 @@ import {
     IsPositive,
     IsString
 } from "@miniskylab/antimatter-framework";
-import {DataListOperationMode} from "@miniskylab/data-list";
 import {IsOptional} from "class-validator";
 import {Data, Tag} from "../classes";
+import {Mode} from "../enums";
 import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
@@ -87,11 +87,11 @@ export class Props extends ComponentProps<Style>
     /**
      * Specify the way the reminder operates or behaves.
      *
-     * @type DataListOperationMode
+     * @type Mode
      */
-    @IsEnum(DataListOperationMode)
+    @IsEnum(Mode)
     @IsOptional()
-    readonly mode?: DataListOperationMode;
+    readonly mode?: Mode;
 
 
     /**

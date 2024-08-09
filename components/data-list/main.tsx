@@ -6,9 +6,7 @@ import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {DataListOperationMode} from "./enums";
 import {DataListContext, DataListProps} from "./models";
-import type {ControlPanel} from "./types";
 import * as Variant from "./variants";
 
 /**
@@ -18,17 +16,13 @@ export function DataList({
     style = Variant.Default,
     children,
     displayPanel,
-    mode = DataListOperationMode.ReadOnly,
-    addNewButton,
-    saveButton,
-    deleteButton,
-    cancelButton,
-    customButton,
-    onSwitchMode
+    button1,
+    button2,
+    button3
 }: DataListProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<DataListProps> = {
-        style, children, displayPanel, mode, addNewButton, saveButton, deleteButton, cancelButton, customButton, onSwitchMode
+        style, children, displayPanel, button1, button2, button3
     };
 
     const context = useMemo<DataListContext>(
@@ -59,41 +53,6 @@ export function DataList({
         </DataListContext.Provider>
     );
 
-    function getControlPanel(): ControlPanel
-    {
-        switch (mode)
-        {
-            case DataListOperationMode.Draft:
-                return {
-                    button1: {...saveButton},
-                    button2: {icon: DefaultIconSet.Quill, text: "Draft-Mode", disabled: true},
-                    button3: {...cancelButton}
-                };
-
-            case DataListOperationMode.Edit:
-                return {
-                    button1: {...saveButton},
-                    button2: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
-                    button3: {...cancelButton}
-                };
-
-            case DataListOperationMode.Delete:
-                return {
-                    button1: {...deleteButton},
-                    button2: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
-                    button3: {...cancelButton}
-                };
-
-            default:
-            case DataListOperationMode.ReadOnly:
-                return {
-                    button1: {...addNewButton},
-                    button2: {icon: DefaultIconSet.Eye, text: "Read-Only", disabled: true},
-                    button3: customButton ? {...customButton} : {...cancelButton, disabled: true}
-                };
-        }
-    }
-
     function renderDisplayPanel(): JSX.Element
     {
         const displayIcon = displayPanel?.icon ?? DefaultIconSet.None;
@@ -109,7 +68,6 @@ export function DataList({
 
     function renderControlPanel(): JSX.Element
     {
-        const {button1, button2, button3} = getControlPanel();
         return (
             <View style={computedStyle.ControlPanel}>
                 <Button
@@ -135,26 +93,5 @@ export function DataList({
                 />
             </View>
         );
-    }
-
-    function switchMode(): void
-    {
-        switch (mode)
-        {
-            case DataListOperationMode.ReadOnly:
-                onSwitchMode?.(DataListOperationMode.Draft);
-                break;
-
-            case DataListOperationMode.Edit:
-                onSwitchMode?.(DataListOperationMode.Delete);
-                break;
-
-            case DataListOperationMode.Delete:
-                onSwitchMode?.(DataListOperationMode.Edit);
-                break;
-
-            default:
-                throw new Error(`No valid mode to switch to from mode "${Ts.Enum.getName(DataListOperationMode, mode)}"`);
-        }
     }
 }

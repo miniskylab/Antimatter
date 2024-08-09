@@ -1,4 +1,5 @@
 import {Calendar} from "@miniskylab/antimatter-calendar";
+import {DataList, type DataListControlPanel} from "@miniskylab/antimatter-data-list";
 import {DatePicker} from "@miniskylab/antimatter-date-picker";
 import {
     type AllPropertiesMustPresent,
@@ -10,8 +11,8 @@ import {
     useBreakpoint,
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import {DataList, DataListOperationMode} from "@miniskylab/data-list";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
 import {Summary, TransactionRecord} from "./components";
 import {TransactionTableContext, TransactionTableProps, type TransactionTableRef, type TransactionTableState} from "./models";
@@ -27,7 +28,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
         transactions = {},
         selectedDate = new Date(),
         selectedTransaction,
-        mode = DataListOperationMode.ReadOnly,
+        mode = TransactionRecord.Mode.ReadOnly,
         maxSelectedTagCount = 3,
         displayPanel,
         addNewTransactionButton,
@@ -66,6 +67,10 @@ export const TransactionTable = forwardRef(function TransactionTable(
     const toBeFlashHighlightedTransactionIdsRef = useRef<string[]>([]);
     const transactionRecordsRef = useRef<Record<string, Nullable<TransactionRecord.Ref>>>({});
 
+    const {button1, button2, button3} = useMemo(
+        () => getControlPanel(),
+        [mode, addNewTransactionButton, saveTransactionButton, deleteTransactionButton, cancelButton, customButton]
+    );
     const unifiedTransactionList = useMemo(
         () => getUnifiedTransactionList(),
         [transactions, selectedTransaction, state.toBeDeletedTransactions]
@@ -102,7 +107,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
         Object.keys(state.toBeDeletedTransactions)
             .forEach(toBeDeletedTransactionId =>
             {
-                const playExitAnimation = transactionRecordsRef.current[toBeDeletedTransactionId]?.verticalContract;
+                const playExitAnimation = transactionRecordsRef.current[toBeDeletedTransactionId]?.verticalElastic;
                 playExitAnimation ? playExitAnimation(onAnimationEnd) : onAnimationEnd();
 
                 function onAnimationEnd()
@@ -138,14 +143,10 @@ export const TransactionTable = forwardRef(function TransactionTable(
                 {renderDateSelectorAndSummary()}
                 <DataList
                     style={computedStyle.TransactionList}
-                    mode={mode}
                     displayPanel={displayPanel}
-                    addNewButton={addNewTransactionButton}
-                    saveButton={saveTransactionButton}
-                    deleteButton={deleteTransactionButton}
-                    cancelButton={cancelButton}
-                    customButton={customButton}
-                    onSwitchMode={onSwitchMode}
+                    button1={button1}
+                    button2={button2}
+                    button3={button3}
                 >
                     {renderTransactions()}
                 </DataList>
@@ -153,11 +154,46 @@ export const TransactionTable = forwardRef(function TransactionTable(
         </TransactionTableContext.Provider>
     );
 
-    function getTransactionMode(transactionId: string): DataListOperationMode
+    function getControlPanel(): DataListControlPanel
+    {
+        switch (mode)
+        {
+            case TransactionRecord.Mode.Draft:
+                return {
+                    button1: {...saveTransactionButton},
+                    button2: {icon: DefaultIconSet.Quill, text: "Draft-Mode", disabled: true},
+                    button3: {...cancelButton}
+                };
+
+            case TransactionRecord.Mode.Edit:
+                return {
+                    button1: {...saveTransactionButton},
+                    button2: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
+                    button3: {...cancelButton}
+                };
+
+            case TransactionRecord.Mode.Delete:
+                return {
+                    button1: {...deleteTransactionButton},
+                    button2: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
+                    button3: {...cancelButton}
+                };
+
+            default:
+            case TransactionRecord.Mode.ReadOnly:
+                return {
+                    button1: {...addNewTransactionButton},
+                    button2: {icon: DefaultIconSet.Eye, text: "Read-Only", disabled: true},
+                    button3: customButton ? {...customButton} : {...cancelButton, disabled: true}
+                };
+        }
+    }
+
+    function getTransactionMode(transactionId: string): TransactionRecord.Mode
     {
         return transactionId === selectedTransaction?.id
             ? mode
-            : DataListOperationMode.ReadOnly;
+            : TransactionRecord.Mode.ReadOnly;
     }
 
     function getUnifiedTransactionList(): Record<string, TransactionRecord.Data>
@@ -294,5 +330,26 @@ export const TransactionTable = forwardRef(function TransactionTable(
                 />
             );
         });
+    }
+
+    function switchMode(): void
+    {
+        switch (mode)
+        {
+            case TransactionRecord.Mode.ReadOnly:
+                onSwitchMode?.(TransactionRecord.Mode.Draft);
+                break;
+
+            case TransactionRecord.Mode.Edit:
+                onSwitchMode?.(TransactionRecord.Mode.Delete);
+                break;
+
+            case TransactionRecord.Mode.Delete:
+                onSwitchMode?.(TransactionRecord.Mode.Edit);
+                break;
+
+            default:
+                throw new Error(`No valid mode to switch to from mode "${Ts.Enum.getName(TransactionRecord.Mode, mode)}"`);
+        }
     }
 });

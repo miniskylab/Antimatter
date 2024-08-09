@@ -1,5 +1,5 @@
 import {WithoutStyle} from "@miniskylab/antimatter-framework";
-import {DataListStyle} from "@miniskylab/data-list";
+import {DataListStyle} from "@miniskylab/antimatter-data-list";
 import {Reminder} from "../components";
 import {TodoListProps} from "./props";
 import {TodoListState} from "./state";
