@@ -1,10 +1,13 @@
+import {Button} from "@miniskylab/antimatter-button";
 import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {type AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
+import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
+import {Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import {DataListOperationMode} from "@miniskylab/data-list";
@@ -61,6 +64,25 @@ export const Component = forwardRef(function Component(
                     {renderName()}
                     {renderDeadline()}
                     {renderTags()}
+                </View>
+                <View style={computedStyle.ExpansionArea}>
+                    <InputField
+                        style={computedStyle.RecurrencePatternInputField}
+                        placeholder={"Recurrence Pattern"}
+                        value={"0 0 0 8 8 ? 2024"}
+                    />
+                    <NumericInputField
+                        style={computedStyle.NotificationIntervalNumericInputField}
+                        minValue={0}
+                        maxValue={8800}
+                        treatEmptyInputAsZero={true}
+                        maximumFractionDigitCount={0}
+                        placeholder={"Notification Interval (Hours)"}
+                        defaultValue={1}
+                    />
+                    <Toggle style={computedStyle.DoneToggle} icon={DefaultIconSet.CheckMarkInsideCircle}/>
+                    <Toggle style={computedStyle.MuteToggle} icon={DefaultIconSet.NoSound}/>
+                    <Button style={computedStyle.DismissButton} label={"Dismiss"}/>
                 </View>
             </Pressable>
         </ReminderContext.Provider>
