@@ -43,29 +43,49 @@ export default {
                     ...args.cancelButton,
                     icon: DefaultIconSet.XMarkInsideCircle,
                     text: "Cancel",
-                    onPress: () =>
-                    {
-                        const mode = Reminder.Mode.ReadOnly;
-                        setArgs({
-                            mode,
-                            selectedReminder: undefined
-                        });
-                    }
+                    onPress: () => { setArgs({mode: Reminder.Mode.ReadOnly, selectedReminder: undefined}); }
+                }}
+                onSwitchMode={newMode =>
+                {
+                    setArgs({
+                        mode: newMode,
+                        selectedReminder: {
+                            id: args.selectedReminder.id,
+                            data: {
+                                name: args.reminders[args.selectedReminder.id].name,
+                                tags: args.reminders[args.selectedReminder.id].tags,
+                                modifiedDate: args.reminders[args.selectedReminder.id].modifiedDate,
+                                createdDate: args.reminders[args.selectedReminder.id].createdDate
+                            }
+                        }
+                    });
+                }}
+                onChangeReminder={newReminderData =>
+                {
+                    setArgs({
+                        selectedReminder: {
+                            id: args.selectedReminder.id,
+                            data: {
+                                ...args.selectedReminder.data,
+                                ...newReminderData
+                            }
+                        }
+                    });
                 }}
                 onSelectReminder={reminderId =>
                 {
-                    const mode = Reminder.Mode.Edit;
-                    const selectedReminder: TodoListProps["selectedReminder"] = {
-                        id: reminderId,
-                        data: {
-                            name: args.reminders[reminderId].name,
-                            tags: args.reminders[reminderId].tags,
-                            modifiedDate: args.reminders[reminderId].modifiedDate,
-                            createdDate: args.reminders[reminderId].createdDate
+                    setArgs({
+                        mode: Reminder.Mode.Edit,
+                        selectedReminder: {
+                            id: reminderId,
+                            data: {
+                                name: args.reminders[reminderId].name,
+                                tags: args.reminders[reminderId].tags,
+                                modifiedDate: args.reminders[reminderId].modifiedDate,
+                                createdDate: args.reminders[reminderId].createdDate
+                            }
                         }
-                    };
-
-                    setArgs({mode, selectedReminder});
+                    });
                 }}
             />
         );

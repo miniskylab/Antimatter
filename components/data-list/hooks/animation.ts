@@ -125,7 +125,8 @@ export function useFlashHighlightAnimation(): ComponentAnimation
 export function useElasticHeightAnimation(
     pxInitialHeight: number,
     pxMinHeight: number,
-    pxMaxHeight: number,
+    pxEditModeHeight: number,
+    pxNotificationModeHeight: number,
     msAnimationDuration: number,
     msAnimationDelay: number = 0
 ): ComponentAnimation
@@ -150,10 +151,21 @@ export function useElasticHeightAnimation(
             backgroundColor: interpolatedBackgroundColor as unknown as ColorValue
         },
         imperativeAnimationHandles: {
-            expandHeight(onAnimationEnd?: () => void)
+            editModeExpandHeight(onAnimationEnd?: () => void)
             {
                 Animated.timing(animatedHeight, {
-                    toValue: pxMaxHeight,
+                    toValue: pxEditModeHeight,
+                    delay: msAnimationDelay,
+                    duration: msAnimationDuration,
+                    easing: Easing.linear,
+                    useNativeDriver: false
+                }).start(onAnimationEnd);
+            },
+
+            notificationModeExpandHeight(onAnimationEnd?: () => void)
+            {
+                Animated.timing(animatedHeight, {
+                    toValue: pxNotificationModeHeight,
                     delay: msAnimationDelay,
                     duration: msAnimationDuration,
                     easing: Easing.linear,

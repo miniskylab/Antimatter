@@ -51,7 +51,8 @@ export const Component = forwardRef(function Component(
     const rootContainerRef = useRef<Pressable<Ref>>(null);
     useImperativeHandle(ref, () => ({
         flashHighlight: rootContainerRef.current?.flashHighlight,
-        expandHeight: rootContainerRef.current?.expandHeight,
+        editModeExpandHeight: rootContainerRef.current?.editModeExpandHeight,
+        notificationModeExpandHeight: rootContainerRef.current?.notificationModeExpandHeight,
         contractHeight: rootContainerRef.current?.contractHeight,
         collapseHeight: rootContainerRef.current?.collapseHeight
     }), []);

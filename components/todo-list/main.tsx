@@ -1,5 +1,5 @@
 import {DataList, type DataListControlPanel} from "@miniskylab/antimatter-data-list";
-import {type AllPropertiesMustPresent, Nullable, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, isNotNullAndUndefined, Nullable, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import React, {JSX, useEffect, useMemo, useRef, useState} from "react";
 import {Reminder} from "./components";
@@ -50,13 +50,25 @@ export function TodoList({
         () => getControlPanel(),
         [mode, addNewReminderButton, saveReminderButton, deleteReminderButton, cancelButton, customButton]
     );
+    const unifiedReminderList = useMemo(
+        () => getUnifiedReminderList(),
+        [reminders, selectedReminder, state.toBeDeletedReminders]
+    );
 
     useEffect(() =>
     {
         if (selectedReminder)
         {
-            const expandSelectedReminder = remindersRef.current[selectedReminder.id]?.expandHeight;
-            expandSelectedReminder?.();
+            if (mode === Reminder.Mode.Delete)
+            {
+                const contractSelectedReminder = remindersRef.current[selectedReminder.id]?.contractHeight;
+                contractSelectedReminder?.();
+            }
+            else
+            {
+                const expandSelectedReminder = remindersRef.current[selectedReminder.id]?.editModeExpandHeight;
+                expandSelectedReminder?.();
+            }
         }
         else if (lastSelectedReminderIdRef.current)
         {
@@ -65,7 +77,7 @@ export function TodoList({
         }
 
         lastSelectedReminderIdRef.current = selectedReminder?.id;
-    }, [selectedReminder]);
+    }, [selectedReminder, mode]);
 
     return (
         <TodoListContext.Provider value={context}>
@@ -123,28 +135,50 @@ export function TodoList({
             : Reminder.Mode.ReadOnly;
     }
 
+    function getUnifiedReminderList(): Record<string, Reminder.Data>
+    {
+        const unifiedReminderList = {...reminders, ...state.toBeDeletedReminders};
+        if (selectedReminder)
+        {
+            unifiedReminderList[selectedReminder.id] = selectedReminder.data;
+        }
+
+        return unifiedReminderList;
+    }
+
+    function byDueDate(reminderIdA: string, reminderIdB: string): number
+    {
+        const reminderA = unifiedReminderList[reminderIdA];
+        const reminderB = unifiedReminderList[reminderIdB];
+
+        return isNotNullAndUndefined(reminderA.createdDate) && isNotNullAndUndefined(reminderB.createdDate)
+            ? reminderA.createdDate.getTime() - reminderB.createdDate.getTime()
+            : NaN;
+    }
+
     function renderReminders(): JSX.Element[]
     {
-        return Object.keys(reminders).map(reminderId =>
+        const sortedReminderIds = Object.keys(unifiedReminderList).sort(byDueDate);
+        return sortedReminderIds.map(sortedReminderId =>
         {
-            const reminderMode = getReminderMode(reminderId);
-            const reminderData = reminders[reminderId];
-            const isSelectedReminder = reminderId === selectedReminder?.id;
-            const isToBeDeletedReminder = !!state.toBeDeletedReminders[reminderId];
+            const reminderMode = getReminderMode(sortedReminderId);
+            const reminderData = unifiedReminderList[sortedReminderId];
+            const isSelectedReminder = sortedReminderId === selectedReminder?.id;
+            const isToBeDeletedReminder = !!state.toBeDeletedReminders[sortedReminderId];
 
             return (
                 <Reminder.Component
                     {...reminderData}
-                    key={reminderId}
-                    id={reminderId}
-                    ref={ref => { remindersRef.current[reminderId] = ref; }}
+                    key={sortedReminderId}
+                    id={sortedReminderId}
+                    ref={ref => { remindersRef.current[sortedReminderId] = ref; }}
                     style={computedStyle.Reminder}
                     mode={reminderMode}
                     tags={reminderData?.tags}
                     maxSelectedTagCount={maxSelectedTagCount}
                     showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}
                     toBeDeleted={isToBeDeletedReminder}
-                    onPress={!selectedReminder ? () => { onSelectReminder?.(reminderId); } : undefined}
+                    onPress={!selectedReminder ? () => { onSelectReminder?.(sortedReminderId); } : undefined}
                     onChange={newReminderData => { onChangeReminder?.(newReminderData); }}
                 />
             );

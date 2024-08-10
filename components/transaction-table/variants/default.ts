@@ -791,7 +791,7 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         animations: () =>
         {
             const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
-            const elasticHeightAnimation = DataListAnimationHook.useElasticHeightAnimation(66, 2, 66, 2000);
+            const elasticHeightAnimation = DataListAnimationHook.useElasticHeightAnimation(66, 2, 66, 66, 2000);
 
             return transactionRecordContext.props.toBeDeleted
                 ? [() => flashHighlightAnimation, () => elasticHeightAnimation]
