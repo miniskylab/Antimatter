@@ -56,12 +56,12 @@ export function TodoList({
         if (selectedReminder)
         {
             const expandSelectedReminder = remindersRef.current[selectedReminder.id]?.expandHeight;
-            expandSelectedReminder && expandSelectedReminder();
+            expandSelectedReminder?.();
         }
         else if (lastSelectedReminderIdRef.current)
         {
             const contractLastSelectedReminder = remindersRef.current[lastSelectedReminderIdRef.current]?.contractHeight;
-            contractLastSelectedReminder && contractLastSelectedReminder();
+            contractLastSelectedReminder?.();
         }
 
         lastSelectedReminderIdRef.current = selectedReminder?.id;

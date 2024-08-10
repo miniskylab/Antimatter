@@ -708,6 +708,18 @@ const TodoList__Reminder__ExpansionArea: ViewStyle = function (viewProps)
     };
 };
 
+const TodoList__Reminder__RecurrencePatternInputField__Root: ViewStyle = function (viewProps)
+{
+    const inputFieldContext = InputFieldContextHook.useInputFieldContext();
+
+    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(viewProps);
+
+    return {
+        ...inheritedStyle,
+        backgroundColor: Color.Ambient
+    };
+};
+
 const TodoList__Reminder__RecurrencePatternInputField__TextBox: TextInputStyle = function (textInputProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
@@ -725,7 +737,24 @@ const TodoList__Reminder__RecurrencePatternInputField: InputFieldStyle = functio
 {
     return {
         ...InputFieldVariant.Default(inputFieldProps),
+        Root: TodoList__Reminder__RecurrencePatternInputField__Root,
         TextBox: TodoList__Reminder__RecurrencePatternInputField__TextBox
+    };
+};
+
+const TodoList__Reminder__NotificationIntervalNumericInputField__Root: ViewStyle = function (viewProps)
+{
+    const inputFieldContext = InputFieldContextHook.useInputFieldContext();
+    const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
+
+    const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
+        (inputFieldContext.props)
+        .Root(viewProps);
+
+    return {
+        ...inheritedStyle,
+        flex: 1,
+        backgroundColor: Color.Ambient
     };
 };
 
@@ -742,21 +771,6 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__TextBox: TextIn
         ...inheritedStyle,
         paddingRight: 50,
         fontWeight: "bold"
-    };
-};
-
-const TodoList__Reminder__NotificationIntervalNumericInputField__Root: ViewStyle = function (viewProps)
-{
-    const inputFieldContext = InputFieldContextHook.useInputFieldContext();
-    const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
-
-    const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
-        (inputFieldContext.props)
-        .Root(viewProps);
-
-    return {
-        ...inheritedStyle,
-        flex: 1
     };
 };
 
