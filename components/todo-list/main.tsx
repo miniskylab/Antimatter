@@ -2,8 +2,6 @@ import {DataList, type DataListControlPanel} from "@miniskylab/antimatter-data-l
 import {type AllPropertiesMustPresent, Nullable, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import React, {JSX, useEffect, useMemo, useRef, useState} from "react";
-import {Easing} from "react-native";
-import {SelectedReminder} from "./classes";
 import {Reminder} from "./components";
 import {TodoListContext, TodoListProps, TodoListState} from "./models";
 import * as Variant from "./variants";
@@ -45,7 +43,7 @@ export function TodoList({
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
 
-    const selectedReminderRef = useRef<SelectedReminder>();
+    const lastSelectedReminderIdRef = useRef<string>();
     const remindersRef = useRef<Record<string, Nullable<Reminder.Ref>>>({});
 
     const {button1, button2, button3} = useMemo(
@@ -57,17 +55,16 @@ export function TodoList({
     {
         if (selectedReminder)
         {
-            remindersRef.current[selectedReminder.id]?.animateHeightTo?.(181, Easing.linear, 200);
-            selectedReminderRef.current = selectedReminder;
-            return;
+            const expandSelectedReminder = remindersRef.current[selectedReminder.id]?.expandHeight;
+            expandSelectedReminder && expandSelectedReminder();
+        }
+        else if (lastSelectedReminderIdRef.current)
+        {
+            const contractLastSelectedReminder = remindersRef.current[lastSelectedReminderIdRef.current]?.contractHeight;
+            contractLastSelectedReminder && contractLastSelectedReminder();
         }
 
-        if (selectedReminderRef.current)
-        {
-            remindersRef.current[selectedReminderRef.current.id]?.animateHeightTo?.(66, Easing.linear, 200);
-            selectedReminderRef.current = selectedReminder;
-            return;
-        }
+        lastSelectedReminderIdRef.current = selectedReminder?.id;
     }, [selectedReminder]);
 
     return (

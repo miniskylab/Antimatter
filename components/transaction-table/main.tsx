@@ -14,7 +14,6 @@ import {
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
-import {Easing} from "react-native";
 import {Summary, TransactionRecord} from "./components";
 import {TransactionTableContext, TransactionTableProps, type TransactionTableRef, type TransactionTableState} from "./models";
 import * as Variant from "./variants";
@@ -108,8 +107,8 @@ export const TransactionTable = forwardRef(function TransactionTable(
         Object.keys(state.toBeDeletedTransactions)
             .forEach(toBeDeletedTransactionId =>
             {
-                const playExitAnimation = transactionRecordsRef.current[toBeDeletedTransactionId]?.animateHeightTo;
-                playExitAnimation ? playExitAnimation(2, Easing.out(Easing.circle), 2000, 0, onAnimationEnd) : onAnimationEnd();
+                const playExitAnimation = transactionRecordsRef.current[toBeDeletedTransactionId]?.collapseHeight;
+                playExitAnimation ? playExitAnimation(onAnimationEnd) : onAnimationEnd();
 
                 function onAnimationEnd()
                 {

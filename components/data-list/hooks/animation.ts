@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {type ComponentAnimation, Layer} from "@miniskylab/antimatter-framework";
 import {useEffect, useLayoutEffect, useRef} from "react";
-import {Animated, type ColorValue, Easing, type EasingFunction} from "react-native";
+import {Animated, type ColorValue, Easing} from "react-native";
 import {useDataListContext} from "./context";
 
 export function useDisplayIconAnimation(isAnimationPlaying?: boolean): ComponentAnimation
@@ -122,14 +122,20 @@ export function useFlashHighlightAnimation(): ComponentAnimation
     };
 }
 
-export function useElasticHeightAnimation(pxInitialHeight: number, backgroundColorDuringAnimation = Color.Transparent): ComponentAnimation
+export function useElasticHeightAnimation(
+    pxInitialHeight: number,
+    pxMinHeight: number,
+    pxMaxHeight: number,
+    msAnimationDuration: number,
+    msAnimationDelay: number = 0
+): ComponentAnimation
 {
     const initialColor = 0;
     const animatedColor = useRef(new Animated.Value(initialColor)).current;
     const animatedHeight = useRef(new Animated.Value(pxInitialHeight)).current;
     const interpolatedBackgroundColor = animatedColor.interpolate({
         inputRange: [0, 1, 2],
-        outputRange: [Color.Transparent, backgroundColorDuringAnimation, Color.Transparent]
+        outputRange: [Color.Transparent, Color.Negative, Color.Transparent]
     });
 
     useEffect(() => () =>
@@ -144,13 +150,29 @@ export function useElasticHeightAnimation(pxInitialHeight: number, backgroundCol
             backgroundColor: interpolatedBackgroundColor as unknown as ColorValue
         },
         imperativeAnimationHandles: {
-            animateHeightTo(
-                pxTargetHeight: number,
-                easingFunction: EasingFunction,
-                msAnimationDuration: number,
-                msAnimationDelay: number = 0,
-                onAnimationEnd?: () => void
-            )
+            expandHeight(onAnimationEnd?: () => void)
+            {
+                Animated.timing(animatedHeight, {
+                    toValue: pxMaxHeight,
+                    delay: msAnimationDelay,
+                    duration: msAnimationDuration,
+                    easing: Easing.linear,
+                    useNativeDriver: false
+                }).start(onAnimationEnd);
+            },
+
+            contractHeight(onAnimationEnd?: () => void)
+            {
+                Animated.timing(animatedHeight, {
+                    toValue: pxInitialHeight,
+                    delay: msAnimationDelay,
+                    duration: msAnimationDuration,
+                    easing: Easing.linear,
+                    useNativeDriver: false
+                }).start(onAnimationEnd);
+            },
+
+            collapseHeight(onAnimationEnd: () => void)
             {
                 Animated.parallel([
                     Animated.sequence([
@@ -168,10 +190,10 @@ export function useElasticHeightAnimation(pxInitialHeight: number, backgroundCol
                         })
                     ]),
                     Animated.timing(animatedHeight, {
-                        toValue: pxTargetHeight,
+                        toValue: pxMinHeight,
                         delay: msAnimationDelay,
                         duration: msAnimationDuration,
-                        easing: easingFunction,
+                        easing: Easing.out(Easing.circle),
                         useNativeDriver: false
                     })
                 ]).start(onAnimationEnd);
