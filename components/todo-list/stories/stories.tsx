@@ -1,8 +1,10 @@
 import {withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
+import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {Reminder} from "../components";
 import {TodoList} from "../main";
 import {TodoListProps} from "../models";
 import * as Variant from "../variants";
@@ -12,8 +14,9 @@ const TodoListWithValidation = withValidation(TodoList, TodoListProps);
 export default {
     component: TodoList,
     title: "Components/Todo List",
-    render: args =>
+    render: (args: Required<TodoListProps>) =>
     {
+        const [, setArgs] = useArgs<TodoListProps>();
         return (
             <TodoListWithValidation
                 {...args}
@@ -40,7 +43,29 @@ export default {
                     ...args.cancelButton,
                     icon: DefaultIconSet.XMarkInsideCircle,
                     text: "Cancel",
-                    onPress: () => { }
+                    onPress: () =>
+                    {
+                        const mode = Reminder.Mode.ReadOnly;
+                        setArgs({
+                            mode,
+                            selectedReminder: undefined
+                        });
+                    }
+                }}
+                onSelectReminder={reminderId =>
+                {
+                    const mode = Reminder.Mode.Edit;
+                    const selectedReminder: TodoListProps["selectedReminder"] = {
+                        id: reminderId,
+                        data: {
+                            name: args.reminders[reminderId].name,
+                            tags: args.reminders[reminderId].tags,
+                            modifiedDate: args.reminders[reminderId].modifiedDate,
+                            createdDate: args.reminders[reminderId].createdDate
+                        }
+                    };
+
+                    setArgs({mode, selectedReminder});
                 }}
             />
         );
@@ -67,7 +92,7 @@ export const Playground: Story = {
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
-        maxSelectedTagCount: 3,
+        maxSelectedTagCount: 2,
         reminders: {...TestData.Reminders}
     }
 };

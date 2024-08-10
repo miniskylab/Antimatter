@@ -1,7 +1,9 @@
 import {DataList, type DataListControlPanel} from "@miniskylab/antimatter-data-list";
 import {type AllPropertiesMustPresent, Nullable, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import React, {JSX, useMemo, useRef, useState} from "react";
+import React, {JSX, useEffect, useMemo, useRef, useState} from "react";
+import {Easing} from "react-native";
+import {SelectedReminder} from "./classes";
 import {Reminder} from "./components";
 import {TodoListContext, TodoListProps, TodoListState} from "./models";
 import * as Variant from "./variants";
@@ -14,7 +16,7 @@ export function TodoList({
     reminders = {},
     selectedReminder,
     mode = Reminder.Mode.ReadOnly,
-    maxSelectedTagCount = 1,
+    maxSelectedTagCount = 2,
     displayPanel,
     addNewReminderButton,
     saveReminderButton,
@@ -43,12 +45,30 @@ export function TodoList({
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
 
+    const selectedReminderRef = useRef<SelectedReminder>();
     const remindersRef = useRef<Record<string, Nullable<Reminder.Ref>>>({});
 
     const {button1, button2, button3} = useMemo(
         () => getControlPanel(),
         [mode, addNewReminderButton, saveReminderButton, deleteReminderButton, cancelButton, customButton]
     );
+
+    useEffect(() =>
+    {
+        if (selectedReminder)
+        {
+            remindersRef.current[selectedReminder.id]?.animateHeightTo?.(181, Easing.linear, 200);
+            selectedReminderRef.current = selectedReminder;
+            return;
+        }
+
+        if (selectedReminderRef.current)
+        {
+            remindersRef.current[selectedReminderRef.current.id]?.animateHeightTo?.(66, Easing.linear, 200);
+            selectedReminderRef.current = selectedReminder;
+            return;
+        }
+    }, [selectedReminder]);
 
     return (
         <TodoListContext.Provider value={context}>

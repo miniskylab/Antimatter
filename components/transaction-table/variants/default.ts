@@ -791,11 +791,11 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         animations: () =>
         {
             const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
-            const verticalElasticAnimation = DataListAnimationHook.useVerticalElasticAnimation(66, 2);
+            const elasticHeightAnimation = DataListAnimationHook.useElasticHeightAnimation(66, Color.Negative);
 
             return transactionRecordContext.props.toBeDeleted
-                ? [() => flashHighlightAnimation, () => verticalElasticAnimation]
-                : [() => verticalElasticAnimation, () => flashHighlightAnimation];
+                ? [() => flashHighlightAnimation, () => elasticHeightAnimation]
+                : [() => elasticHeightAnimation, () => flashHighlightAnimation];
         },
         animationOverride: {
             ...((!hasSelectedTransaction && pressableState.hovered) || isSelectedTransactionRecord) && {

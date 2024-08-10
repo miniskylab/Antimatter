@@ -24,7 +24,7 @@ export const Component = forwardRef(function Component(
         id,
         name = EMPTY_STRING,
         tags = {},
-        maxSelectedTagCount = 1,
+        maxSelectedTagCount = 2,
         showProgressStripes,
         toBeDeleted,
         modifiedDate,
@@ -51,7 +51,7 @@ export const Component = forwardRef(function Component(
     const rootContainerRef = useRef<Pressable<Ref>>(null);
     useImperativeHandle(ref, () => ({
         flashHighlight: rootContainerRef.current?.flashHighlight,
-        verticalElastic: rootContainerRef.current?.verticalElastic
+        animateHeightTo: rootContainerRef.current?.animateHeightTo
     }), []);
 
     return (
@@ -64,25 +64,27 @@ export const Component = forwardRef(function Component(
                     {renderDeadline()}
                     {renderTags()}
                 </View>
-                <View style={computedStyle.ExpansionArea}>
-                    <InputField
-                        style={computedStyle.RecurrencePatternInputField}
-                        placeholder={"Recurrence Pattern"}
-                        value={"0 0 0 8 8 ? 2024"}
-                    />
-                    <NumericInputField
-                        style={computedStyle.NotificationIntervalNumericInputField}
-                        minValue={0}
-                        maxValue={8800}
-                        treatEmptyInputAsZero={true}
-                        maximumFractionDigitCount={0}
-                        placeholder={"Notification Interval (Hours)"}
-                        defaultValue={1}
-                    />
-                    <Toggle style={computedStyle.DoneToggle} icon={DefaultIconSet.CheckMarkInsideCircle}/>
-                    <Toggle style={computedStyle.MuteToggle} icon={DefaultIconSet.NoSound}/>
-                    <Button style={computedStyle.DismissButton} label={"Dismiss"}/>
-                </View>
+                {(mode === Mode.Draft || mode === Mode.Edit) && (
+                    <View style={computedStyle.ExpansionArea}>
+                        <InputField
+                            style={computedStyle.RecurrencePatternInputField}
+                            placeholder={"Recurrence Pattern"}
+                            value={"0 0 0 8 8 ? 2024"}
+                        />
+                        <NumericInputField
+                            style={computedStyle.NotificationIntervalNumericInputField}
+                            minValue={0}
+                            maxValue={8800}
+                            treatEmptyInputAsZero={true}
+                            maximumFractionDigitCount={0}
+                            placeholder={"Notification Interval (Hours)"}
+                            defaultValue={1}
+                        />
+                        <Toggle style={computedStyle.DoneToggle} icon={DefaultIconSet.CheckMarkInsideCircle}/>
+                        <Toggle style={computedStyle.MuteToggle} icon={DefaultIconSet.NoSound}/>
+                        <Button style={computedStyle.DismissButton} label={"Dismiss"}/>
+                    </View>
+                )}
             </Pressable>
         </ReminderContext.Provider>
     );

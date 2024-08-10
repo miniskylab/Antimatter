@@ -1,4 +1,12 @@
+import {EasingFunction} from "react-native";
+
 export type Ref = {
     readonly flashHighlight?: () => void;
-    readonly verticalElastic?: (onAnimationEnd: () => void) => void;
+    readonly animateHeightTo?: (
+        pxTargetHeight: number,
+        easingFunction: EasingFunction,
+        msAnimationDuration: number,
+        msAnimationDelay: number,
+        onAnimationEnd: () => void
+    ) => void;
 };

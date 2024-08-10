@@ -282,14 +282,15 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
         borderColor: Color.Neutral,
         marginTop: -2,
         cursor: hasSelectedReminder ? CursorType.Default : CursorType.Pointer,
+        overflow: "hidden",
         animations: () =>
         {
             const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
-            const verticalElasticAnimation = DataListAnimationHook.useVerticalElasticAnimation(181, 2);
+            const elasticHeightAnimation = DataListAnimationHook.useElasticHeightAnimation(66);
 
             return reminderContext.props.toBeDeleted
-                ? [() => flashHighlightAnimation, () => verticalElasticAnimation]
-                : [() => verticalElasticAnimation, () => flashHighlightAnimation];
+                ? [() => flashHighlightAnimation, () => elasticHeightAnimation]
+                : [() => elasticHeightAnimation, () => flashHighlightAnimation];
         },
         animationOverride: {
             ...((!hasSelectedReminder && pressableState.hovered) || isSelectedReminder) && {
@@ -335,7 +336,7 @@ const TodoList__Reminder__NameTagAndDeadlineContainer: ViewStyle = function (vie
     return {
         ...ViewVariant.Default(viewProps),
         display: reminderContext.props.toBeDeleted ? "none" : "flex",
-        flexGrow: 1,
+        flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
         justifyContent: "flex-start",
@@ -465,6 +466,7 @@ const TodoList__Reminder__TagSelector__Root: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
+        flex: 1,
         height: 18,
         minHeight: undefined,
         marginHorizontal: 1,

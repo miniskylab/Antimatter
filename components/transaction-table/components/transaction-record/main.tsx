@@ -52,7 +52,7 @@ export const Component = forwardRef(function Component(
     const rootContainerRef = useRef<Pressable<Ref>>(null);
     useImperativeHandle(ref, () => ({
         flashHighlight: rootContainerRef.current?.flashHighlight,
-        verticalElastic: rootContainerRef.current?.verticalElastic
+        animateHeightTo: rootContainerRef.current?.animateHeightTo
     }), []);
 
     return (

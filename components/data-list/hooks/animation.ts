@@ -1,7 +1,7 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {type ComponentAnimation, Layer} from "@miniskylab/antimatter-framework";
 import {useEffect, useLayoutEffect, useRef} from "react";
-import {Animated, type ColorValue, Easing} from "react-native";
+import {Animated, type ColorValue, Easing, type EasingFunction} from "react-native";
 import {useDataListContext} from "./context";
 
 export function useDisplayIconAnimation(isAnimationPlaying?: boolean): ComponentAnimation
@@ -122,17 +122,16 @@ export function useFlashHighlightAnimation(): ComponentAnimation
     };
 }
 
-export function useVerticalElasticAnimation(initialHeight: number, targetHeight: number): ComponentAnimation
+export function useElasticHeightAnimation(pxInitialHeight: number, backgroundColorDuringAnimation = Color.Transparent): ComponentAnimation
 {
     const initialColor = 0;
     const animatedColor = useRef(new Animated.Value(initialColor)).current;
-    const animatedHeight = useRef(new Animated.Value(initialHeight)).current;
+    const animatedHeight = useRef(new Animated.Value(pxInitialHeight)).current;
     const interpolatedBackgroundColor = animatedColor.interpolate({
         inputRange: [0, 1, 2],
-        outputRange: [Color.Transparent, Color.Negative, Color.Transparent]
+        outputRange: [Color.Transparent, backgroundColorDuringAnimation, Color.Transparent]
     });
 
-    const ref = useRef({animationHasStarted: false});
     useEffect(() => () =>
     {
         animatedColor.setValue(2);
@@ -145,15 +144,14 @@ export function useVerticalElasticAnimation(initialHeight: number, targetHeight:
             backgroundColor: interpolatedBackgroundColor as unknown as ColorValue
         },
         imperativeAnimationHandles: {
-            verticalElastic(onAnimationEnd: () => void)
+            animateHeightTo(
+                pxTargetHeight: number,
+                easingFunction: EasingFunction,
+                msAnimationDuration: number,
+                msAnimationDelay: number = 0,
+                onAnimationEnd?: () => void
+            )
             {
-                if (ref.current.animationHasStarted)
-                {
-                    return;
-                }
-
-                const msDuration = 2000;
-                ref.current.animationHasStarted = true;
                 Animated.parallel([
                     Animated.sequence([
                         Animated.timing(animatedColor, {
@@ -163,15 +161,17 @@ export function useVerticalElasticAnimation(initialHeight: number, targetHeight:
                         }),
                         Animated.timing(animatedColor, {
                             toValue: 2,
-                            duration: msDuration,
+                            delay: msAnimationDelay,
+                            duration: msAnimationDuration,
                             easing: Easing.in(Easing.circle),
                             useNativeDriver: false
                         })
                     ]),
                     Animated.timing(animatedHeight, {
-                        toValue: targetHeight,
-                        duration: msDuration,
-                        easing: Easing.out(Easing.circle),
+                        toValue: pxTargetHeight,
+                        delay: msAnimationDelay,
+                        duration: msAnimationDuration,
+                        easing: easingFunction,
                         useNativeDriver: false
                     })
                 ]).start(onAnimationEnd);
