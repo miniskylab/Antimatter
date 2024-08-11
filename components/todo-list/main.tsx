@@ -114,7 +114,7 @@ export const TodoList = forwardRef(function TodoList(
     {
         if (selectedReminder)
         {
-            if (mode === Reminder.Mode.Delete)
+            if (mode === Reminder.Mode.Delete || mode === Reminder.Mode.ReadOnly)
             {
                 const contractSelectedReminder = remindersRef.current[selectedReminder.id]?.contractHeight;
                 contractSelectedReminder?.();
@@ -125,10 +125,15 @@ export const TodoList = forwardRef(function TodoList(
                 expandSelectedReminder?.();
             }
         }
-        else if (lastSelectedReminderIdRef.current && !Object.keys(state.toBeDeletedReminders).includes(lastSelectedReminderIdRef.current))
+        else if (lastSelectedReminderIdRef.current)
         {
-            const contractLastSelectedReminder = remindersRef.current[lastSelectedReminderIdRef.current]?.contractHeight;
-            contractLastSelectedReminder?.();
+            const lastSelectedReminderId = lastSelectedReminderIdRef.current;
+            const isLastSelectedReminderMarkedForDeletion = Object.keys(state.toBeDeletedReminders).includes(lastSelectedReminderId);
+            if (!isLastSelectedReminderMarkedForDeletion)
+            {
+                const contractLastSelectedReminder = remindersRef.current[lastSelectedReminderId]?.contractHeight;
+                contractLastSelectedReminder?.();
+            }
         }
 
         lastSelectedReminderIdRef.current = selectedReminder?.id;

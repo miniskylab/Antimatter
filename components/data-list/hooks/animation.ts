@@ -127,8 +127,14 @@ export function useElasticHeightAnimation(
     pxMinHeight: number,
     pxEditModeHeight: number,
     pxNotificationModeHeight: number,
-    msAnimationDuration: number,
-    msAnimationDelay: number = 0
+    msEditModeExpandHeightAnimationDuration: number = 200,
+    msNotificationModeExpandHeightAnimationDuration: number = 200,
+    msContractHeightAnimationDuration: number = 200,
+    msCollapseHeightAnimationDuration: number = 2000,
+    msEditModeExpandHeightAnimationDelay: number = 0,
+    msNotificationModeExpandHeightAnimationDelay: number = 0,
+    msContractHeightAnimationDelay: number = 0,
+    msCollapseHeightAnimationDelay: number = 0
 ): ComponentAnimation
 {
     const initialColor = 0;
@@ -155,8 +161,8 @@ export function useElasticHeightAnimation(
             {
                 Animated.timing(animatedHeight, {
                     toValue: pxEditModeHeight,
-                    delay: msAnimationDelay,
-                    duration: msAnimationDuration,
+                    delay: msEditModeExpandHeightAnimationDelay,
+                    duration: msEditModeExpandHeightAnimationDuration,
                     easing: Easing.linear,
                     useNativeDriver: false
                 }).start(onAnimationEnd);
@@ -166,8 +172,8 @@ export function useElasticHeightAnimation(
             {
                 Animated.timing(animatedHeight, {
                     toValue: pxNotificationModeHeight,
-                    delay: msAnimationDelay,
-                    duration: msAnimationDuration,
+                    delay: msNotificationModeExpandHeightAnimationDelay,
+                    duration: msNotificationModeExpandHeightAnimationDuration,
                     easing: Easing.linear,
                     useNativeDriver: false
                 }).start(onAnimationEnd);
@@ -177,8 +183,8 @@ export function useElasticHeightAnimation(
             {
                 Animated.timing(animatedHeight, {
                     toValue: pxInitialHeight,
-                    delay: msAnimationDelay,
-                    duration: msAnimationDuration,
+                    delay: msContractHeightAnimationDelay,
+                    duration: msContractHeightAnimationDuration,
                     easing: Easing.linear,
                     useNativeDriver: false
                 }).start(onAnimationEnd);
@@ -195,16 +201,16 @@ export function useElasticHeightAnimation(
                         }),
                         Animated.timing(animatedColor, {
                             toValue: 2,
-                            delay: msAnimationDelay,
-                            duration: msAnimationDuration,
+                            delay: msCollapseHeightAnimationDelay,
+                            duration: msCollapseHeightAnimationDuration,
                             easing: Easing.in(Easing.circle),
                             useNativeDriver: false
                         })
                     ]),
                     Animated.timing(animatedHeight, {
                         toValue: pxMinHeight,
-                        delay: msAnimationDelay,
-                        duration: msAnimationDuration,
+                        delay: msCollapseHeightAnimationDelay,
+                        duration: msCollapseHeightAnimationDuration,
                         easing: Easing.out(Easing.circle),
                         useNativeDriver: false
                     })
