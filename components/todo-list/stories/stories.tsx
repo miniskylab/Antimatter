@@ -1,12 +1,13 @@
-import {withValidation} from "@miniskylab/antimatter-framework";
+import {DataListDisplayPanelTheme} from "@miniskylab/antimatter-data-list";
+import {EMPTY_STRING, withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
-import React from "react";
+import React, {useRef} from "react";
 import {Reminder} from "../components";
 import {TodoList} from "../main";
-import {TodoListProps} from "../models";
+import {TodoListProps, type TodoListRef} from "../models";
 import * as Variant from "../variants";
 import {TestData} from "./test-data";
 
@@ -16,34 +17,151 @@ export default {
     title: "Components/Todo List",
     render: (args: Required<TodoListProps>) =>
     {
+        type BusySettings = Pick<TodoListProps, "selectedReminder" | "addNewReminderButton" | "saveReminderButton" |
+            "deleteReminderButton" | "cancelButton" | "customButton">;
+
+        type UnbusySettings = Pick<TodoListProps, "addNewReminderButton" | "saveReminderButton" | "deleteReminderButton" | "cancelButton" |
+            "customButton">;
+
+        const busySettings: BusySettings = {
+            selectedReminder: {...args.selectedReminder, showProgressStripes: true},
+            addNewReminderButton: {...args.addNewReminderButton, disabled: true},
+            saveReminderButton: {...args.saveReminderButton, disabled: true},
+            deleteReminderButton: {...args.deleteReminderButton, disabled: true},
+            cancelButton: {...args.cancelButton, disabled: true},
+            customButton: {...args.customButton, disabled: true}
+        };
+        const unbusySettings: UnbusySettings = {
+            addNewReminderButton: {...args.addNewReminderButton, disabled: false},
+            saveReminderButton: {...args.saveReminderButton, disabled: false},
+            deleteReminderButton: {...args.deleteReminderButton, disabled: false},
+            cancelButton: {...args.cancelButton, disabled: false},
+            customButton: {...args.customButton, disabled: false}
+        };
+
         const [, setArgs] = useArgs<TodoListProps>();
+        const todoListRef = useRef<TodoListRef>();
+
         return (
             <TodoListWithValidation
                 {...args}
+                ref={todoListRef}
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
                 addNewReminderButton={{
                     ...args.addNewReminderButton,
                     icon: DefaultIconSet.PlusCircle,
                     text: "Add New",
-                    onPress: () => { }
+                    onPress: () =>
+                    {
+                        setArgs({
+                            mode: Reminder.Mode.Draft,
+                            selectedReminder: {
+                                id: EMPTY_STRING,
+                                data: {
+                                    name: EMPTY_STRING,
+                                    tags: TestData.Tags
+                                }
+                            }
+                        });
+                    }
                 }}
                 saveReminderButton={{
                     ...args.saveReminderButton,
                     icon: DefaultIconSet.FloppyDisk,
                     text: "Save",
-                    onPress: async () => { }
+                    onPress: async () =>
+                    {
+                        setArgs({
+                            ...busySettings,
+                            mode: Reminder.Mode.ReadOnly,
+                            displayPanel: {
+                                icon: DefaultIconSet.Gear,
+                                message: "Saving Reminder",
+                                theme: DataListDisplayPanelTheme.Highlighted,
+                                isIconAnimationPlaying: true,
+                                isVisible: true
+                            }
+                        });
+
+                        await new Promise(resolve => { setTimeout(resolve, 2000); });
+                        if (args.selectedReminder.id === EMPTY_STRING)
+                        {
+                            const newlyAddedReminderId = `${Date.now()}`;
+                            todoListRef.current?.flashHighlightReminders([newlyAddedReminderId]);
+
+                            TestData.Reminders[newlyAddedReminderId] = {
+                                name: args.selectedReminder.data.name,
+                                tags: args.selectedReminder.data.tags,
+                                createdDate: new Date()
+                            };
+                        }
+                        else
+                        {
+                            todoListRef.current?.flashHighlightReminders([args.selectedReminder.id]);
+                            TestData.Reminders[args.selectedReminder.id] = {
+                                ...args.reminders[args.selectedReminder.id],
+                                name: args.selectedReminder.data.name,
+                                tags: args.selectedReminder.data.tags,
+                                modifiedDate: new Date()
+                            };
+                        }
+
+                        setArgs({
+                            ...unbusySettings,
+                            selectedReminder: undefined,
+                            reminders: {...TestData.Reminders},
+                            displayPanel: {
+                                icon: DefaultIconSet.CheckMark,
+                                theme: DataListDisplayPanelTheme.Positive,
+                                message: "Saved Successfully"
+                            }
+                        });
+                    }
                 }}
                 deleteReminderButton={{
                     ...args.deleteReminderButton,
                     icon: DefaultIconSet.TrashCan,
                     text: "Delete",
-                    onPress: async () => { }
+                    onPress: async () =>
+                    {
+                        setArgs({
+                            ...busySettings,
+                            displayPanel: {
+                                icon: DefaultIconSet.Gear,
+                                message: "Deleting Reminder",
+                                theme: DataListDisplayPanelTheme.Negative,
+                                isIconAnimationPlaying: true,
+                                isVisible: true
+                            }
+                        });
+
+                        await new Promise(resolve => { setTimeout(resolve, 2000); });
+                        delete TestData.Reminders[args.selectedReminder.id];
+
+                        setArgs({
+                            ...unbusySettings,
+                            mode: Reminder.Mode.ReadOnly,
+                            reminders: {...TestData.Reminders},
+                            selectedReminder: undefined,
+                            displayPanel: {
+                                icon: DefaultIconSet.CheckMark,
+                                theme: DataListDisplayPanelTheme.Positive,
+                                message: "Deleted Successfully"
+                            }
+                        });
+                    }
                 }}
                 cancelButton={{
                     ...args.cancelButton,
                     icon: DefaultIconSet.XMarkInsideCircle,
                     text: "Cancel",
                     onPress: () => { setArgs({mode: Reminder.Mode.ReadOnly, selectedReminder: undefined}); }
+                }}
+                customButton={{
+                    ...args.customButton,
+                    icon: DefaultIconSet.Group,
+                    text: "Lorem Ipsum: 99",
+                    onPress: () => { alert("Lorem Ipsum"); }
                 }}
                 onSwitchMode={newMode =>
                 {

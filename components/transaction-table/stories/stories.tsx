@@ -1,7 +1,7 @@
+import {DataListDisplayPanelTheme} from "@miniskylab/antimatter-data-list";
 import {EMPTY_STRING, withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import {DataListDisplayPanelTheme} from "@miniskylab/antimatter-data-list";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React, {useRef} from "react";
@@ -25,52 +25,19 @@ export default {
             "cancelButton" | "customButton">;
 
         const busySettings: BusySettings = {
-            selectedTransaction: {
-                ...args.selectedTransaction,
-                showProgressStripes: true
-            },
-            addNewTransactionButton: {
-                ...args.addNewTransactionButton,
-                disabled: true
-            },
-            saveTransactionButton: {
-                ...args.saveTransactionButton,
-                disabled: true
-            },
-            deleteTransactionButton: {
-                ...args.deleteTransactionButton,
-                disabled: true
-            },
-            cancelButton: {
-                ...args.cancelButton,
-                disabled: true
-            },
-            customButton: {
-                ...args.customButton,
-                disabled: true
-            }
+            selectedTransaction: {...args.selectedTransaction, showProgressStripes: true},
+            addNewTransactionButton: {...args.addNewTransactionButton, disabled: true},
+            saveTransactionButton: {...args.saveTransactionButton, disabled: true},
+            deleteTransactionButton: {...args.deleteTransactionButton, disabled: true},
+            cancelButton: {...args.cancelButton, disabled: true},
+            customButton: {...args.customButton, disabled: true}
         };
         const unbusySettings: UnbusySettings = {
-            addNewTransactionButton: {
-                ...args.addNewTransactionButton,
-                disabled: false
-            },
-            saveTransactionButton: {
-                ...args.saveTransactionButton,
-                disabled: false
-            },
-            deleteTransactionButton: {
-                ...args.deleteTransactionButton,
-                disabled: false
-            },
-            cancelButton: {
-                ...args.cancelButton,
-                disabled: false
-            },
-            customButton: {
-                ...args.customButton,
-                disabled: false
-            }
+            addNewTransactionButton: {...args.addNewTransactionButton, disabled: false},
+            saveTransactionButton: {...args.saveTransactionButton, disabled: false},
+            deleteTransactionButton: {...args.deleteTransactionButton, disabled: false},
+            cancelButton: {...args.cancelButton, disabled: false},
+            customButton: {...args.customButton, disabled: false}
         };
 
         const [, setArgs] = useArgs<TransactionTableProps>();

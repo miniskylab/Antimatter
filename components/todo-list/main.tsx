@@ -1,38 +1,49 @@
 import {DataList, type DataListControlPanel} from "@miniskylab/antimatter-data-list";
-import {type AllPropertiesMustPresent, isNotNullAndUndefined, Nullable, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    isNotNullAndUndefined,
+    isNullOrUndefined,
+    type Nullable,
+    Ts,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import React, {JSX, useEffect, useMemo, useRef, useState} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
 import {Reminder} from "./components";
-import {TodoListContext, TodoListProps, TodoListState} from "./models";
+import {TodoListContext, TodoListProps, type TodoListRef, type TodoListState} from "./models";
 import * as Variant from "./variants";
 
 /**
  * A component that alerts users of reminders they have input previously.
  */
-export function TodoList({
-    style = Variant.Default,
-    reminders = {},
-    selectedReminder,
-    mode = Reminder.Mode.ReadOnly,
-    maxSelectedTagCount = 2,
-    displayPanel,
-    addNewReminderButton,
-    saveReminderButton,
-    deleteReminderButton,
-    cancelButton,
-    customButton,
-    onSwitchMode,
-    onChangeReminder,
-    onSelectReminder
-}: TodoListProps): JSX.Element
+export const TodoList = forwardRef(function TodoList(
+    {
+        style = Variant.Default,
+        reminders = {},
+        selectedReminder,
+        mode = Reminder.Mode.ReadOnly,
+        maxSelectedTagCount = 2,
+        displayPanel,
+        addNewReminderButton,
+        saveReminderButton,
+        deleteReminderButton,
+        cancelButton,
+        customButton,
+        onSwitchMode,
+        onChangeReminder,
+        onSelectReminder
+    }: TodoListProps,
+    ref: MutableRefObject<TodoListRef>
+): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<TodoListProps> = {
         style, reminders, selectedReminder, mode, maxSelectedTagCount, displayPanel, addNewReminderButton, saveReminderButton,
         deleteReminderButton, cancelButton, customButton, onSwitchMode, onChangeReminder, onSelectReminder
     };
 
-    const [state, _] = useState<TodoListState>({
-        toBeDeletedReminders: {}
+    const [state, setState] = useState<TodoListState>({
+        toBeDeletedReminders: {},
+        previousReminders: reminders
     });
 
     const context = useMemo<TodoListContext>(
@@ -44,6 +55,7 @@ export function TodoList({
     const {computedStyle} = useComputedStyle(style, props);
 
     const lastSelectedReminderIdRef = useRef<string>();
+    const toBeFlashHighlightedReminderIdsRef = useRef<string[]>([]);
     const remindersRef = useRef<Record<string, Nullable<Reminder.Ref>>>({});
 
     const {button1, button2, button3} = useMemo(
@@ -54,6 +66,49 @@ export function TodoList({
         () => getUnifiedReminderList(),
         [reminders, selectedReminder, state.toBeDeletedReminders]
     );
+
+    useImperativeHandle(ref, () => ({
+        flashHighlightReminders(reminderIds) { toBeFlashHighlightedReminderIdsRef.current = [...reminderIds]; }
+    }), []);
+
+    useEffect(() =>
+    {
+        const reminderIds = Object.keys(reminders);
+        Object.keys(remindersRef)
+            .filter(x => !reminderIds.includes(x))
+            .forEach(x => { delete remindersRef.current[x]; });
+    }, [reminders]);
+
+    useEffect(() =>
+    {
+        let reminderId = toBeFlashHighlightedReminderIdsRef.current.pop();
+        while (reminderId)
+        {
+            remindersRef.current[reminderId]?.flashHighlight?.();
+            reminderId = toBeFlashHighlightedReminderIdsRef.current.pop();
+        }
+    }, [toBeFlashHighlightedReminderIdsRef.current]);
+
+    useEffect(() =>
+    {
+        Object.keys(state.toBeDeletedReminders)
+            .forEach(toBeDeletedReminderId =>
+            {
+                const playExitAnimation = remindersRef.current[toBeDeletedReminderId]?.collapseHeight;
+                playExitAnimation ? playExitAnimation(onAnimationEnd) : onAnimationEnd();
+
+                function onAnimationEnd()
+                {
+                    setState(prevState =>
+                    {
+                        const nextToBeDeletedReminders = {...prevState.toBeDeletedReminders};
+                        delete nextToBeDeletedReminders[toBeDeletedReminderId];
+
+                        return {...prevState, toBeDeletedReminders: nextToBeDeletedReminders};
+                    });
+                }
+            });
+    }, [state.toBeDeletedReminders]);
 
     useEffect(() =>
     {
@@ -70,7 +125,7 @@ export function TodoList({
                 expandSelectedReminder?.();
             }
         }
-        else if (lastSelectedReminderIdRef.current)
+        else if (lastSelectedReminderIdRef.current && !Object.keys(state.toBeDeletedReminders).includes(lastSelectedReminderIdRef.current))
         {
             const contractLastSelectedReminder = remindersRef.current[lastSelectedReminderIdRef.current]?.contractHeight;
             contractLastSelectedReminder?.();
@@ -78,6 +133,20 @@ export function TodoList({
 
         lastSelectedReminderIdRef.current = selectedReminder?.id;
     }, [selectedReminder, mode]);
+
+    if (reminders !== state.previousReminders)
+    {
+        setState(prevState => ({
+            ...prevState,
+            previousReminders: reminders,
+            toBeDeletedReminders: {
+                ...prevState.toBeDeletedReminders,
+                ...getToBeDeletedReminders()
+            }
+        }));
+
+        return null;
+    }
 
     return (
         <TodoListContext.Provider value={context}>
@@ -146,6 +215,22 @@ export function TodoList({
         return unifiedReminderList;
     }
 
+    function getToBeDeletedReminders(): Record<string, Reminder.Data>
+    {
+        if (isNullOrUndefined(state.previousReminders))
+        {
+            return {};
+        }
+
+        const currentReminderIds = Object.keys(reminders);
+        const toBeDeletedReminders: Record<string, Reminder.Data> = {};
+        Object.keys(state.previousReminders)
+            .filter(prevReminderId => !currentReminderIds.includes(prevReminderId))
+            .forEach(prevReminderId => { toBeDeletedReminders[prevReminderId] = state.previousReminders[prevReminderId]; });
+
+        return toBeDeletedReminders;
+    }
+
     function byDueDate(reminderIdA: string, reminderIdB: string): number
     {
         const reminderA = unifiedReminderList[reminderIdA];
@@ -205,4 +290,4 @@ export function TodoList({
                 throw new Error(`No valid mode to switch to from mode "${Ts.Enum.getName(Reminder.Mode, mode)}"`);
         }
     }
-}
+});
