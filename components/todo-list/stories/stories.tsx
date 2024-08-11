@@ -59,6 +59,8 @@ export default {
                                 id: EMPTY_STRING,
                                 data: {
                                     name: EMPTY_STRING,
+                                    recurrencePattern: EMPTY_STRING,
+                                    notificationIntervalInHours: 1,
                                     tags: TestData.Tags
                                 }
                             }
@@ -91,6 +93,8 @@ export default {
 
                             TestData.Reminders[newlyAddedReminderId] = {
                                 name: args.selectedReminder.data.name,
+                                recurrencePattern: args.selectedReminder.data.recurrencePattern,
+                                notificationIntervalInHours: args.selectedReminder.data.notificationIntervalInHours,
                                 tags: args.selectedReminder.data.tags,
                                 createdDate: new Date()
                             };
@@ -101,6 +105,8 @@ export default {
                             TestData.Reminders[args.selectedReminder.id] = {
                                 ...args.reminders[args.selectedReminder.id],
                                 name: args.selectedReminder.data.name,
+                                recurrencePattern: args.selectedReminder.data.recurrencePattern,
+                                notificationIntervalInHours: args.selectedReminder.data.notificationIntervalInHours,
                                 tags: args.selectedReminder.data.tags,
                                 modifiedDate: new Date()
                             };
@@ -171,6 +177,8 @@ export default {
                             id: args.selectedReminder.id,
                             data: {
                                 name: args.reminders[args.selectedReminder.id].name,
+                                recurrencePattern: args.reminders[args.selectedReminder.id].recurrencePattern,
+                                notificationIntervalInHours: args.reminders[args.selectedReminder.id].notificationIntervalInHours,
                                 tags: args.reminders[args.selectedReminder.id].tags,
                                 modifiedDate: args.reminders[args.selectedReminder.id].modifiedDate,
                                 createdDate: args.reminders[args.selectedReminder.id].createdDate
@@ -198,6 +206,8 @@ export default {
                             id: reminderId,
                             data: {
                                 name: args.reminders[reminderId].name,
+                                recurrencePattern: args.reminders[reminderId].recurrencePattern,
+                                notificationIntervalInHours: args.reminders[reminderId].notificationIntervalInHours,
                                 tags: args.reminders[reminderId].tags,
                                 modifiedDate: args.reminders[reminderId].modifiedDate,
                                 createdDate: args.reminders[reminderId].createdDate

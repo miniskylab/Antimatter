@@ -23,6 +23,8 @@ export const Component = forwardRef(function Component(
         style,
         id,
         name = EMPTY_STRING,
+        recurrencePattern = EMPTY_STRING,
+        notificationIntervalInHours,
         tags = {},
         maxSelectedTagCount = 2,
         showProgressStripes,
@@ -37,7 +39,8 @@ export const Component = forwardRef(function Component(
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, id, name, tags, maxSelectedTagCount, showProgressStripes, toBeDeleted, modifiedDate, createdDate, mode, onPress, onChange
+        style, id, name, recurrencePattern, notificationIntervalInHours, tags, maxSelectedTagCount, showProgressStripes, toBeDeleted,
+        modifiedDate, createdDate, mode, onPress, onChange
     };
 
     const context = useMemo<ReminderContext>(
@@ -72,7 +75,7 @@ export const Component = forwardRef(function Component(
                         <InputField
                             style={computedStyle.RecurrencePatternInputField}
                             placeholder={"Recurrence Pattern"}
-                            value={"0 0 0 8 8 ? 2024"}
+                            value={recurrencePattern}
                         />
                         <NumericInputField
                             style={computedStyle.NotificationIntervalNumericInputField}
@@ -81,7 +84,7 @@ export const Component = forwardRef(function Component(
                             treatEmptyInputAsZero={true}
                             maximumFractionDigitCount={0}
                             placeholder={"Notification Interval (Hours)"}
-                            defaultValue={1}
+                            defaultValue={notificationIntervalInHours}
                         />
                         <Toggle style={computedStyle.DoneToggle} icon={DefaultIconSet.CheckMarkInsideCircle}/>
                         <Toggle style={computedStyle.MuteToggle} icon={DefaultIconSet.NoSound}/>
@@ -212,6 +215,8 @@ export const Component = forwardRef(function Component(
     {
         onChange?.({
             name: newText,
+            recurrencePattern,
+            notificationIntervalInHours,
             tags,
             modifiedDate,
             createdDate
@@ -229,6 +234,8 @@ export const Component = forwardRef(function Component(
 
         onChange?.({
             name,
+            recurrencePattern,
+            notificationIntervalInHours,
             tags: {
                 ...tags,
                 [pressedTagId]: {
