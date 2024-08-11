@@ -1,4 +1,4 @@
-import {IsDate, IsNumber, IsString, Min} from "@miniskylab/antimatter-framework";
+import {IsDate, IsNumber, IsString, Matches, Min} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {Tag} from "./tag";
 
@@ -9,6 +9,16 @@ export class Data
     readonly name?: string;
 
 
+    @Matches(
+        "^Done$|^$|" +
+        "^(\\*|(\\*\\/)?([1-5]?[0-9])) " +
+        "(\\*|([1-5]?[0-9])) " +
+        "(\\*|(\\*\\/)?([0-9]|1[0-9]|2[0-3])) " +
+        "(\\*|(\\*\\/)?([1-9]|[12][0-9]|3[01])) " +
+        "(\\*|(\\*\\/)?([1-9]|1[0-2])) " +
+        "\\? " +
+        "(\\*|(\\*\\/)?(20[0-9][0-9]))$"
+    )
     @IsString()
     @IsOptional()
     readonly recurrencePattern?: string;

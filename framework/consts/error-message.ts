@@ -19,10 +19,11 @@ export const ErrorMessage = {
         CannotBeLessThanOtherProperty: "Property \"{0}\" cannot be less than property \"{1}\". Received values: {0} = {2}, {1} = {3}",
         CannotBeGreaterThanOtherProperty: "Property \"{0}\" cannot be greater than property \"{1}\". Received values: {0} = {2}, {1} = {3}",
         CannotCompareForInequality: "Cannot compare property \"{0}\" to property \"{1}\" for inequality. Received values: {0} = {2}, {1} = {3}",
-        CannotBeGreaterThanValue: (value: number) => `Property \"{0}\" cannot be greater than ${value}. Received value: {0} = {1}`,
-        CannotBeLessThanValue: (value: number) => `Property \"{0}\" cannot be less than ${value}. Received value: {0} = {1}`,
-        CannotBeGreaterThanOrEqualToValue: (value: number) => `Property \"{0}\" cannot be greater than or equal to ${value}. Received value: {0} = {1}`,
-        CannotBeLessThanOrEqualToValue: (value: number) => `Property \"{0}\" cannot be less than or equal to ${value}. Received value: {0} = {1}`
+        MustMatchRegex: (value: string) => `Property "{0}" must match regex "${value}". Received value: {0} = {1}`,
+        CannotBeGreaterThanValue: (value: number) => `Property "{0}" cannot be greater than ${value}. Received value: {0} = {1}`,
+        CannotBeLessThanValue: (value: number) => `Property "{0}" cannot be less than ${value}. Received value: {0} = {1}`,
+        CannotBeGreaterThanOrEqualToValue: (value: number) => `Property "{0}" cannot be greater than or equal to ${value}. Received value: {0} = {1}`,
+        CannotBeLessThanOrEqualToValue: (value: number) => `Property "{0}" cannot be less than or equal to ${value}. Received value: {0} = {1}`
     },
 
     RemoteAuthentication: {

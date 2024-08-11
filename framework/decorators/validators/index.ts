@@ -1,5 +1,6 @@
 export * from "./min";
 export * from "./max";
+export * from "./matches";
 export * from "./is-date";
 export * from "./is-enum";
 export * from "./is-empty";
