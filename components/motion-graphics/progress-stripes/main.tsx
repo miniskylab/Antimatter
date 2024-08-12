@@ -5,9 +5,6 @@ import {type LayoutChangeEvent} from "react-native";
 import {ProgressStripesContext, ProgressStripesProps, type ProgressStripesState, StripeIndexContext} from "./models";
 import * as Variant from "./variants";
 
-/**
- * Progress bar with stripes moving left to right.
- */
 export function ProgressStripes({
     style = Variant.Default,
     msAnimationDuration = 300

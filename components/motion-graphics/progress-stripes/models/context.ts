@@ -1,6 +1,6 @@
 import {type ComponentContext} from "@miniskylab/antimatter-framework";
 import {createContext} from "react";
-import {ProgressStripesProps} from "./props";
+import {type ProgressStripesProps} from "./props";
 import {type ProgressStripesState} from "./state";
 
 export const ProgressStripesContext = createContext<ProgressStripesContext>(undefined);

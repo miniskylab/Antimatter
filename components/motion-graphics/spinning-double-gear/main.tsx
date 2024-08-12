@@ -4,7 +4,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {SpinningDoubleGearAnimationHook} from "./hooks";
-import {SpinningDoubleGearContext, SpinningDoubleGearProps} from "./models";
+import {SpinningDoubleGearContext, type SpinningDoubleGearProps} from "./models";
 import * as Variant from "./variants";
 
 /**
