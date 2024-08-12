@@ -1,4 +1,4 @@
-import {DataListControlButton} from "./data-list-control-button";
+import {DataListControlButton} from "../classes";
 
 export type DataListControlPanel = {
     button1: DataListControlButton;

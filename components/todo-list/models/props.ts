@@ -1,5 +1,5 @@
-import {type DataListControlButton, DataListDisplayPanel} from "@miniskylab/antimatter-data-list";
-import {ComponentName, ComponentProps, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
+import {DataListControlButton, DataListDisplayPanel} from "@miniskylab/antimatter-data-list";
+import {ComponentName, ComponentProps, IsDefined, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {SelectedReminder} from "../classes";
@@ -58,30 +58,45 @@ export class TodoListProps extends ComponentProps<TodoListStyle>
     /**
      * Specify the button that users can press to add a new reminder to the todo list.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly addNewReminderButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to save all changes made to the selected reminder.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly saveReminderButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to delete the selected reminder from the todo list.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly deleteReminderButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to discard all changes made to the selected reminder.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly cancelButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to trigger custom functionalities.
      */
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly customButton?: DataListControlButton;
 
 

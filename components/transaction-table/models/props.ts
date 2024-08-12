@@ -1,5 +1,5 @@
-import {ComponentName, ComponentProps, IsDate, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
-import {type DataListControlButton, DataListDisplayPanel} from "@miniskylab/antimatter-data-list";
+import {DataListControlButton, DataListDisplayPanel} from "@miniskylab/antimatter-data-list";
+import {ComponentName, ComponentProps, IsDate, IsDefined, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {SelectedTransaction} from "../classes";
@@ -78,30 +78,45 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     /**
      * Specify the button that users can press to add a new transaction to the table.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly addNewTransactionButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to save all changes made to the selected transaction.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly saveTransactionButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to delete the selected transaction from the table.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly deleteTransactionButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to discard all changes made to the selected transaction.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly cancelButton: DataListControlButton;
 
 
     /**
      * Specify the button that users can press to trigger custom functionalities.
      */
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly customButton?: DataListControlButton;
 
 

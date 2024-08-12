@@ -1,9 +1,8 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps, IsDefined} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {type ReactNode} from "react";
-import {DataListDisplayPanel} from "../classes";
-import type {DataListControlButton} from "../types";
+import {DataListControlButton, DataListDisplayPanel} from "../classes";
 import {type DataListStyle} from "./style";
 
 @ComponentName("Data List")
@@ -28,17 +27,26 @@ export class DataListProps extends ComponentProps<DataListStyle>
     /**
      * Specify button 1.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly button1: DataListControlButton;
 
 
     /**
      * Specify button 2.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly button2: DataListControlButton;
 
 
     /**
      * Specify button 3.
      */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
     readonly button3: DataListControlButton;
 }

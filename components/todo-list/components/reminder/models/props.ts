@@ -13,8 +13,9 @@ import {
     Min
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {Data, Tag} from "../classes";
+import {Data} from "../classes";
 import {Mode} from "../enums";
+import type {Tag} from "../types";
 import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>

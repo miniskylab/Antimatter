@@ -1,6 +1,6 @@
 import {IsDate, IsNumber, IsString, Matches, Min} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {Tag} from "./tag";
+import type {Tag} from "../types";
 
 export class Data
 {
