@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps} from "@miniskylab/antimatter-framework";
+import {ArrayNotEmpty, ComponentName, ComponentProps, IsArray} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {ShortWeatherData, TemperatureData, WindData} from "../classes";
@@ -98,10 +98,12 @@ export class WeatherWidgetProps extends ComponentProps<WeatherWidgetStyle>
     /**
      * Specify weather forecast data for particular time frames.
      *
-     * @type TimeFrameForecastData
+     * @type TimeFrameForecastData[]
      */
+    @ArrayNotEmpty()
+    @IsArray()
     @IsOptional()
-    @ValidateNested()
+    @ValidateNested({each: true})
     @Type(() => TimeFrameForecastData.Props)
     readonly timeFrameForecastData?: TimeFrameForecastData.Props[];
 }

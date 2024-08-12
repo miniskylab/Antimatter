@@ -1,6 +1,8 @@
 import {
+    ArrayNotEmpty,
     ComponentName,
     ComponentProps,
+    IsArray,
     IsBoolean,
     IsDefined,
     IsEnum,
@@ -9,8 +11,9 @@ import {
     IsString,
     Min
 } from "@miniskylab/antimatter-framework";
-import {IsOptional} from "class-validator";
-import {type SongRow} from "../components";
+import {Type} from "class-transformer";
+import {IsOptional, ValidateNested} from "class-validator";
+import {SongRow} from "../components";
 import {RepeatMode} from "../enums";
 import {type MusicPlayerStyle} from "./style";
 
@@ -90,7 +93,11 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
     /**
      * Specify all audio files to which the music player has access.
      */
+    @ArrayNotEmpty()
+    @IsArray()
     @IsOptional()
+    @ValidateNested({each: true})
+    @Type(() => SongRow.Props)
     readonly tracklist?: SongRow.SongData[];
 
 
