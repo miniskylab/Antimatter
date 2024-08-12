@@ -2,7 +2,7 @@ import {Button} from "@miniskylab/antimatter-button";
 import {type AllPropertiesMustPresent, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {MonthContext, MonthViewContext, Props} from "./models";
+import {MonthContext, MonthViewContext, type Props} from "./models";
 
 export function Component({
     style,

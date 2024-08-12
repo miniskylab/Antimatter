@@ -2,7 +2,7 @@ import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/a
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import React, {JSX, useMemo} from "react";
-import {Props, SongRowContext} from "./models";
+import {type Props, SongRowContext} from "./models";
 import {getFormattedTime} from "./services";
 
 export function Component({

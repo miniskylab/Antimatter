@@ -9,7 +9,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo, useRef, useState} from "react";
 import {Mode} from "./enums";
-import {ColumnIndexContext, Props, RowContext, type State} from "./models";
+import {ColumnIndexContext, type Props, RowContext, type State} from "./models";
 import type {Measurement} from "./types";
 
 export function Component({

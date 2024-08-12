@@ -3,7 +3,7 @@ import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {DateContext, DateViewContext, Props} from "./models";
+import {DateContext, DateViewContext, type Props} from "./models";
 
 export function Component({
     style,

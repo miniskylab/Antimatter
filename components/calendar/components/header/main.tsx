@@ -3,7 +3,7 @@ import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/a
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {HeaderContext, Props} from "./models";
+import {HeaderContext, type Props} from "./models";
 
 export function Component({
     style,

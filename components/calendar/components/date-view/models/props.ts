@@ -1,9 +1,8 @@
 import {ComponentProps} from "@miniskylab/antimatter-framework";
-import type {DateInfo} from "../types";
-import {type Style} from "./style";
+import {DateInfo} from "../types";
+import {Style} from "./style";
 
-export class Props extends ComponentProps<Style>
-{
+export type Props = ComponentProps<Style> & {
     readonly today?: Date;
     readonly data?: DateInfo[][];
     readonly onDatePress?: (date: Date) => void;
