@@ -34,7 +34,7 @@ export function Toggle({
         <ToggleContext.Provider value={context}>
             <View style={computedStyle.Root}>
                 <Pressable style={computedStyle.Container} onPress={() => { onChange?.(getNewStatus()); }}>
-                    <Icon style={computedStyle.Icon} name={icon} selectable={false}/>
+                    <Icon style={computedStyle.Icon} name={icon} selectable={false} pointerEvents={"none"}/>
                 </Pressable>
             </View>
         </ToggleContext.Provider>

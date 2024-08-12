@@ -7,7 +7,7 @@ import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
-import {Toggle} from "@miniskylab/antimatter-toggle";
+import {Status, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
@@ -51,6 +51,9 @@ export const Component = forwardRef(function Component(
     const {computedStyle} = useComputedStyle(style, props);
 
     const rootContainerRef = useRef<Pressable<Ref>>(null);
+    const lastInputtedRecurrencePatternRef = useRef<string>(EMPTY_STRING);
+    const notificationIntervalNumericInputFieldUpdateKeyRef = useRef<number>();
+
     useImperativeHandle(ref, () => ({
         flashHighlight: rootContainerRef.current?.flashHighlight,
         editModeExpandHeight: rootContainerRef.current?.editModeExpandHeight,
@@ -69,31 +72,7 @@ export const Component = forwardRef(function Component(
                     {renderDeadline()}
                     {renderTags()}
                 </View>
-                {(mode === Mode.Draft || mode === Mode.Edit) && (
-                    <View style={computedStyle.ExpansionArea}>
-                        <InputField
-                            style={computedStyle.RecurrencePatternInputField}
-                            placeholder={recurrencePatternPlaceholder}
-                            value={recurrencePattern}
-                            onChangeText={onRecurrencePatternChange}
-                        />
-                        <NumericInputField
-                            style={computedStyle.NotificationIntervalNumericInputField}
-                            minValue={0}
-                            maxValue={8800}
-                            selectTextOnFocus={true}
-                            treatEmptyInputAsZero={true}
-                            maximumFractionDigitCount={0}
-                            placeholder={notificationIntervalPlaceholder}
-                            defaultValue={notificationInterval}
-                            keyboardType={"number-pad"}
-                            onChange={onNotificationIntervalChange}
-                        />
-                        <Toggle style={computedStyle.DoneToggle} icon={DefaultIconSet.CheckMarkInsideCircle}/>
-                        <Toggle style={computedStyle.MuteToggle} icon={DefaultIconSet.NoSound}/>
-                        <Button style={computedStyle.DismissButton} label={"Dismiss"}/>
-                    </View>
-                )}
+                {(mode === Mode.Draft || mode === Mode.Edit) && renderExpansionArea()}
             </Pressable>
         </ReminderContext.Provider>
     );
@@ -214,36 +193,52 @@ export const Component = forwardRef(function Component(
         }
     }
 
+    function renderExpansionArea(): JSX.Element
+    {
+        return (
+            <View style={computedStyle.ExpansionArea}>
+                <InputField
+                    style={computedStyle.RecurrencePatternInputField}
+                    placeholder={recurrencePatternPlaceholder}
+                    value={recurrencePattern}
+                    onChangeText={onRecurrencePatternChange}
+                />
+                <NumericInputField
+                    style={computedStyle.NotificationIntervalNumericInputField}
+                    key={notificationIntervalNumericInputFieldUpdateKeyRef.current}
+                    minValue={0}
+                    maxValue={8800}
+                    selectTextOnFocus={true}
+                    treatEmptyInputAsZero={true}
+                    maximumFractionDigitCount={0}
+                    placeholder={notificationIntervalPlaceholder}
+                    defaultValue={notificationInterval}
+                    keyboardType={"number-pad"}
+                    onChange={onNotificationIntervalChange}
+                />
+                <Toggle
+                    style={computedStyle.DoneToggle}
+                    icon={DefaultIconSet.CheckMarkInsideCircle}
+                    status={recurrencePattern === "Done" ? Status.Checked : Status.Unchecked}
+                    onChange={onDoneToggleStatusChange}
+                />
+                <Toggle
+                    style={computedStyle.MuteToggle}
+                    icon={DefaultIconSet.NoSound}
+                    status={notificationInterval === 0 ? Status.Checked : Status.Unchecked}
+                    onChange={onMuteToggleStatusChange}
+                />
+                <Button style={computedStyle.DismissButton} label={"Dismiss"}/>
+            </View>
+        );
+    }
+
     function onNameChange(newText: string): void
     {
         onChange?.({
             name: newText,
             recurrencePattern,
             notificationInterval,
-            tags,
-            modifiedDate,
-            createdDate
-        });
-    }
-
-    function onRecurrencePatternChange(newText: string): void
-    {
-        onChange?.({
-            name,
-            recurrencePattern: newText,
-            notificationInterval,
-            tags,
-            modifiedDate,
-            createdDate
-        });
-    }
-
-    function onNotificationIntervalChange(newValue: number): void
-    {
-        onChange?.({
-            name,
-            recurrencePattern,
-            notificationInterval: newValue,
             tags,
             modifiedDate,
             createdDate
@@ -276,5 +271,48 @@ export const Component = forwardRef(function Component(
             modifiedDate,
             createdDate
         });
+    }
+
+    function onRecurrencePatternChange(newText: string): void
+    {
+        onChange?.({
+            name,
+            recurrencePattern: newText,
+            notificationInterval,
+            tags,
+            modifiedDate,
+            createdDate
+        });
+    }
+
+    function onNotificationIntervalChange(newValue: number): void
+    {
+        onChange?.({
+            name,
+            recurrencePattern,
+            notificationInterval: newValue,
+            tags,
+            modifiedDate,
+            createdDate
+        });
+    }
+
+    function onDoneToggleStatusChange(newStatus: Status): void
+    {
+        if (newStatus === Status.Checked)
+        {
+            lastInputtedRecurrencePatternRef.current = recurrencePattern;
+            onRecurrencePatternChange("Done");
+        }
+        else
+        {
+            onRecurrencePatternChange(lastInputtedRecurrencePatternRef.current);
+        }
+    }
+
+    function onMuteToggleStatusChange(newStatus: Status): void
+    {
+        notificationIntervalNumericInputFieldUpdateKeyRef.current = Date.now();
+        onNotificationIntervalChange(newStatus === Status.Checked ? 0 : 1);
     }
 });
