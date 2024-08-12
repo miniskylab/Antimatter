@@ -1,81 +1,21 @@
-import {
-    ComponentProps,
-    GestureResponderEventHandler,
-    IsBoolean,
-    IsDate,
-    IsDefined,
-    IsEnum,
-    IsInteger,
-    IsNotEmpty,
-    IsNumber,
-    IsPositive,
-    IsString
-} from "@miniskylab/antimatter-framework";
-import {IsOptional} from "class-validator";
+import {ComponentProps, GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
 import {Data} from "../classes";
 import {Mode} from "../enums";
-import type {Tag} from "../types";
-import {type Style} from "./style";
+import {Tag} from "../types";
+import {Style} from "./style";
 
-export class Props extends ComponentProps<Style>
-{
-    @IsNotEmpty()
-    @IsString()
-    @IsDefined()
+export type Props = ComponentProps<Style> & {
     readonly id: string;
-
-
-    @IsString()
-    @IsOptional()
     readonly name?: string;
-
-
-    @IsNumber()
-    @IsDefined()
     readonly amount: number;
-
-
-    @IsPositive()
-    @IsInteger()
-    @IsNumber()
-    @IsOptional()
     readonly maxSelectedTagCount?: number;
-
-
-    @IsBoolean()
-    @IsOptional()
     readonly showProgressStripes?: boolean;
-
-
-    @IsBoolean()
-    @IsOptional()
     readonly toBeDeleted?: boolean;
-
-
-    @IsOptional()
     readonly tags?: Record<string, Tag>;
-
-
-    @IsDate()
-    @IsDefined()
     readonly executedDate: Date;
-
-
-    @IsDate()
-    @IsOptional()
     readonly modifiedDate?: Date;
-
-
-    @IsDate()
-    @IsOptional()
     readonly createdDate?: Date;
-
-
-    @IsEnum(Mode)
-    @IsOptional()
     readonly mode?: Mode;
-
-
     readonly onPress?: GestureResponderEventHandler;
     readonly onChange?: (newTransactionData: Data) => void;
 }

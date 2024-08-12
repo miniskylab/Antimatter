@@ -12,7 +12,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {Mode, TagMetadata, TagStatus} from "./enums";
-import {Props, type Ref, ReminderContext} from "./models";
+import {type Props, type Ref, ReminderContext} from "./models";
 import type {Tag} from "./types";
 
 export const Component = forwardRef(function Component(

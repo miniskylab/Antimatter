@@ -1,4 +1,14 @@
-import {ComponentProps, IsBoolean, IsDate, IsDefined, IsEnum, IsNotEmpty, IsString, TimeUnit} from "@miniskylab/antimatter-framework";
+import {
+    ComponentProps,
+    IsBoolean,
+    IsDate,
+    IsDefined,
+    IsEmpty,
+    IsEnum,
+    IsNotEmpty,
+    IsString,
+    TimeUnit
+} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {type ImageSourcePropType} from "react-native";
@@ -6,6 +16,7 @@ import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {
+    @IsEmpty()
     readonly index: number;
 
 

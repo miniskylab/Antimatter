@@ -1,7 +1,7 @@
 import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
-import {Props} from "./models";
+import {type Props} from "./models";
 
 export function Component({
     id,

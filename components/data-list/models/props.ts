@@ -1,7 +1,7 @@
 import {ComponentName, ComponentProps, IsDefined} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {type ReactNode} from "react";
+import {type ReactElement} from "react";
 import {DataListControlButton, DataListDisplayPanel} from "../classes";
 import {type DataListStyle} from "./style";
 
@@ -12,7 +12,7 @@ export class DataListProps extends ComponentProps<DataListStyle>
      * Specify the content of the data list.
      */
     @IsOptional()
-    readonly children?: ReactNode;
+    readonly children?: ReactElement;
 
 
     /**

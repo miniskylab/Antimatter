@@ -2,7 +2,7 @@ import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/a
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
-import {PipIndexContext, PipsContext, Props} from "./models";
+import {PipIndexContext, PipsContext, type Props} from "./models";
 import {getPctPipValue, getPipCount, isMilestonePip} from "./services";
 
 export function Component({
