@@ -21,7 +21,9 @@ export const Component = forwardRef(function Component(
         id,
         name = EMPTY_STRING,
         recurrencePattern = EMPTY_STRING,
-        notificationIntervalInHours,
+        recurrencePatternPlaceholder = EMPTY_STRING,
+        notificationInterval,
+        notificationIntervalPlaceholder = EMPTY_STRING,
         tags = {},
         maxSelectedTagCount = 2,
         showProgressStripes,
@@ -36,8 +38,8 @@ export const Component = forwardRef(function Component(
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, id, name, recurrencePattern, notificationIntervalInHours, tags, maxSelectedTagCount, showProgressStripes, toBeDeleted,
-        modifiedDate, createdDate, mode, onPress, onChange
+        style, id, name, recurrencePattern, recurrencePatternPlaceholder, notificationInterval, notificationIntervalPlaceholder, tags,
+        maxSelectedTagCount, showProgressStripes, toBeDeleted, modifiedDate, createdDate, mode, onPress, onChange
     };
 
     const context = useMemo<ReminderContext>(
@@ -71,17 +73,21 @@ export const Component = forwardRef(function Component(
                     <View style={computedStyle.ExpansionArea}>
                         <InputField
                             style={computedStyle.RecurrencePatternInputField}
-                            placeholder={"Recurrence Pattern"}
+                            placeholder={recurrencePatternPlaceholder}
                             value={recurrencePattern}
+                            onChangeText={onRecurrencePatternChange}
                         />
                         <NumericInputField
                             style={computedStyle.NotificationIntervalNumericInputField}
                             minValue={0}
                             maxValue={8800}
+                            selectTextOnFocus={true}
                             treatEmptyInputAsZero={true}
                             maximumFractionDigitCount={0}
-                            placeholder={"Notification Interval (Hours)"}
-                            defaultValue={notificationIntervalInHours}
+                            placeholder={notificationIntervalPlaceholder}
+                            defaultValue={notificationInterval}
+                            keyboardType={"number-pad"}
+                            onChange={onNotificationIntervalChange}
                         />
                         <Toggle style={computedStyle.DoneToggle} icon={DefaultIconSet.CheckMarkInsideCircle}/>
                         <Toggle style={computedStyle.MuteToggle} icon={DefaultIconSet.NoSound}/>
@@ -213,7 +219,31 @@ export const Component = forwardRef(function Component(
         onChange?.({
             name: newText,
             recurrencePattern,
-            notificationIntervalInHours,
+            notificationInterval,
+            tags,
+            modifiedDate,
+            createdDate
+        });
+    }
+
+    function onRecurrencePatternChange(newText: string): void
+    {
+        onChange?.({
+            name,
+            recurrencePattern: newText,
+            notificationInterval,
+            tags,
+            modifiedDate,
+            createdDate
+        });
+    }
+
+    function onNotificationIntervalChange(newValue: number): void
+    {
+        onChange?.({
+            name,
+            recurrencePattern,
+            notificationInterval: newValue,
             tags,
             modifiedDate,
             createdDate
@@ -232,7 +262,7 @@ export const Component = forwardRef(function Component(
         onChange?.({
             name,
             recurrencePattern,
-            notificationIntervalInHours,
+            notificationInterval,
             tags: {
                 ...tags,
                 [pressedTagId]: {

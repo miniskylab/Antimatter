@@ -890,7 +890,7 @@ const TransactionTable__TransactionRecord__NameInputField__Placeholder: TextStyl
     return {
         ...inheritedStyle,
         display: inputFieldContext.props.value ? "none" : "flex",
-        height: "100%",
+        lineHeight: 23,
         paddingLeft: 0,
         fontSize: 16,
         fontWeight: "bold",

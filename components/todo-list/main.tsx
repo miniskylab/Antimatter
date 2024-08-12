@@ -1,6 +1,7 @@
 import {DataList, type DataListControlPanel} from "@miniskylab/antimatter-data-list";
 import {
     type AllPropertiesMustPresent,
+    EMPTY_STRING,
     isNotNullAndUndefined,
     isNullOrUndefined,
     type Nullable,
@@ -21,6 +22,8 @@ export const TodoList = forwardRef(function TodoList(
         style = Variant.Default,
         reminders = {},
         selectedReminder,
+        reminderRecurrencePatternPlaceholder = EMPTY_STRING,
+        reminderNotificationIntervalPlaceholder = EMPTY_STRING,
         mode = Reminder.Mode.ReadOnly,
         maxSelectedTagCount = 2,
         displayPanel,
@@ -37,8 +40,9 @@ export const TodoList = forwardRef(function TodoList(
 ): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<TodoListProps> = {
-        style, reminders, selectedReminder, mode, maxSelectedTagCount, displayPanel, addNewReminderButton, saveReminderButton,
-        deleteReminderButton, cancelButton, customButton, onSwitchMode, onChangeReminder, onSelectReminder
+        style, reminderRecurrencePatternPlaceholder, reminderNotificationIntervalPlaceholder, reminders, selectedReminder, mode,
+        maxSelectedTagCount, displayPanel, addNewReminderButton, saveReminderButton, deleteReminderButton, cancelButton, customButton,
+        onSwitchMode, onChangeReminder, onSelectReminder
     };
 
     const [state, setState] = useState<TodoListState>({
@@ -265,9 +269,11 @@ export const TodoList = forwardRef(function TodoList(
                     style={computedStyle.Reminder}
                     mode={reminderMode}
                     tags={reminderData?.tags}
-                    maxSelectedTagCount={maxSelectedTagCount}
-                    showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}
                     toBeDeleted={isToBeDeletedReminder}
+                    maxSelectedTagCount={maxSelectedTagCount}
+                    recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
+                    notificationIntervalPlaceholder={reminderNotificationIntervalPlaceholder}
+                    showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}
                     onPress={!selectedReminder ? () => { onSelectReminder?.(sortedReminderId); } : undefined}
                     onChange={newReminderData => { onChangeReminder?.(newReminderData); }}
                 />

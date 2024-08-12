@@ -264,6 +264,7 @@ export const Playground: Story = {
         transactions: Sb.locked,
         selectedDate: Sb.locked,
         selectedTransaction: Sb.locked,
+        transactionNamePlaceholder: Sb.text(),
         mode: Sb.locked,
         displayPanel: Sb.locked,
         addNewTransactionButton: Sb.locked,
@@ -278,13 +279,14 @@ export const Playground: Story = {
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
+        maxSelectedTagCount: 3,
+        transactionNamePlaceholder: "Transaction Name",
         summary: {
             section1Label: "Iaculis",
             section2Label: "Lorem",
             ...TestData.getSummaryFigures(TransactionRecord.Mode.ReadOnly, today)
         },
         selectedDate: today,
-        maxSelectedTagCount: 3,
         transactions: {...TestData.Transactions}
     }
 };

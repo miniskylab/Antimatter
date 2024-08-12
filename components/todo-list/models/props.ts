@@ -1,5 +1,15 @@
 import {DataListControlButton, DataListDisplayPanel} from "@miniskylab/antimatter-data-list";
-import {ComponentName, ComponentProps, IsDefined, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
+import {
+    ComponentName,
+    ComponentProps,
+    IsDefined,
+    IsEnum,
+    IsInteger,
+    IsNotEmpty,
+    IsNumber,
+    IsPositive,
+    IsString
+} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {SelectedReminder} from "../classes";
@@ -24,6 +34,24 @@ export class TodoListProps extends ComponentProps<TodoListStyle>
     @ValidateNested()
     @Type(() => SelectedReminder)
     readonly selectedReminder?: SelectedReminder;
+
+
+    /**
+     * Specify the text that will be displayed before the reminder recurrence pattern has been entered.
+     */
+    @IsNotEmpty()
+    @IsString()
+    @IsOptional()
+    readonly reminderRecurrencePatternPlaceholder?: string;
+
+
+    /**
+     * Specify the text that will be displayed before the reminder notification interval has been entered.
+     */
+    @IsNotEmpty()
+    @IsString()
+    @IsOptional()
+    readonly reminderNotificationIntervalPlaceholder?: string;
 
 
     /**

@@ -4,6 +4,7 @@ import {DatePicker} from "@miniskylab/antimatter-date-picker";
 import {
     type AllPropertiesMustPresent,
     DateFormat,
+    EMPTY_STRING,
     isNotNullAndUndefined,
     isNullOrUndefined,
     type Nullable,
@@ -28,6 +29,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
         transactions = {},
         selectedDate = new Date(),
         selectedTransaction,
+        transactionNamePlaceholder = EMPTY_STRING,
         mode = TransactionRecord.Mode.ReadOnly,
         maxSelectedTagCount = 3,
         displayPanel,
@@ -45,9 +47,9 @@ export const TransactionTable = forwardRef(function TransactionTable(
 ): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<TransactionTableProps> = {
-        style, summary, transactions, selectedDate, selectedTransaction, mode, maxSelectedTagCount, displayPanel, customButton,
-        addNewTransactionButton, saveTransactionButton, deleteTransactionButton, cancelButton, onChangeTransaction, onSelectDate,
-        onSelectTransaction, onSwitchMode
+        style, summary, transactions, selectedDate, selectedTransaction, transactionNamePlaceholder, mode, maxSelectedTagCount,
+        displayPanel, customButton, addNewTransactionButton, saveTransactionButton, deleteTransactionButton, cancelButton,
+        onChangeTransaction, onSelectDate, onSelectTransaction, onSwitchMode
     };
 
     const [state, setState] = useState<TransactionTableState>({
@@ -322,9 +324,10 @@ export const TransactionTable = forwardRef(function TransactionTable(
                     style={computedStyle.TransactionRecord}
                     mode={transactionMode}
                     tags={transactionData?.tags}
-                    maxSelectedTagCount={maxSelectedTagCount}
-                    showProgressStripes={isSelectedTransaction && selectedTransaction?.showProgressStripes}
                     toBeDeleted={isToBeDeletedTransaction}
+                    maxSelectedTagCount={maxSelectedTagCount}
+                    namePlaceholder={transactionNamePlaceholder}
+                    showProgressStripes={isSelectedTransaction && selectedTransaction?.showProgressStripes}
                     onPress={!selectedTransaction ? () => { onSelectTransaction?.(filteredTransactionId); } : undefined}
                     onChange={newTransactionData => { onChangeTransaction?.(newTransactionData); }}
                 />

@@ -7,6 +7,7 @@ import {Style} from "./style";
 export type Props = ComponentProps<Style> & {
     readonly id: string;
     readonly name?: string;
+    readonly namePlaceholder?: string;
     readonly amount: number;
     readonly maxSelectedTagCount?: number;
     readonly showProgressStripes?: boolean;

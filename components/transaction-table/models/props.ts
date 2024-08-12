@@ -1,5 +1,16 @@
 import {DataListControlButton, DataListDisplayPanel} from "@miniskylab/antimatter-data-list";
-import {ComponentName, ComponentProps, IsDate, IsDefined, IsEnum, IsInteger, IsNumber, IsPositive} from "@miniskylab/antimatter-framework";
+import {
+    ComponentName,
+    ComponentProps,
+    IsDate,
+    IsDefined,
+    IsEnum,
+    IsInteger,
+    IsNotEmpty,
+    IsNumber,
+    IsPositive,
+    IsString
+} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
 import {SelectedTransaction} from "../classes";
@@ -44,6 +55,15 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
     @ValidateNested()
     @Type(() => SelectedTransaction)
     readonly selectedTransaction?: SelectedTransaction;
+
+
+    /**
+     * Specify the text that will be displayed before the transaction name has been entered.
+     */
+    @IsNotEmpty()
+    @IsString()
+    @IsOptional()
+    readonly transactionNamePlaceholder?: string;
 
 
     /**

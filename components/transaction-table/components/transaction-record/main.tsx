@@ -18,6 +18,7 @@ export const Component = forwardRef(function Component(
         style,
         id,
         name = EMPTY_STRING,
+        namePlaceholder = EMPTY_STRING,
         tags = {},
         amount = 0,
         maxSelectedTagCount = 3,
@@ -34,8 +35,8 @@ export const Component = forwardRef(function Component(
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, id, name, tags, amount, maxSelectedTagCount, showProgressStripes, toBeDeleted, executedDate, modifiedDate, createdDate, mode,
-        onPress, onChange
+        style, id, name, namePlaceholder, tags, amount, maxSelectedTagCount, showProgressStripes, toBeDeleted, executedDate, modifiedDate,
+        createdDate, mode, onPress, onChange
     };
 
     const context = useMemo<TransactionRecordContext>(
@@ -130,7 +131,7 @@ export const Component = forwardRef(function Component(
             mode === Mode.Draft || mode === Mode.Edit
                 ? <InputField
                     style={computedStyle.NameInputField}
-                    placeholder={"Transaction Name"}
+                    placeholder={namePlaceholder}
                     value={name}
                     onChangeText={onNameChange}
                 />

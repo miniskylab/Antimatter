@@ -60,7 +60,7 @@ export default {
                                 data: {
                                     name: EMPTY_STRING,
                                     recurrencePattern: EMPTY_STRING,
-                                    notificationIntervalInHours: 1,
+                                    notificationInterval: 1,
                                     tags: TestData.Tags
                                 }
                             }
@@ -94,7 +94,7 @@ export default {
                             TestData.Reminders[newlyAddedReminderId] = {
                                 name: args.selectedReminder.data.name,
                                 recurrencePattern: args.selectedReminder.data.recurrencePattern,
-                                notificationIntervalInHours: args.selectedReminder.data.notificationIntervalInHours,
+                                notificationInterval: args.selectedReminder.data.notificationInterval,
                                 tags: args.selectedReminder.data.tags,
                                 createdDate: new Date()
                             };
@@ -106,7 +106,7 @@ export default {
                                 ...args.reminders[args.selectedReminder.id],
                                 name: args.selectedReminder.data.name,
                                 recurrencePattern: args.selectedReminder.data.recurrencePattern,
-                                notificationIntervalInHours: args.selectedReminder.data.notificationIntervalInHours,
+                                notificationInterval: args.selectedReminder.data.notificationInterval,
                                 tags: args.selectedReminder.data.tags,
                                 modifiedDate: new Date()
                             };
@@ -178,7 +178,7 @@ export default {
                             data: {
                                 name: args.reminders[args.selectedReminder.id].name,
                                 recurrencePattern: args.reminders[args.selectedReminder.id].recurrencePattern,
-                                notificationIntervalInHours: args.reminders[args.selectedReminder.id].notificationIntervalInHours,
+                                notificationInterval: args.reminders[args.selectedReminder.id].notificationInterval,
                                 tags: args.reminders[args.selectedReminder.id].tags,
                                 modifiedDate: args.reminders[args.selectedReminder.id].modifiedDate,
                                 createdDate: args.reminders[args.selectedReminder.id].createdDate
@@ -207,7 +207,7 @@ export default {
                             data: {
                                 name: args.reminders[reminderId].name,
                                 recurrencePattern: args.reminders[reminderId].recurrencePattern,
-                                notificationIntervalInHours: args.reminders[reminderId].notificationIntervalInHours,
+                                notificationInterval: args.reminders[reminderId].notificationInterval,
                                 tags: args.reminders[reminderId].tags,
                                 modifiedDate: args.reminders[reminderId].modifiedDate,
                                 createdDate: args.reminders[reminderId].createdDate
@@ -227,6 +227,8 @@ export const Playground: Story = {
         maxSelectedTagCount: Sb.number(0),
         reminders: Sb.locked,
         selectedReminder: Sb.locked,
+        reminderRecurrencePatternPlaceholder: Sb.text(),
+        reminderNotificationIntervalPlaceholder: Sb.text(),
         mode: Sb.locked,
         displayPanel: Sb.locked,
         addNewReminderButton: Sb.locked,
@@ -241,6 +243,8 @@ export const Playground: Story = {
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
         maxSelectedTagCount: 2,
+        reminderRecurrencePatternPlaceholder: "Recurrence Pattern",
+        reminderNotificationIntervalPlaceholder: "Notification Interval (Hours)",
         reminders: {...TestData.Reminders}
     }
 };
