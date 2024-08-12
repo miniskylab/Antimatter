@@ -3,9 +3,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
 import {Props} from "./models";
 
-/**
- * A component that wraps around another component and makes it transitionable.
- */
 export function Component({
     id,
     style,

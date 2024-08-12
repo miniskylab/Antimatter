@@ -5,9 +5,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {DateContext, DateViewContext, Props} from "./models";
 
-/**
- * A component for displaying all dates in a month.
- */
 export function Component({
     style,
     today,

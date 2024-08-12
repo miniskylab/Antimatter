@@ -12,9 +12,6 @@ import {Mode} from "./enums";
 import {ColumnIndexContext, Props, RowContext, type State} from "./models";
 import type {Measurement} from "./types";
 
-/**
- * A component for displaying a group of cells aligned horizontally in the data table.
- */
 export function Component({
     style,
     containerRef,

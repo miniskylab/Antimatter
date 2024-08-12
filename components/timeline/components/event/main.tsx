@@ -15,9 +15,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {EventContext, Props} from "./models";
 
-/**
- * A component for displaying an event on the timeline.
- */
 export function Component({
     style,
     index,

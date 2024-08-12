@@ -5,9 +5,6 @@ import React, {JSX, useMemo} from "react";
 import {Props, SongRowContext} from "./models";
 import {getFormattedTime} from "./services";
 
-/**
- * A component for displaying a single digital audio file that can be played in the music player.
- */
 export function Component({
     style,
     songName,

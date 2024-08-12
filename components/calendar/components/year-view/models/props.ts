@@ -6,17 +6,11 @@ import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {
-    /**
-     * Specify the selected year.
-     */
     @IsInteger()
     @IsOptional()
     readonly selectedYear?: number;
 
 
-    /**
-     * Specify the data that will be used to render the year-view.
-     */
     @IsArray()
     @IsOptional()
     @ValidateNested({each: true})
@@ -24,8 +18,5 @@ export class Props extends ComponentProps<Style>
     readonly data?: YearInfo[];
 
 
-    /**
-     * Specify the piece of code that will be executed when users press a year.
-     */
     readonly onYearPress?: (year: number) => void;
 }

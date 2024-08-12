@@ -13,9 +13,6 @@ import {Tag} from "./classes";
 import {Mode, TagMetadata, TagStatus} from "./enums";
 import {Props, type Ref, TransactionRecordContext} from "./models";
 
-/**
- * A component for displaying a single transaction in the transaction table.
- */
 export const Component = forwardRef(function Component(
     {
         style,

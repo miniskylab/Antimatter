@@ -5,9 +5,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Props, TimeFrameForecastDataContext} from "./models";
 
-/**
- * A component for displaying weather forecast data of a particular time frame.
- */
 export function Component({
     style,
     timeFrameName,

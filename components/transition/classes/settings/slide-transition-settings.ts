@@ -8,19 +8,11 @@ export class SlideTransitionSettings extends TransitionSettings
     readonly animation = Animation.Slide;
 
 
-    /**
-     * Specify the direction of the slide transition.
-     *
-     * @type SlideDirection
-     */
     @IsEnum(SlideDirection)
     @IsDefined()
     readonly slideDirection: SlideDirection;
 
 
-    /**
-     * Specify the distance, in pixels, of the slide transition.
-     */
     @IsPositive()
     @IsNumber()
     @IsDefined()

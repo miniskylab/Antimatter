@@ -5,9 +5,6 @@ import React, {JSX, useMemo} from "react";
 import {PipIndexContext, PipsContext, Props} from "./models";
 import {getPctPipValue, getPipCount, isMilestonePip} from "./services";
 
-/**
- * A component for displaying the marking present along the range slider.
- */
 export function Component({
     style,
     minValue,

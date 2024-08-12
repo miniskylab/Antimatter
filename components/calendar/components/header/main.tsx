@@ -5,9 +5,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {HeaderContext, Props} from "./models";
 
-/**
- * A component that shows the time frame the calendar is displaying and enables users to navigate to a different time frame.
- */
 export function Component({
     style,
     headline,

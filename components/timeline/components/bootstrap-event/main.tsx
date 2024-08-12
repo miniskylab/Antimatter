@@ -5,9 +5,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {BootstrapEventContext, Props} from "./models";
 
-/**
- * A component for displaying the event at the origin of the timeline.
- */
 export function Component({
     style,
     icon,

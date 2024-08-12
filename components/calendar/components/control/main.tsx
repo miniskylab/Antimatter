@@ -5,9 +5,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {ControlContext, Props} from "./models";
 
-/**
- * A component that enables users to interact with the calendar.
- */
 export function Component({
     style,
     onTodayButtonPress,

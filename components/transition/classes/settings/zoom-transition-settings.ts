@@ -8,11 +8,6 @@ export class ZoomTransitionSettings extends TransitionSettings
     readonly animation = Animation.Zoom;
 
 
-    /**
-     * Specify the direction of the zoom transition.
-     *
-     * @type ZoomDirection
-     */
     @IsEnum(ZoomDirection)
     @IsDefined()
     readonly zoomDirection: ZoomDirection;

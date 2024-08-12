@@ -6,26 +6,17 @@ import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {
-    /**
-     * Set this option to ***true*** to hide everything inside the card.
-     */
     @IsBoolean()
     @IsOptional()
     readonly isPlaceholderCard?: boolean;
 
 
-    /**
-     * Specify the content of the card.
-     */
     @IsNotEmpty()
     @IsString()
     @IsOptional()
     readonly text?: string;
 
 
-    /**
-     * Specify the actions of the card.
-     */
     @IsArray()
     @IsOptional()
     @ValidateNested({each: true})

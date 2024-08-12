@@ -4,9 +4,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Props, YearContext, YearViewContext} from "./models";
 
-/**
- * A component for displaying all years in a decade.
- */
 export function Component({
     style,
     selectedYear,

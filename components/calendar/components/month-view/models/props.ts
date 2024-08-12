@@ -6,17 +6,11 @@ import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
 {
-    /**
-     * Specify the selected month.
-     */
     @IsDate()
     @IsOptional()
     readonly selectedMonth?: Date;
 
 
-    /**
-     * Specify the data that will be used to render the month-view.
-     */
     @IsArray()
     @IsOptional()
     @ValidateNested({each: true})
@@ -24,8 +18,5 @@ export class Props extends ComponentProps<Style>
     readonly data?: MonthInfo[];
 
 
-    /**
-     * Specify the piece of code that will be executed when users press a month.
-     */
     readonly onMonthPress?: (month: Date) => void;
 }

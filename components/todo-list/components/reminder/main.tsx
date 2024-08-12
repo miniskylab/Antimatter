@@ -15,9 +15,6 @@ import {Tag} from "./classes";
 import {Mode, TagMetadata, TagStatus} from "./enums";
 import {Props, type Ref, ReminderContext} from "./models";
 
-/**
- * A component for displaying a single reminder in the todo list.
- */
 export const Component = forwardRef(function Component(
     {
         style,

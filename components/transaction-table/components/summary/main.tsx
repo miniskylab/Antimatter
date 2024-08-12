@@ -7,9 +7,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Props, SummaryContext} from "./models";
 
-/**
- * A component for displaying the most important information extracted from the transaction table.
- */
 export function Component({
     style,
     section1Label = EMPTY_STRING,

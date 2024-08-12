@@ -5,9 +5,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {CardContext, Props} from "./models";
 
-/**
- * A component that displays content and actions about a single subject.
- */
 export function Component({
     style,
     text,

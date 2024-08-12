@@ -4,9 +4,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {MonthContext, MonthViewContext, Props} from "./models";
 
-/**
- * A component for displaying all months in a year.
- */
 export function Component({
     style,
     selectedMonth,

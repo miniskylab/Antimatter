@@ -5,9 +5,6 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {Props, SimpleWeatherDataContext} from "./models";
 
-/**
- * A component for displaying additional weather data.
- */
 export function Component({
     style,
     icon,
