@@ -1,6 +1,15 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {type AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    DateFormat,
+    EMPTY_STRING,
+    GregorianCalendar,
+    isNotNullAndUndefined,
+    TimeUnit,
+    Ts,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
@@ -13,6 +22,7 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {Mode, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext} from "./models";
+import {getNextExecutionTime, getTimeDurationInDays} from "./services";
 import type {Tag} from "./types";
 
 export const Component = forwardRef(function Component(
@@ -54,6 +64,11 @@ export const Component = forwardRef(function Component(
     const lastInputtedRecurrencePatternRef = useRef<string>(EMPTY_STRING);
     const notificationIntervalNumericInputFieldUpdateKeyRef = useRef<number>();
 
+    const [formattedDueDate, formattedDueDuration] = useMemo(
+        () => getDueDateAndDueDuration(),
+        [recurrencePattern]
+    );
+
     useImperativeHandle(ref, () => ({
         flashHighlight: rootContainerRef.current?.flashHighlight,
         editModeExpandHeight: rootContainerRef.current?.editModeExpandHeight,
@@ -69,7 +84,14 @@ export const Component = forwardRef(function Component(
                 <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
                 <View style={computedStyle.NameTagAndDeadlineContainer}>
                     {renderName()}
-                    {renderDeadline()}
+                    {formattedDueDate && (<>
+                        <Icon style={computedStyle.DueDateIcon} name={DefaultIconSet.Calendar}/>
+                        <Text style={computedStyle.DueDate}>{formattedDueDate}</Text>
+                    </>)}
+                    {formattedDueDuration && (<>
+                        <Icon style={computedStyle.DueDurationIcon} name={DefaultIconSet.Alarm}/>
+                        <Text style={computedStyle.DueDuration}>{formattedDueDuration}</Text>
+                    </>)}
                     {renderTags()}
                 </View>
                 {(mode === Mode.Draft || mode === Mode.Edit) && renderExpansionArea()}
@@ -135,6 +157,31 @@ export const Component = forwardRef(function Component(
         return dropdownMenuItems;
     }
 
+    function getDueDateAndDueDuration(): [string?, string?]
+    {
+        let formattedDueDate: string | undefined;
+        let formattedDueDuration: string | undefined;
+        const dueDate = getNextExecutionTime(recurrencePattern);
+        if (dueDate)
+        {
+            formattedDueDate = GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day)
+                .replaceAll(" ", EMPTY_STRING);
+
+            const timeDurationInDays = getTimeDurationInDays(new Date(), dueDate);
+            formattedDueDuration = timeDurationInDays === 0
+                ? "Today"
+                : timeDurationInDays > 0
+                    ? timeDurationInDays === 1 ? "Tomorrow" : `In ${timeDurationInDays} days`
+                    : Math.abs(timeDurationInDays) === 1 ? "Yesterday" : `${Math.abs(timeDurationInDays)} days ago`;
+        }
+        else if (recurrencePattern === "Done" || !recurrencePattern)
+        {
+            formattedDueDate = "No due date";
+        }
+
+        return [formattedDueDate, formattedDueDuration];
+    }
+
     function renderName(): JSX.Element
     {
         return (
@@ -146,18 +193,6 @@ export const Component = forwardRef(function Component(
                     onChangeText={onNameChange}
                 />
                 : <Text style={computedStyle.NameText} numberOfLines={1} pointerEvents={"none"}>{name}</Text>
-        );
-    }
-
-    function renderDeadline(): JSX.Element
-    {
-        return (
-            <>
-                <Icon style={computedStyle.DueDateIcon} name={DefaultIconSet.Calendar}/>
-                <Text style={computedStyle.DueDate}>{"15/08/2024"}</Text>
-                <Icon style={computedStyle.DueDurationIcon} name={DefaultIconSet.Alarm}/>
-                <Text style={computedStyle.DueDuration}>{"In 100 days"}</Text>
-            </>
         );
     }
 
