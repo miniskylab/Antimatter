@@ -19,9 +19,9 @@ import {Text} from "@miniskylab/antimatter-text";
 import {Status, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef, useState} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {Mode, TagMetadata, TagStatus} from "./enums";
-import {type Props, type Ref, ReminderContext, type ReminderState} from "./models";
+import {type Props, type Ref, ReminderContext} from "./models";
 import {getNextExecutionTime} from "./services";
 import type {Tag} from "./types";
 
@@ -52,13 +52,9 @@ export const Component = forwardRef(function Component(
         maxSelectedTagCount, showProgressStripes, toBeDeleted, modifiedDate, createdDate, mode, onPress, onChange
     };
 
-    const [state, setState] = useState<ReminderState>({
-        isMarkedAsDone: false
-    });
-
     const context = useMemo<ReminderContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
+        () => ({props}),
+        [...Object.values(props)]
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
@@ -68,6 +64,7 @@ export const Component = forwardRef(function Component(
     const lastInputtedRecurrencePatternRef = useRef<string>(EMPTY_STRING);
     const notificationIntervalNumericInputFieldUpdateKeyRef = useRef<number>();
 
+    const isMarkedAsDone = recurrencePattern === "Done";
     const [formattedDueDate, formattedDueDuration] = useMemo(
         () => getFormattedDueDateAndDueDuration(),
         [recurrencePattern]
@@ -235,8 +232,8 @@ export const Component = forwardRef(function Component(
                 <InputField
                     style={computedStyle.RecurrencePatternInputField}
                     placeholder={recurrencePatternPlaceholder}
-                    value={recurrencePattern === "Done" ? lastInputtedRecurrencePatternRef.current : recurrencePattern}
-                    editable={!state.isMarkedAsDone}
+                    value={isMarkedAsDone ? lastInputtedRecurrencePatternRef.current : recurrencePattern}
+                    editable={!isMarkedAsDone}
                     onChangeText={onRecurrencePatternChange}
                 />
                 <NumericInputField
@@ -246,9 +243,9 @@ export const Component = forwardRef(function Component(
                     maxValue={8800}
                     treatEmptyInputAsZero={true}
                     maximumFractionDigitCount={0}
-                    editable={!state.isMarkedAsDone}
-                    focusable={!state.isMarkedAsDone}
-                    selectTextOnFocus={!state.isMarkedAsDone}
+                    editable={!isMarkedAsDone}
+                    focusable={!isMarkedAsDone}
+                    selectTextOnFocus={!isMarkedAsDone}
                     placeholder={notificationIntervalPlaceholder}
                     defaultValue={notificationInterval}
                     keyboardType={"number-pad"}
@@ -257,14 +254,14 @@ export const Component = forwardRef(function Component(
                 <Toggle
                     style={computedStyle.DoneToggle}
                     icon={DefaultIconSet.CheckMarkInsideCircle}
-                    status={recurrencePattern === "Done" ? Status.Checked : Status.Unchecked}
+                    status={isMarkedAsDone ? Status.Checked : Status.Unchecked}
                     onChange={onDoneToggleStatusChange}
                 />
                 <Toggle
                     style={computedStyle.MuteToggle}
                     icon={DefaultIconSet.NoSound}
                     status={notificationInterval === 0 ? Status.Checked : Status.Unchecked}
-                    disabled={state.isMarkedAsDone}
+                    disabled={isMarkedAsDone}
                     onChange={onMuteToggleStatusChange}
                 />
                 <Button style={computedStyle.DismissButton} label={"Dismiss"}/>
@@ -341,12 +338,10 @@ export const Component = forwardRef(function Component(
         if (newStatus === Status.Checked)
         {
             lastInputtedRecurrencePatternRef.current = recurrencePattern;
-            setState({isMarkedAsDone: true});
             onRecurrencePatternChange("Done");
         }
         else
         {
-            setState({isMarkedAsDone: false});
             onRecurrencePatternChange(lastInputtedRecurrencePatternRef.current);
         }
     }
