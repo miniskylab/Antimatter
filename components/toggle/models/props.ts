@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps, IsEnum} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps, IsBoolean, IsEnum} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {Status} from "../enums";
@@ -25,6 +25,14 @@ export class ToggleProps extends ComponentProps<ToggleStyle>
     @IsEnum(DefaultIconSet)
     @IsOptional()
     readonly icon?: DefaultIconSet;
+
+
+    /**
+     * Set this option to ***true*** to prevent users from changing the state of the toggle.
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly disabled?: boolean;
 
 
     /**

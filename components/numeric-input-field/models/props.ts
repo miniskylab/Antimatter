@@ -25,6 +25,22 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
 
 
     /**
+     * Set this option to ***false*** to prevent the numeric input field from receiving focus.
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly focusable?: boolean;
+
+
+    /**
+     * Set this option to ***false*** to prevent users from editing the entered value in the numeric input field.
+     */
+    @IsBoolean()
+    @IsOptional()
+    readonly editable?: boolean;
+
+
+    /**
      * Specify the text that will be displayed before input has been entered.
      */
     @IsString()

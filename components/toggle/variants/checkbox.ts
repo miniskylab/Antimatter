@@ -1,4 +1,5 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {CursorType} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {type PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
@@ -24,12 +25,14 @@ const Toggle__Container: PressableStyle = function (pressableProps, pressableSta
         borderWidth: 3,
         borderStyle: "solid",
         borderColor: Color.Neutral,
-        ...pressableState.hovered && {
-            borderColor: Color.Primary
-        },
+        ...pressableState.hovered && {borderColor: Color.Primary},
         ...(pressableState.pressed || toggleContext.props.status === Status.Checked) && {
             borderColor: Color.Primary,
             backgroundColor: Color.Primary
+        },
+        ...pressableProps.disabled && {
+            opacity: .2,
+            cursor: CursorType.NotAllowed
         }
     };
 };

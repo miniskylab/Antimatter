@@ -53,7 +53,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
     };
 
     const [state, setState] = useState<TransactionTableState>({
-        datePickerIsOpened: false,
+        isDatePickerOpened: false,
         toBeDeletedTransactions: {},
         previousTransactions: transactions
     });
@@ -263,12 +263,12 @@ export const TransactionTable = forwardRef(function TransactionTable(
                 style={computedStyle.DatePicker}
                 selectedDate={selectedDate}
                 dateFormat={DateFormat.Full}
-                isCalendarOpen={state.datePickerIsOpened}
+                isCalendarOpen={state.isDatePickerOpened}
                 onSelectedDateChange={newlySelectedDate =>
                 {
                     setState(prevState => ({
                         ...prevState,
-                        datePickerIsOpened: false
+                        isDatePickerOpened: false
                     }));
 
                     newlySelectedDate && onSelectDate?.(newlySelectedDate);
@@ -277,7 +277,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                 {
                     setState(prevState => ({
                         ...prevState,
-                        datePickerIsOpened: !prevState.datePickerIsOpened
+                        isDatePickerOpened: !prevState.isDatePickerOpened
                     }));
                 }}
             />

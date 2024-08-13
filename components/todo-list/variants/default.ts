@@ -786,8 +786,12 @@ const TodoList__Reminder__NotificationIntervalNumericInputField: NumericInputFie
 
 const TodoList__Reminder__DoneToggle__Root: ViewStyle = function (viewProps)
 {
+    const toggleContext = ToggleContextHook.useToggleContext();
+
+    const inheritedStyle = ToggleVariant.Checkbox(toggleContext.props).Root(viewProps);
+
     return {
-        ...ViewVariant.Default(viewProps),
+        ...inheritedStyle,
         position: "absolute",
         top: 12,
         right: 0
@@ -796,10 +800,16 @@ const TodoList__Reminder__DoneToggle__Root: ViewStyle = function (viewProps)
 
 const TodoList__Reminder__DoneToggle__Container: PressableStyle = function (pressableProps, pressableState)
 {
+    const toggleContext = ToggleContextHook.useToggleContext();
+
+    const inheritedStyle = ToggleVariant.Checkbox(toggleContext.props).Container(pressableProps, pressableState);
+
     return {
-        ...PressableVariant.Default(pressableProps, pressableState),
+        ...inheritedStyle,
+        borderWidth: 0,
         width: 40,
-        height: 40
+        height: 40,
+        backgroundColor: Color.Transparent
     };
 };
 
@@ -808,8 +818,11 @@ const TodoList__Reminder__DoneToggle__Icon: IconStyle = function (iconProps)
     const toggleContext = ToggleContextHook.useToggleContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
+    const inheritedStyle = ToggleVariant.Checkbox(toggleContext.props).Icon(iconProps);
+
     return {
-        ...IconVariant.Default(iconProps),
+        ...inheritedStyle,
+        display: "flex",
         fontSize: 24,
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
             ? Color.Green

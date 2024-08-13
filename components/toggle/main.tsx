@@ -15,11 +15,12 @@ export function Toggle({
     style = Variant.Default,
     status = Status.Unchecked,
     icon = DefaultIconSet.Circle,
+    disabled = false,
     onChange
 }: ToggleProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<ToggleProps> = {
-        style, status, icon, onChange
+        style, status, icon, disabled, onChange
     };
 
     const context = useMemo<ToggleContext>(
@@ -33,7 +34,7 @@ export function Toggle({
     return (
         <ToggleContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                <Pressable style={computedStyle.Container} onPress={() => { onChange?.(getNewStatus()); }}>
+                <Pressable style={computedStyle.Container} onPress={() => { onChange?.(getNewStatus()); }} disabled={disabled}>
                     <Icon style={computedStyle.Icon} name={icon} selectable={false} pointerEvents={"none"}/>
                 </Pressable>
             </View>

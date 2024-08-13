@@ -24,6 +24,8 @@ export const NumericInputField = forwardRef(function NumericInputField(
         defaultValue,
         minValue = MIN,
         maxValue = MAX,
+        editable = true,
+        focusable = true,
         autoFocus = false,
         maximumDigitCount = MAX,
         placeholder = EMPTY_STRING,
@@ -41,7 +43,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<NumericInputFieldProps> = {
-        style, defaultValue, minValue, maxValue, maximumFractionDigitCount, maximumDigitCount, placeholder, autoFocus,
+        style, defaultValue, minValue, maxValue, editable, focusable, autoFocus, maximumDigitCount, placeholder, maximumFractionDigitCount,
         treatEmptyInputAsZero, keyboardType, showPlusSymbolForPositiveNumber, selectTextOnFocus, onChange, onBlur, onFocus, onKeyPress
     };
 
@@ -104,6 +106,8 @@ export const NumericInputField = forwardRef(function NumericInputField(
                 style={computedStyle}
                 value={state.userInput}
                 selection={state.selection}
+                editable={editable}
+                focusable={focusable}
                 autoFocus={autoFocus}
                 placeholder={placeholder}
                 maxLength={state.userInput.length + 1}

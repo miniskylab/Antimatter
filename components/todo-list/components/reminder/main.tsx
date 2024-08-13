@@ -19,9 +19,9 @@ import {Text} from "@miniskylab/antimatter-text";
 import {Status, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef, useState} from "react";
 import {Mode, TagMetadata, TagStatus} from "./enums";
-import {type Props, type Ref, ReminderContext} from "./models";
+import {type Props, type Ref, ReminderContext, type ReminderState} from "./models";
 import {getNextExecutionTime} from "./services";
 import type {Tag} from "./types";
 
@@ -52,9 +52,13 @@ export const Component = forwardRef(function Component(
         maxSelectedTagCount, showProgressStripes, toBeDeleted, modifiedDate, createdDate, mode, onPress, onChange
     };
 
+    const [state, setState] = useState<ReminderState>({
+        isMarkedAsDone: false
+    });
+
     const context = useMemo<ReminderContext>(
-        () => ({props}),
-        [...Object.values(props)]
+        () => ({props, state}),
+        [...Object.values(props), ...Object.values(state)]
     );
 
     Ts.Error.throwIfNullOrUndefined(style);
@@ -161,7 +165,7 @@ export const Component = forwardRef(function Component(
     {
         const dueDate = getNextExecutionTime(recurrencePattern);
         const formattedDueDate = dueDate
-            ? GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day)
+            ? GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
             : "No due date";
 
         let formattedDueDuration: string | undefined;
@@ -231,7 +235,8 @@ export const Component = forwardRef(function Component(
                 <InputField
                     style={computedStyle.RecurrencePatternInputField}
                     placeholder={recurrencePatternPlaceholder}
-                    value={recurrencePattern}
+                    value={recurrencePattern === "Done" ? lastInputtedRecurrencePatternRef.current : recurrencePattern}
+                    editable={!state.isMarkedAsDone}
                     onChangeText={onRecurrencePatternChange}
                 />
                 <NumericInputField
@@ -239,9 +244,11 @@ export const Component = forwardRef(function Component(
                     key={notificationIntervalNumericInputFieldUpdateKeyRef.current}
                     minValue={0}
                     maxValue={8800}
-                    selectTextOnFocus={true}
                     treatEmptyInputAsZero={true}
                     maximumFractionDigitCount={0}
+                    editable={!state.isMarkedAsDone}
+                    focusable={!state.isMarkedAsDone}
+                    selectTextOnFocus={!state.isMarkedAsDone}
                     placeholder={notificationIntervalPlaceholder}
                     defaultValue={notificationInterval}
                     keyboardType={"number-pad"}
@@ -257,6 +264,7 @@ export const Component = forwardRef(function Component(
                     style={computedStyle.MuteToggle}
                     icon={DefaultIconSet.NoSound}
                     status={notificationInterval === 0 ? Status.Checked : Status.Unchecked}
+                    disabled={state.isMarkedAsDone}
                     onChange={onMuteToggleStatusChange}
                 />
                 <Button style={computedStyle.DismissButton} label={"Dismiss"}/>
@@ -333,10 +341,12 @@ export const Component = forwardRef(function Component(
         if (newStatus === Status.Checked)
         {
             lastInputtedRecurrencePatternRef.current = recurrencePattern;
+            setState({isMarkedAsDone: true});
             onRecurrencePatternChange("Done");
         }
         else
         {
+            setState({isMarkedAsDone: false});
             onRecurrencePatternChange(lastInputtedRecurrencePatternRef.current);
         }
     }
