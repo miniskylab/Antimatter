@@ -188,6 +188,20 @@ export const GregorianCalendar = new class
         return tokens.join(", ");
     }
 
+    getDayCount(startDate: Date, endDate: Date, isTimeSynchronizationRequired = false): number
+    {
+        const clonedStartDate = new Date(startDate);
+        const clonedEndDate = new Date(endDate);
+        if (isTimeSynchronizationRequired)
+        {
+            clonedStartDate.setHours(0, 0, 0, 0);
+            clonedEndDate.setHours(0, 0, 0, 0);
+        }
+
+        const millisecondCountInDay = 86400000;
+        return (clonedEndDate.getTime() - clonedStartDate.getTime()) / millisecondCountInDay;
+    }
+
     toString(date: Date, format = DateFormat.Short, minimumTimeUnit = TimeUnit.Day): string
     {
         if (!date) return EMPTY_STRING;
@@ -198,7 +212,7 @@ export const GregorianCalendar = new class
                     day: minimumTimeUnit === TimeUnit.Day ? "2-digit" : undefined,
                     month: minimumTimeUnit < TimeUnit.Year ? "2-digit" : undefined,
                     year: "numeric"
-                }).replace(/\//g, " / ");
+                });
             case DateFormat.Long:
                 return date.toLocaleDateString("en-US", {
                     day: minimumTimeUnit === TimeUnit.Day ? "2-digit" : undefined,
@@ -240,11 +254,5 @@ export const GregorianCalendar = new class
         }
 
         return false;
-    }
-
-    private getDayCount(startDate: Date, endDate: Date): number
-    {
-        const millisecondCountInDay = 86400000;
-        return (endDate.getTime() - startDate.getTime()) / millisecondCountInDay;
     }
 };

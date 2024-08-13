@@ -1,14 +1,3 @@
-export function getTimeDurationInDays(startDate: Date, endDate: Date): number
-{
-    const millisecondCountInDay = 86400000;
-    const clonedStartDate = new Date(startDate);
-    const clonedEndDate = new Date(endDate);
-    clonedStartDate.setHours(0, 0, 0, 0);
-    clonedEndDate.setHours(0, 0, 0, 0);
-
-    return (clonedEndDate.getTime() - clonedStartDate.getTime()) / millisecondCountInDay;
-}
-
 export function getNextExecutionTime(recurrencePattern: string): Date | undefined
 {
     if (!isValidRecurrencePattern(recurrencePattern))

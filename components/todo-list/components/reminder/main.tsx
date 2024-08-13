@@ -22,7 +22,7 @@ import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {Mode, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext} from "./models";
-import {getNextExecutionTime, getTimeDurationInDays} from "./services";
+import {getNextExecutionTime} from "./services";
 import type {Tag} from "./types";
 
 export const Component = forwardRef(function Component(
@@ -65,7 +65,7 @@ export const Component = forwardRef(function Component(
     const notificationIntervalNumericInputFieldUpdateKeyRef = useRef<number>();
 
     const [formattedDueDate, formattedDueDuration] = useMemo(
-        () => getDueDateAndDueDuration(),
+        () => getFormattedDueDateAndDueDuration(),
         [recurrencePattern]
     );
 
@@ -157,26 +157,22 @@ export const Component = forwardRef(function Component(
         return dropdownMenuItems;
     }
 
-    function getDueDateAndDueDuration(): [string?, string?]
+    function getFormattedDueDateAndDueDuration(): [string?, string?]
     {
-        let formattedDueDate: string | undefined;
-        let formattedDueDuration: string | undefined;
         const dueDate = getNextExecutionTime(recurrencePattern);
+        const formattedDueDate = dueDate
+            ? GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day)
+            : "No due date";
+
+        let formattedDueDuration: string | undefined;
         if (dueDate)
         {
-            formattedDueDate = GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day)
-                .replaceAll(" ", EMPTY_STRING);
-
-            const timeDurationInDays = getTimeDurationInDays(new Date(), dueDate);
-            formattedDueDuration = timeDurationInDays === 0
+            const dueDuration = GregorianCalendar.getDayCount(new Date(), dueDate, true);
+            formattedDueDuration = dueDuration === 0
                 ? "Today"
-                : timeDurationInDays > 0
-                    ? timeDurationInDays === 1 ? "Tomorrow" : `In ${timeDurationInDays} days`
-                    : Math.abs(timeDurationInDays) === 1 ? "Yesterday" : `${Math.abs(timeDurationInDays)} days ago`;
-        }
-        else if (recurrencePattern === "Done" || !recurrencePattern)
-        {
-            formattedDueDate = "No due date";
+                : dueDuration > 0
+                    ? dueDuration === 1 ? "Tomorrow" : `In ${dueDuration} days`
+                    : Math.abs(dueDuration) === 1 ? "Yesterday" : `${Math.abs(dueDuration)} days ago`;
         }
 
         return [formattedDueDate, formattedDueDuration];

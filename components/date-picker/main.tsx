@@ -48,7 +48,7 @@ export function DatePicker({
             <View style={computedStyle.Root}>
                 <InputField
                     style={computedStyle.InputField}
-                    value={selectedDate ? GregorianCalendar.toString(selectedDate, dateFormat) : undefined}
+                    value={selectedDate ? GregorianCalendar.toString(selectedDate, dateFormat).replaceAll("/", " / ") : undefined}
                     placeholder={selectedDate ? undefined : placeholder}
                     focusable={focusable}
                     autoFocus={autoFocus}
