@@ -2,11 +2,12 @@ const Blue = [0, 160, 255];
 const Green = [135, 172, 78];
 const Gold = [255, 191, 71];
 const Tomato = [255, 112, 71];
+const Coral = [255, 71, 133];
 const Purple = [137, 89, 168];
 
 const Primary = Blue;
 const Secondary = Green;
-const Tertiary = [255, 71, 133];
+const Tertiary = Coral;
 const Complementary = complement(Primary);
 const Positive = Green;
 const Warning = Gold;
@@ -26,6 +27,9 @@ export const Color = {
     Blue: toHex(Blue),
     Green: toHex(Green),
     Gold: toHex(Gold),
+
+    Coral: toHex(Coral),
+    Coral__a10: toHex(Coral, 10),
 
     Tomato: toHex(Tomato),
     Tomato__a10: toHex(Tomato, 10),

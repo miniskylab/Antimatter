@@ -62,6 +62,7 @@ export const TodoList = forwardRef(function TodoList(
     const toBeFlashHighlightedReminderIdsRef = useRef<string[]>([]);
     const remindersRef = useRef<Record<string, Nullable<Reminder.Ref>>>({});
 
+    const today = new Date();
     const {button1, button2, button3} = useMemo(
         () => getControlPanel(),
         [mode, addNewReminderButton, saveReminderButton, deleteReminderButton, cancelButton, customButton]
@@ -240,10 +241,28 @@ export const TodoList = forwardRef(function TodoList(
         return toBeDeletedReminders;
     }
 
-    function byDueDate(reminderIdA: string, reminderIdB: string): number
+    function byDueDuration(reminderIdA: string, reminderIdB: string): number
     {
-        const reminderA = unifiedReminderList[reminderIdA];
-        const reminderB = unifiedReminderList[reminderIdB];
+        const reminderA = reminders[reminderIdA] ?? unifiedReminderList[reminderIdA];
+        const reminderB = reminders[reminderIdB] ?? unifiedReminderList[reminderIdB];
+
+        const statusA = !reminderIdA || Reminder.Service.isDoneRecurrencePattern(reminderA.recurrencePattern) ? Infinity : 0;
+        const statusB = !reminderIdB || Reminder.Service.isDoneRecurrencePattern(reminderB.recurrencePattern) ? Infinity : 0;
+        const statusComparisonResult = statusA - statusB;
+        if (statusComparisonResult !== 0)
+        {
+            return statusComparisonResult;
+        }
+
+        const dueDateA = Reminder.Service.getDueDate(reminderA.recurrencePattern);
+        const dueDateB = Reminder.Service.getDueDate(reminderB.recurrencePattern);
+        const dueDurationA = Reminder.Service.getDueDuration(today, dueDateA);
+        const dueDurationB = Reminder.Service.getDueDuration(today, dueDateB);
+        const dueDateComparisonResult = (dueDurationA ?? Infinity) - (dueDurationB ?? Infinity);
+        if (dueDateComparisonResult !== 0)
+        {
+            return dueDateComparisonResult;
+        }
 
         return isNotNullAndUndefined(reminderA.createdDate) && isNotNullAndUndefined(reminderB.createdDate)
             ? reminderA.createdDate.getTime() - reminderB.createdDate.getTime()
@@ -252,7 +271,7 @@ export const TodoList = forwardRef(function TodoList(
 
     function renderReminders(): JSX.Element[]
     {
-        const sortedReminderIds = Object.keys(unifiedReminderList).sort(byDueDate);
+        const sortedReminderIds = Object.keys(unifiedReminderList).sort(byDueDuration);
         return sortedReminderIds.map(sortedReminderId =>
         {
             const reminderMode = getReminderMode(sortedReminderId);

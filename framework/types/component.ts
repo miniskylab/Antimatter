@@ -14,12 +14,20 @@ export type Animated<TStyle> = TStyle & {
     animationOverride?: ViewStyle | TextStyle | ImageStyle;
 };
 
-export type ComponentContext<TProps = undefined, TState = undefined> = CanBeUndefined<
+export type ComponentContext<TProps = undefined, TState = undefined, TExtra = undefined> = CanBeUndefined<
     TProps extends undefined
         ? TState extends undefined
-            ? undefined
-            : { readonly state: TState; }
+            ? TExtra extends undefined
+                ? undefined
+                : { readonly extra: TExtra; }
+            : TExtra extends undefined
+                ? { readonly state: TState; }
+                : { readonly state: TState; readonly extra: TExtra; }
         : TState extends undefined
-            ? { readonly props: TProps; }
-            : { readonly props: TProps; readonly state: TState; }
+            ? TExtra extends undefined
+                ? { readonly props: TProps; }
+                : { readonly props: TProps; readonly extra: TExtra; }
+            : TExtra extends undefined
+                ? { readonly props: TProps; readonly state: TState; }
+                : { readonly props: TProps; readonly state: TState; readonly extra: TExtra; }
 >;

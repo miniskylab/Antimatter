@@ -20,8 +20,8 @@ const DataList__Root: ViewStyle = function (viewProps)
         alignSelf: "stretch",
         justifyContent: "flex-start",
         minWidth: 300,
-        maxWidth: undefined,
-        height: "auto",
+        maxWidth: 500,
+        height: 892,
         marginTop: 5
     };
 };

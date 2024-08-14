@@ -2,7 +2,7 @@ import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/an
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DataListAnimationHook, DataListContextHook, type DataListStyle, DataListVariant} from "@miniskylab/antimatter-data-list";
 import {DropdownMenuContextHook, type DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {CursorType, Layer} from "@miniskylab/antimatter-framework";
+import {CursorType, isNotNullAndUndefined, Layer} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, type InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {ProgressStripesContextHook, type ProgressStripesStyle, ProgressStripesVariant} from "@miniskylab/antimatter-motion-graphics";
@@ -21,7 +21,7 @@ import {Reminder} from "../components";
 import {TodoListContextHook} from "../hooks";
 import {type TodoListStyle} from "../models";
 
-const TodoList__Reminder__Button1__Icon: IconStyle = function (iconProps)
+const TodoList__DataList__Button1__Icon: IconStyle = function (iconProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dataListContext = DataListContextHook.useDataListContext();
@@ -50,7 +50,7 @@ const TodoList__Reminder__Button1__Icon: IconStyle = function (iconProps)
     };
 };
 
-const TodoList__Reminder__Button1__Label: TextStyle = function (textProps)
+const TodoList__DataList__Button1__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dataListContext = DataListContextHook.useDataListContext();
@@ -79,7 +79,7 @@ const TodoList__Reminder__Button1__Label: TextStyle = function (textProps)
     };
 };
 
-const TodoList__Reminder__Button1: ButtonStyle = function (buttonProps)
+const TodoList__DataList__Button1: ButtonStyle = function (buttonProps)
 {
     const dataListContext = DataListContextHook.useDataListContext();
 
@@ -88,12 +88,12 @@ const TodoList__Reminder__Button1: ButtonStyle = function (buttonProps)
 
     return {
         ...inheritedStyle,
-        Icon: TodoList__Reminder__Button1__Icon,
-        Label: TodoList__Reminder__Button1__Label
+        Icon: TodoList__DataList__Button1__Icon,
+        Label: TodoList__DataList__Button1__Label
     };
 };
 
-const TodoList__Reminder__Button2__Root: PressableStyle = function (pressableProps, pressableState)
+const TodoList__DataList__Button2__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dataListContext = DataListContextHook.useDataListContext();
@@ -116,7 +116,7 @@ const TodoList__Reminder__Button2__Root: PressableStyle = function (pressablePro
     };
 };
 
-const TodoList__Reminder__Button2__Icon: IconStyle = function (iconProps)
+const TodoList__DataList__Button2__Icon: IconStyle = function (iconProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dataListContext = DataListContextHook.useDataListContext();
@@ -148,7 +148,7 @@ const TodoList__Reminder__Button2__Icon: IconStyle = function (iconProps)
     };
 };
 
-const TodoList__Reminder__Button2__Label: TextStyle = function (textProps)
+const TodoList__DataList__Button2__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dataListContext = DataListContextHook.useDataListContext();
@@ -180,7 +180,7 @@ const TodoList__Reminder__Button2__Label: TextStyle = function (textProps)
     };
 };
 
-const TodoList__Reminder__Button2: ButtonStyle = function (buttonProps)
+const TodoList__DataList__Button2: ButtonStyle = function (buttonProps)
 {
     const dataListContext = DataListContextHook.useDataListContext();
 
@@ -189,13 +189,13 @@ const TodoList__Reminder__Button2: ButtonStyle = function (buttonProps)
 
     return {
         ...inheritedStyle,
-        Root: TodoList__Reminder__Button2__Root,
-        Icon: TodoList__Reminder__Button2__Icon,
-        Label: TodoList__Reminder__Button2__Label
+        Root: TodoList__DataList__Button2__Root,
+        Icon: TodoList__DataList__Button2__Icon,
+        Label: TodoList__DataList__Button2__Label
     };
 };
 
-const TodoList__Reminder__Button3__Icon: IconStyle = function (iconProps)
+const TodoList__DataList__Button3__Icon: IconStyle = function (iconProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dataListContext = DataListContextHook.useDataListContext();
@@ -215,7 +215,7 @@ const TodoList__Reminder__Button3__Icon: IconStyle = function (iconProps)
     };
 };
 
-const TodoList__Reminder__Button3__Label: TextStyle = function (textProps)
+const TodoList__DataList__Button3__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const dataListContext = DataListContextHook.useDataListContext();
@@ -235,7 +235,7 @@ const TodoList__Reminder__Button3__Label: TextStyle = function (textProps)
     };
 };
 
-const TodoList__Reminder__Button3: ButtonStyle = function (buttonProps)
+const TodoList__DataList__Button3: ButtonStyle = function (buttonProps)
 {
     const dataListContext = DataListContextHook.useDataListContext();
 
@@ -244,8 +244,8 @@ const TodoList__Reminder__Button3: ButtonStyle = function (buttonProps)
 
     return {
         ...inheritedStyle,
-        Icon: TodoList__Reminder__Button3__Icon,
-        Label: TodoList__Reminder__Button3__Label
+        Icon: TodoList__DataList__Button3__Icon,
+        Label: TodoList__DataList__Button3__Label
     };
 };
 
@@ -253,9 +253,9 @@ const TodoList__DataList: DataListStyle = function (dataListProps)
 {
     return {
         ...DataListVariant.Default(dataListProps),
-        Button1: TodoList__Reminder__Button1,
-        Button2: TodoList__Reminder__Button2,
-        Button3: TodoList__Reminder__Button3
+        Button1: TodoList__DataList__Button1,
+        Button2: TodoList__DataList__Button2,
+        Button3: TodoList__DataList__Button3
     };
 };
 
@@ -318,6 +318,8 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
+    const dueDuration = reminderContext.extra.dueDuration;
+
     return {
         ...IconVariant.Default(iconProps),
         display: reminderContext.props.toBeDeleted ? "none" : "flex",
@@ -325,7 +327,13 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
         height: 30,
         marginTop: 7,
         fontSize: 28,
-        color: Color.Neutral
+        color: reminderContext.extra.isMarkedAsDone
+            ? Color.Green
+            : dueDuration === 0
+                ? Color.Gold
+                : isNotNullAndUndefined(dueDuration) && dueDuration < 0
+                    ? Color.Coral
+                    : Color.Neutral
     };
 };
 
@@ -362,7 +370,14 @@ const TodoList__Reminder__NameInputField__Root: ViewStyle = function (viewProps)
 
 const TodoList__Reminder__NameInputField__TextBox: TextInputStyle = function (textInputProps)
 {
+    const reminderContext = Reminder.ContextHook.useReminderContext();
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
+
+    const isHighlighted = Object.values(reminderContext.props.tags ?? {})
+        .some(
+            tag => tag.status === Reminder.TagStatus.Selected &&
+                   tag.metadata?.has(Reminder.TagMetadata.HighlightTarget)
+        );
 
     const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).TextBox(textInputProps);
 
@@ -374,6 +389,7 @@ const TodoList__Reminder__NameInputField__TextBox: TextInputStyle = function (te
         paddingRight: 0,
         fontSize: 18,
         fontWeight: "bold",
+        color: isHighlighted ? Color.Coral : Color.Neutral,
         animations: undefined
     };
 };
@@ -408,6 +424,14 @@ const TodoList__Reminder__NameInputField: InputFieldStyle = function (inputField
 
 const TodoList__Reminder__NameText: TextStyle = function (textProps)
 {
+    const reminderContext = Reminder.ContextHook.useReminderContext();
+
+    const isHighlighted = Object.values(reminderContext.props.tags ?? {})
+        .some(
+            tag => tag.status === Reminder.TagStatus.Selected &&
+                   tag.metadata?.has(Reminder.TagMetadata.HighlightTarget)
+        );
+
     return {
         ...TextVariant.Default(textProps),
         alignItems: "flex-start",
@@ -416,7 +440,7 @@ const TodoList__Reminder__NameText: TextStyle = function (textProps)
         marginTop: -1,
         fontSize: 18,
         fontWeight: "bold",
-        color: Color.Neutral
+        color: isHighlighted ? Color.Coral : Color.Neutral
     };
 };
 
@@ -446,15 +470,37 @@ const TodoList__Reminder__DueDate: TextStyle = function (textProps)
 
 const TodoList__Reminder__DueDurationIcon: IconStyle = function (iconProps)
 {
+    const reminderContext = Reminder.ContextHook.useReminderContext();
+
+    const dueDuration = reminderContext.extra.dueDuration;
+    const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
+    const isDue = dueDuration === 0;
+
     return {
-        ...TodoList__Reminder__DueDateIcon(iconProps)
+        ...TodoList__Reminder__DueDateIcon(iconProps),
+        fontSize: 15,
+        transform: [{scaleX: isDue || isOverdue ? 1 : -1}],
+        color: isDue
+            ? Color.Gold
+            : isOverdue
+                ? Color.Coral
+                : Color.Neutral
     };
 };
 
 const TodoList__Reminder__DueDuration: TextStyle = function (textProps)
 {
+    const reminderContext = Reminder.ContextHook.useReminderContext();
+
+    const dueDuration = reminderContext.extra.dueDuration;
+
     return {
-        ...TodoList__Reminder__DueDate(textProps)
+        ...TodoList__Reminder__DueDate(textProps),
+        color: dueDuration === 0
+            ? Color.Gold
+            : isNotNullAndUndefined(dueDuration) && dueDuration < 0
+                ? Color.Coral
+                : Color.Neutral
     };
 };
 
@@ -530,11 +576,11 @@ const TodoList__Reminder__TagSelector__MenuItem__Root: PressableStyle = function
         marginBottom: 0,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: isHighlighted ? Color.Positive : Color.Neutral,
+        borderColor: isHighlighted ? Color.Coral : Color.Neutral,
         backgroundColor: menuItem?.status === MenuItemStatus.Selected || pressableState.pressed
-            ? isHighlighted ? Color.Positive : Color.Neutral
+            ? isHighlighted ? Color.Coral : Color.Neutral
             : pressableState.hovered
-                ? isHighlighted ? Color.Positive__a10 : Color.Neutral__a10
+                ? isHighlighted ? Color.Coral__a10 : Color.Neutral__a10
                 : Color.Transparent
     };
 };
@@ -562,7 +608,7 @@ const TodoList__Reminder__TagSelector__MenuItem__Label: TextStyle = function (te
             : pressableContext.state.hovered
                 ? Color.White
                 : isHighlighted
-                    ? Color.Positive
+                    ? Color.Coral
                     : Color.Neutral
     };
 };
@@ -638,10 +684,10 @@ const TodoList__Reminder__Tag: TextStyle = function (textProps)
         marginRight: 5,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: isHighlighted ? Color.Positive : Color.Neutral,
+        borderColor: isHighlighted ? Color.Coral : Color.Neutral,
         fontSize: 12,
         color: Color.Background,
-        backgroundColor: isHighlighted ? Color.Positive : Color.Neutral
+        backgroundColor: isHighlighted ? Color.Coral : Color.Neutral
     };
 };
 
@@ -722,6 +768,7 @@ const TodoList__Reminder__RecurrencePatternInputField__Root: ViewStyle = functio
 
 const TodoList__Reminder__RecurrencePatternInputField__TextBox: TextInputStyle = function (textInputProps)
 {
+    const reminderContext = Reminder.ContextHook.useReminderContext();
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
     const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).TextBox(textInputProps);
@@ -729,7 +776,12 @@ const TodoList__Reminder__RecurrencePatternInputField__TextBox: TextInputStyle =
     return {
         ...inheritedStyle,
         paddingRight: 50,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        color: Color.Neutral,
+        ...reminderContext.extra.isMarkedAsDone && {
+            color: Color.Green,
+            cursor: CursorType.NotAllowed
+        }
     };
 };
 
@@ -760,6 +812,7 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__Root: ViewStyle
 
 const TodoList__Reminder__NotificationIntervalNumericInputField__TextBox: TextInputStyle = function (textInputProps)
 {
+    const reminderContext = Reminder.ContextHook.useReminderContext();
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
     const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
 
@@ -770,7 +823,10 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__TextBox: TextIn
     return {
         ...inheritedStyle,
         paddingRight: 50,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        ...reminderContext.extra.isMarkedAsDone && {
+            cursor: CursorType.NotAllowed
+        }
     };
 };
 
@@ -858,6 +914,7 @@ const TodoList__Reminder__MuteToggle__Icon: IconStyle = function (iconProps)
 
     return {
         ...TodoList__Reminder__DoneToggle__Icon(iconProps),
+        transform: [{scaleX: -1}],
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
             ? Color.Tomato
             : pressableContext.state.hovered

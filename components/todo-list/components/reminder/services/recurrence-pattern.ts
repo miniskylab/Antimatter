@@ -1,6 +1,14 @@
-export function getNextExecutionTime(recurrencePattern: string): Date | undefined
+import {GregorianCalendar, isNullOrUndefined} from "@miniskylab/antimatter-framework";
+import {doneRecurrencePattern} from "../consts";
+
+export function isDoneRecurrencePattern(recurrencePattern: string | undefined): boolean
 {
-    if (!isValidRecurrencePattern(recurrencePattern))
+    return recurrencePattern === doneRecurrencePattern;
+}
+
+export function getDueDate(recurrencePattern: string | undefined): Date | undefined
+{
+    if (isNullOrUndefined(recurrencePattern) || !isValidRecurrencePattern(recurrencePattern))
     {
         return undefined;
     }
@@ -25,6 +33,11 @@ export function getNextExecutionTime(recurrencePattern: string): Date | undefine
     }
 
     return nextExecutionTime;
+}
+
+export function getDueDuration(today: Date, dueDate: Date | undefined): number | undefined
+{
+    return dueDate ? GregorianCalendar.getDayCount(today, dueDate, true) : undefined;
 }
 
 function isValidRecurrencePattern(recurrencePattern: string): boolean

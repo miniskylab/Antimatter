@@ -5,6 +5,7 @@ export function inheritTextStyleFrom<TStyle extends TextStyle>(style: TStyle): T
     return {
         color: style.color,
         backgroundColor: style.backgroundColor,
+        cursor: style.cursor,
         fontSize: style.fontSize,
         fontStyle: style.fontStyle,
         fontWeight: style.fontWeight,

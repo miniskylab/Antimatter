@@ -6,6 +6,7 @@ import {
     EMPTY_STRING,
     GregorianCalendar,
     isNotNullAndUndefined,
+    isNullOrUndefined,
     TimeUnit,
     Ts,
     useComputedStyle
@@ -20,10 +21,10 @@ import {Status, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
+import {doneRecurrencePattern} from "./consts";
 import {Mode, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext} from "./models";
-import {getNextExecutionTime} from "./services";
-import type {Tag} from "./types";
+import {getDueDate, getDueDuration, isDoneRecurrencePattern} from "./services";
 
 export const Component = forwardRef(function Component(
     {
@@ -52,11 +53,6 @@ export const Component = forwardRef(function Component(
         maxSelectedTagCount, showProgressStripes, toBeDeleted, modifiedDate, createdDate, mode, onPress, onChange
     };
 
-    const context = useMemo<ReminderContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
-
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
 
@@ -64,10 +60,18 @@ export const Component = forwardRef(function Component(
     const lastInputtedRecurrencePatternRef = useRef<string>(EMPTY_STRING);
     const notificationIntervalNumericInputFieldUpdateKeyRef = useRef<number>();
 
-    const isMarkedAsDone = recurrencePattern === "Done";
-    const [formattedDueDate, formattedDueDuration] = useMemo(
-        () => getFormattedDueDateAndDueDuration(),
-        [recurrencePattern]
+    const today = new Date();
+    const dueDate = useMemo(() => getDueDate(recurrencePattern), [recurrencePattern]);
+    const dueDuration = useMemo(() => getDueDuration(today, dueDate), [dueDate]);
+    const isMarkedAsDone = useMemo(() => isDoneRecurrencePattern(recurrencePattern), [recurrencePattern]);
+    const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [dueDuration]);
+    const formattedDueDate = useMemo(() => getFormattedDueDate(), [dueDate]);
+    const icon = useMemo(() => getIcon(), [isMarkedAsDone, dueDuration]);
+
+    const extra = {dueDate, dueDuration, isMarkedAsDone};
+    const context = useMemo<ReminderContext>(
+        () => ({props, extra}),
+        [...Object.values(props), ...Object.values(extra)]
     );
 
     useImperativeHandle(ref, () => ({
@@ -82,15 +86,15 @@ export const Component = forwardRef(function Component(
         <ReminderContext.Provider value={context}>
             <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={toBeDeleted}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
-                <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
+                <Icon style={computedStyle.Icon} name={icon} pointerEvents={"none"}/>
                 <View style={computedStyle.NameTagAndDeadlineContainer}>
                     {renderName()}
-                    {formattedDueDate && (<>
+                    {!isMarkedAsDone && formattedDueDate && (<>
                         <Icon style={computedStyle.DueDateIcon} name={DefaultIconSet.Calendar}/>
                         <Text style={computedStyle.DueDate}>{formattedDueDate}</Text>
                     </>)}
                     {formattedDueDuration && (<>
-                        <Icon style={computedStyle.DueDurationIcon} name={DefaultIconSet.Alarm}/>
+                        <Icon style={computedStyle.DueDurationIcon} name={DefaultIconSet.History}/>
                         <Text style={computedStyle.DueDuration}>{formattedDueDuration}</Text>
                     </>)}
                     {renderTags()}
@@ -100,28 +104,17 @@ export const Component = forwardRef(function Component(
         </ReminderContext.Provider>
     );
 
-    function byOrder(tagA: Tag, tagB: Tag): number
-    {
-        return isNotNullAndUndefined(tagA.order) && isNotNullAndUndefined(tagB.order)
-            ? tagA.order - tagB.order
-            : NaN;
-    }
-
     function getIcon(): DefaultIconSet
     {
-        let icon = DefaultIconSet.PriceTag;
-        Object.values(tags)
-            .filter(tag => tag.status === TagStatus.Selected)
-            .sort(byOrder)
-            .forEach(selectedTag =>
-            {
-                if (selectedTag.icon)
-                {
-                    icon = (DefaultIconSet as Record<string, DefaultIconSet>)[selectedTag.icon] ?? icon;
-                }
-            });
-
-        return icon;
+        return isMarkedAsDone
+            ? DefaultIconSet.CheckMarkInsideCircle
+            : dueDuration === 0
+                ? DefaultIconSet.Alarm
+                : isNotNullAndUndefined(dueDuration) && dueDuration < 0
+                    ? DefaultIconSet.Fire
+                    : isNotNullAndUndefined(dueDuration) && dueDuration > 0
+                        ? DefaultIconSet.Notification
+                        : DefaultIconSet.NoSound;
     }
 
     function getDropdownMenuItems(): NonNullable<DropdownMenuProps["menuItems"]>
@@ -158,25 +151,22 @@ export const Component = forwardRef(function Component(
         return dropdownMenuItems;
     }
 
-    function getFormattedDueDateAndDueDuration(): [string?, string?]
+    function getFormattedDueDate(): string
     {
-        const dueDate = getNextExecutionTime(recurrencePattern);
-        const formattedDueDate = dueDate
+        return dueDate
             ? GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
             : "No due date";
+    }
 
-        let formattedDueDuration: string | undefined;
-        if (dueDate)
-        {
-            const dueDuration = GregorianCalendar.getDayCount(new Date(), dueDate, true);
-            formattedDueDuration = dueDuration === 0
+    function getFormattedDueDuration(): string | undefined
+    {
+        return isNullOrUndefined(dueDuration)
+            ? undefined
+            : dueDuration === 0
                 ? "Today"
                 : dueDuration > 0
                     ? dueDuration === 1 ? "Tomorrow" : `In ${dueDuration} days`
                     : Math.abs(dueDuration) === 1 ? "Yesterday" : `${Math.abs(dueDuration)} days ago`;
-        }
-
-        return [formattedDueDate, formattedDueDuration];
     }
 
     function renderName(): JSX.Element
@@ -187,6 +177,7 @@ export const Component = forwardRef(function Component(
                     style={computedStyle.NameInputField}
                     placeholder={"Reminder Name"}
                     value={name}
+                    autoFocus={true}
                     onChangeText={onNameChange}
                 />
                 : <Text style={computedStyle.NameText} numberOfLines={1} pointerEvents={"none"}>{name}</Text>
@@ -231,8 +222,8 @@ export const Component = forwardRef(function Component(
             <View style={computedStyle.ExpansionArea}>
                 <InputField
                     style={computedStyle.RecurrencePatternInputField}
-                    placeholder={recurrencePatternPlaceholder}
-                    value={isMarkedAsDone ? lastInputtedRecurrencePatternRef.current : recurrencePattern}
+                    placeholder={isMarkedAsDone ? "Task Status" : recurrencePatternPlaceholder}
+                    value={isMarkedAsDone ? "Completed" : recurrencePattern}
                     editable={!isMarkedAsDone}
                     onChangeText={onRecurrencePatternChange}
                 />
@@ -259,7 +250,7 @@ export const Component = forwardRef(function Component(
                 />
                 <Toggle
                     style={computedStyle.MuteToggle}
-                    icon={DefaultIconSet.NoSound}
+                    icon={DefaultIconSet.History}
                     status={notificationInterval === 0 ? Status.Checked : Status.Unchecked}
                     disabled={isMarkedAsDone}
                     onChange={onMuteToggleStatusChange}
@@ -338,7 +329,7 @@ export const Component = forwardRef(function Component(
         if (newStatus === Status.Checked)
         {
             lastInputtedRecurrencePatternRef.current = recurrencePattern;
-            onRecurrencePatternChange("Done");
+            onRecurrencePatternChange(doneRecurrencePattern);
         }
         else
         {
