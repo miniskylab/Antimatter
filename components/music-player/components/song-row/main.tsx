@@ -1,7 +1,7 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {Props, SongRowContext} from "./models";
 import {getFormattedTime} from "./services";
 
@@ -19,10 +19,7 @@ export function Component({
         style, songName, secSongDuration, singer, isSelected, isExcludedFromActivePlaylist, onPress
     };
 
-    const context = useMemo<SongRowContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<SongRowContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

@@ -1,9 +1,9 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {Status} from "./enums";
 import {ToggleContext, ToggleProps} from "./models";
 import * as Variant from "./variants";
@@ -23,10 +23,7 @@ export function Toggle({
         style, status, icon, disabled, onChange
     };
 
-    const context = useMemo<ToggleContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<ToggleContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

@@ -1,6 +1,6 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View, type ViewStyle} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo, useState} from "react";
+import React, {JSX, useState} from "react";
 import {Transitionable} from "./components";
 import {Stage} from "./enums";
 import {TransitionAnimationHook, TransitionContextHook} from "./hooks";
@@ -24,10 +24,7 @@ export function Transition({
         children: {}
     });
 
-    const context = useMemo<TransitionContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
+    const context = useComponentContext<TransitionContext>({props, state});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props, state);

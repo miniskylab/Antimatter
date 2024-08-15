@@ -6,6 +6,7 @@ import {
     isNullOrUndefined,
     type Nullable,
     Ts,
+    useComponentContext,
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
@@ -64,10 +65,7 @@ export const TodoList = forwardRef(function TodoList(
         [reminders, selectedReminder, state.toBeDeletedReminders]
     );
 
-    const context = useMemo<TodoListContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
+    const context = useComponentContext<TodoListContext>({props, state});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

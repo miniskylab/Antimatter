@@ -1,8 +1,8 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {NavMenuContext, NavMenuProps} from "./models";
 import * as Variant from "./variants";
 
@@ -20,10 +20,7 @@ export function NavMenu({
         style, selectedUrl, categories, onMenuItemPress
     };
 
-    const context = useMemo<NavMenuContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<NavMenuContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

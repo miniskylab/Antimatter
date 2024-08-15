@@ -9,6 +9,7 @@ import {
     isNullOrUndefined,
     TimeUnit,
     Ts,
+    useComponentContext,
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
@@ -65,11 +66,7 @@ export const Component = forwardRef(function Component(
     const formattedDueDate = useMemo(() => getFormattedDueDate(), [dueDate]);
     const icon = useMemo(() => getIcon(), [isMarkedAsDone, dueDuration]);
 
-    const extra = {dueDate, dueDuration, isMarkedAsDone};
-    const context = useMemo<ReminderContext>(
-        () => ({props, extra}),
-        [...Object.values(props), ...Object.values(extra)]
-    );
+    const context = useComponentContext<ReminderContext>({props, extra: {dueDuration, isMarkedAsDone}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

@@ -1,6 +1,13 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, EMPTY_STRING, isEnvironment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import React, {JSX, useEffect, useMemo, useState} from "react";
+import {
+    type AllPropertiesMustPresent,
+    EMPTY_STRING,
+    isEnvironment,
+    Ts,
+    useComponentContext,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
+import React, {JSX, useEffect, useState} from "react";
 import {DownloadButtonContext, DownloadButtonProps, type DownloadButtonState} from "./models";
 import * as Variant from "./variants";
 
@@ -30,10 +37,7 @@ export function DownloadButton({
         disabled: true
     });
 
-    const context = useMemo<DownloadButtonContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
+    const context = useComponentContext<DownloadButtonContext>({props, state});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props, state);

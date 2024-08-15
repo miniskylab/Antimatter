@@ -1,8 +1,8 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo, useRef} from "react";
+import React, {JSX, useRef} from "react";
 import {Pips} from "./components";
 import {RangeSliderContext, RangeSliderProps} from "./models";
 import * as Variant from "./variants";
@@ -27,10 +27,7 @@ export function RangeSlider({
 
     const freeZoneWidthRef = useRef<number>(0);
 
-    const context = useMemo<RangeSliderContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<RangeSliderContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

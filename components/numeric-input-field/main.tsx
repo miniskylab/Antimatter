@@ -5,10 +5,11 @@ import {
     MAX,
     MIN,
     Ts,
+    useComponentContext,
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
-import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
 import {Keypress} from "./enums";
 import {NumericInputFieldContext, NumericInputFieldProps, type NumericInputFieldState} from "./models";
@@ -56,10 +57,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
     const internalRef = useRef<NumericInputField>(null);
     const ignoreNextSelectionChangeEventRef = useRef(false);
 
-    const context = useMemo<NumericInputFieldContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
+    const context = useComponentContext<NumericInputFieldContext>({props, state});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props, state);

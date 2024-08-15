@@ -1,5 +1,12 @@
 import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {type AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    EMPTY_STRING,
+    isNotNullAndUndefined,
+    Ts,
+    useComponentContext,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
@@ -8,7 +15,7 @@ import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
 import {Mode, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, TransactionRecordContext} from "./models";
 import type {Tag} from "./types";
@@ -41,10 +48,7 @@ export const Component = forwardRef(function Component(
 
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
-    const context = useMemo<TransactionRecordContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<TransactionRecordContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

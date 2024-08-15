@@ -1,8 +1,8 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {HeaderContext, type Props} from "./models";
 
 export function Component({
@@ -17,10 +17,7 @@ export function Component({
         style, headline, onPrevPress, onNextPress, onHeadlinePress
     };
 
-    const context = useMemo<HeaderContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<HeaderContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

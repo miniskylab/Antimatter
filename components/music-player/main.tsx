@@ -1,11 +1,11 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {SongRow} from "./components";
 import {RepeatMode} from "./enums";
 import {MusicPlayerContext, MusicPlayerProps} from "./models";
@@ -44,10 +44,7 @@ export function MusicPlayer({
     const selectedSong = tracklist.find(x => x.songName === selectedSongName);
     const subTitle = selectedSong?.singer ?? subtitlePlaceholder;
 
-    const context = useMemo<MusicPlayerContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<MusicPlayerContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

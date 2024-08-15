@@ -1,7 +1,14 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, EMPTY_STRING, isEnvironment, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    EMPTY_STRING,
+    isEnvironment,
+    Ts,
+    useComponentContext,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {NavigationContainerRefContext, NavigationContext, useNavigation} from "@react-navigation/native";
-import React, {JSX, useContext, useMemo} from "react";
+import React, {JSX, useContext} from "react";
 import {Target} from "./enums";
 import {NavButtonContext, NavButtonProps} from "./models";
 import * as Variant from "./variants";
@@ -26,10 +33,7 @@ export function NavButton({
     const navigationContainerRefContext = useContext(NavigationContainerRefContext);
     const clientSideNavigation = !isEnvironment("Web") || navigationContext || navigationContainerRefContext ? useNavigation() : undefined;
 
-    const context = useMemo<NavButtonContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<NavButtonContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

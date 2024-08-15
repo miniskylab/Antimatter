@@ -6,12 +6,13 @@ import {
     EMPTY_STRING,
     GregorianCalendar,
     Ts,
+    useComponentContext,
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {DatePickerContext, DatePickerProps} from "./models";
 import * as Variant from "./variants";
 
@@ -35,10 +36,7 @@ export function DatePicker({
         style, selectedDate, placeholder, dateFormat, isCalendarOpen, focusable, autoFocus, editable, onAddonPress, onSelectedDateChange
     };
 
-    const context = useMemo<DatePickerContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<DatePickerContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

@@ -1,4 +1,4 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
@@ -21,10 +21,7 @@ export function Component({
 
     const pipCount = useMemo(() => getPipCount(step, minValue, maxValue), [step, minValue, maxValue]);
 
-    const context = useMemo<PipsContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<PipsContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

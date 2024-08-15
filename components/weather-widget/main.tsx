@@ -1,9 +1,9 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {SimpleWeatherData, TimeFrameForecastData} from "./components";
 import {WeatherWidgetContext, WeatherWidgetProps} from "./models";
 import * as Variant from "./variants";
@@ -30,10 +30,7 @@ export function WeatherWidget({
         simpleWeatherData2, simpleWeatherData3, timeFrameForecastData
     };
 
-    const context = useMemo<WeatherWidgetContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<WeatherWidgetContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

@@ -1,10 +1,17 @@
-import {type AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    EMPTY_STRING,
+    isNotNullAndUndefined,
+    Ts,
+    useComponentContext,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {RangeSlider} from "@miniskylab/antimatter-range-slider";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {Props, SummaryContext} from "./models";
 
 export function Component({
@@ -21,10 +28,7 @@ export function Component({
         style, section1Label, section1Value, section2Label, section2Value, indicator, progressBarValue
     };
 
-    const context = useMemo<SummaryContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<SummaryContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

@@ -10,6 +10,7 @@ import {
     type Nullable,
     Ts,
     useBreakpoint,
+    useComponentContext,
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
@@ -74,10 +75,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
         [unifiedTransactionList, selectedDate]
     );
 
-    const context = useMemo<TransactionTableContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
+    const context = useComponentContext<TransactionTableContext>({props, state});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props, state);

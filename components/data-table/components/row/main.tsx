@@ -1,5 +1,12 @@
 import {DropDirection, DropdownMenu, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {type AllPropertiesMustPresent, EMPTY_STRING, isNotNullAndUndefined, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    EMPTY_STRING,
+    isNotNullAndUndefined,
+    Ts,
+    useComponentContext,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Pressable} from "@miniskylab/antimatter-pressable";
@@ -7,7 +14,7 @@ import {Text} from "@miniskylab/antimatter-text";
 import {Status as CheckboxStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo, useRef, useState} from "react";
+import React, {JSX, useRef, useState} from "react";
 import {Mode} from "./enums";
 import {ColumnIndexContext, type Props, RowContext, type State} from "./models";
 import type {Measurement} from "./types";
@@ -33,10 +40,7 @@ export function Component({
 
     const ref = useRef<Pressable>(null);
 
-    const context = useMemo<RowContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
+    const context = useComponentContext<RowContext>({props, state});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props, state);

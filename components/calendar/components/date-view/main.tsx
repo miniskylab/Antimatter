@@ -1,4 +1,10 @@
-import {type AllPropertiesMustPresent, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    GregorianCalendar,
+    Ts,
+    useComponentContext,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
@@ -16,10 +22,7 @@ export function Component({
         style, today, data, onDatePress
     };
 
-    const context = useMemo<DateViewContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<DateViewContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

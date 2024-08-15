@@ -1,10 +1,10 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo, useState} from "react";
+import React, {JSX, useState} from "react";
 import {LoginFormContext, LoginFormProps, type LoginFormState} from "./models";
 import * as Variant from "./variants";
 
@@ -31,10 +31,7 @@ export function LoginForm({
         password: EMPTY_STRING
     });
 
-    const context = useMemo<LoginFormContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
+    const context = useComponentContext<LoginFormContext>({props, state});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props, state);

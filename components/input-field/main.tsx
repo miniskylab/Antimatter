@@ -1,9 +1,9 @@
-import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Text} from "@miniskylab/antimatter-text";
 import {TextInput} from "@miniskylab/antimatter-text-input";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
 import {InputFieldContext, InputFieldProps} from "./models";
 import * as Variant from "./variants";
 
@@ -41,10 +41,7 @@ export const InputField = forwardRef(function InputField(
 
     const internalRef = useRef<InputField>(null);
 
-    const context = useMemo<InputFieldContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<InputFieldContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props);

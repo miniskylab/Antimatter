@@ -1,8 +1,8 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {SpinningDoubleGearAnimationHook} from "./hooks";
 import {SpinningDoubleGearContext, type SpinningDoubleGearProps} from "./models";
 import * as Variant from "./variants";
@@ -19,10 +19,7 @@ export function SpinningDoubleGear({
         style, msAnimationDuration
     };
 
-    const context = useMemo<SpinningDoubleGearContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<SpinningDoubleGearContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

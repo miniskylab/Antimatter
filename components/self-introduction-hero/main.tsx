@@ -1,9 +1,9 @@
 import {DownloadButton} from "@miniskylab/antimatter-download-button";
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Image} from "@miniskylab/antimatter-image";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {SelfIntroductionHeroContext, SelfIntroductionHeroProps} from "./models";
 import * as Variant from "./variants";
 
@@ -28,10 +28,7 @@ export function SelfIntroductionHero({
         style, coverPhoto, avatar, name, alternativeName, emailLabel, emailValue, locationLabel, locationValue, description, downloadButton
     };
 
-    const context = useMemo<SelfIntroductionHeroContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<SelfIntroductionHeroContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

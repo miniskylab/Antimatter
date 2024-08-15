@@ -1,9 +1,9 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {LocalAuthenticationStatus} from "./enums";
 import {LocalAuthenticationFormContext, LocalAuthenticationFormProps} from "./models";
 import * as Variant from "./variants";
@@ -25,10 +25,7 @@ export function LocalAuthenticationForm({
         style, title, subtitle, icon, onPrompt, localAuthenticationStatus
     };
 
-    const context = useMemo<LocalAuthenticationFormContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<LocalAuthenticationFormContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

@@ -1,6 +1,6 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {Card} from "./components";
 import {TopicCardGroupContext, TopicCardGroupProps} from "./models";
 import * as Variant from "./variants";
@@ -17,10 +17,7 @@ export function TopicCardGroup({
         style, cards
     };
 
-    const context = useMemo<TopicCardGroupContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<TopicCardGroupContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

@@ -1,6 +1,6 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useEffect, useMemo, useState} from "react";
+import React, {JSX, useEffect, useState} from "react";
 import {type LayoutChangeEvent} from "react-native";
 import {ProgressStripesContext, ProgressStripesProps, type ProgressStripesState, StripeIndexContext} from "./models";
 import * as Variant from "./variants";
@@ -20,10 +20,7 @@ export function ProgressStripes({
         rootContainerWidth: 0
     });
 
-    const context = useMemo<ProgressStripesContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
+    const context = useComponentContext<ProgressStripesContext>({props, state});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

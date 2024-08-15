@@ -1,8 +1,8 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {BootstrapEvent, Event} from "./components";
 import {TimelineContext, TimelineProps} from "./models";
 import * as Variant from "./variants";
@@ -20,10 +20,7 @@ export function Timeline({
         style, events, bootstrapEvent
     };
 
-    const context = useMemo<TimelineContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<TimelineContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

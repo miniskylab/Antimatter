@@ -5,6 +5,7 @@ import {
     GregorianCalendar,
     TimeUnit,
     Ts,
+    useComponentContext,
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
@@ -35,10 +36,7 @@ export function Component({
 
     const duration = useMemo(() => getDuration(), [isOnGoing, startDate, endDate, minimumTimeUnit]);
 
-    const context = useMemo<EventContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<EventContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

@@ -1,5 +1,5 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef, useState} from "react";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef, useState} from "react";
 import ReactNative from "react-native";
 import {AnimatedPressable} from "./components";
 import {PressableContext, PressableProps, type PressableState} from "./models";
@@ -28,10 +28,7 @@ export const Pressable = forwardRef(function Pressable(
 
     const internalRef = useRef<Pressable>(null);
 
-    const context = useMemo<PressableContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
+    const context = useComponentContext<PressableContext>({props, state});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props, state);

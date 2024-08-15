@@ -1,8 +1,8 @@
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {Props, TimeFrameForecastDataContext} from "./models";
 
 export function Component({
@@ -17,10 +17,7 @@ export function Component({
         style, timeFrameName, temperatureRangeForecastData, precipitationProbabilityForecastData, airQualityIndexForecastData
     };
 
-    const context = useMemo<TimeFrameForecastDataContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<TimeFrameForecastDataContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

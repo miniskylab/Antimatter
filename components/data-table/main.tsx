@@ -1,10 +1,10 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo, useRef} from "react";
+import React, {JSX, useRef} from "react";
 import {Row} from "./components";
 import {DataTableContext, DataTableProps} from "./models";
 import type {ControlPanel} from "./types";
@@ -40,10 +40,7 @@ export function DataTable({
     const scrollViewRef = useRef<ScrollView>(null);
     const headerData = columns?.map(x => x.name).filter(x => !!x);
 
-    const context = useMemo<DataTableContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<DataTableContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

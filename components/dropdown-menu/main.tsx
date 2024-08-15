@@ -1,11 +1,11 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useMemo} from "react";
+import React, {JSX} from "react";
 import {DropDirection, MenuItemStatus} from "./enums";
 import {DropdownMenuContext, DropdownMenuProps, MenuItemKeyContext} from "./models";
 import * as Variant from "./variants";
@@ -31,10 +31,7 @@ export function DropdownMenu({
     const selectedValues = Object.keys(menuItems).filter(x => menuItems[x].status === MenuItemStatus.Selected);
     const hasSelection = selectedValues.length > 0;
 
-    const context = useMemo<DropdownMenuContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<DropdownMenuContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

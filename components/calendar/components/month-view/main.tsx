@@ -1,5 +1,11 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, GregorianCalendar, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    GregorianCalendar,
+    Ts,
+    useComponentContext,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useMemo} from "react";
 import {MonthContext, MonthViewContext, type Props} from "./models";
@@ -15,10 +21,7 @@ export function Component({
         style, selectedMonth, data, onMonthPress
     };
 
-    const context = useMemo<MonthViewContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
+    const context = useComponentContext<MonthViewContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
