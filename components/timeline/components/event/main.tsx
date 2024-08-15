@@ -83,7 +83,7 @@ export function Component({
         </EventContext.Provider>
     );
 
-    function getDuration()
+    function getDuration(): string | undefined
     {
         return isOnGoing
             ? GregorianCalendar.getTimeDuration(startDate, new Date(), minimumTimeUnit)
