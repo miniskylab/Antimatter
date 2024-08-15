@@ -19,7 +19,7 @@ export function Component({
         style, minValue, maxValue, step, startValue, endValue, milestoneStep
     };
 
-    const pipCount = getPipCount(step, minValue, maxValue);
+    const pipCount = useMemo(() => getPipCount(step, minValue, maxValue), [step, minValue, maxValue]);
 
     const context = useMemo<PipsContext>(
         () => ({props}),
