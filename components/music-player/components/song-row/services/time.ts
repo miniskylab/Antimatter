@@ -3,7 +3,7 @@ import {isNullOrUndefined} from "@miniskylab/antimatter-framework";
 const timeFormatter = new Intl.DateTimeFormat("en-US", {minute: "2-digit", second: "2-digit"});
 export function getFormattedTime(seconds?: number): string
 {
-    if (isNullOrUndefined(seconds) || Number.isNaN(seconds) || !isFinite(seconds))
+    if (isNullOrUndefined(seconds) || !Number.isFinite(seconds))
     {
         return "--:--";
     }

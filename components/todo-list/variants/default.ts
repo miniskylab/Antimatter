@@ -830,13 +830,33 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__TextBox: TextIn
     };
 };
 
+const TodoList__Reminder__NotificationIntervalNumericInputField__Placeholder: TextStyle = function (textProps)
+{
+    const reminderContext = Reminder.ContextHook.useReminderContext();
+    const inputFieldContext = InputFieldContextHook.useInputFieldContext();
+    const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
+
+    const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
+        (inputFieldContext.props)
+        .Placeholder(textProps);
+
+    return {
+        ...inheritedStyle,
+        ...reminderContext.extra.isMarkedAsDone && {
+            fontWeight: "bold",
+            fontStyle: "italic"
+        }
+    };
+};
+
 const TodoList__Reminder__NotificationIntervalNumericInputField: NumericInputFieldStyle = function (numericInputFieldProps,
     numericInputFieldState)
 {
     return inputFieldProps => ({
         ...NumericInputFieldVariant.Default(numericInputFieldProps, numericInputFieldState)(inputFieldProps),
         Root: TodoList__Reminder__NotificationIntervalNumericInputField__Root,
-        TextBox: TodoList__Reminder__NotificationIntervalNumericInputField__TextBox
+        TextBox: TodoList__Reminder__NotificationIntervalNumericInputField__TextBox,
+        Placeholder: TodoList__Reminder__NotificationIntervalNumericInputField__Placeholder
     });
 };
 
@@ -900,8 +920,11 @@ const TodoList__Reminder__DoneToggle: ToggleStyle = function (toggleProps)
 
 const TodoList__Reminder__MuteToggle__Root: ViewStyle = function (viewProps)
 {
+    const toggleContext = ToggleContextHook.useToggleContext();
+
     return {
         ...TodoList__Reminder__DoneToggle__Root(viewProps),
+        display: toggleContext.props.disabled ? "none" : "flex",
         top: 60,
         right: 128
     };

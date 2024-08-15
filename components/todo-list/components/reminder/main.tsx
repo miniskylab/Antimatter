@@ -227,15 +227,14 @@ export const Component = forwardRef(function Component(
                 <NumericInputField
                     style={computedStyle.NotificationIntervalNumericInputField}
                     key={notificationIntervalNumericInputFieldUpdateKeyRef.current}
-                    minValue={0}
+                    minValue={1}
                     maxValue={8800}
-                    treatEmptyInputAsZero={true}
                     maximumFractionDigitCount={0}
                     editable={!isMarkedAsDone}
                     focusable={!isMarkedAsDone}
                     selectTextOnFocus={!isMarkedAsDone}
-                    placeholder={notificationIntervalPlaceholder}
-                    defaultValue={notificationInterval}
+                    placeholder={isMarkedAsDone ? "Notification disabled" : notificationIntervalPlaceholder}
+                    defaultValue={isMarkedAsDone ? undefined : notificationInterval}
                     keyboardType={"number-pad"}
                     onChange={onNotificationIntervalChange}
                 />
@@ -248,7 +247,7 @@ export const Component = forwardRef(function Component(
                 <Toggle
                     style={computedStyle.MuteToggle}
                     icon={DefaultIconSet.History}
-                    status={notificationInterval === 0 ? Status.Checked : Status.Unchecked}
+                    status={Number.isNaN(notificationInterval) ? Status.Checked : Status.Unchecked}
                     disabled={isMarkedAsDone}
                     onChange={onMuteToggleStatusChange}
                 />
@@ -325,6 +324,7 @@ export const Component = forwardRef(function Component(
     {
         if (newStatus === Status.Checked)
         {
+            notificationIntervalNumericInputFieldUpdateKeyRef.current = Date.now();
             lastInputtedRecurrencePatternRef.current = recurrencePattern;
             onRecurrencePatternChange(doneRecurrencePattern);
         }
@@ -337,6 +337,6 @@ export const Component = forwardRef(function Component(
     function onMuteToggleStatusChange(newStatus: Status): void
     {
         notificationIntervalNumericInputFieldUpdateKeyRef.current = Date.now();
-        onNotificationIntervalChange(newStatus === Status.Checked ? 0 : 1);
+        onNotificationIntervalChange(newStatus === Status.Checked ? NaN : 1);
     }
 });

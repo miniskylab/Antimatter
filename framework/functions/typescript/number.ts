@@ -70,12 +70,12 @@ export function shorten(anyNumber: number): string
 
 export function random(min: number, max: number): number
 {
-    if (isNullOrUndefined(min) || !isFinite(min))
+    if (isNullOrUndefined(min) || !Number.isFinite(min))
     {
         throw new Error(`Invalid arguments: 'min' cannot be '${min}'`);
     }
 
-    if (isNullOrUndefined(max) || !isFinite(max))
+    if (isNullOrUndefined(max) || !Number.isFinite(max))
     {
         throw new Error(`Invalid arguments: 'max' cannot be '${max}'`);
     }

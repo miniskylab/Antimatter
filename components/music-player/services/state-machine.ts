@@ -184,8 +184,8 @@ export const StateMachine = new class
         }
 
         if (
-            isNotNullAndUndefined(this._secBackSkipRestartThreshold) && isFinite(this._secBackSkipRestartThreshold) &&
-            isNotNullAndUndefined(this._secPlaybackProgress) && isFinite(this._secPlaybackProgress) &&
+            isNotNullAndUndefined(this._secBackSkipRestartThreshold) && Number.isFinite(this._secBackSkipRestartThreshold) &&
+            isNotNullAndUndefined(this._secPlaybackProgress) && Number.isFinite(this._secPlaybackProgress) &&
             this._secPlaybackProgress > this._secBackSkipRestartThreshold
         )
         {
@@ -260,7 +260,7 @@ export const StateMachine = new class
 
     setBackSkipRestartThreshold(secBackSkipRestartThreshold: number | null | undefined)
     {
-        if (isNullOrUndefined(secBackSkipRestartThreshold) || !isFinite(secBackSkipRestartThreshold))
+        if (isNullOrUndefined(secBackSkipRestartThreshold) || !Number.isFinite(secBackSkipRestartThreshold))
         {
             this._secBackSkipRestartThreshold = undefined;
             return;
@@ -277,13 +277,13 @@ export const StateMachine = new class
 
     setPlaybackProgress(secPlaybackProgress: number | null | undefined)
     {
-        if (isNullOrUndefined(this._playingSongIndex) || !isFinite(this._playingSongIndex))
+        if (isNullOrUndefined(this._playingSongIndex) || !Number.isFinite(this._playingSongIndex))
         {
             this._secPlaybackProgress = undefined;
             return;
         }
 
-        if (isNullOrUndefined(secPlaybackProgress) || isNaN(secPlaybackProgress) || secPlaybackProgress < 0)
+        if (isNullOrUndefined(secPlaybackProgress) || Number.isNaN(secPlaybackProgress) || secPlaybackProgress < 0)
         {
             this._secPlaybackProgress = 0;
             return;
@@ -310,7 +310,7 @@ export const StateMachine = new class
         this._isPlaying = !!isPlaying;
         if (this._isPlaying)
         {
-            if (isNotNullAndUndefined(this._secSeekerPosition) && isFinite(this._secSeekerPosition))
+            if (Number.isFinite(this._secSeekerPosition))
             {
                 this._secPlaybackProgress = this._secSeekerPosition;
                 this._secSeekerPosition = undefined;
@@ -339,13 +339,13 @@ export const StateMachine = new class
 
     setSeekerPosition(secSeekerPosition: number | null | undefined)
     {
-        if (isNullOrUndefined(this._playingSongIndex) || !isFinite(this._playingSongIndex))
+        if (isNullOrUndefined(this._playingSongIndex) || !Number.isFinite(this._playingSongIndex))
         {
             this._secSeekerPosition = undefined;
             return;
         }
 
-        if (isNullOrUndefined(secSeekerPosition) || isNaN(secSeekerPosition) || secSeekerPosition < 0)
+        if (isNullOrUndefined(secSeekerPosition) || Number.isNaN(secSeekerPosition) || secSeekerPosition < 0)
         {
             this._secSeekerPosition = undefined;
             return;
@@ -364,7 +364,7 @@ export const StateMachine = new class
     setIsShuffleEnabled(isShuffleEnabled: boolean | null | undefined)
     {
         this._isShuffleEnabled = !!isShuffleEnabled;
-        if (isNotNullAndUndefined(this._playingSongIndex) && isFinite(this._playingSongIndex))
+        if (Number.isFinite(this._playingSongIndex))
         {
             this.clearPlayQueueStartingFrom(this._playingSongIndex);
             if (this._isShuffleEnabled)
@@ -392,7 +392,7 @@ export const StateMachine = new class
         copyOfSong.isExcludedFromActivePlaylist = !!isExcluded;
 
         this._indexedTracklist[songUri] = copyOfSong;
-        if (isNotNullAndUndefined(this._playingSongIndex) && isFinite(this._playingSongIndex))
+        if (Number.isFinite(this._playingSongIndex))
         {
             const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
             this.clearPlayQueueStartingFrom(this._playingSongIndex);
@@ -433,7 +433,7 @@ export const StateMachine = new class
 
     private clearPlayQueueStartingFrom(indexExcluded: number | undefined)
     {
-        if (isNullOrUndefined(indexExcluded) || !isFinite(indexExcluded))
+        if (isNullOrUndefined(indexExcluded) || !Number.isFinite(indexExcluded))
         {
             return;
         }
