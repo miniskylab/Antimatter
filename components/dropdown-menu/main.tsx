@@ -28,6 +28,9 @@ export function DropdownMenu({
         style, menuItems, placeholder, isOpen, enableMenuHorizontalScrolling, dropDirection, onSelectedItemContainerPress, onMenuItemPress
     };
 
+    const selectedValues = Object.keys(menuItems).filter(x => menuItems[x].status === MenuItemStatus.Selected);
+    const hasSelection = selectedValues.length > 0;
+
     const context = useMemo<DropdownMenuContext>(
         () => ({props}),
         [...Object.values(props)]
@@ -35,9 +38,6 @@ export function DropdownMenu({
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
-
-    const selectedValues = Object.keys(menuItems).filter(x => menuItems[x].status === MenuItemStatus.Selected);
-    const hasSelection = selectedValues.length > 0;
 
     return (
         <DropdownMenuContext.Provider value={context}>

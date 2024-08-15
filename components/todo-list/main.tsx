@@ -50,14 +50,6 @@ export const TodoList = forwardRef(function TodoList(
         previousReminders: reminders
     });
 
-    const context = useMemo<TodoListContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
-
-    Ts.Error.throwIfNullOrUndefined(style);
-    const {computedStyle} = useComputedStyle(style, props);
-
     const lastSelectedReminderIdRef = useRef<string>();
     const toBeFlashHighlightedReminderIdsRef = useRef<string[]>([]);
     const remindersRef = useRef<Record<string, Nullable<Reminder.Ref>>>({});
@@ -71,6 +63,14 @@ export const TodoList = forwardRef(function TodoList(
         () => getUnifiedReminderList(),
         [reminders, selectedReminder, state.toBeDeletedReminders]
     );
+
+    const context = useMemo<TodoListContext>(
+        () => ({props, state}),
+        [...Object.values(props), ...Object.values(state)]
+    );
+
+    Ts.Error.throwIfNullOrUndefined(style);
+    const {computedStyle} = useComputedStyle(style, props);
 
     useImperativeHandle(ref, () => ({
         flashHighlightReminders(reminderIds) { toBeFlashHighlightedReminderIdsRef.current = [...reminderIds]; }

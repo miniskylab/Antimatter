@@ -22,6 +22,10 @@ export function NavButton({
         style, destination, openIn, label, icon, disabled
     };
 
+    const navigationContext = useContext(NavigationContext);
+    const navigationContainerRefContext = useContext(NavigationContainerRefContext);
+    const clientSideNavigation = !isEnvironment("Web") || navigationContext || navigationContainerRefContext ? useNavigation() : undefined;
+
     const context = useMemo<NavButtonContext>(
         () => ({props}),
         [...Object.values(props)]
@@ -29,10 +33,6 @@ export function NavButton({
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
-
-    const navigationContext = useContext(NavigationContext);
-    const navigationContainerRefContext = useContext(NavigationContainerRefContext);
-    const clientSideNavigation = !isEnvironment("Web") || navigationContext || navigationContainerRefContext ? useNavigation() : undefined;
 
     return (
         <NavButtonContext.Provider value={context}>

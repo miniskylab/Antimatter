@@ -41,6 +41,9 @@ export function MusicPlayer({
         onPlaylistSelectionToggle, onSongExclusionStatusToggle
     };
 
+    const selectedSong = tracklist.find(x => x.songName === selectedSongName);
+    const subTitle = selectedSong?.singer ?? subtitlePlaceholder;
+
     const context = useMemo<MusicPlayerContext>(
         () => ({props}),
         [...Object.values(props)]
@@ -48,9 +51,6 @@ export function MusicPlayer({
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
-
-    const selectedSong = tracklist.find(x => x.songName === selectedSongName);
-    const subTitle = selectedSong?.singer ?? subtitlePlaceholder;
 
     return (
         <MusicPlayerContext.Provider value={context}>

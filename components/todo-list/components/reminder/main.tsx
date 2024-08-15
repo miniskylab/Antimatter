@@ -53,9 +53,6 @@ export const Component = forwardRef(function Component(
         maxSelectedTagCount, showProgressStripes, toBeDeleted, modifiedDate, createdDate, mode, onPress, onChange
     };
 
-    Ts.Error.throwIfNullOrUndefined(style);
-    const {computedStyle} = useComputedStyle(style, props);
-
     const rootContainerRef = useRef<Pressable<Ref>>(null);
     const lastInputtedRecurrencePatternRef = useRef<string>(EMPTY_STRING);
     const notificationIntervalNumericInputFieldUpdateKeyRef = useRef<number>();
@@ -73,6 +70,9 @@ export const Component = forwardRef(function Component(
         () => ({props, extra}),
         [...Object.values(props), ...Object.values(extra)]
     );
+
+    Ts.Error.throwIfNullOrUndefined(style);
+    const {computedStyle} = useComputedStyle(style, props);
 
     useImperativeHandle(ref, () => ({
         flashHighlight: rootContainerRef.current?.flashHighlight,

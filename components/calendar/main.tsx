@@ -45,14 +45,6 @@ export function Calendar({
         };
     });
 
-    const context = useMemo<CalendarContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
-
-    Ts.Error.throwIfNullOrUndefined(style);
-    const {computedStyle} = useComputedStyle(style, props, state);
-
     const calendarWidthRef = useRef<number>(NaN);
     const dateViewData = useMemo<DateView.DateInfo[][]>(
         () => getDateViewData(state.view.timeFrame.monthAndYear),
@@ -66,6 +58,14 @@ export function Calendar({
         () => getYearViewData(state.view.timeFrame.decade),
         [state.view.timeFrame.decade]
     );
+
+    const context = useMemo<CalendarContext>(
+        () => ({props, state}),
+        [...Object.values(props), ...Object.values(state)]
+    );
+
+    Ts.Error.throwIfNullOrUndefined(style);
+    const {computedStyle} = useComputedStyle(style, props, state);
 
     return (
         <CalendarContext.Provider value={context}>

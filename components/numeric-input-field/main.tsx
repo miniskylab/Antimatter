@@ -52,6 +52,10 @@ export const NumericInputField = forwardRef(function NumericInputField(
         userInput: getDefaultUserInput()
     });
 
+    const lastKeypressRef = useRef<Keypress>();
+    const internalRef = useRef<NumericInputField>(null);
+    const ignoreNextSelectionChangeEventRef = useRef(false);
+
     const context = useMemo<NumericInputFieldContext>(
         () => ({props, state}),
         [...Object.values(props), ...Object.values(state)]
@@ -60,11 +64,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props, state);
 
-    const internalRef = useRef<NumericInputField>(null);
     useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
-
-    const lastKeypressRef = useRef<Keypress>();
-    const ignoreNextSelectionChangeEventRef = useRef(false);
 
     useEffect(() =>
     {

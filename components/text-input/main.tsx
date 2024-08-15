@@ -42,10 +42,11 @@ export const TextInput = forwardRef(function TextInput(
         onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
     };
 
+    const internalRef = useRef<TextInput>(null);
+
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
 
-    const internalRef = useRef<TextInput>(null);
     useImperativeHandle(ref, () => ({
         ...imperativeHandles,
         ...internalRef.current!,

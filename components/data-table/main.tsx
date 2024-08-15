@@ -37,6 +37,9 @@ export function DataTable({
         onSaveRow, onDeleteRow, onCancel
     };
 
+    const scrollViewRef = useRef<ScrollView>(null);
+    const headerData = columns?.map(x => x.name).filter(x => !!x);
+
     const context = useMemo<DataTableContext>(
         () => ({props}),
         [...Object.values(props)]
@@ -44,9 +47,6 @@ export function DataTable({
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
-
-    const scrollViewRef = useRef<ScrollView>(null);
-    const headerData = columns?.map(x => x.name).filter(x => !!x);
 
     return (
         <DataTableContext.Provider value={context}>

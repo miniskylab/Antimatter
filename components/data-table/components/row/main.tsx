@@ -31,6 +31,8 @@ export function Component({
         dropdownMenuDropDirection: DropDirection.Down
     });
 
+    const ref = useRef<Pressable>(null);
+
     const context = useMemo<RowContext>(
         () => ({props, state}),
         [...Object.values(props), ...Object.values(state)]
@@ -38,8 +40,6 @@ export function Component({
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props, state);
-
-    const ref = useRef<Pressable>(null);
 
     if (mode === Mode.ReadOnly && state.openedDropdownMenuColumnIndex)
     {

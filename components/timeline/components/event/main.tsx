@@ -33,6 +33,8 @@ export function Component({
         style, index, name, image, description, icon, startDate, endDate, isOnGoing, location, minimumTimeUnit
     };
 
+    const duration = useMemo(() => getDuration(), [isOnGoing, startDate, endDate, minimumTimeUnit]);
+
     const context = useMemo<EventContext>(
         () => ({props}),
         [...Object.values(props)]
@@ -40,12 +42,6 @@ export function Component({
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
-
-    const duration = isOnGoing
-        ? GregorianCalendar.getTimeDuration(startDate, new Date(), minimumTimeUnit)
-        : endDate
-            ? GregorianCalendar.getTimeDuration(startDate, endDate, minimumTimeUnit)
-            : undefined;
 
     return (
         <EventContext.Provider value={context}>
@@ -86,4 +82,13 @@ export function Component({
             </View>
         </EventContext.Provider>
     );
+
+    function getDuration()
+    {
+        return isOnGoing
+            ? GregorianCalendar.getTimeDuration(startDate, new Date(), minimumTimeUnit)
+            : endDate
+                ? GregorianCalendar.getTimeDuration(startDate, endDate, minimumTimeUnit)
+                : undefined;
+    }
 }

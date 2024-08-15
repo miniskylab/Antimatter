@@ -39,6 +39,8 @@ export const InputField = forwardRef(function InputField(
         keyboardType, selection, onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
     };
 
+    const internalRef = useRef<InputField>(null);
+
     const context = useMemo<InputFieldContext>(
         () => ({props}),
         [...Object.values(props)]
@@ -47,7 +49,6 @@ export const InputField = forwardRef(function InputField(
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
 
-    const internalRef = useRef<InputField>(null);
     useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
 
     return (

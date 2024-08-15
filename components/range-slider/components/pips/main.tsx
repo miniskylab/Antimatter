@@ -19,6 +19,8 @@ export function Component({
         style, minValue, maxValue, step, startValue, endValue, milestoneStep
     };
 
+    const pipCount = getPipCount(step, minValue, maxValue);
+
     const context = useMemo<PipsContext>(
         () => ({props}),
         [...Object.values(props)]
@@ -26,8 +28,6 @@ export function Component({
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
-
-    const pipCount = getPipCount(step, minValue, maxValue);
 
     return (
         <PipsContext.Provider value={context}>

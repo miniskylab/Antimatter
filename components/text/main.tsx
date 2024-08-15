@@ -28,10 +28,10 @@ export function Text({
         style, children, selectable, numberOfLines, pointerEvents
     };
 
+    const isWebEnvironment = isEnvironment("Web");
+
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
-
-    const isWebEnvironment = isEnvironment("Web");
 
     return (
         <View

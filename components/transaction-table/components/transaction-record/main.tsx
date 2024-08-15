@@ -39,6 +39,8 @@ export const Component = forwardRef(function Component(
         createdDate, mode, onPress, onChange
     };
 
+    const rootContainerRef = useRef<Pressable<Ref>>(null);
+
     const context = useMemo<TransactionRecordContext>(
         () => ({props}),
         [...Object.values(props)]
@@ -47,7 +49,6 @@ export const Component = forwardRef(function Component(
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
 
-    const rootContainerRef = useRef<Pressable<Ref>>(null);
     useImperativeHandle(ref, () => ({
         flashHighlight: rootContainerRef.current?.flashHighlight,
         collapseHeight: rootContainerRef.current?.collapseHeight

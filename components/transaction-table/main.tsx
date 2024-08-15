@@ -58,14 +58,6 @@ export const TransactionTable = forwardRef(function TransactionTable(
         previousTransactions: transactions
     });
 
-    const context = useMemo<TransactionTableContext>(
-        () => ({props, state}),
-        [...Object.values(props), ...Object.values(state)]
-    );
-
-    Ts.Error.throwIfNullOrUndefined(style);
-    const {computedStyle} = useComputedStyle(style, props, state);
-
     const toBeFlashHighlightedTransactionIdsRef = useRef<string[]>([]);
     const transactionRecordsRef = useRef<Record<string, Nullable<TransactionRecord.Ref>>>({});
 
@@ -81,6 +73,14 @@ export const TransactionTable = forwardRef(function TransactionTable(
         () => filterTransactionsForSelectedDate(),
         [unifiedTransactionList, selectedDate]
     );
+
+    const context = useMemo<TransactionTableContext>(
+        () => ({props, state}),
+        [...Object.values(props), ...Object.values(state)]
+    );
+
+    Ts.Error.throwIfNullOrUndefined(style);
+    const {computedStyle} = useComputedStyle(style, props, state);
 
     useImperativeHandle(ref, () => ({
         flashHighlightTransactions(transactionIds) { toBeFlashHighlightedTransactionIdsRef.current = [...transactionIds]; }

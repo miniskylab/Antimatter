@@ -21,15 +21,15 @@ export function Button({
         style, label, icon, disabled, onPress
     };
 
-    const context = useMemo<ButtonContext>(
-        () => ({props}),
-        [...Object.values(props)]
-    );
-
     if (!style)
     {
         style = label ? Variant.OutlinedRectangular : Variant.OutlinedCircular;
     }
+
+    const context = useMemo<ButtonContext>(
+        () => ({props}),
+        [...Object.values(props)]
+    );
 
     const {computedStyle} = useComputedStyle(style, props);
 

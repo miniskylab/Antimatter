@@ -25,10 +25,11 @@ export const View = forwardRef(function View(
         style, children, pointerEvents, onLayout, onStartShouldSetResponder, onMoveShouldSetResponder, onResponderStart, onResponderMove
     };
 
+    const internalRef = useRef<View>(null);
+
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
 
-    const internalRef = useRef<View>(null);
     useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
 
     return (

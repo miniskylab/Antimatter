@@ -27,13 +27,14 @@ export const ScrollView = forwardRef(function ScrollView(
         showsHorizontalScrollIndicator, automaticallyAdjustKeyboardInsets, refreshControl
     };
 
+    const internalRef = useRef<ScrollView>(null);
+
+    const isRunningOnDesktopWeb = useEnvironment("DesktopWeb");
+
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
 
-    const internalRef = useRef<ScrollView>(null);
     useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
-
-    const isRunningOnDesktopWeb = useEnvironment("DesktopWeb");
 
     useEffect(() =>
     {

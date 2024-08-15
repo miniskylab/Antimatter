@@ -25,6 +25,8 @@ export function RangeSlider({
         style, minValue, maxValue, value, knobIcon, pipsSettings, disabled, onChange
     };
 
+    const freeZoneWidthRef = useRef<number>(0);
+
     const context = useMemo<RangeSliderContext>(
         () => ({props}),
         [...Object.values(props)]
@@ -32,8 +34,6 @@ export function RangeSlider({
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
-
-    const freeZoneWidthRef = useRef<number>(0);
 
     return (
         <RangeSliderContext.Provider value={context}>

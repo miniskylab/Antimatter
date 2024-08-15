@@ -26,6 +26,8 @@ export const Pressable = forwardRef(function Pressable(
     const [pressed, setPressed] = useState(false);
     const state: PressableState = {hovered, pressed};
 
+    const internalRef = useRef<Pressable>(null);
+
     const context = useMemo<PressableContext>(
         () => ({props, state}),
         [...Object.values(props), ...Object.values(state)]
@@ -34,7 +36,6 @@ export const Pressable = forwardRef(function Pressable(
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props, state);
 
-    const internalRef = useRef<Pressable>(null);
     useImperativeHandle(ref, () => ({...internalRef.current!, ...imperativeHandles}), []);
 
     if (disabled && (hovered || pressed))
