@@ -836,16 +836,22 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__Placeholder: Te
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
     const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
 
+    const dueDuration = reminderContext.extra.dueDuration;
+    const isMarkedAsDone = reminderContext.extra.isMarkedAsDone;
+    const isNotificationSnoozed = reminderContext.extra.isNotificationSnoozed;
+
     const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
         (inputFieldContext.props)
         .Placeholder(textProps);
 
     return {
         ...inheritedStyle,
-        color: reminderContext.extra.isNotificationSuspended && !reminderContext.extra.isMarkedAsDone ? Color.Coral : Color.Neutral,
-        ...(reminderContext.extra.isMarkedAsDone || reminderContext.extra.isNotificationSuspended) && {
+        ...(isMarkedAsDone || isNotificationSnoozed) && {
             fontWeight: "bold",
             fontStyle: "italic"
+        },
+        ...(!isMarkedAsDone && isNotificationSnoozed) && {
+            color: isNotNullAndUndefined(dueDuration) && dueDuration <= 0 ? Color.Green : Color.Coral
         }
     };
 };
@@ -919,7 +925,7 @@ const TodoList__Reminder__DoneToggle: ToggleStyle = function (toggleProps)
     };
 };
 
-const TodoList__Reminder__MuteToggle__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__SnoozeToggle__Root: ViewStyle = function (viewProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
 
@@ -931,28 +937,33 @@ const TodoList__Reminder__MuteToggle__Root: ViewStyle = function (viewProps)
     };
 };
 
-const TodoList__Reminder__MuteToggle__Icon: IconStyle = function (iconProps)
+const TodoList__Reminder__SnoozeToggle__Icon: IconStyle = function (iconProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
+    const reminderContext = Reminder.ContextHook.useReminderContext();
     const pressableContext = PressableContextHook.usePressableContext();
+
+    const dueDuration = reminderContext.extra.dueDuration;
 
     return {
         ...TodoList__Reminder__DoneToggle__Icon(iconProps),
         transform: [{scaleX: -1}],
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
-            ? Color.Coral
+            ? isNotNullAndUndefined(dueDuration) && dueDuration <= 0
+                ? Color.Green
+                : Color.Coral
             : pressableContext.state.hovered
                 ? Color.White
                 : Color.Neutral
     };
 };
 
-const TodoList__Reminder__MuteToggle: ToggleStyle = function (toggleProps)
+const TodoList__Reminder__SnoozeToggle: ToggleStyle = function (toggleProps)
 {
     return {
         ...TodoList__Reminder__DoneToggle(toggleProps),
-        Root: TodoList__Reminder__MuteToggle__Root,
-        Icon: TodoList__Reminder__MuteToggle__Icon
+        Root: TodoList__Reminder__SnoozeToggle__Root,
+        Icon: TodoList__Reminder__SnoozeToggle__Icon
     };
 };
 
@@ -1009,7 +1020,7 @@ const TodoList__Reminder: Reminder.Style = function ()
         RecurrencePatternInputField: TodoList__Reminder__RecurrencePatternInputField,
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
         DoneToggle: TodoList__Reminder__DoneToggle,
-        MuteToggle: TodoList__Reminder__MuteToggle,
+        SnoozeToggle: TodoList__Reminder__SnoozeToggle,
         DismissButton: TodoList__Reminder__DismissButton,
         ProgressStripes: TodoList__Reminder__ProgressStripes
     };

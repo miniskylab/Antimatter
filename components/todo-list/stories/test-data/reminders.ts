@@ -25,7 +25,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "2": {
         name: "Pretium",
-        recurrencePattern: `0 0 10 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
+        recurrencePattern: `0 0 1 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
         notificationInterval: 5,
         tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
         modifiedDate: today,
@@ -33,7 +33,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "3": {
         name: "Turpis massa tincidunt",
-        recurrencePattern: `0 0 20 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
+        recurrencePattern: `59 59 23 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
         notificationInterval: undefined,
         tags: deepCopyWithSelection(Tags, "semper"),
         modifiedDate: today,

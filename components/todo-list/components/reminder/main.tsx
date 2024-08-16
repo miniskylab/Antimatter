@@ -61,13 +61,13 @@ export const Component = forwardRef(function Component(
 
     const today = new Date();
     const isMarkedAsDone = useMemo(() => isDoneRecurrencePattern(recurrencePattern), [recurrencePattern]);
-    const isNotificationSuspended = useMemo(() => isNullOrUndefined(notificationInterval), [notificationInterval]);
+    const isNotificationSnoozed = useMemo(() => isNullOrUndefined(notificationInterval), [notificationInterval]);
     const dueDate = useMemo(() => getDueDate(recurrencePattern), [recurrencePattern]);
     const dueDuration = useMemo(() => getDueDuration(today, dueDate), [dueDate]);
     const formattedDueDate = useMemo(() => getFormattedDueDate(), [dueDate]);
     const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [dueDuration]);
 
-    const context = useComponentContext<ReminderContext>({props, extra: {dueDuration, isMarkedAsDone, isNotificationSuspended}});
+    const context = useComponentContext<ReminderContext>({props, extra: {dueDuration, isMarkedAsDone, isNotificationSnoozed}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -119,7 +119,7 @@ export const Component = forwardRef(function Component(
     {
         return isMarkedAsDone
             ? "Notification disabled"
-            : isNotificationSuspended
+            : isNotificationSnoozed
                 ? "Remind me once at the next occurrence"
                 : notificationIntervalPlaceholder;
     }
@@ -255,11 +255,11 @@ export const Component = forwardRef(function Component(
                     onChange={onDoneToggleStatusChange}
                 />
                 <Toggle
-                    style={computedStyle.MuteToggle}
+                    style={computedStyle.SnoozeToggle}
                     icon={DefaultIconSet.History}
-                    status={isNotificationSuspended ? Status.Checked : Status.Unchecked}
+                    status={isNotificationSnoozed ? Status.Checked : Status.Unchecked}
                     disabled={isMarkedAsDone}
-                    onChange={onMuteToggleStatusChange}
+                    onChange={onSnoozeToggleStatusChange}
                 />
                 <Button style={computedStyle.DismissButton} label={"Dismiss"}/>
             </View>
@@ -344,7 +344,7 @@ export const Component = forwardRef(function Component(
         }
     }
 
-    function onMuteToggleStatusChange(newStatus: Status): void
+    function onSnoozeToggleStatusChange(newStatus: Status): void
     {
         notificationIntervalNumericInputFieldUpdateKeyRef.current = Date.now();
         if (newStatus === Status.Checked)
