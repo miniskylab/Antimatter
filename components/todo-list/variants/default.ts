@@ -867,7 +867,7 @@ const TodoList__Reminder__NotificationIntervalNumericInputField: NumericInputFie
     });
 };
 
-const TodoList__Reminder__DoneToggle__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__SuspenseToggle__Root: ViewStyle = function (viewProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
 
@@ -881,7 +881,7 @@ const TodoList__Reminder__DoneToggle__Root: ViewStyle = function (viewProps)
     };
 };
 
-const TodoList__Reminder__DoneToggle__Container: PressableStyle = function (pressableProps, pressableState)
+const TodoList__Reminder__SuspenseToggle__Container: PressableStyle = function (pressableProps, pressableState)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
 
@@ -896,7 +896,7 @@ const TodoList__Reminder__DoneToggle__Container: PressableStyle = function (pres
     };
 };
 
-const TodoList__Reminder__DoneToggle__Icon: IconStyle = function (iconProps)
+const TodoList__Reminder__SuspenseToggle__Icon: IconStyle = function (iconProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
     const pressableContext = PressableContextHook.usePressableContext();
@@ -915,13 +915,13 @@ const TodoList__Reminder__DoneToggle__Icon: IconStyle = function (iconProps)
     };
 };
 
-const TodoList__Reminder__DoneToggle: ToggleStyle = function (toggleProps)
+const TodoList__Reminder__SuspenseToggle: ToggleStyle = function (toggleProps)
 {
     return {
         ...ToggleVariant.Checkbox(toggleProps),
-        Root: TodoList__Reminder__DoneToggle__Root,
-        Container: TodoList__Reminder__DoneToggle__Container,
-        Icon: TodoList__Reminder__DoneToggle__Icon
+        Root: TodoList__Reminder__SuspenseToggle__Root,
+        Container: TodoList__Reminder__SuspenseToggle__Container,
+        Icon: TodoList__Reminder__SuspenseToggle__Icon
     };
 };
 
@@ -930,7 +930,7 @@ const TodoList__Reminder__SnoozeToggle__Root: ViewStyle = function (viewProps)
     const toggleContext = ToggleContextHook.useToggleContext();
 
     return {
-        ...TodoList__Reminder__DoneToggle__Root(viewProps),
+        ...TodoList__Reminder__SuspenseToggle__Root(viewProps),
         display: toggleContext.props.disabled ? "none" : "flex",
         top: 60,
         right: 128
@@ -946,7 +946,7 @@ const TodoList__Reminder__SnoozeToggle__Icon: IconStyle = function (iconProps)
     const dueDuration = reminderContext.extra.dueDuration;
 
     return {
-        ...TodoList__Reminder__DoneToggle__Icon(iconProps),
+        ...TodoList__Reminder__SuspenseToggle__Icon(iconProps),
         transform: [{scaleX: -1}],
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
             ? isNotNullAndUndefined(dueDuration) && dueDuration <= 0
@@ -961,7 +961,7 @@ const TodoList__Reminder__SnoozeToggle__Icon: IconStyle = function (iconProps)
 const TodoList__Reminder__SnoozeToggle: ToggleStyle = function (toggleProps)
 {
     return {
-        ...TodoList__Reminder__DoneToggle(toggleProps),
+        ...TodoList__Reminder__SuspenseToggle(toggleProps),
         Root: TodoList__Reminder__SnoozeToggle__Root,
         Icon: TodoList__Reminder__SnoozeToggle__Icon
     };
@@ -1019,7 +1019,7 @@ const TodoList__Reminder: Reminder.Style = function ()
         ExpansionArea: TodoList__Reminder__ExpansionArea,
         RecurrencePatternInputField: TodoList__Reminder__RecurrencePatternInputField,
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
-        DoneToggle: TodoList__Reminder__DoneToggle,
+        SuspenseToggle: TodoList__Reminder__SuspenseToggle,
         SnoozeToggle: TodoList__Reminder__SnoozeToggle,
         DismissButton: TodoList__Reminder__DismissButton,
         ProgressStripes: TodoList__Reminder__ProgressStripes

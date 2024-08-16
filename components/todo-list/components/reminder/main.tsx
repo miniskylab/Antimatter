@@ -249,10 +249,10 @@ export const Component = forwardRef(function Component(
                     onChange={onNotificationIntervalChange}
                 />
                 <Toggle
-                    style={computedStyle.DoneToggle}
+                    style={computedStyle.SuspenseToggle}
                     icon={DefaultIconSet.CheckMarkInsideCircle}
                     status={isMarkedAsDone ? Status.Checked : Status.Unchecked}
-                    onChange={onDoneToggleStatusChange}
+                    onChange={onSuspenseToggleStatusChange}
                 />
                 <Toggle
                     style={computedStyle.SnoozeToggle}
@@ -330,7 +330,7 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onDoneToggleStatusChange(newStatus: Status): void
+    function onSuspenseToggleStatusChange(newStatus: Status): void
     {
         notificationIntervalNumericInputFieldUpdateKeyRef.current = Date.now();
         if (newStatus === Status.Checked)
