@@ -15,26 +15,25 @@ describe("how to use [clamp(...)]", () =>
         });
     });
 
-    it("returns NaN when being used on NaN", () =>
+    it("returns NaN when 1st argument is not a number", () =>
     {
-        expect(clamp(NaN)).toBe(NaN);
-        expect(clamp(-NaN)).toBe(-NaN);
-
-        const parameters = [undefined, null, -NaN, NaN, -Infinity, Infinity, -1, 0, 5];
-        parameters.forEach(min =>
+        const values = [undefined, null, -NaN, NaN];
+        values.forEach(value =>
         {
-            expect(clamp(NaN, min)).toBe(NaN);
-            expect(clamp(-NaN, min)).toBe(-NaN);
+            expect(clamp(value)).toBe(NaN);
 
-            parameters.forEach(max =>
+            const minAndMaxParameters = [undefined, null, -NaN, NaN, -Infinity, Infinity, -1, 0, 5];
+            minAndMaxParameters.forEach(min =>
             {
-                if (min > max)
-                {
-                    return;
-                }
+                expect(clamp(value, min)).toBe(NaN);
 
-                expect(clamp(NaN, min, max)).toBe(NaN);
-                expect(clamp(-NaN, min, max)).toBe(-NaN);
+                minAndMaxParameters.forEach(max =>
+                {
+                    if (min <= max)
+                    {
+                        expect(clamp(value, min, max)).toBe(NaN);
+                    }
+                });
             });
         });
     });
@@ -73,7 +72,7 @@ describe("how to use [clamp(...)]", () =>
         });
     });
 
-    it("does nothing when both arguments are not number", () =>
+    it("does nothing when both 2nd and 3rd arguments are not number", () =>
     {
         const value = 100;
         expect(clamp(value)).toBe(value);

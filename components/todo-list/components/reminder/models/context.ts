@@ -4,6 +4,7 @@ import {type Props} from "./props";
 
 export const ReminderContext = createContext<ReminderContext>(undefined);
 export type ReminderContext = ComponentContext<Props, undefined, {
-    readonly dueDuration?: number;
-    readonly isMarkedAsDone?: boolean;
+    readonly isMarkedAsDone: boolean;
+    readonly isNotificationSuspended: boolean;
+    readonly dueDuration: number | undefined;
 }>;

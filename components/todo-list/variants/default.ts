@@ -842,7 +842,8 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__Placeholder: Te
 
     return {
         ...inheritedStyle,
-        ...reminderContext.extra.isMarkedAsDone && {
+        color: reminderContext.extra.isNotificationSuspended && !reminderContext.extra.isMarkedAsDone ? Color.Coral : Color.Neutral,
+        ...(reminderContext.extra.isMarkedAsDone || reminderContext.extra.isNotificationSuspended) && {
             fontWeight: "bold",
             fontStyle: "italic"
         }
@@ -939,7 +940,7 @@ const TodoList__Reminder__MuteToggle__Icon: IconStyle = function (iconProps)
         ...TodoList__Reminder__DoneToggle__Icon(iconProps),
         transform: [{scaleX: -1}],
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
-            ? Color.Tomato
+            ? Color.Coral
             : pressableContext.state.hovered
                 ? Color.White
                 : Color.Neutral

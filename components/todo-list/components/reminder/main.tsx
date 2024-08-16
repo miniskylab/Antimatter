@@ -56,17 +56,18 @@ export const Component = forwardRef(function Component(
 
     const rootContainerRef = useRef<Pressable<Ref>>(null);
     const lastInputtedRecurrencePatternRef = useRef<string>(EMPTY_STRING);
+    const lastInputtedNotificationIntervalRef = useRef(notificationInterval);
     const notificationIntervalNumericInputFieldUpdateKeyRef = useRef<number>();
 
     const today = new Date();
+    const isMarkedAsDone = useMemo(() => isDoneRecurrencePattern(recurrencePattern), [recurrencePattern]);
+    const isNotificationSuspended = useMemo(() => isNullOrUndefined(notificationInterval), [notificationInterval]);
     const dueDate = useMemo(() => getDueDate(recurrencePattern), [recurrencePattern]);
     const dueDuration = useMemo(() => getDueDuration(today, dueDate), [dueDate]);
-    const isMarkedAsDone = useMemo(() => isDoneRecurrencePattern(recurrencePattern), [recurrencePattern]);
-    const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [dueDuration]);
     const formattedDueDate = useMemo(() => getFormattedDueDate(), [dueDate]);
-    const icon = useMemo(() => getIcon(), [isMarkedAsDone, dueDuration]);
+    const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [dueDuration]);
 
-    const context = useComponentContext<ReminderContext>({props, extra: {dueDuration, isMarkedAsDone}});
+    const context = useComponentContext<ReminderContext>({props, extra: {dueDuration, isMarkedAsDone, isNotificationSuspended}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -83,7 +84,7 @@ export const Component = forwardRef(function Component(
         <ReminderContext.Provider value={context}>
             <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={toBeDeleted}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
-                <Icon style={computedStyle.Icon} name={icon} pointerEvents={"none"}/>
+                <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
                 <View style={computedStyle.NameTagAndDeadlineContainer}>
                     {renderName()}
                     {!isMarkedAsDone && formattedDueDate && (<>
@@ -112,6 +113,15 @@ export const Component = forwardRef(function Component(
                     : isNotNullAndUndefined(dueDuration) && dueDuration > 0
                         ? DefaultIconSet.Notification
                         : DefaultIconSet.NoSound;
+    }
+
+    function getNotificationIntervalPlaceholder(): string
+    {
+        return isMarkedAsDone
+            ? "Notification disabled"
+            : isNotificationSuspended
+                ? "Remind me once at the next occurrence"
+                : notificationIntervalPlaceholder;
     }
 
     function getDropdownMenuItems(): NonNullable<DropdownMenuProps["menuItems"]>
@@ -233,7 +243,7 @@ export const Component = forwardRef(function Component(
                     editable={!isMarkedAsDone}
                     focusable={!isMarkedAsDone}
                     selectTextOnFocus={!isMarkedAsDone}
-                    placeholder={isMarkedAsDone ? "Notification disabled" : notificationIntervalPlaceholder}
+                    placeholder={getNotificationIntervalPlaceholder()}
                     defaultValue={isMarkedAsDone ? undefined : notificationInterval}
                     keyboardType={"number-pad"}
                     onChange={onNotificationIntervalChange}
@@ -247,7 +257,7 @@ export const Component = forwardRef(function Component(
                 <Toggle
                     style={computedStyle.MuteToggle}
                     icon={DefaultIconSet.History}
-                    status={Number.isNaN(notificationInterval) ? Status.Checked : Status.Unchecked}
+                    status={isNotificationSuspended ? Status.Checked : Status.Unchecked}
                     disabled={isMarkedAsDone}
                     onChange={onMuteToggleStatusChange}
                 />
@@ -308,7 +318,7 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onNotificationIntervalChange(newValue: number): void
+    function onNotificationIntervalChange(newValue: number | undefined): void
     {
         onChange?.({
             name,
@@ -322,9 +332,9 @@ export const Component = forwardRef(function Component(
 
     function onDoneToggleStatusChange(newStatus: Status): void
     {
+        notificationIntervalNumericInputFieldUpdateKeyRef.current = Date.now();
         if (newStatus === Status.Checked)
         {
-            notificationIntervalNumericInputFieldUpdateKeyRef.current = Date.now();
             lastInputtedRecurrencePatternRef.current = recurrencePattern;
             onRecurrencePatternChange(doneRecurrencePattern);
         }
@@ -337,6 +347,14 @@ export const Component = forwardRef(function Component(
     function onMuteToggleStatusChange(newStatus: Status): void
     {
         notificationIntervalNumericInputFieldUpdateKeyRef.current = Date.now();
-        onNotificationIntervalChange(newStatus === Status.Checked ? NaN : 1);
+        if (newStatus === Status.Checked)
+        {
+            lastInputtedNotificationIntervalRef.current = notificationInterval;
+            onNotificationIntervalChange(undefined);
+        }
+        else
+        {
+            onNotificationIntervalChange(lastInputtedNotificationIntervalRef.current ?? 1);
+        }
     }
 });

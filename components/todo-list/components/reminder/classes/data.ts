@@ -1,4 +1,4 @@
-import {IsDate, IsNumber, IsString} from "@miniskylab/antimatter-framework";
+import {IsDate, IsNumber, IsString, Min} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import type {Tag} from "../types";
 
@@ -14,7 +14,8 @@ export class Data
     readonly recurrencePattern?: string;
 
 
-    @IsNumber({allowNaN: true})
+    @Min(1)
+    @IsNumber()
     @IsOptional()
     readonly notificationInterval?: number;
 

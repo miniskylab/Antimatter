@@ -15,7 +15,7 @@ export function getNextNumericInputFieldState(
     maximumFractionDigitCount = 20,
     maximumDigitCount = MAX
 ): {
-    nextValue: number;
+    nextValue: number | undefined;
     nextUserInput: string;
     nextSelection: Selection | undefined;
 }
@@ -201,11 +201,11 @@ export function getNextNumericInputFieldState(
         return anyString.substring(dotIndex + 1).length;
     }
 
-    function tryParse(anyString: string): number
+    function tryParse(anyString: string): number | undefined
     {
         if (purify(anyString) === EMPTY_STRING)
         {
-            return NaN;
+            return undefined;
         }
 
         if (purify(anyString) === "-")
@@ -222,13 +222,13 @@ export function getNextNumericInputFieldState(
         return numericResult;
     }
 
-    function reformatAndExtractNumericValueFrom(anyString: string): { numericValue: number; formattedUserInput: string }
+    function reformatAndExtractNumericValueFrom(anyString: string): { numericValue: number | undefined; formattedUserInput: string }
     {
         const numericValue = Ts.Number.clamp(tryParse(anyString), minValue, maxValue);
         if (Number.isNaN(numericValue))
         {
             return {
-                numericValue: NaN,
+                numericValue: undefined,
                 formattedUserInput: EMPTY_STRING
             };
         }

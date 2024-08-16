@@ -1,7 +1,7 @@
 import {EMPTY_STRING} from "../../consts";
 import {isNotNullAndUndefined, isNullOrUndefined} from "../type-guard";
 
-export function clamp(value: number, min?: number, max?: number): number
+export function clamp(value: number | undefined, min?: number, max?: number): number
 {
     if (isNotNullAndUndefined(min) && isNotNullAndUndefined(max) && min > max)
     {

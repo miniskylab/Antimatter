@@ -149,5 +149,5 @@ export class NumericInputFieldProps extends ComponentProps<NumericInputFieldStyl
     /**
      * Specify the piece of code that will be executed when the entered number changes.
      */
-    readonly onChange?: (newValue: number) => void;
+    readonly onChange?: (newValue: number | undefined) => void;
 }
