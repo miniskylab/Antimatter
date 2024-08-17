@@ -25,8 +25,11 @@ const Black = [0, 0, 0];
 
 export const Color = {
     Blue: toHex(Blue),
-    Green: toHex(Green),
     Gold: toHex(Gold),
+
+    Green: toHex(Green),
+    Green__b10: toHex(shade(Green, 10)),
+    Green__w25: toHex(tint(Green, 25)),
 
     Coral: toHex(Coral),
     Coral__a10: toHex(Coral, 10),
@@ -80,6 +83,8 @@ export const Color = {
 
     Neutral: toHex(Neutral),
     Neutral__a10: toHex(Neutral, 10),
+    Neutral__b10: toHex(shade(Neutral, 10)),
+    Neutral__w25: toHex(tint(Neutral, 25)),
 
     Gray: toHex(Gray),
     Gray__a10: toHex(Gray, 10),

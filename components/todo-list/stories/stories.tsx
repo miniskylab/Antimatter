@@ -180,6 +180,8 @@ export default {
                                 recurrencePattern: args.reminders[args.selectedReminder.id].recurrencePattern,
                                 notificationInterval: args.reminders[args.selectedReminder.id].notificationInterval,
                                 tags: args.reminders[args.selectedReminder.id].tags,
+                                status: args.reminders[args.selectedReminder.id].status,
+                                dueDate: args.reminders[args.selectedReminder.id].dueDate,
                                 modifiedDate: args.reminders[args.selectedReminder.id].modifiedDate,
                                 createdDate: args.reminders[args.selectedReminder.id].createdDate
                             }
@@ -209,6 +211,8 @@ export default {
                                 recurrencePattern: args.reminders[reminderId].recurrencePattern,
                                 notificationInterval: args.reminders[reminderId].notificationInterval,
                                 tags: args.reminders[reminderId].tags,
+                                status: args.reminders[reminderId].status,
+                                dueDate: args.reminders[reminderId].dueDate,
                                 modifiedDate: args.reminders[reminderId].modifiedDate,
                                 createdDate: args.reminders[reminderId].createdDate
                             }

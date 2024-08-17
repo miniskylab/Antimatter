@@ -1,5 +1,6 @@
 export enum Status
 {
-    Completed = "Completed",
-    Suspended = "Suspended",
+    Draft = "Draft",
+    Scheduled = "Scheduled",
+    Suspended = "Suspended"
 }

@@ -56,13 +56,11 @@ export const TodoList = forwardRef(function TodoList(
     const remindersRef = useRef<Record<string, Nullable<Reminder.Ref>>>({});
 
     const today = new Date();
+    const unifiedReminderList = useMemo(() => getUnifiedReminderList(), [reminders, selectedReminder, state.toBeDeletedReminders]);
+    const computedDueDates = useMemo(() => getComputedDueDates(), [unifiedReminderList]);
     const {button1, button2, button3} = useMemo(
         () => getControlPanel(),
         [mode, addNewReminderButton, saveReminderButton, deleteReminderButton, cancelButton, customButton]
-    );
-    const unifiedReminderList = useMemo(
-        () => getUnifiedReminderList(),
-        [reminders, selectedReminder, state.toBeDeletedReminders]
     );
 
     const context = useComponentContext<TodoListContext>({props, state});
@@ -239,21 +237,38 @@ export const TodoList = forwardRef(function TodoList(
         return toBeDeletedReminders;
     }
 
+    function getComputedDueDates(): Record<string, Date | undefined>
+    {
+        const computedDueDates: ReturnType<typeof getComputedDueDates> = {};
+        Object.keys(unifiedReminderList).forEach(unifiedReminderId =>
+        {
+            const unifiedReminder = unifiedReminderList[unifiedReminderId];
+            computedDueDates[unifiedReminderId] = Reminder.Service.getNextDueDate(unifiedReminder.recurrencePattern);
+        });
+
+        return computedDueDates;
+    }
+
     function byDueDuration(reminderIdA: string, reminderIdB: string): number
     {
         const reminderA = reminders[reminderIdA] ?? unifiedReminderList[reminderIdA];
         const reminderB = reminders[reminderIdB] ?? unifiedReminderList[reminderIdB];
 
-        const statusA = !reminderIdA || Reminder.Service.isDoneRecurrencePattern(reminderA.recurrencePattern) ? Infinity : 0;
-        const statusB = !reminderIdB || Reminder.Service.isDoneRecurrencePattern(reminderB.recurrencePattern) ? Infinity : 0;
-        const statusComparisonResult = statusA - statusB;
-        if (statusComparisonResult !== 0)
+        const statusA = reminderA.status;
+        const statusB = reminderB.status;
+        const dueDateA = reminderA.dueDate;
+        const dueDateB = reminderB.dueDate;
+        const computedDueDateA = computedDueDates[reminderIdA];
+        const computedDueDateB = computedDueDates[reminderIdB];
+
+        const stateA = !reminderIdA || Reminder.Service.isCompleted(computedDueDateA, dueDateA, statusA) ? Infinity : 0;
+        const stateB = !reminderIdB || Reminder.Service.isCompleted(computedDueDateB, dueDateB, statusB) ? Infinity : 0;
+        const stateComparisonResult = stateA - stateB;
+        if (stateComparisonResult !== 0)
         {
-            return statusComparisonResult;
+            return stateComparisonResult;
         }
 
-        const dueDateA = Reminder.Service.getDueDate(reminderA.recurrencePattern);
-        const dueDateB = Reminder.Service.getDueDate(reminderB.recurrencePattern);
         const dueDurationA = Reminder.Service.getDueDuration(today, dueDateA);
         const dueDurationB = Reminder.Service.getDueDuration(today, dueDateB);
         const dueDateComparisonResult = (dueDurationA ?? Infinity) - (dueDurationB ?? Infinity);
@@ -285,9 +300,9 @@ export const TodoList = forwardRef(function TodoList(
                     ref={ref => { remindersRef.current[sortedReminderId] = ref; }}
                     style={computedStyle.Reminder}
                     mode={reminderMode}
-                    tags={reminderData?.tags}
                     toBeDeleted={isToBeDeletedReminder}
                     maxSelectedTagCount={maxSelectedTagCount}
+                    computedDueDate={computedDueDates[sortedReminderId]}
                     recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
                     notificationIntervalPlaceholder={reminderNotificationIntervalPlaceholder}
                     showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}

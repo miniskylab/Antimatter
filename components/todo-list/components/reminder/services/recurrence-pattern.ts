@@ -1,12 +1,22 @@
-import {GregorianCalendar, isNullOrUndefined} from "@miniskylab/antimatter-framework";
-import {doneRecurrencePattern} from "../consts";
+import {GregorianCalendar, isNotNullAndUndefined, isNullOrUndefined} from "@miniskylab/antimatter-framework";
+import {Status} from "../enums";
 
-export function isDoneRecurrencePattern(recurrencePattern: string | undefined): boolean
+export function isSuspended(status: Status | undefined): boolean
 {
-    return recurrencePattern === doneRecurrencePattern;
+    return status === Status.Suspended;
 }
 
-export function getDueDate(recurrencePattern: string | undefined): Date | undefined
+export function isCompleted(computedDueDate: Date | undefined, dueDate: Date | undefined, status: Status | undefined): boolean
+{
+    return status === Status.Scheduled && !dueDate && (isNotNullAndUndefined(computedDueDate) && computedDueDate < new Date);
+}
+
+export function getDueDuration(today: Date, dueDate: Date | undefined): number | undefined
+{
+    return dueDate ? GregorianCalendar.getDayCount(today, dueDate, true) : undefined;
+}
+
+export function getNextDueDate(recurrencePattern: string | undefined): Date | undefined
 {
     if (isNullOrUndefined(recurrencePattern) || !isValidRecurrencePattern(recurrencePattern))
     {
@@ -33,11 +43,6 @@ export function getDueDate(recurrencePattern: string | undefined): Date | undefi
     }
 
     return nextExecutionTime;
-}
-
-export function getDueDuration(today: Date, dueDate: Date | undefined): number | undefined
-{
-    return dueDate ? GregorianCalendar.getDayCount(today, dueDate, true) : undefined;
 }
 
 function isValidRecurrencePattern(recurrencePattern: string): boolean

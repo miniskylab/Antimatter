@@ -20,6 +20,8 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 0 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
         notificationInterval: 1,
         tags: deepCopyWithSelection(Tags, "feugiat", "mauris"),
+        status: Reminder.Status.Scheduled,
+        dueDate: today,
         modifiedDate: today,
         createdDate: today
     },
@@ -28,6 +30,8 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 1 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
         notificationInterval: 5,
         tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
+        status: Reminder.Status.Scheduled,
+        dueDate: today,
         modifiedDate: today,
         createdDate: today
     },
@@ -36,6 +40,8 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `59 59 23 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
         notificationInterval: undefined,
         tags: deepCopyWithSelection(Tags, "semper"),
+        status: Reminder.Status.Scheduled,
+        dueDate: today,
         modifiedDate: today,
         createdDate: today
     },
@@ -44,6 +50,8 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 0 ${yesterday.getDate()} ${yesterday.getMonth() + 1} ? ${yesterday.getFullYear()}`,
         notificationInterval: 2,
         tags: deepCopyWithSelection(Tags, "interdum"),
+        status: Reminder.Status.Scheduled,
+        dueDate: yesterday,
         modifiedDate: today,
         createdDate: today
     },
@@ -52,6 +60,8 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 0 ${yesterday.getDate()} ${yesterday.getMonth() + 1} ? ${yesterday.getFullYear()}`,
         notificationInterval: undefined,
         tags: deepCopyWithSelection(Tags, "feugiat"),
+        status: Reminder.Status.Scheduled,
+        dueDate: yesterday,
         modifiedDate: today,
         createdDate: today
     },
@@ -60,6 +70,8 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? ${day45InThePast.getFullYear()}`,
         notificationInterval: 3,
         tags: deepCopyWithSelection(Tags, "mauris"),
+        status: Reminder.Status.Scheduled,
+        dueDate: day45InThePast,
         modifiedDate: today,
         createdDate: today
     },
@@ -68,6 +80,8 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? ${day45InThePast.getFullYear()}`,
         notificationInterval: undefined,
         tags: deepCopyWithSelection(Tags, "dolore", "feugiat"),
+        status: Reminder.Status.Scheduled,
+        dueDate: day45InThePast,
         modifiedDate: today,
         createdDate: today
     },
@@ -76,6 +90,8 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 0 ${day45InTheFuture.getDate()} ${day45InTheFuture.getMonth() + 1} ? ${day45InTheFuture.getFullYear()}`,
         notificationInterval: 4,
         tags: deepCopyWithSelection(Tags, "volutpat"),
+        status: Reminder.Status.Scheduled,
+        dueDate: day45InTheFuture,
         modifiedDate: today,
         createdDate: today
     },
@@ -84,6 +100,8 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 0 ${day45InTheFuture.getDate()} ${day45InTheFuture.getMonth() + 1} ? ${day45InTheFuture.getFullYear()}`,
         notificationInterval: undefined,
         tags: deepCopyWithSelection(Tags, "iaculis"),
+        status: Reminder.Status.Scheduled,
+        dueDate: day45InTheFuture,
         modifiedDate: today,
         createdDate: today
     },
@@ -92,6 +110,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: EMPTY_STRING,
         notificationInterval: 6,
         tags: deepCopyWithSelection(Tags, "viverra", "metus"),
+        status: Reminder.Status.Scheduled,
         modifiedDate: today,
         createdDate: today
     },
@@ -100,6 +119,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: EMPTY_STRING,
         notificationInterval: undefined,
         tags: deepCopyWithSelection(Tags, "imperdiet"),
+        status: Reminder.Status.Scheduled,
         modifiedDate: today,
         createdDate: today
     },
@@ -108,6 +128,8 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 0 ${tomorrow.getDate()} ${tomorrow.getMonth() + 1} ? ${tomorrow.getFullYear()}`,
         notificationInterval: 7,
         tags: deepCopyWithSelection(Tags, "massa"),
+        status: Reminder.Status.Scheduled,
+        dueDate: tomorrow,
         modifiedDate: today,
         createdDate: today
     },
@@ -116,22 +138,26 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 0 ${tomorrow.getDate()} ${tomorrow.getMonth() + 1} ? ${tomorrow.getFullYear()}`,
         notificationInterval: undefined,
         tags: deepCopyWithSelection(Tags, "adipiscing"),
+        status: Reminder.Status.Scheduled,
+        dueDate: tomorrow,
         modifiedDate: today,
         createdDate: today
     },
     "14": {
         name: "Cursus turpis",
-        recurrencePattern: "Done",
+        recurrencePattern: EMPTY_STRING,
         notificationInterval: 9,
         tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
+        status: Reminder.Status.Scheduled,
         modifiedDate: today,
         createdDate: today
     },
     "15": {
         name: "Morbi tincidunt",
-        recurrencePattern: "Done",
-        notificationInterval: undefined,
+        recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? ${day45InThePast.getFullYear()}`,
+        notificationInterval: 1,
         tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
+        status: Reminder.Status.Scheduled,
         modifiedDate: today,
         createdDate: today
     }

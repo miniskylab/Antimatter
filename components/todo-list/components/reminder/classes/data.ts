@@ -1,5 +1,6 @@
-import {IsDate, IsNumber, IsString, Min} from "@miniskylab/antimatter-framework";
+import {IsDate, IsEnum, IsNumber, IsString, Min} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
+import {Status} from "../enums";
 import type {Tag} from "../types";
 
 export class Data
@@ -22,6 +23,16 @@ export class Data
 
     @IsOptional()
     readonly tags?: Record<string, Tag>;
+
+
+    @IsEnum(Status)
+    @IsOptional()
+    readonly status?: Status;
+
+
+    @IsDate()
+    @IsOptional()
+    readonly dueDate?: Date;
 
 
     @IsDate()

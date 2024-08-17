@@ -18,19 +18,19 @@ import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
-import {Status, Toggle} from "@miniskylab/antimatter-toggle";
+import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
-import {doneRecurrencePattern} from "./consts";
-import {Mode, TagMetadata, TagStatus} from "./enums";
-import {type Props, type Ref, ReminderContext} from "./models";
-import {getDueDate, getDueDuration, isDoneRecurrencePattern} from "./services";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef, useState} from "react";
+import {Mode, Status, TagMetadata, TagStatus} from "./enums";
+import {type Props, type Ref, ReminderContext, type State} from "./models";
+import * as Service from "./services";
 
 export const Component = forwardRef(function Component(
     {
         style,
         id,
+        mode = Mode.ReadOnly,
         name = EMPTY_STRING,
         recurrencePattern = EMPTY_STRING,
         recurrencePatternPlaceholder = EMPTY_STRING,
@@ -40,34 +40,39 @@ export const Component = forwardRef(function Component(
         maxSelectedTagCount = 2,
         showProgressStripes,
         toBeDeleted,
+        status = Status.Draft,
+        dueDate,
+        computedDueDate,
         modifiedDate,
         createdDate,
-        mode = Mode.ReadOnly,
         onPress,
         onChange
     }: Props,
     ref: MutableRefObject<Ref>
-): JSX.Element
+): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<Props> = {
         style, id, name, recurrencePattern, recurrencePatternPlaceholder, notificationInterval, notificationIntervalPlaceholder, tags,
-        maxSelectedTagCount, showProgressStripes, toBeDeleted, modifiedDate, createdDate, mode, onPress, onChange
+        maxSelectedTagCount, showProgressStripes, toBeDeleted, status, dueDate, computedDueDate, modifiedDate, createdDate, mode, onPress,
+        onChange
     };
 
+    const [state, setState] = useState<State>({
+        toBeDone: false
+    });
+
     const rootContainerRef = useRef<Pressable<Ref>>(null);
-    const lastInputtedRecurrencePatternRef = useRef<string>(EMPTY_STRING);
-    const lastInputtedNotificationIntervalRef = useRef(notificationInterval);
-    const notificationIntervalNumericInputFieldUpdateKeyRef = useRef<number>();
 
     const today = new Date();
-    const isMarkedAsDone = useMemo(() => isDoneRecurrencePattern(recurrencePattern), [recurrencePattern]);
-    const isNotificationSnoozed = useMemo(() => isNullOrUndefined(notificationInterval), [notificationInterval]);
-    const dueDate = useMemo(() => getDueDate(recurrencePattern), [recurrencePattern]);
-    const dueDuration = useMemo(() => getDueDuration(today, dueDate), [dueDate]);
-    const formattedDueDate = useMemo(() => getFormattedDueDate(), [dueDate]);
+    const formattedDueDate = useMemo(() => getFormattedDueDate(), [dueDate, computedDueDate]);
+    const dueDuration = Service.getDueDuration(today, dueDate ?? computedDueDate);
     const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [dueDuration]);
+    const isSuspended = useMemo(() => Service.isSuspended(status), [status]);
+    const isCompleted = useMemo(() => Service.isCompleted(computedDueDate, dueDate, status), [computedDueDate, dueDate, status]);
+    const isDue = useMemo(() => !isCompleted && dueDuration === 0, [isCompleted, dueDuration]);
+    const isOverdue = useMemo(() => !isCompleted && isNotNullAndUndefined(dueDuration) && dueDuration < 0, [isCompleted, dueDuration]);
 
-    const context = useComponentContext<ReminderContext>({props, extra: {dueDuration, isMarkedAsDone, isNotificationSnoozed}});
+    const context = useComponentContext<ReminderContext>({props, state, extra: {isDue, isOverdue, isCompleted}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -80,6 +85,12 @@ export const Component = forwardRef(function Component(
         collapseHeight: rootContainerRef.current?.collapseHeight
     }), []);
 
+    if (mode !== Mode.Draft && mode !== Mode.Edit && state.toBeDone)
+    {
+        setState({toBeDone: false});
+        return null;
+    }
+
     return (
         <ReminderContext.Provider value={context}>
             <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={toBeDeleted}>
@@ -87,7 +98,7 @@ export const Component = forwardRef(function Component(
                 <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
                 <View style={computedStyle.NameTagAndDeadlineContainer}>
                     {renderName()}
-                    {!isMarkedAsDone && formattedDueDate && (<>
+                    {formattedDueDate && (<>
                         <Icon style={computedStyle.DueDateIcon} name={DefaultIconSet.Calendar}/>
                         <Text style={computedStyle.DueDate}>{formattedDueDate}</Text>
                     </>)}
@@ -104,7 +115,7 @@ export const Component = forwardRef(function Component(
 
     function getIcon(): DefaultIconSet
     {
-        return isMarkedAsDone
+        return isCompleted
             ? DefaultIconSet.CheckMarkInsideCircle
             : dueDuration === 0
                 ? DefaultIconSet.Alarm
@@ -113,15 +124,6 @@ export const Component = forwardRef(function Component(
                     : isNotNullAndUndefined(dueDuration) && dueDuration > 0
                         ? DefaultIconSet.Notification
                         : DefaultIconSet.NoSound;
-    }
-
-    function getNotificationIntervalPlaceholder(): string
-    {
-        return isMarkedAsDone
-            ? "Notification disabled"
-            : isNotificationSnoozed
-                ? "Remind me once at the next occurrence"
-                : notificationIntervalPlaceholder;
     }
 
     function getDropdownMenuItems(): NonNullable<DropdownMenuProps["menuItems"]>
@@ -160,8 +162,12 @@ export const Component = forwardRef(function Component(
 
     function getFormattedDueDate(): string
     {
-        return dueDate
-            ? GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
+        const copiedDueDate = mode === Mode.Draft || mode === Mode.Edit
+            ? computedDueDate ?? dueDate
+            : dueDate ?? computedDueDate;
+
+        return copiedDueDate
+            ? GregorianCalendar.toString(copiedDueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
             : "No due date";
     }
 
@@ -229,39 +235,35 @@ export const Component = forwardRef(function Component(
             <View style={computedStyle.ExpansionArea}>
                 <InputField
                     style={computedStyle.RecurrencePatternInputField}
-                    placeholder={isMarkedAsDone ? "Task Status" : recurrencePatternPlaceholder}
-                    value={isMarkedAsDone ? "Completed" : recurrencePattern}
-                    editable={!isMarkedAsDone}
+                    placeholder={recurrencePatternPlaceholder}
+                    value={recurrencePattern}
                     onChangeText={onRecurrencePatternChange}
                 />
                 <NumericInputField
                     style={computedStyle.NotificationIntervalNumericInputField}
-                    key={notificationIntervalNumericInputFieldUpdateKeyRef.current}
                     minValue={1}
                     maxValue={8800}
                     maximumFractionDigitCount={0}
-                    editable={!isMarkedAsDone}
-                    focusable={!isMarkedAsDone}
-                    selectTextOnFocus={!isMarkedAsDone}
-                    placeholder={getNotificationIntervalPlaceholder()}
-                    defaultValue={isMarkedAsDone ? undefined : notificationInterval}
+                    selectTextOnFocus={true}
+                    placeholder={notificationIntervalPlaceholder}
+                    defaultValue={notificationInterval}
                     keyboardType={"number-pad"}
                     onChange={onNotificationIntervalChange}
                 />
                 <Toggle
                     style={computedStyle.SuspenseToggle}
-                    icon={DefaultIconSet.CheckMarkInsideCircle}
-                    status={isMarkedAsDone ? Status.Checked : Status.Unchecked}
+                    icon={DefaultIconSet.Pause}
+                    status={isSuspended ? ToggleStatus.Checked : ToggleStatus.Unchecked}
                     onChange={onSuspenseToggleStatusChange}
                 />
                 <Toggle
                     style={computedStyle.SnoozeToggle}
-                    icon={DefaultIconSet.History}
-                    status={isNotificationSnoozed ? Status.Checked : Status.Unchecked}
-                    disabled={isMarkedAsDone}
+                    icon={DefaultIconSet.CheckMarkInsideCircle}
+                    status={state.toBeDone ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    disabled={!isDue && !isOverdue}
                     onChange={onSnoozeToggleStatusChange}
                 />
-                <Button style={computedStyle.DismissButton} label={"Dismiss"}/>
+                <Button style={computedStyle.DismissButton} label={state.toBeDone ? "Done" : "Snooze"}/>
             </View>
         );
     }
@@ -273,6 +275,7 @@ export const Component = forwardRef(function Component(
             recurrencePattern,
             notificationInterval,
             tags,
+            status,
             modifiedDate,
             createdDate
         });
@@ -301,6 +304,7 @@ export const Component = forwardRef(function Component(
                         : undefined
                 }
             },
+            status,
             modifiedDate,
             createdDate
         });
@@ -313,6 +317,7 @@ export const Component = forwardRef(function Component(
             recurrencePattern: newText,
             notificationInterval,
             tags,
+            status,
             modifiedDate,
             createdDate
         });
@@ -325,36 +330,27 @@ export const Component = forwardRef(function Component(
             recurrencePattern,
             notificationInterval: newValue,
             tags,
+            status,
             modifiedDate,
             createdDate
         });
     }
 
-    function onSuspenseToggleStatusChange(newStatus: Status): void
+    function onSuspenseToggleStatusChange(newStatus: ToggleStatus): void
     {
-        notificationIntervalNumericInputFieldUpdateKeyRef.current = Date.now();
-        if (newStatus === Status.Checked)
-        {
-            lastInputtedRecurrencePatternRef.current = recurrencePattern;
-            onRecurrencePatternChange(doneRecurrencePattern);
-        }
-        else
-        {
-            onRecurrencePatternChange(lastInputtedRecurrencePatternRef.current);
-        }
+        onChange?.({
+            name,
+            recurrencePattern,
+            notificationInterval,
+            tags,
+            status: newStatus === ToggleStatus.Checked ? Status.Suspended : Status.Scheduled,
+            modifiedDate,
+            createdDate
+        });
     }
 
-    function onSnoozeToggleStatusChange(newStatus: Status): void
+    function onSnoozeToggleStatusChange(newStatus: ToggleStatus): void
     {
-        notificationIntervalNumericInputFieldUpdateKeyRef.current = Date.now();
-        if (newStatus === Status.Checked)
-        {
-            lastInputtedNotificationIntervalRef.current = notificationInterval;
-            onNotificationIntervalChange(undefined);
-        }
-        else
-        {
-            onNotificationIntervalChange(lastInputtedNotificationIntervalRef.current ?? 1);
-        }
+        setState({toBeDone: newStatus === ToggleStatus.Checked});
     }
 });

@@ -2,7 +2,7 @@ import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/an
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DataListAnimationHook, DataListContextHook, type DataListStyle, DataListVariant} from "@miniskylab/antimatter-data-list";
 import {DropdownMenuContextHook, type DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
-import {CursorType, isNotNullAndUndefined, Layer} from "@miniskylab/antimatter-framework";
+import {CursorType, Layer} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, type InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {ProgressStripesContextHook, type ProgressStripesStyle, ProgressStripesVariant} from "@miniskylab/antimatter-motion-graphics";
@@ -318,8 +318,6 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const dueDuration = reminderContext.extra.dueDuration;
-
     return {
         ...IconVariant.Default(iconProps),
         display: reminderContext.props.toBeDeleted ? "none" : "flex",
@@ -327,11 +325,11 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
         height: 30,
         marginTop: 7,
         fontSize: 28,
-        color: reminderContext.extra.isMarkedAsDone
+        color: reminderContext.extra.isCompleted
             ? Color.Green
-            : dueDuration === 0
+            : reminderContext.extra.isDue
                 ? Color.Gold
-                : isNotNullAndUndefined(dueDuration) && dueDuration < 0
+                : reminderContext.extra.isOverdue
                     ? Color.Coral
                     : Color.Neutral
     };
@@ -472,19 +470,17 @@ const TodoList__Reminder__DueDurationIcon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const dueDuration = reminderContext.extra.dueDuration;
-    const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
-    const isDue = dueDuration === 0;
-
     return {
         ...TodoList__Reminder__DueDateIcon(iconProps),
         fontSize: 15,
-        transform: [{scaleX: isDue || isOverdue ? 1 : -1}],
-        color: isDue
+        transform: [{scaleX: reminderContext.extra.isCompleted || reminderContext.extra.isDue || reminderContext.extra.isOverdue ? 1 : -1}],
+        color: reminderContext.extra.isDue
             ? Color.Gold
-            : isOverdue
+            : reminderContext.extra.isOverdue
                 ? Color.Coral
-                : Color.Neutral
+                : reminderContext.extra.isCompleted
+                    ? Color.Green
+                    : Color.Neutral
     };
 };
 
@@ -492,15 +488,15 @@ const TodoList__Reminder__DueDuration: TextStyle = function (textProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const dueDuration = reminderContext.extra.dueDuration;
-
     return {
         ...TodoList__Reminder__DueDate(textProps),
-        color: dueDuration === 0
+        color: reminderContext.extra.isDue
             ? Color.Gold
-            : isNotNullAndUndefined(dueDuration) && dueDuration < 0
+            : reminderContext.extra.isOverdue
                 ? Color.Coral
-                : Color.Neutral
+                : reminderContext.extra.isCompleted
+                    ? Color.Green
+                    : Color.Neutral
     };
 };
 
@@ -768,7 +764,6 @@ const TodoList__Reminder__RecurrencePatternInputField__Root: ViewStyle = functio
 
 const TodoList__Reminder__RecurrencePatternInputField__TextBox: TextInputStyle = function (textInputProps)
 {
-    const reminderContext = Reminder.ContextHook.useReminderContext();
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
     const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).TextBox(textInputProps);
@@ -777,11 +772,7 @@ const TodoList__Reminder__RecurrencePatternInputField__TextBox: TextInputStyle =
         ...inheritedStyle,
         paddingRight: 50,
         fontWeight: "bold",
-        color: Color.Neutral,
-        ...reminderContext.extra.isMarkedAsDone && {
-            color: Color.Green,
-            cursor: CursorType.NotAllowed
-        }
+        color: Color.Neutral
     };
 };
 
@@ -812,7 +803,6 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__Root: ViewStyle
 
 const TodoList__Reminder__NotificationIntervalNumericInputField__TextBox: TextInputStyle = function (textInputProps)
 {
-    const reminderContext = Reminder.ContextHook.useReminderContext();
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
     const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
 
@@ -823,36 +813,21 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__TextBox: TextIn
     return {
         ...inheritedStyle,
         paddingRight: 50,
-        fontWeight: "bold",
-        ...reminderContext.extra.isMarkedAsDone && {
-            cursor: CursorType.NotAllowed
-        }
+        fontWeight: "bold"
     };
 };
 
 const TodoList__Reminder__NotificationIntervalNumericInputField__Placeholder: TextStyle = function (textProps)
 {
-    const reminderContext = Reminder.ContextHook.useReminderContext();
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
     const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
-
-    const dueDuration = reminderContext.extra.dueDuration;
-    const isMarkedAsDone = reminderContext.extra.isMarkedAsDone;
-    const isNotificationSnoozed = reminderContext.extra.isNotificationSnoozed;
 
     const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
         (inputFieldContext.props)
         .Placeholder(textProps);
 
     return {
-        ...inheritedStyle,
-        ...(isMarkedAsDone || isNotificationSnoozed) && {
-            fontWeight: "bold",
-            fontStyle: "italic"
-        },
-        ...(!isMarkedAsDone && isNotificationSnoozed) && {
-            color: isNotNullAndUndefined(dueDuration) && dueDuration <= 0 ? Color.Green : Color.Coral
-        }
+        ...inheritedStyle
     };
 };
 
@@ -908,7 +883,7 @@ const TodoList__Reminder__SuspenseToggle__Icon: IconStyle = function (iconProps)
         display: "flex",
         fontSize: 24,
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
-            ? Color.Green
+            ? Color.Warning
             : pressableContext.state.hovered
                 ? Color.White
                 : Color.Neutral
@@ -940,18 +915,12 @@ const TodoList__Reminder__SnoozeToggle__Root: ViewStyle = function (viewProps)
 const TodoList__Reminder__SnoozeToggle__Icon: IconStyle = function (iconProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
-    const reminderContext = Reminder.ContextHook.useReminderContext();
     const pressableContext = PressableContextHook.usePressableContext();
-
-    const dueDuration = reminderContext.extra.dueDuration;
 
     return {
         ...TodoList__Reminder__SuspenseToggle__Icon(iconProps),
-        transform: [{scaleX: -1}],
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
-            ? isNotNullAndUndefined(dueDuration) && dueDuration <= 0
-                ? Color.Green
-                : Color.Coral
+            ? Color.Green
             : pressableContext.state.hovered
                 ? Color.White
                 : Color.Neutral
@@ -970,12 +939,27 @@ const TodoList__Reminder__SnoozeToggle: ToggleStyle = function (toggleProps)
 const TodoList__Reminder__DismissButton__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
+    const reminderContext = Reminder.ContextHook.useReminderContext();
 
     const inheritedStyle = ButtonVariant.SolidRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,
-        height: 40
+        height: 40,
+        ...pressableState.pressed
+            ? {
+                borderColor: reminderContext.state.toBeDone ? Color.Green__b10 : Color.Neutral__b10,
+                backgroundColor: reminderContext.state.toBeDone ? Color.Green__b10 : Color.Neutral__b10
+            }
+            : pressableState.hovered
+                ? {
+                    borderColor: reminderContext.state.toBeDone ? Color.Green__w25 : Color.Neutral__w25,
+                    backgroundColor: reminderContext.state.toBeDone ? Color.Green__w25 : Color.Neutral__w25
+                }
+                : {
+                    borderColor: reminderContext.state.toBeDone ? Color.Green : Color.Neutral,
+                    backgroundColor: reminderContext.state.toBeDone ? Color.Green : Color.Neutral
+                }
     };
 };
 
