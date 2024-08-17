@@ -89,5 +89,6 @@ export enum DefaultIconSet
     Alarm = "alarm",
     NoSound = "no-sound",
     CheckMarkInsideCircle = "check-mark-inside-circle",
-    Send = "send"
+    Send = "send",
+    Zzz = "zzz"
 }

@@ -252,7 +252,7 @@ export const Component = forwardRef(function Component(
                 />
                 <Toggle
                     style={computedStyle.SuspenseToggle}
-                    icon={DefaultIconSet.Pause}
+                    icon={DefaultIconSet.Zzz}
                     status={isSuspended ? ToggleStatus.Checked : ToggleStatus.Unchecked}
                     onChange={onSuspenseToggleStatusChange}
                 />
