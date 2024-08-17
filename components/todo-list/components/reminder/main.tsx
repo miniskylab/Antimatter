@@ -40,7 +40,7 @@ export const Component = forwardRef(function Component(
         maxSelectedTagCount = 2,
         showProgressStripes,
         toBeDeleted,
-        status = Status.Draft,
+        status = Status.Unscheduled,
         dueDate,
         computedDueDate,
         modifiedDate,

@@ -1,6 +1,6 @@
 export enum Status
 {
-    Draft = "Draft",
+    Unscheduled = "Unscheduled",
     Scheduled = "Scheduled",
     Suspended = "Suspended"
 }
