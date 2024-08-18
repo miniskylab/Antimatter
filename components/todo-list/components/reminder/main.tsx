@@ -117,7 +117,7 @@ export const Component = forwardRef(function Component(
                 : isDue
                     ? DefaultIconSet.Alarm
                     : isOverdue
-                        ? DefaultIconSet.Fire
+                        ? DefaultIconSet.ExclamationMarkInsideCircle
                         : isNotNullAndUndefined(dueDuration) && dueDuration > 0
                             ? DefaultIconSet.Notification
                             : DefaultIconSet.NoSound;
