@@ -21,9 +21,9 @@ import {Text} from "@miniskylab/antimatter-text";
 import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef, useState} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
 import {Mode, Status, TagMetadata, TagStatus} from "./enums";
-import {type Props, type Ref, ReminderContext, type State} from "./models";
+import {type Props, type Ref, ReminderContext} from "./models";
 import * as Service from "./services";
 
 export const Component = forwardRef(function Component(
@@ -49,7 +49,7 @@ export const Component = forwardRef(function Component(
         onChange
     }: Props,
     ref: MutableRefObject<Ref>
-): JSX.Element | null
+): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
         style, id, name, recurrencePattern, recurrencePatternPlaceholder, notificationInterval, notificationIntervalPlaceholder, tags,
@@ -57,22 +57,23 @@ export const Component = forwardRef(function Component(
         onChange
     };
 
-    const [state, setState] = useState<State>({
-        toBeDone: false
-    });
-
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
     const today = new Date();
-    const formattedDueDate = useMemo(() => getFormattedDueDate(), [dueDate, computedDueDate]);
     const dueDuration = Service.getDueDuration(today, dueDate ?? computedDueDate);
-    const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [dueDuration]);
     const isSuspended = useMemo(() => Service.isSuspended(status), [status]);
+    const isMarkedAsCompleted = useMemo(() => Service.isMarkedAsCompleted(status), [status]);
     const isCompleted = useMemo(() => Service.isCompleted(computedDueDate, dueDate, status), [computedDueDate, dueDate, status]);
     const isDue = useMemo(() => !isCompleted && dueDuration === 0, [isCompleted, dueDuration]);
     const isOverdue = useMemo(() => !isCompleted && isNotNullAndUndefined(dueDuration) && dueDuration < 0, [isCompleted, dueDuration]);
+    const formattedDueDate = useMemo(() => getFormattedDueDate(), [isSuspended, dueDate, computedDueDate]);
+    const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [isSuspended, dueDuration]);
 
-    const context = useComponentContext<ReminderContext>({props, state, extra: {isDue, isOverdue, isCompleted}});
+    const context = useComponentContext<ReminderContext>({
+        props, extra: {
+            isDue, isOverdue, isSuspended, isMarkedAsCompleted, isCompleted
+        }
+    });
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -84,12 +85,6 @@ export const Component = forwardRef(function Component(
         contractHeight: rootContainerRef.current?.contractHeight,
         collapseHeight: rootContainerRef.current?.collapseHeight
     }), []);
-
-    if (mode !== Mode.Draft && mode !== Mode.Edit && state.toBeDone)
-    {
-        setState({toBeDone: false});
-        return null;
-    }
 
     return (
         <ReminderContext.Provider value={context}>
@@ -117,13 +112,15 @@ export const Component = forwardRef(function Component(
     {
         return isCompleted
             ? DefaultIconSet.CheckMarkInsideCircle
-            : dueDuration === 0
-                ? DefaultIconSet.Alarm
-                : isNotNullAndUndefined(dueDuration) && dueDuration < 0
-                    ? DefaultIconSet.Fire
-                    : isNotNullAndUndefined(dueDuration) && dueDuration > 0
-                        ? DefaultIconSet.Notification
-                        : DefaultIconSet.NoSound;
+            : isSuspended
+                ? DefaultIconSet.Zzz
+                : isDue
+                    ? DefaultIconSet.Alarm
+                    : isOverdue
+                        ? DefaultIconSet.Fire
+                        : isNotNullAndUndefined(dueDuration) && dueDuration > 0
+                            ? DefaultIconSet.Notification
+                            : DefaultIconSet.NoSound;
     }
 
     function getDropdownMenuItems(): NonNullable<DropdownMenuProps["menuItems"]>
@@ -162,6 +159,9 @@ export const Component = forwardRef(function Component(
 
     function getFormattedDueDate(): string
     {
+        if (isSuspended) return "Suspended";
+        if (isCompleted) return "Completed";
+
         const copiedDueDate = mode === Mode.Draft || mode === Mode.Edit
             ? computedDueDate ?? dueDate
             : dueDate ?? computedDueDate;
@@ -173,13 +173,13 @@ export const Component = forwardRef(function Component(
 
     function getFormattedDueDuration(): string | undefined
     {
-        return isNullOrUndefined(dueDuration)
+        return isCompleted || isSuspended || isNullOrUndefined(dueDuration)
             ? undefined
-            : dueDuration === 0
+            : isDue
                 ? "Today"
                 : dueDuration > 0
                     ? dueDuration === 1 ? "Tomorrow" : `In ${dueDuration} days`
-                    : Math.abs(dueDuration) === 1 ? "Yesterday" : `${Math.abs(dueDuration)} days ago`;
+                    : dueDuration === -1 ? "Yesterday" : `${Math.abs(dueDuration)} days ago`;
     }
 
     function renderName(): JSX.Element
@@ -259,11 +259,16 @@ export const Component = forwardRef(function Component(
                 <Toggle
                     style={computedStyle.SnoozeToggle}
                     icon={DefaultIconSet.CheckMarkInsideCircle}
-                    status={state.toBeDone ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                    disabled={!isDue && !isOverdue}
+                    status={isMarkedAsCompleted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    disabled={isSuspended || !isDue && !isOverdue}
                     onChange={onSnoozeToggleStatusChange}
                 />
-                <Button style={computedStyle.DismissButton} label={state.toBeDone ? "Done" : "Snooze"}/>
+                {mode === Mode.Alarm && (
+                    <Button
+                        style={computedStyle.SnoozeButton}
+                        label={isMarkedAsCompleted ? "Complete" : "Snooze"}
+                    />
+                )}
             </View>
         );
     }
@@ -351,6 +356,14 @@ export const Component = forwardRef(function Component(
 
     function onSnoozeToggleStatusChange(newStatus: ToggleStatus): void
     {
-        setState({toBeDone: newStatus === ToggleStatus.Checked});
+        onChange?.({
+            name,
+            recurrencePattern,
+            notificationInterval,
+            tags,
+            status: newStatus === ToggleStatus.Checked ? Status.MarkedAsCompleted : Status.Scheduled,
+            modifiedDate,
+            createdDate
+        });
     }
 });

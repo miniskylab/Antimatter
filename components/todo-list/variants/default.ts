@@ -325,13 +325,15 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
         height: 30,
         marginTop: 7,
         fontSize: 28,
-        color: reminderContext.extra.isCompleted
-            ? Color.Green
-            : reminderContext.extra.isDue
-                ? Color.Gold
-                : reminderContext.extra.isOverdue
-                    ? Color.Coral
-                    : Color.Neutral
+        color: reminderContext.extra.isSuspended
+            ? Color.Neutral
+            : reminderContext.extra.isCompleted
+                ? Color.Green
+                : reminderContext.extra.isDue
+                    ? Color.Gold
+                    : reminderContext.extra.isOverdue
+                        ? Color.Coral
+                        : Color.Neutral
     };
 };
 
@@ -444,25 +446,29 @@ const TodoList__Reminder__NameText: TextStyle = function (textProps)
 
 const TodoList__Reminder__DueDateIcon: IconStyle = function (iconProps)
 {
+    const reminderContext = Reminder.ContextHook.useReminderContext();
+
     return {
         ...IconVariant.Default(iconProps),
         lineHeight: 17,
         paddingBottom: 1,
         marginRight: 5,
         fontSize: 14,
-        color: Color.Neutral
+        color: reminderContext.extra.isCompleted ? Color.Green : Color.Neutral
     };
 };
 
 const TodoList__Reminder__DueDate: TextStyle = function (textProps)
 {
+    const reminderContext = Reminder.ContextHook.useReminderContext();
+
     return {
         ...TextVariant.Default(textProps),
         lineHeight: 18,
         marginRight: 10,
         fontSize: 14,
         fontWeight: "bold",
-        color: Color.Neutral
+        color: reminderContext.extra.isCompleted ? Color.Green : Color.Neutral
     };
 };
 
@@ -474,12 +480,12 @@ const TodoList__Reminder__DueDurationIcon: IconStyle = function (iconProps)
         ...TodoList__Reminder__DueDateIcon(iconProps),
         fontSize: 15,
         transform: [{scaleX: reminderContext.extra.isCompleted || reminderContext.extra.isDue || reminderContext.extra.isOverdue ? 1 : -1}],
-        color: reminderContext.extra.isDue
-            ? Color.Gold
-            : reminderContext.extra.isOverdue
-                ? Color.Coral
-                : reminderContext.extra.isCompleted
-                    ? Color.Green
+        color: reminderContext.extra.isSuspended
+            ? Color.Neutral
+            : reminderContext.extra.isDue
+                ? Color.Gold
+                : reminderContext.extra.isOverdue
+                    ? Color.Coral
                     : Color.Neutral
     };
 };
@@ -490,12 +496,12 @@ const TodoList__Reminder__DueDuration: TextStyle = function (textProps)
 
     return {
         ...TodoList__Reminder__DueDate(textProps),
-        color: reminderContext.extra.isDue
-            ? Color.Gold
-            : reminderContext.extra.isOverdue
-                ? Color.Coral
-                : reminderContext.extra.isCompleted
-                    ? Color.Green
+        color: reminderContext.extra.isSuspended
+            ? Color.Neutral
+            : reminderContext.extra.isDue
+                ? Color.Gold
+                : reminderContext.extra.isOverdue
+                    ? Color.Coral
                     : Color.Neutral
     };
 };
@@ -903,12 +909,13 @@ const TodoList__Reminder__SuspenseToggle: ToggleStyle = function (toggleProps)
 const TodoList__Reminder__SnoozeToggle__Root: ViewStyle = function (viewProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
+    const reminderContext = Reminder.ContextHook.useReminderContext();
 
     return {
         ...TodoList__Reminder__SuspenseToggle__Root(viewProps),
         display: toggleContext.props.disabled ? "none" : "flex",
         top: 60,
-        right: 128
+        right: reminderContext.props.mode === Reminder.Mode.Alarm ? 128 : 0
     };
 };
 
@@ -936,7 +943,7 @@ const TodoList__Reminder__SnoozeToggle: ToggleStyle = function (toggleProps)
     };
 };
 
-const TodoList__Reminder__DismissButton__Root: PressableStyle = function (pressableProps, pressableState)
+const TodoList__Reminder__SnoozeButton__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const reminderContext = Reminder.ContextHook.useReminderContext();
@@ -948,22 +955,22 @@ const TodoList__Reminder__DismissButton__Root: PressableStyle = function (pressa
         height: 40,
         ...pressableState.pressed
             ? {
-                borderColor: reminderContext.state.toBeDone ? Color.Green__b10 : Color.Neutral__b10,
-                backgroundColor: reminderContext.state.toBeDone ? Color.Green__b10 : Color.Neutral__b10
+                borderColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green__b10 : Color.Neutral__b10,
+                backgroundColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green__b10 : Color.Neutral__b10
             }
             : pressableState.hovered
                 ? {
-                    borderColor: reminderContext.state.toBeDone ? Color.Green__w25 : Color.Neutral__w25,
-                    backgroundColor: reminderContext.state.toBeDone ? Color.Green__w25 : Color.Neutral__w25
+                    borderColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green__w25 : Color.Neutral__w25,
+                    backgroundColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green__w25 : Color.Neutral__w25
                 }
                 : {
-                    borderColor: reminderContext.state.toBeDone ? Color.Green : Color.Neutral,
-                    backgroundColor: reminderContext.state.toBeDone ? Color.Green : Color.Neutral
+                    borderColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green : Color.Neutral,
+                    backgroundColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green : Color.Neutral
                 }
     };
 };
 
-const TodoList__Reminder__DismissButton__Label: TextStyle = function (textProps)
+const TodoList__Reminder__SnoozeButton__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
 
@@ -976,12 +983,12 @@ const TodoList__Reminder__DismissButton__Label: TextStyle = function (textProps)
     };
 };
 
-const TodoList__Reminder__DismissButton: ButtonStyle = function (buttonProps)
+const TodoList__Reminder__SnoozeButton: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.SolidRectangular(buttonProps),
-        Root: TodoList__Reminder__DismissButton__Root,
-        Label: TodoList__Reminder__DismissButton__Label
+        Root: TodoList__Reminder__SnoozeButton__Root,
+        Label: TodoList__Reminder__SnoozeButton__Label
     };
 };
 
@@ -1005,7 +1012,7 @@ const TodoList__Reminder: Reminder.Style = function ()
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
         SuspenseToggle: TodoList__Reminder__SuspenseToggle,
         SnoozeToggle: TodoList__Reminder__SnoozeToggle,
-        DismissButton: TodoList__Reminder__DismissButton,
+        SnoozeButton: TodoList__Reminder__SnoozeButton,
         ProgressStripes: TodoList__Reminder__ProgressStripes
     };
 };

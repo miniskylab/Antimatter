@@ -240,10 +240,10 @@ export const TodoList = forwardRef(function TodoList(
     function getComputedDueDates(): Record<string, Date | undefined>
     {
         const computedDueDates: ReturnType<typeof getComputedDueDates> = {};
-        Object.keys(unifiedReminderList).forEach(unifiedReminderId =>
+        Object.keys(reminders).forEach(reminderId =>
         {
-            const unifiedReminder = unifiedReminderList[unifiedReminderId];
-            computedDueDates[unifiedReminderId] = Reminder.Service.getNextDueDate(unifiedReminder.recurrencePattern);
+            const reminder = reminders[reminderId];
+            computedDueDates[reminderId] = Reminder.Service.getNextDueDate(reminder.recurrencePattern);
         });
 
         return computedDueDates;
@@ -291,6 +291,9 @@ export const TodoList = forwardRef(function TodoList(
             const reminderData = unifiedReminderList[sortedReminderId];
             const isSelectedReminder = sortedReminderId === selectedReminder?.id;
             const isToBeDeletedReminder = !!state.toBeDeletedReminders[sortedReminderId];
+            const computedDueDate = isSelectedReminder
+                ? Reminder.Service.getNextDueDate(reminderData.recurrencePattern)
+                : computedDueDates[sortedReminderId];
 
             return (
                 <Reminder.Component
@@ -300,9 +303,9 @@ export const TodoList = forwardRef(function TodoList(
                     ref={ref => { remindersRef.current[sortedReminderId] = ref; }}
                     style={computedStyle.Reminder}
                     mode={reminderMode}
+                    computedDueDate={computedDueDate}
                     toBeDeleted={isToBeDeletedReminder}
                     maxSelectedTagCount={maxSelectedTagCount}
-                    computedDueDate={computedDueDates[sortedReminderId]}
                     recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
                     notificationIntervalPlaceholder={reminderNotificationIntervalPlaceholder}
                     showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}

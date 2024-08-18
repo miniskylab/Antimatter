@@ -134,21 +134,20 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "13": {
-        name: "Risus ultricies",
-        recurrencePattern: `0 0 0 ${tomorrow.getDate()} ${tomorrow.getMonth() + 1} ? ${tomorrow.getFullYear()}`,
-        notificationInterval: undefined,
-        tags: deepCopyWithSelection(Tags, "adipiscing"),
-        status: Reminder.Status.Scheduled,
-        dueDate: tomorrow,
+        name: "Cursus turpis",
+        recurrencePattern: `0 0 0 ${day45InTheFuture.getDate()} ${day45InTheFuture.getMonth() + 1} ? ${day45InTheFuture.getFullYear()}`,
+        notificationInterval: 3,
+        tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
+        status: Reminder.Status.Suspended,
         modifiedDate: today,
         createdDate: today
     },
     "14": {
-        name: "Cursus turpis",
-        recurrencePattern: EMPTY_STRING,
-        notificationInterval: 9,
-        tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
-        status: Reminder.Status.Scheduled,
+        name: "Risus ultricies",
+        recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? ${day45InThePast.getFullYear()}`,
+        notificationInterval: 2,
+        tags: deepCopyWithSelection(Tags, "adipiscing"),
+        status: Reminder.Status.Suspended,
         modifiedDate: today,
         createdDate: today
     },

@@ -6,6 +6,11 @@ export function isSuspended(status: Status | undefined): boolean
     return status === Status.Suspended;
 }
 
+export function isMarkedAsCompleted(status: Status | undefined): boolean
+{
+    return status === Status.MarkedAsCompleted;
+}
+
 export function isCompleted(computedDueDate: Date | undefined, dueDate: Date | undefined, status: Status | undefined): boolean
 {
     return status === Status.Scheduled && !dueDate && (isNotNullAndUndefined(computedDueDate) && computedDueDate < new Date);

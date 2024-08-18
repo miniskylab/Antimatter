@@ -61,7 +61,8 @@ export default {
                                     name: EMPTY_STRING,
                                     recurrencePattern: EMPTY_STRING,
                                     notificationInterval: 1,
-                                    tags: TestData.Tags
+                                    tags: TestData.Tags,
+                                    status: Reminder.Status.Unscheduled
                                 }
                             }
                         });
@@ -96,6 +97,8 @@ export default {
                                 recurrencePattern: args.selectedReminder.data.recurrencePattern,
                                 notificationInterval: args.selectedReminder.data.notificationInterval,
                                 tags: args.selectedReminder.data.tags,
+                                status: args.selectedReminder.data.status,
+                                dueDate: args.selectedReminder.data.dueDate,
                                 createdDate: new Date()
                             };
                         }
@@ -108,6 +111,8 @@ export default {
                                 recurrencePattern: args.selectedReminder.data.recurrencePattern,
                                 notificationInterval: args.selectedReminder.data.notificationInterval,
                                 tags: args.selectedReminder.data.tags,
+                                status: args.selectedReminder.data.status,
+                                dueDate: args.selectedReminder.data.dueDate,
                                 modifiedDate: new Date()
                             };
                         }
