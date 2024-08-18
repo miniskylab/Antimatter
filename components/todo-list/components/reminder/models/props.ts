@@ -14,7 +14,7 @@ export type Props = ComponentProps<Style> & {
     readonly notificationIntervalPlaceholder?: string;
     readonly maxSelectedTagCount?: number;
     readonly showProgressStripes?: boolean;
-    readonly toBeDeleted?: boolean;
+    readonly isToBeDeleted?: boolean;
     readonly tags?: Record<string, Tag>;
     readonly status?: Status;
     readonly dueDate?: Date;

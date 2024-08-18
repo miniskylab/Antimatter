@@ -56,8 +56,8 @@ export const TodoList = forwardRef(function TodoList(
     const remindersRef = useRef<Record<string, Nullable<Reminder.Ref>>>({});
 
     const today = new Date();
+    const computedDueDates = useMemo(() => getComputedDueDates(), [reminders]);
     const unifiedReminderList = useMemo(() => getUnifiedReminderList(), [reminders, selectedReminder, state.toBeDeletedReminders]);
-    const computedDueDates = useMemo(() => getComputedDueDates(), [unifiedReminderList]);
     const {button1, button2, button3} = useMemo(
         () => getControlPanel(),
         [mode, addNewReminderButton, saveReminderButton, deleteReminderButton, cancelButton, customButton]
@@ -260,9 +260,12 @@ export const TodoList = forwardRef(function TodoList(
         const dueDateB = reminderB.dueDate;
         const computedDueDateA = computedDueDates[reminderIdA];
         const computedDueDateB = computedDueDates[reminderIdB];
+        const isDraft = Reminder.Service.isDraft;
+        const isCompleted = Reminder.Service.isCompleted;
+        const isSuspended = Reminder.Service.isSuspended;
 
-        const stateA = !reminderIdA || Reminder.Service.isCompleted(computedDueDateA, dueDateA, statusA) ? Infinity : 0;
-        const stateB = !reminderIdB || Reminder.Service.isCompleted(computedDueDateB, dueDateB, statusB) ? Infinity : 0;
+        const stateA = isDraft(reminderIdA) || isCompleted(computedDueDateA, dueDateA, statusA) || isSuspended(statusA) ? Infinity : 0;
+        const stateB = isDraft(reminderIdB) || isCompleted(computedDueDateB, dueDateB, statusB) || isSuspended(statusB) ? Infinity : 0;
         const stateComparisonResult = stateA - stateB;
         if (stateComparisonResult !== 0)
         {
@@ -304,7 +307,7 @@ export const TodoList = forwardRef(function TodoList(
                     style={computedStyle.Reminder}
                     mode={reminderMode}
                     computedDueDate={computedDueDate}
-                    toBeDeleted={isToBeDeletedReminder}
+                    isToBeDeleted={isToBeDeletedReminder}
                     maxSelectedTagCount={maxSelectedTagCount}
                     recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
                     notificationIntervalPlaceholder={reminderNotificationIntervalPlaceholder}

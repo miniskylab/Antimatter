@@ -321,7 +321,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                     ref={ref => { transactionRecordsRef.current[filteredTransactionId] = ref; }}
                     style={computedStyle.TransactionRecord}
                     mode={transactionMode}
-                    toBeDeleted={isToBeDeletedTransaction}
+                    isToBeDeleted={isToBeDeletedTransaction}
                     maxSelectedTagCount={maxSelectedTagCount}
                     namePlaceholder={transactionNamePlaceholder}
                     showProgressStripes={isSelectedTransaction && selectedTransaction?.showProgressStripes}

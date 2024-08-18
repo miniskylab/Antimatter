@@ -288,7 +288,7 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
             const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
             const elasticHeightAnimation = DataListAnimationHook.useElasticHeightAnimation(66, 2, 181, 181);
 
-            return reminderContext.props.toBeDeleted
+            return reminderContext.props.isToBeDeleted
                 ? [() => flashHighlightAnimation, () => elasticHeightAnimation]
                 : [() => elasticHeightAnimation, () => flashHighlightAnimation];
         },
@@ -302,7 +302,7 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
                     backgroundColor: Color.Negative__a10
                 }
             },
-            ...reminderContext.props.toBeDeleted && {
+            ...reminderContext.props.isToBeDeleted && {
                 paddingTop: 0,
                 paddingBottom: 0,
                 borderTopWidth: 0,
@@ -320,7 +320,7 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
 
     return {
         ...IconVariant.Default(iconProps),
-        display: reminderContext.props.toBeDeleted ? "none" : "flex",
+        display: reminderContext.props.isToBeDeleted ? "none" : "flex",
         width: 30,
         height: 30,
         marginTop: 7,
@@ -343,7 +343,7 @@ const TodoList__Reminder__NameTagAndDeadlineContainer: ViewStyle = function (vie
 
     return {
         ...ViewVariant.Default(viewProps),
-        display: reminderContext.props.toBeDeleted ? "none" : "flex",
+        display: reminderContext.props.isToBeDeleted ? "none" : "flex",
         flex: 1,
         flexDirection: "row",
         flexWrap: "wrap",
@@ -480,13 +480,11 @@ const TodoList__Reminder__DueDurationIcon: IconStyle = function (iconProps)
         ...TodoList__Reminder__DueDateIcon(iconProps),
         fontSize: 15,
         transform: [{scaleX: reminderContext.extra.isCompleted || reminderContext.extra.isDue || reminderContext.extra.isOverdue ? 1 : -1}],
-        color: reminderContext.extra.isSuspended
-            ? Color.Neutral
-            : reminderContext.extra.isDue
-                ? Color.Gold
-                : reminderContext.extra.isOverdue
-                    ? Color.Coral
-                    : Color.Neutral
+        color: reminderContext.extra.isDue
+            ? Color.Gold
+            : reminderContext.extra.isOverdue
+                ? Color.Coral
+                : Color.Neutral
     };
 };
 
@@ -496,13 +494,11 @@ const TodoList__Reminder__DueDuration: TextStyle = function (textProps)
 
     return {
         ...TodoList__Reminder__DueDate(textProps),
-        color: reminderContext.extra.isSuspended
-            ? Color.Neutral
-            : reminderContext.extra.isDue
-                ? Color.Gold
-                : reminderContext.extra.isOverdue
-                    ? Color.Coral
-                    : Color.Neutral
+        color: reminderContext.extra.isDue
+            ? Color.Gold
+            : reminderContext.extra.isOverdue
+                ? Color.Coral
+                : Color.Neutral
     };
 };
 
@@ -955,17 +951,17 @@ const TodoList__Reminder__SnoozeButton__Root: PressableStyle = function (pressab
         height: 40,
         ...pressableState.pressed
             ? {
-                borderColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green__b10 : Color.Neutral__b10,
-                backgroundColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green__b10 : Color.Neutral__b10
+                borderColor: reminderContext.extra.isToBeRescheduled ? Color.Green__b10 : Color.Neutral__b10,
+                backgroundColor: reminderContext.extra.isToBeRescheduled ? Color.Green__b10 : Color.Neutral__b10
             }
             : pressableState.hovered
                 ? {
-                    borderColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green__w25 : Color.Neutral__w25,
-                    backgroundColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green__w25 : Color.Neutral__w25
+                    borderColor: reminderContext.extra.isToBeRescheduled ? Color.Green__w25 : Color.Neutral__w25,
+                    backgroundColor: reminderContext.extra.isToBeRescheduled ? Color.Green__w25 : Color.Neutral__w25
                 }
                 : {
-                    borderColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green : Color.Neutral,
-                    backgroundColor: reminderContext.extra.isMarkedAsCompleted ? Color.Green : Color.Neutral
+                    borderColor: reminderContext.extra.isToBeRescheduled ? Color.Green : Color.Neutral,
+                    backgroundColor: reminderContext.extra.isToBeRescheduled ? Color.Green : Color.Neutral
                 }
     };
 };

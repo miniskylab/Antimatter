@@ -8,5 +8,5 @@ export type ReminderContext = ComponentContext<Props, undefined, {
     readonly isOverdue: boolean;
     readonly isSuspended: boolean;
     readonly isCompleted: boolean;
-    readonly isMarkedAsCompleted: boolean;
+    readonly isToBeRescheduled: boolean;
 }>;

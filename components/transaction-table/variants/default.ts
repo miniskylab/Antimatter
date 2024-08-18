@@ -793,7 +793,7 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
             const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
             const elasticHeightAnimation = DataListAnimationHook.useElasticHeightAnimation(66, 2, 66, 66);
 
-            return transactionRecordContext.props.toBeDeleted
+            return transactionRecordContext.props.isToBeDeleted
                 ? [() => flashHighlightAnimation, () => elasticHeightAnimation]
                 : [() => elasticHeightAnimation, () => flashHighlightAnimation];
         },
@@ -807,7 +807,7 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
                     backgroundColor: Color.Negative__a10
                 }
             },
-            ...transactionRecordContext.props.toBeDeleted && {
+            ...transactionRecordContext.props.isToBeDeleted && {
                 paddingTop: 0,
                 paddingBottom: 0,
                 borderTopWidth: 0,
@@ -825,7 +825,7 @@ const TransactionTable__TransactionRecord__Icon: IconStyle = function (iconProps
 
     return {
         ...IconVariant.Default(iconProps),
-        display: transactionRecordContext.props.toBeDeleted ? "none" : "flex",
+        display: transactionRecordContext.props.isToBeDeleted ? "none" : "flex",
         width: 30,
         height: 30,
         fontSize: 28,
@@ -839,7 +839,7 @@ const TransactionTable__TransactionRecord__NameAndTagContainer: ViewStyle = func
 
     return {
         ...ViewVariant.Default(viewProps),
-        display: transactionRecordContext.props.toBeDeleted ? "none" : "flex",
+        display: transactionRecordContext.props.isToBeDeleted ? "none" : "flex",
         flexGrow: 1,
         justifyContent: "space-between",
         alignItems: "flex-start",
@@ -991,7 +991,7 @@ const TransactionTable__TransactionRecord__AmountText: TextStyle = function (tex
 
     return {
         ...TextVariant.Default(textProps),
-        display: transactionRecordContext.props.toBeDeleted ? "none" : "flex",
+        display: transactionRecordContext.props.isToBeDeleted ? "none" : "flex",
         width: 115,
         height: 38,
         marginLeft: "auto",

@@ -2,6 +2,6 @@ export enum Status
 {
     Unscheduled = "Unscheduled",
     Scheduled = "Scheduled",
-    MarkedAsCompleted = "MarkedAsCompleted",
+    ToBeRescheduled = "ToBeRescheduled",
     Suspended = "Suspended"
 }

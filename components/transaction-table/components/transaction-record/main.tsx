@@ -30,7 +30,7 @@ export const Component = forwardRef(function Component(
         amount = 0,
         maxSelectedTagCount = 3,
         showProgressStripes,
-        toBeDeleted,
+        isToBeDeleted,
         executedDate,
         modifiedDate,
         createdDate,
@@ -42,7 +42,7 @@ export const Component = forwardRef(function Component(
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, id, name, namePlaceholder, tags, amount, maxSelectedTagCount, showProgressStripes, toBeDeleted, executedDate, modifiedDate,
+        style, id, name, namePlaceholder, tags, amount, maxSelectedTagCount, showProgressStripes, isToBeDeleted, executedDate, modifiedDate,
         createdDate, mode, onPress, onChange
     };
 
@@ -60,7 +60,7 @@ export const Component = forwardRef(function Component(
 
     return (
         <TransactionRecordContext.Provider value={context}>
-            <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={toBeDeleted}>
+            <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={isToBeDeleted}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
                 <View style={computedStyle.NameAndTagContainer}>

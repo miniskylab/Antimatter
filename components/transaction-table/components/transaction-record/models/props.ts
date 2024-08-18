@@ -11,7 +11,7 @@ export type Props = ComponentProps<Style> & {
     readonly amount: number;
     readonly maxSelectedTagCount?: number;
     readonly showProgressStripes?: boolean;
-    readonly toBeDeleted?: boolean;
+    readonly isToBeDeleted?: boolean;
     readonly tags?: Record<string, Tag>;
     readonly executedDate: Date;
     readonly modifiedDate?: Date;

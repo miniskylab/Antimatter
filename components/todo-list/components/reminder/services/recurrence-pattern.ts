@@ -1,15 +1,11 @@
 import {GregorianCalendar, isNotNullAndUndefined, isNullOrUndefined} from "@miniskylab/antimatter-framework";
 import {Status} from "../enums";
 
-export function isSuspended(status: Status | undefined): boolean
-{
-    return status === Status.Suspended;
-}
+export function isDraft(id: string): boolean { return !id; }
 
-export function isMarkedAsCompleted(status: Status | undefined): boolean
-{
-    return status === Status.MarkedAsCompleted;
-}
+export function isSuspended(status: Status | undefined): boolean { return status === Status.Suspended; }
+
+export function isToBeRescheduled(status: Status | undefined): boolean { return status === Status.ToBeRescheduled; }
 
 export function isCompleted(computedDueDate: Date | undefined, dueDate: Date | undefined, status: Status | undefined): boolean
 {

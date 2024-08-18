@@ -39,7 +39,7 @@ export const Component = forwardRef(function Component(
         tags = {},
         maxSelectedTagCount = 2,
         showProgressStripes,
-        toBeDeleted,
+        isToBeDeleted,
         status = Status.Unscheduled,
         dueDate,
         computedDueDate,
@@ -53,7 +53,7 @@ export const Component = forwardRef(function Component(
 {
     const props: AllPropertiesMustPresent<Props> = {
         style, id, name, recurrencePattern, recurrencePatternPlaceholder, notificationInterval, notificationIntervalPlaceholder, tags,
-        maxSelectedTagCount, showProgressStripes, toBeDeleted, status, dueDate, computedDueDate, modifiedDate, createdDate, mode, onPress,
+        maxSelectedTagCount, showProgressStripes, isToBeDeleted, status, dueDate, computedDueDate, modifiedDate, createdDate, mode, onPress,
         onChange
     };
 
@@ -62,7 +62,7 @@ export const Component = forwardRef(function Component(
     const today = new Date();
     const dueDuration = Service.getDueDuration(today, dueDate ?? computedDueDate);
     const isSuspended = useMemo(() => Service.isSuspended(status), [status]);
-    const isMarkedAsCompleted = useMemo(() => Service.isMarkedAsCompleted(status), [status]);
+    const isToBeRescheduled = useMemo(() => Service.isToBeRescheduled(status), [status]);
     const isCompleted = useMemo(() => Service.isCompleted(computedDueDate, dueDate, status), [computedDueDate, dueDate, status]);
     const isDue = useMemo(() => !isCompleted && dueDuration === 0, [isCompleted, dueDuration]);
     const isOverdue = useMemo(() => !isCompleted && isNotNullAndUndefined(dueDuration) && dueDuration < 0, [isCompleted, dueDuration]);
@@ -71,7 +71,7 @@ export const Component = forwardRef(function Component(
 
     const context = useComponentContext<ReminderContext>({
         props, extra: {
-            isDue, isOverdue, isSuspended, isMarkedAsCompleted, isCompleted
+            isDue, isOverdue, isSuspended, isToBeRescheduled, isCompleted
         }
     });
 
@@ -88,7 +88,7 @@ export const Component = forwardRef(function Component(
 
     return (
         <ReminderContext.Provider value={context}>
-            <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={toBeDeleted}>
+            <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={isToBeDeleted}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
                 <View style={computedStyle.NameTagAndDeadlineContainer}>
@@ -259,14 +259,14 @@ export const Component = forwardRef(function Component(
                 <Toggle
                     style={computedStyle.SnoozeToggle}
                     icon={DefaultIconSet.CheckMarkInsideCircle}
-                    status={isMarkedAsCompleted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    status={isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked}
                     disabled={isSuspended || !isDue && !isOverdue}
                     onChange={onSnoozeToggleStatusChange}
                 />
                 {mode === Mode.Alarm && (
                     <Button
                         style={computedStyle.SnoozeButton}
-                        label={isMarkedAsCompleted ? "Complete" : "Snooze"}
+                        label={isToBeRescheduled ? "Complete" : "Snooze"}
                     />
                 )}
             </View>
@@ -361,7 +361,7 @@ export const Component = forwardRef(function Component(
             recurrencePattern,
             notificationInterval,
             tags,
-            status: newStatus === ToggleStatus.Checked ? Status.MarkedAsCompleted : Status.Scheduled,
+            status: newStatus === ToggleStatus.Checked ? Status.ToBeRescheduled : Status.Scheduled,
             modifiedDate,
             createdDate
         });
