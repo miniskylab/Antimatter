@@ -125,11 +125,11 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "12": {
         name: "Nisi lacus sed",
-        recurrencePattern: `0 0 0 ${tomorrow.getDate()} ${tomorrow.getMonth() + 1} ? ${tomorrow.getFullYear()}`,
-        notificationInterval: 7,
+        recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? ${day45InThePast.getFullYear()}`,
+        notificationInterval: 4,
         tags: deepCopyWithSelection(Tags, "massa"),
-        status: Reminder.Status.Scheduled,
-        dueDate: tomorrow,
+        status: Reminder.Status.Suspended,
+        dueDate: day45InThePast,
         modifiedDate: today,
         createdDate: today
     },
@@ -139,6 +139,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         notificationInterval: 3,
         tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
         status: Reminder.Status.Suspended,
+        dueDate: day45InTheFuture,
         modifiedDate: today,
         createdDate: today
     },
