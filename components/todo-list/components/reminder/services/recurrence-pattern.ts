@@ -14,7 +14,9 @@ export function isCompleted(computedDueDate: Date | undefined, dueDate: Date | u
 
 export function getDueDuration(today: Date, dueDate: Date | undefined): number | undefined
 {
-    return dueDate ? GregorianCalendar.getDayCount(today, dueDate, true) : undefined;
+    return dueDate
+        ? GregorianCalendar.getDayCount(today, dueDate, true)
+        : undefined;
 }
 
 export function getNextDueDate(recurrencePattern: string | undefined): Date | undefined

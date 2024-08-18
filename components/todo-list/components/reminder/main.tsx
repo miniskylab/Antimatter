@@ -60,14 +60,14 @@ export const Component = forwardRef(function Component(
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
     const today = new Date();
-    const dueDuration = Service.getDueDuration(today, dueDate ?? computedDueDate);
+    const dueDuration = Service.getDueDuration(today, dueDate);
     const isSuspended = useMemo(() => Service.isSuspended(status), [status]);
     const isToBeRescheduled = useMemo(() => Service.isToBeRescheduled(status), [status]);
     const isCompleted = useMemo(() => Service.isCompleted(computedDueDate, dueDate, status), [computedDueDate, dueDate, status]);
     const isDue = useMemo(() => !isCompleted && dueDuration === 0, [isCompleted, dueDuration]);
     const isOverdue = useMemo(() => !isCompleted && isNotNullAndUndefined(dueDuration) && dueDuration < 0, [isCompleted, dueDuration]);
-    const formattedDueDate = useMemo(() => getFormattedDueDate(), [isSuspended, dueDate, computedDueDate]);
-    const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [isSuspended, dueDuration]);
+    const formattedDueDate = useMemo(() => getFormattedDueDate(), [isSuspended, isCompleted, mode, dueDate, computedDueDate]);
+    const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [isCompleted, isSuspended, isDue, dueDuration]);
 
     const context = useComponentContext<ReminderContext>({
         props, extra: {
@@ -162,12 +162,8 @@ export const Component = forwardRef(function Component(
         if (isSuspended) return "Suspended";
         if (isCompleted) return "Completed";
 
-        const copiedDueDate = mode === Mode.Draft || mode === Mode.Edit
-            ? computedDueDate ?? dueDate
-            : dueDate ?? computedDueDate;
-
-        return copiedDueDate
-            ? GregorianCalendar.toString(copiedDueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
+        return dueDate
+            ? GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
             : "No due date";
     }
 
@@ -281,6 +277,7 @@ export const Component = forwardRef(function Component(
             notificationInterval,
             tags,
             status,
+            dueDate,
             modifiedDate,
             createdDate
         });
@@ -310,6 +307,7 @@ export const Component = forwardRef(function Component(
                 }
             },
             status,
+            dueDate,
             modifiedDate,
             createdDate
         });
@@ -323,6 +321,7 @@ export const Component = forwardRef(function Component(
             notificationInterval,
             tags,
             status,
+            dueDate: Service.getNextDueDate(newText),
             modifiedDate,
             createdDate
         });
@@ -336,6 +335,7 @@ export const Component = forwardRef(function Component(
             notificationInterval: newValue,
             tags,
             status,
+            dueDate,
             modifiedDate,
             createdDate
         });
@@ -349,6 +349,7 @@ export const Component = forwardRef(function Component(
             notificationInterval,
             tags,
             status: newStatus === ToggleStatus.Checked ? Status.Suspended : Status.Scheduled,
+            dueDate,
             modifiedDate,
             createdDate
         });
@@ -362,6 +363,7 @@ export const Component = forwardRef(function Component(
             notificationInterval,
             tags,
             status: newStatus === ToggleStatus.Checked ? Status.ToBeRescheduled : Status.Scheduled,
+            dueDate,
             modifiedDate,
             createdDate
         });
