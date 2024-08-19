@@ -60,12 +60,13 @@ export const Component = forwardRef(function Component(
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
     const today = new Date();
-    const dueDuration = Service.getDueDuration(today, dueDate);
-    const isSuspended = useMemo(() => status === Status.Suspended, [status]);
-    const isCompleted = useMemo(() => status === Status.Completed, [status]);
-    const isToBeRescheduled = useMemo(() => status === Status.ToBeRescheduled, [status]);
-    const isDue = useMemo(() => !isCompleted && dueDuration === 0, [isCompleted, dueDuration]);
-    const isOverdue = useMemo(() => !isCompleted && isNotNullAndUndefined(dueDuration) && dueDuration < 0, [isCompleted, dueDuration]);
+    const isSuspended = status === Status.Suspended;
+    const isToBeRescheduled = status === Status.ToBeRescheduled;
+    const effectiveDueDate = isToBeRescheduled ? computedDueDate : dueDate;
+    const dueDuration = Service.getDueDuration(today, effectiveDueDate);
+    const isCompleted = status === Status.Completed || (isToBeRescheduled && (isNullOrUndefined(dueDuration) || dueDuration <= 0));
+    const isOverdue = !isCompleted && isNotNullAndUndefined(dueDuration) && dueDuration < 0;
+    const isDue = !isCompleted && dueDuration === 0;
     const formattedDueDate = useMemo(() => getFormattedDueDate(), [isSuspended, isCompleted, mode, dueDate, computedDueDate]);
     const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [isCompleted, isSuspended, isDue, dueDuration]);
 
@@ -162,8 +163,8 @@ export const Component = forwardRef(function Component(
         if (isSuspended) return "Suspended";
         if (isCompleted) return "Completed";
 
-        return dueDate
-            ? GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
+        return effectiveDueDate
+            ? GregorianCalendar.toString(effectiveDueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
             : "No due date";
     }
 
@@ -250,21 +251,21 @@ export const Component = forwardRef(function Component(
                     style={computedStyle.SuspenseToggle}
                     icon={DefaultIconSet.Zzz}
                     status={isSuspended ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    disabled={isCompleted}
                     onChange={onSuspenseToggleStatusChange}
                 />
                 <Toggle
                     style={computedStyle.RescheduleToggle}
                     icon={DefaultIconSet.CheckMarkInsideCircle}
                     status={isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                    disabled={isSuspended || !isDue && !isOverdue}
+                    disabled={!isToBeRescheduled && (isSuspended || !isDue && !isOverdue)}
                     onChange={onRescheduleToggleStatusChange}
                 />
-                {mode === Mode.Alarm && (
-                    <Button
-                        style={computedStyle.RescheduleButton}
-                        label={isToBeRescheduled ? "Complete" : "Snooze"}
-                    />
-                )}
+                <Button
+                    style={computedStyle.RescheduleButton}
+                    label={isToBeRescheduled ? "Complete" : "Snooze"}
+                    disabled={mode !== Mode.Alarm}
+                />
             </View>
         );
     }

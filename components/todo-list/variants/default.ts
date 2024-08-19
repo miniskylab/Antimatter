@@ -904,12 +904,10 @@ const TodoList__Reminder__SuspenseToggle: ToggleStyle = function (toggleProps)
 
 const TodoList__Reminder__RescheduleToggle__Root: ViewStyle = function (viewProps)
 {
-    const toggleContext = ToggleContextHook.useToggleContext();
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
     return {
         ...TodoList__Reminder__SuspenseToggle__Root(viewProps),
-        display: toggleContext.props.disabled ? "none" : "flex",
         top: 60,
         right: reminderContext.props.mode === Reminder.Mode.Alarm ? 128 : 0
     };
@@ -948,6 +946,7 @@ const TodoList__Reminder__RescheduleButton__Root: PressableStyle = function (pre
 
     return {
         ...inheritedStyle,
+        display: buttonContext.props.disabled ? "none" : "flex",
         height: 40,
         ...pressableState.pressed
             ? {
