@@ -253,15 +253,15 @@ export const Component = forwardRef(function Component(
                     onChange={onSuspenseToggleStatusChange}
                 />
                 <Toggle
-                    style={computedStyle.SnoozeToggle}
+                    style={computedStyle.RescheduleToggle}
                     icon={DefaultIconSet.CheckMarkInsideCircle}
                     status={isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked}
                     disabled={isSuspended || !isDue && !isOverdue}
-                    onChange={onSnoozeToggleStatusChange}
+                    onChange={onRescheduleToggleStatusChange}
                 />
                 {mode === Mode.Alarm && (
                     <Button
-                        style={computedStyle.SnoozeButton}
+                        style={computedStyle.RescheduleButton}
                         label={isToBeRescheduled ? "Complete" : "Snooze"}
                     />
                 )}
@@ -355,7 +355,7 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onSnoozeToggleStatusChange(newStatus: ToggleStatus): void
+    function onRescheduleToggleStatusChange(newStatus: ToggleStatus): void
     {
         onChange?.({
             name,

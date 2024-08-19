@@ -902,7 +902,7 @@ const TodoList__Reminder__SuspenseToggle: ToggleStyle = function (toggleProps)
     };
 };
 
-const TodoList__Reminder__SnoozeToggle__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__RescheduleToggle__Root: ViewStyle = function (viewProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
     const reminderContext = Reminder.ContextHook.useReminderContext();
@@ -915,7 +915,7 @@ const TodoList__Reminder__SnoozeToggle__Root: ViewStyle = function (viewProps)
     };
 };
 
-const TodoList__Reminder__SnoozeToggle__Icon: IconStyle = function (iconProps)
+const TodoList__Reminder__RescheduleToggle__Icon: IconStyle = function (iconProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
     const pressableContext = PressableContextHook.usePressableContext();
@@ -930,16 +930,16 @@ const TodoList__Reminder__SnoozeToggle__Icon: IconStyle = function (iconProps)
     };
 };
 
-const TodoList__Reminder__SnoozeToggle: ToggleStyle = function (toggleProps)
+const TodoList__Reminder__RescheduleToggle: ToggleStyle = function (toggleProps)
 {
     return {
         ...TodoList__Reminder__SuspenseToggle(toggleProps),
-        Root: TodoList__Reminder__SnoozeToggle__Root,
-        Icon: TodoList__Reminder__SnoozeToggle__Icon
+        Root: TodoList__Reminder__RescheduleToggle__Root,
+        Icon: TodoList__Reminder__RescheduleToggle__Icon
     };
 };
 
-const TodoList__Reminder__SnoozeButton__Root: PressableStyle = function (pressableProps, pressableState)
+const TodoList__Reminder__RescheduleButton__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
     const reminderContext = Reminder.ContextHook.useReminderContext();
@@ -966,7 +966,7 @@ const TodoList__Reminder__SnoozeButton__Root: PressableStyle = function (pressab
     };
 };
 
-const TodoList__Reminder__SnoozeButton__Label: TextStyle = function (textProps)
+const TodoList__Reminder__RescheduleButton__Label: TextStyle = function (textProps)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
 
@@ -979,12 +979,12 @@ const TodoList__Reminder__SnoozeButton__Label: TextStyle = function (textProps)
     };
 };
 
-const TodoList__Reminder__SnoozeButton: ButtonStyle = function (buttonProps)
+const TodoList__Reminder__RescheduleButton: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.SolidRectangular(buttonProps),
-        Root: TodoList__Reminder__SnoozeButton__Root,
-        Label: TodoList__Reminder__SnoozeButton__Label
+        Root: TodoList__Reminder__RescheduleButton__Root,
+        Label: TodoList__Reminder__RescheduleButton__Label
     };
 };
 
@@ -1007,8 +1007,8 @@ const TodoList__Reminder: Reminder.Style = function ()
         RecurrencePatternInputField: TodoList__Reminder__RecurrencePatternInputField,
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
         SuspenseToggle: TodoList__Reminder__SuspenseToggle,
-        SnoozeToggle: TodoList__Reminder__SnoozeToggle,
-        SnoozeButton: TodoList__Reminder__SnoozeButton,
+        RescheduleToggle: TodoList__Reminder__RescheduleToggle,
+        RescheduleButton: TodoList__Reminder__RescheduleButton,
         ProgressStripes: TodoList__Reminder__ProgressStripes
     };
 };

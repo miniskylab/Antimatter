@@ -28,7 +28,7 @@ export type Style = (reminderProps: WithoutStyle<Props>) => {
     RecurrencePatternInputField: InputFieldStyle;
     NotificationIntervalNumericInputField: NumericInputFieldStyle;
     SuspenseToggle: ToggleStyle;
-    SnoozeToggle: ToggleStyle;
-    SnoozeButton: ButtonStyle;
+    RescheduleToggle: ToggleStyle;
+    RescheduleButton: ButtonStyle;
     ProgressStripes: ProgressStripesStyle;
 };
