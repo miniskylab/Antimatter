@@ -254,26 +254,20 @@ export const TodoList = forwardRef(function TodoList(
         const reminderA = reminders[reminderIdA] ?? unifiedReminderList[reminderIdA];
         const reminderB = reminders[reminderIdB] ?? unifiedReminderList[reminderIdB];
 
-        const statusA = reminderA.status;
-        const statusB = reminderB.status;
-        const dueDateA = reminderA.dueDate;
-        const dueDateB = reminderB.dueDate;
-        const computedDueDateA = computedDueDates[reminderIdA];
-        const computedDueDateB = computedDueDates[reminderIdB];
-        const isDraft = Reminder.Service.isDraft;
-        const isCompleted = Reminder.Service.isCompleted;
-        const isSuspended = Reminder.Service.isSuspended;
+        const isDraft = (reminderId: string) => !reminderId;
+        const isCompleted = (status: Reminder.Status) => status === Reminder.Status.Completed;
+        const isSuspended = (status: Reminder.Status) => status === Reminder.Status.Suspended;
 
-        const stateA = isDraft(reminderIdA) || isCompleted(computedDueDateA, dueDateA, statusA) || isSuspended(statusA) ? Infinity : 0;
-        const stateB = isDraft(reminderIdB) || isCompleted(computedDueDateB, dueDateB, statusB) || isSuspended(statusB) ? Infinity : 0;
-        const stateComparisonResult = stateA - stateB;
-        if (stateComparisonResult !== 0)
+        const statusA = isDraft(reminderIdA) || isCompleted(reminderA.status) || isSuspended(reminderA.status) ? Infinity : 0;
+        const statusB = isDraft(reminderIdB) || isCompleted(reminderB.status) || isSuspended(reminderB.status) ? Infinity : 0;
+        const statusComparisonResult = statusA - statusB;
+        if (statusComparisonResult !== 0)
         {
-            return stateComparisonResult;
+            return statusComparisonResult;
         }
 
-        const dueDurationA = Reminder.Service.getDueDuration(today, dueDateA);
-        const dueDurationB = Reminder.Service.getDueDuration(today, dueDateB);
+        const dueDurationA = Reminder.Service.getDueDuration(today, reminderA.dueDate);
+        const dueDurationB = Reminder.Service.getDueDuration(today, reminderB.dueDate);
         const dueDateComparisonResult = (dueDurationA ?? Infinity) - (dueDurationB ?? Infinity);
         if (dueDateComparisonResult !== 0)
         {

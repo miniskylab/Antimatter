@@ -61,9 +61,9 @@ export const Component = forwardRef(function Component(
 
     const today = new Date();
     const dueDuration = Service.getDueDuration(today, dueDate);
-    const isSuspended = useMemo(() => Service.isSuspended(status), [status]);
-    const isToBeRescheduled = useMemo(() => Service.isToBeRescheduled(status), [status]);
-    const isCompleted = useMemo(() => Service.isCompleted(computedDueDate, dueDate, status), [computedDueDate, dueDate, status]);
+    const isSuspended = useMemo(() => status === Status.Suspended, [status]);
+    const isCompleted = useMemo(() => status === Status.Completed, [status]);
+    const isToBeRescheduled = useMemo(() => status === Status.ToBeRescheduled, [status]);
     const isDue = useMemo(() => !isCompleted && dueDuration === 0, [isCompleted, dueDuration]);
     const isOverdue = useMemo(() => !isCompleted && isNotNullAndUndefined(dueDuration) && dueDuration < 0, [isCompleted, dueDuration]);
     const formattedDueDate = useMemo(() => getFormattedDueDate(), [isSuspended, isCompleted, mode, dueDate, computedDueDate]);

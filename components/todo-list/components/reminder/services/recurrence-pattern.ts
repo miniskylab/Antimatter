@@ -1,16 +1,4 @@
-import {GregorianCalendar, isNotNullAndUndefined, isNullOrUndefined} from "@miniskylab/antimatter-framework";
-import {Status} from "../enums";
-
-export function isDraft(id: string): boolean { return !id; }
-
-export function isSuspended(status: Status | undefined): boolean { return status === Status.Suspended; }
-
-export function isToBeRescheduled(status: Status | undefined): boolean { return status === Status.ToBeRescheduled; }
-
-export function isCompleted(computedDueDate: Date | undefined, dueDate: Date | undefined, status: Status | undefined): boolean
-{
-    return status === Status.Scheduled && !dueDate && (isNotNullAndUndefined(computedDueDate) && computedDueDate < new Date);
-}
+import {GregorianCalendar, isNullOrUndefined} from "@miniskylab/antimatter-framework";
 
 export function getDueDuration(today: Date, dueDate: Date | undefined): number | undefined
 {
@@ -63,7 +51,7 @@ function isValidRecurrencePattern(recurrencePattern: string): boolean
     return recurrencePatternRegex.test(recurrencePattern);
 }
 
-function tryParseExactTime(recurrencePattern: string, nextExecutionTime: Date): boolean | undefined
+function tryParseExactTime(recurrencePattern: string, nextExecutionTime: Date): boolean
 {
     const [cronSecondToken, cronMinuteToken, cronHourToken, cronDateToken, cronMonthToken, , cronYearToken] = recurrencePattern.split(" ");
     if (!recurrencePattern.includes("*"))
@@ -72,9 +60,11 @@ function tryParseExactTime(recurrencePattern: string, nextExecutionTime: Date): 
         nextExecutionTime.setHours(Number(cronHourToken), Number(cronMinuteToken), Number(cronSecondToken), 0);
         return true;
     }
+
+    return false;
 }
 
-function tryParseCronYearToken(cronYearToken: string, nextExecutionTime: Date): boolean | undefined
+function tryParseCronYearToken(cronYearToken: string, nextExecutionTime: Date): boolean
 {
     const cronYearValue = Number(cronYearToken);
     const nextExecutionYear = nextExecutionTime.getFullYear();
@@ -88,9 +78,11 @@ function tryParseCronYearToken(cronYearToken: string, nextExecutionTime: Date): 
         nextExecutionTime.setSeconds(0);
         return true;
     }
+
+    return false;
 }
 
-function tryParseCronMonthToken(cronMonthToken: string, nextExecutionTime: Date): boolean | undefined
+function tryParseCronMonthToken(cronMonthToken: string, nextExecutionTime: Date): boolean
 {
     const cronMonthValue = Number(cronMonthToken) - 1;
     const nextExecutionMonth = nextExecutionTime.getMonth();
@@ -112,9 +104,11 @@ function tryParseCronMonthToken(cronMonthToken: string, nextExecutionTime: Date)
         nextExecutionTime.setSeconds(0);
         return true;
     }
+
+    return false;
 }
 
-function tryParseCronDateToken(cronDateToken: string, nextExecutionTime: Date): boolean | undefined
+function tryParseCronDateToken(cronDateToken: string, nextExecutionTime: Date): boolean
 {
     const cronDateValue = Number(cronDateToken);
     const nextExecutionDate = nextExecutionTime.getDate();
@@ -135,9 +129,11 @@ function tryParseCronDateToken(cronDateToken: string, nextExecutionTime: Date): 
         nextExecutionTime.setSeconds(0);
         return true;
     }
+
+    return false;
 }
 
-function tryParseCronHourToken(cronHourToken: string, nextExecutionTime: Date): boolean | undefined
+function tryParseCronHourToken(cronHourToken: string, nextExecutionTime: Date): boolean
 {
     const cronHourValue = Number(cronHourToken);
     const nextExecutionHour = nextExecutionTime.getHours();
@@ -157,9 +153,11 @@ function tryParseCronHourToken(cronHourToken: string, nextExecutionTime: Date): 
         nextExecutionTime.setSeconds(0);
         return true;
     }
+
+    return false;
 }
 
-function tryParseCronMinuteToken(cronMinuteToken: string, nextExecutionTime: Date): boolean | undefined
+function tryParseCronMinuteToken(cronMinuteToken: string, nextExecutionTime: Date): boolean
 {
     const cronMinuteValue = Number(cronMinuteToken);
     const nextExecutionMinute = nextExecutionTime.getMinutes();
@@ -178,9 +176,11 @@ function tryParseCronMinuteToken(cronMinuteToken: string, nextExecutionTime: Dat
         nextExecutionTime.setSeconds(0);
         return true;
     }
+
+    return false;
 }
 
-function tryParseCronSecondToken(cronSecondToken: string, nextExecutionTime: Date): boolean | undefined
+function tryParseCronSecondToken(cronSecondToken: string, nextExecutionTime: Date): boolean
 {
     const cronSecondValue = Number(cronSecondToken);
     const nextExecutionSecond = nextExecutionTime.getSeconds();
@@ -198,4 +198,6 @@ function tryParseCronSecondToken(cronSecondToken: string, nextExecutionTime: Dat
 
         return true;
     }
+
+    return false;
 }

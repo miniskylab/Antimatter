@@ -157,7 +157,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? ${day45InThePast.getFullYear()}`,
         notificationInterval: 1,
         tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
-        status: Reminder.Status.Scheduled,
+        status: Reminder.Status.Completed,
         modifiedDate: today,
         createdDate: today
     }
