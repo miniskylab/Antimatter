@@ -325,9 +325,10 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
         height: 30,
         marginTop: 7,
         fontSize: 28,
+        transform: [{scaleX: !reminderContext.extra.isCompleted && reminderContext.extra.isToBeRescheduled ? -1 : 1}],
         color: reminderContext.extra.isSuspended
             ? Color.Neutral
-            : reminderContext.extra.isCompleted
+            : reminderContext.extra.isCompleted || reminderContext.extra.isToBeRescheduled
                 ? Color.Green
                 : reminderContext.extra.isDue
                     ? Color.Gold

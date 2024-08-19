@@ -115,13 +115,15 @@ export const Component = forwardRef(function Component(
             ? DefaultIconSet.CheckMarkInsideCircle
             : isSuspended
                 ? DefaultIconSet.Zzz
-                : isDue
-                    ? DefaultIconSet.Alarm
-                    : isOverdue
-                        ? DefaultIconSet.ExclamationMarkInsideCircle
-                        : isNotNullAndUndefined(dueDuration) && dueDuration > 0
-                            ? DefaultIconSet.Notification
-                            : DefaultIconSet.NoSound;
+                : isToBeRescheduled
+                    ? DefaultIconSet.History
+                    : isDue
+                        ? DefaultIconSet.Alarm
+                        : isOverdue
+                            ? DefaultIconSet.ExclamationMarkInsideCircle
+                            : isNotNullAndUndefined(dueDuration) && dueDuration > 0
+                                ? DefaultIconSet.Notification
+                                : DefaultIconSet.NoSound;
     }
 
     function getDropdownMenuItems(): NonNullable<DropdownMenuProps["menuItems"]>
