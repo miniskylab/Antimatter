@@ -42,7 +42,6 @@ export const Component = forwardRef(function Component(
         isToBeDeleted,
         status = Status.Unscheduled,
         dueDate,
-        computedDueDate,
         modifiedDate,
         createdDate,
         onPress,
@@ -53,8 +52,7 @@ export const Component = forwardRef(function Component(
 {
     const props: AllPropertiesMustPresent<Props> = {
         style, id, name, recurrencePattern, recurrencePatternPlaceholder, notificationInterval, notificationIntervalPlaceholder, tags,
-        maxSelectedTagCount, showProgressStripes, isToBeDeleted, status, dueDate, computedDueDate, modifiedDate, createdDate, mode, onPress,
-        onChange
+        maxSelectedTagCount, showProgressStripes, isToBeDeleted, status, dueDate, modifiedDate, createdDate, mode, onPress, onChange
     };
 
     const originalStatusRef = useRef(status);
@@ -63,7 +61,7 @@ export const Component = forwardRef(function Component(
     const today = new Date();
     const isSuspended = status === Status.Suspended;
     const isToBeRescheduled = status === Status.ToBeRescheduled;
-    const effectiveDueDate = isToBeRescheduled ? computedDueDate : dueDate;
+    const effectiveDueDate = isToBeRescheduled ? Service.getNextDueDate(recurrencePattern) : dueDate;
     const dueDuration = Service.getDueDuration(today, effectiveDueDate);
     const isOriginallyCompleted = originalStatusRef.current === Status.Completed;
     const isPredictivelyCompleted = !isOriginallyCompleted && isToBeRescheduled && (isNullOrUndefined(dueDuration) || dueDuration <= 0);

@@ -56,7 +56,6 @@ export const TodoList = forwardRef(function TodoList(
     const remindersRef = useRef<Record<string, Nullable<Reminder.Ref>>>({});
 
     const today = new Date();
-    const computedDueDates = useMemo(() => getComputedDueDates(), [reminders]);
     const unifiedReminderList = useMemo(() => getUnifiedReminderList(), [reminders, selectedReminder, state.toBeDeletedReminders]);
     const {button1, button2, button3} = useMemo(
         () => getControlPanel(),
@@ -237,18 +236,6 @@ export const TodoList = forwardRef(function TodoList(
         return toBeDeletedReminders;
     }
 
-    function getComputedDueDates(): Record<string, Date | undefined>
-    {
-        const computedDueDates: ReturnType<typeof getComputedDueDates> = {};
-        Object.keys(reminders).forEach(reminderId =>
-        {
-            const reminder = reminders[reminderId];
-            computedDueDates[reminderId] = Reminder.Service.getNextDueDate(reminder.recurrencePattern);
-        });
-
-        return computedDueDates;
-    }
-
     function byDueDuration(reminderIdA: string, reminderIdB: string): number
     {
         const reminderA = reminders[reminderIdA] ?? unifiedReminderList[reminderIdA];
@@ -288,9 +275,6 @@ export const TodoList = forwardRef(function TodoList(
             const reminderData = unifiedReminderList[sortedReminderId];
             const isSelectedReminder = sortedReminderId === selectedReminder?.id;
             const isToBeDeletedReminder = !!state.toBeDeletedReminders[sortedReminderId];
-            const computedDueDate = isSelectedReminder
-                ? Reminder.Service.getNextDueDate(reminderData.recurrencePattern)
-                : computedDueDates[sortedReminderId];
 
             return (
                 <Reminder.Component
@@ -300,7 +284,6 @@ export const TodoList = forwardRef(function TodoList(
                     ref={ref => { remindersRef.current[sortedReminderId] = ref; }}
                     style={computedStyle.Reminder}
                     mode={reminderMode}
-                    computedDueDate={computedDueDate}
                     isToBeDeleted={isToBeDeletedReminder}
                     maxSelectedTagCount={maxSelectedTagCount}
                     recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
