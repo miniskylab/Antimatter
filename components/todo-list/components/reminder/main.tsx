@@ -42,6 +42,7 @@ export const Component = forwardRef(function Component(
         isToBeDeleted,
         status = Status.Unscheduled,
         dueDate,
+        originalData,
         modifiedDate,
         createdDate,
         onPress,
@@ -52,10 +53,10 @@ export const Component = forwardRef(function Component(
 {
     const props: AllPropertiesMustPresent<Props> = {
         style, id, name, recurrencePattern, recurrencePatternPlaceholder, notificationInterval, notificationIntervalPlaceholder, tags,
-        maxSelectedTagCount, showProgressStripes, isToBeDeleted, status, dueDate, modifiedDate, createdDate, mode, onPress, onChange
+        maxSelectedTagCount, showProgressStripes, isToBeDeleted, status, dueDate, originalData, modifiedDate, createdDate, mode, onPress,
+        onChange
     };
 
-    const originalStatusRef = useRef(status);
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
     const today = new Date();
@@ -63,7 +64,8 @@ export const Component = forwardRef(function Component(
     const isToBeRescheduled = status === Status.ToBeRescheduled;
     const effectiveDueDate = isToBeRescheduled ? Service.getNextDueDate(recurrencePattern) : dueDate;
     const dueDuration = Service.getDueDuration(today, effectiveDueDate);
-    const isOriginallyCompleted = originalStatusRef.current === Status.Completed;
+    const isOriginallySuspended = originalData.status === Status.Suspended;
+    const isOriginallyCompleted = originalData.status === Status.Completed;
     const isPredictivelyCompleted = !isOriginallyCompleted && isToBeRescheduled && (isNullOrUndefined(dueDuration) || dueDuration <= 0);
     const isCompleted = status === Status.Completed || isPredictivelyCompleted;
     const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
@@ -71,11 +73,7 @@ export const Component = forwardRef(function Component(
     const formattedDueDate = getFormattedDueDate();
     const formattedDueDuration = getFormattedDueDuration();
 
-    const context = useComponentContext<ReminderContext>({
-        props, extra: {
-            isDue, isOverdue, isSuspended, isToBeRescheduled, isCompleted
-        }
-    });
+    const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue, isCompleted}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -262,14 +260,14 @@ export const Component = forwardRef(function Component(
                     style={computedStyle.SuspenseToggle}
                     icon={DefaultIconSet.Zzz}
                     status={isSuspended ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                    disabled={isCompleted}
+                    disabled={isOriginallyCompleted}
                     onChange={onSuspenseToggleStatusChange}
                 />
                 <Toggle
                     style={computedStyle.RescheduleToggle}
                     icon={DefaultIconSet.CheckMarkInsideCircle}
                     status={getRescheduleToggleStatus()}
-                    disabled={!isToBeRescheduled && (isSuspended || isNotNullAndUndefined(dueDuration) && !isDue && !isOverdue)}
+                    disabled={!isToBeRescheduled && (isOriginallySuspended || isNotNullAndUndefined(dueDuration) && !isDue && !isOverdue)}
                     onChange={onRescheduleToggleStatusChange}
                 />
                 <Button
@@ -355,12 +353,13 @@ export const Component = forwardRef(function Component(
 
     function onSuspenseToggleStatusChange(newStatus: ToggleStatus): void
     {
+        const nextStatus = newStatus === ToggleStatus.Checked ? Status.Suspended : Status.Scheduled;
         onChange?.({
             name,
             recurrencePattern,
             notificationInterval,
             tags,
-            status: newStatus === ToggleStatus.Checked ? Status.Suspended : Status.Scheduled,
+            status: nextStatus,
             dueDate,
             modifiedDate,
             createdDate
@@ -370,13 +369,8 @@ export const Component = forwardRef(function Component(
     function onRescheduleToggleStatusChange(newStatus: ToggleStatus): void
     {
         const nextStatus = newStatus === ToggleStatus.Checked
-            ? isOriginallyCompleted ? originalStatusRef.current : Status.ToBeRescheduled
-            : isOriginallyCompleted ? Status.ToBeRescheduled : originalStatusRef.current;
-
-        if (nextStatus === Status.ToBeRescheduled)
-        {
-            originalStatusRef.current = status;
-        }
+            ? isOriginallyCompleted ? originalData.status : Status.ToBeRescheduled
+            : isOriginallyCompleted ? Status.ToBeRescheduled : originalData.status;
 
         onChange?.({
             name,

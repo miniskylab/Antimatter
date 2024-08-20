@@ -286,6 +286,7 @@ export const TodoList = forwardRef(function TodoList(
                     mode={reminderMode}
                     isToBeDeleted={isToBeDeletedReminder}
                     maxSelectedTagCount={maxSelectedTagCount}
+                    originalData={reminders[sortedReminderId]}
                     recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
                     notificationIntervalPlaceholder={reminderNotificationIntervalPlaceholder}
                     showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}

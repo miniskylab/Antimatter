@@ -318,6 +318,10 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
+    const isCompleted = reminderContext.extra.isCompleted;
+    const isSuspended = reminderContext.props.status === Reminder.Status.Suspended;
+    const isToBeRescheduled = reminderContext.props.status === Reminder.Status.ToBeRescheduled;
+
     return {
         ...IconVariant.Default(iconProps),
         display: reminderContext.props.isToBeDeleted ? "none" : "flex",
@@ -325,10 +329,10 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
         height: 30,
         marginTop: 7,
         fontSize: 28,
-        transform: [{scaleX: !reminderContext.extra.isCompleted && reminderContext.extra.isToBeRescheduled ? -1 : 1}],
-        color: reminderContext.extra.isSuspended
+        transform: [{scaleX: !isCompleted && isToBeRescheduled ? -1 : 1}],
+        color: isSuspended
             ? Color.Neutral
-            : reminderContext.extra.isCompleted || reminderContext.extra.isToBeRescheduled
+            : isCompleted || isToBeRescheduled
                 ? Color.Green
                 : reminderContext.extra.isDue
                     ? Color.Gold
@@ -943,6 +947,8 @@ const TodoList__Reminder__RescheduleButton__Root: PressableStyle = function (pre
     const buttonContext = ButtonContextHook.useButtonContext();
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
+    const isToBeRescheduled = reminderContext.props.status === Reminder.Status.ToBeRescheduled;
+
     const inheritedStyle = ButtonVariant.SolidRectangular(buttonContext.props).Root(pressableProps, pressableState);
 
     return {
@@ -951,17 +957,17 @@ const TodoList__Reminder__RescheduleButton__Root: PressableStyle = function (pre
         height: 40,
         ...pressableState.pressed
             ? {
-                borderColor: reminderContext.extra.isToBeRescheduled ? Color.Green__b10 : Color.Neutral__b10,
-                backgroundColor: reminderContext.extra.isToBeRescheduled ? Color.Green__b10 : Color.Neutral__b10
+                borderColor: isToBeRescheduled ? Color.Green__b10 : Color.Neutral__b10,
+                backgroundColor: isToBeRescheduled ? Color.Green__b10 : Color.Neutral__b10
             }
             : pressableState.hovered
                 ? {
-                    borderColor: reminderContext.extra.isToBeRescheduled ? Color.Green__w25 : Color.Neutral__w25,
-                    backgroundColor: reminderContext.extra.isToBeRescheduled ? Color.Green__w25 : Color.Neutral__w25
+                    borderColor: isToBeRescheduled ? Color.Green__w25 : Color.Neutral__w25,
+                    backgroundColor: isToBeRescheduled ? Color.Green__w25 : Color.Neutral__w25
                 }
                 : {
-                    borderColor: reminderContext.extra.isToBeRescheduled ? Color.Green : Color.Neutral,
-                    backgroundColor: reminderContext.extra.isToBeRescheduled ? Color.Green : Color.Neutral
+                    borderColor: isToBeRescheduled ? Color.Green : Color.Neutral,
+                    backgroundColor: isToBeRescheduled ? Color.Green : Color.Neutral
                 }
     };
 };
