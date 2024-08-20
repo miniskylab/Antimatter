@@ -21,7 +21,7 @@ import {Text} from "@miniskylab/antimatter-text";
 import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useMemo, useRef} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
 import {Mode, Status, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext} from "./models";
 import * as Service from "./services";
@@ -57,6 +57,7 @@ export const Component = forwardRef(function Component(
         onChange
     };
 
+    const originalStatusRef = useRef(status);
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
     const today = new Date();
@@ -64,11 +65,13 @@ export const Component = forwardRef(function Component(
     const isToBeRescheduled = status === Status.ToBeRescheduled;
     const effectiveDueDate = isToBeRescheduled ? computedDueDate : dueDate;
     const dueDuration = Service.getDueDuration(today, effectiveDueDate);
-    const isCompleted = status === Status.Completed || (isToBeRescheduled && (isNullOrUndefined(dueDuration) || dueDuration <= 0));
-    const isOverdue = !isCompleted && isNotNullAndUndefined(dueDuration) && dueDuration < 0;
-    const isDue = !isCompleted && dueDuration === 0;
-    const formattedDueDate = useMemo(() => getFormattedDueDate(), [isSuspended, isCompleted, mode, dueDate, computedDueDate]);
-    const formattedDueDuration = useMemo(() => getFormattedDueDuration(), [isCompleted, isSuspended, isDue, dueDuration]);
+    const isOriginallyCompleted = originalStatusRef.current === Status.Completed;
+    const isPredictivelyCompleted = !isOriginallyCompleted && isToBeRescheduled && (isNullOrUndefined(dueDuration) || dueDuration <= 0);
+    const isCompleted = status === Status.Completed || isPredictivelyCompleted;
+    const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
+    const isDue = dueDuration === 0;
+    const formattedDueDate = getFormattedDueDate();
+    const formattedDueDuration = getFormattedDueDuration();
 
     const context = useComponentContext<ReminderContext>({
         props, extra: {
@@ -162,12 +165,13 @@ export const Component = forwardRef(function Component(
 
     function getFormattedDueDate(): string
     {
-        if (isSuspended) return "Suspended";
-        if (isCompleted) return "Completed";
-
-        return effectiveDueDate
-            ? GregorianCalendar.toString(effectiveDueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
-            : "No due date";
+        return isSuspended
+            ? "Suspended"
+            : isCompleted
+                ? "Completed"
+                : effectiveDueDate
+                    ? GregorianCalendar.toString(effectiveDueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
+                    : "No due date";
     }
 
     function getFormattedDueDuration(): string | undefined
@@ -179,6 +183,13 @@ export const Component = forwardRef(function Component(
                 : dueDuration > 0
                     ? dueDuration === 1 ? "Tomorrow" : `In ${dueDuration} days`
                     : dueDuration === -1 ? "Yesterday" : `${Math.abs(dueDuration)} days ago`;
+    }
+
+    function getRescheduleToggleStatus(): ToggleStatus
+    {
+        return isOriginallyCompleted
+            ? isToBeRescheduled ? ToggleStatus.Unchecked : ToggleStatus.Checked
+            : isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked;
     }
 
     function renderName(): JSX.Element
@@ -259,8 +270,8 @@ export const Component = forwardRef(function Component(
                 <Toggle
                     style={computedStyle.RescheduleToggle}
                     icon={DefaultIconSet.CheckMarkInsideCircle}
-                    status={isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                    disabled={!isToBeRescheduled && (isSuspended || !isDue && !isOverdue)}
+                    status={getRescheduleToggleStatus()}
+                    disabled={!isToBeRescheduled && (isSuspended || isNotNullAndUndefined(dueDuration) && !isDue && !isOverdue)}
                     onChange={onRescheduleToggleStatusChange}
                 />
                 <Button
@@ -360,12 +371,21 @@ export const Component = forwardRef(function Component(
 
     function onRescheduleToggleStatusChange(newStatus: ToggleStatus): void
     {
+        const nextStatus = newStatus === ToggleStatus.Checked
+            ? isOriginallyCompleted ? originalStatusRef.current : Status.ToBeRescheduled
+            : isOriginallyCompleted ? Status.ToBeRescheduled : originalStatusRef.current;
+
+        if (nextStatus === Status.ToBeRescheduled)
+        {
+            originalStatusRef.current = status;
+        }
+
         onChange?.({
             name,
             recurrencePattern,
             notificationInterval,
             tags,
-            status: newStatus === ToggleStatus.Checked ? Status.ToBeRescheduled : Status.Scheduled,
+            status: nextStatus,
             dueDate,
             modifiedDate,
             createdDate
