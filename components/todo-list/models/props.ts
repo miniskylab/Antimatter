@@ -2,6 +2,7 @@ import {DataListControlButton, DataListDisplayPanel} from "@miniskylab/antimatte
 import {
     ComponentName,
     ComponentProps,
+    IsArray,
     IsDefined,
     IsEnum,
     IsInteger,
@@ -34,6 +35,15 @@ export class TodoListProps extends ComponentProps<TodoListStyle>
     @ValidateNested()
     @Type(() => SelectedReminder)
     readonly selectedReminder?: SelectedReminder;
+
+
+    /**
+     * Specify IDs of reminders that are in alarm mode.
+     */
+    @IsArray()
+    @IsString({each: true})
+    @IsOptional()
+    readonly alarmedReminderIds?: string[];
 
 
     /**
@@ -81,6 +91,15 @@ export class TodoListProps extends ComponentProps<TodoListStyle>
     @ValidateNested()
     @Type(() => DataListDisplayPanel)
     readonly displayPanel?: DataListDisplayPanel;
+
+
+    /**
+     * Specify the button that users can press to dismiss all alarms in the todo list.
+     */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
+    readonly dismissAlarmButton: DataListControlButton;
 
 
     /**

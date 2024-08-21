@@ -23,11 +23,13 @@ export const TodoList = forwardRef(function TodoList(
         style = Variant.Default,
         reminders = {},
         selectedReminder,
+        alarmedReminderIds = [],
         reminderRecurrencePatternPlaceholder = EMPTY_STRING,
         reminderNotificationIntervalPlaceholder = EMPTY_STRING,
         mode = Reminder.Mode.ReadOnly,
         maxSelectedTagCount = 2,
         displayPanel,
+        dismissAlarmButton,
         addNewReminderButton,
         saveReminderButton,
         deleteReminderButton,
@@ -41,9 +43,9 @@ export const TodoList = forwardRef(function TodoList(
 ): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<TodoListProps> = {
-        style, reminderRecurrencePatternPlaceholder, reminderNotificationIntervalPlaceholder, reminders, selectedReminder, mode,
-        maxSelectedTagCount, displayPanel, addNewReminderButton, saveReminderButton, deleteReminderButton, cancelButton, customButton,
-        onSwitchMode, onChangeReminder, onSelectReminder
+        style, reminderRecurrencePatternPlaceholder, reminderNotificationIntervalPlaceholder, reminders, selectedReminder,
+        alarmedReminderIds, mode, maxSelectedTagCount, displayPanel, dismissAlarmButton, addNewReminderButton, saveReminderButton,
+        deleteReminderButton, cancelButton, customButton, onSwitchMode, onChangeReminder, onSelectReminder
     };
 
     const [state, setState] = useState<TodoListState>({
@@ -171,6 +173,13 @@ export const TodoList = forwardRef(function TodoList(
     {
         switch (mode)
         {
+            case Reminder.Mode.Alarm:
+                return {
+                    button1: {...dismissAlarmButton},
+                    button2: {icon: DefaultIconSet.Alarm, text: "Alarm-Mode", disabled: true},
+                    button3: customButton ? {...customButton} : {...cancelButton, disabled: true}
+                };
+
             case Reminder.Mode.Draft:
                 return {
                     button1: {...saveReminderButton},
@@ -204,7 +213,7 @@ export const TodoList = forwardRef(function TodoList(
 
     function getReminderMode(reminderId: string): Reminder.Mode
     {
-        return reminderId === selectedReminder?.id
+        return selectedReminder?.id === reminderId || alarmedReminderIds?.includes(reminderId)
             ? mode
             : Reminder.Mode.ReadOnly;
     }
@@ -275,6 +284,7 @@ export const TodoList = forwardRef(function TodoList(
             const reminderData = unifiedReminderList[sortedReminderId];
             const isSelectedReminder = sortedReminderId === selectedReminder?.id;
             const isToBeDeletedReminder = !!state.toBeDeletedReminders[sortedReminderId];
+            const isSelectableReminder = mode === Reminder.Mode.ReadOnly && !selectedReminder;
             const originalData = mode === Reminder.Mode.Draft || mode === Reminder.Mode.Edit ? reminders[sortedReminderId] : undefined;
 
             return (
@@ -291,7 +301,7 @@ export const TodoList = forwardRef(function TodoList(
                     recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
                     notificationIntervalPlaceholder={reminderNotificationIntervalPlaceholder}
                     showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}
-                    onPress={!selectedReminder ? () => { onSelectReminder?.(sortedReminderId); } : undefined}
+                    onPress={isSelectableReminder ? () => { onSelectReminder?.(sortedReminderId); } : undefined}
                     onChange={newReminderData => { onChangeReminder?.(newReminderData); }}
                 />
             );

@@ -17,7 +17,7 @@ day45InTheFuture.setDate(day45InTheFuture.getDate() + 45);
 export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     "1": {
         name: "Pulvinar",
-        recurrencePattern: `0 0 0 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
+        recurrencePattern: `0 0 0 ${today.getDate()} * ? *`,
         notificationInterval: 1,
         tags: deepCopyWithSelection(Tags, "feugiat", "mauris"),
         status: Reminder.Status.Scheduled,

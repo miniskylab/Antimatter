@@ -47,6 +47,12 @@ export default {
                 {...args}
                 ref={todoListRef}
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
+                dismissAlarmButton={{
+                    ...args.dismissAlarmButton,
+                    icon: DefaultIconSet.NoSound,
+                    text: "Dismiss",
+                    onPress: () => { setArgs({mode: Reminder.Mode.ReadOnly, alarmedReminderIds: []}); }
+                }}
                 addNewReminderButton={{
                     ...args.addNewReminderButton,
                     icon: DefaultIconSet.PlusCircle,
@@ -236,10 +242,12 @@ export const Playground: Story = {
         maxSelectedTagCount: Sb.number(0),
         reminders: Sb.locked,
         selectedReminder: Sb.locked,
+        alarmedReminderIds: Sb.locked,
         reminderRecurrencePatternPlaceholder: Sb.text(),
         reminderNotificationIntervalPlaceholder: Sb.text(),
         mode: Sb.locked,
         displayPanel: Sb.locked,
+        dismissAlarmButton: Sb.locked,
         addNewReminderButton: Sb.locked,
         saveReminderButton: Sb.locked,
         deleteReminderButton: Sb.locked,
@@ -254,6 +262,8 @@ export const Playground: Story = {
         maxSelectedTagCount: 2,
         reminderRecurrencePatternPlaceholder: "Recurrence Pattern",
         reminderNotificationIntervalPlaceholder: "Notification Interval (Hours)",
+        mode: Reminder.Mode.Alarm,
+        alarmedReminderIds: ["1", "2", "6"],
         reminders: {...TestData.Reminders}
     }
 };
