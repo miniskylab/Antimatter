@@ -275,6 +275,7 @@ export const TodoList = forwardRef(function TodoList(
             const reminderData = unifiedReminderList[sortedReminderId];
             const isSelectedReminder = sortedReminderId === selectedReminder?.id;
             const isToBeDeletedReminder = !!state.toBeDeletedReminders[sortedReminderId];
+            const originalData = mode === Reminder.Mode.Draft || mode === Reminder.Mode.Edit ? reminders[sortedReminderId] : undefined;
 
             return (
                 <Reminder.Component
@@ -284,9 +285,9 @@ export const TodoList = forwardRef(function TodoList(
                     ref={ref => { remindersRef.current[sortedReminderId] = ref; }}
                     style={computedStyle.Reminder}
                     mode={reminderMode}
+                    originalData={originalData}
                     isToBeDeleted={isToBeDeletedReminder}
                     maxSelectedTagCount={maxSelectedTagCount}
-                    originalData={reminders[sortedReminderId]}
                     recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
                     notificationIntervalPlaceholder={reminderNotificationIntervalPlaceholder}
                     showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}

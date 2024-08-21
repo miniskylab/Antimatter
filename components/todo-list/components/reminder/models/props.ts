@@ -18,7 +18,7 @@ export type Props = ComponentProps<Style> & {
     readonly tags?: Record<string, Tag>;
     readonly status?: Status;
     readonly dueDate?: Date;
-    readonly originalData: Data;
+    readonly originalData?: Data;
     readonly modifiedDate?: Date;
     readonly createdDate?: Date;
     readonly onPress?: GestureResponderEventHandler;

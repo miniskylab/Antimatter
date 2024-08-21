@@ -64,8 +64,8 @@ export const Component = forwardRef(function Component(
     const isToBeRescheduled = status === Status.ToBeRescheduled;
     const effectiveDueDate = isToBeRescheduled ? Service.getNextDueDate(recurrencePattern) : dueDate;
     const dueDuration = Service.getDueDuration(today, effectiveDueDate);
-    const isOriginallySuspended = originalData.status === Status.Suspended;
-    const isOriginallyCompleted = originalData.status === Status.Completed;
+    const isOriginallySuspended = originalData?.status === Status.Suspended;
+    const isOriginallyCompleted = originalData?.status === Status.Completed;
     const isPredictivelyCompleted = !isOriginallyCompleted && isToBeRescheduled && (isNullOrUndefined(dueDuration) || dueDuration <= 0);
     const isCompleted = status === Status.Completed || isPredictivelyCompleted;
     const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
@@ -369,9 +369,10 @@ export const Component = forwardRef(function Component(
     function onRescheduleToggleStatusChange(newStatus: ToggleStatus): void
     {
         const nextStatus = newStatus === ToggleStatus.Checked
-            ? isOriginallyCompleted ? originalData.status : Status.ToBeRescheduled
-            : isOriginallyCompleted ? Status.ToBeRescheduled : originalData.status;
+            ? isOriginallyCompleted ? originalData?.status : Status.ToBeRescheduled
+            : isOriginallyCompleted ? Status.ToBeRescheduled : originalData?.status;
 
+        if (!nextStatus) return;
         onChange?.({
             name,
             recurrencePattern,
