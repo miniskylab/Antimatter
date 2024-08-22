@@ -941,10 +941,12 @@ const TodoList__Reminder__RescheduleToggle__Root: ViewStyle = function (viewProp
 const TodoList__Reminder__RescheduleToggle__Icon: IconStyle = function (iconProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
+    const reminderContext = Reminder.ContextHook.useReminderContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
     return {
         ...TodoList__Reminder__SuspenseToggle__Icon(iconProps),
+        transform: [{scaleX: reminderContext.props.originalData?.status === Reminder.Status.Completed ? -1 : 1}],
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
             ? Color.Green
             : pressableContext.state.hovered

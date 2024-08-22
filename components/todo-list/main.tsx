@@ -245,21 +245,25 @@ export const TodoList = forwardRef(function TodoList(
         return toBeDeletedReminders;
     }
 
+    function getStatusScore(reminderId: string, status: Reminder.Status)
+    {
+        if (!reminderId) return 3;
+        if (status === Reminder.Status.Completed) return 2;
+        if (status === Reminder.Status.Suspended) return 1;
+        return 0;
+    }
+
     function byDueDuration(reminderIdA: string, reminderIdB: string): number
     {
         const reminderA = reminders[reminderIdA] ?? unifiedReminderList[reminderIdA];
         const reminderB = reminders[reminderIdB] ?? unifiedReminderList[reminderIdB];
 
-        const isDraft = (reminderId: string) => !reminderId;
-        const isCompleted = (status: Reminder.Status) => status === Reminder.Status.Completed;
-        const isSuspended = (status: Reminder.Status) => status === Reminder.Status.Suspended;
-
-        const statusA = isDraft(reminderIdA) || isCompleted(reminderA.status) || isSuspended(reminderA.status) ? Infinity : 0;
-        const statusB = isDraft(reminderIdB) || isCompleted(reminderB.status) || isSuspended(reminderB.status) ? Infinity : 0;
-        const statusComparisonResult = statusA - statusB;
-        if (statusComparisonResult !== 0)
+        const statusScoreA = getStatusScore(reminderIdA, reminderA.status);
+        const statusScoreB = getStatusScore(reminderIdB, reminderB.status);
+        const statusScoreComparisonResult = statusScoreA - statusScoreB;
+        if (statusScoreComparisonResult !== 0)
         {
-            return statusComparisonResult;
+            return statusScoreComparisonResult;
         }
 
         const dueDurationA = Reminder.Service.getDueDuration(today, reminderA.dueDate);
