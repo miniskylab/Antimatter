@@ -302,7 +302,7 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
         animations: () =>
         {
             const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
-            const elasticHeightAnimation = DataListAnimationHook.useElasticHeightAnimation(66, 2, 181, 181);
+            const elasticHeightAnimation = DataListAnimationHook.useElasticHeightAnimation(66, 2, 181, 133);
 
             return reminderContext.props.isToBeDeleted
                 ? [() => flashHighlightAnimation, () => elasticHeightAnimation]
@@ -931,10 +931,14 @@ const TodoList__Reminder__RescheduleToggle__Root: ViewStyle = function (viewProp
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
+    const isEditMode = reminderContext.props.mode === Reminder.Mode.Edit;
+    const isDraftMode = reminderContext.props.mode === Reminder.Mode.Draft;
+    const isAlarmMode = reminderContext.props.mode === Reminder.Mode.Alarm;
+
     return {
         ...TodoList__Reminder__SuspenseToggle__Root(viewProps),
-        top: 60,
-        right: reminderContext.props.mode === Reminder.Mode.Alarm ? 128 : 0
+        top: isDraftMode || isEditMode ? 60 : undefined,
+        right: isAlarmMode ? 128 : 0
     };
 };
 

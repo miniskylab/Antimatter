@@ -53,7 +53,6 @@ export const TodoList = forwardRef(function TodoList(
         previousReminders: reminders
     });
 
-    const lastSelectedReminderIdRef = useRef<string>();
     const toBeFlashHighlightedReminderIdsRef = useRef<string[]>([]);
     const remindersRef = useRef<Record<string, Nullable<Reminder.Ref>>>({});
 
@@ -111,35 +110,6 @@ export const TodoList = forwardRef(function TodoList(
                 }
             });
     }, [state.toBeDeletedReminders]);
-
-    useEffect(() =>
-    {
-        if (selectedReminder)
-        {
-            if (mode === Reminder.Mode.Delete || mode === Reminder.Mode.ReadOnly)
-            {
-                const contractSelectedReminder = remindersRef.current[selectedReminder.id]?.contractHeight;
-                contractSelectedReminder?.();
-            }
-            else
-            {
-                const expandSelectedReminder = remindersRef.current[selectedReminder.id]?.editModeExpandHeight;
-                expandSelectedReminder?.();
-            }
-        }
-        else if (lastSelectedReminderIdRef.current)
-        {
-            const lastSelectedReminderId = lastSelectedReminderIdRef.current;
-            const isLastSelectedReminderMarkedForDeletion = Object.keys(state.toBeDeletedReminders).includes(lastSelectedReminderId);
-            if (!isLastSelectedReminderMarkedForDeletion)
-            {
-                const contractLastSelectedReminder = remindersRef.current[lastSelectedReminderId]?.contractHeight;
-                contractLastSelectedReminder?.();
-            }
-        }
-
-        lastSelectedReminderIdRef.current = selectedReminder?.id;
-    }, [selectedReminder, mode]);
 
     if (reminders !== state.previousReminders)
     {

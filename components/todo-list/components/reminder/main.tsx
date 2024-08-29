@@ -21,7 +21,7 @@ import {Text} from "@miniskylab/antimatter-text";
 import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef} from "react";
 import {Mode, Status, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext} from "./models";
 import * as Service from "./services";
@@ -79,10 +79,28 @@ export const Component = forwardRef(function Component(
     useImperativeHandle(ref, () => ({
         flashHighlight: rootContainerRef.current?.flashHighlight,
         editModeExpandHeight: rootContainerRef.current?.editModeExpandHeight,
-        notificationModeExpandHeight: rootContainerRef.current?.notificationModeExpandHeight,
+        alarmModeExpandHeight: rootContainerRef.current?.alarmModeExpandHeight,
         contractHeight: rootContainerRef.current?.contractHeight,
         collapseHeight: rootContainerRef.current?.collapseHeight
     }), []);
+
+    useEffect(() =>
+    {
+        switch (mode)
+        {
+            case Mode.Alarm:
+                rootContainerRef.current?.alarmModeExpandHeight?.();
+                break;
+
+            case Mode.Edit:
+            case Mode.Draft:
+                rootContainerRef.current?.editModeExpandHeight?.();
+                break;
+
+            default:
+                rootContainerRef.current?.contractHeight?.();
+        }
+    }, [mode]);
 
     return (
         <ReminderContext.Provider value={context}>
@@ -101,7 +119,7 @@ export const Component = forwardRef(function Component(
                     </>)}
                     {renderTags()}
                 </View>
-                {(mode === Mode.Draft || mode === Mode.Edit) && renderExpansionArea()}
+                {(mode === Mode.Alarm || mode === Mode.Draft || mode === Mode.Edit) && renderExpansionArea()}
             </Pressable>
         </ReminderContext.Provider>
     );
@@ -248,12 +266,12 @@ export const Component = forwardRef(function Component(
     {
         return (
             <View style={computedStyle.ExpansionArea}>
-                <InputField
+                {mode === Mode.Draft || mode === Mode.Edit && <InputField
                     style={computedStyle.RecurrencePatternInputField}
                     placeholder={recurrencePatternPlaceholder}
                     value={recurrencePattern}
                     onChangeText={onRecurrencePatternChange}
-                />
+                />}
                 <NumericInputField
                     style={computedStyle.NotificationIntervalNumericInputField}
                     minValue={1}

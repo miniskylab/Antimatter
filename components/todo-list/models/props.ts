@@ -38,7 +38,7 @@ export class TodoListProps extends ComponentProps<TodoListStyle>
 
 
     /**
-     * Specify IDs of reminders that are in alarm mode.
+     * Specify IDs of reminders that require user attention.
      */
     @IsArray()
     @IsString({each: true})

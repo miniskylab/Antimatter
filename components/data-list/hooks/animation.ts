@@ -126,13 +126,13 @@ export function useElasticHeightAnimation(
     pxInitialHeight: number,
     pxMinHeight: number,
     pxEditModeHeight: number,
-    pxNotificationModeHeight: number,
+    pxAlarmModeHeight: number,
     msEditModeExpandHeightAnimationDuration: number = 200,
-    msNotificationModeExpandHeightAnimationDuration: number = 200,
+    msAlarmModeExpandHeightAnimationDuration: number = 200,
     msContractHeightAnimationDuration: number = 200,
     msCollapseHeightAnimationDuration: number = 2000,
     msEditModeExpandHeightAnimationDelay: number = 0,
-    msNotificationModeExpandHeightAnimationDelay: number = 0,
+    msAlarmModeExpandHeightAnimationDelay: number = 0,
     msContractHeightAnimationDelay: number = 0,
     msCollapseHeightAnimationDelay: number = 0
 ): ComponentAnimation
@@ -168,12 +168,12 @@ export function useElasticHeightAnimation(
                 }).start(onAnimationEnd);
             },
 
-            notificationModeExpandHeight(onAnimationEnd?: () => void)
+            alarmModeExpandHeight(onAnimationEnd?: () => void)
             {
                 Animated.timing(animatedHeight, {
-                    toValue: pxNotificationModeHeight,
-                    delay: msNotificationModeExpandHeightAnimationDelay,
-                    duration: msNotificationModeExpandHeightAnimationDuration,
+                    toValue: pxAlarmModeHeight,
+                    delay: msAlarmModeExpandHeightAnimationDelay,
+                    duration: msAlarmModeExpandHeightAnimationDuration,
                     easing: Easing.linear,
                     useNativeDriver: false
                 }).start(onAnimationEnd);
