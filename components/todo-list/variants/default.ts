@@ -1,4 +1,4 @@
-import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, type ButtonStyle} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DataListAnimationHook, DataListContextHook, type DataListStyle, DataListVariant} from "@miniskylab/antimatter-data-list";
 import {DropdownMenuContextHook, type DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
@@ -933,12 +933,10 @@ const TodoList__Reminder__RescheduleToggle__Root: ViewStyle = function (viewProp
 
     const isEditMode = reminderContext.props.mode === Reminder.Mode.Edit;
     const isDraftMode = reminderContext.props.mode === Reminder.Mode.Draft;
-    const isAlarmMode = reminderContext.props.mode === Reminder.Mode.Alarm;
 
     return {
         ...TodoList__Reminder__SuspenseToggle__Root(viewProps),
-        top: isDraftMode || isEditMode ? 60 : undefined,
-        right: isAlarmMode ? 128 : 0
+        top: isDraftMode || isEditMode ? 60 : undefined
     };
 };
 
@@ -968,58 +966,6 @@ const TodoList__Reminder__RescheduleToggle: ToggleStyle = function (toggleProps)
     };
 };
 
-const TodoList__Reminder__RescheduleButton__Root: PressableStyle = function (pressableProps, pressableState)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-    const reminderContext = Reminder.ContextHook.useReminderContext();
-
-    const isToBeRescheduled = reminderContext.props.status === Reminder.Status.ToBeRescheduled;
-
-    const inheritedStyle = ButtonVariant.SolidRectangular(buttonContext.props).Root(pressableProps, pressableState);
-
-    return {
-        ...inheritedStyle,
-        display: buttonContext.props.disabled ? "none" : "flex",
-        height: 40,
-        ...pressableState.pressed
-            ? {
-                borderColor: isToBeRescheduled ? Color.Green__b10 : Color.Neutral__b10,
-                backgroundColor: isToBeRescheduled ? Color.Green__b10 : Color.Neutral__b10
-            }
-            : pressableState.hovered
-                ? {
-                    borderColor: isToBeRescheduled ? Color.Green__w25 : Color.Neutral__w25,
-                    backgroundColor: isToBeRescheduled ? Color.Green__w25 : Color.Neutral__w25
-                }
-                : {
-                    borderColor: isToBeRescheduled ? Color.Green : Color.Neutral,
-                    backgroundColor: isToBeRescheduled ? Color.Green : Color.Neutral
-                }
-    };
-};
-
-const TodoList__Reminder__RescheduleButton__Label: TextStyle = function (textProps)
-{
-    const buttonContext = ButtonContextHook.useButtonContext();
-
-    const inheritedStyle = ButtonVariant.SolidRectangular(buttonContext.props).Label(textProps);
-
-    return {
-        ...inheritedStyle,
-        fontSize: 16,
-        fontWeight: "bold"
-    };
-};
-
-const TodoList__Reminder__RescheduleButton: ButtonStyle = function (buttonProps)
-{
-    return {
-        ...ButtonVariant.SolidRectangular(buttonProps),
-        Root: TodoList__Reminder__RescheduleButton__Root,
-        Label: TodoList__Reminder__RescheduleButton__Label
-    };
-};
-
 const TodoList__Reminder: Reminder.Style = function ()
 {
     return {
@@ -1040,7 +986,6 @@ const TodoList__Reminder: Reminder.Style = function ()
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
         SuspenseToggle: TodoList__Reminder__SuspenseToggle,
         RescheduleToggle: TodoList__Reminder__RescheduleToggle,
-        RescheduleButton: TodoList__Reminder__RescheduleButton,
         ProgressStripes: TodoList__Reminder__ProgressStripes
     };
 };

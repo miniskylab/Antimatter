@@ -1,4 +1,3 @@
-import {ButtonStyle} from "@miniskylab/antimatter-button";
 import {DropdownMenuStyle} from "@miniskylab/antimatter-dropdown-menu";
 import {WithoutStyle} from "@miniskylab/antimatter-framework";
 import {IconStyle} from "@miniskylab/antimatter-icon";
@@ -29,6 +28,5 @@ export type Style = (reminderProps: WithoutStyle<Props>) => {
     NotificationIntervalNumericInputField: NumericInputFieldStyle;
     SuspenseToggle: ToggleStyle;
     RescheduleToggle: ToggleStyle;
-    RescheduleButton: ButtonStyle;
     ProgressStripes: ProgressStripesStyle;
 };

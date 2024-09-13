@@ -259,7 +259,7 @@ export const TodoList = forwardRef(function TodoList(
             const isSelectedReminder = sortedReminderId === selectedReminder?.id;
             const isToBeDeletedReminder = !!state.toBeDeletedReminders[sortedReminderId];
             const isSelectableReminder = mode === Reminder.Mode.ReadOnly && !selectedReminder;
-            const originalData = mode === Reminder.Mode.Draft || mode === Reminder.Mode.Edit ? reminders[sortedReminderId] : undefined;
+            const originalData = isSelectedReminder ? reminders[sortedReminderId] : undefined;
 
             return (
                 <Reminder.Component

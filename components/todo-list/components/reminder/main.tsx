@@ -1,4 +1,3 @@
-import {Button} from "@miniskylab/antimatter-button";
 import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {
     type AllPropertiesMustPresent,
@@ -61,6 +60,7 @@ export const Component = forwardRef(function Component(
 
     const today = new Date();
     const isSuspended = status === Status.Suspended;
+    const isSelected = isNotNullAndUndefined(originalData);
     const isToBeRescheduled = status === Status.ToBeRescheduled;
     const isOriginallyCompleted = originalData?.status === Status.Completed;
     const [effectiveDueDate, dueDuration] = getEffectiveDueDateAndDueDuration();
@@ -86,21 +86,25 @@ export const Component = forwardRef(function Component(
 
     useEffect(() =>
     {
-        switch (mode)
+        if (isSelected)
         {
-            case Mode.Alarm:
-                rootContainerRef.current?.alarmModeExpandHeight?.();
-                break;
+            switch (mode)
+            {
+                case Mode.Alarm:
+                    rootContainerRef.current?.alarmModeExpandHeight?.();
+                    break;
 
-            case Mode.Edit:
-            case Mode.Draft:
-                rootContainerRef.current?.editModeExpandHeight?.();
-                break;
-
-            default:
-                rootContainerRef.current?.contractHeight?.();
+                case Mode.Edit:
+                case Mode.Draft:
+                    rootContainerRef.current?.editModeExpandHeight?.();
+                    break;
+            }
         }
-    }, [mode]);
+        else
+        {
+            rootContainerRef.current?.contractHeight?.();
+        }
+    }, [isSelected, mode]);
 
     return (
         <ReminderContext.Provider value={context}>
@@ -119,7 +123,7 @@ export const Component = forwardRef(function Component(
                     </>)}
                     {renderTags()}
                 </View>
-                {(mode === Mode.Alarm || mode === Mode.Draft || mode === Mode.Edit) && renderExpansionArea()}
+                {isSelected && renderExpansionArea()}
             </Pressable>
         </ReminderContext.Provider>
     );
@@ -266,12 +270,23 @@ export const Component = forwardRef(function Component(
     {
         return (
             <View style={computedStyle.ExpansionArea}>
-                {mode === Mode.Draft || mode === Mode.Edit && <InputField
-                    style={computedStyle.RecurrencePatternInputField}
-                    placeholder={recurrencePatternPlaceholder}
-                    value={recurrencePattern}
-                    onChangeText={onRecurrencePatternChange}
-                />}
+                {mode === Mode.Draft || mode === Mode.Edit && (
+                    <>
+                        <InputField
+                            style={computedStyle.RecurrencePatternInputField}
+                            placeholder={recurrencePatternPlaceholder}
+                            value={recurrencePattern}
+                            onChangeText={onRecurrencePatternChange}
+                        />
+                        <Toggle
+                            style={computedStyle.SuspenseToggle}
+                            icon={DefaultIconSet.Zzz}
+                            status={isSuspended ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                            disabled={isToBeRescheduled}
+                            onChange={onSuspenseToggleStatusChange}
+                        />
+                    </>
+                )}
                 <NumericInputField
                     style={computedStyle.NotificationIntervalNumericInputField}
                     minValue={1}
@@ -284,23 +299,11 @@ export const Component = forwardRef(function Component(
                     onChange={onNotificationIntervalChange}
                 />
                 <Toggle
-                    style={computedStyle.SuspenseToggle}
-                    icon={DefaultIconSet.Zzz}
-                    status={isSuspended ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                    disabled={isToBeRescheduled}
-                    onChange={onSuspenseToggleStatusChange}
-                />
-                <Toggle
                     style={computedStyle.RescheduleToggle}
                     icon={isOriginallyCompleted ? DefaultIconSet.History : DefaultIconSet.CheckMarkInsideCircle}
                     status={isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked}
                     disabled={isSuspended || !isToBeRescheduled && (isNotNullAndUndefined(dueDuration) && !isDue && !isOverdue)}
                     onChange={onRescheduleToggleStatusChange}
-                />
-                <Button
-                    style={computedStyle.RescheduleButton}
-                    label={isToBeRescheduled ? "Complete" : "Snooze"}
-                    disabled={mode !== Mode.Alarm}
                 />
             </View>
         );
