@@ -16,7 +16,7 @@ import {TodoListContext, TodoListProps, type TodoListRef, type TodoListState} fr
 import * as Variant from "./variants";
 
 /**
- * A component that alerts users of reminders they have input previously.
+ * A component that alerts users of reminders they have inputted previously.
  */
 export const TodoList = forwardRef(function TodoList(
     {
@@ -147,7 +147,7 @@ export const TodoList = forwardRef(function TodoList(
                 return {
                     button1: {...dismissAlarmButton},
                     button2: {icon: DefaultIconSet.Alarm, text: "Alarm-Mode", disabled: true},
-                    button3: customButton ? {...customButton} : {...cancelButton, disabled: true}
+                    button3: {...cancelButton, disabled: !selectedReminder}
                 };
 
             case Reminder.Mode.Draft:
@@ -183,9 +183,11 @@ export const TodoList = forwardRef(function TodoList(
 
     function getReminderMode(reminderId: string): Reminder.Mode
     {
-        return selectedReminder?.id === reminderId || alarmedReminderIds?.includes(reminderId)
+        return selectedReminder?.id === reminderId
             ? mode
-            : Reminder.Mode.ReadOnly;
+            : alarmedReminderIds?.includes(reminderId)
+                ? Reminder.Mode.Alarm
+                : Reminder.Mode.ReadOnly;
     }
 
     function getUnifiedReminderList(): Record<string, Reminder.Data>
@@ -258,8 +260,9 @@ export const TodoList = forwardRef(function TodoList(
             const reminderData = unifiedReminderList[sortedReminderId];
             const isSelectedReminder = sortedReminderId === selectedReminder?.id;
             const isToBeDeletedReminder = !!state.toBeDeletedReminders[sortedReminderId];
-            const isSelectableReminder = mode === Reminder.Mode.ReadOnly && !selectedReminder;
             const originalData = isSelectedReminder ? reminders[sortedReminderId] : undefined;
+            const isAlarmedReminder = mode === Reminder.Mode.Alarm && reminderMode === Reminder.Mode.Alarm;
+            const isSelectableReminder = !selectedReminder && (mode === Reminder.Mode.ReadOnly || isAlarmedReminder);
 
             return (
                 <Reminder.Component

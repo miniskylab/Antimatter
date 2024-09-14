@@ -276,9 +276,8 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
     const hasSelectedReminder = !!todoListContext.props.selectedReminder;
-    const isReadOnlyMode = todoListContext.props.mode === Reminder.Mode.ReadOnly;
-    const isSelectableReminder = isReadOnlyMode && !hasSelectedReminder;
-    const isAlarmedReminder = reminderContext.props.mode === Reminder.Mode.Alarm;
+    const isAlarmedReminder = todoListContext.props.mode === Reminder.Mode.Alarm && reminderContext.props.mode === Reminder.Mode.Alarm;
+    const isSelectableReminder = !hasSelectedReminder && (todoListContext.props.mode === Reminder.Mode.ReadOnly || isAlarmedReminder);
     const isHoveredReminder = pressableState.hovered && isSelectableReminder;
     const isSelectedReminder = reminderContext.props.id === todoListContext.props.selectedReminder?.id;
     const isHighlightedReminder = isAlarmedReminder || isSelectedReminder || isHoveredReminder;

@@ -49,9 +49,20 @@ export default {
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
                 dismissAlarmButton={{
                     ...args.dismissAlarmButton,
-                    icon: DefaultIconSet.NoSound,
-                    text: "Dismiss",
-                    onPress: () => { setArgs({mode: Reminder.Mode.ReadOnly, alarmedReminderIds: []}); }
+                    icon: args.selectedReminder ? DefaultIconSet.FloppyDisk : DefaultIconSet.NoSound,
+                    text: args.selectedReminder ? "Save & Dismiss" : "Dismiss All",
+                    onPress: () =>
+                    {
+                        const alarmedReminderIds = args.selectedReminder
+                            ? args.alarmedReminderIds.filter(x => x !== args.selectedReminder.id)
+                            : [];
+
+                        setArgs({
+                            alarmedReminderIds,
+                            selectedReminder: undefined,
+                            mode: alarmedReminderIds.length === 0 ? Reminder.Mode.ReadOnly : Reminder.Mode.Alarm
+                        });
+                    }
                 }}
                 addNewReminderButton={{
                     ...args.addNewReminderButton,
@@ -172,7 +183,13 @@ export default {
                     ...args.cancelButton,
                     icon: DefaultIconSet.XMarkInsideCircle,
                     text: "Cancel",
-                    onPress: () => { setArgs({mode: Reminder.Mode.ReadOnly, selectedReminder: undefined}); }
+                    onPress: () =>
+                    {
+                        setArgs({
+                            mode: args.mode === Reminder.Mode.Alarm ? Reminder.Mode.Alarm : Reminder.Mode.ReadOnly,
+                            selectedReminder: undefined
+                        });
+                    }
                 }}
                 customButton={{
                     ...args.customButton,
@@ -214,7 +231,7 @@ export default {
                 onSelectReminder={reminderId =>
                 {
                     setArgs({
-                        mode: Reminder.Mode.Edit,
+                        mode: args.mode === Reminder.Mode.Alarm ? Reminder.Mode.Alarm : Reminder.Mode.Edit,
                         selectedReminder: {
                             id: reminderId,
                             data: {
