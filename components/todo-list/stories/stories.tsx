@@ -53,15 +53,33 @@ export default {
                     text: args.mode === Reminder.Mode.Dismiss ? "Save & Dismiss" : "Dismiss All",
                     onPress: () =>
                     {
-                        const alarmedReminderIds = args.selectedReminder
-                            ? args.alarmedReminderIds.filter(x => x !== args.selectedReminder.id)
-                            : [];
+                        if (args.selectedReminder)
+                        {
+                            todoListRef.current?.flashHighlightReminders([args.selectedReminder.id]);
+                            TestData.Reminders[args.selectedReminder.id] = {
+                                ...args.reminders[args.selectedReminder.id],
+                                notificationInterval: args.selectedReminder.data.notificationInterval,
+                                dueDate: args.selectedReminder.data.dueDate,
+                                status: args.selectedReminder.data.status,
+                                modifiedDate: new Date()
+                            };
 
-                        setArgs({
-                            alarmedReminderIds,
-                            selectedReminder: undefined,
-                            mode: alarmedReminderIds.length === 0 ? Reminder.Mode.ReadOnly : Reminder.Mode.Alarm
-                        });
+                            const alarmedReminderIds = args.alarmedReminderIds.filter(x => x !== args.selectedReminder.id);
+                            setArgs({
+                                alarmedReminderIds,
+                                selectedReminder: undefined,
+                                reminders: {...TestData.Reminders},
+                                mode: alarmedReminderIds.length === 0 ? Reminder.Mode.ReadOnly : Reminder.Mode.Alarm
+                            });
+                        }
+                        else
+                        {
+                            setArgs({
+                                alarmedReminderIds: [],
+                                selectedReminder: undefined,
+                                mode: Reminder.Mode.ReadOnly
+                            });
+                        }
                     }
                 }}
                 addNewReminderButton={{
