@@ -60,7 +60,6 @@ export const Component = forwardRef(function Component(
 
     const today = new Date();
     const isSuspended = status === Status.Suspended;
-    const isSelected = isNotNullAndUndefined(originalData);
     const isToBeRescheduled = status === Status.ToBeRescheduled;
     const isOriginallyCompleted = originalData?.status === Status.Completed;
     const [effectiveDueDate, dueDuration] = getEffectiveDueDateAndDueDuration();
@@ -86,25 +85,21 @@ export const Component = forwardRef(function Component(
 
     useEffect(() =>
     {
-        if (isSelected)
+        switch (mode)
         {
-            switch (mode)
-            {
-                case Mode.Alarm:
-                    rootContainerRef.current?.alarmModeExpandHeight?.();
-                    break;
+            case Mode.Dismiss:
+                rootContainerRef.current?.alarmModeExpandHeight?.();
+                break;
 
-                case Mode.Edit:
-                case Mode.Draft:
-                    rootContainerRef.current?.editModeExpandHeight?.();
-                    break;
-            }
+            case Mode.Edit:
+            case Mode.Draft:
+                rootContainerRef.current?.editModeExpandHeight?.();
+                break;
+
+            default:
+                rootContainerRef.current?.contractHeight?.();
         }
-        else
-        {
-            rootContainerRef.current?.contractHeight?.();
-        }
-    }, [isSelected, mode]);
+    }, [mode]);
 
     return (
         <ReminderContext.Provider value={context}>
@@ -123,7 +118,7 @@ export const Component = forwardRef(function Component(
                     </>)}
                     {renderTags()}
                 </View>
-                {isSelected && renderExpansionArea()}
+                {(mode === Mode.Draft || mode === Mode.Edit || mode === Mode.Dismiss) && renderExpansionArea()}
             </Pressable>
         </ReminderContext.Provider>
     );

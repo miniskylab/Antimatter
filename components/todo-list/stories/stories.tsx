@@ -49,8 +49,8 @@ export default {
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
                 dismissAlarmButton={{
                     ...args.dismissAlarmButton,
-                    icon: args.selectedReminder ? DefaultIconSet.FloppyDisk : DefaultIconSet.NoSound,
-                    text: args.selectedReminder ? "Save & Dismiss" : "Dismiss All",
+                    icon: args.mode === Reminder.Mode.Dismiss ? DefaultIconSet.FloppyDisk : DefaultIconSet.NoSound,
+                    text: args.mode === Reminder.Mode.Dismiss ? "Save & Dismiss" : "Dismiss All",
                     onPress: () =>
                     {
                         const alarmedReminderIds = args.selectedReminder
@@ -186,7 +186,7 @@ export default {
                     onPress: () =>
                     {
                         setArgs({
-                            mode: args.mode === Reminder.Mode.Alarm ? Reminder.Mode.Alarm : Reminder.Mode.ReadOnly,
+                            mode: args.mode === Reminder.Mode.Dismiss ? Reminder.Mode.Alarm : Reminder.Mode.ReadOnly,
                             selectedReminder: undefined
                         });
                     }
@@ -231,7 +231,7 @@ export default {
                 onSelectReminder={reminderId =>
                 {
                     setArgs({
-                        mode: args.mode === Reminder.Mode.Alarm ? Reminder.Mode.Alarm : Reminder.Mode.Edit,
+                        mode: args.mode === Reminder.Mode.Alarm ? Reminder.Mode.Dismiss : Reminder.Mode.Edit,
                         selectedReminder: {
                             id: reminderId,
                             data: {

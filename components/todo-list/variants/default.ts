@@ -32,6 +32,7 @@ const TodoList__DataList__Button1__Icon: IconStyle = function (iconProps)
     const isDraftMode = todoListContext.props.mode === Reminder.Mode.Draft;
     const isEditMode = todoListContext.props.mode === Reminder.Mode.Edit;
     const isDeleteMode = todoListContext.props.mode === Reminder.Mode.Delete;
+    const isDismissMode = todoListContext.props.mode === Reminder.Mode.Dismiss;
 
     const inheritedStyle = DataListVariant.Default(dataListContext.props)
         .Button1(buttonContext.props)
@@ -44,12 +45,14 @@ const TodoList__DataList__Button1__Icon: IconStyle = function (iconProps)
             : pressableContext.state.hovered
                 ? Color.White
                 : isAlarmMode
-                    ? Color.Warning
-                    : isDraftMode || isEditMode
-                        ? Color.Primary
-                        : isDeleteMode
-                            ? Color.Tomato
-                            : Color.Neutral
+                    ? Color.Purple
+                    : isDismissMode
+                        ? Color.Warning
+                        : isDraftMode || isEditMode
+                            ? Color.Primary
+                            : isDeleteMode
+                                ? Color.Tomato
+                                : Color.Neutral
     };
 };
 
@@ -64,6 +67,7 @@ const TodoList__DataList__Button1__Label: TextStyle = function (textProps)
     const isDraftMode = todoListContext.props.mode === Reminder.Mode.Draft;
     const isEditMode = todoListContext.props.mode === Reminder.Mode.Edit;
     const isDeleteMode = todoListContext.props.mode === Reminder.Mode.Delete;
+    const isDismissMode = todoListContext.props.mode === Reminder.Mode.Dismiss;
 
     const inheritedStyle = DataListVariant.Default(dataListContext.props)
         .Button1(buttonContext.props)
@@ -76,12 +80,14 @@ const TodoList__DataList__Button1__Label: TextStyle = function (textProps)
             : pressableContext.state.hovered
                 ? Color.White
                 : isAlarmMode
-                    ? Color.Warning
-                    : isDraftMode || isEditMode
-                        ? Color.Primary
-                        : isDeleteMode
-                            ? Color.Tomato
-                            : Color.Neutral
+                    ? Color.Purple
+                    : isDismissMode
+                        ? Color.Warning
+                        : isDraftMode || isEditMode
+                            ? Color.Primary
+                            : isDeleteMode
+                                ? Color.Tomato
+                                : Color.Neutral
     };
 };
 
@@ -107,6 +113,7 @@ const TodoList__DataList__Button2__Root: PressableStyle = function (pressablePro
 
     const isAlarmMode = todoListContext.props.mode === Reminder.Mode.Alarm;
     const isDraftMode = todoListContext.props.mode === Reminder.Mode.Draft;
+    const isDismissMode = todoListContext.props.mode === Reminder.Mode.Dismiss;
     const isReadOnlyMode = todoListContext.props.mode === Reminder.Mode.ReadOnly;
 
     const inheritedStyle = DataListVariant.Default(dataListContext.props)
@@ -116,12 +123,14 @@ const TodoList__DataList__Button2__Root: PressableStyle = function (pressablePro
     return {
         ...inheritedStyle,
         backgroundColor: isAlarmMode
-            ? Color.Warning
-            : isDraftMode
-                ? Color.Primary
-                : isReadOnlyMode
-                    ? Color.Neutral
-                    : Color.Transparent
+            ? Color.Purple
+            : isDismissMode
+                ? Color.Warning
+                : isDraftMode
+                    ? Color.Primary
+                    : isReadOnlyMode
+                        ? Color.Neutral
+                        : Color.Transparent
     };
 };
 
@@ -136,6 +145,7 @@ const TodoList__DataList__Button2__Icon: IconStyle = function (iconProps)
     const isDraftMode = todoListContext.props.mode === Reminder.Mode.Draft;
     const isEditMode = todoListContext.props.mode === Reminder.Mode.Edit;
     const isDeleteMode = todoListContext.props.mode === Reminder.Mode.Delete;
+    const isDismissMode = todoListContext.props.mode === Reminder.Mode.Dismiss;
     const isReadOnlyMode = todoListContext.props.mode === Reminder.Mode.ReadOnly;
 
     const inheritedStyle = DataListVariant.Default(dataListContext.props)
@@ -148,7 +158,7 @@ const TodoList__DataList__Button2__Icon: IconStyle = function (iconProps)
             ? Color.Gray
             : pressableContext.state.hovered
                 ? Color.White
-                : isDraftMode || isReadOnlyMode || isAlarmMode
+                : isDraftMode || isReadOnlyMode || isAlarmMode || isDismissMode
                     ? Color.Background
                     : isEditMode
                         ? Color.Primary
@@ -169,6 +179,7 @@ const TodoList__DataList__Button2__Label: TextStyle = function (textProps)
     const isDraftMode = todoListContext.props.mode === Reminder.Mode.Draft;
     const isEditMode = todoListContext.props.mode === Reminder.Mode.Edit;
     const isDeleteMode = todoListContext.props.mode === Reminder.Mode.Delete;
+    const isDismissMode = todoListContext.props.mode === Reminder.Mode.Dismiss;
     const isReadOnlyMode = todoListContext.props.mode === Reminder.Mode.ReadOnly;
 
     const inheritedStyle = DataListVariant.Default(dataListContext.props)
@@ -181,7 +192,7 @@ const TodoList__DataList__Button2__Label: TextStyle = function (textProps)
             ? Color.Gray
             : pressableContext.state.hovered
                 ? Color.White
-                : isDraftMode || isReadOnlyMode || isAlarmMode
+                : isDraftMode || isReadOnlyMode || isAlarmMode || isDismissMode
                     ? Color.Background
                     : isEditMode
                         ? Color.Primary
@@ -276,11 +287,10 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
     const hasSelectedReminder = !!todoListContext.props.selectedReminder;
-    const isAlarmedReminder = todoListContext.props.mode === Reminder.Mode.Alarm && reminderContext.props.mode === Reminder.Mode.Alarm;
-    const isSelectableReminder = !hasSelectedReminder && (todoListContext.props.mode === Reminder.Mode.ReadOnly || isAlarmedReminder);
-    const isHoveredReminder = pressableState.hovered && isSelectableReminder;
+    const isReadOnlyMode = todoListContext.props.mode === Reminder.Mode.ReadOnly;
     const isSelectedReminder = reminderContext.props.id === todoListContext.props.selectedReminder?.id;
-    const isHighlightedReminder = isAlarmedReminder || isSelectedReminder || isHoveredReminder;
+    const isSelectableReminder = !hasSelectedReminder && (isReadOnlyMode || reminderContext.props.mode === Reminder.Mode.Alarm);
+    const isHoveredReminder = pressableState.hovered && isSelectableReminder;
 
     return {
         ...PressableVariant.Default(pressableProps, pressableState),
@@ -308,18 +318,20 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
                 : [() => elasticHeightAnimation, () => flashHighlightAnimation];
         },
         animationOverride: {
-            ...isHighlightedReminder && {
-                zIndex: Layer.AlwaysOnTop,
-                borderColor: Color.Primary,
-                backgroundColor: Color.Primary__a10,
-                ...reminderContext.props.mode === Reminder.Mode.Alarm && {
-                    borderColor: Color.Warning,
-                    backgroundColor: Color.Warning__a10
-                },
-                ...reminderContext.props.mode === Reminder.Mode.Delete && {
-                    borderColor: Color.Negative,
-                    backgroundColor: Color.Negative__a10
-                }
+            ...reminderContext.props.mode === Reminder.Mode.Alarm && {
+                zIndex: Layer.Higher,
+                borderColor: Color.Purple,
+                backgroundColor: Color.Purple__a10
+            },
+            ...reminderContext.props.mode === Reminder.Mode.Dismiss && {
+                zIndex: Layer.Higher,
+                borderColor: Color.Warning,
+                backgroundColor: Color.Warning__a10
+            },
+            ...reminderContext.props.mode === Reminder.Mode.Delete && {
+                zIndex: Layer.Higher,
+                borderColor: Color.Negative,
+                backgroundColor: Color.Negative__a10
             },
             ...reminderContext.props.isToBeDeleted && {
                 paddingTop: 0,
@@ -328,6 +340,16 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
                 borderBottomWidth: 0,
                 cursor: CursorType.Default,
                 zIndex: Layer.Higher
+            },
+            ...isSelectedReminder && {
+                zIndex: Layer.Highest,
+                borderColor: reminderContext.props.mode === Reminder.Mode.Dismiss ? Color.Warning : Color.Primary,
+                backgroundColor: reminderContext.props.mode === Reminder.Mode.Dismiss ? Color.Warning__a10 : Color.Primary__a10
+            },
+            ...isHoveredReminder && {
+                zIndex: Layer.AlwaysOnTop,
+                borderColor: reminderContext.props.mode === Reminder.Mode.Alarm ? Color.Warning : Color.Primary,
+                backgroundColor: reminderContext.props.mode === Reminder.Mode.Alarm ? Color.Warning__a10 : Color.Primary__a10
             }
         }
     };

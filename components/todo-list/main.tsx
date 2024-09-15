@@ -147,7 +147,7 @@ export const TodoList = forwardRef(function TodoList(
                 return {
                     button1: {...dismissAlarmButton},
                     button2: {icon: DefaultIconSet.Alarm, text: "Alarm-Mode", disabled: true},
-                    button3: {...cancelButton, disabled: !selectedReminder}
+                    button3: {...cancelButton, disabled: true}
                 };
 
             case Reminder.Mode.Draft:
@@ -168,6 +168,13 @@ export const TodoList = forwardRef(function TodoList(
                 return {
                     button1: {...deleteReminderButton},
                     button2: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
+                    button3: {...cancelButton}
+                };
+
+            case Reminder.Mode.Dismiss:
+                return {
+                    button1: {...dismissAlarmButton},
+                    button2: {icon: DefaultIconSet.NoSound, text: "Dismiss-Mode", disabled: true},
                     button3: {...cancelButton}
                 };
 
@@ -261,8 +268,7 @@ export const TodoList = forwardRef(function TodoList(
             const isSelectedReminder = sortedReminderId === selectedReminder?.id;
             const isToBeDeletedReminder = !!state.toBeDeletedReminders[sortedReminderId];
             const originalData = isSelectedReminder ? reminders[sortedReminderId] : undefined;
-            const isAlarmedReminder = mode === Reminder.Mode.Alarm && reminderMode === Reminder.Mode.Alarm;
-            const isSelectableReminder = !selectedReminder && (mode === Reminder.Mode.ReadOnly || isAlarmedReminder);
+            const isSelectableReminder = !selectedReminder && (mode === Reminder.Mode.ReadOnly || reminderMode === Reminder.Mode.Alarm);
 
             return (
                 <Reminder.Component

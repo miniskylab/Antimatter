@@ -3,7 +3,7 @@ const Green = [135, 172, 78];
 const Gold = [255, 191, 71];
 const Tomato = [255, 112, 71];
 const Coral = [255, 71, 133];
-const Purple = [137, 89, 168];
+const Purple = [147, 112, 219];
 
 const Primary = Blue;
 const Secondary = Green;
@@ -38,6 +38,7 @@ export const Color = {
     Tomato__a10: toHex(Tomato, 10),
 
     Purple: toHex(Purple),
+    Purple__a10: toHex(Purple, 10),
 
     Primary: toHex(Primary),
     Primary__a10: toHex(Primary, 10),
