@@ -265,7 +265,7 @@ export const Component = forwardRef(function Component(
     {
         return (
             <View style={computedStyle.ExpansionArea}>
-                {mode === Mode.Draft || mode === Mode.Edit && (
+                {(mode === Mode.Draft || mode === Mode.Edit) && (
                     <>
                         <InputField
                             style={computedStyle.RecurrencePatternInputField}

@@ -318,13 +318,18 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
                 : [() => elasticHeightAnimation, () => flashHighlightAnimation];
         },
         animationOverride: {
+            ...isSelectedReminder && {
+                zIndex: Layer.Higher,
+                borderColor: Color.Primary,
+                backgroundColor: Color.Primary__a10
+            },
             ...reminderContext.props.mode === Reminder.Mode.Alarm && {
                 zIndex: Layer.Higher,
                 borderColor: Color.Purple,
                 backgroundColor: Color.Purple__a10
             },
             ...reminderContext.props.mode === Reminder.Mode.Dismiss && {
-                zIndex: Layer.Higher,
+                zIndex: Layer.Highest,
                 borderColor: Color.Warning,
                 backgroundColor: Color.Warning__a10
             },
@@ -340,11 +345,6 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
                 borderBottomWidth: 0,
                 cursor: CursorType.Default,
                 zIndex: Layer.Higher
-            },
-            ...isSelectedReminder && {
-                zIndex: Layer.Highest,
-                borderColor: reminderContext.props.mode === Reminder.Mode.Dismiss ? Color.Warning : Color.Primary,
-                backgroundColor: reminderContext.props.mode === Reminder.Mode.Dismiss ? Color.Warning__a10 : Color.Primary__a10
             },
             ...isHoveredReminder && {
                 zIndex: Layer.AlwaysOnTop,
