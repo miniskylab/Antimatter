@@ -359,8 +359,9 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const isCompleted = reminderContext.extra.isCompleted;
+    const isToBeReactivated = reminderContext.extra.isToBeReactivated;
     const isToBeRescheduled = reminderContext.extra.isToBeRescheduled;
+    const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
     const isSuspended = reminderContext.props.status === Reminder.Status.Suspended;
 
     return {
@@ -370,10 +371,10 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
         height: 30,
         marginTop: 7,
         fontSize: 28,
-        transform: [{scaleX: !isCompleted && isToBeRescheduled ? -1 : 1}],
+        transform: [{scaleX: !isCompleted && (isToBeRescheduled || isToBeReactivated) ? -1 : 1}],
         color: isSuspended
             ? Color.Neutral
-            : isCompleted || isToBeRescheduled
+            : isCompleted || isToBeRescheduled || isToBeReactivated
                 ? Color.Green
                 : reminderContext.extra.isDue
                     ? Color.Gold
@@ -494,13 +495,15 @@ const TodoList__Reminder__DueDateIcon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
+    const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
+
     return {
         ...IconVariant.Default(iconProps),
         lineHeight: 17,
         paddingBottom: 1,
         marginRight: 5,
         fontSize: 14,
-        color: reminderContext.extra.isCompleted ? Color.Green : Color.Neutral
+        color: isCompleted ? Color.Green : Color.Neutral
     };
 };
 
@@ -508,13 +511,15 @@ const TodoList__Reminder__DueDate: TextStyle = function (textProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
+    const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
+
     return {
         ...TextVariant.Default(textProps),
         lineHeight: 18,
         marginRight: 10,
         fontSize: 14,
         fontWeight: "bold",
-        color: reminderContext.extra.isCompleted ? Color.Green : Color.Neutral
+        color: isCompleted ? Color.Green : Color.Neutral
     };
 };
 
@@ -522,13 +527,17 @@ const TodoList__Reminder__DueDurationIcon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
+    const isDue = reminderContext.extra.isDue;
+    const isOverdue = reminderContext.extra.isOverdue;
+    const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
+
     return {
         ...TodoList__Reminder__DueDateIcon(iconProps),
         fontSize: 15,
-        transform: [{scaleX: reminderContext.extra.isCompleted || reminderContext.extra.isDue || reminderContext.extra.isOverdue ? 1 : -1}],
-        color: reminderContext.extra.isDue
+        transform: [{scaleX: isCompleted || isDue || isOverdue ? 1 : -1}],
+        color: isDue
             ? Color.Gold
-            : reminderContext.extra.isOverdue
+            : isOverdue
                 ? Color.Coral
                 : Color.Neutral
     };

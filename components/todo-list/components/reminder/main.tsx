@@ -63,14 +63,17 @@ export const Component = forwardRef(function Component(
     const isSuspended = status === Status.Suspended;
     const isCompleted = status === Status.Completed;
     const isOriginallyCompleted = originalData?.status === Status.Completed;
-    const isToBeRescheduled = !!originalData && (originalData.dueDate !== dueDate || originalData.status !== status);
+    const isOriginallySuspended = originalData?.status === Status.Suspended;
+    const isDueDateChanged = isNotNullAndUndefined(originalData) && originalData.dueDate !== dueDate;
+    const isToBeRescheduled = !isOriginallySuspended && (isScheduled || isCompleted) && isDueDateChanged;
+    const isToBeReactivated = isOriginallySuspended && isScheduled;
     const dueDuration = Service.getDueDuration(today, dueDate);
     const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
     const isDue = dueDuration === 0;
     const formattedDueDate = getFormattedDueDate();
     const formattedDueDuration = getFormattedDueDuration();
 
-    const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue, isCompleted, isToBeRescheduled}});
+    const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue, isToBeRescheduled, isToBeReactivated}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -123,13 +126,27 @@ export const Component = forwardRef(function Component(
         </ReminderContext.Provider>
     );
 
+    function getNextOccurrence(): [Date | undefined, Status]
+    {
+        let nextReminderStatus = Status.Scheduled;
+        let nextDueDate = Service.getNextDueDate(recurrencePattern);
+        const nextDueDuration = Service.getDueDuration(today, nextDueDate);
+        if (isNullOrUndefined(nextDueDuration) || nextDueDuration <= 0)
+        {
+            nextDueDate = undefined;
+            nextReminderStatus = isScheduled ? Status.Completed : Status.Scheduled;
+        }
+
+        return [nextDueDate, nextReminderStatus];
+    }
+
     function getIcon(): DefaultIconSet
     {
         return isCompleted
             ? DefaultIconSet.CheckMarkInsideCircle
             : isSuspended
                 ? DefaultIconSet.Zzz
-                : isToBeRescheduled
+                : isToBeRescheduled || isToBeReactivated
                     ? DefaultIconSet.History
                     : isOverdue
                         ? DefaultIconSet.ExclamationMarkInsideCircle
@@ -279,7 +296,7 @@ export const Component = forwardRef(function Component(
                     style={computedStyle.RescheduleToggle}
                     icon={isOriginallyCompleted ? DefaultIconSet.History : DefaultIconSet.CheckMarkInsideCircle}
                     status={isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                    disabled={isSuspended || !isToBeRescheduled && (isNotNullAndUndefined(dueDuration) && !isDue && !isOverdue)}
+                    disabled={isSuspended || (!isToBeRescheduled && isNotNullAndUndefined(dueDuration) && !isDue && !isOverdue)}
                     onChange={onRescheduleToggleStatusChange}
                 />
             </View>
@@ -360,9 +377,17 @@ export const Component = forwardRef(function Component(
 
     function onSuspenseToggleStatusChange(newToggleStatus: ToggleStatus): void
     {
-        const nextReminderStatus = newToggleStatus === ToggleStatus.Checked
-            ? Status.Suspended
-            : originalData?.status ?? Status.Unscheduled;
+        let nextDueDate = originalData?.dueDate;
+        let nextReminderStatus = originalData?.status ?? Status.Unscheduled;
+        if (!isOriginallySuspended && newToggleStatus === ToggleStatus.Checked)
+        {
+            nextReminderStatus = Status.Suspended;
+            nextDueDate = undefined;
+        }
+        else if (isOriginallySuspended && newToggleStatus === ToggleStatus.Unchecked)
+        {
+            [nextDueDate, nextReminderStatus] = getNextOccurrence();
+        }
 
         onChange?.({
             name,
@@ -370,7 +395,7 @@ export const Component = forwardRef(function Component(
             notificationInterval,
             tags,
             status: nextReminderStatus,
-            dueDate,
+            dueDate: nextDueDate,
             modifiedDate,
             createdDate
         });
@@ -382,18 +407,7 @@ export const Component = forwardRef(function Component(
         let nextReminderStatus = originalData?.status ?? Status.Unscheduled;
         if (newToggleStatus === ToggleStatus.Checked)
         {
-            nextReminderStatus = Status.Scheduled;
-            nextDueDate = Service.getNextDueDate(recurrencePattern);
-            const nextDueDuration = Service.getDueDuration(today, nextDueDate);
-            if (isNullOrUndefined(nextDueDuration) || nextDueDuration <= 0)
-            {
-                nextDueDate = undefined;
-                nextReminderStatus = isScheduled
-                    ? Status.Completed
-                    : isCompleted
-                        ? Status.Scheduled
-                        : nextReminderStatus;
-            }
+            [nextDueDate, nextReminderStatus] = getNextOccurrence();
         }
 
         onChange?.({
