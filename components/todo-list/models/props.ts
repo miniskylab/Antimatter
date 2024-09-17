@@ -99,7 +99,16 @@ export class TodoListProps extends ComponentProps<TodoListStyle>
     @IsDefined()
     @ValidateNested()
     @Type(() => DataListControlButton)
-    readonly dismissAlarmButton: DataListControlButton;
+    readonly dismissAllAlarmButton: DataListControlButton;
+
+
+    /**
+     * Specify the button that users can press to save all changes made to the selected reminder and dismiss its alarm.
+     */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => DataListControlButton)
+    readonly saveAndDismissAlarmButton: DataListControlButton;
 
 
     /**

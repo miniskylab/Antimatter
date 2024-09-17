@@ -59,18 +59,18 @@ export const Component = forwardRef(function Component(
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
     const today = new Date();
+    const isScheduled = status === Status.Scheduled;
     const isSuspended = status === Status.Suspended;
-    const isToBeRescheduled = status === Status.ToBeRescheduled;
+    const isCompleted = status === Status.Completed;
     const isOriginallyCompleted = originalData?.status === Status.Completed;
-    const [effectiveDueDate, dueDuration] = getEffectiveDueDateAndDueDuration();
-    const isPredictivelyCompleted = !isOriginallyCompleted && isToBeRescheduled && (isNullOrUndefined(dueDuration) || dueDuration <= 0);
-    const isCompleted = status === Status.Completed || isPredictivelyCompleted;
+    const isToBeRescheduled = !!originalData && (originalData.dueDate !== dueDate || originalData.status !== status);
+    const dueDuration = Service.getDueDuration(today, dueDate);
     const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
     const isDue = dueDuration === 0;
     const formattedDueDate = getFormattedDueDate();
     const formattedDueDuration = getFormattedDueDuration();
 
-    const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue, isCompleted}});
+    const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue, isCompleted, isToBeRescheduled}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -174,32 +174,14 @@ export const Component = forwardRef(function Component(
         return dropdownMenuItems;
     }
 
-    function getEffectiveDueDateAndDueDuration(): [Date | undefined, number | undefined]
-    {
-        let effectiveDueDate = dueDate;
-        let dueDuration = Service.getDueDuration(today, effectiveDueDate);
-        if (isToBeRescheduled)
-        {
-            effectiveDueDate = Service.getNextDueDate(recurrencePattern);
-            dueDuration = Service.getDueDuration(today, effectiveDueDate);
-            if (isOriginallyCompleted && (isNullOrUndefined(dueDuration) || dueDuration < 0))
-            {
-                effectiveDueDate = undefined;
-                dueDuration = undefined;
-            }
-        }
-
-        return [effectiveDueDate, dueDuration];
-    }
-
     function getFormattedDueDate(): string
     {
         return isSuspended
             ? "Suspended"
             : isCompleted
                 ? "Completed"
-                : effectiveDueDate
-                    ? GregorianCalendar.toString(effectiveDueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
+                : dueDate
+                    ? GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
                     : "No due date";
     }
 
@@ -376,41 +358,51 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onSuspenseToggleStatusChange(newStatus: ToggleStatus): void
+    function onSuspenseToggleStatusChange(newToggleStatus: ToggleStatus): void
     {
-        const nextStatus = newStatus === ToggleStatus.Checked
+        const nextReminderStatus = newToggleStatus === ToggleStatus.Checked
             ? Status.Suspended
-            : isOriginallyCompleted
-                ? Status.Completed
-                : Status.Scheduled;
+            : originalData?.status ?? Status.Unscheduled;
 
         onChange?.({
             name,
             recurrencePattern,
             notificationInterval,
             tags,
-            status: nextStatus,
+            status: nextReminderStatus,
             dueDate,
             modifiedDate,
             createdDate
         });
     }
 
-    function onRescheduleToggleStatusChange(newStatus: ToggleStatus): void
+    function onRescheduleToggleStatusChange(newToggleStatus: ToggleStatus): void
     {
-        const nextStatus = newStatus === ToggleStatus.Checked
-            ? Status.ToBeRescheduled
-            : isOriginallyCompleted
-                ? Status.Completed
-                : Status.Scheduled;
+        let nextDueDate = originalData?.dueDate;
+        let nextReminderStatus = originalData?.status ?? Status.Unscheduled;
+        if (newToggleStatus === ToggleStatus.Checked)
+        {
+            nextReminderStatus = Status.Scheduled;
+            nextDueDate = Service.getNextDueDate(recurrencePattern);
+            const nextDueDuration = Service.getDueDuration(today, nextDueDate);
+            if (isNullOrUndefined(nextDueDuration) || nextDueDuration <= 0)
+            {
+                nextDueDate = undefined;
+                nextReminderStatus = isScheduled
+                    ? Status.Completed
+                    : isCompleted
+                        ? Status.Scheduled
+                        : nextReminderStatus;
+            }
+        }
 
         onChange?.({
             name,
             recurrencePattern,
             notificationInterval,
             tags,
-            status: nextStatus,
-            dueDate,
+            status: nextReminderStatus,
+            dueDate: nextDueDate,
             modifiedDate,
             createdDate
         });

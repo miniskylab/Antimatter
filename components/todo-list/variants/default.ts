@@ -360,8 +360,8 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
     const isCompleted = reminderContext.extra.isCompleted;
+    const isToBeRescheduled = reminderContext.extra.isToBeRescheduled;
     const isSuspended = reminderContext.props.status === Reminder.Status.Suspended;
-    const isToBeRescheduled = reminderContext.props.status === Reminder.Status.ToBeRescheduled;
 
     return {
         ...IconVariant.Default(iconProps),

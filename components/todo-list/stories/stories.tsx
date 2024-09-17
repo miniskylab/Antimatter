@@ -47,39 +47,41 @@ export default {
                 {...args}
                 ref={todoListRef}
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
-                dismissAlarmButton={{
-                    ...args.dismissAlarmButton,
-                    icon: args.mode === Reminder.Mode.Dismiss ? DefaultIconSet.FloppyDisk : DefaultIconSet.NoSound,
-                    text: args.mode === Reminder.Mode.Dismiss ? "Save & Dismiss" : "Dismiss All",
+                dismissAllAlarmButton={{
+                    ...args.dismissAllAlarmButton,
+                    icon: DefaultIconSet.NoSound,
+                    text: "Dismiss All",
                     onPress: () =>
                     {
-                        if (args.selectedReminder)
-                        {
-                            todoListRef.current?.flashHighlightReminders([args.selectedReminder.id]);
-                            TestData.Reminders[args.selectedReminder.id] = {
-                                ...args.reminders[args.selectedReminder.id],
-                                notificationInterval: args.selectedReminder.data.notificationInterval,
-                                dueDate: args.selectedReminder.data.dueDate,
-                                status: args.selectedReminder.data.status,
-                                modifiedDate: new Date()
-                            };
+                        setArgs({
+                            alarmedReminderIds: [],
+                            selectedReminder: undefined,
+                            mode: Reminder.Mode.ReadOnly
+                        });
+                    }
+                }}
+                saveAndDismissAlarmButton={{
+                    ...args.saveAndDismissAlarmButton,
+                    icon: DefaultIconSet.FloppyDisk,
+                    text: "Save & Dismiss",
+                    onPress: () =>
+                    {
+                        todoListRef.current?.flashHighlightReminders([args.selectedReminder.id]);
+                        TestData.Reminders[args.selectedReminder.id] = {
+                            ...args.reminders[args.selectedReminder.id],
+                            notificationInterval: args.selectedReminder.data.notificationInterval,
+                            status: args.selectedReminder.data.status,
+                            dueDate: args.selectedReminder.data.dueDate,
+                            modifiedDate: new Date()
+                        };
 
-                            const alarmedReminderIds = args.alarmedReminderIds.filter(x => x !== args.selectedReminder.id);
-                            setArgs({
-                                alarmedReminderIds,
-                                selectedReminder: undefined,
-                                reminders: {...TestData.Reminders},
-                                mode: alarmedReminderIds.length === 0 ? Reminder.Mode.ReadOnly : Reminder.Mode.Alarm
-                            });
-                        }
-                        else
-                        {
-                            setArgs({
-                                alarmedReminderIds: [],
-                                selectedReminder: undefined,
-                                mode: Reminder.Mode.ReadOnly
-                            });
-                        }
+                        const alarmedReminderIds = args.alarmedReminderIds.filter(x => x !== args.selectedReminder.id);
+                        setArgs({
+                            alarmedReminderIds,
+                            selectedReminder: undefined,
+                            reminders: {...TestData.Reminders},
+                            mode: alarmedReminderIds.length === 0 ? Reminder.Mode.ReadOnly : Reminder.Mode.Alarm
+                        });
                     }
                 }}
                 addNewReminderButton={{
@@ -282,7 +284,8 @@ export const Playground: Story = {
         reminderNotificationIntervalPlaceholder: Sb.text(),
         mode: Sb.locked,
         displayPanel: Sb.locked,
-        dismissAlarmButton: Sb.locked,
+        dismissAllAlarmButton: Sb.locked,
+        saveAndDismissAlarmButton: Sb.locked,
         addNewReminderButton: Sb.locked,
         saveReminderButton: Sb.locked,
         deleteReminderButton: Sb.locked,

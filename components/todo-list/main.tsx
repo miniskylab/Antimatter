@@ -29,7 +29,8 @@ export const TodoList = forwardRef(function TodoList(
         mode = Reminder.Mode.ReadOnly,
         maxSelectedTagCount = 2,
         displayPanel,
-        dismissAlarmButton,
+        dismissAllAlarmButton,
+        saveAndDismissAlarmButton,
         addNewReminderButton,
         saveReminderButton,
         deleteReminderButton,
@@ -44,8 +45,8 @@ export const TodoList = forwardRef(function TodoList(
 {
     const props: AllPropertiesMustPresent<TodoListProps> = {
         style, reminderRecurrencePatternPlaceholder, reminderNotificationIntervalPlaceholder, reminders, selectedReminder,
-        alarmedReminderIds, mode, maxSelectedTagCount, displayPanel, dismissAlarmButton, addNewReminderButton, saveReminderButton,
-        deleteReminderButton, cancelButton, customButton, onSwitchMode, onChangeReminder, onSelectReminder
+        alarmedReminderIds, mode, maxSelectedTagCount, displayPanel, dismissAllAlarmButton, saveAndDismissAlarmButton, addNewReminderButton,
+        saveReminderButton, deleteReminderButton, cancelButton, customButton, onSwitchMode, onChangeReminder, onSelectReminder
     };
 
     const [state, setState] = useState<TodoListState>({
@@ -145,7 +146,7 @@ export const TodoList = forwardRef(function TodoList(
         {
             case Reminder.Mode.Alarm:
                 return {
-                    button1: {...dismissAlarmButton},
+                    button1: {...dismissAllAlarmButton},
                     button2: {icon: DefaultIconSet.Alarm, text: "Alarm-Mode", disabled: true},
                     button3: {...cancelButton, disabled: true}
                 };
@@ -173,7 +174,7 @@ export const TodoList = forwardRef(function TodoList(
 
             case Reminder.Mode.Dismiss:
                 return {
-                    button1: {...dismissAlarmButton},
+                    button1: {...saveAndDismissAlarmButton},
                     button2: {icon: DefaultIconSet.NoSound, text: "Dismiss-Mode", disabled: true},
                     button3: {...cancelButton}
                 };
