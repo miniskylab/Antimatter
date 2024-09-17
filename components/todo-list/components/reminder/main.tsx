@@ -296,7 +296,7 @@ export const Component = forwardRef(function Component(
                     style={computedStyle.RescheduleToggle}
                     icon={isOriginallyCompleted ? DefaultIconSet.History : DefaultIconSet.CheckMarkInsideCircle}
                     status={isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                    disabled={isSuspended || (!isToBeRescheduled && isNotNullAndUndefined(dueDuration) && !isDue && !isOverdue)}
+                    disabled={isSuspended}
                     onChange={onRescheduleToggleStatusChange}
                 />
             </View>

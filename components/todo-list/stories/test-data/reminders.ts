@@ -27,7 +27,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "2": {
         name: "Pretium",
-        recurrencePattern: `0 0 1 ${today.getDate()} ${today.getMonth() + 1} ? *`,
+        recurrencePattern: `59 59 23 ${today.getDate()} ${today.getMonth() + 1} ? *`,
         notificationInterval: 5,
         tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
         status: Reminder.Status.Scheduled,
