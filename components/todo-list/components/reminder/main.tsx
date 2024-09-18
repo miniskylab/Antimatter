@@ -21,7 +21,7 @@ import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef} from "react";
-import {Mode, Status, TagMetadata, TagStatus} from "./enums";
+import {DueDateType, Mode, Status, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext} from "./models";
 import * as Service from "./services";
 
@@ -129,7 +129,7 @@ export const Component = forwardRef(function Component(
     function getNextOccurrence(): [Date | undefined, Status]
     {
         let nextReminderStatus = Status.Scheduled;
-        let nextDueDate = Service.getNextDueDate(recurrencePattern);
+        let nextDueDate = Service.getDueDate(recurrencePattern, DueDateType.NextDueDate, today);
         const nextDueDuration = Service.getDueDuration(today, nextDueDate);
         if (isNullOrUndefined(nextDueDuration) || nextDueDuration <= 0)
         {
@@ -332,7 +332,7 @@ export const Component = forwardRef(function Component(
     {
         onChange?.({
             recurrencePattern: newText,
-            dueDate: Service.getNextDueDate(newText)
+            dueDate: Service.getDueDate(newText, DueDateType.NextDueDate, today)
         });
     }
 
