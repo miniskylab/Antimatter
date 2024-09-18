@@ -203,29 +203,9 @@ export const Component = forwardRef(function Component(
         }
     }
 
-    function onNameChange(newText: string): void
-    {
-        onChange?.({
-            name: newText,
-            amount,
-            tags,
-            executedDate,
-            modifiedDate,
-            createdDate
-        });
-    }
+    function onNameChange(newText: string): void { onChange?.({name: newText}); }
 
-    function onAmountChange(newValue: number): void
-    {
-        onChange?.({
-            name,
-            amount: newValue,
-            tags,
-            executedDate,
-            modifiedDate,
-            createdDate
-        });
-    }
+    function onAmountChange(newValue: number): void { onChange?.({amount: newValue}); }
 
     function onTagChange(pressedTagId: string): void
     {
@@ -237,8 +217,6 @@ export const Component = forwardRef(function Component(
                 : pressedTag.status;
 
         onChange?.({
-            name,
-            amount,
             tags: {
                 ...tags,
                 [pressedTagId]: {
@@ -248,10 +226,7 @@ export const Component = forwardRef(function Component(
                         ? Object.values(tags).filter(x => x.status === TagStatus.Selected).length + 1
                         : undefined
                 }
-            },
-            executedDate,
-            modifiedDate,
-            createdDate
+            }
         });
     }
 });

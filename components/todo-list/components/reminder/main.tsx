@@ -303,19 +303,7 @@ export const Component = forwardRef(function Component(
         );
     }
 
-    function onNameChange(newText: string): void
-    {
-        onChange?.({
-            name: newText,
-            recurrencePattern,
-            notificationInterval,
-            tags,
-            status,
-            dueDate,
-            modifiedDate,
-            createdDate
-        });
-    }
+    function onNameChange(newText: string): void { onChange?.({name: newText}); }
 
     function onTagChange(pressedTagId: string): void
     {
@@ -327,9 +315,6 @@ export const Component = forwardRef(function Component(
                 : pressedTag.status;
 
         onChange?.({
-            name,
-            recurrencePattern,
-            notificationInterval,
             tags: {
                 ...tags,
                 [pressedTagId]: {
@@ -339,41 +324,19 @@ export const Component = forwardRef(function Component(
                         ? Object.values(tags).filter(x => x.status === TagStatus.Selected).length + 1
                         : undefined
                 }
-            },
-            status,
-            dueDate,
-            modifiedDate,
-            createdDate
+            }
         });
     }
 
     function onRecurrencePatternChange(newText: string): void
     {
         onChange?.({
-            name,
             recurrencePattern: newText,
-            notificationInterval,
-            tags,
-            status,
-            dueDate: Service.getNextDueDate(newText),
-            modifiedDate,
-            createdDate
+            dueDate: Service.getNextDueDate(newText)
         });
     }
 
-    function onNotificationIntervalChange(newValue: number | undefined): void
-    {
-        onChange?.({
-            name,
-            recurrencePattern,
-            notificationInterval: newValue,
-            tags,
-            status,
-            dueDate,
-            modifiedDate,
-            createdDate
-        });
-    }
+    function onNotificationIntervalChange(newValue: number | undefined): void { onChange?.({notificationInterval: newValue}); }
 
     function onSuspenseToggleStatusChange(newToggleStatus: ToggleStatus): void
     {
@@ -390,14 +353,8 @@ export const Component = forwardRef(function Component(
         }
 
         onChange?.({
-            name,
-            recurrencePattern,
-            notificationInterval,
-            tags,
             status: nextReminderStatus,
-            dueDate: nextDueDate,
-            modifiedDate,
-            createdDate
+            dueDate: nextDueDate
         });
     }
 
@@ -411,14 +368,8 @@ export const Component = forwardRef(function Component(
         }
 
         onChange?.({
-            name,
-            recurrencePattern,
-            notificationInterval,
-            tags,
             status: nextReminderStatus,
-            dueDate: nextDueDate,
-            modifiedDate,
-            createdDate
+            dueDate: nextDueDate
         });
     }
 });

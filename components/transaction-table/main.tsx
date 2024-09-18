@@ -326,7 +326,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                     namePlaceholder={transactionNamePlaceholder}
                     showProgressStripes={isSelectedTransaction && selectedTransaction?.showProgressStripes}
                     onPress={!selectedTransaction ? () => { onSelectTransaction?.(filteredTransactionId); } : undefined}
-                    onChange={newTransactionData => { onChangeTransaction?.(newTransactionData); }}
+                    onChange={newTransactionData => { onChangeTransaction?.({...transactionData, ...newTransactionData}); }}
                 />
             );
         });

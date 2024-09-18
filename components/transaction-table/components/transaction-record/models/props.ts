@@ -18,5 +18,5 @@ export type Props = ComponentProps<Style> & {
     readonly createdDate?: Date;
     readonly mode?: Mode;
     readonly onPress?: GestureResponderEventHandler;
-    readonly onChange?: (newTransactionData: Data) => void;
+    readonly onChange?: (newTransactionData: Partial<Data>) => void;
 }

@@ -22,5 +22,5 @@ export type Props = ComponentProps<Style> & {
     readonly modifiedDate?: Date;
     readonly createdDate?: Date;
     readonly onPress?: GestureResponderEventHandler;
-    readonly onChange?: (newReminderData: Data) => void;
+    readonly onChange?: (newReminderData: Partial<Data>) => void;
 }

@@ -286,7 +286,7 @@ export const TodoList = forwardRef(function TodoList(
                     notificationIntervalPlaceholder={reminderNotificationIntervalPlaceholder}
                     showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}
                     onPress={isSelectableReminder ? () => { onSelectReminder?.(sortedReminderId); } : undefined}
-                    onChange={newReminderData => { onChangeReminder?.(newReminderData); }}
+                    onChange={newReminderData => { onChangeReminder?.({...reminderData, ...newReminderData}); }}
                 />
             );
         });
