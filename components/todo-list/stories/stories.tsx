@@ -64,8 +64,22 @@ export default {
                     ...args.saveAndDismissAlarmButton,
                     icon: DefaultIconSet.FloppyDisk,
                     text: "Save & Dismiss",
-                    onPress: () =>
+                    onPress: async () =>
                     {
+                        setArgs({
+                            ...busySettings,
+                            mode: Reminder.Mode.Alarm,
+                            displayPanel: {
+                                icon: DefaultIconSet.Gear,
+                                message: "Saving Reminder",
+                                theme: DataListDisplayPanelTheme.Cautious,
+                                isIconAnimationPlaying: true,
+                                isVisible: true
+                            }
+                        });
+
+                        await new Promise(resolve => { setTimeout(resolve, 2000); });
+
                         todoListRef.current?.flashHighlightReminders([args.selectedReminder.id]);
                         TestData.Reminders[args.selectedReminder.id] = {
                             ...args.reminders[args.selectedReminder.id],
@@ -77,10 +91,16 @@ export default {
 
                         const alarmedReminderIds = args.alarmedReminderIds.filter(x => x !== args.selectedReminder.id);
                         setArgs({
+                            ...unbusySettings,
                             alarmedReminderIds,
                             selectedReminder: undefined,
                             reminders: {...TestData.Reminders},
-                            mode: alarmedReminderIds.length === 0 ? Reminder.Mode.ReadOnly : Reminder.Mode.Alarm
+                            mode: alarmedReminderIds.length === 0 ? Reminder.Mode.ReadOnly : Reminder.Mode.Alarm,
+                            displayPanel: {
+                                icon: DefaultIconSet.CheckMark,
+                                theme: DataListDisplayPanelTheme.Positive,
+                                message: "Saved Successfully"
+                            }
                         });
                     }
                 }}

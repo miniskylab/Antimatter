@@ -326,7 +326,12 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
             ...reminderContext.props.mode === Reminder.Mode.Alarm && {
                 zIndex: Layer.Higher,
                 borderColor: Color.Purple,
-                backgroundColor: Color.Purple__a10
+                backgroundColor: Color.Purple__a10,
+                ...isSelectedReminder && {
+                    zIndex: Layer.Highest,
+                    borderColor: Color.Warning,
+                    backgroundColor: Color.Warning__a10
+                }
             },
             ...reminderContext.props.mode === Reminder.Mode.Dismiss && {
                 zIndex: Layer.Highest,
