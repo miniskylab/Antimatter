@@ -16,16 +16,16 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
     }
 
     const executionTime = new Date(today);
-    executionTime.setSeconds(executionTime.getSeconds() + 1);
     if (tryParseExactTime(recurrencePattern, executionTime))
     {
         return executionTime;
     }
 
     const [cronSecondToken, cronMinuteToken, cronHourToken, cronDateToken, cronMonthToken, , cronYearToken] = recurrencePattern.split(" ");
-    while (true)
+    if (dueDateType === DueDateType.NextDueDate)
     {
-        if (dueDateType === DueDateType.NextDueDate)
+        executionTime.setSeconds(executionTime.getSeconds() + 1);
+        while (true)
         {
             if (tryParseCronYearTokenForward(cronYearToken, executionTime)) continue;
             if (tryParseCronMonthTokenForward(cronMonthToken, executionTime)) continue;
@@ -33,8 +33,13 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
             if (tryParseCronHourTokenForward(cronHourToken, executionTime)) continue;
             if (tryParseCronMinuteTokenForward(cronMinuteToken, executionTime)) continue;
             if (tryParseCronSecondTokenForward(cronSecondToken, executionTime)) continue;
+            break;
         }
-        else if (dueDateType === DueDateType.PreviousDueDate)
+    }
+    else if (dueDateType === DueDateType.PreviousDueDate)
+    {
+        executionTime.setSeconds(executionTime.getSeconds() - 1);
+        while (true)
         {
             if (tryParseCronYearTokenBackward(cronYearToken, executionTime)) continue;
             if (tryParseCronMonthTokenBackward(cronMonthToken, executionTime)) continue;
@@ -42,9 +47,8 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
             if (tryParseCronHourTokenBackward(cronHourToken, executionTime)) continue;
             if (tryParseCronMinuteTokenBackward(cronMinuteToken, executionTime)) continue;
             if (tryParseCronSecondTokenBackward(cronSecondToken, executionTime)) continue;
+            break;
         }
-
-        break;
     }
 
     return executionTime;
@@ -84,12 +88,8 @@ function tryParseCronYearTokenForward(cronYearToken: string, nextExecutionTime: 
     const nextExecutionYear = nextExecutionTime.getFullYear();
     if (cronYearToken !== "*" && nextExecutionYear < cronYearValue)
     {
-        nextExecutionTime.setFullYear(nextExecutionTime.getFullYear() + 1);
-        nextExecutionTime.setMonth(0);
-        nextExecutionTime.setDate(1);
-        nextExecutionTime.setHours(0);
-        nextExecutionTime.setMinutes(0);
-        nextExecutionTime.setSeconds(0);
+        nextExecutionTime.setFullYear(nextExecutionTime.getFullYear() + 1, 0, 1);
+        nextExecutionTime.setHours(0, 0, 0);
         return true;
     }
 
@@ -104,18 +104,14 @@ function tryParseCronMonthTokenForward(cronMonthToken: string, nextExecutionTime
     {
         if (nextExecutionMonth > cronMonthValue)
         {
-            nextExecutionTime.setFullYear(nextExecutionTime.getFullYear() + 1);
-            nextExecutionTime.setMonth(0);
+            nextExecutionTime.setFullYear(nextExecutionTime.getFullYear() + 1, 0, 1);
         }
         else
         {
-            nextExecutionTime.setMonth(nextExecutionTime.getMonth() + 1);
+            nextExecutionTime.setMonth(nextExecutionTime.getMonth() + 1, 1);
         }
 
-        nextExecutionTime.setDate(1);
-        nextExecutionTime.setHours(0);
-        nextExecutionTime.setMinutes(0);
-        nextExecutionTime.setSeconds(0);
+        nextExecutionTime.setHours(0, 0, 0);
         return true;
     }
 
@@ -130,17 +126,14 @@ function tryParseCronDateTokenForward(cronDateToken: string, nextExecutionTime: 
     {
         if (nextExecutionDate > cronDateValue)
         {
-            nextExecutionTime.setMonth(nextExecutionTime.getMonth() + 1);
-            nextExecutionTime.setDate(1);
+            nextExecutionTime.setMonth(nextExecutionTime.getMonth() + 1, 1);
         }
         else
         {
             nextExecutionTime.setDate(nextExecutionDate + 1);
         }
 
-        nextExecutionTime.setHours(0);
-        nextExecutionTime.setMinutes(0);
-        nextExecutionTime.setSeconds(0);
+        nextExecutionTime.setHours(0, 0, 0);
         return true;
     }
 
@@ -222,12 +215,9 @@ function tryParseCronYearTokenBackward(cronYearToken: string, previousExecutionT
     const previousExecutionYear = previousExecutionTime.getFullYear();
     if (cronYearToken !== "*" && previousExecutionYear > cronYearValue)
     {
-        previousExecutionTime.setFullYear(previousExecutionTime.getFullYear() - 1);
-        previousExecutionTime.setMonth(0);
-        previousExecutionTime.setDate(1);
-        previousExecutionTime.setHours(0);
-        previousExecutionTime.setMinutes(0);
-        previousExecutionTime.setSeconds(0);
+        previousExecutionTime.setFullYear(previousExecutionTime.getFullYear() - 1, 11, 1);
+        previousExecutionTime.setMonth(previousExecutionTime.getMonth() + 1, 0);
+        previousExecutionTime.setHours(23, 59, 59);
         return true;
     }
 
@@ -242,18 +232,15 @@ function tryParseCronMonthTokenBackward(cronMonthToken: string, previousExecutio
     {
         if (previousExecutionMonth < cronMonthValue)
         {
-            previousExecutionTime.setFullYear(previousExecutionTime.getFullYear() - 1);
-            previousExecutionTime.setMonth(0);
+            previousExecutionTime.setFullYear(previousExecutionTime.getFullYear() - 1, 11, 1);
         }
         else
         {
-            previousExecutionTime.setMonth(previousExecutionTime.getMonth() + 1);
+            previousExecutionTime.setMonth(previousExecutionTime.getMonth() - 1, 1);
         }
 
-        previousExecutionTime.setDate(1);
-        previousExecutionTime.setHours(0);
-        previousExecutionTime.setMinutes(0);
-        previousExecutionTime.setSeconds(0);
+        previousExecutionTime.setMonth(previousExecutionTime.getMonth() + 1, 0);
+        previousExecutionTime.setHours(23, 59, 59);
         return true;
     }
 
@@ -268,17 +255,15 @@ function tryParseCronDateTokenBackward(cronDateToken: string, previousExecutionT
     {
         if (previousExecutionDate < cronDateValue)
         {
-            previousExecutionTime.setMonth(previousExecutionTime.getMonth() - 1);
-            previousExecutionTime.setDate(1);
+            previousExecutionTime.setMonth(previousExecutionTime.getMonth() - 1, 1);
+            previousExecutionTime.setMonth(previousExecutionTime.getMonth() + 1, 0);
         }
         else
         {
-            previousExecutionTime.setDate(previousExecutionDate + 1);
+            previousExecutionTime.setDate(previousExecutionDate - 1);
         }
 
-        previousExecutionTime.setHours(0);
-        previousExecutionTime.setMinutes(0);
-        previousExecutionTime.setSeconds(0);
+        previousExecutionTime.setHours(23, 59, 59);
         return true;
     }
 
@@ -294,15 +279,15 @@ function tryParseCronHourTokenBackward(cronHourToken: string, previousExecutionT
         if (previousExecutionHour < cronHourValue)
         {
             previousExecutionTime.setDate(previousExecutionTime.getDate() - 1);
-            previousExecutionTime.setHours(0);
+            previousExecutionTime.setHours(23);
         }
         else
         {
-            previousExecutionTime.setHours(previousExecutionHour + 1);
+            previousExecutionTime.setHours(previousExecutionHour - 1);
         }
 
-        previousExecutionTime.setMinutes(0);
-        previousExecutionTime.setSeconds(0);
+        previousExecutionTime.setMinutes(59);
+        previousExecutionTime.setSeconds(59);
         return true;
     }
 
@@ -318,14 +303,14 @@ function tryParseCronMinuteTokenBackward(cronMinuteToken: string, previousExecut
         if (previousExecutionMinute < cronMinuteValue)
         {
             previousExecutionTime.setHours(previousExecutionTime.getHours() - 1);
-            previousExecutionTime.setMinutes(0);
+            previousExecutionTime.setMinutes(59);
         }
         else
         {
-            previousExecutionTime.setMinutes(previousExecutionMinute + 1);
+            previousExecutionTime.setMinutes(previousExecutionMinute - 1);
         }
 
-        previousExecutionTime.setSeconds(0);
+        previousExecutionTime.setSeconds(59);
         return true;
     }
 
@@ -341,11 +326,11 @@ function tryParseCronSecondTokenBackward(cronSecondToken: string, previousExecut
         if (previousExecutionSecond < cronSecondValue)
         {
             previousExecutionTime.setMinutes(previousExecutionTime.getMinutes() - 1);
-            previousExecutionTime.setSeconds(0);
+            previousExecutionTime.setSeconds(59);
         }
         else
         {
-            previousExecutionTime.setSeconds(previousExecutionSecond + 1);
+            previousExecutionTime.setSeconds(previousExecutionSecond - 1);
         }
 
         return true;
