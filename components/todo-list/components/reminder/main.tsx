@@ -129,7 +129,7 @@ export const Component = forwardRef(function Component(
     function getNextOccurrence(): [Date | undefined, Status]
     {
         let nextReminderStatus = Status.Scheduled;
-        let nextDueDate = Service.getDueDate(recurrencePattern, DueDateType.NextDueDate, today);
+        let nextDueDate = Service.getDueDate(recurrencePattern, DueDateType.NextDueDate, dueDate ?? today);
         const nextDueDuration = Service.getDueDuration(today, nextDueDate);
         if (isNullOrUndefined(nextDueDuration) || nextDueDuration <= 0)
         {
@@ -292,13 +292,13 @@ export const Component = forwardRef(function Component(
                     keyboardType={"number-pad"}
                     onChange={onNotificationIntervalChange}
                 />
-                <Toggle
+                {!isOriginallySuspended && (<Toggle
                     style={computedStyle.RescheduleToggle}
                     icon={isOriginallyCompleted ? DefaultIconSet.History : DefaultIconSet.CheckMarkInsideCircle}
                     status={isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked}
                     disabled={isSuspended}
                     onChange={onRescheduleToggleStatusChange}
-                />
+                />)}
             </View>
         );
     }
