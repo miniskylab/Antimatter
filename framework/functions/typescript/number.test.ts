@@ -1,6 +1,6 @@
 import {clamp, degreesToRadians, ensurePercent, percentToRadians, random, shorten} from "./number";
 
-describe("how to use [clamp(...)]", () =>
+describe("how to use 'clamp(...)'", () =>
 {
     it("throws error when 2nd argument is greater than 3rd argument", () =>
     {
@@ -138,7 +138,7 @@ describe("how to use [clamp(...)]", () =>
     });
 });
 
-describe("how to use [shorten(...)]", () =>
+describe("how to use 'shorten(...)'", () =>
 {
     it("returns the shortened version of the given number in string", () =>
     {
@@ -167,7 +167,7 @@ describe("how to use [shorten(...)]", () =>
     });
 });
 
-describe("how to use [random(...)]", () =>
+describe("how to use 'random(...)'", () =>
 {
     it("throws error when 1st argument is greater than 2nd argument", () =>
     {
@@ -215,7 +215,7 @@ describe("how to use [random(...)]", () =>
     });
 });
 
-describe("how to use [ensurePercent(...)]", () =>
+describe("how to use 'ensurePercent(...)'", () =>
 {
     it("returns a value between 0 and 100 (percent)", () =>
     {
@@ -234,7 +234,7 @@ describe("how to use [ensurePercent(...)]", () =>
     });
 });
 
-describe("how to use [percentToRadians(...)]", () =>
+describe("how to use 'percentToRadians(...)'", () =>
 {
     it("returns radians of given percentage (100% = 360 degrees)", () =>
     {
@@ -255,7 +255,7 @@ describe("how to use [percentToRadians(...)]", () =>
     });
 });
 
-describe("how to use [degreesToRadians(...)]", () =>
+describe("how to use 'degreesToRadians(...)'", () =>
 {
     it("returns radians of given degrees", () =>
     {

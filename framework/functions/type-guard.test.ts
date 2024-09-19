@@ -1,6 +1,6 @@
 import {isNotNullAndUndefined, isNullOrUndefined} from "./type-guard";
 
-describe("how to use [isNullOrUndefined(...)]", () =>
+describe("how to use 'isNullOrUndefined(...)'", () =>
 {
     it("returns true if the given value is null or undefined", () =>
     {
@@ -15,7 +15,7 @@ describe("how to use [isNullOrUndefined(...)]", () =>
     });
 });
 
-describe("how to use [isNotNullAndUndefined(...)]", () =>
+describe("how to use 'isNotNullAndUndefined(...)'", () =>
 {
     it("returns true if the given value is not null and undefined", () =>
     {

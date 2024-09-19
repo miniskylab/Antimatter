@@ -1,6 +1,6 @@
 import {isEmpty} from "./object";
 
-describe("how to use [isEmpty(...)]", () =>
+describe("how to use 'isEmpty(...)'", () =>
 {
     it("returns true if the given object is an empty object", () =>
     {

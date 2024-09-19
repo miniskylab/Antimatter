@@ -1,6 +1,6 @@
 import {LunarCalendarVn} from "./lunar-calendar-vn";
 
-describe("how to use [LunarCalendarVn.getJulianDayCount(...)]", () =>
+describe("how to use 'LunarCalendarVn.getJulianDayCount(...)'", () =>
 {
     it("returns Julian Day count for given Date object", () =>
     {

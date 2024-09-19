@@ -1,6 +1,6 @@
 import {isDefaultJavaScriptError, throwIfNullOrUndefined} from "./error";
 
-describe("how to use [isDefaultJavaScriptError(...)]", () =>
+describe("how to use 'isDefaultJavaScriptError(...)'", () =>
 {
     it("returns true if the given object is default javascript error object", () =>
     {
@@ -27,7 +27,7 @@ describe("how to use [isDefaultJavaScriptError(...)]", () =>
     });
 });
 
-describe("how to use [throwIfNullOrUndefined(...)]", () =>
+describe("how to use 'throwIfNullOrUndefined(...)'", () =>
 {
     it("throws an error if the given value is null or undefined", () =>
     {

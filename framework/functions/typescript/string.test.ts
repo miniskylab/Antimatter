@@ -1,7 +1,7 @@
 import {EMPTY_STRING} from "../../consts";
 import {base64UrlEncode, extractQueryParameter, format, removeTrailingSlash, splitCamelCase} from "./string";
 
-describe("how to use [format(...)]", () =>
+describe("how to use 'format(...)'", () =>
 {
     it("replaces placeholders in given string with given replacements", () =>
     {
@@ -21,7 +21,7 @@ describe("how to use [format(...)]", () =>
     });
 });
 
-describe("how to use [splitCamelCase(...)]", () =>
+describe("how to use 'splitCamelCase(...)'", () =>
 {
     it("splits camelCase or PascalCase words into individual words", () =>
     {
@@ -32,7 +32,7 @@ describe("how to use [splitCamelCase(...)]", () =>
     });
 });
 
-describe("how to use [extractQueryParameter(...)]", () =>
+describe("how to use 'extractQueryParameter(...)'", () =>
 {
     it("extracts query parameters from given URL", () =>
     {
@@ -62,7 +62,7 @@ describe("how to use [extractQueryParameter(...)]", () =>
     });
 });
 
-describe("how to use [base64UrlEncode(...)]", () =>
+describe("how to use 'base64UrlEncode(...)'", () =>
 {
     it("performs URL-safe encoding on given Base64 string", () =>
     {
@@ -73,7 +73,7 @@ describe("how to use [base64UrlEncode(...)]", () =>
     });
 });
 
-describe("how to use [removeTrailingSlash(...)]", () =>
+describe("how to use 'removeTrailingSlash(...)'", () =>
 {
     it("removes all slash marks (/) from the end of given string", () =>
     {
