@@ -61,7 +61,6 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         notificationInterval: undefined,
         tags: deepCopyWithSelection(Tags, "feugiat"),
         status: Reminder.Status.Completed,
-        dueDate: new Date(day45InThePast.getFullYear(), day45InThePast.getMonth(), day45InThePast.getDate(), 0, 0, 0),
         modifiedDate: today,
         createdDate: today
     },
@@ -81,7 +80,6 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         notificationInterval: undefined,
         tags: deepCopyWithSelection(Tags, "dolore", "feugiat"),
         status: Reminder.Status.Completed,
-        dueDate: new Date(day45InThePast.getFullYear(), day45InThePast.getMonth(), day45InThePast.getDate(), 0, 0, 0),
         modifiedDate: today,
         createdDate: today
     },
@@ -129,7 +127,6 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         notificationInterval: 4,
         tags: deepCopyWithSelection(Tags, "massa"),
         status: Reminder.Status.Suspended,
-        dueDate: new Date(day45InThePast.getFullYear(), day45InThePast.getMonth(), day45InThePast.getDate(), 0, 0, 0),
         modifiedDate: today,
         createdDate: today
     },
@@ -139,7 +136,6 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         notificationInterval: 3,
         tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
         status: Reminder.Status.Suspended,
-        dueDate: new Date(day45InTheFuture.getFullYear(), day45InTheFuture.getMonth(), day45InTheFuture.getDate(), 0, 0, 0),
         modifiedDate: today,
         createdDate: today
     },

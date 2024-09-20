@@ -59,23 +59,29 @@ export const Component = forwardRef(function Component(
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
     const today = new Date();
+    const isDraft = mode === Mode.Draft;
     const isScheduled = status === Status.Scheduled;
     const isSuspended = status === Status.Suspended;
     const isCompleted = status === Status.Completed;
     const isOriginallyCompleted = originalData?.status === Status.Completed;
     const isOriginallySuspended = originalData?.status === Status.Suspended;
-    const isDueDateRescheduledForward = !!dueDate && !!originalData?.dueDate && dueDate > originalData.dueDate;
-    const isDueDateRescheduledBackward = !!dueDate && !!originalData?.dueDate && dueDate < originalData.dueDate;
-    const isToBeUndone = !isOriginallySuspended && (isScheduled && isDueDateRescheduledBackward);
-    const isToBeRescheduled = !isOriginallySuspended && (isScheduled && isDueDateRescheduledForward);
-    const isToBeReactivated = isOriginallySuspended && isScheduled;
+    const isDueDateUnassigned = !!originalData && !!originalData.dueDate && !dueDate;
+    const isDueDateReassigned = !!originalData && !originalData.dueDate && !!dueDate;
+    const isDueDateRescheduledForward = !!originalData?.dueDate && !!dueDate && dueDate > originalData.dueDate;
+    const isDueDateRescheduledBackward = !!originalData?.dueDate && !!dueDate && dueDate < originalData.dueDate;
+    const isToBeUndone = !isOriginallySuspended && isScheduled && (isDueDateRescheduledBackward || isDueDateUnassigned);
+    const isToBeRescheduled = !isOriginallySuspended && isScheduled && (isDueDateRescheduledForward || isDueDateReassigned);
+    const isToBeReactivated = (isOriginallySuspended || isOriginallyCompleted) && isScheduled;
+    const isToBeCompleted = !isOriginallyCompleted && isCompleted;
     const dueDuration = Service.getDueDuration(today, dueDate);
     const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
     const isDue = dueDuration === 0;
     const formattedDueDate = getFormattedDueDate();
     const formattedDueDuration = getFormattedDueDuration();
 
-    const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue, isToBeRescheduled, isToBeReactivated}});
+    const context = useComponentContext<ReminderContext>({
+        props, extra: {isDue, isOverdue, isToBeUndone, isToBeRescheduled, isToBeReactivated}
+    });
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -118,7 +124,7 @@ export const Component = forwardRef(function Component(
                         <Text style={computedStyle.DueDate}>{formattedDueDate}</Text>
                     </>)}
                     {formattedDueDuration && (<>
-                        <Icon style={computedStyle.DueDurationIcon} name={DefaultIconSet.History}/>
+                        <Icon style={computedStyle.DueDurationIcon} name={isDue ? DefaultIconSet.Flag : DefaultIconSet.History}/>
                         <Text style={computedStyle.DueDuration}>{formattedDueDuration}</Text>
                     </>)}
                     {renderTags()}
@@ -160,7 +166,7 @@ export const Component = forwardRef(function Component(
             ? DefaultIconSet.CheckMarkInsideCircle
             : isSuspended
                 ? DefaultIconSet.Zzz
-                : isToBeRescheduled || isToBeReactivated
+                : isToBeRescheduled || isToBeReactivated || isToBeUndone
                     ? DefaultIconSet.History
                     : isOverdue
                         ? DefaultIconSet.ExclamationMarkInsideCircle
@@ -286,18 +292,18 @@ export const Component = forwardRef(function Component(
                             value={recurrencePattern}
                             onChangeText={onRecurrencePatternChange}
                         />
-                        {(!isOriginallySuspended && !isOriginallyCompleted) && (<Toggle
+                        {!!originalData?.dueDate && (<Toggle
                             style={computedStyle.UndoToggle}
                             icon={DefaultIconSet.History}
                             status={isToBeUndone ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                            disabled={isSuspended || isToBeRescheduled}
+                            disabled={isToBeRescheduled || isToBeCompleted || isSuspended}
                             onChange={onUndoToggleStatusChange}
                         />)}
                         <Toggle
                             style={computedStyle.SuspenseToggle}
                             icon={DefaultIconSet.Zzz}
                             status={isSuspended ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                            disabled={isToBeRescheduled}
+                            disabled={isToBeRescheduled || isToBeCompleted || isToBeUndone}
                             onChange={onSuspenseToggleStatusChange}
                         />
                     </>
@@ -313,10 +319,10 @@ export const Component = forwardRef(function Component(
                     keyboardType={"number-pad"}
                     onChange={onNotificationIntervalChange}
                 />
-                {!isOriginallySuspended && (<Toggle
+                {(!isDraft && !isOriginallySuspended) && (<Toggle
                     style={computedStyle.RescheduleToggle}
-                    icon={isOriginallyCompleted ? DefaultIconSet.History : DefaultIconSet.CheckMarkInsideCircle}
-                    status={isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    icon={!originalData?.dueDate ? DefaultIconSet.History : DefaultIconSet.CheckMarkInsideCircle}
+                    status={isToBeReactivated || isToBeRescheduled || isToBeCompleted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
                     disabled={isSuspended || isToBeUndone}
                     onChange={onRescheduleToggleStatusChange}
                 />)}

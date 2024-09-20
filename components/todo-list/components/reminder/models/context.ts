@@ -6,6 +6,7 @@ export const ReminderContext = createContext<ReminderContext>(undefined);
 export type ReminderContext = ComponentContext<Props, undefined, {
     readonly isDue: boolean;
     readonly isOverdue: boolean;
+    readonly isToBeUndone: boolean;
     readonly isToBeRescheduled: boolean;
     readonly isToBeReactivated: boolean;
 }>;

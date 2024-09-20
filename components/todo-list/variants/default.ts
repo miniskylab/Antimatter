@@ -364,6 +364,7 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
+    const isToBeUndone = reminderContext.extra.isToBeUndone;
     const isToBeReactivated = reminderContext.extra.isToBeReactivated;
     const isToBeRescheduled = reminderContext.extra.isToBeRescheduled;
     const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
@@ -381,7 +382,7 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
             ? Color.Neutral
             : isCompleted || isToBeRescheduled || isToBeReactivated
                 ? Color.Green
-                : reminderContext.extra.isDue
+                : isToBeUndone || reminderContext.extra.isDue
                     ? Color.Gold
                     : reminderContext.extra.isOverdue
                         ? Color.Coral
@@ -832,7 +833,7 @@ const TodoList__Reminder__RecurrencePatternInputField__TextBox: TextInputStyle =
 
     return {
         ...inheritedStyle,
-        paddingRight: 50,
+        paddingRight: 90,
         fontWeight: "bold",
         color: Color.Neutral
     };
@@ -983,7 +984,7 @@ const TodoList__Reminder__RescheduleToggle__Icon: IconStyle = function (iconProp
 
     return {
         ...TodoList__Reminder__SuspenseToggle__Icon(iconProps),
-        transform: [{scaleX: reminderContext.props.originalData?.status === Reminder.Status.Completed ? -1 : 1}],
+        transform: [{scaleX: !reminderContext.props.originalData?.dueDate ? -1 : 1}],
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
             ? Color.Green
             : pressableContext.state.hovered
