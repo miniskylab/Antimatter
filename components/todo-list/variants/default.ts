@@ -376,7 +376,7 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
         height: 30,
         marginTop: 7,
         fontSize: 28,
-        transform: [{scaleX: !isCompleted && (isToBeRescheduled || isToBeReactivated) ? -1 : 1}],
+        transform: [{scaleX: isToBeRescheduled || isToBeReactivated ? -1 : 1}],
         color: isSuspended
             ? Color.Neutral
             : isCompleted || isToBeRescheduled || isToBeReactivated
@@ -1001,6 +1001,22 @@ const TodoList__Reminder__RescheduleToggle: ToggleStyle = function (toggleProps)
     };
 };
 
+const TodoList__Reminder__UndoToggle__Root: ViewStyle = function (viewProps)
+{
+    return {
+        ...TodoList__Reminder__SuspenseToggle__Root(viewProps),
+        right: 40
+    };
+};
+
+const TodoList__Reminder__UndoToggle: ToggleStyle = function (toggleProps)
+{
+    return {
+        ...TodoList__Reminder__SuspenseToggle(toggleProps),
+        Root: TodoList__Reminder__UndoToggle__Root
+    };
+};
+
 const TodoList__Reminder: Reminder.Style = function ()
 {
     return {
@@ -1020,6 +1036,7 @@ const TodoList__Reminder: Reminder.Style = function ()
         RecurrencePatternInputField: TodoList__Reminder__RecurrencePatternInputField,
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
         SuspenseToggle: TodoList__Reminder__SuspenseToggle,
+        UndoToggle: TodoList__Reminder__UndoToggle,
         RescheduleToggle: TodoList__Reminder__RescheduleToggle,
         ProgressStripes: TodoList__Reminder__ProgressStripes
     };

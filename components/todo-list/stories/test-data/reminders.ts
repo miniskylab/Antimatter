@@ -97,7 +97,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "9": {
         name: "Urna molestie",
-        recurrencePattern: `0 0 0 ${day45InTheFuture.getDate()} ${day45InTheFuture.getMonth() + 1} ? ${day45InTheFuture.getFullYear()}`,
+        recurrencePattern: `0 0 0 ${day45InTheFuture.getDate()} * ? *`,
         notificationInterval: undefined,
         tags: deepCopyWithSelection(Tags, "iaculis"),
         status: Reminder.Status.Scheduled,
@@ -107,7 +107,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "10": {
         name: "Iaculis eu non",
-        recurrencePattern: EMPTY_STRING,
+        recurrencePattern: `0 0 0 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
         notificationInterval: 6,
         tags: deepCopyWithSelection(Tags, "viverra", "metus"),
         status: Reminder.Status.Scheduled,

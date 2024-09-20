@@ -64,8 +64,10 @@ export const Component = forwardRef(function Component(
     const isCompleted = status === Status.Completed;
     const isOriginallyCompleted = originalData?.status === Status.Completed;
     const isOriginallySuspended = originalData?.status === Status.Suspended;
-    const isDueDateChanged = isNotNullAndUndefined(originalData) && originalData.dueDate !== dueDate;
-    const isToBeRescheduled = !isOriginallySuspended && (isScheduled || isCompleted) && isDueDateChanged;
+    const isDueDateRescheduledForward = !!dueDate && !!originalData?.dueDate && dueDate > originalData.dueDate;
+    const isDueDateRescheduledBackward = !!dueDate && !!originalData?.dueDate && dueDate < originalData.dueDate;
+    const isToBeUndone = !isOriginallySuspended && (isScheduled && isDueDateRescheduledBackward);
+    const isToBeRescheduled = !isOriginallySuspended && (isScheduled && isDueDateRescheduledForward);
     const isToBeReactivated = isOriginallySuspended && isScheduled;
     const dueDuration = Service.getDueDuration(today, dueDate);
     const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
@@ -128,16 +130,28 @@ export const Component = forwardRef(function Component(
 
     function getNextOccurrence(): [Date | undefined, Status]
     {
-        let nextReminderStatus = Status.Scheduled;
-        let nextDueDate = Service.getDueDate(recurrencePattern, DueDateType.NextDueDate, dueDate ?? today);
-        const nextDueDuration = Service.getDueDuration(today, nextDueDate);
-        if (isNullOrUndefined(nextDueDuration) || nextDueDuration <= 0)
+        let newReminderStatus = Status.Scheduled;
+        let newDueDate = Service.getDueDate(recurrencePattern, DueDateType.NextDueDate, dueDate ?? today);
+        const isNewDueDateNotGreaterThanCurrentDueDate = !newDueDate || (isNotNullAndUndefined(dueDate) && newDueDate <= dueDate);
+        if (isNewDueDateNotGreaterThanCurrentDueDate)
         {
-            nextDueDate = undefined;
-            nextReminderStatus = isScheduled ? Status.Completed : Status.Scheduled;
+            newDueDate = undefined;
+            newReminderStatus = isScheduled ? Status.Completed : Status.Scheduled;
         }
 
-        return [nextDueDate, nextReminderStatus];
+        return [newDueDate, newReminderStatus];
+    }
+
+    function getPreviousOccurrence(): [Date | undefined, Status]
+    {
+        let newDueDate = Service.getDueDate(recurrencePattern, DueDateType.PreviousDueDate, dueDate ?? today);
+        const isNewDueDateNotLessThanCurrentDueDate = !newDueDate || (isNotNullAndUndefined(dueDate) && newDueDate >= dueDate);
+        if (isNewDueDateNotLessThanCurrentDueDate)
+        {
+            newDueDate = undefined;
+        }
+
+        return [newDueDate, Status.Scheduled];
     }
 
     function getIcon(): DefaultIconSet
@@ -272,6 +286,13 @@ export const Component = forwardRef(function Component(
                             value={recurrencePattern}
                             onChangeText={onRecurrencePatternChange}
                         />
+                        {(!isOriginallySuspended && !isOriginallyCompleted) && (<Toggle
+                            style={computedStyle.UndoToggle}
+                            icon={DefaultIconSet.History}
+                            status={isToBeUndone ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                            disabled={isSuspended || isToBeRescheduled}
+                            onChange={onUndoToggleStatusChange}
+                        />)}
                         <Toggle
                             style={computedStyle.SuspenseToggle}
                             icon={DefaultIconSet.Zzz}
@@ -296,7 +317,7 @@ export const Component = forwardRef(function Component(
                     style={computedStyle.RescheduleToggle}
                     icon={isOriginallyCompleted ? DefaultIconSet.History : DefaultIconSet.CheckMarkInsideCircle}
                     status={isToBeRescheduled ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                    disabled={isSuspended}
+                    disabled={isSuspended || isToBeUndone}
                     onChange={onRescheduleToggleStatusChange}
                 />)}
             </View>
@@ -365,6 +386,21 @@ export const Component = forwardRef(function Component(
         if (newToggleStatus === ToggleStatus.Checked)
         {
             [nextDueDate, nextReminderStatus] = getNextOccurrence();
+        }
+
+        onChange?.({
+            status: nextReminderStatus,
+            dueDate: nextDueDate
+        });
+    }
+
+    function onUndoToggleStatusChange(newToggleStatus: ToggleStatus): void
+    {
+        let nextDueDate = originalData?.dueDate;
+        let nextReminderStatus = originalData?.status ?? Status.Unscheduled;
+        if (newToggleStatus === ToggleStatus.Checked)
+        {
+            [nextDueDate, nextReminderStatus] = getPreviousOccurrence();
         }
 
         onChange?.({
