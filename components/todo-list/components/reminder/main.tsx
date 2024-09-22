@@ -67,7 +67,7 @@ export const Component = forwardRef(function Component(
     const {
         dueDuration, formattedDueDate, formattedDueDuration, isOverdue, isDue, pendingStatus, undoControlStatus, suspenseControlStatus,
         rescheduleControlStatus
-    } = stateMachine.getState();
+    } = stateMachine.getDerivedProperties();
 
     const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue, pendingStatus}});
 

@@ -4,7 +4,6 @@ import {getDueDate, getDueDuration} from "./recurrence-pattern";
 
 export class StateMachine
 {
-
     private readonly _today: Date;
     private readonly _mode: Mode;
     private readonly _recurrencePattern: string | undefined;
@@ -12,7 +11,6 @@ export class StateMachine
     private readonly _originalStatus: Status;
     private _status: Status;
     private _dueDate: Date | undefined;
-    private _pendingStatus: PendingStatus;
     private _undoControlStatus: ControlStatus;
     private _suspenseControlStatus: ControlStatus;
     private _rescheduleControlStatus: ControlStatus;
@@ -35,25 +33,36 @@ export class StateMachine
         this._status = initialState?.status ?? Status.Unscheduled;
         this._originalStatus = initialState?.originalStatus ?? Status.Unscheduled;
 
-        this._pendingStatus = PendingStatus.None;
         this._undoControlStatus = ControlStatus.Available;
         this._suspenseControlStatus = ControlStatus.Available;
         this._rescheduleControlStatus = ControlStatus.Available;
     }
 
-    getState()
+    getDerivedProperties()
     {
+        const pendingStatus = (this.isOriginallySuspended() || this.isOriginallyCompleted()) && this.isScheduled()
+            ? PendingStatus.ToBeReactivated
+            : !this.isOriginallySuspended() && this.isScheduled() && (this.isDueDateRescheduledBackward() || this.isDueDateUnassigned())
+                ? PendingStatus.ToBeUndone
+                : !this.isOriginallySuspended() && this.isScheduled() && (this.isDueDateRescheduledForward() || this.isDueDateReassigned())
+                    ? PendingStatus.ToBeRescheduled
+                    : PendingStatus.None;
+
+        function isToBeUndone() { return pendingStatus === PendingStatus.ToBeUndone; }
+        function isToBeReactivated() { return pendingStatus === PendingStatus.ToBeReactivated; }
+        function isToBeRescheduled() { return pendingStatus === PendingStatus.ToBeRescheduled; }
+
         this._undoControlStatus = !this._originalDueDate
             ? ControlStatus.Hidden
-            : this.isSuspended() || this.isCompleted() || this.isToBeRescheduled()
+            : this.isSuspended() || this.isCompleted() || isToBeRescheduled()
                 ? ControlStatus.Disabled
-                : this.isToBeUndone()
+                : isToBeUndone()
                     ? ControlStatus.Highlighted
                     : ControlStatus.Available;
 
         this._suspenseControlStatus = this._mode === Mode.ReadOnly
             ? ControlStatus.Hidden
-            : this.isToBeRescheduled() || this.isToBeUndone() || this.isCompleted()
+            : isToBeRescheduled() || isToBeUndone() || this.isCompleted()
                 ? ControlStatus.Disabled
                 : this.isSuspended()
                     ? ControlStatus.Highlighted
@@ -61,21 +70,11 @@ export class StateMachine
 
         this._rescheduleControlStatus = this._mode === Mode.Draft && this.isOriginallySuspended()
             ? ControlStatus.Hidden
-            : this.isSuspended() || this.isToBeUndone()
+            : this.isSuspended() || isToBeUndone()
                 ? ControlStatus.Disabled
-                : this.isToBeReactivated() || this.isToBeRescheduled() || this.isCompleted()
+                : isToBeReactivated() || isToBeRescheduled() || this.isCompleted()
                     ? ControlStatus.Highlighted
                     : ControlStatus.Available;
-
-        this._pendingStatus = this._pendingStatus !== PendingStatus.None
-            ? this._pendingStatus
-            : !this.isOriginallySuspended() && this.isScheduled() && (this.isDueDateRescheduledForward() || this.isDueDateReassigned())
-                ? PendingStatus.ToBeRescheduled
-                : !this.isOriginallySuspended() && this.isScheduled() && (this.isDueDateRescheduledBackward() || this.isDueDateUnassigned())
-                    ? PendingStatus.ToBeUndone
-                    : (this.isOriginallySuspended() || this.isOriginallyCompleted()) && this.isScheduled()
-                        ? PendingStatus.ToBeReactivated
-                        : PendingStatus.None;
 
         const dueDuration = getDueDuration(this._today, this._dueDate);
         const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
@@ -101,9 +100,9 @@ export class StateMachine
             isDue,
             isOverdue,
             dueDuration,
+            pendingStatus,
             formattedDueDate,
             formattedDueDuration,
-            pendingStatus: this._pendingStatus,
             undoControlStatus: this._undoControlStatus,
             suspenseControlStatus: this._suspenseControlStatus,
             rescheduleControlStatus: this._rescheduleControlStatus
@@ -200,12 +199,6 @@ export class StateMachine
     private isOriginallySuspended() { return this._originalStatus === Status.Suspended; }
 
     private isOriginallyCompleted() { return this._originalStatus === Status.Completed; }
-
-    private isToBeReactivated() { return this._pendingStatus === PendingStatus.ToBeReactivated; }
-
-    private isToBeRescheduled() { return this._pendingStatus === PendingStatus.ToBeRescheduled; }
-
-    private isToBeUndone() { return this._pendingStatus === PendingStatus.ToBeUndone; }
 }
 
 type RescheduleResult = { newDueDate: Date | undefined, newStatus: Status };
