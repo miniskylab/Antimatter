@@ -1,12 +1,8 @@
 import {DropdownMenu, DropdownMenuProps, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {
     type AllPropertiesMustPresent,
-    DateFormat,
     EMPTY_STRING,
-    GregorianCalendar,
-    isNotNullAndUndefined,
     isNullOrUndefined,
-    TimeUnit,
     Ts,
     useComponentContext,
     useComputedStyle
@@ -21,9 +17,9 @@ import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef} from "react";
-import {DueDateType, Mode, Status, TagMetadata, TagStatus} from "./enums";
+import {ControlStatus, Mode, PendingStatus, Status, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext} from "./models";
-import * as Service from "./services";
+import {StateMachine} from "./services";
 
 export const Component = forwardRef(function Component(
     {
@@ -59,29 +55,21 @@ export const Component = forwardRef(function Component(
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
     const today = new Date();
-    const isDraft = mode === Mode.Draft;
-    const isScheduled = status === Status.Scheduled;
-    const isSuspended = status === Status.Suspended;
-    const isCompleted = status === Status.Completed;
-    const isOriginallyCompleted = originalData?.status === Status.Completed;
-    const isOriginallySuspended = originalData?.status === Status.Suspended;
-    const isDueDateUnassigned = !!originalData && !!originalData.dueDate && !dueDate;
-    const isDueDateReassigned = !!originalData && !originalData.dueDate && !!dueDate;
-    const isDueDateRescheduledForward = !!originalData?.dueDate && !!dueDate && dueDate > originalData.dueDate;
-    const isDueDateRescheduledBackward = !!originalData?.dueDate && !!dueDate && dueDate < originalData.dueDate;
-    const isToBeUndone = !isOriginallySuspended && isScheduled && (isDueDateRescheduledBackward || isDueDateUnassigned);
-    const isToBeRescheduled = !isOriginallySuspended && isScheduled && (isDueDateRescheduledForward || isDueDateReassigned);
-    const isToBeReactivated = (isOriginallySuspended || isOriginallyCompleted) && isScheduled;
-    const isToBeCompleted = !isOriginallyCompleted && isCompleted;
-    const dueDuration = Service.getDueDuration(today, dueDate);
-    const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
-    const isDue = dueDuration === 0;
-    const formattedDueDate = getFormattedDueDate();
-    const formattedDueDuration = getFormattedDueDuration();
-
-    const context = useComponentContext<ReminderContext>({
-        props, extra: {isDue, isOverdue, isToBeUndone, isToBeRescheduled, isToBeReactivated}
+    const stateMachine = new StateMachine({
+        today,
+        recurrencePattern,
+        dueDate,
+        mode,
+        status,
+        originalDueDate: originalData?.dueDate,
+        originalStatus: originalData?.status
     });
+    const {
+        dueDuration, formattedDueDate, formattedDueDuration, isOverdue, isDue, pendingStatus, undoControlStatus, suspenseControlStatus,
+        rescheduleControlStatus
+    } = stateMachine.getState();
+
+    const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue, pendingStatus}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -134,39 +122,15 @@ export const Component = forwardRef(function Component(
         </ReminderContext.Provider>
     );
 
-    function getNextOccurrence(): [Date | undefined, Status]
-    {
-        let newReminderStatus = Status.Scheduled;
-        let newDueDate = Service.getDueDate(recurrencePattern, DueDateType.NextDueDate, dueDate ?? today);
-        const isNewDueDateNotGreaterThanCurrentDueDate = !newDueDate || (isNotNullAndUndefined(dueDate) && newDueDate <= dueDate);
-        if (isNewDueDateNotGreaterThanCurrentDueDate)
-        {
-            newDueDate = undefined;
-            newReminderStatus = isScheduled ? Status.Completed : Status.Scheduled;
-        }
-
-        return [newDueDate, newReminderStatus];
-    }
-
-    function getPreviousOccurrence(): [Date | undefined, Status]
-    {
-        let newDueDate = Service.getDueDate(recurrencePattern, DueDateType.PreviousDueDate, dueDate ?? today);
-        const isNewDueDateNotLessThanCurrentDueDate = !newDueDate || (isNotNullAndUndefined(dueDate) && newDueDate >= dueDate);
-        if (isNewDueDateNotLessThanCurrentDueDate)
-        {
-            newDueDate = undefined;
-        }
-
-        return [newDueDate, Status.Scheduled];
-    }
-
     function getIcon(): DefaultIconSet
     {
-        return isCompleted
+        return status === Status.Completed
             ? DefaultIconSet.CheckMarkInsideCircle
-            : isSuspended
+            : status === Status.Suspended
                 ? DefaultIconSet.Zzz
-                : isToBeRescheduled || isToBeReactivated || isToBeUndone
+                : pendingStatus === PendingStatus.ToBeRescheduled ||
+                  pendingStatus === PendingStatus.ToBeReactivated ||
+                  pendingStatus === PendingStatus.ToBeUndone
                     ? DefaultIconSet.History
                     : isOverdue
                         ? DefaultIconSet.ExclamationMarkInsideCircle
@@ -209,28 +173,6 @@ export const Component = forwardRef(function Component(
         });
 
         return dropdownMenuItems;
-    }
-
-    function getFormattedDueDate(): string
-    {
-        return isSuspended
-            ? "Suspended"
-            : isCompleted
-                ? "Completed"
-                : dueDate
-                    ? GregorianCalendar.toString(dueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
-                    : "No due date";
-    }
-
-    function getFormattedDueDuration(): string | undefined
-    {
-        return isCompleted || isSuspended || isNullOrUndefined(dueDuration)
-            ? undefined
-            : isDue
-                ? "Today"
-                : dueDuration > 0
-                    ? dueDuration === 1 ? "Tomorrow" : `In ${dueDuration} days`
-                    : dueDuration === -1 ? "Yesterday" : `${Math.abs(dueDuration)} days ago`;
     }
 
     function renderName(): JSX.Element
@@ -292,20 +234,20 @@ export const Component = forwardRef(function Component(
                             value={recurrencePattern}
                             onChangeText={onRecurrencePatternChange}
                         />
-                        {!!originalData?.dueDate && (<Toggle
+                        {undoControlStatus !== ControlStatus.Hidden && (<Toggle
                             style={computedStyle.UndoToggle}
                             icon={DefaultIconSet.History}
-                            status={isToBeUndone ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                            disabled={isToBeRescheduled || isToBeCompleted || isSuspended}
+                            status={undoControlStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                            disabled={undoControlStatus === ControlStatus.Disabled}
                             onChange={onUndoToggleStatusChange}
                         />)}
-                        <Toggle
+                        {suspenseControlStatus !== ControlStatus.Hidden && <Toggle
                             style={computedStyle.SuspenseToggle}
                             icon={DefaultIconSet.Zzz}
-                            status={isSuspended ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                            disabled={isToBeRescheduled || isToBeCompleted || isToBeUndone}
+                            status={suspenseControlStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                            disabled={suspenseControlStatus === ControlStatus.Disabled}
                             onChange={onSuspenseToggleStatusChange}
-                        />
+                        />}
                     </>
                 )}
                 <NumericInputField
@@ -319,11 +261,11 @@ export const Component = forwardRef(function Component(
                     keyboardType={"number-pad"}
                     onChange={onNotificationIntervalChange}
                 />
-                {(!isDraft && !isOriginallySuspended) && (<Toggle
+                {rescheduleControlStatus !== ControlStatus.Hidden && (<Toggle
                     style={computedStyle.RescheduleToggle}
                     icon={!originalData?.dueDate ? DefaultIconSet.History : DefaultIconSet.CheckMarkInsideCircle}
-                    status={isToBeReactivated || isToBeRescheduled || isToBeCompleted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                    disabled={isSuspended || isToBeUndone}
+                    status={rescheduleControlStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    disabled={rescheduleControlStatus === ControlStatus.Disabled}
                     onChange={onRescheduleToggleStatusChange}
                 />)}
             </View>
@@ -355,63 +297,37 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onRecurrencePatternChange(newText: string): void
-    {
-        onChange?.({
-            recurrencePattern: newText,
-            dueDate: Service.getDueDate(newText, DueDateType.NextDueDate, today)
-        });
-    }
+    function onRecurrencePatternChange(newText: string): void { onChange?.({recurrencePattern: newText}); }
 
     function onNotificationIntervalChange(newValue: number | undefined): void { onChange?.({notificationInterval: newValue}); }
 
     function onSuspenseToggleStatusChange(newToggleStatus: ToggleStatus): void
     {
-        let nextDueDate = originalData?.dueDate;
-        let nextReminderStatus = originalData?.status ?? Status.Unscheduled;
-        if (!isOriginallySuspended && newToggleStatus === ToggleStatus.Checked)
-        {
-            nextReminderStatus = Status.Suspended;
-            nextDueDate = undefined;
-        }
-        else if (isOriginallySuspended && newToggleStatus === ToggleStatus.Unchecked)
-        {
-            [nextDueDate, nextReminderStatus] = getNextOccurrence();
-        }
-
+        const newSuspenseControlStatus = newToggleStatus === ToggleStatus.Checked ? ControlStatus.Highlighted : ControlStatus.Available;
+        const {newDueDate, newStatus} = stateMachine.toggleSuspense(newSuspenseControlStatus);
         onChange?.({
-            status: nextReminderStatus,
-            dueDate: nextDueDate
+            status: newStatus,
+            dueDate: newDueDate
         });
     }
 
     function onRescheduleToggleStatusChange(newToggleStatus: ToggleStatus): void
     {
-        let nextDueDate = originalData?.dueDate;
-        let nextReminderStatus = originalData?.status ?? Status.Unscheduled;
-        if (newToggleStatus === ToggleStatus.Checked)
-        {
-            [nextDueDate, nextReminderStatus] = getNextOccurrence();
-        }
-
+        const newRescheduleControlStatus = newToggleStatus === ToggleStatus.Checked ? ControlStatus.Highlighted : ControlStatus.Available;
+        const {newDueDate, newStatus} = stateMachine.toggleReschedule(newRescheduleControlStatus);
         onChange?.({
-            status: nextReminderStatus,
-            dueDate: nextDueDate
+            status: newStatus,
+            dueDate: newDueDate
         });
     }
 
     function onUndoToggleStatusChange(newToggleStatus: ToggleStatus): void
     {
-        let nextDueDate = originalData?.dueDate;
-        let nextReminderStatus = originalData?.status ?? Status.Unscheduled;
-        if (newToggleStatus === ToggleStatus.Checked)
-        {
-            [nextDueDate, nextReminderStatus] = getPreviousOccurrence();
-        }
-
+        const newUndoControlStatus = newToggleStatus === ToggleStatus.Checked ? ControlStatus.Highlighted : ControlStatus.Available;
+        const {newDueDate, newStatus} = stateMachine.toggleUndo(newUndoControlStatus);
         onChange?.({
-            status: nextReminderStatus,
-            dueDate: nextDueDate
+            status: newStatus,
+            dueDate: newDueDate
         });
     }
 });

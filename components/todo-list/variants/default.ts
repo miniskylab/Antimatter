@@ -364,9 +364,9 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const isToBeUndone = reminderContext.extra.isToBeUndone;
-    const isToBeReactivated = reminderContext.extra.isToBeReactivated;
-    const isToBeRescheduled = reminderContext.extra.isToBeRescheduled;
+    const isToBeUndone = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeUndone;
+    const isToBeReactivated = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeReactivated;
+    const isToBeRescheduled = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeRescheduled;
     const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
     const isSuspended = reminderContext.props.status === Reminder.Status.Suspended;
 
