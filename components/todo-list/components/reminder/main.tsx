@@ -65,8 +65,8 @@ export const Component = forwardRef(function Component(
         originalStatus: originalData?.status
     });
     const {
-        dueDuration, formattedDueDate, formattedDueDuration, isOverdue, isDue, pendingStatus, undoControlStatus, suspenseControlStatus,
-        rescheduleControlStatus
+        dueDuration, formattedDueDate, formattedDueDuration, isOverdue, isDue, pendingStatus, suspenseToggleStatus,
+        rescheduleForwardToggleStatus, rescheduleBackwardToggleStatus, recurrencePatternInputFieldStatus
     } = stateMachine.getDerivedProperties();
 
     const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue, pendingStatus}});
@@ -128,9 +128,9 @@ export const Component = forwardRef(function Component(
             ? DefaultIconSet.CheckMarkInsideCircle
             : status === Status.Suspended
                 ? DefaultIconSet.Zzz
-                : pendingStatus === PendingStatus.ToBeRescheduled ||
-                  pendingStatus === PendingStatus.ToBeReactivated ||
-                  pendingStatus === PendingStatus.ToBeUndone
+                : pendingStatus === PendingStatus.ToBeReactivated ||
+                  pendingStatus === PendingStatus.ToBeRescheduledForward ||
+                  pendingStatus === PendingStatus.ToBeRescheduledBackward
                     ? DefaultIconSet.History
                     : isOverdue
                         ? DefaultIconSet.ExclamationMarkInsideCircle
@@ -226,29 +226,13 @@ export const Component = forwardRef(function Component(
     {
         return (
             <View style={computedStyle.ExpansionArea}>
-                {(mode === Mode.Draft || mode === Mode.Edit) && (
-                    <>
-                        <InputField
-                            style={computedStyle.RecurrencePatternInputField}
-                            placeholder={recurrencePatternPlaceholder}
-                            value={recurrencePattern}
-                            onChangeText={onRecurrencePatternChange}
-                        />
-                        {undoControlStatus !== ControlStatus.Hidden && (<Toggle
-                            style={computedStyle.UndoToggle}
-                            icon={DefaultIconSet.History}
-                            status={undoControlStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                            disabled={undoControlStatus === ControlStatus.Disabled}
-                            onChange={onUndoToggleStatusChange}
-                        />)}
-                        {suspenseControlStatus !== ControlStatus.Hidden && <Toggle
-                            style={computedStyle.SuspenseToggle}
-                            icon={DefaultIconSet.Zzz}
-                            status={suspenseControlStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                            disabled={suspenseControlStatus === ControlStatus.Disabled}
-                            onChange={onSuspenseToggleStatusChange}
-                        />}
-                    </>
+                {recurrencePatternInputFieldStatus !== ControlStatus.Hidden && (
+                    <InputField
+                        style={computedStyle.RecurrencePatternInputField}
+                        placeholder={recurrencePatternPlaceholder}
+                        value={recurrencePattern}
+                        onChangeText={onRecurrencePatternChange}
+                    />
                 )}
                 <NumericInputField
                     style={computedStyle.NotificationIntervalNumericInputField}
@@ -261,12 +245,26 @@ export const Component = forwardRef(function Component(
                     keyboardType={"number-pad"}
                     onChange={onNotificationIntervalChange}
                 />
-                {rescheduleControlStatus !== ControlStatus.Hidden && (<Toggle
-                    style={computedStyle.RescheduleToggle}
+                {suspenseToggleStatus !== ControlStatus.Hidden && <Toggle
+                    style={computedStyle.SuspenseToggle}
+                    icon={DefaultIconSet.Zzz}
+                    status={suspenseToggleStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    disabled={suspenseToggleStatus === ControlStatus.Disabled}
+                    onChange={onSuspenseToggleStatusChange}
+                />}
+                {rescheduleForwardToggleStatus !== ControlStatus.Hidden && (<Toggle
+                    style={computedStyle.RescheduleForwardToggle}
                     icon={!originalData?.dueDate ? DefaultIconSet.History : DefaultIconSet.CheckMarkInsideCircle}
-                    status={rescheduleControlStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
-                    disabled={rescheduleControlStatus === ControlStatus.Disabled}
-                    onChange={onRescheduleToggleStatusChange}
+                    status={rescheduleForwardToggleStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    disabled={rescheduleForwardToggleStatus === ControlStatus.Disabled}
+                    onChange={onRescheduleForwardToggleStatusChange}
+                />)}
+                {rescheduleBackwardToggleStatus !== ControlStatus.Hidden && (<Toggle
+                    style={computedStyle.RescheduleBackwardToggle}
+                    icon={DefaultIconSet.History}
+                    status={rescheduleBackwardToggleStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    disabled={rescheduleBackwardToggleStatus === ControlStatus.Disabled}
+                    onChange={onRescheduleBackwardToggleStatusChange}
                 />)}
             </View>
         );
@@ -311,20 +309,26 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onRescheduleToggleStatusChange(newToggleStatus: ToggleStatus): void
+    function onRescheduleForwardToggleStatusChange(newToggleStatus: ToggleStatus): void
     {
-        const newRescheduleControlStatus = newToggleStatus === ToggleStatus.Checked ? ControlStatus.Highlighted : ControlStatus.Available;
-        const {newDueDate, newStatus} = stateMachine.toggleReschedule(newRescheduleControlStatus);
+        const newRescheduleForwardControlStatus = newToggleStatus === ToggleStatus.Checked
+            ? ControlStatus.Highlighted
+            : ControlStatus.Available;
+
+        const {newDueDate, newStatus} = stateMachine.toggleRescheduleForward(newRescheduleForwardControlStatus);
         onChange?.({
             status: newStatus,
             dueDate: newDueDate
         });
     }
 
-    function onUndoToggleStatusChange(newToggleStatus: ToggleStatus): void
+    function onRescheduleBackwardToggleStatusChange(newToggleStatus: ToggleStatus): void
     {
-        const newUndoControlStatus = newToggleStatus === ToggleStatus.Checked ? ControlStatus.Highlighted : ControlStatus.Available;
-        const {newDueDate, newStatus} = stateMachine.toggleUndo(newUndoControlStatus);
+        const newRescheduleBackwardControlStatus = newToggleStatus === ToggleStatus.Checked
+            ? ControlStatus.Highlighted
+            : ControlStatus.Available;
+
+        const {newDueDate, newStatus} = stateMachine.toggleRescheduleBackward(newRescheduleBackwardControlStatus);
         onChange?.({
             status: newStatus,
             dueDate: newDueDate

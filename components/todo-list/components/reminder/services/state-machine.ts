@@ -11,9 +11,10 @@ export class StateMachine
     private readonly _originalStatus: Status;
     private _status: Status;
     private _dueDate: Date | undefined;
-    private _undoControlStatus: ControlStatus;
-    private _suspenseControlStatus: ControlStatus;
-    private _rescheduleControlStatus: ControlStatus;
+    private _suspenseToggleStatus: ControlStatus;
+    private _rescheduleForwardToggleStatus: ControlStatus;
+    private _rescheduleBackwardToggleStatus: ControlStatus;
+    private _recurrencePatternInputFieldStatus: ControlStatus;
 
     constructor(initialState?: {
         today?: Date;
@@ -33,9 +34,10 @@ export class StateMachine
         this._status = initialState?.status ?? Status.Unscheduled;
         this._originalStatus = initialState?.originalStatus ?? Status.Unscheduled;
 
-        this._undoControlStatus = ControlStatus.Available;
-        this._suspenseControlStatus = ControlStatus.Available;
-        this._rescheduleControlStatus = ControlStatus.Available;
+        this._suspenseToggleStatus = ControlStatus.Available;
+        this._rescheduleForwardToggleStatus = ControlStatus.Available;
+        this._rescheduleBackwardToggleStatus = ControlStatus.Available;
+        this._recurrencePatternInputFieldStatus = ControlStatus.Available;
     }
 
     getDerivedProperties()
@@ -43,36 +45,41 @@ export class StateMachine
         const pendingStatus = (this.isOriginallySuspended() || this.isOriginallyCompleted()) && this.isScheduled()
             ? PendingStatus.ToBeReactivated
             : !this.isOriginallySuspended() && this.isScheduled() && (this.isDueDateRescheduledBackward() || this.isDueDateUnassigned())
-                ? PendingStatus.ToBeUndone
+                ? PendingStatus.ToBeRescheduledBackward
                 : !this.isOriginallySuspended() && this.isScheduled() && (this.isDueDateRescheduledForward() || this.isDueDateReassigned())
-                    ? PendingStatus.ToBeRescheduled
+                    ? PendingStatus.ToBeRescheduledForward
                     : PendingStatus.None;
 
-        function isToBeUndone() { return pendingStatus === PendingStatus.ToBeUndone; }
-        function isToBeReactivated() { return pendingStatus === PendingStatus.ToBeReactivated; }
-        function isToBeRescheduled() { return pendingStatus === PendingStatus.ToBeRescheduled; }
+        const isToBeReactivated = () => pendingStatus === PendingStatus.ToBeReactivated;
+        const isToBeRescheduledForward = () => pendingStatus === PendingStatus.ToBeRescheduledForward;
+        const isToBeRescheduledBackward = () => pendingStatus === PendingStatus.ToBeRescheduledBackward;
+        const isDraftOrEditMode = () => this._mode === Mode.Draft || this._mode === Mode.Edit;
 
-        this._undoControlStatus = !this._originalDueDate
+        this._recurrencePatternInputFieldStatus = !isDraftOrEditMode()
             ? ControlStatus.Hidden
-            : this.isSuspended() || this.isCompleted() || isToBeRescheduled()
+            : ControlStatus.Available;
+
+        this._rescheduleBackwardToggleStatus = !this._originalDueDate || !isDraftOrEditMode()
+            ? ControlStatus.Hidden
+            : this.isSuspended() || this.isCompleted() || isToBeRescheduledForward()
                 ? ControlStatus.Disabled
-                : isToBeUndone()
+                : isToBeRescheduledBackward()
                     ? ControlStatus.Highlighted
                     : ControlStatus.Available;
 
-        this._suspenseControlStatus = this._mode === Mode.ReadOnly
+        this._suspenseToggleStatus = !isDraftOrEditMode()
             ? ControlStatus.Hidden
-            : isToBeRescheduled() || isToBeUndone() || this.isCompleted()
+            : isToBeRescheduledForward() || isToBeRescheduledBackward() || this.isCompleted()
                 ? ControlStatus.Disabled
                 : this.isSuspended()
                     ? ControlStatus.Highlighted
                     : ControlStatus.Available;
 
-        this._rescheduleControlStatus = this._mode === Mode.Draft && this.isOriginallySuspended()
+        this._rescheduleForwardToggleStatus = this._mode === Mode.Draft && this.isOriginallySuspended()
             ? ControlStatus.Hidden
-            : this.isSuspended() || isToBeUndone()
+            : this.isSuspended() || isToBeRescheduledBackward()
                 ? ControlStatus.Disabled
-                : isToBeReactivated() || isToBeRescheduled() || this.isCompleted()
+                : isToBeReactivated() || isToBeRescheduledForward() || this.isCompleted()
                     ? ControlStatus.Highlighted
                     : ControlStatus.Available;
 
@@ -103,51 +110,52 @@ export class StateMachine
             pendingStatus,
             formattedDueDate,
             formattedDueDuration,
-            undoControlStatus: this._undoControlStatus,
-            suspenseControlStatus: this._suspenseControlStatus,
-            rescheduleControlStatus: this._rescheduleControlStatus
+            suspenseToggleStatus: this._suspenseToggleStatus,
+            rescheduleForwardToggleStatus: this._rescheduleForwardToggleStatus,
+            rescheduleBackwardToggleStatus: this._rescheduleBackwardToggleStatus,
+            recurrencePatternInputFieldStatus: this._recurrencePatternInputFieldStatus
         };
     }
 
-    toggleSuspense(newSuspenseControlStatus: ControlStatus.Available | ControlStatus.Highlighted): RescheduleResult
+    toggleSuspense(newSuspenseToggleStatus: ControlStatus.Available | ControlStatus.Highlighted): RescheduleResult
     {
         this._dueDate = this._originalDueDate;
         this._status = this._originalStatus ?? Status.Unscheduled;
-        if (!this.isOriginallySuspended() && newSuspenseControlStatus === ControlStatus.Highlighted)
+        if (!this.isOriginallySuspended() && newSuspenseToggleStatus === ControlStatus.Highlighted)
         {
-            this._suspenseControlStatus = newSuspenseControlStatus;
+            this._suspenseToggleStatus = ControlStatus.Highlighted;
             this._status = Status.Suspended;
             this._dueDate = undefined;
         }
-        else if (this.isOriginallySuspended() && newSuspenseControlStatus === ControlStatus.Available)
+        else if (this.isOriginallySuspended() && newSuspenseToggleStatus === ControlStatus.Available)
         {
-            this._suspenseControlStatus = newSuspenseControlStatus;
+            this._suspenseToggleStatus = ControlStatus.Available;
             this.goToNextOccurrence();
         }
 
         return {newDueDate: this._dueDate, newStatus: this._status};
     }
 
-    toggleReschedule(newRescheduleControlStatus: ControlStatus.Available | ControlStatus.Highlighted): RescheduleResult
+    toggleRescheduleForward(newRescheduleForwardToggleStatus: ControlStatus.Available | ControlStatus.Highlighted): RescheduleResult
     {
         this._dueDate = this._originalDueDate;
         this._status = this._originalStatus ?? Status.Unscheduled;
-        if (newRescheduleControlStatus === ControlStatus.Highlighted)
+        if (newRescheduleForwardToggleStatus === ControlStatus.Highlighted)
         {
-            this._rescheduleControlStatus = newRescheduleControlStatus;
+            this._rescheduleForwardToggleStatus = ControlStatus.Highlighted;
             this.goToNextOccurrence();
         }
 
         return {newDueDate: this._dueDate, newStatus: this._status};
     }
 
-    toggleUndo(newUndoControlStatus: ControlStatus.Available | ControlStatus.Highlighted): RescheduleResult
+    toggleRescheduleBackward(newRescheduleBackwardToggleStatus: ControlStatus.Available | ControlStatus.Highlighted): RescheduleResult
     {
         this._dueDate = this._originalDueDate;
         this._status = this._originalStatus ?? Status.Unscheduled;
-        if (newUndoControlStatus === ControlStatus.Highlighted)
+        if (newRescheduleBackwardToggleStatus === ControlStatus.Highlighted)
         {
-            this._undoControlStatus = newUndoControlStatus;
+            this._rescheduleBackwardToggleStatus = ControlStatus.Highlighted;
             this.goToPreviousOccurrence();
         }
 

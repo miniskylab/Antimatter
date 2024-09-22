@@ -364,9 +364,9 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const isToBeUndone = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeUndone;
     const isToBeReactivated = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeReactivated;
-    const isToBeRescheduled = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeRescheduled;
+    const isToBeRescheduledForward = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeRescheduledForward;
+    const isToBeRescheduledBackward = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeRescheduledBackward;
     const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
     const isSuspended = reminderContext.props.status === Reminder.Status.Suspended;
 
@@ -377,12 +377,12 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
         height: 30,
         marginTop: 7,
         fontSize: 28,
-        transform: [{scaleX: isToBeRescheduled || isToBeReactivated ? -1 : 1}],
+        transform: [{scaleX: isToBeRescheduledForward || isToBeReactivated ? -1 : 1}],
         color: isSuspended
             ? Color.Neutral
-            : isCompleted || isToBeRescheduled || isToBeReactivated
+            : isCompleted || isToBeRescheduledForward || isToBeReactivated
                 ? Color.Green
-                : isToBeUndone || reminderContext.extra.isDue
+                : isToBeRescheduledBackward || reminderContext.extra.isDue
                     ? Color.Gold
                     : reminderContext.extra.isOverdue
                         ? Color.Coral
@@ -963,7 +963,7 @@ const TodoList__Reminder__SuspenseToggle: ToggleStyle = function (toggleProps)
     };
 };
 
-const TodoList__Reminder__RescheduleToggle__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__RescheduleForwardToggle__Root: ViewStyle = function (viewProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
@@ -976,7 +976,7 @@ const TodoList__Reminder__RescheduleToggle__Root: ViewStyle = function (viewProp
     };
 };
 
-const TodoList__Reminder__RescheduleToggle__Icon: IconStyle = function (iconProps)
+const TodoList__Reminder__RescheduleForwardToggle__Icon: IconStyle = function (iconProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
     const reminderContext = Reminder.ContextHook.useReminderContext();
@@ -993,16 +993,16 @@ const TodoList__Reminder__RescheduleToggle__Icon: IconStyle = function (iconProp
     };
 };
 
-const TodoList__Reminder__RescheduleToggle: ToggleStyle = function (toggleProps)
+const TodoList__Reminder__RescheduleForwardToggle: ToggleStyle = function (toggleProps)
 {
     return {
         ...TodoList__Reminder__SuspenseToggle(toggleProps),
-        Root: TodoList__Reminder__RescheduleToggle__Root,
-        Icon: TodoList__Reminder__RescheduleToggle__Icon
+        Root: TodoList__Reminder__RescheduleForwardToggle__Root,
+        Icon: TodoList__Reminder__RescheduleForwardToggle__Icon
     };
 };
 
-const TodoList__Reminder__UndoToggle__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__RescheduleBackwardToggle__Root: ViewStyle = function (viewProps)
 {
     return {
         ...TodoList__Reminder__SuspenseToggle__Root(viewProps),
@@ -1010,11 +1010,11 @@ const TodoList__Reminder__UndoToggle__Root: ViewStyle = function (viewProps)
     };
 };
 
-const TodoList__Reminder__UndoToggle: ToggleStyle = function (toggleProps)
+const TodoList__Reminder__RescheduleBackwardToggle: ToggleStyle = function (toggleProps)
 {
     return {
         ...TodoList__Reminder__SuspenseToggle(toggleProps),
-        Root: TodoList__Reminder__UndoToggle__Root
+        Root: TodoList__Reminder__RescheduleBackwardToggle__Root
     };
 };
 
@@ -1037,8 +1037,8 @@ const TodoList__Reminder: Reminder.Style = function ()
         RecurrencePatternInputField: TodoList__Reminder__RecurrencePatternInputField,
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
         SuspenseToggle: TodoList__Reminder__SuspenseToggle,
-        UndoToggle: TodoList__Reminder__UndoToggle,
-        RescheduleToggle: TodoList__Reminder__RescheduleToggle,
+        RescheduleForwardToggle: TodoList__Reminder__RescheduleForwardToggle,
+        RescheduleBackwardToggle: TodoList__Reminder__RescheduleBackwardToggle,
         ProgressStripes: TodoList__Reminder__ProgressStripes
     };
 };
