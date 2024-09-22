@@ -1,5 +1,5 @@
 import {ControlStatus, DueDateType, Mode, PendingStatus, Status} from "../enums";
-import {getDueDate} from "./recurrence-pattern";
+import {getDueDate, getDueDuration} from "./recurrence-pattern";
 
 export const StateMachine = new class
 {
@@ -23,7 +23,6 @@ export const StateMachine = new class
         recurrencePattern?: string,
         dueDate?: Date,
         originalDueDate?: Date,
-        dueDuration?: number,
         mode?: Mode,
         status?: Status,
         originalStatus?: Status,
@@ -36,7 +35,6 @@ export const StateMachine = new class
         this._recurrencePattern = newState?.recurrencePattern;
         this._dueDate = newState?.dueDate;
         this._originalDueDate = newState?.originalDueDate;
-        this._dueDuration = newState?.dueDuration;
         this._mode = newState?.mode ?? Mode.ReadOnly;
         this._status = newState?.status ?? Status.Unscheduled;
         this._originalStatus = newState?.originalStatus ?? Status.Unscheduled;
@@ -45,6 +43,7 @@ export const StateMachine = new class
         this._rescheduleControlStatus = newState?.rescheduleControlStatus ?? ControlStatus.Available;
 
         this._pendingStatus = PendingStatus.None;
+        this._dueDuration = getDueDuration(this._today, this._dueDate);
     }
 
     getState()
