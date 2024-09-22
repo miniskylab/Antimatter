@@ -1,3 +1,4 @@
+import {isNotNullAndUndefined} from "@miniskylab/antimatter-framework";
 import {ControlStatus, DueDateType, Mode, PendingStatus, Status} from "../enums";
 import {getDueDate, getDueDuration} from "./recurrence-pattern";
 
@@ -7,7 +8,6 @@ export const StateMachine = new class
     private _recurrencePattern: string | undefined;
     private _dueDate: Date | undefined;
     private _originalDueDate: Date | undefined;
-    private _dueDuration: number | undefined;
     private _mode: Mode;
     private _status: Status;
     private _originalStatus: Status;
@@ -43,7 +43,6 @@ export const StateMachine = new class
         this._rescheduleControlStatus = newState?.rescheduleControlStatus ?? ControlStatus.Available;
 
         this._pendingStatus = PendingStatus.None;
-        this._dueDuration = getDueDuration(this._today, this._dueDate);
     }
 
     getState()
@@ -80,9 +79,13 @@ export const StateMachine = new class
                         ? PendingStatus.ToBeReactivated
                         : PendingStatus.None;
 
+        const dueDuration = getDueDuration(this._today, this._dueDate);
+
         return {
+            dueDuration,
+            isDue: dueDuration === 0,
+            isOverdue: isNotNullAndUndefined(dueDuration) && dueDuration < 0,
             dueDate: this._dueDate,
-            dueDuration: this._dueDuration,
             pendingStatus: this._pendingStatus,
             undoControlStatus: this._undoControlStatus,
             suspenseControlStatus: this._suspenseControlStatus,
