@@ -6,9 +6,9 @@ export class StateMachine
 {
     private readonly _today: Date;
     private readonly _mode: Mode;
-    private readonly _recurrencePattern: string | undefined;
-    private readonly _originalDueDate: Date | undefined;
     private readonly _originalStatus: Status;
+    private readonly _originalDueDate: Date | undefined;
+    private readonly _recurrencePattern: string | undefined;
     private _status: Status;
     private _dueDate: Date | undefined;
     private _suspenseToggleStatus: ControlStatus;
@@ -42,30 +42,26 @@ export class StateMachine
 
     getDerivedProperties()
     {
-        const pendingStatus = (this.isOriginallySuspended() || this.isOriginallyCompleted()) && this.isScheduled()
-            ? PendingStatus.ToBeReactivated
-            : !this.isOriginallySuspended() && this.isScheduled() && (this.isDueDateRescheduledBackward() || this.isDueDateUnassigned())
-                ? PendingStatus.ToBeRescheduledBackward
-                : !this.isOriginallySuspended() && this.isScheduled() && (this.isDueDateRescheduledForward() || this.isDueDateReassigned())
-                    ? PendingStatus.ToBeRescheduledForward
-                    : PendingStatus.None;
+        const isDraftOrEditMode = () => this._mode === Mode.Draft || this._mode === Mode.Edit;
+        const isSelected = () => this._mode === Mode.Draft || this._mode === Mode.Edit || this._mode === Mode.Dismiss;
+
+        const pendingStatus = !isSelected()
+            ? PendingStatus.None
+            : !this.isOriginallySuspended() && this.isScheduled() && (this.isDueDateRescheduledForward() || this.isDueDateReassigned())
+                ? PendingStatus.ToBeRescheduledForward
+                : !this.isOriginallySuspended() && this.isScheduled() && (this.isDueDateRescheduledBackward() || this.isDueDateUnassigned())
+                    ? PendingStatus.ToBeRescheduledBackward
+                    : (this.isOriginallySuspended() || this.isOriginallyCompleted()) && this.isScheduled()
+                        ? PendingStatus.ToBeReactivated
+                        : PendingStatus.None;
 
         const isToBeReactivated = () => pendingStatus === PendingStatus.ToBeReactivated;
         const isToBeRescheduledForward = () => pendingStatus === PendingStatus.ToBeRescheduledForward;
         const isToBeRescheduledBackward = () => pendingStatus === PendingStatus.ToBeRescheduledBackward;
-        const isDraftOrEditMode = () => this._mode === Mode.Draft || this._mode === Mode.Edit;
 
         this._recurrencePatternInputFieldStatus = !isDraftOrEditMode()
             ? ControlStatus.Hidden
             : ControlStatus.Available;
-
-        this._rescheduleBackwardToggleStatus = !this._originalDueDate || !isDraftOrEditMode()
-            ? ControlStatus.Hidden
-            : this.isSuspended() || this.isCompleted() || isToBeRescheduledForward()
-                ? ControlStatus.Disabled
-                : isToBeRescheduledBackward()
-                    ? ControlStatus.Highlighted
-                    : ControlStatus.Available;
 
         this._suspenseToggleStatus = !isDraftOrEditMode()
             ? ControlStatus.Hidden
@@ -75,11 +71,19 @@ export class StateMachine
                     ? ControlStatus.Highlighted
                     : ControlStatus.Available;
 
-        this._rescheduleForwardToggleStatus = this._mode === Mode.Draft && this.isOriginallySuspended()
+        this._rescheduleForwardToggleStatus = this._mode === Mode.Draft || this.isOriginallySuspended()
             ? ControlStatus.Hidden
             : this.isSuspended() || isToBeRescheduledBackward()
                 ? ControlStatus.Disabled
                 : isToBeReactivated() || isToBeRescheduledForward() || this.isCompleted()
+                    ? ControlStatus.Highlighted
+                    : ControlStatus.Available;
+
+        this._rescheduleBackwardToggleStatus = !this._originalDueDate || !isDraftOrEditMode()
+            ? ControlStatus.Hidden
+            : this.isSuspended() || this.isCompleted() || isToBeRescheduledForward()
+                ? ControlStatus.Disabled
+                : isToBeRescheduledBackward()
                     ? ControlStatus.Highlighted
                     : ControlStatus.Available;
 
