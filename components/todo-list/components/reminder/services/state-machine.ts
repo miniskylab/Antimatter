@@ -53,7 +53,11 @@ export class StateMachine
                     ? PendingStatus.ToBeRescheduledBackward
                     : (this.isOriginallySuspended() || this.isOriginallyCompleted()) && this.isScheduled()
                         ? PendingStatus.ToBeReactivated
-                        : PendingStatus.None;
+                        : !this.isOriginallyCompleted() && this.isCompleted()
+                            ? PendingStatus.ToBeCompleted
+                            : !this.isOriginallySuspended() && this.isSuspended()
+                                ? PendingStatus.ToBeSuspended
+                                : PendingStatus.None;
 
         const isToBeReactivated = () => pendingStatus === PendingStatus.ToBeReactivated;
         const isToBeRescheduledForward = () => pendingStatus === PendingStatus.ToBeRescheduledForward;

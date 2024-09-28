@@ -316,7 +316,7 @@ test("pausing and resuming playback works correctly", () =>
     expect(StateMachine.getState().secPlaybackProgress).toBe(30);
 });
 
-test("resuming playback plays first song in the playlist when shuffle is off and there is no song selected for playing", () =>
+test("resuming playback plays the first song in playlist when shuffle is off and there is no song selected for playing", () =>
 {
     // Test Data
     const indexedTracklist = {
@@ -354,7 +354,7 @@ test("resuming playback plays first song in the playlist when shuffle is off and
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-3", "song-1"]);
 });
 
-test("resuming playback plays a random song in the playlist when shuffle is on and there is no song selected for playing", () =>
+test("resuming playback plays a random song in playlist when shuffle is on and there is no song selected for playing", () =>
 {
     // Test Data
     const indexedTracklist = {
@@ -546,7 +546,7 @@ test("playing a specific song when shuffle is off works correctly", () =>
     expect(StateMachine.getState().playingSongIndex).toBe(4);
     expect(StateMachine.getState().isPlaying).toBe(true);
 
-    // Assert: Navigating forward sequentially to last song in the playlist works correctly
+    // Assert: Navigating forward sequentially to the last song in playlist works correctly
     StateMachine.playNext();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4", "song-2", "song-3"]);
     expect(StateMachine.getState().playingSongIndex).toBe(5);
@@ -571,7 +571,7 @@ test("playing a specific song when shuffle is off works correctly", () =>
     expect(StateMachine.getState().playingSongIndex).toBe(7);
     expect(StateMachine.getState().isPlaying).toBe(true);
 
-    // Assert: Navigating backward sequentially to first song in the playlist works correctly
+    // Assert: Navigating backward sequentially to the first song in playlist works correctly
     StateMachine.playPrevious();
     expect(StateMachine.getState().playQueue).toStrictEqual([
         "song-1", "song-2", "song-3", "song-4", "song-2", "song-3", "song-4", "song-3", "song-2"
@@ -932,7 +932,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'None' 
     });
 
 
-    // Act & Assert: Navigating forward sequentially from first to last song in the playlist
+    // Act & Assert: Navigating forward sequentially from the first to the last song in playlist
     StateMachine.playSongNamed("Song 1");
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1"]);
     expect(StateMachine.getState().playingSongIndex).toBe(0);
@@ -951,14 +951,14 @@ test("navigating through playlist when shuffle is off and repeat mode is 'None' 
     expect(StateMachine.getState().isPlaying).toBe(true);
 
 
-    // Act & Assert: Navigating forward when last song in the playlist is being played stops playback
+    // Act & Assert: Navigating forward when the last song in playlist is being played stops playback
     StateMachine.playNext();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(StateMachine.getState().playingSongIndex).toBe(Infinity);
     expect(StateMachine.getState().isPlaying).toBe(false);
 
 
-    // Act & Assert: Navigating forward does nothing after last song in the playlist finished playing
+    // Act & Assert: Navigating forward does nothing after the last song in playlist finished playing
     for (let i = 0; i < 5; i++)
     {
         StateMachine.playNext();
@@ -968,7 +968,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'None' 
     }
 
 
-    // Act & Assert: Navigating backward sequentially from last to first song in the playlist
+    // Act & Assert: Navigating backward sequentially from the last to the first song in playlist
     StateMachine.playPrevious();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4", "song-4"]);
     expect(StateMachine.getState().playingSongIndex).toBe(4);
@@ -993,7 +993,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'None' 
     expect(StateMachine.getState().isPlaying).toBe(true);
 
 
-    // Act & Assert: Navigating backward when first song in the playlist is selected for playing pauses and resets playback progress
+    // Act & Assert: Navigating backward when the first song in playlist is selected for playing pauses and resets playback progress
     StateMachine.setPlaybackProgress(30);
     for (let i = 0; i < 5; i++)
     {
@@ -1022,7 +1022,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'All' w
     StateMachine.setRepeatMode(RepeatMode.All);
 
 
-    // Act & Assert: Navigating forward jumps to first song when last song in the playlist is selected for playing
+    // Act & Assert: Navigating forward jumps to the first song when the last song in playlist is selected for playing
     StateMachine.playSongNamed("Song 1");
     StateMachine.playNext();
     StateMachine.playNext();
@@ -1038,7 +1038,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'All' w
     expect(StateMachine.getState().isPlaying).toBe(true);
 
 
-    // Act & Assert: navigating backward jumps to last song when first song in the playlist is selected for playing
+    // Act & Assert: navigating backward jumps to the last song when the first song in playlist is selected for playing
     StateMachine.playPrevious();
     StateMachine.playPrevious();
     StateMachine.playPrevious();
