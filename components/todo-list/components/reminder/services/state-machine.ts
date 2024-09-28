@@ -172,8 +172,12 @@ export class StateMachine
 
     private goToNextOccurrence()
     {
+        const today = this.isOriginallySuspended() || !this._dueDate
+            ? this._today
+            : this._dueDate;
+
         let newReminderStatus = Status.Scheduled;
-        let newDueDate = getDueDate(this._recurrencePattern, DueDateType.NextDueDate, this._dueDate ?? this._today);
+        let newDueDate = getDueDate(this._recurrencePattern, DueDateType.NextDueDate, today);
         const isNewDueDateNotGreaterThanCurrentDueDate = !newDueDate || (!!this._dueDate && newDueDate <= this._dueDate);
         if (isNewDueDateNotGreaterThanCurrentDueDate)
         {

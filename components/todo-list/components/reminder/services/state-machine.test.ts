@@ -484,3 +484,148 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.isDue).toBe(false);
     });
 });
+
+describe("reactivating a reminder", () =>
+{
+    it("reschedules the reminder forward", () =>
+    {
+        // Arrange
+        const stateMachine = new StateMachine({
+            recurrencePattern: `0 0 0 25 * ? *`,
+            today: new Date(1993, 1, 27),
+            originalStatus: Status.Suspended,
+            status: Status.Suspended,
+            mode: Mode.Edit
+        });
+
+        // Act
+        stateMachine.toggleSuspense(ControlStatus.Available);
+
+        // Assert
+        const derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
+        expect(derivedProperties.formattedDueDuration).toBe("In 26 days");
+        expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
+        expect(derivedProperties.dueDuration).toBe(26);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+    });
+
+    it("works correctly when the reminder only has a single past due date after being reactivated", () =>
+    {
+        // Arrange
+        const stateMachine = new StateMachine({
+            recurrencePattern: `0 0 0 25 2 ? 1993`,
+            today: new Date(1993, 1, 26),
+            originalStatus: Status.Suspended,
+            status: Status.Suspended,
+            mode: Mode.Edit
+        });
+
+        // Act
+        stateMachine.toggleSuspense(ControlStatus.Available);
+
+        // Assert
+        const derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
+        expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isOverdue).toBe(true);
+        expect(derivedProperties.isDue).toBe(false);
+    });
+
+    it("works correctly when the reminder is due after being reactivated", () =>
+    {
+        // Arrange
+        const stateMachine = new StateMachine({
+            recurrencePattern: `0 0 0 25 2 ? 1993`,
+            today: new Date(1993, 1, 25),
+            originalStatus: Status.Suspended,
+            status: Status.Suspended,
+            mode: Mode.Edit
+        });
+
+        // Act
+        stateMachine.toggleSuspense(ControlStatus.Available);
+
+        // Assert
+        const derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
+        expect(derivedProperties.formattedDueDuration).toBe("Today");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(true);
+    });
+
+    it("works correctly when the reminder only has a single future due date after being reactivated", () =>
+    {
+        // Arrange
+        const stateMachine = new StateMachine({
+            recurrencePattern: `0 0 0 25 2 ? 1993`,
+            today: new Date(1993, 1, 24),
+            originalStatus: Status.Suspended,
+            status: Status.Suspended,
+            mode: Mode.Edit
+        });
+
+        // Act
+        stateMachine.toggleSuspense(ControlStatus.Available);
+
+        // Assert
+        const derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
+        expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(1);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+    });
+
+    it("overwrites the existing due date", () =>
+    {
+        // Arrange
+        const stateMachine = new StateMachine({
+            recurrencePattern: `0 0 0 25 * ? *`,
+            originalDueDate: new Date(1993, 0, 25),
+            dueDate: new Date(1993, 0, 25),
+            today: new Date(1993, 1, 27),
+            originalStatus: Status.Suspended,
+            status: Status.Suspended,
+            mode: Mode.Edit
+        });
+
+        // Act
+        stateMachine.toggleSuspense(ControlStatus.Available);
+
+        // Assert
+        const derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
+        expect(derivedProperties.formattedDueDuration).toBe("In 26 days");
+        expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
+        expect(derivedProperties.dueDuration).toBe(26);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+    });
+});
