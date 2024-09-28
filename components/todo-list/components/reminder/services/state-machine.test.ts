@@ -20,10 +20,8 @@ describe("completing a reminder", () =>
         let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.isDue).toBe(true);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleForward(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
@@ -35,6 +33,20 @@ describe("completing a reminder", () =>
         expect(derivedProperties.dueDuration).toBeUndefined();
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleForward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Today");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(true);
     });
 
     it("works correctly when the reminder is overdue", () =>
@@ -54,10 +66,8 @@ describe("completing a reminder", () =>
         let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.isOverdue).toBe(true);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleForward(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
@@ -68,6 +78,20 @@ describe("completing a reminder", () =>
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
         expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleForward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
 
@@ -89,10 +113,8 @@ describe("completing a reminder", () =>
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleForward(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
@@ -102,6 +124,20 @@ describe("completing a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleForward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(1);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -126,10 +162,8 @@ describe("rescheduling a reminder forward", () =>
         let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.isDue).toBe(true);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleForward(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
@@ -141,6 +175,20 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.dueDuration).toBe(28);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleForward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Today");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(true);
     });
 
     it("works correctly when the reminder is overdue", () =>
@@ -160,10 +208,8 @@ describe("rescheduling a reminder forward", () =>
         let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.isOverdue).toBe(true);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleForward(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
@@ -174,6 +220,20 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
         expect(derivedProperties.dueDuration).toBe(27);
         expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleForward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
 
@@ -195,10 +255,8 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleForward(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
@@ -208,6 +266,20 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 29 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
         expect(derivedProperties.dueDuration).toBe(29);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleForward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(1);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -225,11 +297,9 @@ describe("rescheduling a reminder forward", () =>
             mode: Mode.Edit
         });
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleForward(ControlStatus.Highlighted);
-
-        // Assert
-        const derivedProperties = stateMachine.getDerivedProperties();
+        let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
@@ -239,6 +309,20 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
         expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleForward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("3 days ago");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(-3);
+        expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
 });
@@ -262,10 +346,8 @@ describe("rescheduling a reminder backward", () =>
         let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.isDue).toBe(true);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleBackward(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Highlighted);
@@ -277,6 +359,20 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.dueDuration).toBe(-31);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleBackward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Today");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(true);
     });
 
     it("works correctly when the reminder is overdue", () =>
@@ -296,10 +392,8 @@ describe("rescheduling a reminder backward", () =>
         let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.isOverdue).toBe(true);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleBackward(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Highlighted);
@@ -309,6 +403,20 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("32 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.01.1993");
         expect(derivedProperties.dueDuration).toBe(-32);
+        expect(derivedProperties.isOverdue).toBe(true);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleBackward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(-1);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -331,10 +439,8 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleBackward(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Highlighted);
@@ -345,6 +451,20 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDate).toBe("25.01.1993");
         expect(derivedProperties.dueDuration).toBe(-30);
         expect(derivedProperties.isOverdue).toBe(true);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleBackward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(1);
+        expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
 
@@ -361,11 +481,9 @@ describe("rescheduling a reminder backward", () =>
             mode: Mode.Edit
         });
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleRescheduleBackward(ControlStatus.Highlighted);
-
-        // Assert
-        const derivedProperties = stateMachine.getDerivedProperties();
+        let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Disabled);
@@ -375,6 +493,20 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDate).toBe("No due date");
         expect(derivedProperties.dueDuration).toBeUndefined();
         expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleBackward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("3 days ago");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(-3);
+        expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
 });
@@ -398,10 +530,8 @@ describe("suspending a reminder", () =>
         let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.isDue).toBe(true);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleSuspense(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
@@ -413,6 +543,20 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.dueDuration).toBeUndefined();
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleSuspense(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Today");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(true);
     });
 
     it("works correctly when the reminder is overdue", () =>
@@ -432,10 +576,8 @@ describe("suspending a reminder", () =>
         let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.isOverdue).toBe(true);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleSuspense(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
@@ -446,6 +588,20 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
         expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleSuspense(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
 
@@ -467,10 +623,8 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
-        // Act
+        // Act & Assert: Turn On
         stateMachine.toggleSuspense(ControlStatus.Highlighted);
-
-        // Assert
         derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
@@ -480,6 +634,20 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleSuspense(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(1);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -498,11 +666,9 @@ describe("reactivating a reminder", () =>
             mode: Mode.Edit
         });
 
-        // Act
+        // Act & Assert: Turn Off
         stateMachine.toggleSuspense(ControlStatus.Available);
-
-        // Assert
-        const derivedProperties = stateMachine.getDerivedProperties();
+        let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
@@ -511,6 +677,20 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 26 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
         expect(derivedProperties.dueDuration).toBe(26);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn On
+        stateMachine.toggleSuspense(ControlStatus.Highlighted);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBeUndefined();
+        expect(derivedProperties.formattedDueDate).toBe("Suspended");
+        expect(derivedProperties.dueDuration).toBeUndefined();
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -526,11 +706,9 @@ describe("reactivating a reminder", () =>
             mode: Mode.Edit
         });
 
-        // Act
+        // Act & Assert: Turn Off
         stateMachine.toggleSuspense(ControlStatus.Available);
-
-        // Assert
-        const derivedProperties = stateMachine.getDerivedProperties();
+        let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
@@ -540,6 +718,20 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-1);
         expect(derivedProperties.isOverdue).toBe(true);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn On
+        stateMachine.toggleSuspense(ControlStatus.Highlighted);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBeUndefined();
+        expect(derivedProperties.formattedDueDate).toBe("Suspended");
+        expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
 
@@ -554,11 +746,9 @@ describe("reactivating a reminder", () =>
             mode: Mode.Edit
         });
 
-        // Act
+        // Act & Assert: Turn Off
         stateMachine.toggleSuspense(ControlStatus.Available);
-
-        // Assert
-        const derivedProperties = stateMachine.getDerivedProperties();
+        let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
@@ -569,6 +759,20 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.dueDuration).toBe(0);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(true);
+
+        // Act & Assert: Turn On
+        stateMachine.toggleSuspense(ControlStatus.Highlighted);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBeUndefined();
+        expect(derivedProperties.formattedDueDate).toBe("Suspended");
+        expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
     });
 
     it("works correctly when the reminder only has a single future due date after being reactivated", () =>
@@ -582,11 +786,9 @@ describe("reactivating a reminder", () =>
             mode: Mode.Edit
         });
 
-        // Act
+        // Act & Assert: Turn Off
         stateMachine.toggleSuspense(ControlStatus.Available);
-
-        // Assert
-        const derivedProperties = stateMachine.getDerivedProperties();
+        let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
@@ -595,6 +797,20 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(1);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn On
+        stateMachine.toggleSuspense(ControlStatus.Highlighted);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBeUndefined();
+        expect(derivedProperties.formattedDueDate).toBe("Suspended");
+        expect(derivedProperties.dueDuration).toBeUndefined();
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -612,11 +828,9 @@ describe("reactivating a reminder", () =>
             mode: Mode.Edit
         });
 
-        // Act
+        // Act & Assert: Turn Off
         stateMachine.toggleSuspense(ControlStatus.Available);
-
-        // Assert
-        const derivedProperties = stateMachine.getDerivedProperties();
+        let derivedProperties = stateMachine.getDerivedProperties();
         expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
@@ -626,6 +840,20 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
         expect(derivedProperties.dueDuration).toBe(26);
         expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn On
+        stateMachine.toggleSuspense(ControlStatus.Highlighted);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBeUndefined();
+        expect(derivedProperties.formattedDueDate).toBe("Suspended");
+        expect(derivedProperties.dueDuration).toBe(-33);
+        expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
 });
