@@ -17,7 +17,7 @@ import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef} from "react";
-import {ControlStatus, Mode, PendingStatus, Status, TagMetadata, TagStatus} from "./enums";
+import {ControlStatus, Mode, Status, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext} from "./models";
 import {StateMachine} from "./services";
 
@@ -65,11 +65,11 @@ export const Component = forwardRef(function Component(
         originalStatus: originalData?.status
     });
     const {
-        dueDuration, formattedDueDate, formattedDueDuration, isOverdue, isDue, pendingStatus, suspenseToggleStatus,
-        rescheduleForwardToggleStatus, rescheduleBackwardToggleStatus, recurrencePatternInputFieldStatus
+        dueDuration, formattedDueDate, formattedDueDuration, isOverdue, isDue, suspenseToggleStatus, rescheduleForwardToggleStatus,
+        rescheduleBackwardToggleStatus, recurrencePatternInputFieldStatus
     } = stateMachine.getDerivedProperties();
 
-    const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue, pendingStatus}});
+    const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -128,17 +128,13 @@ export const Component = forwardRef(function Component(
             ? DefaultIconSet.CheckMarkInsideCircle
             : status === Status.Suspended
                 ? DefaultIconSet.Zzz
-                : pendingStatus === PendingStatus.ToBeReactivated ||
-                  pendingStatus === PendingStatus.ToBeRescheduledForward ||
-                  pendingStatus === PendingStatus.ToBeRescheduledBackward
-                    ? DefaultIconSet.History
-                    : isOverdue
-                        ? DefaultIconSet.ExclamationMarkInsideCircle
-                        : isDue || mode === Mode.Alarm
-                            ? DefaultIconSet.Alarm
-                            : isNullOrUndefined(dueDuration)
-                                ? DefaultIconSet.NoSound
-                                : DefaultIconSet.Notification;
+                : isOverdue
+                    ? DefaultIconSet.ExclamationMarkInsideCircle
+                    : isDue || mode === Mode.Alarm
+                        ? DefaultIconSet.Alarm
+                        : isNullOrUndefined(dueDuration)
+                            ? DefaultIconSet.NoSound
+                            : DefaultIconSet.Notification;
     }
 
     function getDropdownMenuItems(): NonNullable<DropdownMenuProps["menuItems"]>
@@ -224,6 +220,10 @@ export const Component = forwardRef(function Component(
 
     function renderExpansionArea(): JSX.Element
     {
+        const rescheduleForwardToggleIcon = originalData?.dueDate || originalData?.status === Status.Completed
+            ? DefaultIconSet.CheckMarkInsideCircle
+            : DefaultIconSet.History;
+
         return (
             <View style={computedStyle.ExpansionArea}>
                 {recurrencePatternInputFieldStatus !== ControlStatus.Hidden && (
@@ -254,7 +254,7 @@ export const Component = forwardRef(function Component(
                 />}
                 {rescheduleForwardToggleStatus !== ControlStatus.Hidden && (<Toggle
                     style={computedStyle.RescheduleForwardToggle}
-                    icon={!originalData?.dueDate ? DefaultIconSet.History : DefaultIconSet.CheckMarkInsideCircle}
+                    icon={rescheduleForwardToggleIcon}
                     status={rescheduleForwardToggleStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
                     disabled={rescheduleForwardToggleStatus === ControlStatus.Disabled}
                     onChange={onRescheduleForwardToggleStatusChange}

@@ -364,9 +364,6 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const isToBeReactivated = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeReactivated;
-    const isToBeRescheduledForward = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeRescheduledForward;
-    const isToBeRescheduledBackward = reminderContext.extra.pendingStatus === Reminder.PendingStatus.ToBeRescheduledBackward;
     const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
     const isSuspended = reminderContext.props.status === Reminder.Status.Suspended;
 
@@ -377,12 +374,11 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
         height: 30,
         marginTop: 7,
         fontSize: 28,
-        transform: [{scaleX: isToBeRescheduledForward || isToBeReactivated ? -1 : 1}],
         color: isSuspended
             ? Color.Neutral
-            : isCompleted || isToBeRescheduledForward || isToBeReactivated
+            : isCompleted
                 ? Color.Green
-                : isToBeRescheduledBackward || reminderContext.extra.isDue
+                : reminderContext.extra.isDue
                     ? Color.Gold
                     : reminderContext.extra.isOverdue
                         ? Color.Coral
@@ -982,9 +978,12 @@ const TodoList__Reminder__RescheduleForwardToggle__Icon: IconStyle = function (i
     const reminderContext = Reminder.ContextHook.useReminderContext();
     const pressableContext = PressableContextHook.usePressableContext();
 
+    const hasDueDate = reminderContext.props.originalData?.dueDate;
+    const isOriginallyCompleted = reminderContext.props.originalData?.status === Reminder.Status.Completed;
+
     return {
         ...TodoList__Reminder__SuspenseToggle__Icon(iconProps),
-        transform: [{scaleX: !reminderContext.props.originalData?.dueDate ? -1 : 1}],
+        transform: [{scaleX: hasDueDate || isOriginallyCompleted ? 1 : -1}],
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
             ? Color.Green
             : pressableContext.state.hovered
