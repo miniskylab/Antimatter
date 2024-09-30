@@ -104,7 +104,7 @@ export const Component = forwardRef(function Component(
         <ReminderContext.Provider value={context}>
             <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={isToBeDeleted}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
-                <Icon style={computedStyle.Icon} name={getIcon()} pointerEvents={"none"}/>
+                <Icon style={computedStyle.Icon} name={getReminderIcon()} pointerEvents={"none"}/>
                 <View style={computedStyle.NameTagAndDeadlineContainer}>
                     {renderName()}
                     {formattedDueDate && (<>
@@ -112,7 +112,7 @@ export const Component = forwardRef(function Component(
                         <Text style={computedStyle.DueDate}>{formattedDueDate}</Text>
                     </>)}
                     {formattedDueDuration && (<>
-                        <Icon style={computedStyle.DueDurationIcon} name={isDue ? DefaultIconSet.Flag : DefaultIconSet.History}/>
+                        <Icon style={computedStyle.DueDurationIcon} name={getDueDurationIcon()}/>
                         <Text style={computedStyle.DueDuration}>{formattedDueDuration}</Text>
                     </>)}
                     {renderTags()}
@@ -122,7 +122,7 @@ export const Component = forwardRef(function Component(
         </ReminderContext.Provider>
     );
 
-    function getIcon(): DefaultIconSet
+    function getReminderIcon(): DefaultIconSet
     {
         return status === Status.Completed
             ? DefaultIconSet.CheckMarkInsideCircle
@@ -134,7 +134,23 @@ export const Component = forwardRef(function Component(
                         ? DefaultIconSet.Alarm
                         : isNullOrUndefined(dueDuration)
                             ? DefaultIconSet.NoSound
-                            : DefaultIconSet.Notification;
+                            : DefaultIconSet.Future;
+    }
+
+    function getDueDurationIcon(): DefaultIconSet
+    {
+        return isDue
+            ? DefaultIconSet.Flag
+            : isOverdue
+                ? DefaultIconSet.History
+                : DefaultIconSet.Future;
+    }
+
+    function getRescheduleForwardToggleIcon(): DefaultIconSet
+    {
+        return originalData?.dueDate || originalData?.status === Status.Completed
+            ? DefaultIconSet.CheckMarkInsideCircle
+            : DefaultIconSet.Future;
     }
 
     function getDropdownMenuItems(): NonNullable<DropdownMenuProps["menuItems"]>
@@ -220,10 +236,6 @@ export const Component = forwardRef(function Component(
 
     function renderExpansionArea(): JSX.Element
     {
-        const rescheduleForwardToggleIcon = originalData?.dueDate || originalData?.status === Status.Completed
-            ? DefaultIconSet.CheckMarkInsideCircle
-            : DefaultIconSet.History;
-
         return (
             <View style={computedStyle.ExpansionArea}>
                 {recurrencePatternInputFieldStatus !== ControlStatus.Hidden && (
@@ -254,7 +266,7 @@ export const Component = forwardRef(function Component(
                 />}
                 {rescheduleForwardToggleStatus !== ControlStatus.Hidden && (<Toggle
                     style={computedStyle.RescheduleForwardToggle}
-                    icon={rescheduleForwardToggleIcon}
+                    icon={getRescheduleForwardToggleIcon()}
                     status={rescheduleForwardToggleStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
                     disabled={rescheduleForwardToggleStatus === ControlStatus.Disabled}
                     onChange={onRescheduleForwardToggleStatusChange}

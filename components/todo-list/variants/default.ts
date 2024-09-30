@@ -531,12 +531,10 @@ const TodoList__Reminder__DueDurationIcon: IconStyle = function (iconProps)
 
     const isDue = reminderContext.extra.isDue;
     const isOverdue = reminderContext.extra.isOverdue;
-    const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
 
     return {
         ...TodoList__Reminder__DueDateIcon(iconProps),
         fontSize: 15,
-        transform: [{scaleX: isCompleted || isDue || isOverdue ? 1 : -1}],
         color: isDue
             ? Color.Gold
             : isOverdue
@@ -975,15 +973,10 @@ const TodoList__Reminder__RescheduleForwardToggle__Root: ViewStyle = function (v
 const TodoList__Reminder__RescheduleForwardToggle__Icon: IconStyle = function (iconProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
-    const reminderContext = Reminder.ContextHook.useReminderContext();
     const pressableContext = PressableContextHook.usePressableContext();
-
-    const hasDueDate = reminderContext.props.originalData?.dueDate;
-    const isOriginallyCompleted = reminderContext.props.originalData?.status === Reminder.Status.Completed;
 
     return {
         ...TodoList__Reminder__SuspenseToggle__Icon(iconProps),
-        transform: [{scaleX: hasDueDate || isOriginallyCompleted ? 1 : -1}],
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
             ? Color.Green
             : pressableContext.state.hovered
