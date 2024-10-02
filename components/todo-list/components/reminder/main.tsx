@@ -130,7 +130,7 @@ export const Component = forwardRef(function Component(
                 ? DefaultIconSet.Zzz
                 : isOverdue
                     ? DefaultIconSet.ExclamationMarkInsideCircle
-                    : isDue || mode === Mode.Alarm
+                    : isDue
                         ? DefaultIconSet.Alarm
                         : isNullOrUndefined(dueDuration)
                             ? DefaultIconSet.NoSound
@@ -148,7 +148,7 @@ export const Component = forwardRef(function Component(
 
     function getRescheduleForwardToggleIcon(): DefaultIconSet
     {
-        return originalData?.dueDate || originalData?.status === Status.Completed
+        return originalData?.dueDate || originalData?.status === Status.Completed || !originalData?.recurrencePattern
             ? DefaultIconSet.CheckMarkInsideCircle
             : DefaultIconSet.Future;
     }
