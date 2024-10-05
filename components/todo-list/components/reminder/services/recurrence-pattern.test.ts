@@ -97,6 +97,37 @@ describe("how to use 'getDueDate(...)'", () =>
         expect(getDueDate(recurrencePattern, dueDateType, new Date(1993, 0, 1, 0, 0, 0))).toEqual(new Date(1992, 11, 31, 23, 59, 59));
     });
 
+    it("parses exact date recurrence pattern correctly", () =>
+    {
+        [DueDateType.NextDueDate, DueDateType.PreviousDueDate].forEach(dueDateType =>
+        {
+            const recurrencePattern = "0 0 0 25 2 ? 1993";
+            const expectedNextDueDate = new Date(1993, 1, 25);
+            expect(getDueDate(recurrencePattern, dueDateType, new Date(1993, 1, 24))).toEqual(expectedNextDueDate);
+            expect(getDueDate(recurrencePattern, dueDateType, new Date(1993, 1, 25))).toEqual(expectedNextDueDate);
+            expect(getDueDate(recurrencePattern, dueDateType, new Date(1993, 1, 26))).toEqual(expectedNextDueDate);
+        });
+    });
+
+    it("parses duration recurrence pattern correctly", () =>
+    {
+        let dueDateType = DueDateType.NextDueDate;
+        expect(getDueDate("0 0 0 5", dueDateType, new Date(1993, 11, 31, 23, 59, 59))).toEqual(new Date(1994, 0, 5, 23, 59, 59));
+
+        dueDateType = DueDateType.PreviousDueDate;
+        expect(getDueDate("0 0 0 5", dueDateType, new Date(1993, 0, 1, 0, 0, 0))).toEqual(new Date(1992, 11, 27, 0, 0, 0));
+    });
+
+    it("parses invalid recurrence pattern as 'undefined'", () =>
+    {
+        [DueDateType.NextDueDate, DueDateType.PreviousDueDate].forEach(dueDateType =>
+        {
+            expect(getDueDate(null, dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate(undefined, dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate("this-is-random-text", dueDateType, new Date())).toBeUndefined();
+        });
+    });
+
     it("always returns next due date greater than input 'today'", () =>
     {
         const dueDateType = DueDateType.NextDueDate;
@@ -115,27 +146,5 @@ describe("how to use 'getDueDate(...)'", () =>
         expect(getDueDate("45 30 10 * * ? *", dueDateType, new Date(1993, 0, 1, 10, 30, 45))).toEqual(new Date(1992, 11, 31, 10, 30, 45));
         expect(getDueDate("45 30 * * * ? *", dueDateType, new Date(1993, 0, 1, 0, 30, 45))).toEqual(new Date(1992, 11, 31, 23, 30, 45));
         expect(getDueDate("45 * * * * ? *", dueDateType, new Date(1993, 0, 1, 0, 0, 45))).toEqual(new Date(1992, 11, 31, 23, 59, 45));
-    });
-
-    it("parses invalid recurrence pattern as 'undefined'", () =>
-    {
-        [DueDateType.NextDueDate, DueDateType.PreviousDueDate].forEach(dueDateType =>
-        {
-            expect(getDueDate(null, dueDateType, new Date())).toBeUndefined();
-            expect(getDueDate(undefined, dueDateType, new Date())).toBeUndefined();
-            expect(getDueDate("this-is-random-text", dueDateType, new Date())).toBeUndefined();
-        });
-    });
-
-    it("parses exact date recurrence pattern correctly", () =>
-    {
-        [DueDateType.NextDueDate, DueDateType.PreviousDueDate].forEach(dueDateType =>
-        {
-            const recurrencePattern = "0 0 0 25 2 ? 1993";
-            const expectedNextDueDate = new Date(1993, 1, 25);
-            expect(getDueDate(recurrencePattern, dueDateType, new Date(1993, 1, 24))).toEqual(expectedNextDueDate);
-            expect(getDueDate(recurrencePattern, dueDateType, new Date(1993, 1, 25))).toEqual(expectedNextDueDate);
-            expect(getDueDate(recurrencePattern, dueDateType, new Date(1993, 1, 26))).toEqual(expectedNextDueDate);
-        });
     });
 });

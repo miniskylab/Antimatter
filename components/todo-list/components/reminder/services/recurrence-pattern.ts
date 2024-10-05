@@ -16,38 +16,63 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
     }
 
     const executionTime = new Date(today);
-    if (tryParseExactTime(recurrencePattern, executionTime))
+    const cronTokens = recurrencePattern.split(" ");
+    if (cronTokens.length === 4)
     {
-        return executionTime;
-    }
+        const [cronSecondToken, cronMinuteToken, cronHourToken, cronDayToken] = cronTokens;
+        const cronSecondValue = Number(cronSecondToken);
+        const cronMinuteValue = Number(cronMinuteToken);
+        const cronHourValue = Number(cronHourToken);
+        const cronDayValue = Number(cronDayToken);
+        const msDuration = cronSecondValue * 1000 +
+                           cronMinuteValue * 60 * 1000 +
+                           cronHourValue * 60 * 60 * 1000 +
+                           cronDayValue * 24 * 60 * 60 * 1000;
 
-    const [cronSecondToken, cronMinuteToken, cronHourToken, cronDateToken, cronMonthToken, , cronYearToken] = recurrencePattern.split(" ");
-    if (dueDateType === DueDateType.NextDueDate)
-    {
-        executionTime.setSeconds(executionTime.getSeconds() + 1);
-        while (true)
+        if (dueDateType === DueDateType.NextDueDate)
         {
-            if (tryParseCronYearTokenForward(cronYearToken, executionTime)) continue;
-            if (tryParseCronMonthTokenForward(cronMonthToken, executionTime)) continue;
-            if (tryParseCronDateTokenForward(cronDateToken, executionTime)) continue;
-            if (tryParseCronHourTokenForward(cronHourToken, executionTime)) continue;
-            if (tryParseCronMinuteTokenForward(cronMinuteToken, executionTime)) continue;
-            if (tryParseCronSecondTokenForward(cronSecondToken, executionTime)) continue;
-            break;
+            executionTime.setTime(executionTime.getTime() + msDuration);
+        }
+        else if (dueDateType === DueDateType.PreviousDueDate)
+        {
+            executionTime.setTime(executionTime.getTime() - msDuration);
         }
     }
-    else if (dueDateType === DueDateType.PreviousDueDate)
+    else if (cronTokens.length === 7)
     {
-        executionTime.setSeconds(executionTime.getSeconds() - 1);
-        while (true)
+        if (tryParseExactTime(recurrencePattern, executionTime))
         {
-            if (tryParseCronYearTokenBackward(cronYearToken, executionTime)) continue;
-            if (tryParseCronMonthTokenBackward(cronMonthToken, executionTime)) continue;
-            if (tryParseCronDateTokenBackward(cronDateToken, executionTime)) continue;
-            if (tryParseCronHourTokenBackward(cronHourToken, executionTime)) continue;
-            if (tryParseCronMinuteTokenBackward(cronMinuteToken, executionTime)) continue;
-            if (tryParseCronSecondTokenBackward(cronSecondToken, executionTime)) continue;
-            break;
+            return executionTime;
+        }
+
+        const [cronSecondToken, cronMinuteToken, cronHourToken, cronDateToken, cronMonthToken, , cronYearToken] = cronTokens;
+        if (dueDateType === DueDateType.NextDueDate)
+        {
+            executionTime.setSeconds(executionTime.getSeconds() + 1);
+            while (true)
+            {
+                if (tryParseCronYearTokenForward(cronYearToken, executionTime)) continue;
+                if (tryParseCronMonthTokenForward(cronMonthToken, executionTime)) continue;
+                if (tryParseCronDateTokenForward(cronDateToken, executionTime)) continue;
+                if (tryParseCronHourTokenForward(cronHourToken, executionTime)) continue;
+                if (tryParseCronMinuteTokenForward(cronMinuteToken, executionTime)) continue;
+                if (tryParseCronSecondTokenForward(cronSecondToken, executionTime)) continue;
+                break;
+            }
+        }
+        else if (dueDateType === DueDateType.PreviousDueDate)
+        {
+            executionTime.setSeconds(executionTime.getSeconds() - 1);
+            while (true)
+            {
+                if (tryParseCronYearTokenBackward(cronYearToken, executionTime)) continue;
+                if (tryParseCronMonthTokenBackward(cronMonthToken, executionTime)) continue;
+                if (tryParseCronDateTokenBackward(cronDateToken, executionTime)) continue;
+                if (tryParseCronHourTokenBackward(cronHourToken, executionTime)) continue;
+                if (tryParseCronMinuteTokenBackward(cronMinuteToken, executionTime)) continue;
+                if (tryParseCronSecondTokenBackward(cronSecondToken, executionTime)) continue;
+                break;
+            }
         }
     }
 
@@ -56,7 +81,8 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
 
 function isValidRecurrencePattern(recurrencePattern: string): boolean
 {
-    const recurrencePatternRegex = new RegExp(
+    const durationRecurrencePatternRegex = new RegExp("^([1-5]?[0-9]) ([1-5]?[0-9]) ([0-9]|1[0-9]|2[0-3]) ([0-9]?[0-9]?[0-9]?[0-9])$");
+    const pointInTimeRecurrencePatternRegex = new RegExp(
         "^(\\*|(\\*\\/)?([1-5]?[0-9])) " +
         "(\\*|([1-5]?[0-9])) " +
         "(\\*|(\\*\\/)?([0-9]|1[0-9]|2[0-3])) " +
@@ -66,7 +92,7 @@ function isValidRecurrencePattern(recurrencePattern: string): boolean
         "(\\*|(\\*\\/)?((19|20)[0-9][0-9]))$"
     );
 
-    return recurrencePatternRegex.test(recurrencePattern);
+    return durationRecurrencePatternRegex.test(recurrencePattern) || pointInTimeRecurrencePatternRegex.test(recurrencePattern);
 }
 
 function tryParseExactTime(recurrencePattern: string, nextExecutionTime: Date): boolean
