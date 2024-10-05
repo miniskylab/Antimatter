@@ -1,4 +1,4 @@
-import {GregorianCalendar, isNullOrUndefined} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, GregorianCalendar, isNullOrUndefined} from "@miniskylab/antimatter-framework";
 import {DueDateType} from "../enums";
 
 export function getDueDuration(today: Date, dueDate: Date | undefined): number | undefined
@@ -45,7 +45,7 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
             return executionTime;
         }
 
-        const [cronSecondToken, cronMinuteToken, cronHourToken, cronDateToken, cronMonthToken, , cronYearToken] = cronTokens;
+        const [cronSecondToken, cronMinuteToken, cronHourToken, cronDateToken, cronMonthToken, cronDayToken, cronYearToken] = cronTokens;
         if (dueDateType === DueDateType.NextDueDate)
         {
             executionTime.setSeconds(executionTime.getSeconds() + 1);
@@ -54,6 +54,7 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
                 if (tryParseCronYearTokenForward(cronYearToken, executionTime)) continue;
                 if (tryParseCronMonthTokenForward(cronMonthToken, executionTime)) continue;
                 if (tryParseCronDateTokenForward(cronDateToken, executionTime)) continue;
+                if (tryParseCronDayTokenForward(cronDayToken, executionTime)) continue;
                 if (tryParseCronHourTokenForward(cronHourToken, executionTime)) continue;
                 if (tryParseCronMinuteTokenForward(cronMinuteToken, executionTime)) continue;
                 if (tryParseCronSecondTokenForward(cronSecondToken, executionTime)) continue;
@@ -68,6 +69,7 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
                 if (tryParseCronYearTokenBackward(cronYearToken, executionTime)) continue;
                 if (tryParseCronMonthTokenBackward(cronMonthToken, executionTime)) continue;
                 if (tryParseCronDateTokenBackward(cronDateToken, executionTime)) continue;
+                if (tryParseCronDayTokenBackward(cronDayToken, executionTime)) continue;
                 if (tryParseCronHourTokenBackward(cronHourToken, executionTime)) continue;
                 if (tryParseCronMinuteTokenBackward(cronMinuteToken, executionTime)) continue;
                 if (tryParseCronSecondTokenBackward(cronSecondToken, executionTime)) continue;
@@ -79,20 +81,36 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
     return executionTime;
 }
 
-function isValidRecurrencePattern(recurrencePattern: string): boolean
+export function isDurationBasedReminder(recurrencePattern: string | undefined)
 {
     const durationRecurrencePatternRegex = new RegExp("^([1-5]?[0-9]) ([1-5]?[0-9]) ([0-9]|1[0-9]|2[0-3]) ([0-9]?[0-9]?[0-9]?[0-9])$");
+    return durationRecurrencePatternRegex.test(recurrencePattern ?? EMPTY_STRING);
+}
+
+function isPointInTimeBasedReminder(recurrencePattern: string | undefined)
+{
+    if (isNullOrUndefined(recurrencePattern))
+    {
+        return false;
+    }
+
+    const questionMarkCount = (recurrencePattern.match(/ \? /g) || []).length;
     const pointInTimeRecurrencePatternRegex = new RegExp(
-        "^(\\*|(\\*\\/)?([1-5]?[0-9])) " +
+        "^(\\*|([1-5]?[0-9])) " +
         "(\\*|([1-5]?[0-9])) " +
-        "(\\*|(\\*\\/)?([0-9]|1[0-9]|2[0-3])) " +
-        "(\\*|(\\*\\/)?([1-9]|[12][0-9]|3[01])) " +
-        "(\\*|(\\*\\/)?([1-9]|1[0-2])) " +
-        "\\? " +
+        "(\\*|([0-9]|1[0-9]|2[0-3])) " +
+        "(\\*|([1-9]|[12][0-9]|3[01])|\\?) " +
+        "(\\*|([1-9]|1[0-2])) " +
+        "(\\*|([1-7],)?([1-7],)?([1-7],)?([1-7],)?([1-7],)?([1-7],)?[1-7]|\\?) " +
         "(\\*|(\\*\\/)?((19|20)[0-9][0-9]))$"
     );
 
-    return durationRecurrencePatternRegex.test(recurrencePattern) || pointInTimeRecurrencePatternRegex.test(recurrencePattern);
+    return (questionMarkCount === 1 && pointInTimeRecurrencePatternRegex.test(recurrencePattern));
+}
+
+function isValidRecurrencePattern(recurrencePattern: string): boolean
+{
+    return isPointInTimeBasedReminder(recurrencePattern) || isDurationBasedReminder(recurrencePattern);
 }
 
 function tryParseExactTime(recurrencePattern: string, nextExecutionTime: Date): boolean
@@ -148,7 +166,7 @@ function tryParseCronDateTokenForward(cronDateToken: string, nextExecutionTime: 
 {
     const cronDateValue = Number(cronDateToken);
     const nextExecutionDate = nextExecutionTime.getDate();
-    if (cronDateToken !== "*" && nextExecutionDate !== cronDateValue)
+    if (cronDateToken !== "*" && cronDateToken !== "?" && nextExecutionDate !== cronDateValue)
     {
         if (nextExecutionDate > cronDateValue)
         {
@@ -157,6 +175,28 @@ function tryParseCronDateTokenForward(cronDateToken: string, nextExecutionTime: 
         else
         {
             nextExecutionTime.setDate(nextExecutionDate + 1);
+        }
+
+        nextExecutionTime.setHours(0, 0, 0);
+        return true;
+    }
+
+    return false;
+}
+
+function tryParseCronDayTokenForward(cronDayToken: string, nextExecutionTime: Date): boolean
+{
+    const cronDayValues = cronDayToken.split(",").map(Number);
+    const nextExecutionDay = nextExecutionTime.getDay() + 1;
+    if (cronDayToken !== "*" && cronDayToken !== "?" && !cronDayValues.includes(nextExecutionDay))
+    {
+        if (nextExecutionDay !== 1 && !cronDayValues.includes(1) && nextExecutionDay > Math.max(...cronDayValues))
+        {
+            nextExecutionTime.setDate(nextExecutionTime.getDate() + (9 - nextExecutionDay));
+        }
+        else
+        {
+            nextExecutionTime.setDate(nextExecutionTime.getDate() + 1);
         }
 
         nextExecutionTime.setHours(0, 0, 0);
@@ -277,7 +317,7 @@ function tryParseCronDateTokenBackward(cronDateToken: string, previousExecutionT
 {
     const cronDateValue = Number(cronDateToken);
     const previousExecutionDate = previousExecutionTime.getDate();
-    if (cronDateToken !== "*" && previousExecutionDate !== cronDateValue)
+    if (cronDateToken !== "*" && cronDateToken !== "?" && previousExecutionDate !== cronDateValue)
     {
         if (previousExecutionDate < cronDateValue)
         {
@@ -287,6 +327,28 @@ function tryParseCronDateTokenBackward(cronDateToken: string, previousExecutionT
         else
         {
             previousExecutionTime.setDate(previousExecutionDate - 1);
+        }
+
+        previousExecutionTime.setHours(23, 59, 59);
+        return true;
+    }
+
+    return false;
+}
+
+function tryParseCronDayTokenBackward(cronDayToken: string, previousExecutionTime: Date): boolean
+{
+    const cronDayValues = cronDayToken.split(",").map(Number);
+    const previousExecutionDay = previousExecutionTime.getDay() + 1;
+    if (cronDayToken !== "*" && cronDayToken !== "?" && !cronDayValues.includes(previousExecutionDay))
+    {
+        if (previousExecutionDay !== 1 && !cronDayValues.includes(1) && previousExecutionDay < Math.min(...cronDayValues))
+        {
+            previousExecutionTime.setDate(previousExecutionTime.getDate() - previousExecutionDay + 1);
+        }
+        else
+        {
+            previousExecutionTime.setDate(previousExecutionTime.getDate() - 1);
         }
 
         previousExecutionTime.setHours(23, 59, 59);

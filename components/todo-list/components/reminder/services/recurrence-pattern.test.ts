@@ -29,6 +29,23 @@ describe("how to use 'getDueDate(...)'", () =>
         expect(getDueDate(recurrencePattern, dueDateType, new Date(1993, 2, 31))).toEqual(new Date(1993, 0, 31));
     });
 
+    it("parses weekly recurrence pattern correctly", () =>
+    {
+        let dueDateType = DueDateType.NextDueDate;
+        expect(getDueDate("45 30 10 ? * 5 *", dueDateType, new Date(1993, 1, 18, 10, 30, 45))).toEqual(new Date(1993, 1, 25, 10, 30, 45));
+        expect(getDueDate("45 30 10 ? * 5 *", dueDateType, new Date(1993, 1, 25, 10, 30, 45))).toEqual(new Date(1993, 2, 4, 10, 30, 45));
+        expect(getDueDate("45 30 10 ? * 1,7 *", dueDateType, new Date(1993, 1, 25, 10, 30, 45))).toEqual(new Date(1993, 1, 27, 10, 30, 45));
+        expect(getDueDate("45 30 10 ? * 2,6 *", dueDateType, new Date(1993, 1, 25, 10, 30, 45))).toEqual(new Date(1993, 1, 26, 10, 30, 45));
+        expect(getDueDate("45 30 10 ? * 3,4 *", dueDateType, new Date(1993, 1, 25, 10, 30, 45))).toEqual(new Date(1993, 2, 2, 10, 30, 45));
+
+        dueDateType = DueDateType.PreviousDueDate;
+        expect(getDueDate("45 30 10 ? * 5 *", dueDateType, new Date(1993, 2, 4, 10, 30, 45))).toEqual(new Date(1993, 1, 25, 10, 30, 45));
+        expect(getDueDate("45 30 10 ? * 5 *", dueDateType, new Date(1993, 1, 25, 10, 30, 45))).toEqual(new Date(1993, 1, 18, 10, 30, 45));
+        expect(getDueDate("45 30 10 ? * 1,7 *", dueDateType, new Date(1993, 1, 25, 10, 30, 45))).toEqual(new Date(1993, 1, 21, 10, 30, 45));
+        expect(getDueDate("45 30 10 ? * 2,6 *", dueDateType, new Date(1993, 1, 25, 10, 30, 45))).toEqual(new Date(1993, 1, 22, 10, 30, 45));
+        expect(getDueDate("45 30 10 ? * 6,7 *", dueDateType, new Date(1993, 1, 25, 10, 30, 45))).toEqual(new Date(1993, 1, 20, 10, 30, 45));
+    });
+
     it("parses daily recurrence pattern correctly", () =>
     {
         const recurrencePattern = "45 30 10 * * ? *";
@@ -124,6 +141,14 @@ describe("how to use 'getDueDate(...)'", () =>
         {
             expect(getDueDate(null, dueDateType, new Date())).toBeUndefined();
             expect(getDueDate(undefined, dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate("* * * * *", dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate("0 0 0 * 0", dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate("0 0 0 ? 0", dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate("* * * * * * *", dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate("* * * ? * ? *", dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate("* * * ? * 12,4,6 *", dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate("* * * ? * 1,2,,4,6 *", dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate("45 30 10 25 2 3 1993", dueDateType, new Date())).toBeUndefined();
             expect(getDueDate("this-is-random-text", dueDateType, new Date())).toBeUndefined();
         });
     });
