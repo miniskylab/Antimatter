@@ -284,8 +284,8 @@ export const TransactionTable = forwardRef(function TransactionTable(
 
     function renderDateSelectorAndSummary(): JSX.Element
     {
-        const ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint = useBreakpoint("Large");
-        if (ifViewportSizeIsGreaterThanOrEqualToLargeBreakpoint)
+        const isViewportSizeGreaterThanOrEqualToLargeBreakpoint = useBreakpoint("Large");
+        if (isViewportSizeGreaterThanOrEqualToLargeBreakpoint)
         {
             return (<>
                 {renderSummary()}

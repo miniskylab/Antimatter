@@ -8,8 +8,8 @@ import React, {useRef} from "react";
 import {Reminder} from "../components";
 import {TodoList} from "../main";
 import {TodoListProps, type TodoListRef} from "../models";
-import * as Variant from "../variants";
 import {TestData} from "./test-data";
+import * as Variant from "./variants";
 
 const TodoListWithValidation = withValidation(TodoList, TodoListProps);
 export default {
@@ -316,7 +316,7 @@ export const Playground: Story = {
         onSwitchMode: Sb.locked
     },
     args: {
-        style: Sb.getVariantName(Variant, Variant.Default),
+        style: Sb.getVariantName(Variant, Variant.Storybook),
         maxSelectedTagCount: 2,
         reminderRecurrencePatternPlaceholder: "Recurrence Pattern",
         reminderNotificationIntervalPlaceholder: "Notification Interval (Hours)",
