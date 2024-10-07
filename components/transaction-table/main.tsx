@@ -108,7 +108,14 @@ export const TransactionTable = forwardRef(function TransactionTable(
             .forEach(toBeDeletedTransactionId =>
             {
                 const playExitAnimation = transactionRecordsRef.current[toBeDeletedTransactionId]?.collapseHeight;
-                playExitAnimation ? playExitAnimation(onAnimationEnd) : onAnimationEnd();
+                if (isNotNullAndUndefined(playExitAnimation))
+                {
+                    playExitAnimation(onAnimationEnd);
+                }
+                else
+                {
+                    onAnimationEnd();
+                }
 
                 function onAnimationEnd()
                 {
@@ -269,7 +276,10 @@ export const TransactionTable = forwardRef(function TransactionTable(
                         isDatePickerOpened: false
                     }));
 
-                    newlySelectedDate && onSelectDate?.(newlySelectedDate);
+                    if (isNotNullAndUndefined(newlySelectedDate))
+                    {
+                        onSelectDate?.(newlySelectedDate);
+                    }
                 }}
                 onAddonPress={() =>
                 {
@@ -292,7 +302,13 @@ export const TransactionTable = forwardRef(function TransactionTable(
                 <Calendar
                     style={computedStyle.Calendar}
                     selectedDate={selectedDate}
-                    onSelectedDateChange={newlySelectedDate => { newlySelectedDate && onSelectDate?.(newlySelectedDate); }}
+                    onSelectedDateChange={newlySelectedDate =>
+                    {
+                        if (isNotNullAndUndefined(newlySelectedDate))
+                        {
+                            onSelectDate?.(newlySelectedDate);
+                        }
+                    }}
                 />
             </>);
         }
