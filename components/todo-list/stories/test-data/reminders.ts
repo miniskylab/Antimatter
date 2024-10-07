@@ -66,7 +66,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "6": {
         name: "Risus",
-        recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? ${day45InThePast.getFullYear()}`,
+        recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? *`,
         notificationInterval: 3,
         tags: deepCopyWithSelection(Tags, "mauris"),
         status: Reminder.Status.Scheduled,
@@ -106,7 +106,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "10": {
         name: "Iaculis eu non",
-        recurrencePattern: `0 0 0 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
+        recurrencePattern: `0 0 0 ${today.getDate()} ${today.getMonth() + 1} ? *`,
         notificationInterval: 6,
         tags: deepCopyWithSelection(Tags, "viverra", "metus"),
         status: Reminder.Status.Scheduled,
@@ -133,7 +133,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "13": {
         name: "Cursus turpis",
-        recurrencePattern: `0 0 0 ${day45InTheFuture.getDate()} ${day45InTheFuture.getMonth() + 1} ? ${day45InTheFuture.getFullYear()}`,
+        recurrencePattern: `0 0 0 ${day45InTheFuture.getDate()} ${day45InTheFuture.getMonth() + 1} ? *`,
         notificationInterval: 3,
         tags: deepCopyWithSelection(Tags, "dolore", "tortor"),
         status: Reminder.Status.Suspended,
