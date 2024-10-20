@@ -386,7 +386,7 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
     };
 };
 
-const TodoList__Reminder__NameTagAndDeadlineContainer: ViewStyle = function (viewProps)
+const TodoList__Reminder__NameTagAndDueDateContainer: ViewStyle = function (viewProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
@@ -398,7 +398,8 @@ const TodoList__Reminder__NameTagAndDeadlineContainer: ViewStyle = function (vie
         flexWrap: "wrap",
         justifyContent: "flex-start",
         rowGap: 4,
-        paddingLeft: 5
+        paddingLeft: 5,
+        marginBottom: 12
     };
 };
 
@@ -792,18 +793,36 @@ const TodoList__Reminder__ExpansionArea: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
-        flex: 1,
+        flexShrink: 1,
         flexBasis: "100%",
         flexDirection: "row",
         flexWrap: "wrap",
-        rowGap: 8,
-        columnGap: 8,
-        borderTopWidth: 2,
-        borderStyle: "dashed",
-        borderColor: Color.Gray,
-        paddingTop: 12,
-        marginTop: 12,
+        rowGap: 10,
+        columnGap: 10,
         marginLeft: 35
+    };
+};
+
+const TodoList__Reminder__HrContainer: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        flex: 1,
+        alignItems: "stretch",
+        justifyContent: "flex-start",
+        height: 2,
+        overflow: "hidden"
+    };
+};
+
+const TodoList__Reminder__Hr: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        height: 6,
+        borderWidth: 2,
+        borderStyle: "dashed",
+        borderColor: Color.Gray
     };
 };
 
@@ -1015,7 +1034,7 @@ const TodoList__Reminder: Reminder.Style = function ()
     return {
         Root: TodoList__Reminder__Root,
         Icon: TodoList__Reminder__Icon,
-        NameTagAndDeadlineContainer: TodoList__Reminder__NameTagAndDeadlineContainer,
+        NameTagAndDueDateContainer: TodoList__Reminder__NameTagAndDueDateContainer,
         NameInputField: TodoList__Reminder__NameInputField,
         NameText: TodoList__Reminder__NameText,
         DueDateIcon: TodoList__Reminder__DueDateIcon,
@@ -1026,6 +1045,8 @@ const TodoList__Reminder: Reminder.Style = function ()
         TagContainer: TodoList__Reminder__TagContainer,
         Tag: TodoList__Reminder__Tag,
         ExpansionArea: TodoList__Reminder__ExpansionArea,
+        HrContainer: TodoList__Reminder__HrContainer,
+        Hr: TodoList__Reminder__Hr,
         RecurrencePatternInputField: TodoList__Reminder__RecurrencePatternInputField,
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
         SuspenseToggle: TodoList__Reminder__SuspenseToggle,

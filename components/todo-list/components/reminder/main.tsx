@@ -105,7 +105,7 @@ export const Component = forwardRef(function Component(
             <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={isToBeDeleted}>
                 {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={getReminderIcon()} pointerEvents={"none"}/>
-                <View style={computedStyle.NameTagAndDeadlineContainer}>
+                <View style={computedStyle.NameTagAndDueDateContainer}>
                     {renderName()}
                     {formattedDueDate && (<>
                         <Icon style={computedStyle.DueDateIcon} name={DefaultIconSet.Calendar}/>
@@ -238,6 +238,9 @@ export const Component = forwardRef(function Component(
     {
         return (
             <View style={computedStyle.ExpansionArea}>
+                <View style={computedStyle.HrContainer}>
+                    <View style={computedStyle.Hr}/>
+                </View>
                 {recurrencePatternInputFieldStatus !== ControlStatus.Hidden && (
                     <InputField
                         style={computedStyle.RecurrencePatternInputField}
