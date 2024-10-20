@@ -83,7 +83,7 @@ export default {
                         todoListRef.current?.flashHighlightReminders([args.selectedReminder.id]);
                         TestData.Reminders[args.selectedReminder.id] = {
                             ...args.reminders[args.selectedReminder.id],
-                            notificationInterval: args.selectedReminder.data.notificationInterval,
+                            hourNotificationInterval: args.selectedReminder.data.hourNotificationInterval,
                             status: args.selectedReminder.data.status,
                             dueDate: args.selectedReminder.data.dueDate,
                             modifiedDate: new Date()
@@ -117,7 +117,7 @@ export default {
                                 data: {
                                     name: EMPTY_STRING,
                                     recurrencePattern: EMPTY_STRING,
-                                    notificationInterval: 1,
+                                    hourNotificationInterval: 1,
                                     tags: TestData.Tags,
                                     status: Reminder.Status.Unscheduled
                                 }
@@ -152,7 +152,7 @@ export default {
                             TestData.Reminders[newlyAddedReminderId] = {
                                 name: args.selectedReminder.data.name,
                                 recurrencePattern: args.selectedReminder.data.recurrencePattern,
-                                notificationInterval: args.selectedReminder.data.notificationInterval,
+                                hourNotificationInterval: args.selectedReminder.data.hourNotificationInterval,
                                 tags: args.selectedReminder.data.tags,
                                 status: args.selectedReminder.data.status,
                                 dueDate: args.selectedReminder.data.dueDate,
@@ -166,7 +166,7 @@ export default {
                                 ...args.reminders[args.selectedReminder.id],
                                 name: args.selectedReminder.data.name,
                                 recurrencePattern: args.selectedReminder.data.recurrencePattern,
-                                notificationInterval: args.selectedReminder.data.notificationInterval,
+                                hourNotificationInterval: args.selectedReminder.data.hourNotificationInterval,
                                 tags: args.selectedReminder.data.tags,
                                 status: args.selectedReminder.data.status,
                                 dueDate: args.selectedReminder.data.dueDate,
@@ -246,7 +246,7 @@ export default {
                             data: {
                                 name: args.reminders[args.selectedReminder.id].name,
                                 recurrencePattern: args.reminders[args.selectedReminder.id].recurrencePattern,
-                                notificationInterval: args.reminders[args.selectedReminder.id].notificationInterval,
+                                hourNotificationInterval: args.reminders[args.selectedReminder.id].hourNotificationInterval,
                                 tags: args.reminders[args.selectedReminder.id].tags,
                                 status: args.reminders[args.selectedReminder.id].status,
                                 dueDate: args.reminders[args.selectedReminder.id].dueDate,
@@ -277,7 +277,7 @@ export default {
                             data: {
                                 name: args.reminders[reminderId].name,
                                 recurrencePattern: args.reminders[reminderId].recurrencePattern,
-                                notificationInterval: args.reminders[reminderId].notificationInterval,
+                                hourNotificationInterval: args.reminders[reminderId].hourNotificationInterval,
                                 tags: args.reminders[reminderId].tags,
                                 status: args.reminders[reminderId].status,
                                 dueDate: args.reminders[reminderId].dueDate,

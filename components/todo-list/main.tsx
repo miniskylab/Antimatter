@@ -97,7 +97,14 @@ export const TodoList = forwardRef(function TodoList(
             .forEach(toBeDeletedReminderId =>
             {
                 const playExitAnimation = remindersRef.current[toBeDeletedReminderId]?.collapseHeight;
-                playExitAnimation ? playExitAnimation(onAnimationEnd) : onAnimationEnd();
+                if (playExitAnimation)
+                {
+                    playExitAnimation(onAnimationEnd);
+                }
+                else
+                {
+                    onAnimationEnd();
+                }
 
                 function onAnimationEnd()
                 {

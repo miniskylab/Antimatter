@@ -29,7 +29,7 @@ export const Component = forwardRef(function Component(
         name = EMPTY_STRING,
         recurrencePattern = EMPTY_STRING,
         recurrencePatternPlaceholder = EMPTY_STRING,
-        notificationInterval,
+        hourNotificationInterval,
         notificationIntervalPlaceholder = EMPTY_STRING,
         tags = {},
         maxSelectedTagCount = 2,
@@ -47,7 +47,7 @@ export const Component = forwardRef(function Component(
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, id, name, recurrencePattern, recurrencePatternPlaceholder, notificationInterval, notificationIntervalPlaceholder, tags,
+        style, id, name, recurrencePattern, recurrencePatternPlaceholder, hourNotificationInterval, notificationIntervalPlaceholder, tags,
         maxSelectedTagCount, showProgressStripes, isToBeDeleted, status, dueDate, originalData, modifiedDate, createdDate, mode, onPress,
         onChange
     };
@@ -253,7 +253,7 @@ export const Component = forwardRef(function Component(
                     maximumFractionDigitCount={0}
                     selectTextOnFocus={true}
                     placeholder={notificationIntervalPlaceholder}
-                    defaultValue={notificationInterval}
+                    defaultValue={hourNotificationInterval}
                     keyboardType={"number-pad"}
                     onChange={onNotificationIntervalChange}
                 />
@@ -309,7 +309,7 @@ export const Component = forwardRef(function Component(
 
     function onRecurrencePatternChange(newText: string): void { onChange?.({recurrencePattern: newText}); }
 
-    function onNotificationIntervalChange(newValue: number | undefined): void { onChange?.({notificationInterval: newValue}); }
+    function onNotificationIntervalChange(newValue: number | undefined): void { onChange?.({hourNotificationInterval: newValue}); }
 
     function onSuspenseToggleStatusChange(newToggleStatus: ToggleStatus): void
     {
