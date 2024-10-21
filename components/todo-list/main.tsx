@@ -4,6 +4,7 @@ import {
     EMPTY_STRING,
     isNotNullAndUndefined,
     isNullOrUndefined,
+    MAX,
     type Nullable,
     Ts,
     useComponentContext,
@@ -255,7 +256,7 @@ export const TodoList = forwardRef(function TodoList(
 
         const dueDurationA = Reminder.Service.getDueDuration(today, reminderA.dueDate);
         const dueDurationB = Reminder.Service.getDueDuration(today, reminderB.dueDate);
-        const dueDateComparisonResult = (dueDurationA ?? Infinity) - (dueDurationB ?? Infinity);
+        const dueDateComparisonResult = (dueDurationA ?? MAX) - (dueDurationB ?? MAX);
         if (dueDateComparisonResult !== 0)
         {
             return dueDateComparisonResult;
