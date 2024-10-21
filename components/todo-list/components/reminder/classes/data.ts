@@ -15,7 +15,7 @@ export class Data
     readonly recurrencePattern?: string;
 
 
-    @Min(1)
+    @Min(0)
     @IsNumber()
     @IsOptional()
     readonly hourNotificationInterval?: number;

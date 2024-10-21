@@ -251,13 +251,13 @@ export const Component = forwardRef(function Component(
                 )}
                 <NumericInputField
                     style={computedStyle.NotificationIntervalNumericInputField}
-                    minValue={1}
-                    maxValue={8800}
-                    maximumFractionDigitCount={0}
+                    minValue={0}
+                    maxValue={527040}
+                    maximumFractionDigitCount={2}
                     selectTextOnFocus={true}
                     placeholder={notificationIntervalPlaceholder}
                     defaultValue={hourNotificationInterval}
-                    keyboardType={"number-pad"}
+                    keyboardType={"decimal-pad"}
                     onChange={onNotificationIntervalChange}
                 />
                 {suspenseToggleStatus !== ControlStatus.Hidden && <Toggle
