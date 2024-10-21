@@ -1,4 +1,4 @@
-import {EMPTY_STRING, MAX, MIN, withValidation} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, MAX_NUMBER, MIN_NUMBER, withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
 import {useArgs} from "@storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
@@ -75,10 +75,10 @@ export const Playground: Story = {
         selectTextOnFocus: false,
         treatEmptyInputAsZero: false,
         showPlusSymbolForPositiveNumber: false,
-        minValue: MIN,
-        maxValue: MAX,
+        minValue: MIN_NUMBER,
+        maxValue: MAX_NUMBER,
         maximumFractionDigitCount: 20,
-        maximumDigitCount: MAX
+        maximumDigitCount: MAX_NUMBER
     }
 };
 

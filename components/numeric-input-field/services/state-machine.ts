@@ -1,4 +1,4 @@
-import {EMPTY_STRING, isNotNullAndUndefined, isNullOrUndefined, MAX, MIN, Ts} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, isNotNullAndUndefined, isNullOrUndefined, MAX_NUMBER, MIN_NUMBER, Ts} from "@miniskylab/antimatter-framework";
 import {Selection} from "@miniskylab/antimatter-text-input";
 import {Keypress} from "../enums";
 
@@ -10,10 +10,10 @@ export function getNextNumericInputFieldState(
     lastEvent: "BlurEvent" | "SyncEvent" | KeypressEvent | undefined,
     showPlusSymbolForPositiveNumber = false,
     treatEmptyInputAsZero = false,
-    minValue = MIN,
-    maxValue = MAX,
+    minValue = MIN_NUMBER,
+    maxValue = MAX_NUMBER,
     maximumFractionDigitCount = 20,
-    maximumDigitCount = MAX
+    maximumDigitCount = MAX_NUMBER
 ): {
     nextValue: number | undefined;
     nextUserInput: string;
