@@ -872,7 +872,6 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__Root: ViewStyle
 
     return {
         ...inheritedStyle,
-        flex: 1,
         backgroundColor: Color.Ambient
     };
 };
@@ -985,7 +984,7 @@ const TodoList__Reminder__RescheduleForwardToggle__Root: ViewStyle = function (v
 
     return {
         ...TodoList__Reminder__SuspenseToggle__Root(viewProps),
-        top: isDraftMode || isEditMode ? 60 : undefined
+        ...(isDraftMode || isEditMode) && {top: 62}
     };
 };
 

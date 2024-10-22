@@ -163,7 +163,7 @@ export function useElasticHeightAnimation(
                     toValue: pxEditModeHeight,
                     delay: msEditModeExpandHeightAnimationDelay,
                     duration: msEditModeExpandHeightAnimationDuration,
-                    easing: Easing.linear,
+                    easing: Easing.out(Easing.circle),
                     useNativeDriver: false
                 }).start(onAnimationEnd);
             },
@@ -174,7 +174,7 @@ export function useElasticHeightAnimation(
                     toValue: pxAlarmModeHeight,
                     delay: msAlarmModeExpandHeightAnimationDelay,
                     duration: msAlarmModeExpandHeightAnimationDuration,
-                    easing: Easing.linear,
+                    easing: Easing.out(Easing.circle),
                     useNativeDriver: false
                 }).start(onAnimationEnd);
             },
@@ -185,7 +185,7 @@ export function useElasticHeightAnimation(
                     toValue: pxInitialHeight,
                     delay: msContractHeightAnimationDelay,
                     duration: msContractHeightAnimationDuration,
-                    easing: Easing.linear,
+                    easing: Easing.out(Easing.circle),
                     useNativeDriver: false
                 }).start(onAnimationEnd);
             },
