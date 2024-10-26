@@ -17,9 +17,9 @@ import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef} from "react";
-import {ControlStatus, Mode, Status, TagMetadata, TagStatus} from "./enums";
+import {ControlStatus, DueDateType, Mode, Status, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext} from "./models";
-import {StateMachine} from "./services";
+import * as Service from "./services";
 
 export const Component = forwardRef(function Component(
     {
@@ -55,7 +55,7 @@ export const Component = forwardRef(function Component(
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
     const today = new Date();
-    const stateMachine = new StateMachine({
+    const stateMachine = new Service.StateMachine({
         today,
         recurrencePattern,
         dueDate,
@@ -252,8 +252,8 @@ export const Component = forwardRef(function Component(
                 <NumericInputField
                     style={computedStyle.NotificationIntervalNumericInputField}
                     minValue={0}
-                    maxValue={527040}
-                    maximumFractionDigitCount={2}
+                    maxValue={8800}
+                    maximumFractionDigitCount={5}
                     selectTextOnFocus={true}
                     placeholder={notificationIntervalPlaceholder}
                     defaultValue={hourNotificationInterval}
@@ -285,7 +285,7 @@ export const Component = forwardRef(function Component(
         );
     }
 
-    function onNameChange(newText: string): void { onChange?.({name: newText}); }
+    function onNameChange(newName: string): void { onChange?.({name: newName}); }
 
     function onTagChange(pressedTagId: string): void
     {
@@ -310,13 +310,25 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onRecurrencePatternChange(newText: string): void { onChange?.({recurrencePattern: newText}); }
-
-    function onNotificationIntervalChange(newValue: number | undefined): void { onChange?.({hourNotificationInterval: newValue}); }
-
-    function onSuspenseToggleStatusChange(newToggleStatus: ToggleStatus): void
+    function onRecurrencePatternChange(newRecurrencePattern: string): void
     {
-        const newSuspenseControlStatus = newToggleStatus === ToggleStatus.Checked ? ControlStatus.Highlighted : ControlStatus.Available;
+        onChange?.({
+            recurrencePattern: newRecurrencePattern,
+            dueDate: Service.getDueDate(newRecurrencePattern, DueDateType.NextDueDate, today)
+        });
+    }
+
+    function onNotificationIntervalChange(newHourNotificationInterval: number | undefined): void
+    {
+        onChange?.({hourNotificationInterval: newHourNotificationInterval});
+    }
+
+    function onSuspenseToggleStatusChange(newSuspenseToggleStatus: ToggleStatus): void
+    {
+        const newSuspenseControlStatus = newSuspenseToggleStatus === ToggleStatus.Checked
+            ? ControlStatus.Highlighted
+            : ControlStatus.Available;
+
         const {newDueDate, newStatus} = stateMachine.toggleSuspense(newSuspenseControlStatus);
         onChange?.({
             status: newStatus,
@@ -324,9 +336,9 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onRescheduleForwardToggleStatusChange(newToggleStatus: ToggleStatus): void
+    function onRescheduleForwardToggleStatusChange(newRescheduleForwardToggleStatus: ToggleStatus): void
     {
-        const newRescheduleForwardControlStatus = newToggleStatus === ToggleStatus.Checked
+        const newRescheduleForwardControlStatus = newRescheduleForwardToggleStatus === ToggleStatus.Checked
             ? ControlStatus.Highlighted
             : ControlStatus.Available;
 
@@ -337,9 +349,9 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onRescheduleBackwardToggleStatusChange(newToggleStatus: ToggleStatus): void
+    function onRescheduleBackwardToggleStatusChange(newRescheduleBackwardToggleStatus: ToggleStatus): void
     {
-        const newRescheduleBackwardControlStatus = newToggleStatus === ToggleStatus.Checked
+        const newRescheduleBackwardControlStatus = newRescheduleBackwardToggleStatus === ToggleStatus.Checked
             ? ControlStatus.Highlighted
             : ControlStatus.Available;
 
