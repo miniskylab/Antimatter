@@ -18,7 +18,7 @@ export class Data
     @Min(0)
     @IsNumber()
     @IsOptional()
-    readonly hourNotificationInterval?: number;
+    readonly secNotificationInterval?: number;
 
 
     @IsOptional()

@@ -10,7 +10,7 @@ export type Props = ComponentProps<Style> & {
     readonly name?: string;
     readonly recurrencePattern?: string;
     readonly recurrencePatternPlaceholder?: string;
-    readonly hourNotificationInterval?: number;
+    readonly secNotificationInterval?: number;
     readonly notificationIntervalPlaceholder?: string;
     readonly maxSelectedTagCount?: number;
     readonly showProgressStripes?: boolean;

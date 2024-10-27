@@ -83,7 +83,7 @@ export default {
                         todoListRef.current?.flashHighlightReminders([args.selectedReminder.id]);
                         TestData.Reminders[args.selectedReminder.id] = {
                             ...args.reminders[args.selectedReminder.id],
-                            hourNotificationInterval: args.selectedReminder.data.hourNotificationInterval,
+                            secNotificationInterval: args.selectedReminder.data.secNotificationInterval,
                             status: args.selectedReminder.data.status,
                             dueDate: args.selectedReminder.data.dueDate,
                             modifiedDate: new Date()
@@ -117,7 +117,7 @@ export default {
                                 data: {
                                     name: EMPTY_STRING,
                                     recurrencePattern: EMPTY_STRING,
-                                    hourNotificationInterval: 1,
+                                    secNotificationInterval: 60,
                                     tags: TestData.Tags,
                                     status: Reminder.Status.Unscheduled
                                 }
@@ -152,7 +152,7 @@ export default {
                             TestData.Reminders[newlyAddedReminderId] = {
                                 name: args.selectedReminder.data.name,
                                 recurrencePattern: args.selectedReminder.data.recurrencePattern,
-                                hourNotificationInterval: args.selectedReminder.data.hourNotificationInterval,
+                                secNotificationInterval: args.selectedReminder.data.secNotificationInterval,
                                 tags: args.selectedReminder.data.tags,
                                 status: args.selectedReminder.data.status,
                                 dueDate: args.selectedReminder.data.dueDate,
@@ -166,7 +166,7 @@ export default {
                                 ...args.reminders[args.selectedReminder.id],
                                 name: args.selectedReminder.data.name,
                                 recurrencePattern: args.selectedReminder.data.recurrencePattern,
-                                hourNotificationInterval: args.selectedReminder.data.hourNotificationInterval,
+                                secNotificationInterval: args.selectedReminder.data.secNotificationInterval,
                                 tags: args.selectedReminder.data.tags,
                                 status: args.selectedReminder.data.status,
                                 dueDate: args.selectedReminder.data.dueDate,
@@ -246,7 +246,7 @@ export default {
                             data: {
                                 name: args.reminders[args.selectedReminder.id].name,
                                 recurrencePattern: args.reminders[args.selectedReminder.id].recurrencePattern,
-                                hourNotificationInterval: args.reminders[args.selectedReminder.id].hourNotificationInterval,
+                                secNotificationInterval: args.reminders[args.selectedReminder.id].secNotificationInterval,
                                 tags: args.reminders[args.selectedReminder.id].tags,
                                 status: args.reminders[args.selectedReminder.id].status,
                                 dueDate: args.reminders[args.selectedReminder.id].dueDate,
@@ -277,7 +277,7 @@ export default {
                             data: {
                                 name: args.reminders[reminderId].name,
                                 recurrencePattern: args.reminders[reminderId].recurrencePattern,
-                                hourNotificationInterval: args.reminders[reminderId].hourNotificationInterval,
+                                secNotificationInterval: args.reminders[reminderId].secNotificationInterval,
                                 tags: args.reminders[reminderId].tags,
                                 status: args.reminders[reminderId].status,
                                 dueDate: args.reminders[reminderId].dueDate,

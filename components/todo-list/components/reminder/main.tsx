@@ -29,7 +29,7 @@ export const Component = forwardRef(function Component(
         name = EMPTY_STRING,
         recurrencePattern = EMPTY_STRING,
         recurrencePatternPlaceholder = EMPTY_STRING,
-        hourNotificationInterval,
+        secNotificationInterval,
         notificationIntervalPlaceholder = EMPTY_STRING,
         tags = {},
         maxSelectedTagCount = 2,
@@ -47,7 +47,7 @@ export const Component = forwardRef(function Component(
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, id, name, recurrencePattern, recurrencePatternPlaceholder, hourNotificationInterval, notificationIntervalPlaceholder, tags,
+        style, id, name, recurrencePattern, recurrencePatternPlaceholder, secNotificationInterval, notificationIntervalPlaceholder, tags,
         maxSelectedTagCount, showProgressStripes, isToBeDeleted, status, dueDate, originalData, modifiedDate, createdDate, mode, onPress,
         onChange
     };
@@ -251,12 +251,12 @@ export const Component = forwardRef(function Component(
                 )}
                 <NumericInputField
                     style={computedStyle.NotificationIntervalNumericInputField}
-                    minValue={0}
-                    maxValue={8800}
-                    maximumFractionDigitCount={5}
+                    minValue={1}
+                    maxValue={31708800}
+                    maximumFractionDigitCount={0}
                     selectTextOnFocus={true}
                     placeholder={notificationIntervalPlaceholder}
-                    defaultValue={hourNotificationInterval}
+                    defaultValue={secNotificationInterval}
                     keyboardType={"decimal-pad"}
                     onChange={onNotificationIntervalChange}
                 />
@@ -318,9 +318,9 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onNotificationIntervalChange(newHourNotificationInterval: number | undefined): void
+    function onNotificationIntervalChange(newSecNotificationInterval: number | undefined): void
     {
-        onChange?.({hourNotificationInterval: newHourNotificationInterval});
+        onChange?.({secNotificationInterval: newSecNotificationInterval});
     }
 
     function onSuspenseToggleStatusChange(newSuspenseToggleStatus: ToggleStatus): void
