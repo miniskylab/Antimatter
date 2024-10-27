@@ -797,6 +797,7 @@ const TodoList__Reminder__ExpansionArea: ViewStyle = function (viewProps)
         flexBasis: "100%",
         flexDirection: "row",
         flexWrap: "wrap",
+        justifyContent: "flex-start",
         rowGap: 10,
         columnGap: 10,
         marginLeft: 35
@@ -808,6 +809,7 @@ const TodoList__Reminder__HrContainer: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flex: 1,
+        flexBasis: "100%",
         alignItems: "stretch",
         justifyContent: "flex-start",
         height: 2,
@@ -861,6 +863,20 @@ const TodoList__Reminder__RecurrencePatternInputField: InputFieldStyle = functio
     };
 };
 
+const TodoList__Reminder__NotificationIntervalLabel: TextStyle = function (textProps)
+{
+    return {
+        ...TextVariant.Default(textProps),
+        maxWidth: 70,
+        lineHeight: 20,
+        marginRight: 2,
+        fontSize: 13,
+        fontWeight: "bold",
+        color: Color.Neutral,
+        textAlign: "right"
+    };
+};
+
 const TodoList__Reminder__NotificationIntervalNumericInputField__Root: ViewStyle = function (viewProps)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
@@ -872,6 +888,7 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__Root: ViewStyle
 
     return {
         ...inheritedStyle,
+        width: 80,
         backgroundColor: Color.Ambient
     };
 };
@@ -887,22 +904,7 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__TextBox: TextIn
 
     return {
         ...inheritedStyle,
-        paddingRight: 50,
         fontWeight: "bold"
-    };
-};
-
-const TodoList__Reminder__NotificationIntervalNumericInputField__Placeholder: TextStyle = function (textProps)
-{
-    const inputFieldContext = InputFieldContextHook.useInputFieldContext();
-    const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
-
-    const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
-        (inputFieldContext.props)
-        .Placeholder(textProps);
-
-    return {
-        ...inheritedStyle
     };
 };
 
@@ -912,8 +914,7 @@ const TodoList__Reminder__NotificationIntervalNumericInputField: NumericInputFie
     return inputFieldProps => ({
         ...NumericInputFieldVariant.Default(numericInputFieldProps, numericInputFieldState)(inputFieldProps),
         Root: TodoList__Reminder__NotificationIntervalNumericInputField__Root,
-        TextBox: TodoList__Reminder__NotificationIntervalNumericInputField__TextBox,
-        Placeholder: TodoList__Reminder__NotificationIntervalNumericInputField__Placeholder
+        TextBox: TodoList__Reminder__NotificationIntervalNumericInputField__TextBox
     });
 };
 
@@ -1047,6 +1048,7 @@ const TodoList__Reminder: Reminder.Style = function ()
         HrContainer: TodoList__Reminder__HrContainer,
         Hr: TodoList__Reminder__Hr,
         RecurrencePatternInputField: TodoList__Reminder__RecurrencePatternInputField,
+        NotificationIntervalLabel: TodoList__Reminder__NotificationIntervalLabel,
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
         SuspenseToggle: TodoList__Reminder__SuspenseToggle,
         RescheduleForwardToggle: TodoList__Reminder__RescheduleForwardToggle,

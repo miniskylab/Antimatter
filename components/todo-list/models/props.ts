@@ -56,12 +56,39 @@ export class TodoListProps extends ComponentProps<TodoListStyle>
 
 
     /**
-     * Specify the text that will be displayed before the reminder notification interval has been entered.
+     * Specify the text that will be inscribed onto the reminder for identification and description of the reminder notification interval.
      */
     @IsNotEmpty()
     @IsString()
     @IsOptional()
-    readonly reminderNotificationIntervalPlaceholder?: string;
+    readonly reminderNotificationIntervalLabel?: string;
+
+
+    /**
+     * Specify the text that will be displayed before the "hour" component of the reminder notification interval has been entered.
+     */
+    @IsNotEmpty()
+    @IsString()
+    @IsOptional()
+    readonly hourReminderNotificationIntervalPlaceholder?: string;
+
+
+    /**
+     * Specify the text that will be displayed before the "minute" component of the reminder notification interval has been entered.
+     */
+    @IsNotEmpty()
+    @IsString()
+    @IsOptional()
+    readonly minuteReminderNotificationIntervalPlaceholder?: string;
+
+
+    /**
+     * Specify the text that will be displayed before the "second" component of the reminder notification interval has been entered.
+     */
+    @IsNotEmpty()
+    @IsString()
+    @IsOptional()
+    readonly secReminderNotificationIntervalPlaceholder?: string;
 
 
     /**

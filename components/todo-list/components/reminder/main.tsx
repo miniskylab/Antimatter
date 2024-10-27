@@ -16,7 +16,7 @@ import {Text} from "@miniskylab/antimatter-text";
 import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef} from "react";
+import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef} from "react";
 import {ControlStatus, DueDateType, Mode, Status, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext} from "./models";
 import * as Service from "./services";
@@ -30,7 +30,10 @@ export const Component = forwardRef(function Component(
         recurrencePattern = EMPTY_STRING,
         recurrencePatternPlaceholder = EMPTY_STRING,
         secNotificationInterval,
-        notificationIntervalPlaceholder = EMPTY_STRING,
+        notificationIntervalLabel = EMPTY_STRING,
+        hourNotificationIntervalPlaceholder = EMPTY_STRING,
+        minuteNotificationIntervalPlaceholder = EMPTY_STRING,
+        secNotificationIntervalPlaceholder = EMPTY_STRING,
         tags = {},
         maxSelectedTagCount = 2,
         showProgressStripes,
@@ -47,7 +50,8 @@ export const Component = forwardRef(function Component(
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, id, name, recurrencePattern, recurrencePatternPlaceholder, secNotificationInterval, notificationIntervalPlaceholder, tags,
+        style, id, name, recurrencePattern, recurrencePatternPlaceholder, secNotificationInterval, notificationIntervalLabel,
+        hourNotificationIntervalPlaceholder, minuteNotificationIntervalPlaceholder, secNotificationIntervalPlaceholder, tags,
         maxSelectedTagCount, showProgressStripes, isToBeDeleted, status, dueDate, originalData, modifiedDate, createdDate, mode, onPress,
         onChange
     };
@@ -68,6 +72,9 @@ export const Component = forwardRef(function Component(
         dueDuration, formattedDueDate, formattedDueDuration, isOverdue, isDue, suspenseToggleStatus, rescheduleForwardToggleStatus,
         rescheduleBackwardToggleStatus, recurrencePatternInputFieldStatus
     } = stateMachine.getDerivedProperties();
+    const [
+        hourNotificationIntervalTimeComponent, minuteNotificationIntervalTimeComponent, secNotificationIntervalTimeComponent
+    ] = useMemo(() => Ts.Time.getTimeComponents(secNotificationInterval), [secNotificationInterval]);
 
     const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue}});
 
@@ -249,16 +256,42 @@ export const Component = forwardRef(function Component(
                         onChangeText={onRecurrencePatternChange}
                     />
                 )}
+                <Text style={computedStyle.NotificationIntervalLabel}>{notificationIntervalLabel}</Text>
                 <NumericInputField
                     style={computedStyle.NotificationIntervalNumericInputField}
-                    minValue={1}
-                    maxValue={31708800}
+                    minValue={0}
+                    maxValue={23}
+                    maximumDigitCount={2}
                     maximumFractionDigitCount={0}
                     selectTextOnFocus={true}
-                    placeholder={notificationIntervalPlaceholder}
-                    defaultValue={secNotificationInterval}
-                    keyboardType={"decimal-pad"}
-                    onChange={onNotificationIntervalChange}
+                    placeholder={hourNotificationIntervalPlaceholder}
+                    defaultValue={hourNotificationIntervalTimeComponent}
+                    keyboardType={"number-pad"}
+                    onChange={onHourNotificationIntervalTimeComponentChange}
+                />
+                <NumericInputField
+                    style={computedStyle.NotificationIntervalNumericInputField}
+                    minValue={0}
+                    maxValue={59}
+                    maximumDigitCount={2}
+                    maximumFractionDigitCount={0}
+                    selectTextOnFocus={true}
+                    placeholder={minuteNotificationIntervalPlaceholder}
+                    defaultValue={minuteNotificationIntervalTimeComponent}
+                    keyboardType={"number-pad"}
+                    onChange={onMinuteNotificationIntervalTimeComponentChange}
+                />
+                <NumericInputField
+                    style={computedStyle.NotificationIntervalNumericInputField}
+                    minValue={0}
+                    maxValue={59}
+                    maximumDigitCount={2}
+                    maximumFractionDigitCount={0}
+                    selectTextOnFocus={true}
+                    placeholder={secNotificationIntervalPlaceholder}
+                    defaultValue={secNotificationIntervalTimeComponent}
+                    keyboardType={"number-pad"}
+                    onChange={onSecNotificationIntervalTimeComponentChange}
                 />
                 {suspenseToggleStatus !== ControlStatus.Hidden && <Toggle
                     style={computedStyle.SuspenseToggle}
@@ -318,9 +351,37 @@ export const Component = forwardRef(function Component(
         });
     }
 
-    function onNotificationIntervalChange(newSecNotificationInterval: number | undefined): void
+    function onHourNotificationIntervalTimeComponentChange(newHourNotificationIntervalTimeComponent: number | undefined): void
     {
-        onChange?.({secNotificationInterval: newSecNotificationInterval});
+        onChange?.({
+            secNotificationInterval: Ts.Time.getSecTime(
+                newHourNotificationIntervalTimeComponent,
+                minuteNotificationIntervalTimeComponent,
+                secNotificationIntervalTimeComponent
+            ) || undefined
+        });
+    }
+
+    function onMinuteNotificationIntervalTimeComponentChange(newMinuteNotificationIntervalTimeComponent: number | undefined): void
+    {
+        onChange?.({
+            secNotificationInterval: Ts.Time.getSecTime(
+                hourNotificationIntervalTimeComponent,
+                newMinuteNotificationIntervalTimeComponent,
+                secNotificationIntervalTimeComponent
+            ) || undefined
+        });
+    }
+
+    function onSecNotificationIntervalTimeComponentChange(newSecNotificationIntervalTimeComponent: number | undefined): void
+    {
+        onChange?.({
+            secNotificationInterval: Ts.Time.getSecTime(
+                hourNotificationIntervalTimeComponent,
+                minuteNotificationIntervalTimeComponent,
+                newSecNotificationIntervalTimeComponent
+            ) || undefined
+        });
     }
 
     function onSuspenseToggleStatusChange(newSuspenseToggleStatus: ToggleStatus): void
