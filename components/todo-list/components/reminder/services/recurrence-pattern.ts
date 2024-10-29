@@ -24,18 +24,22 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
         const cronMinuteValue = Number(cronMinuteToken);
         const cronHourValue = Number(cronHourToken);
         const cronDayValue = Number(cronDayToken);
-        const msDuration = cronSecondValue * 1000 +
-                           cronMinuteValue * 60 * 1000 +
-                           cronHourValue * 60 * 60 * 1000 +
-                           cronDayValue * 24 * 60 * 60 * 1000;
+        const msRecurrenceDuration = cronSecondValue * 1000 +
+                                     cronMinuteValue * 60 * 1000 +
+                                     cronHourValue * 60 * 60 * 1000 +
+                                     cronDayValue * 24 * 60 * 60 * 1000;
 
-        if (dueDateType === DueDateType.NextDueDate)
+        if (msRecurrenceDuration === 0)
         {
-            executionTime.setTime(executionTime.getTime() + msDuration);
+            return undefined;
+        }
+        else if (dueDateType === DueDateType.NextDueDate)
+        {
+            executionTime.setTime(executionTime.getTime() + msRecurrenceDuration);
         }
         else if (dueDateType === DueDateType.PreviousDueDate)
         {
-            executionTime.setTime(executionTime.getTime() - msDuration);
+            executionTime.setTime(executionTime.getTime() - msRecurrenceDuration);
         }
     }
     else if (cronTokens.length === 7)
@@ -81,13 +85,13 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
     return executionTime;
 }
 
-export function isDurationBasedReminder(recurrencePattern: string | undefined)
+export function isDurationRecurrencePattern(recurrencePattern: string | undefined)
 {
     const durationRecurrencePatternRegex = new RegExp("^([1-5]?[0-9]) ([1-5]?[0-9]) ([0-9]|1[0-9]|2[0-3]) ([0-9]?[0-9]?[0-9]?[0-9])$");
     return durationRecurrencePatternRegex.test(recurrencePattern ?? EMPTY_STRING);
 }
 
-function isPointInTimeBasedReminder(recurrencePattern: string | undefined)
+function isCronRecurrencePattern(recurrencePattern: string | undefined)
 {
     if (isNullOrUndefined(recurrencePattern))
     {
@@ -110,7 +114,7 @@ function isPointInTimeBasedReminder(recurrencePattern: string | undefined)
 
 function isValidRecurrencePattern(recurrencePattern: string): boolean
 {
-    return isPointInTimeBasedReminder(recurrencePattern) || isDurationBasedReminder(recurrencePattern);
+    return isCronRecurrencePattern(recurrencePattern) || isDurationRecurrencePattern(recurrencePattern);
 }
 
 function tryParseExactTime(recurrencePattern: string, nextExecutionTime: Date): boolean

@@ -1,6 +1,6 @@
 import {DateFormat, GregorianCalendar, isNotNullAndUndefined, isNullOrUndefined, TimeUnit} from "@miniskylab/antimatter-framework";
 import {ControlStatus, DueDateType, Mode, PendingStatus, Status} from "../enums";
-import {getDueDate, getDueDuration, isDurationBasedReminder} from "./recurrence-pattern";
+import {getDueDate, getDueDuration, isDurationRecurrencePattern} from "./recurrence-pattern";
 
 export class StateMachine
 {
@@ -175,7 +175,7 @@ export class StateMachine
 
     private goToNextOccurrence()
     {
-        const today = this.isOriginallySuspended() || !this._dueDate || isDurationBasedReminder(this._recurrencePattern)
+        const today = this.isOriginallySuspended() || !this._dueDate || isDurationRecurrencePattern(this._recurrencePattern)
             ? this._today
             : this._dueDate;
 
@@ -194,7 +194,7 @@ export class StateMachine
 
     private goToPreviousOccurrence()
     {
-        const today = !this._dueDate || isDurationBasedReminder(this._recurrencePattern)
+        const today = !this._dueDate || isDurationRecurrencePattern(this._recurrencePattern)
             ? this._today
             : this._dueDate;
 
