@@ -140,7 +140,7 @@ export class StateMachine
         }
         else if (this.isOriginallySuspended() && newSuspenseToggleStatus === ControlStatus.Available)
         {
-            this.goToNextOccurrence();
+            this.goToNextOccurrenceInTheFuture();
         }
 
         return {newDueDate: this._dueDate, newStatus: this._status};
@@ -155,7 +155,7 @@ export class StateMachine
             (!this.isOriginallyCompleted() && newRescheduleForwardToggleStatus === ControlStatus.Highlighted)
         )
         {
-            this.goToNextOccurrence();
+            this.goToNextOccurrenceInTheFuture();
         }
 
         return {newDueDate: this._dueDate, newStatus: this._status};
@@ -173,11 +173,11 @@ export class StateMachine
         return {newDueDate: this._dueDate, newStatus: this._status};
     }
 
-    private goToNextOccurrence()
+    private goToNextOccurrenceInTheFuture()
     {
-        const today = this.isOriginallySuspended() || !this._dueDate || isDurationRecurrencePattern(this._recurrencePattern)
-            ? this._today
-            : this._dueDate;
+        const today = !isDurationRecurrencePattern(this._recurrencePattern) && this._dueDate && this._dueDate >= this._today
+            ? this._dueDate
+            : this._today;
 
         let newReminderStatus = Status.Scheduled;
         let newDueDate = getDueDate(this._recurrencePattern, DueDateType.NextDueDate, today);

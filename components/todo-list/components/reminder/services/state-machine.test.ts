@@ -368,6 +368,48 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
+
+    it("ensures the reminder will be due in the future", () =>
+    {
+        // Arrange
+        const stateMachine = new StateMachine({
+            recurrencePattern: `0 0 0 25 * ? *`,
+            originalDueDate: new Date(1993, 1, 25),
+            dueDate: new Date(1993, 1, 25),
+            today: new Date(1993, 3, 1),
+            originalStatus: Status.Scheduled,
+            status: Status.Scheduled,
+            mode: Mode.Edit
+        });
+
+        // Act & Assert: Turn On
+        stateMachine.toggleRescheduleForward(ControlStatus.Highlighted);
+        let derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledForward);
+        expect(derivedProperties.formattedDueDuration).toBe("In 24 days");
+        expect(derivedProperties.formattedDueDate).toBe("25.04.1993");
+        expect(derivedProperties.dueDuration).toBe(24);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleForward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBe("35 days ago");
+        expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
+        expect(derivedProperties.dueDuration).toBe(-35);
+        expect(derivedProperties.isOverdue).toBe(true);
+        expect(derivedProperties.isDue).toBe(false);
+    });
 });
 
 describe("rescheduling a reminder backward", () =>
