@@ -345,9 +345,17 @@ export const Component = forwardRef(function Component(
 
     function onRecurrencePatternChange(newRecurrencePattern: string): void
     {
+        const newDueDate = Service.getDueDate(newRecurrencePattern, DueDateType.NextDueDate, today);
+        const newStatus = newDueDate && status === Status.Unscheduled
+            ? Status.Scheduled
+            : !newDueDate && status === Status.Scheduled
+                ? Status.Unscheduled
+                : status;
+
         onChange?.({
             recurrencePattern: newRecurrencePattern,
-            dueDate: Service.getDueDate(newRecurrencePattern, DueDateType.NextDueDate, today)
+            dueDate: newDueDate,
+            status: newStatus
         });
     }
 
