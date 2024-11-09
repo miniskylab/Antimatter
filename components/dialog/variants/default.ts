@@ -4,11 +4,9 @@ import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {PressableContextHook, type PressableStyle} from "@miniskylab/antimatter-pressable";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {LocalAuthenticationStatus} from "../enums";
-import {LocalAuthenticationFormContextHook} from "../hooks";
-import {type LocalAuthenticationFormStyle} from "../models";
+import {type DialogStyle} from "../models";
 
-const LocalAuthenticationForm__Root: ViewStyle = function (viewProps)
+const Dialog__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
@@ -19,40 +17,31 @@ const LocalAuthenticationForm__Root: ViewStyle = function (viewProps)
     };
 };
 
-const LocalAuthenticationForm__Title: TextStyle = function (textProps)
+const Dialog__Title: TextStyle = function (textProps)
 {
-    const localAuthenticationFormContext = LocalAuthenticationFormContextHook.useLocalAuthenticationFormContext();
-
     return {
         ...TextVariant.Default(textProps),
         marginTop: 65,
         fontSize: 24,
         fontWeight: "bold",
-        color: localAuthenticationFormContext.props.localAuthenticationStatus === LocalAuthenticationStatus.BiometricHardwareAccessDenied
-            ? Color.Tomato
-            : Color.White
+        color: Color.White
     };
 };
 
-const LocalAuthenticationForm__Subtitle: TextStyle = function (textProps)
+const Dialog__Subtitle: TextStyle = function (textProps)
 {
-    const localAuthenticationFormContext = LocalAuthenticationFormContextHook.useLocalAuthenticationFormContext();
-
     return {
         ...TextVariant.Default(textProps),
+        alignSelf: "stretch",
         lineHeight: 28,
         marginTop: 55,
         fontSize: 16,
         textAlign: "center",
-        color: Color.Neutral,
-        ...localAuthenticationFormContext.props.localAuthenticationStatus === LocalAuthenticationStatus.WaitingForForeground && {
-            color: Color.Green,
-            fontWeight: "bold"
-        }
+        color: Color.Neutral
     };
 };
 
-const LocalAuthenticationForm__PromptButton__Root: PressableStyle = function (pressableProps, pressableState)
+const Dialog__ConfirmButton__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const buttonContext = ButtonContextHook.useButtonContext();
 
@@ -73,7 +62,7 @@ const LocalAuthenticationForm__PromptButton__Root: PressableStyle = function (pr
     };
 };
 
-const LocalAuthenticationForm__PromptButton__Icon: IconStyle = function (iconProps)
+const Dialog__ConfirmButton__Icon: IconStyle = function (iconProps)
 {
     const pressableContext = PressableContextHook.usePressableContext();
 
@@ -85,21 +74,21 @@ const LocalAuthenticationForm__PromptButton__Icon: IconStyle = function (iconPro
     };
 };
 
-const LocalAuthenticationForm__PromptButton: ButtonStyle = function (buttonProps)
+const Dialog__ConfirmButton: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.OutlinedRectangular(buttonProps),
-        Root: LocalAuthenticationForm__PromptButton__Root,
-        Icon: LocalAuthenticationForm__PromptButton__Icon
+        Root: Dialog__ConfirmButton__Root,
+        Icon: Dialog__ConfirmButton__Icon
     };
 };
 
-export const Default: LocalAuthenticationFormStyle = function ()
+export const Default: DialogStyle = function ()
 {
     return {
-        Root: LocalAuthenticationForm__Root,
-        Title: LocalAuthenticationForm__Title,
-        Subtitle: LocalAuthenticationForm__Subtitle,
-        PromptButton: LocalAuthenticationForm__PromptButton
+        Root: Dialog__Root,
+        Title: Dialog__Title,
+        Subtitle: Dialog__Subtitle,
+        ConfirmButton: Dialog__ConfirmButton
     };
 };
