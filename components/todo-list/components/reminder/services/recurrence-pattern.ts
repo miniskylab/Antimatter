@@ -8,6 +8,17 @@ export function getDueDuration(today: Date, dueDate: Date | undefined): number |
         : undefined;
 }
 
+export function getFormattedDueDuration(dueDuration: number | undefined): string | undefined
+{
+    return isNullOrUndefined(dueDuration)
+        ? undefined
+        : dueDuration === 0
+            ? "Today"
+            : dueDuration > 0
+                ? dueDuration === 1 ? "Tomorrow" : `In ${dueDuration} days`
+                : dueDuration === -1 ? "Yesterday" : `${Math.abs(dueDuration)} days ago`;
+}
+
 export function getDueDate(recurrencePattern: string | undefined, dueDateType: DueDateType, today: Date): Date | undefined
 {
     if (isNullOrUndefined(recurrencePattern) || !isValidRecurrencePattern(recurrencePattern))

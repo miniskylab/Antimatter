@@ -1,6 +1,6 @@
-import {DateFormat, GregorianCalendar, isNotNullAndUndefined, isNullOrUndefined, TimeUnit} from "@miniskylab/antimatter-framework";
+import {DateFormat, GregorianCalendar, isNotNullAndUndefined, TimeUnit} from "@miniskylab/antimatter-framework";
 import {ControlStatus, DueDateType, Mode, PendingStatus, Status} from "../enums";
-import {getDueDate, getDueDuration, isDurationRecurrencePattern} from "./recurrence-pattern";
+import {getDueDate, getDueDuration, getFormattedDueDuration, isDurationRecurrencePattern} from "./recurrence-pattern";
 
 export class StateMachine
 {
@@ -107,13 +107,9 @@ export class StateMachine
                     ? GregorianCalendar.toString(this._dueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
                     : "No due date";
 
-        const formattedDueDuration = this.isCompleted() || this.isSuspended() || isNullOrUndefined(dueDuration)
+        const formattedDueDuration = this.isCompleted() || this.isSuspended()
             ? undefined
-            : isDue
-                ? "Today"
-                : dueDuration > 0
-                    ? dueDuration === 1 ? "Tomorrow" : `In ${dueDuration} days`
-                    : dueDuration === -1 ? "Yesterday" : `${Math.abs(dueDuration)} days ago`;
+            : getFormattedDueDuration(dueDuration);
 
         return {
             isDue,
