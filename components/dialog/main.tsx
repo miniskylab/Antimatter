@@ -8,7 +8,7 @@ import {DialogContext, DialogProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * A component that allows users to interact with computers.
+ * A component that allows users to exchange information with computers, smartphones, tablets, etc.
  */
 export function Dialog({
     style = Variant.Default,

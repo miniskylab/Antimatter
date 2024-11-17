@@ -24,10 +24,10 @@ export const Playground: Story = {
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
-        title: "Face ID Access Required",
-        subtitle: "Tap the Face icon to go to Settings and grant<br/>MiniSkyLab permission to use Face ID",
+        title: "Lorem ipsum dolor sit amet",
+        subtitle: "Aenean varius mi accumsan imperdiet tincidunt<br/>turpis velit scelerisque eros quis felis",
         icon: DefaultIconSet.FaceID,
-        onConfirm: () => { alert("Confirmed!"); }
+        onConfirm: () => { alert("Lorem ipsum dolor sit amet"); }
     },
     render: args => <DialogWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
 };
