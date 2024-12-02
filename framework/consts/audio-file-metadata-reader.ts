@@ -17,7 +17,7 @@ export const AudioFileMetadataReader = new class
     private id3v2TagSizeInByte: number;
     private metadataId: string | undefined;
     private audioMetadata: Record<string, string>;
-    private memoryBufferByteData = Uint8Array.from([]);
+    private memoryBufferByteData: Uint8Array = Uint8Array.from([]);
     private isFinishedReadingAudioMetadata = false;
     private memoryBufferReadCursorPosition = 0;
     private audioFileReadCursorPosition = 0;
