@@ -2,6 +2,7 @@ import {applyRepositoryWideModifications} from "@miniskylab/webpack";
 import {type StorybookConfig} from "@storybook/react-webpack5";
 import findWorkspaceRoot from "find-yarn-workspace-root";
 import path from "path";
+import {Configuration} from "webpack";
 
 const workspaceRoot = findWorkspaceRoot()!;
 const pathToTypeScriptConfigFile = path.join(workspaceRoot, "tsconfig.json");
@@ -44,7 +45,7 @@ export default {
     },
     async webpackFinal(storybookDefault, {configType: mode})
     {
-        applyRepositoryWideModifications(storybookDefault, mode);
+        applyRepositoryWideModifications(storybookDefault as Configuration, mode);
         return storybookDefault;
     }
 } satisfies StorybookConfig;
