@@ -13,8 +13,9 @@ const WeatherWidget__Root: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
         flexWrap: "wrap",
-        minWidth: 400,
+        minWidth: 360,
         maxWidth: 400,
+        marginHorizontal: 15,
         backgroundColor: Color.Ambient,
         shadowOffset: {width: 0, height: 10},
         shadowRadius: 20,
@@ -462,10 +463,11 @@ const WeatherWidget__TimeFrameForecastData__TimeFrameName: TextStyle = function 
 {
     return {
         ...TextVariant.Default(textProps),
-        flex: 1,
+        width: 45,
         color: Color.Neutral,
         fontSize: 16,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        marginRight: 27
     };
 };
 
@@ -477,7 +479,7 @@ const WeatherWidget__TimeFrameForecastData__TemperatureContainer: ViewStyle = fu
         justifyContent: "flex-start",
         columnGap: 10,
         width: 101,
-        marginRight: 36
+        marginRight: 34
     };
 };
 
@@ -518,7 +520,7 @@ const WeatherWidget__TimeFrameForecastData__PrecipitationProbabilityContainer: V
         justifyContent: "flex-start",
         columnGap: 8,
         width: 64,
-        marginRight: 36
+        marginRight: 19
     };
 };
 

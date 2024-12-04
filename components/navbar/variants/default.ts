@@ -13,9 +13,10 @@ const Navbar__Root: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
-        columnGap: 10,
+        justifyContent: "space-between",
         width: "100%",
         height: 55,
+        paddingHorizontal: 5,
         backgroundColor: Color.Ambient,
         shadowOffset: {width: 0, height: 0},
         shadowRadius: 20,

@@ -93,7 +93,6 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
     /**
      * Specify all audio files to which the music player has access.
      */
-    @ArrayNotEmpty()
     @IsArray()
     @IsOptional()
     @ValidateNested({each: true})

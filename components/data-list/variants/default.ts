@@ -179,11 +179,29 @@ const DataList__Button2__Root: PressableStyle = function (pressableProps, pressa
     };
 };
 
+const DataList__Button2__Icon: IconStyle = function (iconProps)
+{
+    return {
+        ...DataList__Button1__Icon(iconProps),
+        color: Color.Background
+    };
+};
+
+const DataList__Button2__Label: TextStyle = function (textProps)
+{
+    return {
+        ...DataList__Button1__Label(textProps),
+        color: Color.Background
+    };
+};
+
 const DataList__Button2: ButtonStyle = function (buttonProps)
 {
     return {
         ...DataList__Button1(buttonProps),
-        Root: DataList__Button2__Root
+        Root: DataList__Button2__Root,
+        Icon: DataList__Button2__Icon,
+        Label: DataList__Button2__Label
     };
 };
 
