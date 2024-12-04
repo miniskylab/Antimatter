@@ -17,7 +17,7 @@ const MusicPlayer__Root: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flex: 1,
         alignItems: "stretch",
-        minWidth: 400,
+        minWidth: 390,
         maxWidth: 500,
         paddingTop: 15,
         backgroundColor: Color.Background
@@ -86,7 +86,7 @@ const MusicPlayer__ControlContainer: ViewStyle = function (viewProps)
         flexDirection: "row",
         columnGap: 15,
         paddingTop: 12,
-        paddingBottom: 18,
+        paddingBottom: 17,
         paddingHorizontal: 15
     };
 };
