@@ -20,7 +20,7 @@ const DataTable__Root: ViewStyle = function (viewProps)
         ...ViewVariant.Default(viewProps),
         flex: 1,
         flexDirection: "column",
-        minWidth: 400,
+        minWidth: 390,
         height: 610,
         paddingTop: 10,
         paddingRight: 15,

@@ -17,7 +17,7 @@ const TodoList__DataList__Root: ViewStyle = function (viewProps)
 
     return {
         ...inheritedStyle,
-        minWidth: 400,
+        minWidth: 390,
         ...isViewportSizeGreaterThanOrEqualToMediumBreakpoint && {
             maxWidth: 500,
             height: 636

@@ -464,10 +464,12 @@ const WeatherWidget__TimeFrameForecastData__TimeFrameName: TextStyle = function 
     return {
         ...TextVariant.Default(textProps),
         width: 45,
+        height: 24,
+        lineHeight: 21,
         color: Color.Neutral,
         fontSize: 16,
         fontWeight: "bold",
-        marginRight: 27
+        marginRight: 21
     };
 };
 
@@ -479,7 +481,9 @@ const WeatherWidget__TimeFrameForecastData__TemperatureContainer: ViewStyle = fu
         justifyContent: "flex-start",
         columnGap: 10,
         width: 101,
-        marginRight: 34
+        height: 24,
+        lineHeight: 21,
+        marginRight: 24
     };
 };
 
@@ -520,7 +524,9 @@ const WeatherWidget__TimeFrameForecastData__PrecipitationProbabilityContainer: V
         justifyContent: "flex-start",
         columnGap: 8,
         width: 64,
-        marginRight: 19
+        height: 24,
+        lineHeight: 21,
+        marginRight: 21
     };
 };
 
@@ -560,7 +566,9 @@ const WeatherWidget__TimeFrameForecastData__AirQualityIndexContainer: ViewStyle 
         flexDirection: "row",
         justifyContent: "flex-start",
         columnGap: 6,
-        width: 51
+        width: 51,
+        height: 24,
+        lineHeight: 21
     };
 };
 
