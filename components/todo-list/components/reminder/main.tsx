@@ -58,9 +58,7 @@ export const Component = forwardRef(function Component(
 
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
-    const today = new Date();
     const stateMachine = new Service.StateMachine({
-        today,
         recurrencePattern,
         dueDate,
         mode,
@@ -345,6 +343,7 @@ export const Component = forwardRef(function Component(
 
     function onRecurrencePatternChange(newRecurrencePattern: string): void
     {
+        const today = new Date();
         const newDueDate = Service.getDueDate(newRecurrencePattern, DueDateType.NextDueDate, today);
         const newStatus = newDueDate && status === Status.Unscheduled
             ? Status.Scheduled

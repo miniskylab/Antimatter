@@ -4,9 +4,9 @@ import {getDueDate, getDueDuration, getFormattedDueDuration, isDurationRecurrenc
 
 export class StateMachine
 {
-    private readonly _today: Date;
     private readonly _mode: Mode;
     private readonly _originalStatus: Status;
+    private readonly _today: Date | undefined;
     private readonly _originalDueDate: Date | undefined;
     private readonly _recurrencePattern: string | undefined;
     private _status: Status;
@@ -26,7 +26,7 @@ export class StateMachine
         originalStatus?: Status
     })
     {
-        this._today = initialState?.today ?? new Date();
+        this._today = initialState?.today;
         this._recurrencePattern = initialState?.recurrencePattern;
         this._originalDueDate = initialState?.originalDueDate;
         this._dueDate = initialState?.dueDate;
@@ -95,7 +95,7 @@ export class StateMachine
                     ? ControlStatus.Highlighted
                     : ControlStatus.Available;
 
-        const dueDuration = getDueDuration(this._today, this._dueDate);
+        const dueDuration = getDueDuration(this._today ?? new Date(), this._dueDate);
         const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
         const isDue = dueDuration === 0;
 
@@ -171,9 +171,10 @@ export class StateMachine
 
     private goToNextOccurrenceInTheFuture()
     {
-        const today = !isDurationRecurrencePattern(this._recurrencePattern) && this._dueDate && this._dueDate >= this._today
+        const now = this._today ?? new Date();
+        const today = !isDurationRecurrencePattern(this._recurrencePattern) && this._dueDate && this._dueDate >= now
             ? this._dueDate
-            : this._today;
+            : now;
 
         let newReminderStatus = Status.Scheduled;
         let newDueDate = getDueDate(this._recurrencePattern, DueDateType.NextDueDate, today);
@@ -191,7 +192,7 @@ export class StateMachine
     private goToPreviousOccurrence()
     {
         const today = !this._dueDate || isDurationRecurrencePattern(this._recurrencePattern)
-            ? this._today
+            ? this._today ?? new Date()
             : this._dueDate;
 
         let newDueDate = getDueDate(this._recurrencePattern, DueDateType.PreviousDueDate, today);
