@@ -25,7 +25,7 @@ export default {
             "cancelButton" | "customButton">;
 
         const busySettings: BusySettings = {
-            selectedTransaction: {...args.selectedTransaction, showProgressStripes: true},
+            selectedTransaction: {...args.selectedTransaction, isShowingProgressStripes: true},
             addNewTransactionButton: {...args.addNewTransactionButton, disabled: true},
             saveTransactionButton: {...args.saveTransactionButton, disabled: true},
             deleteTransactionButton: {...args.deleteTransactionButton, disabled: true},

@@ -10,7 +10,7 @@ export type Props = ComponentProps<Style> & {
     readonly namePlaceholder?: string;
     readonly amount: number;
     readonly maxSelectedTagCount?: number;
-    readonly showProgressStripes?: boolean;
+    readonly isShowingProgressStripes?: boolean;
     readonly isToBeDeleted?: boolean;
     readonly tags?: Record<string, Tag>;
     readonly executedDate: Date;

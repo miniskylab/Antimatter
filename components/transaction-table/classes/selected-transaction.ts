@@ -18,5 +18,5 @@ export class SelectedTransaction
 
     @IsBoolean()
     @IsOptional()
-    readonly showProgressStripes?: boolean;
+    readonly isShowingProgressStripes?: boolean;
 }

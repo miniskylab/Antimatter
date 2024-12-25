@@ -340,7 +340,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
                     isToBeDeleted={isToBeDeletedTransaction}
                     maxSelectedTagCount={maxSelectedTagCount}
                     namePlaceholder={transactionNamePlaceholder}
-                    showProgressStripes={isSelectedTransaction && selectedTransaction?.showProgressStripes}
+                    isShowingProgressStripes={isSelectedTransaction && selectedTransaction?.isShowingProgressStripes}
                     onPress={!selectedTransaction ? () => { onSelectTransaction?.(filteredTransactionId); } : undefined}
                     onChange={newTransactionData => { onChangeTransaction?.({...transactionData, ...newTransactionData}); }}
                 />
