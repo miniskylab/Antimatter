@@ -24,7 +24,15 @@ export default {
             "customButton">;
 
         const busySettings: BusySettings = {
-            selectedReminder: {...args.selectedReminder, showProgressStripes: true},
+            selectedReminder: args.selectedReminder
+                ? {
+                    ...args.selectedReminder,
+                    data: {
+                        ...args.selectedReminder.data,
+                        isShowingProgressStripes: true
+                    }
+                }
+                : undefined,
             addNewReminderButton: {...args.addNewReminderButton, disabled: true},
             saveReminderButton: {...args.saveReminderButton, disabled: true},
             deleteReminderButton: {...args.deleteReminderButton, disabled: true},
@@ -51,12 +59,48 @@ export default {
                     ...args.dismissAllAlarmButton,
                     icon: DefaultIconSet.NoSound,
                     text: "Dismiss All",
-                    onPress: () =>
+                    onPress: async () =>
                     {
+                        const alarmedReminderIds = Object.keys(TestData.Reminders).filter(x => TestData.Reminders[x].isAlarmed);
+                        alarmedReminderIds.forEach(alarmedReminderId =>
+                        {
+                            TestData.Reminders[alarmedReminderId] = {...args.reminders[alarmedReminderId], isShowingProgressStripes: true};
+                        });
+
                         setArgs({
-                            alarmedReminderIds: [],
+                            ...busySettings,
+                            mode: Reminder.Mode.Alarm,
+                            reminders: {...TestData.Reminders},
+                            displayPanel: {
+                                icon: DefaultIconSet.Gear,
+                                message: "Saving Reminders",
+                                theme: DataListDisplayPanelTheme.Cautious,
+                                isIconAnimationPlaying: true,
+                                isVisible: true
+                            }
+                        });
+
+                        await new Promise(resolve => { setTimeout(resolve, 2000); });
+                        alarmedReminderIds.forEach(alarmedReminderId =>
+                        {
+                            TestData.Reminders[alarmedReminderId] = {
+                                ...args.reminders[alarmedReminderId],
+                                isShowingProgressStripes: false,
+                                isAlarmed: false
+                            };
+                        });
+
+                        todoListRef.current?.flashHighlightReminders(alarmedReminderIds);
+                        setArgs({
+                            ...unbusySettings,
                             selectedReminder: undefined,
-                            mode: Reminder.Mode.ReadOnly
+                            mode: Reminder.Mode.ReadOnly,
+                            reminders: {...TestData.Reminders},
+                            displayPanel: {
+                                icon: DefaultIconSet.CheckMark,
+                                theme: DataListDisplayPanelTheme.Positive,
+                                message: "Saved Successfully"
+                            }
                         });
                     }
                 }}
@@ -83,19 +127,18 @@ export default {
                         todoListRef.current?.flashHighlightReminders([args.selectedReminder.id]);
                         TestData.Reminders[args.selectedReminder.id] = {
                             ...args.reminders[args.selectedReminder.id],
+                            isAlarmed: false,
                             secNotificationInterval: args.selectedReminder.data.secNotificationInterval,
                             status: args.selectedReminder.data.status,
                             dueDate: args.selectedReminder.data.dueDate,
                             modifiedDate: new Date()
                         };
 
-                        const alarmedReminderIds = args.alarmedReminderIds.filter(x => x !== args.selectedReminder.id);
                         setArgs({
                             ...unbusySettings,
-                            alarmedReminderIds,
                             selectedReminder: undefined,
                             reminders: {...TestData.Reminders},
-                            mode: alarmedReminderIds.length === 0 ? Reminder.Mode.ReadOnly : Reminder.Mode.Alarm,
+                            mode: Object.values(TestData.Reminders).some(x => x.isAlarmed) ? Reminder.Mode.Alarm : Reminder.Mode.ReadOnly,
                             displayPanel: {
                                 icon: DefaultIconSet.CheckMark,
                                 theme: DataListDisplayPanelTheme.Positive,
@@ -115,6 +158,7 @@ export default {
                             selectedReminder: {
                                 id: EMPTY_STRING,
                                 data: {
+                                    isAlarmed: false,
                                     name: EMPTY_STRING,
                                     recurrencePattern: EMPTY_STRING,
                                     secNotificationInterval: 60,
@@ -155,6 +199,7 @@ export default {
                                 secNotificationInterval: args.selectedReminder.data.secNotificationInterval,
                                 tags: args.selectedReminder.data.tags,
                                 status: args.selectedReminder.data.status,
+                                isAlarmed: args.selectedReminder.data.isAlarmed,
                                 dueDate: args.selectedReminder.data.dueDate,
                                 createdDate: new Date()
                             };
@@ -169,6 +214,7 @@ export default {
                                 secNotificationInterval: args.selectedReminder.data.secNotificationInterval,
                                 tags: args.selectedReminder.data.tags,
                                 status: args.selectedReminder.data.status,
+                                isAlarmed: args.selectedReminder.data.isAlarmed,
                                 dueDate: args.selectedReminder.data.dueDate,
                                 modifiedDate: new Date()
                             };
@@ -250,6 +296,7 @@ export default {
                                 tags: args.reminders[args.selectedReminder.id].tags,
                                 status: args.reminders[args.selectedReminder.id].status,
                                 dueDate: args.reminders[args.selectedReminder.id].dueDate,
+                                isAlarmed: args.reminders[args.selectedReminder.id].isAlarmed,
                                 modifiedDate: args.reminders[args.selectedReminder.id].modifiedDate,
                                 createdDate: args.reminders[args.selectedReminder.id].createdDate
                             }
@@ -281,6 +328,7 @@ export default {
                                 tags: args.reminders[reminderId].tags,
                                 status: args.reminders[reminderId].status,
                                 dueDate: args.reminders[reminderId].dueDate,
+                                isAlarmed: args.reminders[reminderId].isAlarmed,
                                 modifiedDate: args.reminders[reminderId].modifiedDate,
                                 createdDate: args.reminders[reminderId].createdDate
                             }
@@ -299,7 +347,6 @@ export const Playground: Story = {
         maxSelectedTagCount: Sb.number(0),
         reminders: Sb.locked,
         selectedReminder: Sb.locked,
-        alarmedReminderIds: Sb.locked,
         reminderRecurrencePatternPlaceholder: Sb.text(),
         reminderNotificationIntervalLabel: Sb.text(),
         hourReminderNotificationIntervalPlaceholder: Sb.text(),
@@ -327,7 +374,6 @@ export const Playground: Story = {
         minuteReminderNotificationIntervalPlaceholder: "Minute",
         secReminderNotificationIntervalPlaceholder: "Second",
         mode: Reminder.Mode.Alarm,
-        alarmedReminderIds: ["1", "2", "6"],
         reminders: {...TestData.Reminders}
     }
 };

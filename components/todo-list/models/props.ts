@@ -2,7 +2,6 @@ import {DataListControlButton, DataListDisplayPanel} from "@miniskylab/antimatte
 import {
     ComponentName,
     ComponentProps,
-    IsArray,
     IsDefined,
     IsEnum,
     IsInteger,
@@ -35,15 +34,6 @@ export class TodoListProps extends ComponentProps<TodoListStyle>
     @ValidateNested()
     @Type(() => SelectedReminder)
     readonly selectedReminder?: SelectedReminder;
-
-
-    /**
-     * Specify IDs of reminders that require user attention.
-     */
-    @IsArray()
-    @IsString({each: true})
-    @IsOptional()
-    readonly alarmedReminderIds?: string[];
 
 
     /**

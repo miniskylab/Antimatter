@@ -24,7 +24,6 @@ export const TodoList = forwardRef(function TodoList(
         style = Variant.Default,
         reminders = {},
         selectedReminder,
-        alarmedReminderIds = [],
         reminderRecurrencePatternPlaceholder = EMPTY_STRING,
         reminderNotificationIntervalLabel = EMPTY_STRING,
         hourReminderNotificationIntervalPlaceholder = EMPTY_STRING,
@@ -50,8 +49,8 @@ export const TodoList = forwardRef(function TodoList(
     const props: AllPropertiesMustPresent<TodoListProps> = {
         style, reminderRecurrencePatternPlaceholder, reminderNotificationIntervalLabel, hourReminderNotificationIntervalPlaceholder,
         minuteReminderNotificationIntervalPlaceholder, secReminderNotificationIntervalPlaceholder, reminders, selectedReminder,
-        alarmedReminderIds, mode, maxSelectedTagCount, displayPanel, dismissAllAlarmButton, saveAndDismissAlarmButton, addNewReminderButton,
-        saveReminderButton, deleteReminderButton, cancelButton, customButton, onSwitchMode, onChangeReminder, onSelectReminder
+        mode, maxSelectedTagCount, displayPanel, dismissAllAlarmButton, saveAndDismissAlarmButton, addNewReminderButton, saveReminderButton,
+        deleteReminderButton, cancelButton, customButton, onSwitchMode, onChangeReminder, onSelectReminder
     };
 
     const [state, setState] = useState<TodoListState>({
@@ -205,7 +204,7 @@ export const TodoList = forwardRef(function TodoList(
     {
         return selectedReminder?.id === reminderId
             ? mode
-            : alarmedReminderIds?.includes(reminderId)
+            : unifiedReminderList[reminderId].isAlarmed
                 ? Reminder.Mode.Alarm
                 : Reminder.Mode.ReadOnly;
     }
@@ -277,11 +276,12 @@ export const TodoList = forwardRef(function TodoList(
         return sortedReminderIds.map(sortedReminderId =>
         {
             const reminderMode = getReminderMode(sortedReminderId);
+            const isReadOnlyMode = mode === Reminder.Mode.ReadOnly;
             const reminderData = unifiedReminderList[sortedReminderId];
+            const isAlarmedReminder = reminderMode === Reminder.Mode.Alarm;
             const isSelectedReminder = sortedReminderId === selectedReminder?.id;
-            const isToBeDeletedReminder = !!state.toBeDeletedReminders[sortedReminderId];
-            const originalData = isSelectedReminder ? reminders[sortedReminderId] : undefined;
-            const isSelectableReminder = !selectedReminder && (mode === Reminder.Mode.ReadOnly || reminderMode === Reminder.Mode.Alarm);
+            const hasBusyReminders = Object.values(unifiedReminderList).some(x => x.isShowingProgressStripes);
+            const isSelectableReminder = !selectedReminder && !hasBusyReminders && (isReadOnlyMode || isAlarmedReminder);
 
             return (
                 <Reminder.Component
@@ -291,15 +291,15 @@ export const TodoList = forwardRef(function TodoList(
                     ref={ref => { remindersRef.current[sortedReminderId] = ref; }}
                     style={computedStyle.Reminder}
                     mode={reminderMode}
-                    originalData={originalData}
-                    isToBeDeleted={isToBeDeletedReminder}
                     maxSelectedTagCount={maxSelectedTagCount}
-                    recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
                     notificationIntervalLabel={reminderNotificationIntervalLabel}
+                    isToBeDeleted={!!state.toBeDeletedReminders[sortedReminderId]}
+                    isShowingProgressStripes={reminderData.isShowingProgressStripes}
+                    recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
+                    originalData={isSelectedReminder ? reminders[sortedReminderId] : undefined}
+                    secNotificationIntervalPlaceholder={secReminderNotificationIntervalPlaceholder}
                     hourNotificationIntervalPlaceholder={hourReminderNotificationIntervalPlaceholder}
                     minuteNotificationIntervalPlaceholder={minuteReminderNotificationIntervalPlaceholder}
-                    secNotificationIntervalPlaceholder={secReminderNotificationIntervalPlaceholder}
-                    showProgressStripes={isSelectedReminder && selectedReminder?.showProgressStripes}
                     onPress={isSelectableReminder ? () => { onSelectReminder?.(sortedReminderId); } : undefined}
                     onChange={newReminderData => { onChangeReminder?.({...reminderData, ...newReminderData}); }}
                 />

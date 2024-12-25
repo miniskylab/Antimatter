@@ -1,4 +1,4 @@
-import {IsDate, IsDefined, IsEnum, IsNumber, IsString, Min} from "@miniskylab/antimatter-framework";
+import {IsBoolean, IsDate, IsDefined, IsEnum, IsNumber, IsString, Min} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {Status} from "../enums";
 import type {Tag} from "../types";
@@ -19,6 +19,16 @@ export class Data
     @IsNumber()
     @IsOptional()
     readonly secNotificationInterval?: number;
+
+
+    @IsBoolean()
+    @IsOptional()
+    readonly isAlarmed?: boolean;
+
+
+    @IsBoolean()
+    @IsOptional()
+    readonly isShowingProgressStripes?: boolean;
 
 
     @IsOptional()

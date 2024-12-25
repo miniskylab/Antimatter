@@ -287,9 +287,12 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
     const hasSelectedReminder = !!todoListContext.props.selectedReminder;
+    const hasBusyReminders = Object.values(todoListContext.props.reminders ?? {}).some(x => x.isShowingProgressStripes);
     const isReadOnlyMode = todoListContext.props.mode === Reminder.Mode.ReadOnly;
+    const isBusyReminder = reminderContext.props.isShowingProgressStripes;
+    const isAlarmedReminder = reminderContext.props.mode === Reminder.Mode.Alarm;
     const isSelectedReminder = reminderContext.props.id === todoListContext.props.selectedReminder?.id;
-    const isSelectableReminder = !hasSelectedReminder && (isReadOnlyMode || reminderContext.props.mode === Reminder.Mode.Alarm);
+    const isSelectableReminder = !hasSelectedReminder && !hasBusyReminders && (isReadOnlyMode || isAlarmedReminder);
     const isHoveredReminder = pressableState.hovered && isSelectableReminder;
 
     return {
@@ -327,7 +330,7 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
                 zIndex: Layer.Higher,
                 borderColor: Color.Purple,
                 backgroundColor: Color.Purple__a10,
-                ...isSelectedReminder && {
+                ...(isSelectedReminder || isBusyReminder) && {
                     zIndex: Layer.Highest,
                     borderColor: Color.Warning,
                     backgroundColor: Color.Warning__a10

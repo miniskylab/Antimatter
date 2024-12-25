@@ -16,6 +16,7 @@ day45InTheFuture.setDate(day45InTheFuture.getDate() + 45);
 
 export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     "1": {
+        isAlarmed: true,
         name: "Pulvinar",
         recurrencePattern: `0 0 0 ${today.getDate()} * ? *`,
         secNotificationInterval: 3600,
@@ -26,6 +27,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "2": {
+        isAlarmed: true,
         name: "Pretium",
         recurrencePattern: `59 59 23 ${today.getDate()} ${today.getMonth() + 1} ? *`,
         secNotificationInterval: 18000,
@@ -65,6 +67,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "6": {
+        isAlarmed: true,
         name: "Risus",
         recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? *`,
         secNotificationInterval: 10800,

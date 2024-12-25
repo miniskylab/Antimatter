@@ -36,7 +36,7 @@ export const Component = forwardRef(function Component(
         secNotificationIntervalPlaceholder = EMPTY_STRING,
         tags = {},
         maxSelectedTagCount = 2,
-        showProgressStripes,
+        isShowingProgressStripes,
         isToBeDeleted,
         status = Status.Unscheduled,
         dueDate,
@@ -52,8 +52,8 @@ export const Component = forwardRef(function Component(
     const props: AllPropertiesMustPresent<Props> = {
         style, id, name, recurrencePattern, recurrencePatternPlaceholder, secNotificationInterval, notificationIntervalLabel,
         hourNotificationIntervalPlaceholder, minuteNotificationIntervalPlaceholder, secNotificationIntervalPlaceholder, tags,
-        maxSelectedTagCount, showProgressStripes, isToBeDeleted, status, dueDate, originalData, modifiedDate, createdDate, mode, onPress,
-        onChange
+        maxSelectedTagCount, isShowingProgressStripes, isToBeDeleted, status, dueDate, originalData, modifiedDate, createdDate, mode,
+        onPress, onChange
     };
 
     const rootContainerRef = useRef<Pressable<Ref>>(null);
@@ -108,7 +108,7 @@ export const Component = forwardRef(function Component(
     return (
         <ReminderContext.Provider value={context}>
             <Pressable ref={rootContainerRef} style={computedStyle.Root} onPress={onPress} disabled={isToBeDeleted}>
-                {showProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
+                {isShowingProgressStripes && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={getReminderIcon()} pointerEvents={"none"}/>
                 <View style={computedStyle.NameTagAndDueDateContainer}>
                     {renderName()}
