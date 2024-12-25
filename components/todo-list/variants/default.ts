@@ -800,7 +800,7 @@ const TodoList__Reminder__ExpansionArea: ViewStyle = function (viewProps)
         flexBasis: "100%",
         flexDirection: "row",
         flexWrap: "wrap",
-        justifyContent: "flex-start",
+        justifyContent: "space-between",
         rowGap: 10,
         columnGap: 10,
         marginLeft: 35
@@ -891,7 +891,9 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__Root: ViewStyle
 
     return {
         ...inheritedStyle,
-        width: 80,
+        flex: 1,
+        minWidth: 80,
+        paddingRight: 40,
         backgroundColor: Color.Ambient
     };
 };
