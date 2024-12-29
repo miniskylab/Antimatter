@@ -12,9 +12,6 @@ import * as ReactNative from "react-native";
 import {TextInputProps} from "./models";
 import * as Variant from "./variants";
 
-/**
- * @see https://reactnative.dev/docs/textinput
- */
 export const TextInput = forwardRef(function TextInput(
     {
         style = Variant.Default,

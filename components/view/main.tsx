@@ -4,9 +4,6 @@ import ReactNative, {Animated} from "react-native";
 import {ViewProps} from "./models";
 import * as Variant from "./variants";
 
-/**
- * @see https://reactnative.dev/docs/view
- */
 export const View = forwardRef(function View(
     {
         style = Variant.Default,

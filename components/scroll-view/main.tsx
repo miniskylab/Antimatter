@@ -4,9 +4,6 @@ import ReactNative, {Animated} from "react-native";
 import {ScrollViewProps} from "./models";
 import * as Variant from "./variants";
 
-/**
- * @see https://reactnative.dev/docs/scrollview
- */
 export const ScrollView = forwardRef(function ScrollView(
     {
         style = Variant.Default,

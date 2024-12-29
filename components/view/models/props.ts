@@ -13,46 +13,30 @@ import {type ViewStyle} from "./style";
 @ComponentName("View")
 export class ViewProps extends ComponentProps<ViewStyle>
 {
-    /**
-     * Specify the content of the view.
-     */
     @IsOptional()
     readonly children?: ReactNode;
 
 
-    /**
-     * @see https://reactnative.dev/docs/view#pointerevents
-     */
     @IsOptional()
     readonly pointerEvents?: PointerEvents;
 
 
-    /**
-     * @see https://reactnative.dev/docs/view#onlayout
-     */
+    @IsOptional()
     readonly onLayout?: LayoutChangeEventHandler;
 
 
-    /**
-     * @see https://reactnative.dev/docs/view#onstartshouldsetresponder
-     */
+    @IsOptional()
     readonly onStartShouldSetResponder?: ShouldSetResponderPredicate;
 
 
-    /**
-     * @see https://reactnative.dev/docs/view#onmoveshouldsetresponder
-     */
+    @IsOptional()
     readonly onMoveShouldSetResponder?: ShouldSetResponderPredicate;
 
 
-    /**
-     * @see https://reactnative.dev/docs/view#onresponderstart
-     */
+    @IsOptional()
     readonly onResponderStart?: GestureResponderEventHandler;
 
 
-    /**
-     * @see https://reactnative.dev/docs/view#onrespondermove
-     */
+    @IsOptional()
     readonly onResponderMove?: GestureResponderEventHandler;
 }

@@ -5,9 +5,6 @@ import {AnimatedPressable} from "./components";
 import {PressableContext, PressableProps, type PressableState} from "./models";
 import * as Variant from "./variants";
 
-/**
- * @see https://reactnative.dev/docs/pressable
- */
 export const Pressable = forwardRef(function Pressable(
     {
         style = Variant.Default,

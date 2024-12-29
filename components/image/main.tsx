@@ -4,9 +4,6 @@ import {Animated} from "react-native";
 import {ImageProps} from "./models";
 import * as Variant from "./variants";
 
-/**
- * @see https://reactnative.dev/docs/image
- */
 export function Image({
     style = Variant.Default,
     source,
