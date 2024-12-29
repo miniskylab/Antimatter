@@ -848,11 +848,11 @@ const TransactionTable__TransactionRecord__NameAndTagContainer: ViewStyle = func
     };
 };
 
-const TransactionTable__TransactionRecord__NameInputField__Root: ViewStyle = function (viewProps)
+const TransactionTable__TransactionRecord__NameInputField__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
-    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(viewProps);
+    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,
@@ -923,7 +923,7 @@ const TransactionTable__TransactionRecord__NameText: TextStyle = function (textP
     };
 };
 
-const TransactionTable__TransactionRecord__AmountInputField__Root: ViewStyle = function (viewProps)
+const TransactionTable__TransactionRecord__AmountInputField__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
     const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
@@ -937,7 +937,7 @@ const TransactionTable__TransactionRecord__AmountInputField__Root: ViewStyle = f
 
     const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
         (inputFieldContext.props)
-        .Root(viewProps);
+        .Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,

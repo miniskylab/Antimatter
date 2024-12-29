@@ -406,11 +406,11 @@ const TodoList__Reminder__NameTagAndDueDateContainer: ViewStyle = function (view
     };
 };
 
-const TodoList__Reminder__NameInputField__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__NameInputField__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
-    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(viewProps);
+    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,
@@ -831,11 +831,11 @@ const TodoList__Reminder__Hr: ViewStyle = function (viewProps)
     };
 };
 
-const TodoList__Reminder__RecurrencePatternInputField__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__RecurrencePatternInputField__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
-    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(viewProps);
+    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,
@@ -880,14 +880,14 @@ const TodoList__Reminder__NotificationIntervalLabel: TextStyle = function (textP
     };
 };
 
-const TodoList__Reminder__NotificationIntervalNumericInputField__Root: ViewStyle = function (viewProps)
+const TodoList__Reminder__NotificationIntervalNumericInputField__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
     const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
 
     const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
         (inputFieldContext.props)
-        .Root(viewProps);
+        .Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,

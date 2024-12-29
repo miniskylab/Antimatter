@@ -5,6 +5,7 @@ const isWebEnvironment = isEnvironment("Web");
 const antimatterCursorType = {
     Auto: "auto",
     Pointer: "pointer",
+    Text: isWebEnvironment ? "text" : "auto",
     Default: isWebEnvironment ? "default" : "auto",
     NotAllowed: isWebEnvironment ? "not-allowed" : "auto"
 };

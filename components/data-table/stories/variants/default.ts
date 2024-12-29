@@ -1,6 +1,7 @@
 import {DropdownMenuContextHook, type DropdownMenuStyle} from "@miniskylab/antimatter-dropdown-menu";
 import {type IconStyle} from "@miniskylab/antimatter-icon";
 import {InputFieldContextHook, type InputFieldStyle} from "@miniskylab/antimatter-input-field";
+import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {type TextStyle} from "@miniskylab/antimatter-text";
 import {ToggleContextHook, type ToggleStyle} from "@miniskylab/antimatter-toggle";
 import {type ViewStyle} from "@miniskylab/antimatter-view";
@@ -45,7 +46,7 @@ const DataTable__DataRow__CellIcon: IconStyle = function (iconProps)
     };
 };
 
-const DataTable__DataRow__CellInputField__Root: ViewStyle = function (viewProps)
+const DataTable__DataRow__CellInputField__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const rowContext = Row.ContextHook.useRowContext();
     const columnIndexContext = Row.ContextHook.useColumnIndexContext();
@@ -55,7 +56,7 @@ const DataTable__DataRow__CellInputField__Root: ViewStyle = function (viewProps)
     const inheritedStyle = DataTableVariant.Default(dataTableContext.props)
         .DataRow(rowContext.props, rowContext.state)
         .CellInputField(inputFieldContext.props)
-        .Root(viewProps);
+        .Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,

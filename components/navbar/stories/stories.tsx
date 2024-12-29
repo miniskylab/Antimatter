@@ -4,8 +4,8 @@ import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {Navbar} from "../main";
 import {NavbarProps} from "../models";
-import * as Variant from "../variants";
 import {TestData} from "./test-data";
+import * as Variant from "./variants";
 
 const NavbarWithValidation = withValidation(Navbar, NavbarProps);
 export default {
@@ -21,6 +21,6 @@ export const Playground: Story = {
         tabs: Sb.locked
     },
     args: {
-        style: Sb.getVariantName(Variant, Variant.Default)
+        style: Sb.getVariantName(Variant, Variant.Storybook)
     }
 };

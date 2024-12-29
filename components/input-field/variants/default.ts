@@ -1,19 +1,22 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {CursorType} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {PressableStyle, PressableVariant} from "@miniskylab/antimatter-pressable";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type TextInputStyle, TextInputVariant} from "@miniskylab/antimatter-text-input";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
 import {InputFieldAnimationHook} from "../hooks";
 import {type InputFieldStyle} from "../models";
 
-const InputField__Root: ViewStyle = function (viewProps)
+const InputField__Root: PressableStyle = function (pressableProps, pressableState)
 {
     return {
-        ...ViewVariant.Default(viewProps),
+        ...PressableVariant.Default(pressableProps, pressableState),
         flexDirection: "row",
         width: "100%",
         height: 40,
-        backgroundColor: Color.Mineshaft
+        backgroundColor: Color.Mineshaft,
+        cursor: CursorType.Text
     };
 };
 
@@ -50,7 +53,8 @@ const InputField__AddOn: IconStyle = function (iconProps)
         height: "100%",
         fontSize: 20,
         color: Color.Mineshaft,
-        backgroundColor: Color.Gray
+        backgroundColor: Color.Gray,
+        cursor: CursorType.Default
     };
 };
 

@@ -37,12 +37,12 @@ const DatePicker__Caret: ViewStyle = function (viewProps)
     };
 };
 
-const DatePicker__InputField__Root: ViewStyle = function (viewProps)
+const DatePicker__InputField__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
     const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props)
-        .Root(viewProps);
+        .Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,

@@ -60,11 +60,11 @@ const LoginForm__Subtitle: TextStyle = function (textProps)
     };
 };
 
-const LoginForm__InputField__Root: ViewStyle = function (viewProps)
+const LoginForm__InputField__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
-    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(viewProps);
+    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,

@@ -1,5 +1,6 @@
 import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
+import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import {TextInput} from "@miniskylab/antimatter-text-input";
 import {View} from "@miniskylab/antimatter-view";
@@ -50,8 +51,8 @@ export const InputField = forwardRef(function InputField(
 
     return (
         <InputFieldContext.Provider value={context}>
-            <View style={computedStyle.Root}>
-                {icon && <Icon style={computedStyle.AddOn} name={icon} pointerEvents={"none"}/>}
+            <Pressable style={computedStyle.Root} onPress={() => { internalRef.current?.focus(); }}>
+                {icon && <Icon style={computedStyle.AddOn} name={icon} selectable={false}/>}
                 <View style={computedStyle.Container}>
                     {!!placeholder && (
                         <Text style={computedStyle.Placeholder} pointerEvents={"none"}>
@@ -78,7 +79,7 @@ export const InputField = forwardRef(function InputField(
                         onKeyPress={onKeyPress}
                     />
                 </View>
-            </View>
+            </Pressable>
         </InputFieldContext.Provider>
     );
 });

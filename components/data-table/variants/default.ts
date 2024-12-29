@@ -315,11 +315,11 @@ const DataTable__DataRow__CellIcon: IconStyle = function (iconProps)
     };
 };
 
-const DataTable__DataRow__CellInputField__Root: ViewStyle = function (viewProps)
+const DataTable__DataRow__CellInputField__Root: PressableStyle = function (pressableProps, pressableState)
 {
     const inputFieldContext = InputFieldContextHook.useInputFieldContext();
 
-    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(viewProps);
+    const inheritedStyle = InputFieldVariant.Default(inputFieldContext.props).Root(pressableProps, pressableState);
 
     return {
         ...inheritedStyle,
