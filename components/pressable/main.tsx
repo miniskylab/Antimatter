@@ -9,6 +9,7 @@ export const Pressable = forwardRef(function Pressable(
     {
         style = Variant.Default,
         children,
+        tabIndex = 0,
         disabled = false,
         onPress
     }: PressableProps,
@@ -16,7 +17,7 @@ export const Pressable = forwardRef(function Pressable(
 ): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<PressableProps> = {
-        style, children, disabled, onPress
+        style, children, tabIndex, disabled, onPress
     };
 
     const [hovered, setHovered] = useState(false);
@@ -44,6 +45,7 @@ export const Pressable = forwardRef(function Pressable(
             <AnimatedPressable
                 ref={internalRef}
                 style={computedStyle}
+                tabIndex={tabIndex}
                 onHoverIn={() => { setHovered(!disabled); }}
                 onHoverOut={() => { setHovered(false); }}
                 onPressIn={() => { setPressed(!disabled); }}

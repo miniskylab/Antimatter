@@ -51,7 +51,7 @@ export const InputField = forwardRef(function InputField(
 
     return (
         <InputFieldContext.Provider value={context}>
-            <Pressable style={computedStyle.Root} onPress={() => { internalRef.current?.focus(); }}>
+            <Pressable style={computedStyle.Root} tabIndex={-1} onPress={() => { internalRef.current?.focus(); }}>
                 {icon && <Icon style={computedStyle.AddOn} name={icon} selectable={false}/>}
                 <View style={computedStyle.Container}>
                     {!!placeholder && (
