@@ -1,10 +1,10 @@
 import {
     ComponentName,
     ComponentProps,
-    GestureResponderEventHandler,
-    LayoutChangeEventHandler,
+    type GestureResponderEventHandler,
+    type LayoutChangeEventHandler,
     type PointerEvents,
-    ShouldSetResponderPredicate
+    type ShouldSetResponderPredicate
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {type ReactNode} from "react";

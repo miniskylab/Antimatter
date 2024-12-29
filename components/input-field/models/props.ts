@@ -7,9 +7,9 @@ import {
     IsNumber,
     IsString,
     Min,
-    TextInputFocusEventHandler,
-    TextInputKeyPressEventHandler,
-    TextInputSelectionChangeEventHandler
+    type TextInputFocusEventHandler,
+    type TextInputKeyPressEventHandler,
+    type TextInputSelectionChangeEventHandler
 } from "@miniskylab/antimatter-framework";
 import {Selection} from "@miniskylab/antimatter-text-input";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";

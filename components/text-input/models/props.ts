@@ -5,9 +5,9 @@ import {
     IsNumber,
     IsPositive,
     IsString,
-    TextInputFocusEventHandler,
-    TextInputKeyPressEventHandler,
-    TextInputSelectionChangeEventHandler
+    type TextInputFocusEventHandler,
+    type TextInputKeyPressEventHandler,
+    type TextInputSelectionChangeEventHandler
 } from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";

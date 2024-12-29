@@ -1,4 +1,4 @@
-import {GestureResponderEventHandler, IsBoolean, IsDefined, IsEnum, IsString} from "@miniskylab/antimatter-framework";
+import {type GestureResponderEventHandler, IsBoolean, IsDefined, IsEnum, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 

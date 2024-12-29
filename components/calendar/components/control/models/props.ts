@@ -1,4 +1,4 @@
-import {ComponentProps, GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
+import {ComponentProps, type GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
 import {Style} from "./style";
 
 export type Props = ComponentProps<Style> & {

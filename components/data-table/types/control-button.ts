@@ -1,4 +1,4 @@
-import {GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
+import {type GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 
 export type ControlButton = {

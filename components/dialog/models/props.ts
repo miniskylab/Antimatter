@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps, GestureResponderEventHandler, IsEnum, IsString} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps, type GestureResponderEventHandler, IsEnum, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {type DialogStyle} from "./style";

@@ -1,6 +1,6 @@
 import {
     ComponentProps,
-    GestureResponderEventHandler,
+    type GestureResponderEventHandler,
     IsBoolean,
     IsDefined,
     IsNotEmpty,

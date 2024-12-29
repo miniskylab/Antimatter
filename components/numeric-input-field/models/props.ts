@@ -6,8 +6,8 @@ import {
     IsNumber,
     IsString,
     Min,
-    TextInputFocusEventHandler,
-    TextInputKeyPressEventHandler
+    type TextInputFocusEventHandler,
+    type TextInputKeyPressEventHandler
 } from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import type {NumericKeyboardTypeOptions} from "../types";

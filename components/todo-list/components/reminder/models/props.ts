@@ -1,4 +1,4 @@
-import {ComponentProps, GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
+import {ComponentProps, type GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
 import {Data} from "../classes";
 import {Mode, Status} from "../enums";
 import {Tag} from "../types";

@@ -1,4 +1,4 @@
-import {ComponentName, ComponentProps, GestureResponderEventHandler, IsBoolean, IsInteger} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps, type GestureResponderEventHandler, IsBoolean, IsInteger} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {type ReactNode} from "react";
 import ReactNative from "react-native";

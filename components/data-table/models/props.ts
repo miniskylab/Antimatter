@@ -2,7 +2,7 @@ import {
     ArrayNotEmpty,
     ComponentName,
     ComponentProps,
-    GestureResponderEventHandler,
+    type GestureResponderEventHandler,
     IsArray,
     IsDefined,
     IsEnum,

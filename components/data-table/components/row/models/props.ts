@@ -1,4 +1,4 @@
-import {ComponentProps, GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
+import {ComponentProps, type GestureResponderEventHandler} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {View} from "@miniskylab/antimatter-view";
 import {RefObject} from "react";
