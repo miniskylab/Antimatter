@@ -41,6 +41,7 @@ export function DataList({
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
                     automaticallyAdjustKeyboardInsets={true}
+                    keyboardShouldPersistTaps={"handled"}
                     contentInsetAdjustmentBehavior={"scrollableAxes"}
                 >
                     {children}

@@ -17,6 +17,7 @@ export const ScrollView = forwardRef(function ScrollView(
         showsVerticalScrollIndicator = true,
         showsHorizontalScrollIndicator = true,
         automaticallyAdjustKeyboardInsets = false,
+        keyboardShouldPersistTaps = "never",
         refreshControl
     }: ScrollViewProps,
     ref: MutableRefObject<ScrollView>
@@ -24,7 +25,7 @@ export const ScrollView = forwardRef(function ScrollView(
 {
     const props: AllPropertiesMustPresent<ScrollViewProps> = {
         style, children, horizontal, stickyHeaderIndices, contentInsetAdjustmentBehavior, showsVerticalScrollIndicator,
-        showsHorizontalScrollIndicator, automaticallyAdjustKeyboardInsets, refreshControl
+        showsHorizontalScrollIndicator, automaticallyAdjustKeyboardInsets, keyboardShouldPersistTaps, refreshControl
     };
 
     const internalRef = useRef<ScrollView>(null);
@@ -89,6 +90,7 @@ export const ScrollView = forwardRef(function ScrollView(
             showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
             contentInsetAdjustmentBehavior={contentInsetAdjustmentBehavior}
             automaticallyAdjustKeyboardInsets={automaticallyAdjustKeyboardInsets}
+            keyboardShouldPersistTaps={keyboardShouldPersistTaps}
             horizontal={horizontal}
         >
             {children}
