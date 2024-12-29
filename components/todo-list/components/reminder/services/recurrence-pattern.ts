@@ -98,7 +98,7 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
 
 export function isDurationRecurrencePattern(recurrencePattern: string | undefined)
 {
-    const durationRecurrencePatternRegex = new RegExp("^([1-5]?[0-9]) ([1-5]?[0-9]) ([0-9]|1[0-9]|2[0-3]) ([0-9]?[0-9]?[0-9]?[0-9])$");
+    const durationRecurrencePatternRegex = new RegExp("^\\d{1,4} \\d{1,4} \\d{1,4} \\d{1,4}$");
     return durationRecurrencePatternRegex.test(recurrencePattern ?? EMPTY_STRING);
 }
 
