@@ -92,5 +92,6 @@ export enum DefaultIconSet
     CheckMarkInsideCircle = "check-mark-inside-circle",
     Send = "send",
     Zzz = "zzz",
-    ExclamationMarkInsideCircle = "exclamation-mark-inside-circle"
+    ExclamationMarkInsideCircle = "exclamation-mark-inside-circle",
+    Sparkles = "sparkles"
 }
