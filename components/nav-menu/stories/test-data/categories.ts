@@ -6,12 +6,12 @@ export const Categories: NavMenuProps["categories"] = [
         label: "Lorem ipsum",
         menuItems: [
             {
-                icon: DefaultIconSet.Statistics,
+                icon: DefaultIconSet.Home,
                 label: "Dolor sit amet",
                 url: "/dolor-sit-amet"
             },
             {
-                icon: DefaultIconSet.Health,
+                icon: DefaultIconSet.Flag,
                 label: "Consectetur",
                 url: "/consectetur"
             }
@@ -26,12 +26,12 @@ export const Categories: NavMenuProps["categories"] = [
                 url: "/imperdiet"
             },
             {
-                icon: DefaultIconSet.Eye,
+                icon: DefaultIconSet.Location,
                 label: "Dignissim",
                 url: "/dignissim"
             },
             {
-                icon: DefaultIconSet.Apple,
+                icon: DefaultIconSet.WiFi,
                 label: "Condimentum",
                 url: "/condimentum"
             },
@@ -51,12 +51,12 @@ export const Categories: NavMenuProps["categories"] = [
                 url: "/vulputate"
             },
             {
-                icon: DefaultIconSet.Money,
+                icon: DefaultIconSet.Sun,
                 label: "Placerat",
                 url: "/placerat"
             },
             {
-                icon: DefaultIconSet.Sun,
+                icon: DefaultIconSet.Gear,
                 label: "Pharetra",
                 url: "/pharetra"
             }

@@ -26,7 +26,7 @@ export const Tags: Reminder.Props["tags"] = {
     "mauris": {name: "mauris", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Alarm)},
     "interdum": {name: "interdum", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Plane)},
     "semper": {name: "semper", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Group)},
-    "imperdiet": {name: "imperdiet", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Lightning)},
+    "imperdiet": {name: "imperdiet", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Flag)},
     "massa": {name: "massa", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.Droplet)},
     "adipiscing": {name: "adipiscing", icon: Ts.Enum.getName(DefaultIconSet, DefaultIconSet.WiFi)}
 };
