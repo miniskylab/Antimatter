@@ -3,11 +3,11 @@ import {useEffect, useRef} from "react";
 import {Animated, type DimensionValue, Easing} from "react-native";
 import {useInputFieldContext} from "./context";
 
-export function usePlaceholderAnimation(): ComponentAnimation
+export function usePlaceholderAnimation(normalFontSize: number, shrunkenFontSize: number): ComponentAnimation
 {
     const inputFieldContext = useInputFieldContext();
 
-    const initialFontSize = inputFieldContext.props.placeholder && inputFieldContext.props.value ? 11 : 16;
+    const initialFontSize = inputFieldContext.props.placeholder && inputFieldContext.props.value ? shrunkenFontSize : normalFontSize;
     const initialHeight = inputFieldContext.props.placeholder && inputFieldContext.props.value ? 55 : 100;
     const animatedFontSize = useRef(new Animated.Value(initialFontSize)).current;
     const animatedHeight = useRef(new Animated.Value(initialHeight)).current;
@@ -28,7 +28,7 @@ export function usePlaceholderAnimation(): ComponentAnimation
                     useNativeDriver: false
                 }),
                 Animated.timing(animatedFontSize, {
-                    toValue: inputFieldContext.props.value ? 11 : 16,
+                    toValue: inputFieldContext.props.value ? shrunkenFontSize : normalFontSize,
                     duration: 100,
                     easing: Easing.out(Easing.ease),
                     useNativeDriver: false

@@ -4,7 +4,7 @@ import {DataListAnimationHook, DataListContextHook, type DataListStyle, DataList
 import {DropdownMenuContextHook, type DropdownMenuStyle, DropdownMenuVariant, MenuItemStatus} from "@miniskylab/antimatter-dropdown-menu";
 import {CursorType, Layer} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
-import {InputFieldContextHook, type InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
+import {InputFieldAnimationHook, InputFieldContextHook, type InputFieldStyle, InputFieldVariant} from "@miniskylab/antimatter-input-field";
 import {ProgressStripesContextHook, type ProgressStripesStyle, ProgressStripesVariant} from "@miniskylab/antimatter-motion-graphics";
 import {
     NumericInputFieldContextHook,
@@ -802,7 +802,6 @@ const TodoList__Reminder__ExpansionArea: ViewStyle = function (viewProps)
         flexWrap: "wrap",
         justifyContent: "space-between",
         rowGap: 10,
-        columnGap: 10,
         marginLeft: 35
     };
 };
@@ -892,9 +891,26 @@ const TodoList__Reminder__NotificationIntervalNumericInputField__Root: Pressable
     return {
         ...inheritedStyle,
         flex: 1,
-        minWidth: 80,
-        paddingRight: 40,
+        minWidth: 70,
+        marginLeft: 10,
         backgroundColor: Color.Ambient
+    };
+};
+
+const TodoList__Reminder__NotificationIntervalNumericInputField__Placeholder: TextStyle = function (textProps)
+{
+    const inputFieldContext = InputFieldContextHook.useInputFieldContext();
+    const numericInputFieldContext = NumericInputFieldContextHook.useNumericInputFieldContext();
+
+    const inheritedStyle = NumericInputFieldVariant.Default(numericInputFieldContext.props, numericInputFieldContext.state)
+        (inputFieldContext.props)
+        .Placeholder(textProps);
+
+    return {
+        ...inheritedStyle,
+        animations: [
+            () => InputFieldAnimationHook.usePlaceholderAnimation(14, 11)
+        ]
     };
 };
 
@@ -919,8 +935,19 @@ const TodoList__Reminder__NotificationIntervalNumericInputField: NumericInputFie
     return inputFieldProps => ({
         ...NumericInputFieldVariant.Default(numericInputFieldProps, numericInputFieldState)(inputFieldProps),
         Root: TodoList__Reminder__NotificationIntervalNumericInputField__Root,
-        TextBox: TodoList__Reminder__NotificationIntervalNumericInputField__TextBox
+        TextBox: TodoList__Reminder__NotificationIntervalNumericInputField__TextBox,
+        Placeholder: TodoList__Reminder__NotificationIntervalNumericInputField__Placeholder
     });
+};
+
+const TodoList__Reminder__NotificationIntervalControlZone: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        flexBasis: 40,
+        height: 40,
+        backgroundColor: Color.Ambient
+    };
 };
 
 const TodoList__Reminder__SuspenseToggle__Root: ViewStyle = function (viewProps)
@@ -1055,6 +1082,7 @@ const TodoList__Reminder: Reminder.Style = function ()
         RecurrencePatternInputField: TodoList__Reminder__RecurrencePatternInputField,
         NotificationIntervalLabel: TodoList__Reminder__NotificationIntervalLabel,
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
+        NotificationIntervalControlZone: TodoList__Reminder__NotificationIntervalControlZone,
         SuspenseToggle: TodoList__Reminder__SuspenseToggle,
         RescheduleForwardToggle: TodoList__Reminder__RescheduleForwardToggle,
         RescheduleBackwardToggle: TodoList__Reminder__RescheduleBackwardToggle,

@@ -69,7 +69,7 @@ const InputField__Placeholder: TextStyle = function (textProps)
         paddingLeft: 12,
         color: Color.Gray,
         animations: [
-            () => InputFieldAnimationHook.usePlaceholderAnimation()
+            () => InputFieldAnimationHook.usePlaceholderAnimation(16, 11)
         ]
     };
 };

@@ -291,6 +291,7 @@ export const Component = forwardRef(function Component(
                     keyboardType={"number-pad"}
                     onChange={onSecNotificationIntervalTimeComponentChange}
                 />
+                <View style={computedStyle.NotificationIntervalControlZone}/>
                 {suspenseToggleStatus !== ControlStatus.Hidden && <Toggle
                     style={computedStyle.SuspenseToggle}
                     icon={DefaultIconSet.Zzz}
