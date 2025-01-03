@@ -116,7 +116,14 @@ export function useFlashHighlightAnimation(): ComponentAnimation
                             useNativeDriver: false
                         })
                     ])
-                ]).start();
+                ]).start(endResult =>
+                {
+                    if (!endResult.finished)
+                    {
+                        animatedColor.setValue(2);
+                        animatedLayer.setValue(Layer.Default);
+                    }
+                });
             }
         }
     };
