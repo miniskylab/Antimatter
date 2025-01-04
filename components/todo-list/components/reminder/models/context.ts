@@ -7,3 +7,6 @@ export type ReminderContext = ComponentContext<Props, undefined, {
     readonly isDue: boolean;
     readonly isOverdue: boolean;
 }>;
+
+export const TagIdContext = createContext<TagIdContext>(undefined);
+export type TagIdContext = string | undefined;

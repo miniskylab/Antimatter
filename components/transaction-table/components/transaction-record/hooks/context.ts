@@ -1,4 +1,6 @@
 import {useContextOrThrow} from "@miniskylab/antimatter-framework";
-import {TransactionRecordContext} from "../models";
+import {TagIdContext, TransactionRecordContext} from "../models";
 
 export function useTransactionRecordContext(): NonNullable<TransactionRecordContext> { return useContextOrThrow(TransactionRecordContext); }
+
+export function useTagIdContext(): NonNullable<TagIdContext> { return useContextOrThrow(TagIdContext); }

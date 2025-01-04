@@ -726,13 +726,11 @@ const TodoList__Reminder__TagContainer: ViewStyle = function (viewProps)
 
 const TodoList__Reminder__Tag: TextStyle = function (textProps)
 {
+    const tagIdContext = Reminder.ContextHook.useTagIdContext();
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const isHighlighted = Object.values(reminderContext.props.tags ?? {})
-        .some(
-            tag => tag.status === Reminder.TagStatus.Selected &&
-                   tag.metadata?.has(Reminder.TagMetadata.HighlightTarget)
-        );
+    const tag = reminderContext.props.tags?.[tagIdContext];
+    const isHighlighted = tag?.status === Reminder.TagStatus.Selected && tag?.metadata?.has(Reminder.TagMetadata.HighlightTarget);
 
     return {
         ...TextVariant.Default(textProps),

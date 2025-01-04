@@ -1169,13 +1169,12 @@ const TransactionTable__TransactionRecord__TagContainer: ViewStyle = function (v
 
 const TransactionTable__TransactionRecord__Tag: TextStyle = function (textProps)
 {
+    const tagIdContext = TransactionRecord.ContextHook.useTagIdContext();
     const transactionRecordContext = TransactionRecord.ContextHook.useTransactionRecordContext();
 
-    const isHighlighted = Object.values(transactionRecordContext.props.tags ?? {})
-        .some(
-            tag => tag.status === TransactionRecord.TagStatus.Selected &&
-                   tag.metadata?.has(TransactionRecord.TagMetadata.HighlightTarget)
-        );
+    const tag = transactionRecordContext.props.tags?.[tagIdContext];
+    const isHighlighted = tag?.status === TransactionRecord.TagStatus.Selected &&
+                          tag?.metadata?.has(TransactionRecord.TagMetadata.HighlightTarget);
 
     return {
         ...TextVariant.Default(textProps),
