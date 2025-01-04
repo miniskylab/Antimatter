@@ -153,7 +153,9 @@ export const Component = forwardRef(function Component(
 
     function getRescheduleForwardToggleIcon(): DefaultIconSet
     {
-        return originalData?.dueDate || originalData?.status === Status.Completed || !originalData?.recurrencePattern
+        const today = originalData?.dueDate ?? new Date();
+        const nextDueDate = Service.getDueDate(originalData?.recurrencePattern, DueDateType.NextDueDate, today);
+        return originalData?.status === Status.Completed || !nextDueDate || nextDueDate.getTime() <= today.getTime()
             ? DefaultIconSet.CheckMarkInsideCircle
             : DefaultIconSet.Future;
     }
