@@ -374,8 +374,7 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
         ...IconVariant.Default(iconProps),
         display: reminderContext.props.isToBeDeleted ? "none" : "flex",
         width: 30,
-        height: 30,
-        marginTop: 7,
+        height: 44,
         fontSize: 28,
         color: isSuspended
             ? Color.Neutral
