@@ -167,7 +167,7 @@ export function getNextNumericInputFieldState(
         }
         else if (nextUserInput === currentUserInput)
         {
-            nextCaretPosition = currentSelection.start;
+            nextCaretPosition = currentSelection.end ?? currentSelection.start;
         }
         else if (keypressEvent.keypress === Keypress.Dot)
         {

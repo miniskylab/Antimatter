@@ -5228,6 +5228,19 @@ test("entering digit before minus (-) symbol works correctly", () =>
     });
 });
 
+test("entering digit matching single digit selection works correctly", () =>
+{
+    expect(getNextNumericInputFieldState(
+        "2",
+        {start: 0, end: 1},
+        {keypress: Keypress.Digit, newUserInput: "2"}
+    )).toEqual({
+        nextValue: 2,
+        nextUserInput: "2",
+        nextSelection: {start: 1}
+    });
+});
+
 test("backspacing plus (+) symbol moves caret backward 1 unit", () =>
 {
     expect(getNextNumericInputFieldState(

@@ -53,7 +53,9 @@ export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
         placeholder: Sb.text(),
+        editable: Sb.boolean(),
         autoFocus: Sb.boolean(),
+        focusable: Sb.boolean(),
         selectTextOnFocus: Sb.boolean(),
         treatEmptyInputAsZero: Sb.boolean(),
         showPlusSymbolForPositiveNumber: Sb.boolean(),
@@ -71,6 +73,8 @@ export const Playground: Story = {
     args: {
         style: Sb.getVariantName(Variant, Variant.FixedWidth),
         placeholder: "Placeholder",
+        editable: true,
+        focusable: true,
         autoFocus: false,
         selectTextOnFocus: false,
         treatEmptyInputAsZero: false,
