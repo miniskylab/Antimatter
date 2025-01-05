@@ -270,7 +270,7 @@ test("setting back skip restart threshold works correctly", () =>
 
         // Act & Assert
         StateMachine.setBackSkipRestartThreshold(secBackSkipRestartThreshold);
-        expect(StateMachine.getState().secBackSkipRestartThreshold).toBe(undefined);
+        expect(StateMachine.getState().secBackSkipRestartThreshold).toBeUndefined();
     });
 
     [-1, 0, 1, 2, 5].forEach(secBackSkipRestartThreshold =>
@@ -1120,7 +1120,7 @@ test("navigating through playlist when shuffle is off skips excluded songs", () 
     // Act & Assert
     StateMachine.playPrevious();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-2", "song-4", "song-2"]);
-    expect(StateMachine.getState().secPlaybackProgress).toBe(undefined);
+    expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
     expect(StateMachine.getState().playingSongIndex).toBe(2);
     expect(StateMachine.getState().isPlaying).toBe(false);
 
@@ -1134,7 +1134,7 @@ test("navigating through playlist when shuffle is off skips excluded songs", () 
     // Act & Assert
     StateMachine.playNext();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-2", "song-4", "song-2"]);
-    expect(StateMachine.getState().secPlaybackProgress).toBe(undefined);
+    expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
     expect(StateMachine.getState().playingSongIndex).toBe(Infinity);
     expect(StateMachine.getState().isPlaying).toBe(false);
 });
@@ -1964,7 +1964,7 @@ test("invoking actions when playback is paused works correctly", () =>
 
     // Act & Assert
     StateMachine.playNext();
-    expect(StateMachine.getState().secPlaybackProgress).toBe(undefined);
+    expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2"]);
     expect(StateMachine.getState().playingSongIndex).toBe(1);
     expect(StateMachine.getState().isPlaying).toBe(true);
@@ -1976,7 +1976,7 @@ test("invoking actions when playback is paused works correctly", () =>
 
     // Act & Assert
     StateMachine.playPrevious();
-    expect(StateMachine.getState().secPlaybackProgress).toBe(undefined);
+    expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-1"]);
     expect(StateMachine.getState().playingSongIndex).toBe(2);
     expect(StateMachine.getState().isPlaying).toBe(true);
