@@ -1,5 +1,5 @@
 import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef, useState} from "react";
+import React, {forwardRef, JSX, RefObject, useImperativeHandle, useRef, useState} from "react";
 import ReactNative from "react-native";
 import {AnimatedPressable} from "./components";
 import {PressableContext, PressableProps, type PressableState} from "./models";
@@ -13,7 +13,7 @@ export const Pressable = forwardRef(function Pressable(
         disabled = false,
         onPress
     }: PressableProps,
-    ref: MutableRefObject<Pressable>
+    ref: RefObject<Pressable>
 ): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<PressableProps> = {

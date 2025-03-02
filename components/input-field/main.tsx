@@ -4,7 +4,7 @@ import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import {TextInput} from "@miniskylab/antimatter-text-input";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
+import React, {forwardRef, JSX, RefObject, useImperativeHandle, useRef} from "react";
 import {InputFieldContext, InputFieldProps} from "./models";
 import * as Variant from "./variants";
 
@@ -32,7 +32,7 @@ export const InputField = forwardRef(function InputField(
         onFocus,
         onKeyPress
     }: InputFieldProps,
-    ref: MutableRefObject<InputField>
+    ref: RefObject<InputField>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<InputFieldProps> = {

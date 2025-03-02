@@ -41,7 +41,7 @@ export default {
         };
 
         const [, setArgs] = useArgs<TransactionTableProps>();
-        const transactionTableRef = useRef<TransactionTableRef>();
+        const transactionTableRef = useRef<TransactionTableRef>(null);
 
         return (
             <TransactionTableWithValidation

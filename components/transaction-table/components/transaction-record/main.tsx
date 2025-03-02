@@ -15,7 +15,7 @@ import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
+import React, {forwardRef, JSX, RefObject, useImperativeHandle, useRef} from "react";
 import {Mode, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, TagIdContext, TransactionRecordContext} from "./models";
 import type {Tag} from "./types";
@@ -38,7 +38,7 @@ export const Component = forwardRef(function Component(
         onPress,
         onChange
     }: Props,
-    ref: MutableRefObject<Ref>
+    ref: RefObject<Ref>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {

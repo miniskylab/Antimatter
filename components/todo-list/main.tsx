@@ -11,7 +11,7 @@ import {
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
+import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
 import {Reminder} from "./components";
 import {TodoListContext, TodoListProps, type TodoListRef, type TodoListState} from "./models";
 import * as Variant from "./variants";
@@ -43,7 +43,7 @@ export const TodoList = forwardRef(function TodoList(
         onChangeReminder,
         onSelectReminder
     }: TodoListProps,
-    ref: MutableRefObject<TodoListRef>
+    ref: RefObject<TodoListRef>
 ): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<TodoListProps> = {

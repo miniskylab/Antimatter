@@ -16,7 +16,7 @@ import {Text} from "@miniskylab/antimatter-text";
 import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef} from "react";
+import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useMemo, useRef} from "react";
 import {ControlStatus, DueDateType, Mode, Status, TagMetadata, TagStatus} from "./enums";
 import {type Props, type Ref, ReminderContext, TagIdContext} from "./models";
 import * as Service from "./services";
@@ -46,7 +46,7 @@ export const Component = forwardRef(function Component(
         onPress,
         onChange
     }: Props,
-    ref: MutableRefObject<Ref>
+    ref: RefObject<Ref>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {

@@ -8,7 +8,7 @@ import {Data} from "../types";
 import {Style} from "./style";
 
 export type Props = ComponentProps<Style> & {
-    readonly containerRef?: RefObject<View | ScrollView>;
+    readonly containerRef?: RefObject<View | ScrollView | null>;
     readonly data?: Data;
     readonly columns?: Column[];
     readonly mode?: Mode;

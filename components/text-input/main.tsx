@@ -7,7 +7,7 @@ import {
     useTypography
 } from "@miniskylab/antimatter-framework";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
+import React, {forwardRef, JSX, RefObject, useImperativeHandle, useRef} from "react";
 import * as ReactNative from "react-native";
 import {TextInputProps} from "./models";
 import * as Variant from "./variants";
@@ -31,7 +31,7 @@ export const TextInput = forwardRef(function TextInput(
         onFocus,
         onKeyPress
     }: TextInputProps,
-    ref: MutableRefObject<TextInput>
+    ref: RefObject<TextInput>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<TextInputProps> = {

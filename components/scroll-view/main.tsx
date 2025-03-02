@@ -1,5 +1,5 @@
 import {type AllPropertiesMustPresent, Ts, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
-import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef, WheelEvent} from "react";
+import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useRef, WheelEvent} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ScrollViewProps} from "./models";
 import * as Variant from "./variants";
@@ -17,7 +17,7 @@ export const ScrollView = forwardRef(function ScrollView(
         keyboardShouldPersistTaps = "never",
         refreshControl
     }: ScrollViewProps,
-    ref: MutableRefObject<ScrollView>
+    ref: RefObject<ScrollView>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<ScrollViewProps> = {

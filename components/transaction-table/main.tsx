@@ -15,7 +15,7 @@ import {
 } from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
+import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useMemo, useRef, useState} from "react";
 import {Summary, TransactionRecord} from "./components";
 import {TransactionTableContext, TransactionTableProps, type TransactionTableRef, type TransactionTableState} from "./models";
 import * as Variant from "./variants";
@@ -44,7 +44,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
         onSelectTransaction,
         onSwitchMode
     }: TransactionTableProps,
-    ref: MutableRefObject<TransactionTableRef>
+    ref: RefObject<TransactionTableRef>
 ): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<TransactionTableProps> = {

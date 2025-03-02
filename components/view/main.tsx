@@ -1,5 +1,5 @@
 import {type AllPropertiesMustPresent, Ts, useComputedStyle} from "@miniskylab/antimatter-framework";
-import React, {forwardRef, JSX, MutableRefObject, useImperativeHandle, useRef} from "react";
+import React, {forwardRef, JSX, RefObject, useImperativeHandle, useRef} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ViewProps} from "./models";
 import * as Variant from "./variants";
@@ -15,7 +15,7 @@ export const View = forwardRef(function View(
         onResponderStart,
         onResponderMove
     }: ViewProps,
-    ref: MutableRefObject<View>
+    ref: RefObject<View>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<ViewProps> = {

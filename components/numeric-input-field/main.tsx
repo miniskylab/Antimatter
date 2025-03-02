@@ -9,7 +9,7 @@ import {
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
-import React, {forwardRef, JSX, MutableRefObject, useEffect, useImperativeHandle, useRef, useState} from "react";
+import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useRef, useState} from "react";
 import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
 import {Keypress} from "./enums";
 import {NumericInputFieldContext, NumericInputFieldProps, type NumericInputFieldState} from "./models";
@@ -40,7 +40,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
         onFocus,
         onKeyPress
     }: NumericInputFieldProps,
-    ref: MutableRefObject<NumericInputField>
+    ref: RefObject<NumericInputField>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<NumericInputFieldProps> = {
@@ -53,7 +53,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
         userInput: getDefaultUserInput()
     });
 
-    const lastKeypressRef = useRef<Keypress>();
+    const lastKeypressRef = useRef<Keypress>(null);
     const internalRef = useRef<NumericInputField>(null);
     const ignoreNextSelectionChangeEventRef = useRef(false);
 

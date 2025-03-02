@@ -48,7 +48,7 @@ export default {
         };
 
         const [, setArgs] = useArgs<TodoListProps>();
-        const todoListRef = useRef<TodoListRef>();
+        const todoListRef = useRef<TodoListRef>(null);
 
         return (
             <TodoListWithValidation
