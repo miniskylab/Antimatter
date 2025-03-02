@@ -278,7 +278,7 @@ function endWithDotAndZeros(anyString: string): boolean
         return false;
     }
 
-    return anyString.match(/^[^.]*\.0*$/g) !== null;
+    return /^[^.]*\.0*$/g.test(anyString);
 }
 
 function purify(anyString: string): string
