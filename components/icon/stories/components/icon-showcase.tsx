@@ -1,6 +1,6 @@
 import {Color} from "@miniskylab/antimatter-color-scheme";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import {IconItem} from "@storybook/blocks";
+import {IconItem} from "@storybook/addon-docs/blocks";
 import React, {JSX} from "react";
 import {Icon} from "../../main";
 import * as IconVariant from "../../variants";

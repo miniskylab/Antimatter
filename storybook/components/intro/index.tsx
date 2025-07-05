@@ -1,5 +1,5 @@
 import {ComponentName, Reflection} from "@miniskylab/antimatter-framework";
-import {Description, Title} from "@storybook/blocks";
+import {Description, Title} from "@storybook/addon-docs/blocks";
 import React, {FunctionComponent, JSX} from "react";
 import {Text, View} from "react-native";
 import * as Styles from "./styles";

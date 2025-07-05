@@ -21,10 +21,7 @@ export default {
     ],
     addons: [
         "@storybook/addon-docs",
-        "@storybook/addon-measure",
-        "@storybook/addon-controls",
         "@storybook/addon-a11y",
-        "@storybook/addon-actions",
         "@storybook/addon-links"
     ],
     typescript: {

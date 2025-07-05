@@ -1,6 +1,6 @@
 import {isNotNullAndUndefined, withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
-import {useArgs} from "@storybook/preview-api";
+import {useArgs} from "storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React, {useState} from "react";
 import {MusicPlayer} from "../main";

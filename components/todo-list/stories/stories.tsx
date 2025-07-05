@@ -2,7 +2,7 @@ import {DataListDisplayPanelTheme} from "@miniskylab/antimatter-data-list";
 import {EMPTY_STRING, withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import {useArgs} from "@storybook/preview-api";
+import {useArgs} from "storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React, {useRef} from "react";
 import {Reminder} from "../components";

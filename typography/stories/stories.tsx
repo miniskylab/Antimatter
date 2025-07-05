@@ -1,4 +1,4 @@
-import {Typeset} from "@storybook/blocks";
+import {Typeset} from "@storybook/addon-docs/blocks";
 import type {Meta} from "@storybook/react";
 import {useFonts} from "expo-font";
 import React, {JSX} from "react";

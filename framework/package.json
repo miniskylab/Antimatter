@@ -7,7 +7,7 @@
     "@types/utf8": "3.0.3",
     "base64-js": "1.5.1",
     "class-transformer": "0.5.1",
-    "class-validator": "0.14.1",
+    "class-validator": "0.14.2",
     "expo-file-system": "17.0.1",
     "reflect-metadata": "0.2.2",
     "utf8": "3.0.0"
