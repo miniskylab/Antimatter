@@ -4,7 +4,6 @@ import {
     IsBoolean,
     IsEnum,
     IsInteger,
-    IsNumber,
     IsString,
     Min,
     type TextInputFocusEventHandler,
@@ -106,7 +105,6 @@ export class InputFieldProps extends ComponentProps<InputFieldStyle>
      */
     @Min(0)
     @IsInteger()
-    @IsNumber()
     @IsOptional()
     readonly maxLength?: number;
 

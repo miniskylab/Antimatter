@@ -1,13 +1,4 @@
-import {
-    ComponentName,
-    ComponentProps,
-    IsBoolean,
-    IsInteger,
-    IsNumber,
-    IsString,
-    Min,
-    type PointerEvents
-} from "@miniskylab/antimatter-framework";
+import {ComponentName, ComponentProps, IsBoolean, IsInteger, IsString, Min, type PointerEvents} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
 import {type TextStyle} from "./style";
 
@@ -36,7 +27,6 @@ export class TextProps extends ComponentProps<TextStyle>
      */
     @Min(0)
     @IsInteger()
-    @IsNumber()
     @IsOptional()
     readonly numberOfLines?: number;
 

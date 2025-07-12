@@ -20,7 +20,7 @@ export class Props extends ComponentProps<Style>
 
 
     @Min(0)
-    @IsNumber()
+    @IsNumber({allowNaN: true})
     @IsDefined()
     readonly secSongDuration: number;
 

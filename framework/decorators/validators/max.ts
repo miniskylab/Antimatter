@@ -1,7 +1,7 @@
-import {max, registerDecorator} from "class-validator";
+import {max, registerDecorator, ValidationOptions} from "class-validator";
 import {ErrorMessage} from "../../consts";
 
-export function Max(maxValue: number)
+export function Max(maxValue: number, validationOptions?: Omit<ValidationOptions, "message">)
 {
     return function (objectContainingThisProperty: object, thisPropertyName: string): void
     {
@@ -9,8 +9,14 @@ export function Max(maxValue: number)
             name: "Max",
             target: objectContainingThisProperty.constructor,
             propertyName: thisPropertyName,
+            options: validationOptions,
             validator: {
-                validate(thisPropertyValue: unknown) { return max(thisPropertyValue, maxValue); },
+                validate(thisPropertyValue: unknown)
+                {
+                    return Number.isFinite(thisPropertyValue as number)
+                        ? max(thisPropertyValue, maxValue)
+                        : true;
+                },
                 defaultMessage() { return ErrorMessage.PropsValidation.CannotBeGreaterThanValue(maxValue); }
             }
         });
