@@ -13,9 +13,7 @@ export function Max(maxValue: number, validationOptions?: Omit<ValidationOptions
             validator: {
                 validate(thisPropertyValue: unknown)
                 {
-                    return Number.isFinite(thisPropertyValue as number)
-                        ? max(thisPropertyValue, maxValue)
-                        : true;
+                    return !Number.isFinite(thisPropertyValue as number) || max(thisPropertyValue, maxValue);
                 },
                 defaultMessage() { return ErrorMessage.PropsValidation.CannotBeGreaterThanValue(maxValue); }
             }

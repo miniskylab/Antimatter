@@ -13,9 +13,7 @@ export function Min(minValue: number, validationOptions?: Omit<ValidationOptions
             validator: {
                 validate(thisPropertyValue: unknown)
                 {
-                    return Number.isFinite(thisPropertyValue as number)
-                        ? min(thisPropertyValue, minValue)
-                        : true;
+                    return !Number.isFinite(thisPropertyValue as number) || min(thisPropertyValue, minValue);
                 },
                 defaultMessage() { return ErrorMessage.PropsValidation.CannotBeLessThanValue(minValue); }
             }
