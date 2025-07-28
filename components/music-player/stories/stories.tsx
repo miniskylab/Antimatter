@@ -1,6 +1,5 @@
 import {isNotNullAndUndefined, withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
-import {useArgs} from "storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React, {useState} from "react";
 import {MusicPlayer} from "../main";
@@ -15,7 +14,7 @@ export default {
     title: "Components/Music Player",
     render: (args: Required<MusicPlayerProps>) =>
     {
-        const [, setArgs] = useArgs<MusicPlayerProps>();
+        const [isPlaylistSelectionEnabled, setIsPlaylistSelectionEnabled] = useState(false);
         const [musicPlayerState, setMusicPlayerState] = useState(() =>
         {
             StateMachine.resetState({indexedTracklist: {...TestData.IndexedTracklist}});
@@ -36,6 +35,7 @@ export default {
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
                 titlePlaceholder={musicPlayerState.playingSongIndex === Infinity ? "All Songs Have Been Played" : "Not Playing"}
                 tracklist={Object.values(musicPlayerState.indexedTracklist)}
+                isPlaylistSelectionEnabled={isPlaylistSelectionEnabled}
                 selectedSongName={playingSong?.songName}
                 isPlaying={musicPlayerState.isPlaying}
                 secTimer={musicPlayerState.secPlaybackProgress ?? playingSong?.secSongDuration}
@@ -84,7 +84,7 @@ export default {
                     StateMachine.setSongExclusionStatus(songName, isExcluded);
                     setMusicPlayerState(StateMachine.getState());
                 }}
-                onPlaylistSelectionToggle={isPlaylistSelectionEnabled => setArgs({isPlaylistSelectionEnabled})}
+                onPlaylistSelectionToggle={isPlaylistSelectionEnabled => setIsPlaylistSelectionEnabled(isPlaylistSelectionEnabled)}
             />
         );
     }
