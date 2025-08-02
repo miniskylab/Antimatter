@@ -243,7 +243,7 @@ test("setting repeat mode works correctly", () =>
     StateMachine.setRepeatMode(RepeatMode.All);
     expect(StateMachine.getState().repeatMode).toBe(RepeatMode.All);
 
-    [undefined, null, RepeatMode.None].forEach(repeatMode =>
+    [undefined, null, RepeatMode.None].forEach((repeatMode: RepeatMode) =>
     {
         // Arrange
         StateMachine.resetState();
@@ -364,7 +364,7 @@ test("resuming playback plays a random song in playlist when shuffle is on and t
     };
 
     const tryCount = 50;
-    let playedSongUriFromPreviousTest: string = undefined;
+    let playedSongUriFromPreviousTest: string | undefined = undefined;
     [RepeatMode.None, RepeatMode.All].forEach(repeatMode =>
     {
         for (let i = 1; i <= tryCount; i++)
@@ -381,7 +381,7 @@ test("resuming playback plays a random song in playlist when shuffle is on and t
             expect(StateMachine.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3"]);
 
             const state = StateMachine.getState();
-            const playingSongUri = state.playQueue[state.playingSongIndex];
+            const playingSongUri = state.playQueue[state.playingSongIndex!];
             if (playedSongUriFromPreviousTest !== undefined && playedSongUriFromPreviousTest !== playingSongUri)
             {
                 break;
@@ -427,7 +427,7 @@ test("resuming playback plays a random song in playlist when shuffle is on and t
         }
 
         const state = StateMachine.getState();
-        const playingSongUri = state.playQueue[state.playingSongIndex];
+        const playingSongUri = state.playQueue[state.playingSongIndex!];
         if (playedSongUriFromPreviousTest !== undefined && playedSongUriFromPreviousTest !== playingSongUri)
         {
             break;
@@ -546,7 +546,7 @@ test("playing a specific song when shuffle is off works correctly", () =>
     expect(StateMachine.getState().playingSongIndex).toBe(4);
     expect(StateMachine.getState().isPlaying).toBe(true);
 
-    // Assert: Navigating forward sequentially to the last song in playlist works correctly
+    // Assert: Navigating forward sequentially to the last song in the playlist works correctly
     StateMachine.playNext();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4", "song-2", "song-3"]);
     expect(StateMachine.getState().playingSongIndex).toBe(5);
@@ -571,7 +571,7 @@ test("playing a specific song when shuffle is off works correctly", () =>
     expect(StateMachine.getState().playingSongIndex).toBe(7);
     expect(StateMachine.getState().isPlaying).toBe(true);
 
-    // Assert: Navigating backward sequentially to the first song in playlist works correctly
+    // Assert: Navigating backward sequentially to the first song in the playlist works correctly
     StateMachine.playPrevious();
     expect(StateMachine.getState().playQueue).toStrictEqual([
         "song-1", "song-2", "song-3", "song-4", "song-2", "song-3", "song-4", "song-3", "song-2"
@@ -745,18 +745,18 @@ test("setting seeker position works correctly", () =>
     });
 
 
-    [true, false].forEach(isPlayingTestData =>
+    [true, false].forEach(isPlaying =>
     {
         // Arrange: Playing song is excluded
         StateMachine.resetState({indexedTracklist});
         StateMachine.playSongNamed("Song 2");
         StateMachine.setSongExclusionStatus("Song 2", true);
-        StateMachine.setIsPlaying(isPlayingTestData);
+        StateMachine.setIsPlaying(isPlaying);
 
         // Act & Assert
         StateMachine.setSeekerPosition(30);
         expect(StateMachine.getState().secSeekerPosition).toBe(30);
-        expect(StateMachine.getState().isPlaying).toBe(isPlayingTestData);
+        expect(StateMachine.getState().isPlaying).toBe(isPlaying);
     });
 });
 
@@ -932,7 +932,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'None' 
     });
 
 
-    // Act & Assert: Navigating forward sequentially from the first to the last song in playlist
+    // Act & Assert: Navigating forward sequentially from the first to the last song in the playlist
     StateMachine.playSongNamed("Song 1");
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1"]);
     expect(StateMachine.getState().playingSongIndex).toBe(0);
@@ -951,14 +951,14 @@ test("navigating through playlist when shuffle is off and repeat mode is 'None' 
     expect(StateMachine.getState().isPlaying).toBe(true);
 
 
-    // Act & Assert: Navigating forward when the last song in playlist is being played stops playback
+    // Act & Assert: Navigating forward when the last song in the playlist is being played stops playback
     StateMachine.playNext();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(StateMachine.getState().playingSongIndex).toBe(Infinity);
     expect(StateMachine.getState().isPlaying).toBe(false);
 
 
-    // Act & Assert: Navigating forward does nothing after the last song in playlist finished playing
+    // Act & Assert: Navigating forward does nothing after the last song in the playlist finished playing
     for (let i = 0; i < 5; i++)
     {
         StateMachine.playNext();
@@ -968,7 +968,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'None' 
     }
 
 
-    // Act & Assert: Navigating backward sequentially from the last to the first song in playlist
+    // Act & Assert: Navigating backward sequentially from the last to the first song in the playlist
     StateMachine.playPrevious();
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-1", "song-2", "song-3", "song-4", "song-4"]);
     expect(StateMachine.getState().playingSongIndex).toBe(4);
@@ -993,7 +993,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'None' 
     expect(StateMachine.getState().isPlaying).toBe(true);
 
 
-    // Act & Assert: Navigating backward when the first song in playlist is selected for playing pauses and resets playback progress
+    // Act & Assert: Navigating backward when the first song in the playlist is selected for playing pauses and resets playback progress
     StateMachine.setPlaybackProgress(30);
     for (let i = 0; i < 5; i++)
     {
@@ -1022,7 +1022,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'All' w
     StateMachine.setRepeatMode(RepeatMode.All);
 
 
-    // Act & Assert: Navigating forward jumps to the first song when the last song in playlist is selected for playing
+    // Act & Assert: Navigating forward jumps to the first song when the last song in the playlist is selected for playing
     StateMachine.playSongNamed("Song 1");
     StateMachine.playNext();
     StateMachine.playNext();
@@ -1038,7 +1038,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'All' w
     expect(StateMachine.getState().isPlaying).toBe(true);
 
 
-    // Act & Assert: navigating backward jumps to the last song when the first song in playlist is selected for playing
+    // Act & Assert: navigating backward jumps to the last song when the first song in the playlist is selected for playing
     StateMachine.playPrevious();
     StateMachine.playPrevious();
     StateMachine.playPrevious();
@@ -1052,7 +1052,7 @@ test("navigating through playlist when shuffle is off and repeat mode is 'All' w
 
 test("navigating through playlist when shuffle is off and playlist is being updated works correctly", () =>
 {
-    // Arrange: Playing "Song 3" then excluding "Song 4" then playing next to reach the end of playlist
+    // Arrange: Playing "Song 3" then excluding "Song 4" then playing next to reach the end of the playlist
     StateMachine.resetState({
         indexedTracklist: {
             "song-1": {songName: "Song 1", secSongDuration: 74},
@@ -1068,16 +1068,16 @@ test("navigating through playlist when shuffle is off and playlist is being upda
     expect(StateMachine.getState().playingSongIndex).toBe(Infinity);
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-3"]);
 
-    // Act: Re-including "Song 4" at the end of playlist then playing next
+    // Act: Re-including "Song 4" at the end of the playlist then playing next
     StateMachine.setSongExclusionStatus("Song 4", false);
     StateMachine.playNext();
 
-    // Assert: Nothing happens as end of playlist is reached
+    // Assert: Nothing happens as the end of the playlist is reached
     expect(StateMachine.getState().isPlaying).toBe(false);
     expect(StateMachine.getState().playingSongIndex).toBe(Infinity);
     expect(StateMachine.getState().playQueue).toStrictEqual(["song-3"]);
 
-    // Act & Assert: Going back to "Song 4" instead of "Song 3" as "Song 4" is the new last song of playlist
+    // Act & Assert: Going back to "Song 4" instead of "Song 3" as "Song 4" is the new last song of the playlist
     StateMachine.playPrevious();
     expect(StateMachine.getState().isPlaying).toBe(true);
     expect(StateMachine.getState().playingSongIndex).toBe(1);
@@ -1176,7 +1176,7 @@ test("navigating through playlist when shuffle is on and repeat mode is 'None' w
     expect(StateMachine.getState().isPlaying).toBe(true);
 
 
-    // Act & Assert: Navigating forward when the last song is being played stops playback
+    // Act & Assert: Navigating forward stops playback when the last song is being played
     StateMachine.playNext();
     expect(StateMachine.getState().playQueue.slice().sort()).toStrictEqual(["song-1", "song-2", "song-3", "song-4"]);
     expect(StateMachine.getState().playingSongIndex).toBe(Infinity);
@@ -1339,9 +1339,58 @@ test("navigating through playlist when all songs are excluded works correctly", 
     });
 });
 
-test("navigating through playlist when it has only 1 song works correctly", () =>
+test("navigating through playlist when it has only 1 song and repeat mode is 'None' works correctly", () =>
 {
-    [RepeatMode.None, RepeatMode.All].forEach(repeatMode =>
+    [false, true].forEach(isShuffleEnabled =>
+    {
+        ["playNext", "playPrevious"].forEach(action =>
+        {
+            // Arrange
+            StateMachine.resetState({
+                indexedTracklist: {
+                    "song-1": {songName: "Song 1", secSongDuration: 74},
+                    "song-2": {songName: "Song 2", secSongDuration: 86},
+                    "song-3": {songName: "Song 3", secSongDuration: 149},
+                    "song-4": {songName: "Song 4", secSongDuration: 264}
+                }
+            });
+            StateMachine.setRepeatMode(RepeatMode.None);
+            StateMachine.setIsShuffleEnabled(isShuffleEnabled);
+            StateMachine.playSongNamed("Song 3");
+            StateMachine.setPlaybackProgress(30);
+            StateMachine.setSongExclusionStatus("Song 1", true);
+            StateMachine.setSongExclusionStatus("Song 2", true);
+            StateMachine.setSongExclusionStatus("Song 4", true);
+
+            // Act & Assert
+            switch (action)
+            {
+                case "playNext":
+                    StateMachine.playNext();
+                    expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
+                    expect(StateMachine.getState().playQueue).toStrictEqual(["song-3"]);
+                    expect(StateMachine.getState().playingSongIndex).toBe(Infinity);
+                    expect(StateMachine.getState().isPlaying).toBe(false);
+                    break;
+
+                case "playPrevious":
+                    StateMachine.playPrevious();
+                    expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
+                    expect(StateMachine.getState().playQueue).toStrictEqual(["song-3"]);
+                    expect(StateMachine.getState().playingSongIndex).toBe(0);
+                    expect(StateMachine.getState().isPlaying).toBe(false);
+                    break;
+
+                default:
+                    throw new Error(`Not Supported Action: ${action}`);
+            }
+        });
+    });
+});
+
+test("navigating through playlist when it has only 1 song and repeat mode is 'All' works correctly", () =>
+{
+    [false, true].forEach(isPlaying =>
     {
         [false, true].forEach(isShuffleEnabled =>
         {
@@ -1356,13 +1405,14 @@ test("navigating through playlist when it has only 1 song works correctly", () =
                         "song-4": {songName: "Song 4", secSongDuration: 264}
                     }
                 });
-                StateMachine.setRepeatMode(repeatMode);
+                StateMachine.setRepeatMode(RepeatMode.All);
                 StateMachine.setIsShuffleEnabled(isShuffleEnabled);
                 StateMachine.playSongNamed("Song 3");
                 StateMachine.setPlaybackProgress(30);
                 StateMachine.setSongExclusionStatus("Song 1", true);
                 StateMachine.setSongExclusionStatus("Song 2", true);
                 StateMachine.setSongExclusionStatus("Song 4", true);
+                StateMachine.setIsPlaying(isPlaying);
 
                 // Act & Assert
                 switch (action)
@@ -1371,8 +1421,8 @@ test("navigating through playlist when it has only 1 song works correctly", () =
                         StateMachine.playNext();
                         expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
                         expect(StateMachine.getState().playQueue).toStrictEqual(["song-3"]);
-                        expect(StateMachine.getState().playingSongIndex).toBe(Infinity);
-                        expect(StateMachine.getState().isPlaying).toBe(false);
+                        expect(StateMachine.getState().playingSongIndex).toBe(0);
+                        expect(StateMachine.getState().isPlaying).toBe(true);
                         break;
 
                     case "playPrevious":
@@ -1713,7 +1763,7 @@ test("altering playlist refreshes upcoming songs when shuffle is on", () =>
 
     // Act: Excluding playing song
     const state = StateMachine.getState();
-    const playingSongUri = state.playQueue[state.playingSongIndex];
+    const playingSongUri = state.playQueue[state.playingSongIndex!];
     const playingSongName = state.indexedTracklist[playingSongUri].songName;
     StateMachine.setSongExclusionStatus(playingSongName, true);
 
@@ -1819,7 +1869,7 @@ test("excluding playing song and navigating forward when shuffle is on works cor
 
     // Act
     const state = StateMachine.getState();
-    const playingSongUri = state.playQueue[state.playingSongIndex];
+    const playingSongUri = state.playQueue[state.playingSongIndex!];
     const playingSongName = state.indexedTracklist[playingSongUri].songName;
     StateMachine.setSongExclusionStatus(playingSongName, true);
     StateMachine.playNext();
@@ -1855,7 +1905,7 @@ test("excluding playing song and navigating backward when shuffle is on works co
 
     // Act
     const state = StateMachine.getState();
-    const playingSongUri = state.playQueue[state.playingSongIndex];
+    const playingSongUri = state.playQueue[state.playingSongIndex!];
     const playingSongName = state.indexedTracklist[playingSongUri].songName;
     StateMachine.setSongExclusionStatus(playingSongName, true);
     StateMachine.playPrevious();

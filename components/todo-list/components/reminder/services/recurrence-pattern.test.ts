@@ -139,7 +139,7 @@ describe("how to use 'getDueDate(...)'", () =>
     {
         [DueDateType.NextDueDate, DueDateType.PreviousDueDate].forEach(dueDateType =>
         {
-            expect(getDueDate(null, dueDateType, new Date())).toBeUndefined();
+            expect(getDueDate(null!, dueDateType, new Date())).toBeUndefined();
             expect(getDueDate(undefined, dueDateType, new Date())).toBeUndefined();
             expect(getDueDate("* * * * *", dueDateType, new Date())).toBeUndefined();
             expect(getDueDate("0 0 0 * 0", dueDateType, new Date())).toBeUndefined();

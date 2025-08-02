@@ -5495,7 +5495,7 @@ test("copy-paste is ignored", () =>
 {
     ["a", "1", "abc123", "123.45"].forEach(pastedText =>
     {
-        [Keypress.NotSupported, undefined].forEach(keypress =>
+        [Keypress.NotSupported, undefined].forEach((keypress: Keypress) =>
         {
             expect(getNextNumericInputFieldState(
                 "1,234,567,890",

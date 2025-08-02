@@ -18,16 +18,16 @@ describe("how to use 'clamp(...)'", () =>
     it("returns NaN when 1st argument is not a number", () =>
     {
         const values = [undefined, null, -NaN, NaN];
-        values.forEach(value =>
+        values.forEach((value: number) =>
         {
             expect(clamp(value)).toBe(NaN);
 
             const minAndMaxParameters = [undefined, null, -NaN, NaN, -Infinity, Infinity, -1, 0, 5];
-            minAndMaxParameters.forEach(min =>
+            minAndMaxParameters.forEach((min: number) =>
             {
                 expect(clamp(value, min)).toBe(NaN);
 
-                minAndMaxParameters.forEach(max =>
+                minAndMaxParameters.forEach((max: number) =>
                 {
                     if (min <= max)
                     {
@@ -78,9 +78,9 @@ describe("how to use 'clamp(...)'", () =>
         expect(clamp(value)).toBe(value);
 
         const paramaters = [undefined, null, NaN, -NaN];
-        paramaters.forEach(min =>
+        paramaters.forEach((min: number) =>
         {
-            paramaters.forEach(max =>
+            paramaters.forEach((max: number) =>
             {
                 expect(clamp(value, min, max)).toBe(value);
             });
@@ -90,7 +90,7 @@ describe("how to use 'clamp(...)'", () =>
     it("treats 2nd argument as -Infinity if it is not a number", () =>
     {
         const paramaters = [undefined, null, NaN, -NaN];
-        paramaters.forEach(min =>
+        paramaters.forEach((min: number) =>
         {
             const max = 2;
 
@@ -117,7 +117,7 @@ describe("how to use 'clamp(...)'", () =>
         expect(clamp(value, min)).toBe(min);
 
         const paramaters = [undefined, null, NaN, -NaN];
-        paramaters.forEach(max =>
+        paramaters.forEach((max: number) =>
         {
             value = 5;
             expect(clamp(value, min, max)).toBe(clamp(value, min, Infinity));
@@ -179,21 +179,21 @@ describe("how to use 'random(...)'", () =>
     {
         const values = [undefined, null, -Infinity, Infinity, NaN];
 
-        values.forEach(min =>
+        values.forEach((min: number) =>
         {
             expect(() => { random(min, 5); }).toThrow(Error);
             expect(() => { random(min, 5); }).toThrow(`Invalid arguments: 'min' cannot be '${min}'`);
         });
 
-        values.forEach(max =>
+        values.forEach((max: number) =>
         {
             expect(() => { random(2, max); }).toThrow(Error);
             expect(() => { random(2, max); }).toThrow(`Invalid arguments: 'max' cannot be '${max}'`);
         });
 
-        values.forEach(min =>
+        values.forEach((min: number) =>
         {
-            values.forEach(max =>
+            values.forEach((max: number) =>
             {
                 expect(() => { random(min, max); }).toThrow(Error);
             });

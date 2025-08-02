@@ -9,7 +9,7 @@ describe("how to use 'getTimeComponents(...)'", () =>
         expect(getTimeComponents(Infinity)).toEqual([undefined, undefined, undefined]);
         expect(getTimeComponents(-Infinity)).toEqual([undefined, undefined, undefined]);
         expect(getTimeComponents(undefined)).toEqual([undefined, undefined, undefined]);
-        expect(getTimeComponents(null)).toEqual([undefined, undefined, undefined]);
+        expect(getTimeComponents(null!)).toEqual([undefined, undefined, undefined]);
         expect(getTimeComponents(0)).toEqual([0, 0, 0]);
         expect(getTimeComponents(30)).toEqual([0, 0, 30]);
         expect(getTimeComponents(60)).toEqual([0, 1, 0]);
@@ -26,11 +26,11 @@ describe("how to use 'getSecTime(...)'", () =>
     it("converts input hours, minutes and seconds into seconds", () =>
     {
         const nonFiniteNumbers = [undefined, null, NaN, -NaN];
-        nonFiniteNumbers.forEach(hourComponent =>
+        nonFiniteNumbers.forEach((hourComponent: number) =>
         {
-            nonFiniteNumbers.forEach(minuteComponent =>
+            nonFiniteNumbers.forEach((minuteComponent: number) =>
             {
-                nonFiniteNumbers.forEach(secComponent =>
+                nonFiniteNumbers.forEach((secComponent: number) =>
                 {
                     expect(getSecTime(hourComponent, minuteComponent, secComponent)).toBeUndefined();
                 });
@@ -63,7 +63,7 @@ describe("how to use 'getSecTime(...)'", () =>
     it("treats non-numeric values as 0", () =>
     {
         const nonNumericValues = [undefined, null, NaN, -NaN];
-        nonNumericValues.forEach(nonNumericValue =>
+        nonNumericValues.forEach((nonNumericValue: number) =>
         {
             expect(getSecTime(1, 30, nonNumericValue)).toBe(5400);
             expect(getSecTime(1, nonNumericValue, 30)).toBe(3630);

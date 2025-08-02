@@ -19,14 +19,14 @@ describe("how to use 'LunarCalendarVn.getJulianDayCount(...)'", () =>
         expect(LunarCalendarVn.getLunarDate(new Date(2019, 1, 5))).toEqual([2019, 1, 1, 0]);
         expect(LunarCalendarVn.getLunarDate(new Date(2019, 2, 6))).toEqual([2019, 2, 1, 0]);
 
-        expect(LunarCalendarVn.getGregorianDate(2004, 2, 1, true).getTime()).toBe(new Date(2004, 2, 21).getTime());
-        expect(LunarCalendarVn.getGregorianDate(2004, 2, 1).getTime()).toBe(new Date(2004, 1, 20).getTime());
-        expect(LunarCalendarVn.getGregorianDate(2004, 1, 1).getTime()).toBe(new Date(2004, 0, 22).getTime());
-        expect(LunarCalendarVn.getGregorianDate(2005, 1, 1).getTime()).toBe(new Date(2005, 1, 9).getTime());
-        expect(LunarCalendarVn.getGregorianDate(2006, 1, 1).getTime()).toBe(new Date(2006, 0, 29).getTime());
-        expect(LunarCalendarVn.getGregorianDate(2018, 1, 1).getTime()).toBe(new Date(2018, 1, 16).getTime());
-        expect(LunarCalendarVn.getGregorianDate(2019, 1, 1).getTime()).toBe(new Date(2019, 1, 5).getTime());
-        expect(LunarCalendarVn.getGregorianDate(2020, 1, 1).getTime()).toBe(new Date(2020, 0, 25).getTime());
+        expect(LunarCalendarVn.getGregorianDate(2004, 2, 1, true)?.getTime()).toBe(new Date(2004, 2, 21).getTime());
+        expect(LunarCalendarVn.getGregorianDate(2004, 2, 1)?.getTime()).toBe(new Date(2004, 1, 20).getTime());
+        expect(LunarCalendarVn.getGregorianDate(2004, 1, 1)?.getTime()).toBe(new Date(2004, 0, 22).getTime());
+        expect(LunarCalendarVn.getGregorianDate(2005, 1, 1)?.getTime()).toBe(new Date(2005, 1, 9).getTime());
+        expect(LunarCalendarVn.getGregorianDate(2006, 1, 1)?.getTime()).toBe(new Date(2006, 0, 29).getTime());
+        expect(LunarCalendarVn.getGregorianDate(2018, 1, 1)?.getTime()).toBe(new Date(2018, 1, 16).getTime());
+        expect(LunarCalendarVn.getGregorianDate(2019, 1, 1)?.getTime()).toBe(new Date(2019, 1, 5).getTime());
+        expect(LunarCalendarVn.getGregorianDate(2020, 1, 1)?.getTime()).toBe(new Date(2020, 0, 25).getTime());
         expect(LunarCalendarVn.getGregorianDate(2003, 2, 1, true)).toBe(null);
         expect(LunarCalendarVn.getGregorianDate(2003, 0, 1)).toBe(null);
         expect(LunarCalendarVn.getGregorianDate(2003, 13, 1)).toBe(null);

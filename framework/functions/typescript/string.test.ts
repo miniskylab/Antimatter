@@ -67,8 +67,8 @@ describe("how to use 'base64UrlEncode(...)'", () =>
     it("performs URL-safe encoding on given Base64 string", () =>
     {
         expect(base64UrlEncode(EMPTY_STRING)).toBe(EMPTY_STRING);
-        expect(base64UrlEncode(null)).toBe(null);
-        expect(base64UrlEncode(undefined)).toBeUndefined();
+        expect(base64UrlEncode(null!)).toBe(null);
+        expect(base64UrlEncode(undefined!)).toBeUndefined();
         expect(base64UrlEncode("TG+/9y0/aX+zdQ==")).toBe("TG-_9y0_aX-zdQ");
     });
 });
@@ -78,8 +78,8 @@ describe("how to use 'removeTrailingSlash(...)'", () =>
     it("removes all slash marks (/) from the end of given string", () =>
     {
         expect(removeTrailingSlash(EMPTY_STRING)).toBe(EMPTY_STRING);
-        expect(removeTrailingSlash(null)).toBe(null);
-        expect(removeTrailingSlash(undefined)).toBeUndefined();
+        expect(removeTrailingSlash(null!)).toBe(null);
+        expect(removeTrailingSlash(undefined!)).toBeUndefined();
         expect(removeTrailingSlash("lorem ipsum")).toBe("lorem ipsum");
         expect(removeTrailingSlash("https://lorem.ipsum.com")).toBe("https://lorem.ipsum.com");
         expect(removeTrailingSlash("https://lorem.ipsum.com/")).toBe("https://lorem.ipsum.com");

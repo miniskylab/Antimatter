@@ -117,9 +117,17 @@ export const StateMachine = new class
             return;
         }
 
+        const playableTrackUris = this.getTrackUris(true);
+        if (this._repeatMode === RepeatMode.All && playableTrackUris.length === 1)
+        {
+            this._secPlaybackProgress = undefined;
+            this._isPlaying = true;
+            return;
+        }
+
         const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
-        const playableTrackUris = this.getTrackUris(true).filter(x => x !== playingSongUri);
-        if (playableTrackUris.length > 0)
+        const notPlayingPlayableTrackUris = playableTrackUris.filter(x => x !== playingSongUri);
+        if (notPlayingPlayableTrackUris.length > 0)
         {
             if (!this._isShuffleEnabled)
             {
@@ -140,7 +148,7 @@ export const StateMachine = new class
                     }
                     else if (this._repeatMode === RepeatMode.All)
                     {
-                        this._playQueue.push(playableTrackUris[0]);
+                        this._playQueue.push(notPlayingPlayableTrackUris[0]);
                         this._secPlaybackProgress = undefined;
                         this._secSeekerPosition = undefined;
                         this._playingSongIndex += 1;
