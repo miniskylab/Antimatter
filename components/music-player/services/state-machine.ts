@@ -121,6 +121,7 @@ export const StateMachine = new class
         if (this._repeatMode === RepeatMode.All && playableTrackUris.length === 1)
         {
             this._secPlaybackProgress = undefined;
+            this._secSeekerPosition = 0;
             this._isPlaying = true;
             return;
         }

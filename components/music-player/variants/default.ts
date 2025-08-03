@@ -84,7 +84,6 @@ const MusicPlayer__ControlContainer: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
-        columnGap: 15,
         paddingTop: 12,
         paddingBottom: 17,
         paddingHorizontal: 15
@@ -95,7 +94,7 @@ const MusicPlayer__Timer: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
-        minWidth: 58,
+        minWidth: 50,
         paddingLeft: 1,
         marginRight: "auto",
         fontSize: 18,
@@ -114,6 +113,7 @@ const MusicPlayer__ShuffleButton__Root: PressableStyle = function (pressableProp
         ...inheritedStyle,
         width: 40,
         height: 40,
+        marginRight: "auto",
         borderColor: Color.Transparent,
         backgroundColor: Color.Transparent
     };
@@ -221,8 +221,8 @@ const MusicPlayer__PlaylistButton__Root: PressableStyle = function (pressablePro
 {
     return {
         ...MusicPlayer__ShuffleButton__Root(pressableProps, pressableState),
-        marginLeft: "auto",
-        alignItems: "flex-end"
+        alignItems: "flex-end",
+        marginRight: 0
     };
 };
 

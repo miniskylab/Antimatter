@@ -1421,6 +1421,7 @@ test("navigating through playlist when it has only 1 song and repeat mode is 'Al
                         StateMachine.playNext();
                         expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
                         expect(StateMachine.getState().playQueue).toStrictEqual(["song-3"]);
+                        expect(StateMachine.getState().secSeekerPosition).toBe(0);
                         expect(StateMachine.getState().playingSongIndex).toBe(0);
                         expect(StateMachine.getState().isPlaying).toBe(true);
                         break;
