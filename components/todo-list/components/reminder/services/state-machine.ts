@@ -97,15 +97,18 @@ export class StateMachine
 
         const dueDuration = getDueDuration(this._today ?? new Date(), this._dueDate);
         const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
+        const isPrioritized = this._recurrencePattern === "!";
         const isDue = dueDuration === 0;
 
         const formattedDueDate = this.isSuspended()
             ? "Suspended"
             : this.isCompleted()
                 ? "Completed"
-                : this._dueDate
-                    ? GregorianCalendar.toString(this._dueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
-                    : "No due date";
+                : isPrioritized
+                    ? "Prioritized"
+                    : this._dueDate
+                        ? GregorianCalendar.toString(this._dueDate, DateFormat.Short, TimeUnit.Day).replaceAll("/", ".")
+                        : "No due date";
 
         const formattedDueDuration = this.isCompleted() || this.isSuspended()
             ? undefined
@@ -116,6 +119,7 @@ export class StateMachine
             isOverdue,
             dueDuration,
             pendingStatus,
+            isPrioritized,
             formattedDueDate,
             formattedDueDuration,
             suspenseToggleStatus: this._suspenseToggleStatus,

@@ -380,11 +380,13 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
             ? Color.Neutral
             : isCompleted
                 ? Color.Green
-                : reminderContext.extra.isDue
-                    ? Color.Gold
+                : reminderContext.extra.isPrioritized
+                    ? Color.Blue
                     : reminderContext.extra.isOverdue
                         ? Color.Coral
-                        : Color.Neutral
+                        : reminderContext.extra.isDue
+                            ? Color.Gold
+                            : Color.Neutral
     };
 };
 
@@ -508,7 +510,11 @@ const TodoList__Reminder__DueDateIcon: IconStyle = function (iconProps)
         paddingBottom: 1,
         marginRight: 5,
         fontSize: 14,
-        color: isCompleted ? Color.Green : Color.Neutral
+        color: reminderContext.extra.isPrioritized
+            ? Color.Blue
+            : isCompleted
+                ? Color.Green
+                : Color.Neutral
     };
 };
 
@@ -524,7 +530,11 @@ const TodoList__Reminder__DueDate: TextStyle = function (textProps)
         marginRight: 10,
         fontSize: 14,
         fontWeight: "bold",
-        color: isCompleted ? Color.Green : Color.Neutral
+        color: reminderContext.extra.isPrioritized
+            ? Color.Blue
+            : isCompleted
+                ? Color.Green
+                : Color.Neutral
     };
 };
 
@@ -538,10 +548,10 @@ const TodoList__Reminder__DueDurationIcon: IconStyle = function (iconProps)
     return {
         ...TodoList__Reminder__DueDateIcon(iconProps),
         fontSize: 15,
-        color: isDue
-            ? Color.Gold
-            : isOverdue
-                ? Color.Coral
+        color: isOverdue
+            ? Color.Coral
+            : isDue
+                ? Color.Gold
                 : Color.Neutral
     };
 };
@@ -552,10 +562,10 @@ const TodoList__Reminder__DueDuration: TextStyle = function (textProps)
 
     return {
         ...TodoList__Reminder__DueDate(textProps),
-        color: reminderContext.extra.isDue
-            ? Color.Gold
-            : reminderContext.extra.isOverdue
-                ? Color.Coral
+        color: reminderContext.extra.isOverdue
+            ? Color.Coral
+            : reminderContext.extra.isDue
+                ? Color.Gold
                 : Color.Neutral
     };
 };

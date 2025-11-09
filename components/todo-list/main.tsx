@@ -249,6 +249,9 @@ export const TodoList = forwardRef(function TodoList(
         const reminderA = reminders[reminderIdA] ?? unifiedReminderList[reminderIdA];
         const reminderB = reminders[reminderIdB] ?? unifiedReminderList[reminderIdB];
 
+        if (reminderA.recurrencePattern === "!") return -1;
+        if (reminderB.recurrencePattern === "!") return 1;
+
         const statusScoreA = getStatusScore(reminderIdA, reminderA.status);
         const statusScoreB = getStatusScore(reminderIdB, reminderB.status);
         const statusScoreComparisonResult = statusScoreA - statusScoreB;

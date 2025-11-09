@@ -67,14 +67,14 @@ export const Component = forwardRef(function Component(
         originalStatus: originalData?.status
     });
     const {
-        dueDuration, formattedDueDate, formattedDueDuration, isOverdue, isDue, suspenseToggleStatus, rescheduleForwardToggleStatus,
-        rescheduleBackwardToggleStatus, recurrencePatternInputFieldStatus
+        dueDuration, formattedDueDate, formattedDueDuration, isPrioritized, isOverdue, isDue, suspenseToggleStatus,
+        rescheduleForwardToggleStatus, rescheduleBackwardToggleStatus, recurrencePatternInputFieldStatus
     } = stateMachine.getDerivedProperties();
     const [
         hourNotificationIntervalTimeComponent, minuteNotificationIntervalTimeComponent, secNotificationIntervalTimeComponent
     ] = useMemo(() => Ts.Time.getTimeComponents(secNotificationInterval), [secNotificationInterval]);
 
-    const context = useComponentContext<ReminderContext>({props, extra: {isDue, isOverdue}});
+    const context = useComponentContext<ReminderContext>({props, extra: {isPrioritized, isOverdue, isDue}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
@@ -133,13 +133,15 @@ export const Component = forwardRef(function Component(
             ? DefaultIconSet.CheckMarkInsideCircle
             : status === Status.Suspended
                 ? DefaultIconSet.Zzz
-                : isOverdue
-                    ? DefaultIconSet.ExclamationMarkInsideCircle
-                    : isDue
-                        ? DefaultIconSet.Alarm
-                        : isNullOrUndefined(dueDuration)
-                            ? DefaultIconSet.NoSound
-                            : DefaultIconSet.Future;
+                : isPrioritized
+                    ? DefaultIconSet.ArrowUp
+                    : isOverdue
+                        ? DefaultIconSet.ExclamationMarkInsideCircle
+                        : isDue
+                            ? DefaultIconSet.Alarm
+                            : isNullOrUndefined(dueDuration)
+                                ? DefaultIconSet.NoSound
+                                : DefaultIconSet.Future;
     }
 
     function getDueDurationIcon(): DefaultIconSet
