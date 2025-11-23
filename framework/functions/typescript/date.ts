@@ -1,3 +1,4 @@
+import {EMPTY_STRING} from "../../consts";
 import {isNullOrUndefined} from "../type-guard";
 import {getRepresentationString} from "./object";
 
@@ -72,4 +73,25 @@ export function isEqualYear(date1: Date | null | undefined, date2: Date | null |
     clonedDate2.setHours(0, 0, 0, 0);
 
     return clonedDate1.getTime() === clonedDate2.getTime();
+}
+
+export function toISOString(date: Date | null | undefined): string | undefined
+{
+    if (!date)
+    {
+        return undefined;
+    }
+
+    const timezoneOffset = -date.getTimezoneOffset();
+    const timezoneOffsetSign = timezoneOffset >= 0 ? "+" : "-";
+    const ensure2Digits = (anyNumber: number) => (anyNumber < 10 ? "0" : EMPTY_STRING) + anyNumber;
+
+    return date.getFullYear() +
+           "-" + ensure2Digits(date.getMonth() + 1) +
+           "-" + ensure2Digits(date.getDate()) +
+           "T" + ensure2Digits(date.getHours()) +
+           ":" + ensure2Digits(date.getMinutes()) +
+           ":" + ensure2Digits(date.getSeconds()) +
+           timezoneOffsetSign + ensure2Digits(Math.floor(Math.abs(timezoneOffset) / 60)) +
+           ":" + ensure2Digits(Math.abs(timezoneOffset) % 60);
 }
