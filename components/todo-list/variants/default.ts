@@ -503,6 +503,7 @@ const TodoList__Reminder__DueDateIcon: IconStyle = function (iconProps)
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
     const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
+    const isSuspended = reminderContext.props.status === Reminder.Status.Suspended;
 
     return {
         ...IconVariant.Default(iconProps),
@@ -510,11 +511,13 @@ const TodoList__Reminder__DueDateIcon: IconStyle = function (iconProps)
         paddingBottom: 1,
         marginRight: 5,
         fontSize: 14,
-        color: reminderContext.extra.isPrioritized
-            ? Color.Blue
+        color: isSuspended
+            ? Color.Neutral
             : isCompleted
                 ? Color.Green
-                : Color.Neutral
+                : reminderContext.extra.isPrioritized
+                    ? Color.Blue
+                    : Color.Neutral
     };
 };
 
@@ -523,6 +526,7 @@ const TodoList__Reminder__DueDate: TextStyle = function (textProps)
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
     const isCompleted = reminderContext.props.status === Reminder.Status.Completed;
+    const isSuspended = reminderContext.props.status === Reminder.Status.Suspended;
 
     return {
         ...TextVariant.Default(textProps),
@@ -530,11 +534,13 @@ const TodoList__Reminder__DueDate: TextStyle = function (textProps)
         marginRight: 10,
         fontSize: 14,
         fontWeight: "bold",
-        color: reminderContext.extra.isPrioritized
-            ? Color.Blue
+        color: isSuspended
+            ? Color.Neutral
             : isCompleted
                 ? Color.Green
-                : Color.Neutral
+                : reminderContext.extra.isPrioritized
+                    ? Color.Blue
+                    : Color.Neutral
     };
 };
 
