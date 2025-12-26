@@ -1,5 +1,5 @@
 import {toByteArray} from "base64-js";
-import * as FileSystem from "expo-file-system";
+import {File} from "expo-file-system";
 import * as UTF8 from "utf8";
 import {EMPTY_STRING} from "./typescript";
 
@@ -184,12 +184,7 @@ export const AudioFileMetadataReader = new class
 
     private async clearMemoryBufferThenReadNextChunkOfAudioFileToItAsync()
     {
-        const base64AudioFileContent = await FileSystem.readAsStringAsync(this.pathToAudioFile, {
-            encoding: FileSystem.EncodingType.Base64,
-            position: this.audioFileReadCursorPosition,
-            length: this.MEMORY_BUFFER_SIZE_IN_BYTE
-        });
-
+        const base64AudioFileContent = await new File(this.pathToAudioFile).base64();
         this.setMemoryBufferByteData(toByteArray(base64AudioFileContent));
         this.audioFileReadCursorPosition += this.MEMORY_BUFFER_SIZE_IN_BYTE;
     }

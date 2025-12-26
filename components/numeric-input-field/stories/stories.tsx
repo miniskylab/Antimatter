@@ -1,8 +1,8 @@
 import {EMPTY_STRING, MAX_NUMBER, MIN_NUMBER, withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
-import {useArgs} from "storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React, {useRef} from "react";
+import {useArgs} from "storybook/preview-api";
 import {NumericInputField} from "../main";
 import {NumericInputFieldProps} from "../models";
 import * as Variant from "./variants";

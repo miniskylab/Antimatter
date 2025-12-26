@@ -1,9 +1,9 @@
 import {EMPTY_STRING, withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import {useArgs} from "storybook/preview-api";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
+import {useArgs} from "storybook/preview-api";
 import {InputField} from "../main";
 import {InputFieldProps} from "../models";
 import * as Variant from "./variants";

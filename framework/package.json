@@ -7,12 +7,12 @@
     "@types/utf8": "3.0.3",
     "base64-js": "1.5.1",
     "class-transformer": "0.5.1",
-    "class-validator": "0.14.2",
-    "expo-file-system": "18.1.11",
+    "class-validator": "0.14.3",
+    "expo-file-system": "19.0.21",
     "reflect-metadata": "0.2.2",
     "utf8": "3.0.0"
   },
   "devDependencies": {
-    "expo-screen-orientation": "8.1.7"
+    "expo-screen-orientation": "9.0.8"
   }
 }
