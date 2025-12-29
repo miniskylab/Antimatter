@@ -30,6 +30,7 @@ export type Style = (reminderProps: WithoutStyle<Props>) => {
     NotificationIntervalLabel: TextStyle;
     NotificationIntervalNumericInputField: NumericInputFieldStyle;
     NotificationIntervalControlZone: ViewStyle;
+    SilenceToggle: ToggleStyle;
     SuspenseToggle: ToggleStyle;
     RescheduleForwardToggle: ToggleStyle;
     RescheduleBackwardToggle: ToggleStyle;

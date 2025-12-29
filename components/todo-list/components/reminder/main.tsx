@@ -38,6 +38,7 @@ export const Component = forwardRef(function Component(
         maxSelectedTagCount = 2,
         isShowingProgressStripes,
         isToBeDeleted,
+        isSilenced,
         status = Status.Unscheduled,
         dueDate,
         originalData,
@@ -52,22 +53,23 @@ export const Component = forwardRef(function Component(
     const props: AllPropertiesMustPresent<Props> = {
         style, id, name, recurrencePattern, recurrencePatternPlaceholder, secNotificationInterval, notificationIntervalLabel,
         hourNotificationIntervalPlaceholder, minuteNotificationIntervalPlaceholder, secNotificationIntervalPlaceholder, tags,
-        maxSelectedTagCount, isShowingProgressStripes, isToBeDeleted, status, dueDate, originalData, modifiedDate, createdDate, mode,
-        onPress, onChange
+        maxSelectedTagCount, isShowingProgressStripes, isToBeDeleted, isSilenced, status, dueDate, originalData, modifiedDate, createdDate,
+        mode, onPress, onChange
     };
 
     const rootContainerRef = useRef<Pressable<Ref>>(null);
 
     const stateMachine = new Service.StateMachine({
-        recurrencePattern,
-        dueDate,
         mode,
         status,
+        dueDate,
+        isSilenced,
+        recurrencePattern,
         originalDueDate: originalData?.dueDate,
         originalStatus: originalData?.status
     });
     const {
-        dueDuration, formattedDueDate, formattedDueDuration, isPrioritized, isOverdue, isDue, suspenseToggleStatus,
+        dueDuration, formattedDueDate, formattedDueDuration, isPrioritized, isOverdue, isDue, suspenseToggleStatus, silenceToggleStatus,
         rescheduleForwardToggleStatus, rescheduleBackwardToggleStatus, recurrencePatternInputFieldStatus
     } = stateMachine.getDerivedProperties();
     const [
@@ -140,7 +142,7 @@ export const Component = forwardRef(function Component(
                         : isDue
                             ? DefaultIconSet.Alarm
                             : isNullOrUndefined(dueDuration)
-                                ? DefaultIconSet.NoSound
+                                ? DefaultIconSet.Origin
                                 : DefaultIconSet.Future;
     }
 
@@ -298,6 +300,12 @@ export const Component = forwardRef(function Component(
                     onChange={onSecNotificationIntervalTimeComponentChange}
                 />
                 <View style={computedStyle.NotificationIntervalControlZone}/>
+                {silenceToggleStatus !== ControlStatus.Hidden && (<Toggle
+                    style={computedStyle.SilenceToggle}
+                    icon={DefaultIconSet.NoMic}
+                    status={silenceToggleStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    onChange={onSilenceToggleStatusChange}
+                />)}
                 {suspenseToggleStatus !== ControlStatus.Hidden && <Toggle
                     style={computedStyle.SuspenseToggle}
                     icon={DefaultIconSet.Zzz}
@@ -409,6 +417,11 @@ export const Component = forwardRef(function Component(
             status: newStatus,
             dueDate: newDueDate
         });
+    }
+
+    function onSilenceToggleStatusChange(newSilenceToggleStatus: ToggleStatus): void
+    {
+        onChange?.({isSilenced: newSilenceToggleStatus === ToggleStatus.Checked});
     }
 
     function onRescheduleForwardToggleStatusChange(newRescheduleForwardToggleStatus: ToggleStatus): void

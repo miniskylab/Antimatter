@@ -8,6 +8,7 @@ describe("completing a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -28,6 +29,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeCompleted);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
@@ -42,6 +44,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -54,6 +57,7 @@ describe("completing a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -74,6 +78,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeCompleted);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
@@ -88,6 +93,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -100,6 +106,7 @@ describe("completing a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -121,6 +128,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeCompleted);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
@@ -135,6 +143,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -150,6 +159,7 @@ describe("rescheduling a reminder forward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -170,6 +180,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledForward);
         expect(derivedProperties.formattedDueDuration).toBe("In 28 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
@@ -184,6 +195,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -196,6 +208,7 @@ describe("rescheduling a reminder forward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -216,6 +229,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledForward);
         expect(derivedProperties.formattedDueDuration).toBe("In 27 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
@@ -230,6 +244,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -242,6 +257,7 @@ describe("rescheduling a reminder forward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -263,6 +279,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledForward);
         expect(derivedProperties.formattedDueDuration).toBe("In 29 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
@@ -277,6 +294,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -289,6 +307,7 @@ describe("rescheduling a reminder forward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 10`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -305,6 +324,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledForward);
         expect(derivedProperties.formattedDueDuration).toBe("In 10 days");
         expect(derivedProperties.formattedDueDate).toBe("03.03.1993");
@@ -319,6 +339,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("In 4 days");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -331,6 +352,7 @@ describe("rescheduling a reminder forward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -347,6 +369,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeCompleted);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
@@ -361,6 +384,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("3 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -373,6 +397,7 @@ describe("rescheduling a reminder forward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -389,6 +414,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledForward);
         expect(derivedProperties.formattedDueDuration).toBe("In 24 days");
         expect(derivedProperties.formattedDueDate).toBe("25.04.1993");
@@ -403,6 +429,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("35 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -418,6 +445,7 @@ describe("rescheduling a reminder backward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -438,6 +466,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledBackward);
         expect(derivedProperties.formattedDueDuration).toBe("31 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.01.1993");
@@ -452,6 +481,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -464,6 +494,7 @@ describe("rescheduling a reminder backward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -484,6 +515,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledBackward);
         expect(derivedProperties.formattedDueDuration).toBe("32 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.01.1993");
@@ -498,6 +530,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -510,6 +543,7 @@ describe("rescheduling a reminder backward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -531,6 +565,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledBackward);
         expect(derivedProperties.formattedDueDuration).toBe("30 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.01.1993");
@@ -545,6 +580,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -557,6 +593,7 @@ describe("rescheduling a reminder backward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 10`,
             originalDueDate: new Date(1993, 1, 8),
             dueDate: new Date(1993, 1, 8),
@@ -573,6 +610,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledBackward);
         expect(derivedProperties.formattedDueDuration).toBe("10 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.01.1993");
@@ -587,6 +625,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("In 4 days");
         expect(derivedProperties.formattedDueDate).toBe("08.02.1993");
@@ -599,6 +638,7 @@ describe("rescheduling a reminder backward", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -615,6 +655,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledBackward);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
@@ -629,6 +670,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("3 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -644,6 +686,7 @@ describe("rescheduling a completed reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             today: new Date(1993, 1, 26),
             originalStatus: Status.Completed,
@@ -658,6 +701,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeUndone);
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -672,6 +716,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
@@ -684,6 +729,7 @@ describe("rescheduling a completed reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             today: new Date(1993, 1, 25),
             originalStatus: Status.Completed,
@@ -698,6 +744,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeUndone);
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -712,6 +759,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
@@ -724,6 +772,7 @@ describe("rescheduling a completed reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             today: new Date(1993, 1, 24),
             originalStatus: Status.Completed,
@@ -738,6 +787,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeUndone);
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -752,6 +802,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
@@ -767,6 +818,7 @@ describe("rescheduling a reminder that has no due date", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             today: new Date(1993, 1, 26),
             originalStatus: Status.Scheduled,
@@ -781,6 +833,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledForward);
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -795,6 +848,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
@@ -807,6 +861,7 @@ describe("rescheduling a reminder that has no due date", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             today: new Date(1993, 1, 25),
             originalStatus: Status.Scheduled,
@@ -821,6 +876,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledForward);
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -835,6 +891,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
@@ -847,6 +904,7 @@ describe("rescheduling a reminder that has no due date", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             today: new Date(1993, 1, 24),
             originalStatus: Status.Scheduled,
@@ -861,6 +919,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeRescheduledForward);
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -875,6 +934,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
@@ -887,6 +947,7 @@ describe("rescheduling a reminder that has no due date", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: EMPTY_STRING,
             today: new Date(1993, 1, 25),
             originalStatus: Status.Scheduled,
@@ -901,6 +962,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeCompleted);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
@@ -915,6 +977,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
@@ -930,6 +993,7 @@ describe("suspending a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -950,6 +1014,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeSuspended);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
@@ -964,6 +1029,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -976,6 +1042,7 @@ describe("suspending a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -996,6 +1063,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeSuspended);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
@@ -1010,6 +1078,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -1022,6 +1091,7 @@ describe("suspending a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 1, 25),
             dueDate: new Date(1993, 1, 25),
@@ -1043,6 +1113,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeSuspended);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
@@ -1057,6 +1128,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -1069,6 +1141,7 @@ describe("suspending a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: EMPTY_STRING,
             today: new Date(1993, 1, 25),
             originalStatus: Status.Scheduled,
@@ -1083,6 +1156,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeSuspended);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
@@ -1097,6 +1171,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
@@ -1112,6 +1187,7 @@ describe("reactivating a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             today: new Date(1993, 1, 27),
             originalStatus: Status.Suspended,
@@ -1126,6 +1202,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
         expect(derivedProperties.formattedDueDuration).toBe("In 26 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
@@ -1140,6 +1217,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
@@ -1152,6 +1230,7 @@ describe("reactivating a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             today: new Date(1993, 1, 26),
             originalStatus: Status.Suspended,
@@ -1166,6 +1245,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -1180,6 +1260,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
@@ -1192,6 +1273,7 @@ describe("reactivating a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             today: new Date(1993, 1, 25),
             originalStatus: Status.Suspended,
@@ -1206,6 +1288,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -1220,6 +1303,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
@@ -1232,6 +1316,7 @@ describe("reactivating a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 2 ? 1993`,
             today: new Date(1993, 1, 24),
             originalStatus: Status.Suspended,
@@ -1246,6 +1331,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
@@ -1260,6 +1346,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
@@ -1272,6 +1359,7 @@ describe("reactivating a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: EMPTY_STRING,
             today: new Date(1993, 1, 25),
             originalStatus: Status.Suspended,
@@ -1286,6 +1374,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
@@ -1300,6 +1389,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
@@ -1312,6 +1402,7 @@ describe("reactivating a reminder", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
+            isSilenced: false,
             recurrencePattern: `0 0 0 25 * ? *`,
             originalDueDate: new Date(1993, 0, 25),
             dueDate: new Date(1993, 0, 25),
@@ -1328,6 +1419,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
         expect(derivedProperties.formattedDueDuration).toBe("In 26 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
@@ -1342,6 +1434,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Disabled);
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");

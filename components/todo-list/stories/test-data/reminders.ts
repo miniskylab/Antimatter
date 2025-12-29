@@ -17,6 +17,7 @@ day45InTheFuture.setDate(day45InTheFuture.getDate() + 45);
 export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     "1": {
         isAlarmed: true,
+        isSilenced: false,
         name: "Pulvinar",
         recurrencePattern: `0 0 0 ${today.getDate()} * ? *`,
         secNotificationInterval: 3600,
@@ -28,6 +29,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
     },
     "2": {
         isAlarmed: true,
+        isSilenced: false,
         name: "Pretium",
         recurrencePattern: `59 59 23 ${today.getDate()} ${today.getMonth() + 1} ? *`,
         secNotificationInterval: 18000,
@@ -38,6 +40,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "3": {
+        isSilenced: true,
         name: "Turpis massa tincidunt",
         recurrencePattern: `59 59 23 ${today.getDate()} ${today.getMonth() + 1} ? ${today.getFullYear()}`,
         secNotificationInterval: undefined,
@@ -48,6 +51,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "4": {
+        isSilenced: false,
         name: "Nulla pharetra",
         recurrencePattern: `0 0 0 ${yesterday.getDate()} ${yesterday.getMonth() + 1} ? ${yesterday.getFullYear()}`,
         secNotificationInterval: 7200,
@@ -58,6 +62,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "5": {
+        isSilenced: false,
         name: "Pellentesque",
         recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? *`,
         secNotificationInterval: undefined,
@@ -67,6 +72,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "6": {
+        isSilenced: false,
         isAlarmed: true,
         name: "Risus",
         recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? *`,
@@ -78,6 +84,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "7": {
+        isSilenced: false,
         name: "Diam donec",
         recurrencePattern: "0 0 0 3",
         secNotificationInterval: undefined,
@@ -88,6 +95,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "8": {
+        isSilenced: false,
         name: "Quam",
         recurrencePattern: `0 0 0 ${day45InTheFuture.getDate()} ${day45InTheFuture.getMonth() + 1} ? ${day45InTheFuture.getFullYear()}`,
         secNotificationInterval: 14400,
@@ -98,6 +106,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "9": {
+        isSilenced: false,
         name: "Urna molestie",
         recurrencePattern: `0 0 0 ${day45InTheFuture.getDate()} * ? *`,
         secNotificationInterval: undefined,
@@ -108,6 +117,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "10": {
+        isSilenced: false,
         name: "Iaculis eu non",
         recurrencePattern: `0 0 0 ${today.getDate()} ${today.getMonth() + 1} ? *`,
         secNotificationInterval: 21600,
@@ -117,6 +127,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "11": {
+        isSilenced: false,
         name: "Phasellus vestibulum",
         recurrencePattern: EMPTY_STRING,
         secNotificationInterval: undefined,
@@ -126,6 +137,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "12": {
+        isSilenced: false,
         name: "Nisi lacus sed",
         recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? ${day45InThePast.getFullYear()}`,
         secNotificationInterval: 14400,
@@ -135,6 +147,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "13": {
+        isSilenced: false,
         name: "Cursus turpis",
         recurrencePattern: `0 0 0 ${day45InTheFuture.getDate()} ${day45InTheFuture.getMonth() + 1} ? *`,
         secNotificationInterval: 10800,
@@ -144,6 +157,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "14": {
+        isSilenced: false,
         name: "Risus ultricies",
         recurrencePattern: `0 0 0 ? * 1,5 *`,
         secNotificationInterval: 7200,
@@ -154,6 +168,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "15": {
+        isSilenced: false,
         name: "Morbi tincidunt",
         recurrencePattern: `0 0 0 ${day45InThePast.getDate()} ${day45InThePast.getMonth() + 1} ? ${day45InThePast.getFullYear()}`,
         secNotificationInterval: 3600,
@@ -163,6 +178,7 @@ export const Reminders: NonNullable<TodoListProps["reminders"]> = {
         createdDate: today
     },
     "16": {
+        isSilenced: false,
         name: "Scelerisque",
         recurrencePattern: "!",
         tags: deepCopyWithSelection(Tags, "feugiat", "imperdiet"),

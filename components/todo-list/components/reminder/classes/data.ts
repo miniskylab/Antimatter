@@ -23,6 +23,11 @@ export class Data
 
     @IsBoolean()
     @IsOptional()
+    readonly isSilenced?: boolean;
+
+
+    @IsBoolean()
+    @IsOptional()
     readonly isAlarmed?: boolean;
 
 

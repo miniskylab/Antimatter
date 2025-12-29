@@ -7,33 +7,39 @@ export class StateMachine
     private readonly _mode: Mode;
     private readonly _originalStatus: Status;
     private readonly _today: Date | undefined;
+    private readonly _isSilenced: boolean | undefined;
     private readonly _originalDueDate: Date | undefined;
     private readonly _recurrencePattern: string | undefined;
+
     private _status: Status;
     private _dueDate: Date | undefined;
+    private _silenceToggleStatus: ControlStatus;
     private _suspenseToggleStatus: ControlStatus;
     private _rescheduleForwardToggleStatus: ControlStatus;
     private _rescheduleBackwardToggleStatus: ControlStatus;
     private _recurrencePatternInputFieldStatus: ControlStatus;
 
     constructor(initialState?: {
-        today?: Date;
-        recurrencePattern?: string,
-        dueDate?: Date,
-        originalDueDate?: Date,
         mode?: Mode,
+        today?: Date;
+        dueDate?: Date,
         status?: Status,
+        isSilenced?: boolean,
+        originalDueDate?: Date,
         originalStatus?: Status
+        recurrencePattern?: string,
     })
     {
         this._today = initialState?.today;
-        this._recurrencePattern = initialState?.recurrencePattern;
-        this._originalDueDate = initialState?.originalDueDate;
         this._dueDate = initialState?.dueDate;
+        this._isSilenced = initialState?.isSilenced;
         this._mode = initialState?.mode ?? Mode.ReadOnly;
+        this._originalDueDate = initialState?.originalDueDate;
+        this._recurrencePattern = initialState?.recurrencePattern;
         this._status = initialState?.status ?? Status.Unscheduled;
         this._originalStatus = initialState?.originalStatus ?? Status.Unscheduled;
 
+        this._silenceToggleStatus = ControlStatus.Available;
         this._suspenseToggleStatus = ControlStatus.Available;
         this._rescheduleForwardToggleStatus = ControlStatus.Available;
         this._rescheduleBackwardToggleStatus = ControlStatus.Available;
@@ -42,10 +48,7 @@ export class StateMachine
 
     getDerivedProperties()
     {
-        const isDraftOrEditMode = () => this._mode === Mode.Draft || this._mode === Mode.Edit;
-        const isSelected = () => this._mode === Mode.Draft || this._mode === Mode.Edit || this._mode === Mode.Dismiss;
-
-        const pendingStatus = !isSelected()
+        const pendingStatus = !this.isSelected()
             ? PendingStatus.None
             : this.isOriginallyCompleted() && this.isScheduled()
                 ? PendingStatus.ToBeUndone
@@ -67,17 +70,23 @@ export class StateMachine
         const isToBeRescheduledForward = () => pendingStatus === PendingStatus.ToBeRescheduledForward;
         const isToBeRescheduledBackward = () => pendingStatus === PendingStatus.ToBeRescheduledBackward;
 
-        this._recurrencePatternInputFieldStatus = !isDraftOrEditMode()
+        this._recurrencePatternInputFieldStatus = !this.isDraftOrEditMode()
             ? ControlStatus.Hidden
             : ControlStatus.Available;
 
-        this._suspenseToggleStatus = !isDraftOrEditMode() || this.isOriginallyCompleted()
+        this._suspenseToggleStatus = !this.isDraftOrEditMode() || this.isOriginallyCompleted()
             ? ControlStatus.Hidden
             : isToBeRescheduledForward() || isToBeRescheduledBackward() || this.isCompleted()
                 ? ControlStatus.Disabled
                 : this.isSuspended()
                     ? ControlStatus.Highlighted
                     : ControlStatus.Available;
+
+        this._silenceToggleStatus = !this.isDraftOrEditMode() || this.isOriginallyCompleted()
+            ? ControlStatus.Hidden
+            : this._isSilenced
+                ? ControlStatus.Highlighted
+                : ControlStatus.Available;
 
         this._rescheduleForwardToggleStatus = this._mode === Mode.Draft || this.isOriginallySuspended()
             ? ControlStatus.Hidden
@@ -87,7 +96,7 @@ export class StateMachine
                     ? ControlStatus.Highlighted
                     : ControlStatus.Available;
 
-        this._rescheduleBackwardToggleStatus = !this._originalDueDate || !isDraftOrEditMode()
+        this._rescheduleBackwardToggleStatus = !this._originalDueDate || !this.isDraftOrEditMode()
             ? ControlStatus.Hidden
             : this.isSuspended() || this.isCompleted() || isToBeRescheduledForward()
                 ? ControlStatus.Disabled
@@ -122,6 +131,7 @@ export class StateMachine
             isPrioritized,
             formattedDueDate,
             formattedDueDuration,
+            silenceToggleStatus: this._silenceToggleStatus,
             suspenseToggleStatus: this._suspenseToggleStatus,
             rescheduleForwardToggleStatus: this._rescheduleForwardToggleStatus,
             rescheduleBackwardToggleStatus: this._rescheduleBackwardToggleStatus,
@@ -209,6 +219,10 @@ export class StateMachine
         this._dueDate = newDueDate;
         this._status = Status.Scheduled;
     }
+
+    private isDraftOrEditMode() { return this._mode === Mode.Draft || this._mode === Mode.Edit; }
+
+    private isSelected() { return this._mode === Mode.Draft || this._mode === Mode.Edit || this._mode === Mode.Dismiss; }
 
     private isDueDateUnassigned() { return !!this._originalDueDate && !this._dueDate; }
 

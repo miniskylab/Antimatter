@@ -57,7 +57,7 @@ export default {
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
                 dismissAllAlarmButton={{
                     ...args.dismissAllAlarmButton,
-                    icon: DefaultIconSet.NoSound,
+                    icon: DefaultIconSet.NoMic,
                     text: "Dismiss All",
                     onPress: async () =>
                     {
@@ -159,6 +159,7 @@ export default {
                                 id: EMPTY_STRING,
                                 data: {
                                     isAlarmed: false,
+                                    isSilenced: false,
                                     name: EMPTY_STRING,
                                     recurrencePattern: EMPTY_STRING,
                                     secNotificationInterval: 60,
@@ -200,6 +201,7 @@ export default {
                                 tags: args.selectedReminder.data.tags,
                                 status: args.selectedReminder.data.status,
                                 isAlarmed: args.selectedReminder.data.isAlarmed,
+                                isSilenced: args.selectedReminder.data.isSilenced,
                                 dueDate: args.selectedReminder.data.dueDate,
                                 createdDate: new Date()
                             };
@@ -215,6 +217,7 @@ export default {
                                 tags: args.selectedReminder.data.tags,
                                 status: args.selectedReminder.data.status,
                                 isAlarmed: args.selectedReminder.data.isAlarmed,
+                                isSilenced: args.selectedReminder.data.isSilenced,
                                 dueDate: args.selectedReminder.data.dueDate,
                                 modifiedDate: new Date()
                             };
@@ -297,6 +300,7 @@ export default {
                                 status: args.reminders[args.selectedReminder.id].status,
                                 dueDate: args.reminders[args.selectedReminder.id].dueDate,
                                 isAlarmed: args.reminders[args.selectedReminder.id].isAlarmed,
+                                isSilenced: args.reminders[args.selectedReminder.id].isSilenced,
                                 modifiedDate: args.reminders[args.selectedReminder.id].modifiedDate,
                                 createdDate: args.reminders[args.selectedReminder.id].createdDate
                             }
@@ -329,6 +333,7 @@ export default {
                                 status: args.reminders[reminderId].status,
                                 dueDate: args.reminders[reminderId].dueDate,
                                 isAlarmed: args.reminders[reminderId].isAlarmed,
+                                isSilenced: args.reminders[reminderId].isSilenced,
                                 modifiedDate: args.reminders[reminderId].modifiedDate,
                                 createdDate: args.reminders[reminderId].createdDate
                             }

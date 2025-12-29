@@ -186,7 +186,7 @@ export const TodoList = forwardRef(function TodoList(
             case Reminder.Mode.Dismiss:
                 return {
                     button1: {...saveAndDismissAlarmButton},
-                    button2: {icon: DefaultIconSet.NoSound, text: "Dismiss-Mode", disabled: true},
+                    button2: {icon: DefaultIconSet.NoMic, text: "Dismiss-Mode", disabled: true},
                     button3: {...cancelButton}
                 };
 
@@ -297,7 +297,6 @@ export const TodoList = forwardRef(function TodoList(
                     maxSelectedTagCount={maxSelectedTagCount}
                     notificationIntervalLabel={reminderNotificationIntervalLabel}
                     isToBeDeleted={!!state.toBeDeletedReminders[sortedReminderId]}
-                    isShowingProgressStripes={reminderData.isShowingProgressStripes}
                     recurrencePatternPlaceholder={reminderRecurrencePatternPlaceholder}
                     originalData={isSelectedReminder ? reminders[sortedReminderId] : undefined}
                     secNotificationIntervalPlaceholder={secReminderNotificationIntervalPlaceholder}

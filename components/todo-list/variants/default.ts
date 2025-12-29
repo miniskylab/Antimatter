@@ -963,6 +963,64 @@ const TodoList__Reminder__NotificationIntervalControlZone: ViewStyle = function 
     };
 };
 
+const TodoList__Reminder__SilenceToggle__Root: ViewStyle = function (viewProps)
+{
+    const toggleContext = ToggleContextHook.useToggleContext();
+
+    const inheritedStyle = ToggleVariant.Checkbox(toggleContext.props).Root(viewProps);
+
+    return {
+        ...inheritedStyle,
+        position: "absolute",
+        top: 12,
+        right: 40
+    };
+};
+
+const TodoList__Reminder__SilenceToggle__Container: PressableStyle = function (pressableProps, pressableState)
+{
+    const toggleContext = ToggleContextHook.useToggleContext();
+
+    const inheritedStyle = ToggleVariant.Checkbox(toggleContext.props).Container(pressableProps, pressableState);
+
+    return {
+        ...inheritedStyle,
+        borderWidth: 0,
+        width: 40,
+        height: 40,
+        backgroundColor: Color.Transparent
+    };
+};
+
+const TodoList__Reminder__SilenceToggle__Icon: IconStyle = function (iconProps)
+{
+    const toggleContext = ToggleContextHook.useToggleContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    const inheritedStyle = ToggleVariant.Checkbox(toggleContext.props).Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        display: "flex",
+        fontSize: 24,
+        color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
+            ? Color.Tomato
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
+    };
+};
+
+const TodoList__Reminder__SilenceToggle: ToggleStyle = function (toggleProps)
+{
+    return {
+        ...ToggleVariant.Checkbox(toggleProps),
+        Root: TodoList__Reminder__SilenceToggle__Root,
+        Container: TodoList__Reminder__SilenceToggle__Container,
+        Icon: TodoList__Reminder__SilenceToggle__Icon
+    };
+};
+
 const TodoList__Reminder__SuspenseToggle__Root: ViewStyle = function (viewProps)
 {
     const toggleContext = ToggleContextHook.useToggleContext();
@@ -1062,7 +1120,7 @@ const TodoList__Reminder__RescheduleBackwardToggle__Root: ViewStyle = function (
 {
     return {
         ...TodoList__Reminder__SuspenseToggle__Root(viewProps),
-        right: 40
+        right: 80
     };
 };
 
@@ -1096,6 +1154,7 @@ const TodoList__Reminder: Reminder.Style = function ()
         NotificationIntervalLabel: TodoList__Reminder__NotificationIntervalLabel,
         NotificationIntervalNumericInputField: TodoList__Reminder__NotificationIntervalNumericInputField,
         NotificationIntervalControlZone: TodoList__Reminder__NotificationIntervalControlZone,
+        SilenceToggle: TodoList__Reminder__SilenceToggle,
         SuspenseToggle: TodoList__Reminder__SuspenseToggle,
         RescheduleForwardToggle: TodoList__Reminder__RescheduleForwardToggle,
         RescheduleBackwardToggle: TodoList__Reminder__RescheduleBackwardToggle,
