@@ -1,4 +1,5 @@
-import {toByteArray} from "base64-js";
+import {fromByteArray, toByteArray} from "base64-js";
+import {type AudioPlayer, AudioStatus, createAudioPlayer} from "expo-audio";
 import {File} from "expo-file-system";
 import * as UTF8 from "utf8";
 import {EMPTY_STRING} from "./typescript";
@@ -31,24 +32,25 @@ export const AudioFileMetadataReader = new class
         this.reset();
         this.pathToAudioFile = pathToAudioFile;
 
-        this.metadataId = await this.getMetadataIdAsync();
+        this.metadataId = this.getMetadataId();
         if (this.metadataId === this.ID3v2_METADATA_ID)
         {
-            await this.readID3v2HeaderAsync();
+            this.readID3v2Header();
             while (!this.isFinishedReadingAudioMetadata)
             {
-                await this.readID3v2FrameAsync();
+                this.readID3v2Frame();
             }
         }
         else if (this.metadataId === this.FLAC_METADATA_ID)
         {
             while (!this.isFinishedReadingAudioMetadata)
             {
-                await this.readFLACMetadataBlockAsync();
+                this.readFLACMetadataBlock();
             }
         }
 
         return {
+            secDuration: await this.getDurationAsync(),
             title: this.audioMetadata[this.AUDIO_METADATA_DESCRIPTION.TITLE],
             artist: this.audioMetadata[this.AUDIO_METADATA_DESCRIPTION.ARTIST]
         };
@@ -65,17 +67,17 @@ export const AudioFileMetadataReader = new class
         this.memoryBufferByteData = Uint8Array.from([]);
     }
 
-    private async getMetadataIdAsync()
+    private getMetadataId()
     {
         this.reset();
-        let tagId = this.bytesToDecodedString(await this.readFromAudioFileAsync(3));
+        let tagId = this.bytesToDecodedString(this.readFromAudioFile(3));
         if (tagId === this.ID3v2_METADATA_ID)
         {
             return tagId;
         }
 
         this.reset();
-        tagId = this.bytesToDecodedString(await this.readFromAudioFileAsync(4));
+        tagId = this.bytesToDecodedString(this.readFromAudioFile(4));
         if (tagId === this.FLAC_METADATA_ID)
         {
             return tagId;
@@ -85,18 +87,34 @@ export const AudioFileMetadataReader = new class
         return undefined;
     }
 
-    private async readFLACMetadataBlockAsync()
+    private getDurationAsync()
     {
-        const metadataBlockType = this.bytesToBinaryString(await this.readFromAudioFileAsync(1));
+        const audioPlayer: AudioPlayer = createAudioPlayer(this.pathToAudioFile);
+        return new Promise<number>(resolve =>
+        {
+            audioPlayer.addListener("playbackStatusUpdate", (audioStatus: AudioStatus) =>
+            {
+                if (audioStatus.isLoaded)
+                {
+                    audioPlayer.release();
+                    resolve(audioStatus.duration || NaN);
+                }
+            });
+        });
+    }
+
+    private readFLACMetadataBlock()
+    {
+        const metadataBlockType = this.bytesToBinaryString(this.readFromAudioFile(1));
         const isVorbisCommentBlock = metadataBlockType.endsWith("0000100");
         if (!isVorbisCommentBlock)
         {
-            const metadataBlockSizeInByte = this.bytesToInt32(await this.readFromAudioFileAsync(3));
-            await this.readFromAudioFileAsync(metadataBlockSizeInByte); // Skip irrelevant metadata blocks
+            const metadataBlockSizeInByte = this.bytesToInt32(this.readFromAudioFile(3));
+            this.readFromAudioFile(metadataBlockSizeInByte); // Skip irrelevant metadata blocks
         }
         else
         {
-            await this.readVorbisCommentBlockAsync();
+            this.readVorbisCommentBlock();
             this.isFinishedReadingAudioMetadata = true;
             return;
         }
@@ -109,18 +127,18 @@ export const AudioFileMetadataReader = new class
         }
     }
 
-    private async readVorbisCommentBlockAsync()
+    private readVorbisCommentBlock()
     {
-        await this.readFromAudioFileAsync(3); // Skip getting metadataBlockSizeInByte
+        this.readFromAudioFile(3); // Skip getting metadataBlockSizeInByte
 
-        const vendorSizeInByte = this.bytesToInt32(await this.readFromAudioFileAsync(4));
-        await this.readFromAudioFileAsync(vendorSizeInByte); // Skip vendor field
+        const vendorSizeInByte = this.bytesToInt32(this.readFromAudioFile(4));
+        this.readFromAudioFile(vendorSizeInByte); // Skip vendor field
 
-        const userCommentCount = this.bytesToInt32(await this.readFromAudioFileAsync(4));
+        const userCommentCount = this.bytesToInt32(this.readFromAudioFile(4));
         for (let i = 0; i < userCommentCount; i++)
         {
-            const userCommentSizeInByte = this.bytesToInt32(await this.readFromAudioFileAsync(4));
-            const userCommentText = this.bytesToDecodedString(await this.readFromAudioFileAsync(userCommentSizeInByte));
+            const userCommentSizeInByte = this.bytesToInt32(this.readFromAudioFile(4));
+            const userCommentText = this.bytesToDecodedString(this.readFromAudioFile(userCommentSizeInByte));
             const [metadataKey, metadataValue] = userCommentText.split("=");
             switch (metadataKey.toLowerCase())
             {
@@ -141,39 +159,39 @@ export const AudioFileMetadataReader = new class
         }
     }
 
-    private async readID3v2HeaderAsync()
+    private readID3v2Header()
     {
-        await this.readFromAudioFileAsync(2); // Skip header's "Version" field
-        await this.readFromAudioFileAsync(1); // Skip header's "Flags" field
-        this.id3v2TagSizeInByte = this.bytesToInt32(await this.readFromAudioFileAsync(4));
+        this.readFromAudioFile(2); // Skip header's "Version" field
+        this.readFromAudioFile(1); // Skip header's "Flags" field
+        this.id3v2TagSizeInByte = this.bytesToInt32(this.readFromAudioFile(4));
     }
 
-    private async readID3v2FrameAsync()
+    private readID3v2Frame()
     {
-        const id3v2FrameID = this.bytesToDecodedString(await this.readFromAudioFileAsync(4));
+        const id3v2FrameID = this.bytesToDecodedString(this.readFromAudioFile(4));
         if (!id3v2FrameID)
         {
             this.isFinishedReadingAudioMetadata = true;
             return;
         }
 
-        await this.readFromAudioFileAsync(2); // Skip frame's "Flags" field
-        const id3v2FrameSizeInByte = this.bytesToInt32(await this.readFromAudioFileAsync(4));
+        this.readFromAudioFile(2); // Skip frame's "Flags" field
+        const id3v2FrameSizeInByte = this.bytesToInt32(this.readFromAudioFile(4));
         switch (id3v2FrameID)
         {
             case this.ID3v2_FRAME_ID.TITLE:
             case this.ID3v2_FRAME_ID.ARTIST:
                 const id3v2FrameTextEncodingFieldSizeInByte = 1;
-                await this.readFromAudioFileAsync(id3v2FrameTextEncodingFieldSizeInByte); // Skip frame's "Text encoding" field
+                this.readFromAudioFile(id3v2FrameTextEncodingFieldSizeInByte); // Skip frame's "Text encoding" field
 
                 const id3v2FrameInformationFieldSizeInByte = id3v2FrameSizeInByte - id3v2FrameTextEncodingFieldSizeInByte;
-                const id3v2FrameValue = this.bytesToDecodedString(await this.readFromAudioFileAsync(id3v2FrameInformationFieldSizeInByte));
+                const id3v2FrameValue = this.bytesToDecodedString(this.readFromAudioFile(id3v2FrameInformationFieldSizeInByte));
                 const id3v2FrameName: string = Object.fromEntries(Object.entries(this.ID3v2_FRAME_ID).map(x => x.reverse()))[id3v2FrameID];
                 this.audioMetadata[id3v2FrameName] = id3v2FrameValue;
                 break;
 
             default:
-                await this.readFromAudioFileAsync(id3v2FrameSizeInByte);
+                this.readFromAudioFile(id3v2FrameSizeInByte);
         }
 
         if (this.isAllNecessaryMetadataAcquired)
@@ -182,14 +200,17 @@ export const AudioFileMetadataReader = new class
         }
     }
 
-    private async clearMemoryBufferThenReadNextChunkOfAudioFileToItAsync()
+    private clearMemoryBufferThenReadNextChunkOfAudioFileToIt()
     {
-        const base64AudioFileContent = await new File(this.pathToAudioFile).base64();
+        const audioFileHandle = new File(this.pathToAudioFile).open();
+        audioFileHandle.offset = this.audioFileReadCursorPosition;
+
+        const base64AudioFileContent = fromByteArray(audioFileHandle.readBytes(this.MEMORY_BUFFER_SIZE_IN_BYTE));
         this.setMemoryBufferByteData(toByteArray(base64AudioFileContent));
         this.audioFileReadCursorPosition += this.MEMORY_BUFFER_SIZE_IN_BYTE;
     }
 
-    private async readFromAudioFileAsync(byteCount: number)
+    private readFromAudioFile(byteCount: number)
     {
         const byteChunk = [];
         for (let i = 0; i < byteCount; i++)
@@ -202,7 +223,7 @@ export const AudioFileMetadataReader = new class
                     break;
                 }
 
-                await this.clearMemoryBufferThenReadNextChunkOfAudioFileToItAsync();
+                this.clearMemoryBufferThenReadNextChunkOfAudioFileToIt();
             }
 
             byteChunk.push(this.readSingleByteFromMemoryBuffer());
