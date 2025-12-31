@@ -6,4 +6,3 @@ export * from "./consts";
 export * from "./hooks";
 export * from "./enums";
 export * from "./types";
-export * from "./core";

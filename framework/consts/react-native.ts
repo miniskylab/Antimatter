@@ -1,5 +1,5 @@
 import {CursorValue} from "react-native";
-import {isEnvironment} from "../core";
+import {isEnvironment} from "../functions";
 
 const isWebEnvironment = isEnvironment("Web");
 const antimatterCursorType = {

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {ImageStyle, TextStyle, ViewStyle} from "react-native";
-import {isEnvironment} from "../core";
+import {isEnvironment} from "../functions";
 import {ssrIsEnabled} from "./responsive";
 import {useTypography} from "./typography";
 
