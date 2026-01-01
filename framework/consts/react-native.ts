@@ -1,7 +1,6 @@
-import {CursorValue} from "react-native";
-import {isEnvironment} from "../functions";
+import {CursorValue, Platform} from "react-native";
 
-const isWebEnvironment = isEnvironment("Web");
+const isWebEnvironment = Platform.OS === "web";
 const antimatterCursorType = {
     Auto: "auto",
     Pointer: "pointer",
