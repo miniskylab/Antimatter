@@ -34,6 +34,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -49,6 +50,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(true);
     });
@@ -83,6 +85,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -98,11 +101,60 @@ describe("completing a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
 
-    it("works correctly when the reminder is not due or overdue", () =>
+    it("works correctly when the reminder is prioritized", () =>
+    {
+        // Arrange
+        const stateMachine = new StateMachine({
+            isSilenced: false,
+            recurrencePattern: "!",
+            originalStatus: Status.Unscheduled,
+            status: Status.Unscheduled,
+            mode: Mode.Edit
+        });
+
+        // Check preconditions
+        let derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.isPrioritized).toBe(true);
+
+        // Act & Assert: Turn On
+        stateMachine.toggleRescheduleForward(ControlStatus.Highlighted);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Highlighted);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Disabled);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeCompleted);
+        expect(derivedProperties.formattedDueDuration).toBeUndefined();
+        expect(derivedProperties.formattedDueDate).toBe("Completed");
+        expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(true);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+
+        // Act & Assert: Turn Off
+        stateMachine.toggleRescheduleForward(ControlStatus.Available);
+        derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.recurrencePatternInputFieldStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.rescheduleBackwardToggleStatus).toBe(ControlStatus.Hidden);
+        expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
+        expect(derivedProperties.formattedDueDuration).toBeUndefined();
+        expect(derivedProperties.formattedDueDate).toBe("Prioritized");
+        expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(true);
+        expect(derivedProperties.isOverdue).toBe(false);
+        expect(derivedProperties.isDue).toBe(false);
+    });
+
+    it("works correctly when the reminder is not due, overdue, or prioritized", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
@@ -118,6 +170,7 @@ describe("completing a reminder", () =>
 
         // Check preconditions
         let derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -133,6 +186,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -148,6 +202,7 @@ describe("completing a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -185,6 +240,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 28 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
         expect(derivedProperties.dueDuration).toBe(28);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -200,6 +256,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(true);
     });
@@ -234,6 +291,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 27 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
         expect(derivedProperties.dueDuration).toBe(27);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -249,11 +307,12 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
 
-    it("works correctly when the reminder is not due or overdue", () =>
+    it("works correctly when the reminder is not due, overdue or prioritized", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
@@ -269,6 +328,7 @@ describe("rescheduling a reminder forward", () =>
 
         // Check preconditions
         let derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -284,6 +344,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 29 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
         expect(derivedProperties.dueDuration).toBe(29);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -299,6 +360,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -329,6 +391,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 10 days");
         expect(derivedProperties.formattedDueDate).toBe("03.03.1993");
         expect(derivedProperties.dueDuration).toBe(10);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -344,6 +407,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 4 days");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(4);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -374,6 +438,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -389,6 +454,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("3 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-3);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -419,6 +485,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 24 days");
         expect(derivedProperties.formattedDueDate).toBe("25.04.1993");
         expect(derivedProperties.dueDuration).toBe(24);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -434,6 +501,7 @@ describe("rescheduling a reminder forward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("35 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-35);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -471,6 +539,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("31 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.01.1993");
         expect(derivedProperties.dueDuration).toBe(-31);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -486,6 +555,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(true);
     });
@@ -520,6 +590,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("32 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.01.1993");
         expect(derivedProperties.dueDuration).toBe(-32);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -535,11 +606,12 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
 
-    it("works correctly when the reminder is not due or overdue", () =>
+    it("works correctly when the reminder is not due, overdue or prioritized", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
@@ -555,6 +627,7 @@ describe("rescheduling a reminder backward", () =>
 
         // Check preconditions
         let derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -570,6 +643,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("30 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.01.1993");
         expect(derivedProperties.dueDuration).toBe(-30);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -585,6 +659,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -615,6 +690,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("10 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.01.1993");
         expect(derivedProperties.dueDuration).toBe(-10);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -630,6 +706,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 4 days");
         expect(derivedProperties.formattedDueDate).toBe("08.02.1993");
         expect(derivedProperties.dueDuration).toBe(4);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -660,6 +737,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -675,6 +753,7 @@ describe("rescheduling a reminder backward", () =>
         expect(derivedProperties.formattedDueDuration).toBe("3 days ago");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-3);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -706,6 +785,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -721,6 +801,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -749,6 +830,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(true);
 
@@ -764,6 +846,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -792,6 +875,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -807,6 +891,7 @@ describe("rescheduling a completed reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -838,6 +923,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -853,6 +939,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -881,6 +968,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(true);
 
@@ -896,6 +984,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -924,6 +1013,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -939,6 +1029,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -967,6 +1058,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Completed");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -982,6 +1074,7 @@ describe("rescheduling a reminder that has no due date", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -1019,6 +1112,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -1034,6 +1128,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(true);
     });
@@ -1068,6 +1163,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -1083,11 +1179,12 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });
 
-    it("works correctly when the reminder is not due or overdue", () =>
+    it("works correctly when the reminder is not due, overdue or prioritized", () =>
     {
         // Arrange
         const stateMachine = new StateMachine({
@@ -1103,6 +1200,7 @@ describe("suspending a reminder", () =>
 
         // Check preconditions
         let derivedProperties = stateMachine.getDerivedProperties();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -1118,6 +1216,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -1133,6 +1232,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -1161,6 +1261,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -1176,6 +1277,7 @@ describe("suspending a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -1207,6 +1309,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 26 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
         expect(derivedProperties.dueDuration).toBe(26);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -1222,6 +1325,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -1250,6 +1354,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Yesterday");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(-1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -1265,6 +1370,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -1293,6 +1399,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Today");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(0);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(true);
 
@@ -1308,6 +1415,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -1336,6 +1444,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("Tomorrow");
         expect(derivedProperties.formattedDueDate).toBe("25.02.1993");
         expect(derivedProperties.dueDuration).toBe(1);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -1351,6 +1460,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -1375,10 +1485,11 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.rescheduleForwardToggleStatus).toBe(ControlStatus.Hidden);
         expect(derivedProperties.suspenseToggleStatus).toBe(ControlStatus.Available);
         expect(derivedProperties.silenceToggleStatus).toBe(ControlStatus.Available);
-        expect(derivedProperties.pendingStatus).toBe(PendingStatus.ToBeReactivated);
+        expect(derivedProperties.pendingStatus).toBe(PendingStatus.None);
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("No due date");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -1394,6 +1505,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBeUndefined();
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
     });
@@ -1424,6 +1536,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBe("In 26 days");
         expect(derivedProperties.formattedDueDate).toBe("25.03.1993");
         expect(derivedProperties.dueDuration).toBe(26);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(false);
         expect(derivedProperties.isDue).toBe(false);
 
@@ -1439,6 +1552,7 @@ describe("reactivating a reminder", () =>
         expect(derivedProperties.formattedDueDuration).toBeUndefined();
         expect(derivedProperties.formattedDueDate).toBe("Suspended");
         expect(derivedProperties.dueDuration).toBe(-33);
+        expect(derivedProperties.isPrioritized).toBe(false);
         expect(derivedProperties.isOverdue).toBe(true);
         expect(derivedProperties.isDue).toBe(false);
     });

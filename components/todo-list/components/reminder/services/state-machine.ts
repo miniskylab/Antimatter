@@ -196,7 +196,7 @@ export class StateMachine
         if (isNewDueDateNotGreaterThanCurrentDueDate)
         {
             newDueDate = undefined;
-            newReminderStatus = this.isScheduled() ? Status.Completed : Status.Scheduled;
+            newReminderStatus = this.isOriginallySuspended() || this.isOriginallyCompleted() ? Status.Unscheduled : Status.Completed;
         }
 
         this._dueDate = newDueDate;
