@@ -89,5 +89,7 @@ export enum DefaultIconSet
     Send = "send",
     Zzz = "zzz",
     ExclamationMarkInsideCircle = "exclamation-mark-inside-circle",
-    Sparkles = "sparkles"
+    Sparkles = "sparkles",
+    Leaf = "leaf",
+    Biohazard = "biohazard"
 }
