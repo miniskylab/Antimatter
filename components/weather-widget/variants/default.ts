@@ -147,9 +147,11 @@ const WeatherWidget__FeelsLikeValue: TextStyle = function (textProps)
             ? Color.Purple
             : weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Tomato
                 ? Color.Tomato
-                : weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
-                    ? Color.Blue
-                    : Color.Neutral
+                : weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Gold
+                    ? Color.Gold
+                    : weatherWidgetContext.props.temperatureData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
+                        ? Color.Blue
+                        : Color.Neutral
     };
 };
 
@@ -273,9 +275,11 @@ const WeatherWidget__UvIndexDescription: TextStyle = function (textProps)
             ? Color.Purple
             : weatherWidgetContext.props.uvIndexData?.highlightColor === SimpleWeatherData.HighlightColor.Tomato
                 ? Color.Tomato
-                : weatherWidgetContext.props.uvIndexData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
-                    ? Color.Blue
-                    : Color.Neutral
+                : weatherWidgetContext.props.uvIndexData?.highlightColor === SimpleWeatherData.HighlightColor.Gold
+                    ? Color.Gold
+                    : weatherWidgetContext.props.uvIndexData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
+                        ? Color.Blue
+                        : Color.Neutral
     };
 };
 
@@ -315,9 +319,11 @@ const WeatherWidget__WindSpeed: TextStyle = function (textProps)
             ? Color.Purple
             : weatherWidgetContext.props.windData?.highlightColor === SimpleWeatherData.HighlightColor.Tomato
                 ? Color.Tomato
-                : weatherWidgetContext.props.windData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
-                    ? Color.Blue
-                    : Color.Neutral
+                : weatherWidgetContext.props.windData?.highlightColor === SimpleWeatherData.HighlightColor.Gold
+                    ? Color.Gold
+                    : weatherWidgetContext.props.windData?.highlightColor === SimpleWeatherData.HighlightColor.Blue
+                        ? Color.Blue
+                        : Color.Neutral
     };
 };
 
@@ -365,9 +371,11 @@ const WeatherWidget__SimpleWeatherData1__MainTitle: TextStyle = function (textPr
             ? Color.Purple
             : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Tomato
                 ? Color.Tomato
-                : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Blue
-                    ? Color.Blue
-                    : Color.Neutral
+                : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Gold
+                    ? Color.Gold
+                    : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Blue
+                        ? Color.Blue
+                        : Color.Neutral
     };
 };
 
@@ -383,9 +391,11 @@ const WeatherWidget__SimpleWeatherData1__SubTitle: TextStyle = function (textPro
             ? Color.Purple
             : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Tomato
                 ? Color.Tomato
-                : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Blue
-                    ? Color.Blue
-                    : Color.Neutral
+                : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Gold
+                    ? Color.Gold
+                    : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Blue
+                        ? Color.Blue
+                        : Color.Neutral
     };
 };
 
@@ -510,9 +520,11 @@ const WeatherWidget__TimeFrameForecastData__TemperatureValue: TextStyle = functi
             ? Color.Purple
             : temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Tomato
                 ? Color.Tomato
-                : temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
-                    ? Color.Blue
-                    : Color.Neutral
+                : temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Gold
+                    ? Color.Gold
+                    : temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
+                        ? Color.Blue
+                        : Color.Neutral
     };
 };
 
@@ -553,9 +565,11 @@ const WeatherWidget__TimeFrameForecastData__PrecipitationProbabilityValue: TextS
             ? Color.Purple
             : precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Tomato
                 ? Color.Tomato
-                : precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
-                    ? Color.Blue
-                    : Color.Neutral
+                : precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Gold
+                    ? Color.Gold
+                    : precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
+                        ? Color.Blue
+                        : Color.Neutral
     };
 };
 
@@ -595,9 +609,11 @@ const WeatherWidget__TimeFrameForecastData__AirQualityIndexValue: TextStyle = fu
             ? Color.Purple
             : airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Tomato
                 ? Color.Tomato
-                : airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
-                    ? Color.Blue
-                    : Color.Neutral
+                : airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Gold
+                    ? Color.Gold
+                    : airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
+                        ? Color.Blue
+                        : Color.Neutral
     };
 };
 
