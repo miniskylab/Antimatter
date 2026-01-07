@@ -1,6 +1,6 @@
 import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {IsOptional} from "class-validator";
-import {SimpleWeatherData} from "../components";
+import {HighlightColor} from "../enums";
 
 export class TemperatureData
 {
@@ -52,7 +52,7 @@ export class TemperatureData
     readonly maxTemperatureValue: string;
 
 
-    @IsEnum(SimpleWeatherData.HighlightColor)
+    @IsEnum(HighlightColor)
     @IsOptional()
-    readonly highlightColor?: SimpleWeatherData.HighlightColor;
+    readonly highlightColor?: HighlightColor;
 }

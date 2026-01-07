@@ -4,6 +4,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {SimpleWeatherData, TimeFrameForecastData} from "../components";
+import {HighlightColor} from "../enums";
 import {WeatherWidget} from "../main";
 import {WeatherWidgetProps} from "../models";
 import * as Variant from "../variants";
@@ -40,7 +41,7 @@ export const Playground: Story = {
             maxTemperatureValue: "16°C",
             feelsLikeTemperatureLabel: "Feels Like:",
             feelsLikeTemperatureValue: "10°C",
-            highlightColor: SimpleWeatherData.HighlightColor.Blue
+            highlightColor: HighlightColor.Blue
         },
         uvIndexData: {
             icon: DefaultIconSet.UvIndex,
@@ -50,7 +51,7 @@ export const Playground: Story = {
             icon: DefaultIconSet.Direction,
             speedAndGusts: "17 - 24 km/h",
             direction: 135,
-            highlightColor: SimpleWeatherData.HighlightColor.Tomato
+            highlightColor: HighlightColor.Tomato
         },
         simpleWeatherData1: {
             icon: DefaultIconSet.AirQualityIndex,

@@ -1,4 +1,5 @@
-export {SimpleWeatherData} from "./components";
+export {SimpleWeatherData, TimeFrameForecastData} from "./components";
+export {HighlightColor} from "./enums";
 export {WeatherWidgetProps, type WeatherWidgetStyle} from "./models";
 export {WeatherWidget} from "./main";
 export {WeatherWidgetContextHook} from "./hooks";
