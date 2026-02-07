@@ -32,6 +32,7 @@ export type Style = (reminderProps: WithoutStyle<Props>) => {
     NotificationIntervalControlZone: ViewStyle;
     SilenceToggle: ToggleStyle;
     SuspenseToggle: ToggleStyle;
+    UseLunarCalendarToggle: ToggleStyle;
     RescheduleForwardToggle: ToggleStyle;
     RescheduleBackwardToggle: ToggleStyle;
     ProgressStripes: ProgressStripesStyle;

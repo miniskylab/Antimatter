@@ -37,6 +37,7 @@ export const Component = forwardRef(function Component(
         tags = {},
         maxSelectedTagCount = 2,
         isShowingProgressStripes,
+        isUsingLunarCalendar,
         isToBeDeleted,
         isSilenced,
         status = Status.Unscheduled,
@@ -51,10 +52,10 @@ export const Component = forwardRef(function Component(
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, id, name, recurrencePattern, recurrencePatternPlaceholder, secNotificationInterval, notificationIntervalLabel,
+        style, id, mode, name, recurrencePattern, recurrencePatternPlaceholder, secNotificationInterval, notificationIntervalLabel,
         hourNotificationIntervalPlaceholder, minuteNotificationIntervalPlaceholder, secNotificationIntervalPlaceholder, tags,
-        maxSelectedTagCount, isShowingProgressStripes, isToBeDeleted, isSilenced, status, dueDate, originalData, modifiedDate, createdDate,
-        mode, onPress, onChange
+        maxSelectedTagCount, isShowingProgressStripes, isUsingLunarCalendar, isToBeDeleted, isSilenced, status, dueDate, originalData,
+        modifiedDate, createdDate, onPress, onChange
     };
 
     const rootContainerRef = useRef<Pressable<Ref>>(null);
@@ -65,12 +66,13 @@ export const Component = forwardRef(function Component(
         dueDate,
         isSilenced,
         recurrencePattern,
+        isUsingLunarCalendar,
         originalDueDate: originalData?.dueDate,
         originalStatus: originalData?.status
     });
     const {
         dueDuration, formattedDueDate, formattedDueDuration, isPrioritized, isOverdue, isDue, suspenseToggleStatus, silenceToggleStatus,
-        rescheduleForwardToggleStatus, rescheduleBackwardToggleStatus, recurrencePatternInputFieldStatus
+        useLunarCalendarToggleStatus, rescheduleForwardToggleStatus, rescheduleBackwardToggleStatus, recurrencePatternInputFieldStatus
     } = stateMachine.getDerivedProperties();
     const [
         hourNotificationIntervalTimeComponent, minuteNotificationIntervalTimeComponent, secNotificationIntervalTimeComponent
@@ -158,7 +160,7 @@ export const Component = forwardRef(function Component(
     function getRescheduleForwardToggleIcon(): DefaultIconSet
     {
         const today = originalData?.dueDate ?? new Date();
-        const nextDueDate = Service.getDueDate(originalData?.recurrencePattern, DueDateType.NextDueDate, today);
+        const nextDueDate = Service.getDueDate(originalData?.recurrencePattern, DueDateType.NextDueDate, today, isUsingLunarCalendar);
         return originalData?.status === Status.Completed || !nextDueDate || nextDueDate.getTime() <= today.getTime()
             ? DefaultIconSet.CheckMarkInsideCircle
             : DefaultIconSet.Future;
@@ -300,6 +302,12 @@ export const Component = forwardRef(function Component(
                     onChange={onSecNotificationIntervalTimeComponentChange}
                 />
                 <View style={computedStyle.NotificationIntervalControlZone}/>
+                {useLunarCalendarToggleStatus !== ControlStatus.Hidden && (<Toggle
+                    style={computedStyle.UseLunarCalendarToggle}
+                    icon={DefaultIconSet.Moon}
+                    status={useLunarCalendarToggleStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    onChange={onUseLunarCalendarToggleStatusChange}
+                />)}
                 {silenceToggleStatus !== ControlStatus.Hidden && (<Toggle
                     style={computedStyle.SilenceToggle}
                     icon={DefaultIconSet.NoMic}
@@ -359,7 +367,7 @@ export const Component = forwardRef(function Component(
     function onRecurrencePatternChange(newRecurrencePattern: string): void
     {
         const today = new Date();
-        const newDueDate = Service.getDueDate(newRecurrencePattern, DueDateType.NextDueDate, today);
+        const newDueDate = Service.getDueDate(newRecurrencePattern, DueDateType.NextDueDate, today, isUsingLunarCalendar);
         const newStatus = newDueDate && status === Status.Unscheduled
             ? Status.Scheduled
             : !newDueDate && status === Status.Scheduled
@@ -406,6 +414,21 @@ export const Component = forwardRef(function Component(
         });
     }
 
+    function onUseLunarCalendarToggleStatusChange(newUseLunarCalendarToggleStatus: ToggleStatus): void
+    {
+        const newUseLunarCalendarControlStatus = newUseLunarCalendarToggleStatus === ToggleStatus.Checked
+            ? ControlStatus.Highlighted
+            : ControlStatus.Available;
+
+        const {newDueDate, newLunarDueDate, newStatus} = stateMachine.toggleUseLunarCalendar(newUseLunarCalendarControlStatus);
+        onChange?.({
+            status: newStatus,
+            dueDate: newDueDate,
+            lunarDueDate: newLunarDueDate,
+            isUsingLunarCalendar: newUseLunarCalendarToggleStatus === ToggleStatus.Checked
+        });
+    }
+
     function onSuspenseToggleStatusChange(newSuspenseToggleStatus: ToggleStatus): void
     {
         const newSuspenseControlStatus = newSuspenseToggleStatus === ToggleStatus.Checked
@@ -413,10 +436,7 @@ export const Component = forwardRef(function Component(
             : ControlStatus.Available;
 
         const {newDueDate, newStatus} = stateMachine.toggleSuspense(newSuspenseControlStatus);
-        onChange?.({
-            status: newStatus,
-            dueDate: newDueDate
-        });
+        onChange?.({status: newStatus, dueDate: newDueDate});
     }
 
     function onSilenceToggleStatusChange(newSilenceToggleStatus: ToggleStatus): void
@@ -431,10 +451,7 @@ export const Component = forwardRef(function Component(
             : ControlStatus.Available;
 
         const {newDueDate, newStatus} = stateMachine.toggleRescheduleForward(newRescheduleForwardControlStatus);
-        onChange?.({
-            status: newStatus,
-            dueDate: newDueDate
-        });
+        onChange?.({status: newStatus, dueDate: newDueDate});
     }
 
     function onRescheduleBackwardToggleStatusChange(newRescheduleBackwardToggleStatus: ToggleStatus): void
@@ -444,9 +461,6 @@ export const Component = forwardRef(function Component(
             : ControlStatus.Available;
 
         const {newDueDate, newStatus} = stateMachine.toggleRescheduleBackward(newRescheduleBackwardControlStatus);
-        onChange?.({
-            status: newStatus,
-            dueDate: newDueDate
-        });
+        onChange?.({status: newStatus, dueDate: newDueDate});
     }
 });

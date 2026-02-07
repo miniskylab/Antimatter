@@ -1,4 +1,4 @@
-import {EMPTY_STRING, GregorianCalendar, isNullOrUndefined} from "@miniskylab/antimatter-framework";
+import {EMPTY_STRING, GregorianCalendar, isNullOrUndefined, LunarCalendarVn} from "@miniskylab/antimatter-framework";
 import {DueDateType} from "../enums";
 
 export function getDueDuration(today: Date, dueDate: Date | undefined): number | undefined
@@ -19,9 +19,14 @@ export function getFormattedDueDuration(dueDuration: number | undefined): string
                 : dueDuration === -1 ? "Yesterday" : `${Math.abs(dueDuration)} days ago`;
 }
 
-export function getDueDate(recurrencePattern: string | undefined, dueDateType: DueDateType, today: Date): Date | undefined
+export function getDueDate(
+    recurrencePattern: string | undefined,
+    dueDateType: DueDateType,
+    today: Date,
+    isUsingLunarCalendar: boolean = false
+): Date | undefined
 {
-    if (isNullOrUndefined(recurrencePattern) || !isValidRecurrencePattern(recurrencePattern))
+    if (isNullOrUndefined(recurrencePattern) || !isValidRecurrencePattern(recurrencePattern, isUsingLunarCalendar))
     {
         return undefined;
     }
@@ -93,6 +98,27 @@ export function getDueDate(recurrencePattern: string | undefined, dueDateType: D
         }
     }
 
+    if (isUsingLunarCalendar)
+    {
+        const lunarShiftedExecutionDate = LunarCalendarVn.getGregorianDate({
+            year: executionTime.getFullYear(),
+            month: executionTime.getMonth() + 1,
+            date: executionTime.getDate(),
+            isLeapMonth: false
+        });
+
+        if (!lunarShiftedExecutionDate)
+        {
+            return undefined;
+        }
+
+        executionTime.setFullYear(
+            lunarShiftedExecutionDate.getFullYear(),
+            lunarShiftedExecutionDate.getMonth(),
+            lunarShiftedExecutionDate.getDate()
+        );
+    }
+
     return executionTime;
 }
 
@@ -116,16 +142,38 @@ function isCronRecurrencePattern(recurrencePattern: string | undefined)
         "(\\*|([0-9]|1[0-9]|2[0-3])) " +
         "(\\*|([1-9]|[12][0-9]|3[01])|\\?) " +
         "(\\*|([1-9]|1[0-2])) " +
-        "(\\*|([1-7],)?([1-7],)?([1-7],)?([1-7],)?([1-7],)?([1-7],)?[1-7]|\\?) " +
-        "(\\*|(\\*\\/)?((19|20)[0-9][0-9]))$"
+        "(\\*|([1-7],){0,6}[1-7]|\\?) " +
+        "(\\*|((19|20)[0-9][0-9]))$"
     );
 
     return (questionMarkCount === 1 && pointInTimeRecurrencePatternRegex.test(recurrencePattern));
 }
 
-function isValidRecurrencePattern(recurrencePattern: string): boolean
+function isLunarCronRecurrencePattern(recurrencePattern: string | undefined)
 {
-    return isCronRecurrencePattern(recurrencePattern) || isDurationRecurrencePattern(recurrencePattern);
+    if (isNullOrUndefined(recurrencePattern))
+    {
+        return false;
+    }
+
+    const lunarPointInTimeRecurrencePatternRegex = new RegExp(
+        "^(\\*|([1-5]?[0-9])) " +
+        "(\\*|([1-5]?[0-9])) " +
+        "(\\*|([0-9]|1[0-9]|2[0-3])) " +
+        "([1-9]|[12][0-9]|30) " +
+        "([1-9]|1[0-2]) " +
+        "(\\?) " +
+        "(\\*|((19|20)[0-9][0-9]))$"
+    );
+
+    return lunarPointInTimeRecurrencePatternRegex.test(recurrencePattern);
+}
+
+function isValidRecurrencePattern(recurrencePattern: string, isUsingLunarCalendar: boolean): boolean
+{
+    return isUsingLunarCalendar
+        ? isLunarCronRecurrencePattern(recurrencePattern)
+        : isCronRecurrencePattern(recurrencePattern) || isDurationRecurrencePattern(recurrencePattern);
 }
 
 function tryParseExactTime(recurrencePattern: string, nextExecutionTime: Date): boolean

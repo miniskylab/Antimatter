@@ -1,3 +1,5 @@
+import {LunarDate} from "../classes";
+
 export const LunarCalendarVn = new class
 {
     getLunarDate(gregorianDate: Date): LunarDate
@@ -25,7 +27,7 @@ export const LunarCalendarVn = new class
             gregorianYear--;
         }
 
-        return {year: gregorianYear, month: mm, day: dd, isLeapMonth: !!lunarDates[i][4]};
+        return {year: gregorianYear, month: mm, date: dd, isLeapMonth: !!lunarDates[i][4]};
     }
 
     getGregorianDate(lunarDate: LunarDate): Date | null
@@ -47,10 +49,10 @@ export const LunarCalendarVn = new class
                 7
             );
 
-            const gregorianDate = this.getDate(julianDayCount + lunarDate.day);
+            const gregorianDate = this.getDate(julianDayCount + lunarDate.date);
             const referenceLunarDate = this.getLunarDate(gregorianDate);
             if (
-                referenceLunarDate.day !== lunarDate.day ||
+                referenceLunarDate.date !== lunarDate.date ||
                 referenceLunarDate.year !== lunarDate.year ||
                 referenceLunarDate.month !== lunarDate.month ||
                 referenceLunarDate.isLeapMonth !== lunarDate.isLeapMonth
@@ -236,5 +238,3 @@ export const LunarCalendarVn = new class
         return remainder;
     }
 };
-
-type LunarDate = { year: number; month: number; day: number; isLeapMonth: boolean; };

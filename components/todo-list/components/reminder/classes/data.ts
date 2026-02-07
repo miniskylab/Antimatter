@@ -1,5 +1,6 @@
-import {IsBoolean, IsDate, IsDefined, IsEnum, IsNumber, IsString, Min} from "@miniskylab/antimatter-framework";
-import {IsOptional} from "class-validator";
+import {IsBoolean, IsDate, IsDefined, IsEnum, IsNumber, IsString, LunarDate, Min} from "@miniskylab/antimatter-framework";
+import {Type} from "class-transformer";
+import {IsOptional, ValidateNested} from "class-validator";
 import {Status} from "../enums";
 import type {Tag} from "../types";
 
@@ -33,6 +34,11 @@ export class Data
 
     @IsBoolean()
     @IsOptional()
+    readonly isUsingLunarCalendar?: boolean;
+
+
+    @IsBoolean()
+    @IsOptional()
     readonly isShowingProgressStripes?: boolean;
 
 
@@ -48,6 +54,12 @@ export class Data
     @IsDate()
     @IsOptional()
     readonly dueDate?: Date;
+
+
+    @IsOptional()
+    @ValidateNested()
+    @Type(() => LunarDate)
+    readonly lunarDueDate?: LunarDate;
 
 
     @IsDate()

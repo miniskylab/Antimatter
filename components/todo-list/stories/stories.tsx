@@ -161,9 +161,10 @@ export default {
                                     isAlarmed: false,
                                     isSilenced: false,
                                     name: EMPTY_STRING,
-                                    recurrencePattern: EMPTY_STRING,
-                                    secNotificationInterval: 60,
                                     tags: TestData.Tags,
+                                    isUsingLunarCalendar: false,
+                                    secNotificationInterval: 60,
+                                    recurrencePattern: EMPTY_STRING,
                                     status: Reminder.Status.Unscheduled
                                 }
                             }
@@ -196,12 +197,14 @@ export default {
 
                             TestData.Reminders[newlyAddedReminderId] = {
                                 name: args.selectedReminder.data.name,
-                                recurrencePattern: args.selectedReminder.data.recurrencePattern,
-                                secNotificationInterval: args.selectedReminder.data.secNotificationInterval,
                                 tags: args.selectedReminder.data.tags,
                                 status: args.selectedReminder.data.status,
                                 isAlarmed: args.selectedReminder.data.isAlarmed,
                                 isSilenced: args.selectedReminder.data.isSilenced,
+                                lunarDueDate: args.selectedReminder.data.lunarDueDate,
+                                isUsingLunarCalendar: args.selectedReminder.data.isUsingLunarCalendar,
+                                secNotificationInterval: args.selectedReminder.data.secNotificationInterval,
+                                recurrencePattern: args.selectedReminder.data.recurrencePattern,
                                 dueDate: args.selectedReminder.data.dueDate,
                                 createdDate: new Date()
                             };
@@ -212,12 +215,14 @@ export default {
                             TestData.Reminders[args.selectedReminder.id] = {
                                 ...args.reminders[args.selectedReminder.id],
                                 name: args.selectedReminder.data.name,
-                                recurrencePattern: args.selectedReminder.data.recurrencePattern,
-                                secNotificationInterval: args.selectedReminder.data.secNotificationInterval,
                                 tags: args.selectedReminder.data.tags,
                                 status: args.selectedReminder.data.status,
                                 isAlarmed: args.selectedReminder.data.isAlarmed,
                                 isSilenced: args.selectedReminder.data.isSilenced,
+                                lunarDueDate: args.selectedReminder.data.lunarDueDate,
+                                isUsingLunarCalendar: args.selectedReminder.data.isUsingLunarCalendar,
+                                secNotificationInterval: args.selectedReminder.data.secNotificationInterval,
+                                recurrencePattern: args.selectedReminder.data.recurrencePattern,
                                 dueDate: args.selectedReminder.data.dueDate,
                                 modifiedDate: new Date()
                             };
@@ -294,13 +299,15 @@ export default {
                             id: args.selectedReminder.id,
                             data: {
                                 name: args.reminders[args.selectedReminder.id].name,
-                                recurrencePattern: args.reminders[args.selectedReminder.id].recurrencePattern,
-                                secNotificationInterval: args.reminders[args.selectedReminder.id].secNotificationInterval,
                                 tags: args.reminders[args.selectedReminder.id].tags,
                                 status: args.reminders[args.selectedReminder.id].status,
                                 dueDate: args.reminders[args.selectedReminder.id].dueDate,
                                 isAlarmed: args.reminders[args.selectedReminder.id].isAlarmed,
                                 isSilenced: args.reminders[args.selectedReminder.id].isSilenced,
+                                lunarDueDate: args.reminders[args.selectedReminder.id].lunarDueDate,
+                                isUsingLunarCalendar: args.reminders[args.selectedReminder.id].isUsingLunarCalendar,
+                                secNotificationInterval: args.reminders[args.selectedReminder.id].secNotificationInterval,
+                                recurrencePattern: args.reminders[args.selectedReminder.id].recurrencePattern,
                                 modifiedDate: args.reminders[args.selectedReminder.id].modifiedDate,
                                 createdDate: args.reminders[args.selectedReminder.id].createdDate
                             }
@@ -327,13 +334,15 @@ export default {
                             id: reminderId,
                             data: {
                                 name: args.reminders[reminderId].name,
-                                recurrencePattern: args.reminders[reminderId].recurrencePattern,
-                                secNotificationInterval: args.reminders[reminderId].secNotificationInterval,
                                 tags: args.reminders[reminderId].tags,
                                 status: args.reminders[reminderId].status,
                                 dueDate: args.reminders[reminderId].dueDate,
                                 isAlarmed: args.reminders[reminderId].isAlarmed,
                                 isSilenced: args.reminders[reminderId].isSilenced,
+                                lunarDueDate: args.reminders[reminderId].lunarDueDate,
+                                isUsingLunarCalendar: args.reminders[reminderId].isUsingLunarCalendar,
+                                secNotificationInterval: args.reminders[reminderId].secNotificationInterval,
+                                recurrencePattern: args.reminders[reminderId].recurrencePattern,
                                 modifiedDate: args.reminders[reminderId].modifiedDate,
                                 createdDate: args.reminders[reminderId].createdDate
                             }
