@@ -304,7 +304,7 @@ export const Component = forwardRef(function Component(
                 <View style={computedStyle.NotificationIntervalControlZone}/>
                 {useLunarCalendarToggleStatus !== ControlStatus.Hidden && (<Toggle
                     style={computedStyle.UseLunarCalendarToggle}
-                    icon={DefaultIconSet.Moon}
+                    icon={DefaultIconSet.YinYang}
                     status={useLunarCalendarToggleStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
                     onChange={onUseLunarCalendarToggleStatusChange}
                 />)}

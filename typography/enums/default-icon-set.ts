@@ -91,5 +91,6 @@ export enum DefaultIconSet
     ExclamationMarkInsideCircle = "exclamation-mark-inside-circle",
     Sparkles = "sparkles",
     Leaf = "leaf",
-    Biohazard = "biohazard"
+    Biohazard = "biohazard",
+    YinYang = "yin-yang"
 }
