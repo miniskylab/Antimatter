@@ -30,9 +30,9 @@ export const LunarCalendarVn = new class
         return {year: gregorianYear, month: mm, date: dd, isLeapMonth: !!lunarDates[i][4]};
     }
 
-    getGregorianDate(lunarDate: LunarDate): Date | null
+    getGregorianDate(lunarDate: LunarDate): Date | undefined
     {
-        let calculatedLunarDate: number[] | null = null;
+        let calculatedLunarDate: number[] | undefined = undefined;
         for (const ld of this.getLunarDates(lunarDate.month >= 11 ? lunarDate.year + 1 : lunarDate.year))
         {
             if (ld[3] === lunarDate.month && !!ld[4] === lunarDate.isLeapMonth)
@@ -42,7 +42,7 @@ export const LunarCalendarVn = new class
             }
         }
 
-        if (calculatedLunarDate !== null)
+        if (calculatedLunarDate !== undefined)
         {
             const julianDayCount = this.getJulianDayCount(
                 new Date(calculatedLunarDate[2], calculatedLunarDate[1], calculatedLunarDate[0]),
@@ -58,14 +58,14 @@ export const LunarCalendarVn = new class
                 referenceLunarDate.isLeapMonth !== lunarDate.isLeapMonth
             )
             {
-                return null;
+                return undefined;
             }
 
             return gregorianDate;
         }
         else
         {
-            return null;
+            return undefined;
         }
     }
 

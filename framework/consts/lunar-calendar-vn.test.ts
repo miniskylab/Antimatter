@@ -36,10 +36,10 @@ describe("how to use 'LunarCalendarVn.getGregorianDate(...)'", () =>
 {
     it("returns gregorian date for given lunar date", () =>
     {
-        expect(LunarCalendarVn.getGregorianDate({year: 2018, month: 1, date: 30, isLeapMonth: false})).toBe(null);
-        expect(LunarCalendarVn.getGregorianDate({year: 2003, month: 0, date: 1, isLeapMonth: false})).toBe(null);
-        expect(LunarCalendarVn.getGregorianDate({year: 2003, month: 2, date: 1, isLeapMonth: true})).toBe(null);
-        expect(LunarCalendarVn.getGregorianDate({year: 2003, month: 13, date: 1, isLeapMonth: false})).toBe(null);
+        expect(LunarCalendarVn.getGregorianDate({year: 2018, month: 1, date: 30, isLeapMonth: false})).toBe(undefined);
+        expect(LunarCalendarVn.getGregorianDate({year: 2003, month: 0, date: 1, isLeapMonth: false})).toBe(undefined);
+        expect(LunarCalendarVn.getGregorianDate({year: 2003, month: 2, date: 1, isLeapMonth: true})).toBe(undefined);
+        expect(LunarCalendarVn.getGregorianDate({year: 2003, month: 13, date: 1, isLeapMonth: false})).toBe(undefined);
 
         expect(LunarCalendarVn.getGregorianDate({year: 2004, month: 2, date: 1, isLeapMonth: true})?.getTime())
             .toBe(new Date(2004, 2, 21).getTime());

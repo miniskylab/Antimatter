@@ -31,7 +31,7 @@ export function getDueDate(
         return undefined;
     }
 
-    const executionTime = new Date(today);
+    let executionTime: Date | undefined = new Date(today);
     const cronTokens = recurrencePattern.split(" ");
     if (cronTokens.length === 4)
     {
@@ -62,73 +62,106 @@ export function getDueDate(
     {
         if (tryParseExactTime(recurrencePattern, executionTime))
         {
-            return executionTime;
+            return isUsingLunarCalendar ? getLunarShiftedTime(executionTime) : executionTime;
         }
 
         const [cronSecondToken, cronMinuteToken, cronHourToken, cronDateToken, cronMonthToken, cronDayToken, cronYearToken] = cronTokens;
-        if (dueDateType === DueDateType.NextDueDate)
+
+        const nextExecutionTime = new Date(today);
+        nextExecutionTime.setSeconds(nextExecutionTime.getSeconds() + 1);
+        while (true)
         {
-            executionTime.setSeconds(executionTime.getSeconds() + 1);
+            if (tryParseCronYearTokenForward(cronYearToken, nextExecutionTime)) continue;
+            if (tryParseCronMonthTokenForward(cronMonthToken, nextExecutionTime)) continue;
+            if (tryParseCronDateTokenForward(cronDateToken, nextExecutionTime)) continue;
+            if (tryParseCronDayTokenForward(cronDayToken, nextExecutionTime)) continue;
+            if (tryParseCronHourTokenForward(cronHourToken, nextExecutionTime)) continue;
+            if (tryParseCronMinuteTokenForward(cronMinuteToken, nextExecutionTime)) continue;
+            if (tryParseCronSecondTokenForward(cronSecondToken, nextExecutionTime)) continue;
+            break;
+        }
+
+        const previousExecutionTime = new Date(today);
+        while (true)
+        {
+            if (tryParseCronYearTokenBackward(cronYearToken, previousExecutionTime)) continue;
+            if (tryParseCronMonthTokenBackward(cronMonthToken, previousExecutionTime)) continue;
+            if (tryParseCronDateTokenBackward(cronDateToken, previousExecutionTime)) continue;
+            if (tryParseCronDayTokenBackward(cronDayToken, previousExecutionTime)) continue;
+            if (tryParseCronHourTokenBackward(cronHourToken, previousExecutionTime)) continue;
+            if (tryParseCronMinuteTokenBackward(cronMinuteToken, previousExecutionTime)) continue;
+            if (tryParseCronSecondTokenBackward(cronSecondToken, previousExecutionTime)) continue;
+            break;
+        }
+
+        let lunarShiftedExecutionTime: Date | undefined;
+        let previousLunarShiftedExecutionTime = getLunarShiftedTime(previousExecutionTime);
+        if (
+            previousExecutionTime.getTime() === executionTime.getTime() ||
+            (dueDateType === DueDateType.PreviousDueDate && previousLunarShiftedExecutionTime?.getTime() === executionTime.getTime())
+        )
+        {
+            lunarShiftedExecutionTime = getLunarShiftedTime(executionTime);
+            previousExecutionTime.setSeconds(previousExecutionTime.getSeconds() - 1);
             while (true)
             {
-                if (tryParseCronYearTokenForward(cronYearToken, executionTime)) continue;
-                if (tryParseCronMonthTokenForward(cronMonthToken, executionTime)) continue;
-                if (tryParseCronDateTokenForward(cronDateToken, executionTime)) continue;
-                if (tryParseCronDayTokenForward(cronDayToken, executionTime)) continue;
-                if (tryParseCronHourTokenForward(cronHourToken, executionTime)) continue;
-                if (tryParseCronMinuteTokenForward(cronMinuteToken, executionTime)) continue;
-                if (tryParseCronSecondTokenForward(cronSecondToken, executionTime)) continue;
+                if (tryParseCronYearTokenBackward(cronYearToken, previousExecutionTime)) continue;
+                if (tryParseCronMonthTokenBackward(cronMonthToken, previousExecutionTime)) continue;
+                if (tryParseCronDateTokenBackward(cronDateToken, previousExecutionTime)) continue;
+                if (tryParseCronDayTokenBackward(cronDayToken, previousExecutionTime)) continue;
+                if (tryParseCronHourTokenBackward(cronHourToken, previousExecutionTime)) continue;
+                if (tryParseCronMinuteTokenBackward(cronMinuteToken, previousExecutionTime)) continue;
+                if (tryParseCronSecondTokenBackward(cronSecondToken, previousExecutionTime)) continue;
                 break;
             }
+
+            previousLunarShiftedExecutionTime = getLunarShiftedTime(previousExecutionTime);
         }
-        else if (dueDateType === DueDateType.PreviousDueDate)
+
+        if (isUsingLunarCalendar)
         {
-            executionTime.setSeconds(executionTime.getSeconds() - 1);
-            while (true)
+            const nextLunarShiftedExecutionTime = getLunarShiftedTime(nextExecutionTime);
+            if (dueDateType === DueDateType.NextDueDate)
             {
-                if (tryParseCronYearTokenBackward(cronYearToken, executionTime)) continue;
-                if (tryParseCronMonthTokenBackward(cronMonthToken, executionTime)) continue;
-                if (tryParseCronDateTokenBackward(cronDateToken, executionTime)) continue;
-                if (tryParseCronDayTokenBackward(cronDayToken, executionTime)) continue;
-                if (tryParseCronHourTokenBackward(cronHourToken, executionTime)) continue;
-                if (tryParseCronMinuteTokenBackward(cronMinuteToken, executionTime)) continue;
-                if (tryParseCronSecondTokenBackward(cronSecondToken, executionTime)) continue;
-                break;
+                executionTime = previousLunarShiftedExecutionTime && previousLunarShiftedExecutionTime > today
+                    ? previousLunarShiftedExecutionTime
+                    : lunarShiftedExecutionTime && lunarShiftedExecutionTime >= today
+                        ? lunarShiftedExecutionTime
+                        : nextLunarShiftedExecutionTime && nextLunarShiftedExecutionTime >= today
+                            ? nextLunarShiftedExecutionTime
+                            : undefined;
+            }
+            else if (dueDateType === DueDateType.PreviousDueDate)
+            {
+                executionTime = nextLunarShiftedExecutionTime && nextLunarShiftedExecutionTime <= today
+                    ? nextLunarShiftedExecutionTime
+                    : lunarShiftedExecutionTime && lunarShiftedExecutionTime <= today
+                        ? lunarShiftedExecutionTime
+                        : previousLunarShiftedExecutionTime && previousLunarShiftedExecutionTime <= today
+                            ? previousLunarShiftedExecutionTime
+                            : undefined;
             }
         }
-    }
-
-    if (isUsingLunarCalendar)
-    {
-        const lunarShiftedExecutionDate = LunarCalendarVn.getGregorianDate({
-            year: executionTime.getFullYear(),
-            month: executionTime.getMonth() + 1,
-            date: executionTime.getDate(),
-            isLeapMonth: false
-        });
-
-        if (!lunarShiftedExecutionDate)
+        else
         {
-            return undefined;
+            executionTime = dueDateType === DueDateType.NextDueDate
+                ? nextExecutionTime
+                : dueDateType === DueDateType.PreviousDueDate
+                    ? previousExecutionTime
+                    : executionTime;
         }
-
-        executionTime.setFullYear(
-            lunarShiftedExecutionDate.getFullYear(),
-            lunarShiftedExecutionDate.getMonth(),
-            lunarShiftedExecutionDate.getDate()
-        );
     }
 
     return executionTime;
 }
 
-export function isDurationRecurrencePattern(recurrencePattern: string | undefined)
+export function isDurationRecurrencePattern(recurrencePattern: string | undefined): boolean
 {
     const durationRecurrencePatternRegex = new RegExp("^\\d{1,4} \\d{1,4} \\d{1,4} \\d{1,4}$");
     return durationRecurrencePatternRegex.test(recurrencePattern ?? EMPTY_STRING);
 }
 
-function isCronRecurrencePattern(recurrencePattern: string | undefined)
+function isCronRecurrencePattern(recurrencePattern: string | undefined): boolean
 {
     if (isNullOrUndefined(recurrencePattern))
     {
@@ -149,7 +182,7 @@ function isCronRecurrencePattern(recurrencePattern: string | undefined)
     return (questionMarkCount === 1 && pointInTimeRecurrencePatternRegex.test(recurrencePattern));
 }
 
-function isLunarCronRecurrencePattern(recurrencePattern: string | undefined)
+function isLunarCronRecurrencePattern(recurrencePattern: string | undefined): boolean
 {
     if (isNullOrUndefined(recurrencePattern))
     {
@@ -174,6 +207,28 @@ function isValidRecurrencePattern(recurrencePattern: string, isUsingLunarCalenda
     return isUsingLunarCalendar
         ? isLunarCronRecurrencePattern(recurrencePattern)
         : isCronRecurrencePattern(recurrencePattern) || isDurationRecurrencePattern(recurrencePattern);
+}
+
+function getLunarShiftedTime(originalTime: Date): Date | undefined
+{
+    const lunarShiftedDate = LunarCalendarVn.getGregorianDate({
+        year: originalTime.getFullYear(),
+        month: originalTime.getMonth() + 1,
+        date: originalTime.getDate(),
+        isLeapMonth: false
+    });
+
+    return lunarShiftedDate
+        ? new Date(
+            lunarShiftedDate.getFullYear(),
+            lunarShiftedDate.getMonth(),
+            lunarShiftedDate.getDate(),
+            originalTime.getHours(),
+            originalTime.getMinutes(),
+            originalTime.getSeconds(),
+            originalTime.getMilliseconds()
+        )
+        : undefined;
 }
 
 function tryParseExactTime(recurrencePattern: string, nextExecutionTime: Date): boolean

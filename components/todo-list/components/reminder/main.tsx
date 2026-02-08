@@ -67,8 +67,9 @@ export const Component = forwardRef(function Component(
         isSilenced,
         recurrencePattern,
         isUsingLunarCalendar,
+        originalStatus: originalData?.status,
         originalDueDate: originalData?.dueDate,
-        originalStatus: originalData?.status
+        isOriginallyUsingLunarCalendar: originalData?.isUsingLunarCalendar
     });
     const {
         dueDuration, formattedDueDate, formattedDueDuration, isPrioritized, isOverdue, isDue, suspenseToggleStatus, silenceToggleStatus,
@@ -306,6 +307,7 @@ export const Component = forwardRef(function Component(
                     style={computedStyle.UseLunarCalendarToggle}
                     icon={DefaultIconSet.YinYang}
                     status={useLunarCalendarToggleStatus === ControlStatus.Highlighted ? ToggleStatus.Checked : ToggleStatus.Unchecked}
+                    disabled={useLunarCalendarToggleStatus === ControlStatus.Disabled}
                     onChange={onUseLunarCalendarToggleStatusChange}
                 />)}
                 {silenceToggleStatus !== ControlStatus.Hidden && (<Toggle
@@ -420,9 +422,8 @@ export const Component = forwardRef(function Component(
             ? ControlStatus.Highlighted
             : ControlStatus.Available;
 
-        const {newDueDate, newLunarDueDate, newStatus} = stateMachine.toggleUseLunarCalendar(newUseLunarCalendarControlStatus);
+        const {newDueDate, newLunarDueDate} = stateMachine.toggleUseLunarCalendar(newUseLunarCalendarControlStatus);
         onChange?.({
-            status: newStatus,
             dueDate: newDueDate,
             lunarDueDate: newLunarDueDate,
             isUsingLunarCalendar: newUseLunarCalendarToggleStatus === ToggleStatus.Checked

@@ -1,4 +1,4 @@
-import {DateFormat, GregorianCalendar, isNotNullAndUndefined, LunarDate, TimeUnit} from "@miniskylab/antimatter-framework";
+import {DateFormat, GregorianCalendar, isNotNullAndUndefined, LunarCalendarVn, LunarDate, TimeUnit} from "@miniskylab/antimatter-framework";
 import {ControlStatus, DueDateType, Mode, PendingStatus, Status} from "../enums";
 import {getDueDate, getDueDuration, getFormattedDueDuration, isDurationRecurrencePattern} from "./recurrence-pattern";
 
@@ -9,6 +9,7 @@ export class StateMachine
     private readonly _today: Date | undefined;
     private readonly _isSilenced: boolean | undefined;
     private readonly _isUsingLunarCalendar: boolean | undefined;
+    private readonly _isOriginallyUsingLunarCalendar: boolean | undefined;
     private readonly _originalDueDate: Date | undefined;
     private readonly _recurrencePattern: string | undefined;
 
@@ -30,6 +31,7 @@ export class StateMachine
         originalStatus?: Status
         recurrencePattern?: string
         isUsingLunarCalendar?: boolean,
+        isOriginallyUsingLunarCalendar?: boolean,
         isSilenced?: boolean
     })
     {
@@ -41,6 +43,7 @@ export class StateMachine
         this._recurrencePattern = initialState?.recurrencePattern;
         this._status = initialState?.status ?? Status.Unscheduled;
         this._isUsingLunarCalendar = initialState?.isUsingLunarCalendar;
+        this._isOriginallyUsingLunarCalendar = initialState?.isOriginallyUsingLunarCalendar;
         this._originalStatus = initialState?.originalStatus ?? Status.Unscheduled;
 
         this._silenceToggleStatus = ControlStatus.Available;
@@ -63,10 +66,10 @@ export class StateMachine
                         ? PendingStatus.ToBeCompleted
                         : !this.isOriginallySuspended() && this.isSuspended()
                             ? PendingStatus.ToBeSuspended
-                            : !this.isOriginallySuspended() && this.isScheduled() &&
+                            : !this.isCalendarSystemChanged() && !this.isOriginallySuspended() && this.isOriginallyScheduled() &&
                               (this.isDueDateRescheduledBackward() || this.isDueDateUnassigned())
                                 ? PendingStatus.ToBeRescheduledBackward
-                                : !this.isOriginallySuspended() && this.isScheduled() &&
+                                : !this.isCalendarSystemChanged() && !this.isOriginallySuspended() && this.isOriginallyScheduled() &&
                                   (this.isDueDateRescheduledForward() || this.isDueDateReassigned())
                                     ? PendingStatus.ToBeRescheduledForward
                                     : PendingStatus.None;
@@ -95,13 +98,15 @@ export class StateMachine
 
         this._useLunarCalendarToggleStatus = !this.isDraftOrEditMode() || this.isOriginallyCompleted()
             ? ControlStatus.Hidden
-            : this._isUsingLunarCalendar
-                ? ControlStatus.Highlighted
-                : ControlStatus.Available;
+            : isToBeRescheduledBackward() || isToBeRescheduledForward()
+                ? ControlStatus.Disabled
+                : this._isUsingLunarCalendar
+                    ? ControlStatus.Highlighted
+                    : ControlStatus.Available;
 
-        this._rescheduleForwardToggleStatus = this._mode === Mode.Draft || this.isOriginallySuspended()
+        this._rescheduleForwardToggleStatus = this.isDraftMode() || this.isOriginallySuspended()
             ? ControlStatus.Hidden
-            : this.isSuspended() || isToBeRescheduledBackward()
+            : this.isSuspended() || this.isCalendarSystemChanged() || isToBeRescheduledBackward()
                 ? ControlStatus.Disabled
                 : isToBeReactivated() || isToBeRescheduledForward() || this.isCompleted()
                     ? ControlStatus.Highlighted
@@ -109,7 +114,7 @@ export class StateMachine
 
         this._rescheduleBackwardToggleStatus = !this._originalDueDate || !this.isDraftOrEditMode()
             ? ControlStatus.Hidden
-            : this.isSuspended() || this.isCompleted() || isToBeRescheduledForward()
+            : this.isSuspended() || this.isCompleted() || this.isCalendarSystemChanged() || isToBeRescheduledForward()
                 ? ControlStatus.Disabled
                 : isToBeRescheduledBackward()
                     ? ControlStatus.Highlighted
@@ -161,7 +166,7 @@ export class StateMachine
             this._status = Status.Suspended;
             this._dueDate = undefined;
         }
-        else if (this.isOriginallySuspended() && newSuspenseToggleStatus === ControlStatus.Available)
+        else if ((this.isDraftMode() || this.isOriginallySuspended()) && newSuspenseToggleStatus === ControlStatus.Available)
         {
             this.goToNextOccurrenceInTheFuture();
         }
@@ -172,13 +177,12 @@ export class StateMachine
     toggleUseLunarCalendar(newUseLunarCalendarToggleStatus: ControlStatus.Available | ControlStatus.Highlighted): LunarRescheduleResult
     {
         this._dueDate = this._originalDueDate;
-        this._status = this._originalStatus ?? Status.Unscheduled;
         let newLunarDueDate: LunarDate | undefined;
 
         if (!this._isUsingLunarCalendar && newUseLunarCalendarToggleStatus === ControlStatus.Highlighted)
         {
             this.useLunarCalendar(true);
-            newLunarDueDate = {year: 2027, month: 2, date: 25, isLeapMonth: false}; // TODO:
+            newLunarDueDate = this._dueDate ? LunarCalendarVn.getLunarDate(this._dueDate) : undefined;
         }
         else if (this._isUsingLunarCalendar && newUseLunarCalendarToggleStatus === ControlStatus.Available)
         {
@@ -186,7 +190,7 @@ export class StateMachine
             newLunarDueDate = undefined;
         }
 
-        return {newDueDate: this._dueDate, newStatus: this._status, newLunarDueDate};
+        return {newDueDate: this._dueDate, newLunarDueDate};
     }
 
     toggleRescheduleForward(newRescheduleForwardToggleStatus: ControlStatus.Available | ControlStatus.Highlighted): RescheduleResult
@@ -217,18 +221,17 @@ export class StateMachine
         return {newDueDate: this._dueDate, newStatus: this._status};
     }
 
-    private useLunarCalendar(isUsingLunarCalendar: boolean)
+    private useLunarCalendar(isToBeUsingLunarCalendar: boolean)
     {
-        const today = this._today ?? new Date();
-
-        let newDueDate = getDueDate(this._recurrencePattern, DueDateType.NextDueDate, today, isUsingLunarCalendar);
-        if (newDueDate && this._originalDueDate && newDueDate.getFullYear() !== this._originalDueDate.getFullYear())
+        if (isToBeUsingLunarCalendar === this._isOriginallyUsingLunarCalendar)
         {
-            newDueDate = getDueDate(this._recurrencePattern, DueDateType.PreviousDueDate, today, isUsingLunarCalendar);
+            this._dueDate = this._originalDueDate;
+            return;
         }
 
-        this._dueDate = newDueDate;
-        this._status = newDueDate ? Status.Scheduled : Status.Unscheduled;
+        const now = this._today ?? new Date();
+        const today = this._dueDate && this._dueDate >= now ? this._dueDate : now;
+        this._dueDate = getDueDate(this._recurrencePattern, DueDateType.NextDueDate, today, isToBeUsingLunarCalendar);
     }
 
     private goToNextOccurrenceInTheFuture()
@@ -244,7 +247,9 @@ export class StateMachine
         if (isNewDueDateNotGreaterThanCurrentDueDate)
         {
             newDueDate = undefined;
-            newReminderStatus = this.isOriginallySuspended() || this.isOriginallyCompleted() ? Status.Unscheduled : Status.Completed;
+            newReminderStatus = this.isDraftMode() || this.isOriginallySuspended() || this.isOriginallyCompleted()
+                ? Status.Unscheduled
+                : Status.Completed;
         }
 
         this._dueDate = newDueDate;
@@ -268,6 +273,8 @@ export class StateMachine
         this._status = Status.Scheduled;
     }
 
+    private isDraftMode() { return this._mode === Mode.Draft; }
+
     private isDraftOrEditMode() { return this._mode === Mode.Draft || this._mode === Mode.Edit; }
 
     private isSelected() { return this._mode === Mode.Draft || this._mode === Mode.Edit || this._mode === Mode.Dismiss; }
@@ -276,9 +283,7 @@ export class StateMachine
 
     private isDueDateReassigned() { return !this._originalDueDate && !!this._dueDate; }
 
-    private isDueDateRescheduledForward() { return !!this._originalDueDate && !!this._dueDate && this._dueDate > this._originalDueDate; }
-
-    private isDueDateRescheduledBackward() { return !!this._originalDueDate && !!this._dueDate && this._dueDate < this._originalDueDate; }
+    private isCalendarSystemChanged() { return this._isOriginallyUsingLunarCalendar !== this._isUsingLunarCalendar; }
 
     private isSuspended() { return this._status === Status.Suspended; }
 
@@ -286,10 +291,44 @@ export class StateMachine
 
     private isScheduled() { return this._status === Status.Scheduled; }
 
+    private isOriginallyScheduled() { return this._originalStatus === Status.Scheduled; }
+
     private isOriginallySuspended() { return this._originalStatus === Status.Suspended; }
 
     private isOriginallyCompleted() { return this._originalStatus === Status.Completed; }
+
+    private isDueDateRescheduledForward()
+    {
+        if (!this._originalDueDate || !this._dueDate)
+        {
+            return false;
+        }
+
+        const dueDate = new Date(this._dueDate);
+        dueDate.setMilliseconds(0);
+
+        const originalDueDate = new Date(this._originalDueDate);
+        originalDueDate.setMilliseconds(0);
+
+        return dueDate > originalDueDate;
+    }
+
+    private isDueDateRescheduledBackward()
+    {
+        if (!this._originalDueDate || !this._dueDate)
+        {
+            return false;
+        }
+
+        const dueDate = new Date(this._dueDate);
+        dueDate.setMilliseconds(0);
+
+        const originalDueDate = new Date(this._originalDueDate);
+        originalDueDate.setMilliseconds(0);
+
+        return dueDate < originalDueDate;
+    }
 }
 
 type RescheduleResult = { newDueDate: Date | undefined; newStatus: Status; };
-type LunarRescheduleResult = RescheduleResult & { newLunarDueDate: LunarDate | undefined; };
+type LunarRescheduleResult = { newDueDate: Date | undefined; newLunarDueDate: LunarDate | undefined; };
