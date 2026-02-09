@@ -1,4 +1,4 @@
-import {DateFormat, GregorianCalendar, isNotNullAndUndefined, LunarCalendarVn, LunarDate, TimeUnit} from "@miniskylab/antimatter-framework";
+import {DateFormat, GregorianCalendar, isNotNullAndUndefined, TimeUnit} from "@miniskylab/antimatter-framework";
 import {ControlStatus, DueDateType, Mode, PendingStatus, Status} from "../enums";
 import {getDueDate, getDueDuration, getFormattedDueDuration, isDurationRecurrencePattern} from "./recurrence-pattern";
 
@@ -174,23 +174,21 @@ export class StateMachine
         return {newDueDate: this._dueDate, newStatus: this._status};
     }
 
-    toggleUseLunarCalendar(newUseLunarCalendarToggleStatus: ControlStatus.Available | ControlStatus.Highlighted): LunarRescheduleResult
+    toggleUseLunarCalendar(newUseLunarCalendarToggleStatus: ControlStatus.Available | ControlStatus.Highlighted): RescheduleResult
     {
         this._dueDate = this._originalDueDate;
-        let newLunarDueDate: LunarDate | undefined;
+        this._status = this._originalStatus ?? Status.Unscheduled;
 
         if (!this._isUsingLunarCalendar && newUseLunarCalendarToggleStatus === ControlStatus.Highlighted)
         {
             this.useLunarCalendar(true);
-            newLunarDueDate = this._dueDate ? LunarCalendarVn.getLunarDate(this._dueDate) : undefined;
         }
         else if (this._isUsingLunarCalendar && newUseLunarCalendarToggleStatus === ControlStatus.Available)
         {
             this.useLunarCalendar(false);
-            newLunarDueDate = undefined;
         }
 
-        return {newDueDate: this._dueDate, newLunarDueDate};
+        return {newDueDate: this._dueDate, newStatus: this._status};
     }
 
     toggleRescheduleForward(newRescheduleForwardToggleStatus: ControlStatus.Available | ControlStatus.Highlighted): RescheduleResult
@@ -331,4 +329,3 @@ export class StateMachine
 }
 
 type RescheduleResult = { newDueDate: Date | undefined; newStatus: Status; };
-type LunarRescheduleResult = { newDueDate: Date | undefined; newLunarDueDate: LunarDate | undefined; };

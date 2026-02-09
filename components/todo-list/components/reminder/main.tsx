@@ -3,6 +3,7 @@ import {
     type AllPropertiesMustPresent,
     EMPTY_STRING,
     isNullOrUndefined,
+    LunarCalendarVn,
     Ts,
     useComponentContext,
     useComputedStyle
@@ -377,9 +378,10 @@ export const Component = forwardRef(function Component(
                 : status;
 
         onChange?.({
-            recurrencePattern: newRecurrencePattern,
+            status: newStatus,
             dueDate: newDueDate,
-            status: newStatus
+            recurrencePattern: newRecurrencePattern,
+            lunarDueDate: isUsingLunarCalendar && newDueDate ? LunarCalendarVn.getLunarDate(newDueDate) : undefined
         });
     }
 
@@ -418,15 +420,17 @@ export const Component = forwardRef(function Component(
 
     function onUseLunarCalendarToggleStatusChange(newUseLunarCalendarToggleStatus: ToggleStatus): void
     {
+        const isToBeUsingLunarCalendar = newUseLunarCalendarToggleStatus === ToggleStatus.Checked;
         const newUseLunarCalendarControlStatus = newUseLunarCalendarToggleStatus === ToggleStatus.Checked
             ? ControlStatus.Highlighted
             : ControlStatus.Available;
 
-        const {newDueDate, newLunarDueDate} = stateMachine.toggleUseLunarCalendar(newUseLunarCalendarControlStatus);
+        const {newDueDate, newStatus} = stateMachine.toggleUseLunarCalendar(newUseLunarCalendarControlStatus);
         onChange?.({
+            status: newStatus,
             dueDate: newDueDate,
-            lunarDueDate: newLunarDueDate,
-            isUsingLunarCalendar: newUseLunarCalendarToggleStatus === ToggleStatus.Checked
+            isUsingLunarCalendar: isToBeUsingLunarCalendar,
+            lunarDueDate: isToBeUsingLunarCalendar && newDueDate ? LunarCalendarVn.getLunarDate(newDueDate) : undefined
         });
     }
 
