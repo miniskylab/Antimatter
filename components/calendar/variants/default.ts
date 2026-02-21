@@ -96,13 +96,13 @@ const Calendar__Header__BackwardNavigator__Root: PressableStyle = function (pres
         userSelect: "none",
         ...pressableState.pressed
             ? {
-                borderColor: Color.Primary,
-                backgroundColor: Color.Primary
+                borderColor: Color.Blue,
+                backgroundColor: Color.Blue
             }
             : pressableState.hovered
                 ? {
-                    borderColor: Color.Primary,
-                    backgroundColor: Color.Primary__a10
+                    borderColor: Color.Blue,
+                    backgroundColor: Color.Blue__a10
                 }
                 : {
                     borderColor: Color.Transparent,
@@ -247,16 +247,16 @@ const Calendar__DateView__DateContainer: PressableStyle = function (pressablePro
                 : Color.Neutral
             : Color.Transparent,
         ...pressableState.hovered && {
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary__a10
+            borderColor: Color.Blue,
+            backgroundColor: Color.Blue__a10
         },
         ...pressableState.pressed && {
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary
+            borderColor: Color.Blue,
+            backgroundColor: Color.Blue
         },
         ...isSelectedDate && {
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary
+            borderColor: Color.Blue,
+            backgroundColor: Color.Blue
         }
     };
 };
@@ -365,12 +365,12 @@ const Calendar__MonthView__GridCell__Root: PressableStyle = function (pressableP
             borderColor: Color.Neutral
         },
         ...pressableState.hovered && {
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary__a10
+            borderColor: Color.Blue,
+            backgroundColor: Color.Blue__a10
         },
         ...pressableState.pressed && {
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary
+            borderColor: Color.Blue,
+            backgroundColor: Color.Blue
         }
     };
 };
@@ -464,12 +464,12 @@ const Calendar__YearView__GridCell__Root: PressableStyle = function (pressablePr
             borderColor: Color.Neutral
         },
         ...pressableState.hovered && {
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary__a10
+            borderColor: Color.Blue,
+            backgroundColor: Color.Blue__a10
         },
         ...pressableState.pressed && {
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary
+            borderColor: Color.Blue,
+            backgroundColor: Color.Blue
         }
     };
 };

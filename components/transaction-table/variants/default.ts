@@ -169,7 +169,7 @@ const TransactionTable__DatePicker__Calendar__Root: ViewStyle = function (viewPr
         marginTop: 0,
         borderTopWidth: 2,
         borderTopStyle: "solid",
-        borderTopColor: Color.Primary
+        borderTopColor: Color.Blue
     };
 };
 
@@ -241,7 +241,7 @@ const TransactionTable__Summary__Section1Amount: TextStyle = function (textProps
         lineHeight: 25,
         fontSize: 20,
         fontWeight: "bold",
-        color: Color.Positive,
+        color: Color.Green,
         ...useResponsiveStyle("Large", {
             lineHeight: 30
         })
@@ -267,7 +267,7 @@ const TransactionTable__Summary__Section2Amount: TextStyle = function (textProps
 {
     return {
         ...TransactionTable__Summary__Section1Amount(textProps),
-        color: Color.Warning
+        color: Color.Gold
     };
 };
 
@@ -289,7 +289,7 @@ const TransactionTable__Summary__Indicator__Icon: IconStyle = function (iconProp
         height: 25,
         paddingTop: 6,
         fontSize: 16,
-        color: Color.Negative
+        color: Color.Tomato
     };
 };
 
@@ -300,7 +300,7 @@ const TransactionTable__Summary__Indicator__Label: TextStyle = function (textPro
         height: 20,
         fontSize: 15,
         fontWeight: "bold",
-        color: Color.Negative
+        color: Color.Tomato
     };
 };
 
@@ -551,7 +551,7 @@ const TransactionTable__TransactionList__Button1__Icon: IconStyle = function (ic
             : pressableContext.state.hovered
                 ? Color.White
                 : isDraftMode || isEditMode
-                    ? Color.Primary
+                    ? Color.Blue
                     : isDeleteMode
                         ? Color.Tomato
                         : Color.Neutral
@@ -580,7 +580,7 @@ const TransactionTable__TransactionList__Button1__Label: TextStyle = function (t
             : pressableContext.state.hovered
                 ? Color.White
                 : isDraftMode || isEditMode
-                    ? Color.Primary
+                    ? Color.Blue
                     : isDeleteMode
                         ? Color.Tomato
                         : Color.Neutral
@@ -617,7 +617,7 @@ const TransactionTable__TransactionList__Button2__Root: PressableStyle = functio
     return {
         ...inheritedStyle,
         backgroundColor: isDraftMode
-            ? Color.Primary
+            ? Color.Blue
             : isReadOnlyMode
                 ? Color.Neutral
                 : Color.Transparent
@@ -649,7 +649,7 @@ const TransactionTable__TransactionList__Button2__Icon: IconStyle = function (ic
                 : isDraftMode || isReadOnlyMode
                     ? Color.Background
                     : isEditMode
-                        ? Color.Primary
+                        ? Color.Blue
                         : isDeleteMode
                             ? Color.Tomato
                             : Color.Neutral
@@ -681,7 +681,7 @@ const TransactionTable__TransactionList__Button2__Label: TextStyle = function (t
                 : isDraftMode || isReadOnlyMode
                     ? Color.Background
                     : isEditMode
-                        ? Color.Primary
+                        ? Color.Blue
                         : isDeleteMode
                             ? Color.Tomato
                             : Color.Neutral
@@ -800,11 +800,11 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         animationOverride: {
             ...((!hasSelectedTransaction && pressableState.hovered) || isSelectedTransactionRecord) && {
                 zIndex: Layer.AlwaysOnTop,
-                borderColor: Color.Primary,
-                backgroundColor: Color.Primary__a10,
+                borderColor: Color.Blue,
+                backgroundColor: Color.Blue__a10,
                 ...transactionTableContext.props.mode === TransactionRecord.Mode.Delete && {
-                    borderColor: Color.Negative,
-                    backgroundColor: Color.Negative__a10
+                    borderColor: Color.Tomato,
+                    backgroundColor: Color.Tomato__a10
                 }
             },
             ...transactionRecordContext.props.isToBeDeleted && {
@@ -943,7 +943,7 @@ const TransactionTable__TransactionRecord__AmountInputField__Root: PressableStyl
         ...inheritedStyle,
         width: 115,
         height: 38,
-        backgroundColor: isHighlighted ? Color.Positive : Color.Neutral
+        backgroundColor: isHighlighted ? Color.Green : Color.Neutral
     };
 };
 
@@ -999,7 +999,7 @@ const TransactionTable__TransactionRecord__AmountText: TextStyle = function (tex
         fontWeight: "bold",
         textAlign: "center",
         color: Color.Background,
-        backgroundColor: isHighlighted ? Color.Positive : Color.Neutral
+        backgroundColor: isHighlighted ? Color.Green : Color.Neutral
     };
 };
 
@@ -1075,11 +1075,11 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Root: Pressabl
         marginBottom: 0,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: isHighlighted ? Color.Positive : Color.Neutral,
+        borderColor: isHighlighted ? Color.Green : Color.Neutral,
         backgroundColor: menuItem?.status === MenuItemStatus.Selected || pressableState.pressed
-            ? isHighlighted ? Color.Positive : Color.Neutral
+            ? isHighlighted ? Color.Green : Color.Neutral
             : pressableState.hovered
-                ? isHighlighted ? Color.Positive__a10 : Color.Neutral__a10
+                ? isHighlighted ? Color.Green__a10 : Color.Neutral__a10
                 : Color.Transparent
     };
 };
@@ -1107,7 +1107,7 @@ const TransactionTable__TransactionRecord__TagSelector__MenuItem__Label: TextSty
             : pressableContext.state.hovered
                 ? Color.White
                 : isHighlighted
-                    ? Color.Positive
+                    ? Color.Green
                     : Color.Neutral
     };
 };
@@ -1183,10 +1183,10 @@ const TransactionTable__TransactionRecord__Tag: TextStyle = function (textProps)
         marginRight: 5,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: isHighlighted ? Color.Positive : Color.Neutral,
+        borderColor: isHighlighted ? Color.Green : Color.Neutral,
         fontSize: 12,
         color: Color.Background,
-        backgroundColor: isHighlighted ? Color.Positive : Color.Neutral
+        backgroundColor: isHighlighted ? Color.Green : Color.Neutral
     };
 };
 

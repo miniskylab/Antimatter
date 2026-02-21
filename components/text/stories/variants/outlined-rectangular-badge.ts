@@ -10,7 +10,7 @@ export const OutlinedRectangularBadge: TextStyle = function (textProps)
         paddingHorizontal: 14,
         borderWidth: 2,
         borderStyle: "solid",
-        borderColor: Color.Warning,
+        borderColor: Color.Gold,
         color: Color.White,
         fontSize: 14,
         fontWeight: "bold",

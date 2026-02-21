@@ -6,7 +6,7 @@ export const Large: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
-        color: Color.Warning,
+        color: Color.Gold,
         fontSize: 40,
         fontWeight: "bold"
     };

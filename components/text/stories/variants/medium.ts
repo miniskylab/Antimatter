@@ -6,7 +6,7 @@ export const Medium: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
-        color: Color.Positive,
+        color: Color.Green,
         fontSize: 30,
         fontWeight: "bold"
     };

@@ -35,30 +35,30 @@ export const Styles: Story = {
         <>
             <Button
                 icon={DefaultIconSet.Sun}
-                label={"Primary"}
+                label={"Blue"}
                 style={Variant.SolidRectangular}
-                onPress={() => alert("Primary")}
+                onPress={() => alert("Blue")}
             />
             <Button
-                label={"Positive"}
-                style={Variant.SolidRectangularPositive}
-                onPress={() => alert("Positive")}
+                label={"Green"}
+                style={Variant.SolidRectangularGreen}
+                onPress={() => alert("Green")}
             />
             <Button
                 label={"Cta button"}
                 icon={DefaultIconSet.ChevronRight}
-                style={Variant.SolidRectangularWarning}
+                style={Variant.SolidRectangularGold}
                 onPress={() => alert("Cta")}
             />
             <Button
-                label={"Negative"}
+                label={"Tomato"}
                 icon={DefaultIconSet.NoMic}
-                style={Variant.OutlinedRectangularNegative}
-                onPress={() => alert("Negative")}
+                style={Variant.OutlinedRectangularTomato}
+                onPress={() => alert("Tomato")}
             />
             <Button
                 icon={DefaultIconSet.Location}
-                style={Variant.OutlinedCircularComplementary}
+                style={Variant.OutlinedCircularCoral}
                 onPress={() => alert("Circular")}
             />
         </>
@@ -109,13 +109,13 @@ export const Disabled: Story = {
     render: () => (
         <>
             <Button
-                label={"Primary"}
+                label={"Blue"}
                 icon={DefaultIconSet.Sun}
                 style={Variant.SolidRectangular}
                 disabled={true}
             />
             <Button
-                label={"Primary"}
+                label={"Blue"}
                 style={Variant.OutlinedRectangular}
                 disabled={true}
             />

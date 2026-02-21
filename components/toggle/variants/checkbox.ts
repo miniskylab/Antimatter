@@ -25,10 +25,10 @@ const Toggle__Container: PressableStyle = function (pressableProps, pressableSta
         borderWidth: 3,
         borderStyle: "solid",
         borderColor: Color.Neutral,
-        ...pressableState.hovered && {borderColor: Color.Primary},
+        ...pressableState.hovered && {borderColor: Color.Blue},
         ...(pressableState.pressed || toggleContext.props.status === Status.Checked) && {
-            borderColor: Color.Primary,
-            backgroundColor: Color.Primary
+            borderColor: Color.Blue,
+            backgroundColor: Color.Blue
         },
         ...pressableProps.disabled && {
             opacity: .2,

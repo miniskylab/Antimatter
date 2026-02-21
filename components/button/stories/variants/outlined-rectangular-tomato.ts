@@ -14,11 +14,11 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
 
     return {
         ...inheritedStyle,
-        borderColor: Color.Negative,
+        borderColor: Color.Tomato,
         backgroundColor: pressableState.pressed
-            ? Color.Negative
+            ? Color.Tomato
             : pressableState.hovered
-                ? Color.Negative__a10
+                ? Color.Tomato__a10
                 : Color.Transparent
     };
 };
@@ -36,7 +36,7 @@ const Button__Icon: IconStyle = function (iconProps)
             ? Color.Ambient
             : pressableContext.state.hovered
                 ? Color.White
-                : Color.Negative
+                : Color.Tomato
     };
 };
 
@@ -53,11 +53,11 @@ const Button__Label: TextStyle = function (textProps)
             ? Color.Ambient
             : pressableContext.state.hovered
                 ? Color.White
-                : Color.Negative
+                : Color.Tomato
     };
 };
 
-export const OutlinedRectangularNegative: ButtonStyle = function (buttonProps)
+export const OutlinedRectangularTomato: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.OutlinedRectangular(buttonProps),

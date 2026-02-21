@@ -57,10 +57,10 @@ export const Badge: Story = {
     tags: ["hidden-from-sidebar"],
     render: () => (
         <>
-            <Text style={Variant.PrimaryBadge}>1</Text>
-            <Text style={Variant.PositiveBadge}>9+</Text>
-            <Text style={Variant.WarningBadge}>99+</Text>
-            <Text style={Variant.NegativeBadge}>999+</Text>
+            <Text style={Variant.BlueBadge}>1</Text>
+            <Text style={Variant.GreenBadge}>9+</Text>
+            <Text style={Variant.GoldBadge}>99+</Text>
+            <Text style={Variant.TomatoBadge}>999+</Text>
             <Text style={Variant.RectangularBadge}>Rectangle</Text>
             <Text style={Variant.OutlinedRectangularBadge}>Outlined Rectangle</Text>
             <Text style={Variant.OutlinedBadge}>Outlined Capsule</Text>

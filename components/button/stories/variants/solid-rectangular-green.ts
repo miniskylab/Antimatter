@@ -14,22 +14,22 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
         ...inheritedStyle,
         ...pressableState.pressed
             ? {
-                borderColor: Color.Positive__b10,
-                backgroundColor: Color.Positive__b10
+                borderColor: Color.Green__b10,
+                backgroundColor: Color.Green__b10
             }
             : pressableState.hovered
                 ? {
-                    borderColor: Color.Positive__w25,
-                    backgroundColor: Color.Positive__w25
+                    borderColor: Color.Green__w25,
+                    backgroundColor: Color.Green__w25
                 }
                 : {
-                    borderColor: Color.Positive,
-                    backgroundColor: Color.Positive
+                    borderColor: Color.Green,
+                    backgroundColor: Color.Green
                 }
     };
 };
 
-export const SolidRectangularPositive: ButtonStyle = function (buttonProps)
+export const SolidRectangularGreen: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.SolidRectangular(buttonProps),

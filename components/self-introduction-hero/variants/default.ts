@@ -195,7 +195,7 @@ const SelfIntroductionHero__SimpleInfoSection1Value: TextStyle = function (textP
             justifyContent: "flex-start",
             borderStyle: "solid",
             borderBottomWidth: 4,
-            borderBottomColor: Color.Primary
+            borderBottomColor: Color.Blue
         }),
         ...useResponsiveStyle("Medium", {
             fontSize: 20,
@@ -208,8 +208,8 @@ const SelfIntroductionHero__SimpleInfoSection2: ViewStyle = function (viewProps)
 {
     return {
         ...SelfIntroductionHero__SimpleInfoSection1(viewProps),
-        borderColor: Color.Primary,
-        backgroundColor: Color.Primary__a10,
+        borderColor: Color.Blue,
+        backgroundColor: Color.Blue__a10,
         ...useResponsiveStyle("Small", {
             alignItems: "flex-end",
             marginLeft: 370,

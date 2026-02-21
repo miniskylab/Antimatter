@@ -33,7 +33,7 @@ const ProgressStripes__Stripe: ViewStyle = function ()
     return {
         width: 30,
         backgroundColor: stripeIndex % 2 === 0
-            ? Color.Primary__a65
+            ? Color.Blue__a65
             : Color.Background
     };
 };

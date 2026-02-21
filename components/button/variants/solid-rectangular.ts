@@ -21,17 +21,17 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
             }
             : pressableState.pressed
                 ? {
-                    borderColor: Color.Primary__b10,
-                    backgroundColor: Color.Primary__b10
+                    borderColor: Color.Blue__b10,
+                    backgroundColor: Color.Blue__b10
                 }
                 : pressableState.hovered
                     ? {
-                        borderColor: Color.Primary__w25,
-                        backgroundColor: Color.Primary__w25
+                        borderColor: Color.Blue__w25,
+                        backgroundColor: Color.Blue__w25
                     }
                     : {
-                        borderColor: Color.Primary,
-                        backgroundColor: Color.Primary
+                        borderColor: Color.Blue,
+                        backgroundColor: Color.Blue
                     }
     };
 };

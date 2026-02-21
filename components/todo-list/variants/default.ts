@@ -47,9 +47,9 @@ const TodoList__DataList__Button1__Icon: IconStyle = function (iconProps)
                 : isAlarmMode
                     ? Color.Purple
                     : isDismissMode
-                        ? Color.Warning
+                        ? Color.Gold
                         : isDraftMode || isEditMode
-                            ? Color.Primary
+                            ? Color.Blue
                             : isDeleteMode
                                 ? Color.Tomato
                                 : Color.Neutral
@@ -82,9 +82,9 @@ const TodoList__DataList__Button1__Label: TextStyle = function (textProps)
                 : isAlarmMode
                     ? Color.Purple
                     : isDismissMode
-                        ? Color.Warning
+                        ? Color.Gold
                         : isDraftMode || isEditMode
-                            ? Color.Primary
+                            ? Color.Blue
                             : isDeleteMode
                                 ? Color.Tomato
                                 : Color.Neutral
@@ -125,9 +125,9 @@ const TodoList__DataList__Button2__Root: PressableStyle = function (pressablePro
         backgroundColor: isAlarmMode
             ? Color.Purple
             : isDismissMode
-                ? Color.Warning
+                ? Color.Gold
                 : isDraftMode
-                    ? Color.Primary
+                    ? Color.Blue
                     : isReadOnlyMode
                         ? Color.Neutral
                         : Color.Transparent
@@ -161,7 +161,7 @@ const TodoList__DataList__Button2__Icon: IconStyle = function (iconProps)
                 : isDraftMode || isReadOnlyMode || isAlarmMode || isDismissMode
                     ? Color.Background
                     : isEditMode
-                        ? Color.Primary
+                        ? Color.Blue
                         : isDeleteMode
                             ? Color.Tomato
                             : Color.Neutral
@@ -195,7 +195,7 @@ const TodoList__DataList__Button2__Label: TextStyle = function (textProps)
                 : isDraftMode || isReadOnlyMode || isAlarmMode || isDismissMode
                     ? Color.Background
                     : isEditMode
-                        ? Color.Primary
+                        ? Color.Blue
                         : isDeleteMode
                             ? Color.Tomato
                             : Color.Neutral
@@ -323,8 +323,8 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
         animationOverride: {
             ...isSelectedReminder && {
                 zIndex: Layer.Higher,
-                borderColor: Color.Primary,
-                backgroundColor: Color.Primary__a10
+                borderColor: Color.Blue,
+                backgroundColor: Color.Blue__a10
             },
             ...reminderContext.props.mode === Reminder.Mode.Alarm && {
                 zIndex: Layer.Higher,
@@ -332,19 +332,19 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
                 backgroundColor: Color.Purple__a10,
                 ...(isSelectedReminder || isBusyReminder) && {
                     zIndex: Layer.Highest,
-                    borderColor: Color.Warning,
-                    backgroundColor: Color.Warning__a10
+                    borderColor: Color.Gold,
+                    backgroundColor: Color.Gold__a10
                 }
             },
             ...reminderContext.props.mode === Reminder.Mode.Dismiss && {
                 zIndex: Layer.Highest,
-                borderColor: Color.Warning,
-                backgroundColor: Color.Warning__a10
+                borderColor: Color.Gold,
+                backgroundColor: Color.Gold__a10
             },
             ...reminderContext.props.mode === Reminder.Mode.Delete && {
                 zIndex: Layer.Higher,
-                borderColor: Color.Negative,
-                backgroundColor: Color.Negative__a10
+                borderColor: Color.Tomato,
+                backgroundColor: Color.Tomato__a10
             },
             ...reminderContext.props.isToBeDeleted && {
                 paddingTop: 0,
@@ -356,8 +356,8 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
             },
             ...isHoveredReminder && {
                 zIndex: Layer.AlwaysOnTop,
-                borderColor: reminderContext.props.mode === Reminder.Mode.Alarm ? Color.Warning : Color.Primary,
-                backgroundColor: reminderContext.props.mode === Reminder.Mode.Alarm ? Color.Warning__a10 : Color.Primary__a10
+                borderColor: reminderContext.props.mode === Reminder.Mode.Alarm ? Color.Gold : Color.Blue,
+                backgroundColor: reminderContext.props.mode === Reminder.Mode.Alarm ? Color.Gold__a10 : Color.Blue__a10
             }
         }
     };
@@ -1004,7 +1004,7 @@ const TodoList__Reminder__SuspenseToggle__Icon: IconStyle = function (iconProps)
         display: "flex",
         fontSize: 24,
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
-            ? Color.Warning
+            ? Color.Gold
             : pressableContext.state.hovered
                 ? Color.White
                 : Color.Neutral

@@ -52,7 +52,7 @@ const NavMenu__Link__Root: PressableStyle = function (pressableProps, pressableS
         paddingRight: 0,
         borderWidth: 0,
         backgroundColor: pressableState.pressed
-            ? Color.Primary
+            ? Color.Blue
             : Color.Transparent,
         ...pressableProps.disabled && {
             opacity: 1,
@@ -62,7 +62,7 @@ const NavMenu__Link__Root: PressableStyle = function (pressableProps, pressableS
             marginVertical: 3,
             borderLeftWidth: 5,
             borderLeftStyle: "solid",
-            borderLeftColor: Color.Primary
+            borderLeftColor: Color.Blue
         }
     };
 };

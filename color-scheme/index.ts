@@ -5,15 +5,6 @@ const Tomato = [255, 112, 71];
 const Coral = [255, 71, 133];
 const Purple = [147, 112, 219];
 
-const Primary = Blue;
-const Secondary = Green;
-const Tertiary = Coral;
-const Complementary = complement(Primary);
-const Positive = Green;
-const Warning = Gold;
-const Negative = Tomato;
-const Accent = Purple;
-
 const White = [255, 255, 255];
 const Gainsboro = [220, 220, 220];
 const Neutral = [155, 155, 155];
@@ -25,57 +16,33 @@ const Black = [0, 0, 0];
 
 export const Color = {
     Blue: toHex(Blue),
-    Gold: toHex(Gold),
+    Blue__a10: toHex(Blue, 10),
+    Blue__a45: toHex(Blue, 45),
+    Blue__a65: toHex(Blue, 65),
+    Blue__b10: toHex(shade(Blue, 10)),
+    Blue__w25: toHex(tint(Blue, 25)),
 
     Green: toHex(Green),
+    Green__a10: toHex(Green, 10),
+    Green__a45: toHex(Green, 45),
     Green__b10: toHex(shade(Green, 10)),
     Green__w25: toHex(tint(Green, 25)),
+
+    Gold: toHex(Gold),
+    Gold__a10: toHex(Gold, 10),
+    Gold__a45: toHex(Gold, 45),
+    Gold__b10: toHex(shade(Gold, 10)),
+    Gold__w25: toHex(tint(Gold, 25)),
+
+    Tomato: toHex(Tomato),
+    Tomato__a10: toHex(Tomato, 10),
+    Tomato__a45: toHex(Tomato, 45),
 
     Coral: toHex(Coral),
     Coral__a10: toHex(Coral, 10),
 
-    Tomato: toHex(Tomato),
-    Tomato__a10: toHex(Tomato, 10),
-
     Purple: toHex(Purple),
     Purple__a10: toHex(Purple, 10),
-
-    Primary: toHex(Primary),
-    Primary__a10: toHex(Primary, 10),
-    Primary__a45: toHex(Primary, 45),
-    Primary__a65: toHex(Primary, 65),
-    Primary__b10: toHex(shade(Primary, 10)),
-    Primary__w25: toHex(tint(Primary, 25)),
-
-    Secondary: toHex(Secondary),
-    Secondary__a10: toHex(Secondary, 10),
-    Secondary__b10: toHex(shade(Secondary, 10)),
-    Secondary__w25: toHex(tint(Secondary, 25)),
-
-    Tertiary: toHex(Tertiary),
-
-    Complementary: toHex(Complementary),
-    Complementary__a10: toHex(Complementary, 10),
-    Complementary__a45: toHex(Complementary, 45),
-
-    Positive: toHex(Positive),
-    Positive__a10: toHex(Positive, 10),
-    Positive__a45: toHex(Positive, 45),
-    Positive__b10: toHex(shade(Positive, 10)),
-    Positive__w25: toHex(tint(Positive, 25)),
-
-    Warning: toHex(Warning),
-    Warning__a10: toHex(Warning, 10),
-    Warning__a45: toHex(Warning, 45),
-    Warning__b10: toHex(shade(Warning, 10)),
-    Warning__w25: toHex(tint(Warning, 25)),
-
-    Negative: toHex(Negative),
-    Negative__a10: toHex(Negative, 10),
-    Negative__a45: toHex(Negative, 45),
-
-    Accent: toHex(Accent),
-    Accent__a10: toHex(Accent, 10),
 
     White: toHex(White),
     White__a10: toHex(White, 10),
@@ -103,15 +70,6 @@ export const Color = {
 };
 
 export type HexColorCode = `#${string}`;
-
-function complement(color: number[]): number[]
-{
-    return [
-        255 - color[0],
-        255 - color[1],
-        255 - color[2]
-    ];
-}
 
 function tint(color: number[], factor: number): number[]
 {

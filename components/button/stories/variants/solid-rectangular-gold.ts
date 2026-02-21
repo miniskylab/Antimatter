@@ -18,17 +18,17 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
         flexDirection: "row-reverse",
         ...pressableState.pressed
             ? {
-                borderColor: Color.Warning__b10,
-                backgroundColor: Color.Warning__b10
+                borderColor: Color.Gold__b10,
+                backgroundColor: Color.Gold__b10
             }
             : pressableState.hovered
                 ? {
-                    borderColor: Color.Warning__w25,
-                    backgroundColor: Color.Warning__w25
+                    borderColor: Color.Gold__w25,
+                    backgroundColor: Color.Gold__w25
                 }
                 : {
-                    borderColor: Color.Warning,
-                    backgroundColor: Color.Warning
+                    borderColor: Color.Gold,
+                    backgroundColor: Color.Gold
                 }
     };
 };
@@ -61,7 +61,7 @@ const Button__Icon: IconStyle = function (iconProps)
     };
 };
 
-export const SolidRectangularWarning: ButtonStyle = function (buttonProps)
+export const SolidRectangularGold: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.SolidRectangular(buttonProps),

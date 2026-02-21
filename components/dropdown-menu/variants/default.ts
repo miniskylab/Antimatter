@@ -36,10 +36,10 @@ const DropdownMenu__SelectedItemContainer: PressableStyle = function (pressableP
         borderWidth: 1,
         borderStyle: "solid",
         borderColor: !dropdownMenuContext.props.isOpen && pressableState.hovered
-            ? Color.Primary
+            ? Color.Blue
             : Color.Transparent,
         backgroundColor: !dropdownMenuContext.props.isOpen && pressableState.hovered
-            ? Color.Primary__a10
+            ? Color.Blue__a10
             : Color.Mineshaft
     };
 };
@@ -139,12 +139,12 @@ const DropdownMenu__MenuItem__Root: PressableStyle = function (pressableProps, p
         paddingTop: 0,
         paddingBottom: 0,
         backgroundColor: menuItem?.status === MenuItemStatus.Selected || pressableState.pressed
-            ? Color.Primary
+            ? Color.Blue
             : pressableState.hovered
-                ? Color.Primary__a10
+                ? Color.Blue__a10
                 : Color.Transparent,
         borderColor: menuItem?.status === MenuItemStatus.Selected || pressableState.hovered
-            ? Color.Primary
+            ? Color.Blue
             : Color.Transparent
     };
 };

@@ -133,7 +133,7 @@ const MusicPlayer__ShuffleButton__Icon: IconStyle = function (iconProps)
         color: pressableContext.state.pressed
             ? Color.White
             : musicPlayerContext.props.isShuffleEnabled
-                ? Color.Primary
+                ? Color.Blue
                 : Color.Neutral
     };
 };
@@ -155,7 +155,7 @@ const MusicPlayer__PlayPreviousButton__Icon: IconStyle = function (iconProps)
         ...MusicPlayer__ShuffleButton__Icon(iconProps),
         fontSize: 20,
         color: pressableContext.state.pressed
-            ? Color.Primary
+            ? Color.Blue
             : pressableContext.state.hovered
                 ? Color.White
                 : Color.Neutral
@@ -204,7 +204,7 @@ const MusicPlayer__RepeatModeButton__Icon: IconStyle = function (iconProps)
         color: pressableContext.state.pressed
             ? Color.White
             : musicPlayerContext.props.repeatMode !== RepeatMode.None
-                ? Color.Primary
+                ? Color.Blue
                 : Color.Neutral
     };
 };
@@ -237,7 +237,7 @@ const MusicPlayer__PlaylistButton__Icon: IconStyle = function (iconProps)
         color: pressableContext.state.pressed
             ? Color.White
             : musicPlayerContext.props.isPlaylistSelectionEnabled
-                ? Color.Primary
+                ? Color.Blue
                 : Color.Neutral
     };
 };
@@ -321,7 +321,7 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
                     zIndex: Layer.Higher
                 },
                 ...songRowContext.props.isSelected && {
-                    backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Primary,
+                    backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Blue,
                     borderColor: Color.Ambient,
                     zIndex: Layer.AlwaysOnTop
                 }

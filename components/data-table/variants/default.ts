@@ -115,9 +115,9 @@ const DataTable__Button1__Icon: IconStyle = function (iconProps)
         flex: 1,
         fontSize: 24,
         color: Color.Neutral,
-        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Primary},
-        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Primary},
-        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Negative},
+        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Blue},
+        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Blue},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Tomato},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
@@ -141,9 +141,9 @@ const DataTable__Button1__Label: TextStyle = function (textProps)
         fontSize: 12,
         fontWeight: "bold",
         color: Color.Neutral,
-        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Primary},
-        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Primary},
-        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Negative},
+        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Blue},
+        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Blue},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Tomato},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
@@ -174,9 +174,9 @@ const DataTable__Button2__Icon: IconStyle = function (iconProps)
 
     return {
         ...DataTable__Button1__Icon(iconProps),
-        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Primary__a65},
-        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Primary},
-        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Negative},
+        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Blue__a65},
+        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Blue},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Tomato},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
@@ -189,9 +189,9 @@ const DataTable__Button2__Label: TextStyle = function (textProps)
 
     return {
         ...DataTable__Button1__Label(textProps),
-        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Primary__a65},
-        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Primary},
-        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Negative},
+        ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Blue__a65},
+        ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Blue},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Tomato},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
@@ -284,12 +284,12 @@ const DataTable__DataRow__Root: PressableStyle = function (pressableProps, press
                 ? Layer.Higher
                 : Layer.Default,
         ...(isPressableAndHovered || rowContext.props.mode === Row.Mode.Draft || rowContext.props.mode === Row.Mode.Edit) && {
-            backgroundColor: Color.Primary__a10,
-            borderColor: Color.Primary
+            backgroundColor: Color.Blue__a10,
+            borderColor: Color.Blue
         },
         ...rowContext.props.mode === Row.Mode.Delete && {
-            backgroundColor: Color.Negative__a10,
-            borderColor: Color.Negative
+            backgroundColor: Color.Tomato__a10,
+            borderColor: Color.Tomato
         }
     };
 };

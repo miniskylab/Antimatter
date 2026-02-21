@@ -11,7 +11,7 @@ export const OutlinedBadge: TextStyle = function (textProps)
         borderRadius: 17,
         borderWidth: 2,
         borderStyle: "solid",
-        borderColor: Color.Negative,
+        borderColor: Color.Tomato,
         color: Color.White,
         fontSize: 14,
         fontWeight: "bold",

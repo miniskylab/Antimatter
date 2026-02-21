@@ -14,12 +14,12 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
         borderRadius: 34 / 2,
         borderWidth: 2,
         borderStyle: "solid",
-        borderColor: Color.Primary,
+        borderColor: Color.Blue,
         cursor: CursorType.Pointer,
         backgroundColor: pressableState.pressed
-            ? Color.Primary
+            ? Color.Blue
             : pressableState.hovered
-                ? Color.Primary__a10
+                ? Color.Blue__a10
                 : Color.Transparent,
         ...pressableProps.disabled && {
             opacity: .2,
@@ -42,7 +42,7 @@ const Button__Icon: IconStyle = function (iconProps)
                 ? Color.Ambient
                 : pressableContext.state.hovered
                     ? Color.White
-                    : Color.Primary
+                    : Color.Blue
     };
 };
 

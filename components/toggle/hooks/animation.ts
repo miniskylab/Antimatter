@@ -13,7 +13,7 @@ export function useContainerAnimation(): ComponentAnimation
     const animatedBackgroundColor = useRef(new Animated.Value(initialBackgroundColor)).current;
     const interpolatedBackgroundColor = animatedBackgroundColor.interpolate({
         inputRange: [0, 1],
-        outputRange: [Color.Background, Color.Primary__b10]
+        outputRange: [Color.Background, Color.Blue__b10]
     });
 
     useEffect(() =>

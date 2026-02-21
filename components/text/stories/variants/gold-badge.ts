@@ -2,7 +2,7 @@ import {Color} from "@miniskylab/antimatter-color-scheme";
 import {type TextStyle} from "../../models";
 import * as TextVariant from "../../variants";
 
-export const PositiveBadge: TextStyle = function (textProps)
+export const GoldBadge: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
@@ -10,7 +10,7 @@ export const PositiveBadge: TextStyle = function (textProps)
         paddingHorizontal: 12,
         borderRadius: 17,
         color: Color.White,
-        backgroundColor: Color.Positive,
+        backgroundColor: Color.Gold,
         fontSize: 20,
         fontWeight: "bold"
     };

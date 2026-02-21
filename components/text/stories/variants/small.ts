@@ -6,7 +6,7 @@ export const Small: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
-        color: Color.Primary,
+        color: Color.Blue,
         fontSize: 14,
         fontWeight: "bold"
     };

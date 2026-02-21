@@ -59,13 +59,13 @@ const DataList__DisplayIcon: IconStyle = function (iconProps)
             () => DataListAnimationHook.useDisplayIconAnimation(isAnimationPlaying)
         ],
         color: theme === DataListDisplayPanelTheme.Negative
-            ? Color.Negative
+            ? Color.Tomato
             : theme === DataListDisplayPanelTheme.Cautious
-                ? Color.Warning
+                ? Color.Gold
                 : theme === DataListDisplayPanelTheme.Positive
-                    ? Color.Positive
+                    ? Color.Green
                     : theme === DataListDisplayPanelTheme.Highlighted
-                        ? Color.Primary
+                        ? Color.Blue
                         : Color.Neutral
     };
 };
@@ -83,13 +83,13 @@ const DataList__DisplayMessage: TextStyle = function (textProps)
         fontSize: 18,
         fontWeight: "bold",
         color: theme === DataListDisplayPanelTheme.Negative
-            ? Color.Negative
+            ? Color.Tomato
             : theme === DataListDisplayPanelTheme.Cautious
-                ? Color.Warning
+                ? Color.Gold
                 : theme === DataListDisplayPanelTheme.Positive
-                    ? Color.Positive
+                    ? Color.Green
                     : theme === DataListDisplayPanelTheme.Highlighted
-                        ? Color.Primary
+                        ? Color.Blue
                         : Color.Neutral
     };
 };

@@ -120,9 +120,9 @@ const DatePicker__Addon__Icon: IconStyle = function (iconProps)
         color: datePickerContext.props.isCalendarOpen
             ? pressableContext.state.pressed
                 ? Color.White
-                : Color.Primary
+                : Color.Blue
             : pressableContext.state.pressed
-                ? Color.Primary
+                ? Color.Blue
                 : pressableContext.state.hovered
                     ? Color.White
                     : Color.Neutral

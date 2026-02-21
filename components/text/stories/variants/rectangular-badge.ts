@@ -9,7 +9,7 @@ export const RectangularBadge: TextStyle = function (textProps)
         paddingVertical: 9,
         paddingHorizontal: 18,
         color: Color.White,
-        backgroundColor: Color.Primary,
+        backgroundColor: Color.Blue,
         fontSize: 14,
         fontWeight: "bold",
         textAlignVertical: "top"

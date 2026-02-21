@@ -72,11 +72,11 @@ export function useFlashHighlightAnimation(): ComponentAnimation
     const animatedLayer = useRef(new Animated.Value(initialLayer)).current;
     const interpolatedBorderColor = animatedColor.interpolate({
         inputRange: [0, 1, 2],
-        outputRange: [Color.Neutral, Color.Positive, Color.Neutral]
+        outputRange: [Color.Neutral, Color.Green, Color.Neutral]
     });
     const interpolatedBackgroundColor = animatedColor.interpolate({
         inputRange: [0, 1, 2],
-        outputRange: [Color.Transparent, Color.Positive__b10, Color.Transparent]
+        outputRange: [Color.Transparent, Color.Green__b10, Color.Transparent]
     });
 
     return {
@@ -149,7 +149,7 @@ export function useElasticHeightAnimation(
     const animatedHeight = useRef(new Animated.Value(pxInitialHeight)).current;
     const interpolatedBackgroundColor = animatedColor.interpolate({
         inputRange: [0, 1, 2],
-        outputRange: [Color.Transparent, Color.Negative, Color.Transparent]
+        outputRange: [Color.Transparent, Color.Tomato, Color.Transparent]
     });
 
     useEffect(() => () =>

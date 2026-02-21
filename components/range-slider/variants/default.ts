@@ -39,7 +39,7 @@ const RangeSlider__StopperLeft: ViewStyle = function (viewProps)
         width: 15,
         borderTopLeftRadius: 8,
         borderBottomLeftRadius: 8,
-        backgroundColor: Color.Primary
+        backgroundColor: Color.Blue
     };
 };
 
@@ -70,7 +70,7 @@ const RangeSlider__FillLeft: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         alignSelf: "stretch",
-        backgroundColor: Color.Primary,
+        backgroundColor: Color.Blue,
         borderTopRightRadius: 8,
         borderBottomRightRadius: 8
     };
@@ -150,7 +150,7 @@ const RangeSlider__Pips__Pip: ViewStyle = function (viewProps)
         width: 2,
         height: isMilestone ? 16 : 8,
         borderRadius: 10,
-        backgroundColor: isHighlighted ? Color.Primary : Color.Gainsboro,
+        backgroundColor: isHighlighted ? Color.Blue : Color.Gainsboro,
         transform: [{translateX: -1}, {rotateX: "-0.0000000001deg"}]
     };
 };
@@ -178,7 +178,7 @@ const RangeSlider__Pips__Label: TextStyle = function (textProps)
         paddingTop: 20,
         fontSize: 10,
         textAlign: "center",
-        color: isHighlighted ? Color.Primary : Color.Gainsboro,
+        color: isHighlighted ? Color.Blue : Color.Gainsboro,
         transform: [{translateX: -15}]
     };
 };

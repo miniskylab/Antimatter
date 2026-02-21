@@ -45,8 +45,8 @@ const Navbar__Tab__Root: PressableStyle = function (pressableProps, pressableSta
         cursor: navButtonContext.props.disabled ? CursorType.Default : CursorType.Pointer,
         ...pressableState.pressed
             ? {
-                borderColor: Color.Primary,
-                backgroundColor: Color.Primary
+                borderColor: Color.Blue,
+                backgroundColor: Color.Blue
             }
             : {
                 borderColor: Color.Transparent,
@@ -72,7 +72,7 @@ const Navbar__Tab__Icon: IconStyle = function (iconProps)
         color: pressableContext.state.pressed
             ? Color.Ambient
             : pressableContext.props.disabled || pressableContext.state.hovered
-                ? Color.Primary
+                ? Color.Blue
                 : Color.White
     };
 };
@@ -94,7 +94,7 @@ const Navbar__Tab__Label: TextStyle = function (textProps)
         color: pressableContext.state.pressed
             ? Color.Ambient
             : pressableContext.props.disabled || pressableContext.state.hovered
-                ? Color.Primary
+                ? Color.Blue
                 : Color.White
     };
 };
