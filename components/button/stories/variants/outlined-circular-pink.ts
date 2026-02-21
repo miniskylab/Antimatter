@@ -13,11 +13,11 @@ const Button__Root: PressableStyle = function (pressableProps, pressableState)
 
     return {
         ...inheritedStyle,
-        borderColor: Color.Coral,
+        borderColor: Color.Pink,
         backgroundColor: pressableState.pressed
-            ? Color.Coral
+            ? Color.Pink
             : pressableState.hovered
-                ? Color.Coral__a10
+                ? Color.Pink__a10
                 : Color.Transparent
     };
 };
@@ -35,11 +35,11 @@ const Button__Icon: IconStyle = function (iconProps)
             ? Color.Ambient
             : pressableContext.state.hovered
                 ? Color.White
-                : Color.Coral
+                : Color.Pink
     };
 };
 
-export const OutlinedCircularCoral: ButtonStyle = function (buttonProps)
+export const OutlinedCircularPink: ButtonStyle = function (buttonProps)
 {
     return {
         ...ButtonVariant.OutlinedCircular(buttonProps),

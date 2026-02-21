@@ -96,12 +96,12 @@ export const Playground: Story = {
                         <b class="badge badge--blue">massa</b>
                         <br/>
                         <span style="display: block; height: 12px;"></span>
-                        <b class="badge badge--tomato">adipiscing</b>
-                        <b class="badge badge--tomato">tortor</b>
-                        <b class="badge badge--tomato">aliquam</b>
-                        <b class="badge badge--tomato">ornare</b>
-                        <b class="badge badge--tomato">eleifend</b>
-                        <b class="badge badge--tomato">risus</b>
+                        <b class="badge badge--red">adipiscing</b>
+                        <b class="badge badge--red">tortor</b>
+                        <b class="badge badge--red">aliquam</b>
+                        <b class="badge badge--red">ornare</b>
+                        <b class="badge badge--red">eleifend</b>
+                        <b class="badge badge--red">risus</b>
                         <br/>
                         <span style="display: block; height: 12px;"></span>
                         <b class="badge badge--purple">justo</b>

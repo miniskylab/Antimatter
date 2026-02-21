@@ -59,7 +59,7 @@ const DataList__DisplayIcon: IconStyle = function (iconProps)
             () => DataListAnimationHook.useDisplayIconAnimation(isAnimationPlaying)
         ],
         color: theme === DataListDisplayPanelTheme.Negative
-            ? Color.Tomato
+            ? Color.Red
             : theme === DataListDisplayPanelTheme.Cautious
                 ? Color.Gold
                 : theme === DataListDisplayPanelTheme.Positive
@@ -83,7 +83,7 @@ const DataList__DisplayMessage: TextStyle = function (textProps)
         fontSize: 18,
         fontWeight: "bold",
         color: theme === DataListDisplayPanelTheme.Negative
-            ? Color.Tomato
+            ? Color.Red
             : theme === DataListDisplayPanelTheme.Cautious
                 ? Color.Gold
                 : theme === DataListDisplayPanelTheme.Positive

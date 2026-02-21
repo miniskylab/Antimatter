@@ -296,7 +296,7 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
         ...musicPlayerContext.props.isPlaylistSelectionEnabled
             ? {
                 borderColor: Color.Ambient,
-                backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Green,
+                backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Red : Color.Green,
                 ...isRunningInsideWebBrowser && pressableState.hovered && {
                     borderStyle: "dashed",
                     borderColor: Color.White,
@@ -321,7 +321,7 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
                     zIndex: Layer.Higher
                 },
                 ...songRowContext.props.isSelected && {
-                    backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Tomato : Color.Blue,
+                    backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Red : Color.Blue,
                     borderColor: Color.Ambient,
                     zIndex: Layer.AlwaysOnTop
                 }

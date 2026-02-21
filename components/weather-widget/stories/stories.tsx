@@ -51,7 +51,7 @@ export const Playground: Story = {
             icon: DefaultIconSet.Direction,
             speedAndGusts: "17 - 24 km/h",
             direction: 135,
-            highlightColor: HighlightColor.Tomato
+            highlightColor: HighlightColor.Red
         },
         simpleWeatherData1: {
             icon: DefaultIconSet.AirQualityIndex,
@@ -63,7 +63,7 @@ export const Playground: Story = {
             icon: DefaultIconSet.Umbrella,
             title: "90% ⁂",
             subtitle: "In 15 minutes",
-            highlightColor: SimpleWeatherData.HighlightColor.Tomato
+            highlightColor: SimpleWeatherData.HighlightColor.Red
         },
         simpleWeatherData3: {
             icon: DefaultIconSet.Droplet,
@@ -133,7 +133,7 @@ export const Playground: Story = {
                 airQualityIndexForecastData: {
                     icon: DefaultIconSet.AirQualityIndex,
                     value: "100",
-                    highlightColor: TimeFrameForecastData.HighlightColor.Tomato
+                    highlightColor: TimeFrameForecastData.HighlightColor.Red
                 }
             },
             {
@@ -150,7 +150,7 @@ export const Playground: Story = {
                 airQualityIndexForecastData: {
                     icon: DefaultIconSet.AirQualityIndex,
                     value: "135",
-                    highlightColor: TimeFrameForecastData.HighlightColor.Tomato
+                    highlightColor: TimeFrameForecastData.HighlightColor.Red
                 }
             },
             {
@@ -178,7 +178,7 @@ export const Playground: Story = {
                 precipitationProbabilityForecastData: {
                     icon: DefaultIconSet.Umbrella,
                     value: "90%",
-                    highlightColor: TimeFrameForecastData.HighlightColor.Tomato
+                    highlightColor: TimeFrameForecastData.HighlightColor.Red
                 },
                 airQualityIndexForecastData: {
                     icon: DefaultIconSet.AirQualityIndex,
@@ -191,12 +191,12 @@ export const Playground: Story = {
                 temperatureRangeForecastData: {
                     icon: DefaultIconSet.Sun,
                     value: "29 - 38°C",
-                    highlightColor: TimeFrameForecastData.HighlightColor.Tomato
+                    highlightColor: TimeFrameForecastData.HighlightColor.Red
                 },
                 precipitationProbabilityForecastData: {
                     icon: DefaultIconSet.Umbrella,
                     value: "100%",
-                    highlightColor: TimeFrameForecastData.HighlightColor.Tomato
+                    highlightColor: TimeFrameForecastData.HighlightColor.Red
                 },
                 airQualityIndexForecastData: {
                     icon: DefaultIconSet.AirQualityIndex,

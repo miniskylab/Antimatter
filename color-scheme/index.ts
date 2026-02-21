@@ -1,8 +1,8 @@
 const Blue = [0, 160, 255];
 const Green = [135, 172, 78];
 const Gold = [255, 191, 71];
-const Tomato = [255, 112, 71];
-const Coral = [255, 71, 133];
+const Red = [255, 112, 71];
+const Pink = [255, 71, 133];
 const Purple = [147, 112, 219];
 
 const White = [255, 255, 255];
@@ -34,12 +34,12 @@ export const Color = {
     Gold__b10: toHex(shade(Gold, 10)),
     Gold__w25: toHex(tint(Gold, 25)),
 
-    Tomato: toHex(Tomato),
-    Tomato__a10: toHex(Tomato, 10),
-    Tomato__a45: toHex(Tomato, 45),
+    Red: toHex(Red),
+    Red__a10: toHex(Red, 10),
+    Red__a45: toHex(Red, 45),
 
-    Coral: toHex(Coral),
-    Coral__a10: toHex(Coral, 10),
+    Pink: toHex(Pink),
+    Pink__a10: toHex(Pink, 10),
 
     Purple: toHex(Purple),
     Purple__a10: toHex(Purple, 10),

@@ -146,8 +146,8 @@ const WeatherWidget__FeelsLikeValue: TextStyle = function (textProps)
         fontWeight: "bold",
         color: weatherWidgetContext.props.temperatureData?.highlightColor === HighlightColor.Purple
             ? Color.Purple
-            : weatherWidgetContext.props.temperatureData?.highlightColor === HighlightColor.Tomato
-                ? Color.Tomato
+            : weatherWidgetContext.props.temperatureData?.highlightColor === HighlightColor.Red
+                ? Color.Red
                 : weatherWidgetContext.props.temperatureData?.highlightColor === HighlightColor.Gold
                     ? Color.Gold
                     : weatherWidgetContext.props.temperatureData?.highlightColor === HighlightColor.Blue
@@ -276,8 +276,8 @@ const WeatherWidget__UvIndexDescription: TextStyle = function (textProps)
         fontWeight: "bold",
         color: weatherWidgetContext.props.uvIndexData?.highlightColor === HighlightColor.Purple
             ? Color.Purple
-            : weatherWidgetContext.props.uvIndexData?.highlightColor === HighlightColor.Tomato
-                ? Color.Tomato
+            : weatherWidgetContext.props.uvIndexData?.highlightColor === HighlightColor.Red
+                ? Color.Red
                 : weatherWidgetContext.props.uvIndexData?.highlightColor === HighlightColor.Gold
                     ? Color.Gold
                     : weatherWidgetContext.props.uvIndexData?.highlightColor === HighlightColor.Blue
@@ -322,8 +322,8 @@ const WeatherWidget__WindSpeed: TextStyle = function (textProps)
         fontWeight: "bold",
         color: weatherWidgetContext.props.windData?.highlightColor === HighlightColor.Purple
             ? Color.Purple
-            : weatherWidgetContext.props.windData?.highlightColor === HighlightColor.Tomato
-                ? Color.Tomato
+            : weatherWidgetContext.props.windData?.highlightColor === HighlightColor.Red
+                ? Color.Red
                 : weatherWidgetContext.props.windData?.highlightColor === HighlightColor.Gold
                     ? Color.Gold
                     : weatherWidgetContext.props.windData?.highlightColor === HighlightColor.Blue
@@ -376,8 +376,8 @@ const WeatherWidget__SimpleWeatherData1__MainTitle: TextStyle = function (textPr
         fontWeight: "bold",
         color: simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Purple
             ? Color.Purple
-            : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Tomato
-                ? Color.Tomato
+            : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Red
+                ? Color.Red
                 : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Gold
                     ? Color.Gold
                     : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Blue
@@ -398,8 +398,8 @@ const WeatherWidget__SimpleWeatherData1__SubTitle: TextStyle = function (textPro
         fontStyle: "italic",
         color: simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Purple
             ? Color.Purple
-            : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Tomato
-                ? Color.Tomato
+            : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Red
+                ? Color.Red
                 : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Gold
                     ? Color.Gold
                     : simpleWeatherDataContext.props.highlightColor === SimpleWeatherData.HighlightColor.Blue
@@ -529,8 +529,8 @@ const WeatherWidget__TimeFrameForecastData__TemperatureValue: TextStyle = functi
         fontWeight: "bold",
         color: temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Purple
             ? Color.Purple
-            : temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Tomato
-                ? Color.Tomato
+            : temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Red
+                ? Color.Red
                 : temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Gold
                     ? Color.Gold
                     : temperatureRangeForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
@@ -576,8 +576,8 @@ const WeatherWidget__TimeFrameForecastData__PrecipitationProbabilityValue: TextS
         fontWeight: "bold",
         color: precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Purple
             ? Color.Purple
-            : precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Tomato
-                ? Color.Tomato
+            : precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Red
+                ? Color.Red
                 : precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Gold
                     ? Color.Gold
                     : precipitationProbabilityForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue
@@ -622,8 +622,8 @@ const WeatherWidget__TimeFrameForecastData__AirQualityIndexValue: TextStyle = fu
         fontWeight: "bold",
         color: airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Purple
             ? Color.Purple
-            : airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Tomato
-                ? Color.Tomato
+            : airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Red
+                ? Color.Red
                 : airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Gold
                     ? Color.Gold
                     : airQualityIndexForecastData.highlightColor === TimeFrameForecastData.HighlightColor.Blue

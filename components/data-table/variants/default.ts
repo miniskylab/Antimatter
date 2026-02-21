@@ -117,7 +117,7 @@ const DataTable__Button1__Icon: IconStyle = function (iconProps)
         color: Color.Neutral,
         ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Blue},
         ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Blue},
-        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Tomato},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Red},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
@@ -143,7 +143,7 @@ const DataTable__Button1__Label: TextStyle = function (textProps)
         color: Color.Neutral,
         ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Blue},
         ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Blue},
-        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Tomato},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Red},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
@@ -176,7 +176,7 @@ const DataTable__Button2__Icon: IconStyle = function (iconProps)
         ...DataTable__Button1__Icon(iconProps),
         ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Blue__a65},
         ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Blue},
-        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Tomato},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Red},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
@@ -191,7 +191,7 @@ const DataTable__Button2__Label: TextStyle = function (textProps)
         ...DataTable__Button1__Label(textProps),
         ...dataTableContext.props.mode === Row.Mode.Draft && {color: Color.Blue__a65},
         ...dataTableContext.props.mode === Row.Mode.Edit && {color: Color.Blue},
-        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Tomato},
+        ...dataTableContext.props.mode === Row.Mode.Delete && {color: Color.Red},
         ...pressableContext.state.hovered && {color: Color.White},
         ...pressableContext.state.pressed && {color: Color.Gray}
     };
@@ -288,8 +288,8 @@ const DataTable__DataRow__Root: PressableStyle = function (pressableProps, press
             borderColor: Color.Blue
         },
         ...rowContext.props.mode === Row.Mode.Delete && {
-            backgroundColor: Color.Tomato__a10,
-            borderColor: Color.Tomato
+            backgroundColor: Color.Red__a10,
+            borderColor: Color.Red
         }
     };
 };

@@ -289,7 +289,7 @@ const TransactionTable__Summary__Indicator__Icon: IconStyle = function (iconProp
         height: 25,
         paddingTop: 6,
         fontSize: 16,
-        color: Color.Tomato
+        color: Color.Red
     };
 };
 
@@ -300,7 +300,7 @@ const TransactionTable__Summary__Indicator__Label: TextStyle = function (textPro
         height: 20,
         fontSize: 15,
         fontWeight: "bold",
-        color: Color.Tomato
+        color: Color.Red
     };
 };
 
@@ -553,7 +553,7 @@ const TransactionTable__TransactionList__Button1__Icon: IconStyle = function (ic
                 : isDraftMode || isEditMode
                     ? Color.Blue
                     : isDeleteMode
-                        ? Color.Tomato
+                        ? Color.Red
                         : Color.Neutral
     };
 };
@@ -582,7 +582,7 @@ const TransactionTable__TransactionList__Button1__Label: TextStyle = function (t
                 : isDraftMode || isEditMode
                     ? Color.Blue
                     : isDeleteMode
-                        ? Color.Tomato
+                        ? Color.Red
                         : Color.Neutral
     };
 };
@@ -651,7 +651,7 @@ const TransactionTable__TransactionList__Button2__Icon: IconStyle = function (ic
                     : isEditMode
                         ? Color.Blue
                         : isDeleteMode
-                            ? Color.Tomato
+                            ? Color.Red
                             : Color.Neutral
     };
 };
@@ -683,7 +683,7 @@ const TransactionTable__TransactionList__Button2__Label: TextStyle = function (t
                     : isEditMode
                         ? Color.Blue
                         : isDeleteMode
-                            ? Color.Tomato
+                            ? Color.Red
                             : Color.Neutral
     };
 };
@@ -803,8 +803,8 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
                 borderColor: Color.Blue,
                 backgroundColor: Color.Blue__a10,
                 ...transactionTableContext.props.mode === TransactionRecord.Mode.Delete && {
-                    borderColor: Color.Tomato,
-                    backgroundColor: Color.Tomato__a10
+                    borderColor: Color.Red,
+                    backgroundColor: Color.Red__a10
                 }
             },
             ...transactionRecordContext.props.isToBeDeleted && {

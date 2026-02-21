@@ -51,7 +51,7 @@ const TodoList__DataList__Button1__Icon: IconStyle = function (iconProps)
                         : isDraftMode || isEditMode
                             ? Color.Blue
                             : isDeleteMode
-                                ? Color.Tomato
+                                ? Color.Red
                                 : Color.Neutral
     };
 };
@@ -86,7 +86,7 @@ const TodoList__DataList__Button1__Label: TextStyle = function (textProps)
                         : isDraftMode || isEditMode
                             ? Color.Blue
                             : isDeleteMode
-                                ? Color.Tomato
+                                ? Color.Red
                                 : Color.Neutral
     };
 };
@@ -163,7 +163,7 @@ const TodoList__DataList__Button2__Icon: IconStyle = function (iconProps)
                     : isEditMode
                         ? Color.Blue
                         : isDeleteMode
-                            ? Color.Tomato
+                            ? Color.Red
                             : Color.Neutral
     };
 };
@@ -197,7 +197,7 @@ const TodoList__DataList__Button2__Label: TextStyle = function (textProps)
                     : isEditMode
                         ? Color.Blue
                         : isDeleteMode
-                            ? Color.Tomato
+                            ? Color.Red
                             : Color.Neutral
     };
 };
@@ -343,8 +343,8 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
             },
             ...reminderContext.props.mode === Reminder.Mode.Delete && {
                 zIndex: Layer.Higher,
-                borderColor: Color.Tomato,
-                backgroundColor: Color.Tomato__a10
+                borderColor: Color.Red,
+                backgroundColor: Color.Red__a10
             },
             ...reminderContext.props.isToBeDeleted && {
                 paddingTop: 0,
@@ -383,7 +383,7 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
                 : reminderContext.extra.isPrioritized
                     ? Color.Blue
                     : reminderContext.extra.isOverdue
-                        ? Color.Coral
+                        ? Color.Pink
                         : reminderContext.extra.isDue
                             ? Color.Gold
                             : Color.Neutral
@@ -443,7 +443,7 @@ const TodoList__Reminder__NameInputField__TextBox: TextInputStyle = function (te
         paddingRight: 0,
         fontSize: 18,
         fontWeight: "bold",
-        color: isHighlighted ? Color.Coral : Color.Neutral,
+        color: isHighlighted ? Color.Pink : Color.Neutral,
         animations: undefined
     };
 };
@@ -494,7 +494,7 @@ const TodoList__Reminder__NameText: TextStyle = function (textProps)
         marginTop: -1,
         fontSize: 18,
         fontWeight: "bold",
-        color: isHighlighted ? Color.Coral : Color.Neutral
+        color: isHighlighted ? Color.Pink : Color.Neutral
     };
 };
 
@@ -555,7 +555,7 @@ const TodoList__Reminder__DueDurationIcon: IconStyle = function (iconProps)
         ...TodoList__Reminder__DueDateIcon(iconProps),
         fontSize: 15,
         color: isOverdue
-            ? Color.Coral
+            ? Color.Pink
             : isDue
                 ? Color.Gold
                 : Color.Neutral
@@ -569,7 +569,7 @@ const TodoList__Reminder__DueDuration: TextStyle = function (textProps)
     return {
         ...TodoList__Reminder__DueDate(textProps),
         color: reminderContext.extra.isOverdue
-            ? Color.Coral
+            ? Color.Pink
             : reminderContext.extra.isDue
                 ? Color.Gold
                 : Color.Neutral
@@ -648,11 +648,11 @@ const TodoList__Reminder__TagSelector__MenuItem__Root: PressableStyle = function
         marginBottom: 0,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: isHighlighted ? Color.Coral : Color.Neutral,
+        borderColor: isHighlighted ? Color.Pink : Color.Neutral,
         backgroundColor: menuItem?.status === MenuItemStatus.Selected || pressableState.pressed
-            ? isHighlighted ? Color.Coral : Color.Neutral
+            ? isHighlighted ? Color.Pink : Color.Neutral
             : pressableState.hovered
-                ? isHighlighted ? Color.Coral__a10 : Color.Neutral__a10
+                ? isHighlighted ? Color.Pink__a10 : Color.Neutral__a10
                 : Color.Transparent
     };
 };
@@ -680,7 +680,7 @@ const TodoList__Reminder__TagSelector__MenuItem__Label: TextStyle = function (te
             : pressableContext.state.hovered
                 ? Color.White
                 : isHighlighted
-                    ? Color.Coral
+                    ? Color.Pink
                     : Color.Neutral
     };
 };
@@ -754,10 +754,10 @@ const TodoList__Reminder__Tag: TextStyle = function (textProps)
         marginRight: 5,
         borderWidth: 1,
         borderStyle: "solid",
-        borderColor: isHighlighted ? Color.Coral : Color.Neutral,
+        borderColor: isHighlighted ? Color.Pink : Color.Neutral,
         fontSize: 12,
         color: Color.Background,
-        backgroundColor: isHighlighted ? Color.Coral : Color.Neutral
+        backgroundColor: isHighlighted ? Color.Pink : Color.Neutral
     };
 };
 
@@ -1100,7 +1100,7 @@ const TodoList__Reminder__SilenceToggle__Icon: IconStyle = function (iconProps)
         display: "flex",
         fontSize: 24,
         color: toggleContext.props.status === Status.Checked || pressableContext.state.pressed
-            ? Color.Tomato
+            ? Color.Red
             : pressableContext.state.hovered
                 ? Color.White
                 : Color.Neutral

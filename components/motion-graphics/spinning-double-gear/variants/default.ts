@@ -38,7 +38,7 @@ const SpinningDoubleGear__Gear2: IconStyle = function (iconProps)
         ...SpinningDoubleGear__Gear1(iconProps),
         top: 21,
         left: 21,
-        color: Color.Tomato
+        color: Color.Red
     };
 };
 

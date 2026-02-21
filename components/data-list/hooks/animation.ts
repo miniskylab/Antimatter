@@ -149,7 +149,7 @@ export function useElasticHeightAnimation(
     const animatedHeight = useRef(new Animated.Value(pxInitialHeight)).current;
     const interpolatedBackgroundColor = animatedColor.interpolate({
         inputRange: [0, 1, 2],
-        outputRange: [Color.Transparent, Color.Tomato, Color.Transparent]
+        outputRange: [Color.Transparent, Color.Red, Color.Transparent]
     });
 
     useEffect(() => () =>

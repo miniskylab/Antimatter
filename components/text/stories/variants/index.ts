@@ -5,7 +5,7 @@ export * from "./italic";
 export * from "./large";
 export * from "./line-through";
 export * from "./medium";
-export * from "./tomato-badge";
+export * from "./red-badge";
 export * from "./outlined-badge";
 export * from "./outlined-rectangular-badge";
 export * from "./green-badge";

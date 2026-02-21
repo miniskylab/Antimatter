@@ -6,7 +6,7 @@ export const LineThrough: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
-        color: Color.Tomato,
+        color: Color.Red,
         fontSize: 20,
         textDecorationLine: "line-through"
     };

@@ -51,14 +51,14 @@ export const Styles: Story = {
                 onPress={() => alert("Cta")}
             />
             <Button
-                label={"Tomato"}
+                label={"Red"}
                 icon={DefaultIconSet.NoMic}
-                style={Variant.OutlinedRectangularTomato}
-                onPress={() => alert("Tomato")}
+                style={Variant.OutlinedRectangularRed}
+                onPress={() => alert("Red")}
             />
             <Button
                 icon={DefaultIconSet.Location}
-                style={Variant.OutlinedCircularCoral}
+                style={Variant.OutlinedCircularPink}
                 onPress={() => alert("Circular")}
             />
         </>
@@ -109,13 +109,13 @@ export const Disabled: Story = {
     render: () => (
         <>
             <Button
-                label={"Blue"}
+                label={"Disabled"}
                 icon={DefaultIconSet.Sun}
                 style={Variant.SolidRectangular}
                 disabled={true}
             />
             <Button
-                label={"Blue"}
+                label={"Disabled"}
                 style={Variant.OutlinedRectangular}
                 disabled={true}
             />
