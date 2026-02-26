@@ -11,6 +11,6 @@
     "@storybook/addon-links": "10.1.11",
     "@storybook/cli": "10.1.11",
     "@storybook/react-webpack5": "10.1.11",
-    "storybook": "10.1.11"
+    "storybook": "10.2.10"
   }
 }
