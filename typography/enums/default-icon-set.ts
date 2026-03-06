@@ -80,6 +80,7 @@ export enum DefaultIconSet
     Previous = "previous",
     Next = "next",
     Shuffle = "shuffle",
+    RepeatOne = "repeat-one",
     RepeatAll = "repeat-all",
     Playlist = "playlist",
     Bell = "bell",

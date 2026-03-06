@@ -200,7 +200,7 @@ const MusicPlayer__RepeatModeButton__Icon: IconStyle = function (iconProps)
 
     return {
         ...MusicPlayer__ShuffleButton__Icon(iconProps),
-        fontSize: 32,
+        fontSize: musicPlayerContext.props.repeatMode === RepeatMode.One ? 23 : 32,
         color: pressableContext.state.pressed
             ? Color.White
             : musicPlayerContext.props.repeatMode !== RepeatMode.None
