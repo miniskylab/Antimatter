@@ -420,6 +420,11 @@ export const StateMachine = new class
         if (Number.isFinite(this._playingSongIndex))
         {
             const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
+            if (this._repeatMode === RepeatMode.One && playingSongUri === songUri)
+            {
+                this._repeatMode = RepeatMode.All;
+            }
+
             this.clearPlayQueueStartingFrom(this._playingSongIndex);
             this._playQueue.push(...this.getUpcomingSongUris(playingSongUri));
         }

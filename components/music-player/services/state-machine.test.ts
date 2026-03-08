@@ -1727,12 +1727,12 @@ test("navigating backward when playlist has only 1 song and repeat mode is 'One'
                 });
                 StateMachine.setRepeatMode(RepeatMode.One);
                 StateMachine.setIsShuffleEnabled(isShuffleEnabled);
-                StateMachine.playSongNamed("Song 3");
-                StateMachine.setPlaybackProgress(secPlaybackProgress);
-                StateMachine.setBackSkipRestartThreshold(10);
                 StateMachine.setSongExclusionStatus("Song 1", true);
                 StateMachine.setSongExclusionStatus("Song 2", true);
                 StateMachine.setSongExclusionStatus("Song 4", true);
+                StateMachine.setBackSkipRestartThreshold(10);
+                StateMachine.playSongNamed("Song 3");
+                StateMachine.setPlaybackProgress(secPlaybackProgress);
                 StateMachine.setIsPlaying(isPlaying);
 
                 // Act & Assert
@@ -2119,6 +2119,63 @@ test("excluding playing song while seeker position is being set works correctly"
     expect(StateMachine.getState().secPlaybackProgress).toBe(30);
     expect(StateMachine.getState().secSeekerPosition).toBeUndefined();
     expect(StateMachine.getState().isPlaying).toBe(true);
+});
+
+test("excluding non-playing songs while repeat mode is 'One' preserves repeat mode", () =>
+{
+    [false, true].forEach(isPlaying =>
+    {
+        [false, true].forEach(isShuffleEnabled =>
+        {
+            // Arrange
+            StateMachine.resetState({
+                indexedTracklist: {
+                    "song-1": {songName: "Song 1", secSongDuration: 74},
+                    "song-2": {songName: "Song 2", secSongDuration: 86},
+                    "song-3": {songName: "Song 3", secSongDuration: 149},
+                    "song-4": {songName: "Song 4", secSongDuration: 264}
+                }
+            });
+            StateMachine.setRepeatMode(RepeatMode.One);
+            StateMachine.setIsShuffleEnabled(isShuffleEnabled);
+            StateMachine.playSongNamed("Song 2");
+            StateMachine.setSeekerPosition(30);
+            StateMachine.setIsPlaying(isPlaying);
+
+            // Act & Assert
+            StateMachine.setSongExclusionStatus("Song 1", true);
+            StateMachine.setSongExclusionStatus("Song 3", true);
+            expect(StateMachine.getState().repeatMode).toBe(RepeatMode.One);
+        });
+    });
+});
+
+test("excluding playing song while repeat mode is 'One' sets repeat mode to 'All'", () =>
+{
+    [false, true].forEach(isPlaying =>
+    {
+        [false, true].forEach(isShuffleEnabled =>
+        {
+            // Arrange
+            StateMachine.resetState({
+                indexedTracklist: {
+                    "song-1": {songName: "Song 1", secSongDuration: 74},
+                    "song-2": {songName: "Song 2", secSongDuration: 86},
+                    "song-3": {songName: "Song 3", secSongDuration: 149},
+                    "song-4": {songName: "Song 4", secSongDuration: 264}
+                }
+            });
+            StateMachine.setRepeatMode(RepeatMode.One);
+            StateMachine.setIsShuffleEnabled(isShuffleEnabled);
+            StateMachine.playSongNamed("Song 2");
+            StateMachine.setSeekerPosition(30);
+            StateMachine.setIsPlaying(isPlaying);
+
+            // Act & Assert
+            StateMachine.setSongExclusionStatus("Song 2", true);
+            expect(StateMachine.getState().repeatMode).toBe(RepeatMode.All);
+        });
+    });
 });
 
 test("invoking actions when playback is paused works correctly", () =>

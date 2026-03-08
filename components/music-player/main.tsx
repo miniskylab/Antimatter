@@ -73,7 +73,11 @@ export function MusicPlayer({
                         onPress={onPlayPauseButtonPress}
                     />
                     <Button style={computedStyle.PlayNextButton} icon={DefaultIconSet.Next} onPress={onPlayNext}/>
-                    <Button style={computedStyle.RepeatModeButton} icon={DefaultIconSet.RepeatAll} onPress={changeRepeatMode}/>
+                    <Button
+                        style={computedStyle.RepeatModeButton}
+                        icon={repeatMode === RepeatMode.One ? DefaultIconSet.RepeatOne : DefaultIconSet.RepeatAll}
+                        onPress={changeRepeatMode}
+                    />
                     <Button
                         style={computedStyle.PlaylistButton}
                         icon={DefaultIconSet.Playlist}
