@@ -1,5 +1,12 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    EMPTY_STRING,
+    isNullOrUndefined,
+    Ts,
+    useComponentContext,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";
@@ -76,7 +83,7 @@ export function MusicPlayer({
                     <Button
                         style={computedStyle.RepeatModeButton}
                         icon={repeatMode === RepeatMode.One ? DefaultIconSet.RepeatOne : DefaultIconSet.RepeatAll}
-                        onPress={changeRepeatMode}
+                        onPress={() => changeRepeatMode(selectedSong)}
                     />
                     <Button
                         style={computedStyle.PlaylistButton}
@@ -111,7 +118,7 @@ export function MusicPlayer({
         return selectedSongName === song.songName;
     }
 
-    function changeRepeatMode(): void
+    function changeRepeatMode(song: SongRow.SongData | undefined): void
     {
         switch (repeatMode)
         {
@@ -120,7 +127,7 @@ export function MusicPlayer({
                 return;
 
             case RepeatMode.All:
-                onRepeatModeChange?.(RepeatMode.One);
+                onRepeatModeChange?.(isNullOrUndefined(song) || song.isExcludedFromActivePlaylist ? RepeatMode.None : RepeatMode.One);
                 return;
 
             case RepeatMode.One:
