@@ -1792,7 +1792,7 @@ test("when a song ends it will be replayed if repeat mode is 'One'", () =>
         // Act & Assert
         StateMachine.onSongEnd();
         expect(StateMachine.getState().secPlaybackProgress).toBeUndefined();
-        expect(StateMachine.getState().secSeekerPosition).toBeUndefined();
+        expect(StateMachine.getState().secSeekerPosition).toBe(0);
         expect(StateMachine.getState().playingSongIndex).toBe(0);
         expect(StateMachine.getState().isPlaying).toBe(true);
     });

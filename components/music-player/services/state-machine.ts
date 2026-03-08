@@ -261,7 +261,7 @@ export const StateMachine = new class
         if (this._repeatMode === RepeatMode.One)
         {
             this._secPlaybackProgress = undefined;
-            this._secSeekerPosition = undefined;
+            this._secSeekerPosition = 0;
             return;
         }
 
