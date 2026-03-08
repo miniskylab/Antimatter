@@ -257,15 +257,18 @@ export const TodoList = forwardRef(function TodoList(
             return statusScoreComparisonResult;
         }
 
-        if (reminderA.recurrencePattern === "!") return -1;
-        if (reminderB.recurrencePattern === "!") return 1;
-
-        const dueDurationA = Reminder.Service.getDueDuration(today, reminderA.dueDate);
-        const dueDurationB = Reminder.Service.getDueDuration(today, reminderB.dueDate);
-        const dueDateComparisonResult = (dueDurationA ?? MAX_NUMBER) - (dueDurationB ?? MAX_NUMBER);
-        if (dueDateComparisonResult !== 0)
+        if (reminderA.recurrencePattern !== "!" || reminderB.recurrencePattern !== "!")
         {
-            return dueDateComparisonResult;
+            if (reminderA.recurrencePattern === "!") return -1;
+            if (reminderB.recurrencePattern === "!") return 1;
+
+            const dueDurationA = Reminder.Service.getDueDuration(today, reminderA.dueDate);
+            const dueDurationB = Reminder.Service.getDueDuration(today, reminderB.dueDate);
+            const dueDateComparisonResult = (dueDurationA ?? MAX_NUMBER) - (dueDurationB ?? MAX_NUMBER);
+            if (dueDateComparisonResult !== 0)
+            {
+                return dueDateComparisonResult;
+            }
         }
 
         return isNotNullAndUndefined(reminderA.createdDate) && isNotNullAndUndefined(reminderB.createdDate)
