@@ -116,6 +116,10 @@ export function MusicPlayer({
                 return;
 
             case RepeatMode.All:
+                onRepeatModeChange?.(RepeatMode.One);
+                return;
+
+            case RepeatMode.One:
                 onRepeatModeChange?.(RepeatMode.None);
                 return;
 

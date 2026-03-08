@@ -109,6 +109,7 @@ export const StateMachine = new class
         const toBePlayedSongIndex = this.searchPlayQueueForTheFirstNonExcludedNonDuplicateSongIndex(this._playingSongIndex);
         if (isNotNullAndUndefined(toBePlayedSongIndex) && toBePlayedSongIndex < this._playQueue.length)
         {
+            this._repeatMode = this._repeatMode === RepeatMode.One ? RepeatMode.All : this._repeatMode;
             this._playingSongIndex = toBePlayedSongIndex;
             this._secPlaybackProgress = undefined;
             this._secSeekerPosition = undefined;
@@ -139,6 +140,7 @@ export const StateMachine = new class
                     const toBePlayedTrackIndex = this.searchTracklistForTheFirstNonExcludedTrackIndex(playingTrackIndex);
                     if (isNotNullAndUndefined(toBePlayedTrackIndex))
                     {
+                        this._repeatMode = this._repeatMode === RepeatMode.One ? RepeatMode.All : this._repeatMode;
                         this._playQueue.push(trackUris[toBePlayedTrackIndex]);
                         this._secPlaybackProgress = undefined;
                         this._secSeekerPosition = undefined;
@@ -213,6 +215,7 @@ export const StateMachine = new class
 
             if (isNotNullAndUndefined(firstNonExcludedNonDuplicateSongIndex))
             {
+                this._repeatMode = this._repeatMode === RepeatMode.One ? RepeatMode.All : this._repeatMode;
                 this._playingSongIndex = firstNonExcludedNonDuplicateSongIndex;
                 this._secPlaybackProgress = undefined;
                 this._secSeekerPosition = undefined;
@@ -238,6 +241,7 @@ export const StateMachine = new class
                 {
                     this._playQueue.push(toBePlayedTrackUri);
                     this._playingSongIndex = this._playQueue.length - 1;
+                    this._repeatMode = this._repeatMode === RepeatMode.One ? RepeatMode.All : this._repeatMode;
                     this._secPlaybackProgress = undefined;
                     this._secSeekerPosition = undefined;
                     this._isPlaying = true;
@@ -250,6 +254,18 @@ export const StateMachine = new class
         this._secPlaybackProgress = undefined;
         this._secSeekerPosition = 0;
         this._isPlaying = false;
+    }
+
+    onSongEnd()
+    {
+        if (this._repeatMode === RepeatMode.One)
+        {
+            this._secPlaybackProgress = undefined;
+            this._secSeekerPosition = undefined;
+            return;
+        }
+
+        this.playNext();
     }
 
     setIndexedTracklist(indexedTracklist: Record<string, SongRow.SongData>)
