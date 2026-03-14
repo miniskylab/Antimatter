@@ -200,12 +200,14 @@ const MusicPlayer__RepeatModeButton__Icon: IconStyle = function (iconProps)
 
     return {
         ...MusicPlayer__ShuffleButton__Icon(iconProps),
-        fontSize: musicPlayerContext.props.repeatMode === RepeatMode.One ? 23 : 32,
+        fontSize: 32,
         color: pressableContext.state.pressed
             ? Color.White
-            : musicPlayerContext.props.repeatMode !== RepeatMode.None
-                ? Color.Blue
-                : Color.Neutral
+            : musicPlayerContext.props.repeatMode === RepeatMode.One
+                ? Color.Gold
+                : musicPlayerContext.props.repeatMode === RepeatMode.All
+                    ? Color.Blue
+                    : Color.Neutral
     };
 };
 
