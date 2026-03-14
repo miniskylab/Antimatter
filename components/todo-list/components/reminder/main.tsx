@@ -144,7 +144,9 @@ export const Component = forwardRef(function Component(
                     : isOverdue
                         ? DefaultIconSet.ExclamationMarkInsideCircle
                         : isDue
-                            ? DefaultIconSet.Alarm
+                            ? isSilenced
+                                ? DefaultIconSet.Flag
+                                : DefaultIconSet.Alarm
                             : isNullOrUndefined(dueDuration)
                                 ? DefaultIconSet.Origin
                                 : DefaultIconSet.Future;
