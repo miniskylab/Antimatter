@@ -153,7 +153,7 @@ const MusicPlayer__PlayPreviousButton__Icon: IconStyle = function (iconProps)
 
     return {
         ...MusicPlayer__ShuffleButton__Icon(iconProps),
-        fontSize: 20,
+        fontSize: 30,
         color: pressableContext.state.pressed
             ? Color.Blue
             : pressableContext.state.hovered
@@ -170,19 +170,10 @@ const MusicPlayer__PlayPreviousButton: ButtonStyle = function (buttonProps)
     };
 };
 
-const MusicPlayer__PlayPauseButton__Icon: IconStyle = function (iconProps)
-{
-    return {
-        ...MusicPlayer__PlayPreviousButton__Icon(iconProps),
-        fontSize: 30
-    };
-};
-
 const MusicPlayer__PlayPauseButton: ButtonStyle = function (buttonProps)
 {
     return {
-        ...MusicPlayer__PlayPreviousButton(buttonProps),
-        Icon: MusicPlayer__PlayPauseButton__Icon
+        ...MusicPlayer__PlayPreviousButton(buttonProps)
     };
 };
 
