@@ -9,6 +9,6 @@
     "reflect-metadata": "0.2.2"
   },
   "devDependencies": {
-    "expo-screen-orientation": "55.0.9"
+    "expo-screen-orientation": "55.0.11"
   }
 }
