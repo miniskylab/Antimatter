@@ -3,6 +3,6 @@
   "version": "0.0.0",
   "license": "MIT",
   "dependencies": {
-    "expo-font": "55.0.4"
+    "expo-font": "55.0.6"
   }
 }

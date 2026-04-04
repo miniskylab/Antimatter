@@ -2,11 +2,12 @@
   "$schema": "https://json.schemastore.org/tsconfig",
   "display": "MiniSkyLab",
   "compilerOptions": {
+    "jsx": "react",
     "module": "ESNext",
     "target": "ESNext",
-    "lib": ["DOM", "ESNext"],
     "moduleResolution": "bundler",
-    "jsx": "react",
+    "lib": ["DOM", "ESNext"],
+    "types": ["miniskylab"],
     "sourceMap": true,
     "removeComments": true,
     "noImplicitAny": true,
@@ -19,6 +20,7 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "strictNullChecks": true,
-    "allowJs": false
+    "allowJs": false,
+    "strict": false
   }
 }
