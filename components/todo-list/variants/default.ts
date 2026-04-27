@@ -381,7 +381,7 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
             : isCompleted
                 ? Color.Green
                 : reminderContext.extra.isPrioritized
-                    ? Color.Blue
+                    ? Color.Red
                     : reminderContext.extra.isOverdue
                         ? Color.Pink
                         : reminderContext.extra.isDue
@@ -516,7 +516,7 @@ const TodoList__Reminder__DueDateIcon: IconStyle = function (iconProps)
             : isCompleted
                 ? Color.Green
                 : reminderContext.extra.isPrioritized
-                    ? Color.Blue
+                    ? Color.Red
                     : Color.Neutral
     };
 };
@@ -539,7 +539,7 @@ const TodoList__Reminder__DueDate: TextStyle = function (textProps)
             : isCompleted
                 ? Color.Green
                 : reminderContext.extra.isPrioritized
-                    ? Color.Blue
+                    ? Color.Red
                     : Color.Neutral
     };
 };
