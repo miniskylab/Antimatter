@@ -379,7 +379,8 @@ const Timeline__EventPlaceholder: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         flexGrow: 1,
-        flexBasis: "34%"
+        flexBasis: "34%",
+        maxHeight: 0
     };
 };
 

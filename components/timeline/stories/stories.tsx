@@ -89,25 +89,25 @@ export const Playground: Story = {
                 Etiam velit tellus, feugiat vel sollicitudin eget
                 <div style="${TestData.HtmlStyles.bootstrapEventContainer}">
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img alt="" style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img alt="" style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img alt="" style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img alt="" style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img alt="" style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img alt="" style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                     <a href="${StaticAsset.PlaceholderImage}">
-                        <img style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
+                        <img alt="" style="${TestData.HtmlStyles.bootstrapEventImage}" src="${StaticAsset.PlaceholderImage}"/>
                     </a>
                 </div>
             `
