@@ -33,7 +33,7 @@ export class TransactionTableProps extends ComponentProps<TransactionTableStyle>
 
 
     /**
-     * Specify the selected date. The transaction table might contain many transactions but only transactions in the selected date will be
+     * Specify the selected date. The transaction table might contain many transactions, but only transactions in the selected date will be
      * displayed and can be modified or deleted. Newly added transactions will automatically belong to the selected date.
      */
     @IsDate()

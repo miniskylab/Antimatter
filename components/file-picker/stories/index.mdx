@@ -1,0 +1,12 @@
+import {Canvas, Meta, ArgTypes} from "@storybook/addon-docs/blocks";
+import {Sb} from "@miniskylab/antimatter-storybook";
+import {FilePicker} from "../main";
+import {FilePickerProps} from "../models";
+import * as Stories from "./stories";
+
+<Meta of={Stories} name="Docs"/>
+<Sb.Intro of={FilePicker} propsType={FilePickerProps} supportedPlatforms={["iOS", "Android", "Web"]}/>
+<Canvas of={Stories.Playground} sourceState={"none"}/>
+
+### Props table
+<ArgTypes of={Stories.Playground}/>
