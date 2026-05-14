@@ -31,7 +31,7 @@ export function FilePicker({
     return (
         <FilePickerContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                <Text style={computedStyle.Description}>{description}</Text>
+                {description && <Text style={computedStyle.Description}>{description}</Text>}
                 <View style={computedStyle.ControlPanel}>
                     {/*<Button style={computedStyle.SelectFileButton} icon={DefaultIconSet.PlusCircle} onPress={() => {  }}/>*/}
                 </View>
@@ -72,7 +72,7 @@ export function FilePicker({
                         subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
                     />
                 </ScrollView>
-                <Text style={computedStyle.Footnote}>{footnote}</Text>
+                {footnote && <Text style={computedStyle.Footnote}>{footnote}</Text>}
             </View>
         </FilePickerContext.Provider>
     );
