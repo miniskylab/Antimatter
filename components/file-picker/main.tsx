@@ -1,9 +1,9 @@
-import {Button} from "@miniskylab/antimatter-button";
 import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";
-import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
+import {FileRow} from "./components";
 import {FilePickerContext, FilePickerProps} from "./models";
 import * as Variant from "./variants";
 
@@ -32,7 +32,46 @@ export function FilePicker({
         <FilePickerContext.Provider value={context}>
             <View style={computedStyle.Root}>
                 <Text style={computedStyle.Description}>{description}</Text>
-                <Button style={computedStyle.SelectFileButton} icon={DefaultIconSet.PlusCircle} onPress={() => { alert("LEL"); }}/>
+                <View style={computedStyle.ControlPanel}>
+                    {/*<Button style={computedStyle.SelectFileButton} icon={DefaultIconSet.PlusCircle} onPress={() => {  }}/>*/}
+                </View>
+                <ScrollView
+                    style={computedStyle.FileList}
+                    showsVerticalScrollIndicator={false}
+                    showsHorizontalScrollIndicator={false}
+                    contentInsetAdjustmentBehavior={"scrollableAxes"}
+                >
+                    <FileRow.Component
+                        style={computedStyle.FileRow}
+                        title={"Lorem ipsum dolor sit amet"}
+                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                    />
+                    <FileRow.Component
+                        style={computedStyle.FileRow}
+                        title={"Lorem ipsum dolor sit amet"}
+                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                    />
+                    <FileRow.Component
+                        style={computedStyle.FileRow}
+                        title={"Lorem ipsum dolor sit amet"}
+                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                    />
+                    <FileRow.Component
+                        style={computedStyle.FileRow}
+                        title={"Lorem ipsum dolor sit amet"}
+                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                    />
+                    <FileRow.Component
+                        style={computedStyle.FileRow}
+                        title={"Lorem ipsum dolor sit amet"}
+                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                    />
+                    <FileRow.Component
+                        style={computedStyle.FileRow}
+                        title={"Lorem ipsum dolor sit amet"}
+                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                    />
+                </ScrollView>
                 <Text style={computedStyle.Footnote}>{footnote}</Text>
             </View>
         </FilePickerContext.Provider>

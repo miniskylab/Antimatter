@@ -24,10 +24,10 @@ export const Playground: Story = {
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
-        description: "Lorem ipsum dolor sit amet",
+        description: "Lorem ipsum dolor sit amet:",
         selectedFiles: [],
         maxSelectedFileCount: undefined,
-        footnote: "Aenean varius mi accumsan imperdiet tincidunt turpis velit scelerisque eros quis felis",
+        footnote: "Aenean varius mi accumsan imperdiet tincidunt turpis.",
         onSelectFile: () => { alert("Lorem ipsum dolor sit amet"); }
     },
     render: args => <FilePickerWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
