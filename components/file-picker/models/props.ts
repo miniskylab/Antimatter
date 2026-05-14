@@ -46,5 +46,5 @@ export class FilePickerProps extends ComponentProps<FilePickerStyle>
     /**
      * Specify the piece of code that will be executed when users select a file.
      */
-    readonly onSelectFile?: (selectedFilePath: string) => void;
+    readonly onSelectFile?: (pathToSelectedFile: string) => void;
 }
