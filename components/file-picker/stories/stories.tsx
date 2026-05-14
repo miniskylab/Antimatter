@@ -17,16 +17,16 @@ export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
         description: Sb.text(),
-        selectedFiles: Sb.locked,
-        maxSelectedFileCount: Sb.number(),
+        files: Sb.locked,
+        maxFileCount: Sb.number(),
         footnote: Sb.text(),
         onSelectFile: Sb.locked
     },
     args: {
         style: Sb.getVariantName(Variant, Variant.Default),
         description: "Lorem ipsum dolor sit amet:",
-        selectedFiles: [],
-        maxSelectedFileCount: undefined,
+        files: [],
+        maxFileCount: undefined,
         footnote: "Aenean varius mi accumsan imperdiet tincidunt turpis.",
         onSelectFile: () => { alert("Lorem ipsum dolor sit amet"); }
     },

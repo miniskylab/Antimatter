@@ -22,7 +22,7 @@ export class FilePickerProps extends ComponentProps<FilePickerStyle>
     @IsOptional()
     @ValidateNested({each: true})
     @Type(() => FileRow.Props)
-    readonly selectedFiles?: FileRow.FileData[];
+    readonly files?: FileRow.FileData[];
 
 
     /**
@@ -32,7 +32,7 @@ export class FilePickerProps extends ComponentProps<FilePickerStyle>
     @IsInteger()
     @IsNumber()
     @IsOptional()
-    readonly maxSelectedFileCount?: number;
+    readonly maxFileCount?: number;
 
 
     /**
