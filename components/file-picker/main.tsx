@@ -13,6 +13,7 @@ import * as Variant from "./variants";
 export function FilePicker({
     style = Variant.Default,
     description = EMPTY_STRING,
+    fileSelectionButton,
     files = [],
     maxFileCount,
     footnote = EMPTY_STRING,
@@ -20,7 +21,7 @@ export function FilePicker({
 }: FilePickerProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<FilePickerProps> = {
-        style, description, files, maxFileCount, footnote, onSelectFile
+        style, description, fileSelectionButton, files, maxFileCount, footnote, onSelectFile
     };
 
     const context = useComponentContext<FilePickerContext>({props});

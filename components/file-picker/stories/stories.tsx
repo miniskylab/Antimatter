@@ -1,5 +1,6 @@
 import {withValidation} from "@miniskylab/antimatter-framework";
 import {Sb} from "@miniskylab/antimatter-storybook";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import type {Meta, StoryObj} from "@storybook/react";
 import React from "react";
 import {FilePicker} from "../main";
@@ -8,7 +9,21 @@ import * as Variant from "../variants";
 
 export default {
     component: FilePicker,
-    title: "Components/File Picker"
+    title: "Components/File Picker",
+    render: (args: Required<FilePickerProps>) =>
+    {
+        return (
+            <FilePickerWithValidation
+                {...args}
+                key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
+                fileSelectionButton={{
+                    ...args.fileSelectionButton,
+                    icon: DefaultIconSet.Document,
+                    label: "Select File"
+                }}
+            />
+        );
+    }
 } satisfies Meta<typeof FilePicker>;
 type Story = StoryObj<typeof FilePicker>;
 
@@ -17,6 +32,7 @@ export const Playground: Story = {
     argTypes: {
         style: Sb.styleSelector(Variant),
         description: Sb.text(),
+        fileSelectionButton: Sb.locked,
         files: Sb.locked,
         maxFileCount: Sb.number(),
         footnote: Sb.text(),
@@ -29,6 +45,5 @@ export const Playground: Story = {
         maxFileCount: undefined,
         footnote: "Aenean varius mi accumsan imperdiet tincidunt turpis.",
         onSelectFile: () => { alert("Lorem ipsum dolor sit amet"); }
-    },
-    render: args => <FilePickerWithValidation {...args} key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}/>
+    }
 };

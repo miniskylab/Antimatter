@@ -1,6 +1,16 @@
-import {ComponentName, ComponentProps, IsArray, IsInteger, IsNumber, IsPositive, IsString} from "@miniskylab/antimatter-framework";
+import {
+    ComponentName,
+    ComponentProps,
+    IsArray,
+    IsDefined,
+    IsInteger,
+    IsNumber,
+    IsPositive,
+    IsString
+} from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
+import {FileSelectionButton} from "../classes";
 import {FileRow} from "../components";
 import {type FilePickerStyle} from "./style";
 
@@ -13,6 +23,15 @@ export class FilePickerProps extends ComponentProps<FilePickerStyle>
     @IsString()
     @IsOptional()
     readonly description?: string;
+
+
+    /**
+     * Specify the file selection button.
+     */
+    @IsDefined()
+    @ValidateNested()
+    @Type(() => FileSelectionButton)
+    readonly fileSelectionButton: FileSelectionButton;
 
 
     /**
