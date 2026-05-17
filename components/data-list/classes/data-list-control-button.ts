@@ -6,7 +6,7 @@ export class DataListControlButton
 {
     @IsString()
     @IsDefined()
-    readonly text: string;
+    readonly label: string;
 
 
     @IsEnum(DefaultIconSet)

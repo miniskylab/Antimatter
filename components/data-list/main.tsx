@@ -71,21 +71,21 @@ export function DataList({
                 <Button
                     style={computedStyle.Button1}
                     icon={button1.icon}
-                    label={button1.text}
+                    label={button1.label}
                     disabled={button1.disabled}
                     onPress={button1.onPress}
                 />
                 <Button
                     style={computedStyle.Button2}
                     icon={button2.icon}
-                    label={button2.text}
+                    label={button2.label}
                     disabled={button2.disabled}
                     onPress={button2.onPress}
                 />
                 <Button
                     style={computedStyle.Button3}
                     icon={button3.icon}
-                    label={button3.text}
+                    label={button3.label}
                     disabled={button3.disabled}
                     onPress={button3.onPress}
                 />

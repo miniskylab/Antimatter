@@ -2,7 +2,7 @@ import {type GestureResponderEventHandler} from "@miniskylab/antimatter-framewor
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 
 export type ControlButton = {
-    text?: string;
+    label?: string;
     icon?: DefaultIconSet;
     onPress?: GestureResponderEventHandler;
 }

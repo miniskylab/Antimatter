@@ -38,7 +38,7 @@ export const Playground: Story = {
             },
             {
                 text: `
-                    <img ${TestData.HtmlStyles.image} src="${StaticAsset.PlaceholderImage}"/>
+                    <img alt="" ${TestData.HtmlStyles.image} src="${StaticAsset.PlaceholderImage}"/>
                     <div ${TestData.HtmlStyles.title}>Nullam</div>
                     <p ${TestData.HtmlStyles.paragraph}>
                         Nullam tincidunt metus eros, ac pharetra ante porttitor nec. Praesent in sollicitudin risus. Vestibulum id mattis

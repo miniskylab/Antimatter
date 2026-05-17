@@ -58,7 +58,7 @@ export default {
                 dismissAllAlarmButton={{
                     ...args.dismissAllAlarmButton,
                     icon: DefaultIconSet.NoMic,
-                    text: "Dismiss All",
+                    label: "Dismiss All",
                     onPress: async () =>
                     {
                         const alarmedReminderIds = Object.keys(TestData.Reminders).filter(x => TestData.Reminders[x].isAlarmed);
@@ -107,7 +107,7 @@ export default {
                 saveAndDismissAlarmButton={{
                     ...args.saveAndDismissAlarmButton,
                     icon: DefaultIconSet.FloppyDisk,
-                    text: "Save & Dismiss",
+                    label: "Save & Dismiss",
                     onPress: async () =>
                     {
                         setArgs({
@@ -150,7 +150,7 @@ export default {
                 addNewReminderButton={{
                     ...args.addNewReminderButton,
                     icon: DefaultIconSet.PlusCircle,
-                    text: "Add New",
+                    label: "Add New",
                     onPress: () =>
                     {
                         setArgs({
@@ -174,7 +174,7 @@ export default {
                 saveReminderButton={{
                     ...args.saveReminderButton,
                     icon: DefaultIconSet.FloppyDisk,
-                    text: "Save",
+                    label: "Save",
                     onPress: async () =>
                     {
                         setArgs({
@@ -243,7 +243,7 @@ export default {
                 deleteReminderButton={{
                     ...args.deleteReminderButton,
                     icon: DefaultIconSet.TrashCan,
-                    text: "Delete",
+                    label: "Delete",
                     onPress: async () =>
                     {
                         setArgs({
@@ -276,7 +276,7 @@ export default {
                 cancelButton={{
                     ...args.cancelButton,
                     icon: DefaultIconSet.XMarkInsideCircle,
-                    text: "Cancel",
+                    label: "Cancel",
                     onPress: () =>
                     {
                         setArgs({
@@ -288,7 +288,7 @@ export default {
                 customButton={{
                     ...args.customButton,
                     icon: DefaultIconSet.Group,
-                    text: "Lorem Ipsum: 99",
+                    label: "Lorem Ipsum: 99",
                     onPress: () => { alert("Lorem Ipsum"); }
                 }}
                 onSwitchMode={newMode =>

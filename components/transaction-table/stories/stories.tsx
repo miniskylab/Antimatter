@@ -51,7 +51,7 @@ export default {
                 addNewTransactionButton={{
                     ...args.addNewTransactionButton,
                     icon: DefaultIconSet.PlusCircle,
-                    text: "Add New",
+                    label: "Add New",
                     onPress: () =>
                     {
                         const mode = TransactionRecord.Mode.Draft;
@@ -75,7 +75,7 @@ export default {
                 saveTransactionButton={{
                     ...args.saveTransactionButton,
                     icon: DefaultIconSet.FloppyDisk,
-                    text: "Save",
+                    label: "Save",
                     onPress: async () =>
                     {
                         setArgs({
@@ -132,7 +132,7 @@ export default {
                 deleteTransactionButton={{
                     ...args.deleteTransactionButton,
                     icon: DefaultIconSet.TrashCan,
-                    text: "Delete",
+                    label: "Delete",
                     onPress: async () =>
                     {
                         setArgs({
@@ -165,7 +165,7 @@ export default {
                 cancelButton={{
                     ...args.cancelButton,
                     icon: DefaultIconSet.XMarkInsideCircle,
-                    text: "Cancel",
+                    label: "Cancel",
                     onPress: () =>
                     {
                         const mode = TransactionRecord.Mode.ReadOnly;
@@ -179,7 +179,7 @@ export default {
                 customButton={{
                     ...args.customButton,
                     icon: DefaultIconSet.Group,
-                    text: "Lorem Ipsum: 99",
+                    label: "Lorem Ipsum: 99",
                     onPress: () => { alert("Lorem Ipsum"); }
                 }}
                 onSwitchMode={newMode =>

@@ -168,21 +168,21 @@ export const TransactionTable = forwardRef(function TransactionTable(
             case TransactionRecord.Mode.Draft:
                 return {
                     button1: {...saveTransactionButton},
-                    button2: {icon: DefaultIconSet.Quill, text: "Draft-Mode", disabled: true},
+                    button2: {icon: DefaultIconSet.Quill, label: "Draft-Mode", disabled: true},
                     button3: {...cancelButton}
                 };
 
             case TransactionRecord.Mode.Edit:
                 return {
                     button1: {...saveTransactionButton},
-                    button2: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
+                    button2: {icon: DefaultIconSet.Quill, label: "Edit-Mode", onPress: switchMode},
                     button3: {...cancelButton}
                 };
 
             case TransactionRecord.Mode.Delete:
                 return {
                     button1: {...deleteTransactionButton},
-                    button2: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
+                    button2: {icon: DefaultIconSet.Fire, label: "Delete-Mode", onPress: switchMode},
                     button3: {...cancelButton}
                 };
 
@@ -190,7 +190,7 @@ export const TransactionTable = forwardRef(function TransactionTable(
             case TransactionRecord.Mode.ReadOnly:
                 return {
                     button1: {...addNewTransactionButton},
-                    button2: {icon: DefaultIconSet.Eye, text: "Read-Only", disabled: true},
+                    button2: {icon: DefaultIconSet.Eye, label: "Read-Only", disabled: true},
                     button3: customButton ? {...customButton} : {...cancelButton, disabled: true}
                 };
         }

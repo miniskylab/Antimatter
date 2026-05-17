@@ -158,35 +158,35 @@ export const TodoList = forwardRef(function TodoList(
             case Reminder.Mode.Alarm:
                 return {
                     button1: {...dismissAllAlarmButton},
-                    button2: {icon: DefaultIconSet.Alarm, text: "Alarm-Mode", disabled: true},
+                    button2: {icon: DefaultIconSet.Alarm, label: "Alarm-Mode", disabled: true},
                     button3: {...cancelButton, disabled: true}
                 };
 
             case Reminder.Mode.Draft:
                 return {
                     button1: {...saveReminderButton},
-                    button2: {icon: DefaultIconSet.Quill, text: "Draft-Mode", disabled: true},
+                    button2: {icon: DefaultIconSet.Quill, label: "Draft-Mode", disabled: true},
                     button3: {...cancelButton}
                 };
 
             case Reminder.Mode.Edit:
                 return {
                     button1: {...saveReminderButton},
-                    button2: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
+                    button2: {icon: DefaultIconSet.Quill, label: "Edit-Mode", onPress: switchMode},
                     button3: {...cancelButton}
                 };
 
             case Reminder.Mode.Delete:
                 return {
                     button1: {...deleteReminderButton},
-                    button2: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
+                    button2: {icon: DefaultIconSet.Fire, label: "Delete-Mode", onPress: switchMode},
                     button3: {...cancelButton}
                 };
 
             case Reminder.Mode.Dismiss:
                 return {
                     button1: {...saveAndDismissAlarmButton},
-                    button2: {icon: DefaultIconSet.NoMic, text: "Dismiss-Mode", disabled: true},
+                    button2: {icon: DefaultIconSet.NoMic, label: "Dismiss-Mode", disabled: true},
                     button3: {...cancelButton}
                 };
 
@@ -194,7 +194,7 @@ export const TodoList = forwardRef(function TodoList(
             case Reminder.Mode.ReadOnly:
                 return {
                     button1: {...addNewReminderButton},
-                    button2: {icon: DefaultIconSet.Eye, text: "Read-Only", disabled: true},
+                    button2: {icon: DefaultIconSet.Eye, label: "Read-Only", disabled: true},
                     button3: customButton ? {...customButton} : {...cancelButton, disabled: true}
                 };
         }

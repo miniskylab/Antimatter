@@ -80,31 +80,31 @@ export function DataTable({
         {
             case Row.Mode.Draft:
                 return {
-                    button1: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
-                    button2: {icon: DefaultIconSet.Quill, text: "Draft-Mode"},
-                    button3: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    button1: {icon: DefaultIconSet.FloppyDisk, label: "Save", onPress: onSaveRow},
+                    button2: {icon: DefaultIconSet.Quill, label: "Draft-Mode"},
+                    button3: {icon: DefaultIconSet.XMarkInsideCircle, label: "Cancel", onPress: onCancel}
                 };
 
             case Row.Mode.Edit:
                 return {
-                    button1: {icon: DefaultIconSet.FloppyDisk, text: "Save", onPress: onSaveRow},
-                    button2: {icon: DefaultIconSet.Quill, text: "Edit-Mode", onPress: switchMode},
-                    button3: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    button1: {icon: DefaultIconSet.FloppyDisk, label: "Save", onPress: onSaveRow},
+                    button2: {icon: DefaultIconSet.Quill, label: "Edit-Mode", onPress: switchMode},
+                    button3: {icon: DefaultIconSet.XMarkInsideCircle, label: "Cancel", onPress: onCancel}
                 };
 
             case Row.Mode.Delete:
                 return {
-                    button1: {icon: DefaultIconSet.TrashCan, text: "Delete", onPress: onDeleteRow},
-                    button2: {icon: DefaultIconSet.Fire, text: "Delete-Mode", onPress: switchMode},
-                    button3: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel", onPress: onCancel}
+                    button1: {icon: DefaultIconSet.TrashCan, label: "Delete", onPress: onDeleteRow},
+                    button2: {icon: DefaultIconSet.Fire, label: "Delete-Mode", onPress: switchMode},
+                    button3: {icon: DefaultIconSet.XMarkInsideCircle, label: "Cancel", onPress: onCancel}
                 };
 
             default:
             case Row.Mode.ReadOnly:
                 return {
-                    button1: {icon: DefaultIconSet.PlusCircle, text: "Add New", onPress: onAddNewRow},
-                    button2: {icon: DefaultIconSet.Eye, text: "Read-Only"},
-                    button3: {icon: DefaultIconSet.XMarkInsideCircle, text: "Cancel"}
+                    button1: {icon: DefaultIconSet.PlusCircle, label: "Add New", onPress: onAddNewRow},
+                    button2: {icon: DefaultIconSet.Eye, label: "Read-Only"},
+                    button3: {icon: DefaultIconSet.XMarkInsideCircle, label: "Cancel"}
                 };
         }
     }
@@ -128,21 +128,21 @@ export function DataTable({
                 <Button
                     style={computedStyle.Button1}
                     icon={button1.icon}
-                    label={button1.text}
+                    label={button1.label}
                     disabled={!button1.onPress}
                     onPress={button1.onPress}
                 />
                 <Button
                     style={computedStyle.Button2}
                     icon={button2.icon}
-                    label={button2.text}
+                    label={button2.label}
                     disabled={!button2.onPress}
                     onPress={button2.onPress}
                 />
                 <Button
                     style={computedStyle.Button3}
                     icon={button3.icon}
-                    label={button3.text}
+                    label={button3.label}
                     disabled={!button3.onPress}
                     onPress={button3.onPress}
                 />
