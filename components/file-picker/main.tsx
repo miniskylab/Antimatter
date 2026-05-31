@@ -1,7 +1,9 @@
+import {Button} from "@miniskylab/antimatter-button";
 import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";
 import {View} from "@miniskylab/antimatter-view";
+import {getDocumentAsync} from "expo-document-picker";
 import React, {JSX} from "react";
 import {FileRow} from "./components";
 import {FilePickerContext, FilePickerProps} from "./models";
@@ -16,12 +18,13 @@ export function FilePicker({
     fileSelectionButton,
     files = [],
     maxFileCount,
+    byteMaxFileSize,
     footnote = EMPTY_STRING,
     onSelectFile
 }: FilePickerProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<FilePickerProps> = {
-        style, description, fileSelectionButton, files, maxFileCount, footnote, onSelectFile
+        style, description, fileSelectionButton, files, maxFileCount, byteMaxFileSize, footnote, onSelectFile
     };
 
     const context = useComponentContext<FilePickerContext>({props});
@@ -34,7 +37,12 @@ export function FilePicker({
             <View style={computedStyle.Root}>
                 {description && <Text style={computedStyle.Description}>{description}</Text>}
                 <View style={computedStyle.ControlPanel}>
-                    {/*<Button style={computedStyle.SelectFileButton} icon={DefaultIconSet.PlusCircle} onPress={() => {  }}/>*/}
+                    <Button
+                        style={computedStyle.FileSelectionButton}
+                        icon={fileSelectionButton.icon}
+                        label={fileSelectionButton.label}
+                        disabled={fileSelectionButton.disabled}
+                        onPress={onFileSelectionButtonPress}/>
                 </View>
                 <ScrollView
                     style={computedStyle.FileList}
@@ -77,4 +85,12 @@ export function FilePicker({
             </View>
         </FilePickerContext.Provider>
     );
+
+    async function onFileSelectionButtonPress(): Promise<void>
+    {
+        const documentPickerResult = await getDocumentAsync({base64: false, copyToCacheDirectory: false, multiple: false, type: "*/*"});
+        console.log(documentPickerResult.canceled);
+        console.log(documentPickerResult.assets?.[0].size); // TODO: limit file size under 4MB
+        console.log(documentPickerResult.assets?.[0].uri);
+    }
 }

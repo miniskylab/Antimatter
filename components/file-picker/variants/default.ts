@@ -1,5 +1,7 @@
-import {type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
+import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {type IconStyle} from "@miniskylab/antimatter-icon";
+import {PressableContextHook, type PressableStyle} from "@miniskylab/antimatter-pressable";
 import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
@@ -32,14 +34,81 @@ const FilePicker__ControlPanel: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         height: 60,
+        paddingHorizontal: 20,
         backgroundColor: Color.Background
     };
 };
 
-const FilePicker__SelectFileButton: ButtonStyle = function (buttonProps)
+const FilePicker__FileSelectionButton__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Root(pressableProps, pressableState);
+
+    return {
+        ...inheritedStyle,
+        alignSelf: "flex-start",
+        flexDirection: "column",
+        minWidth: undefined,
+        height: "100%",
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingTop: 5,
+        paddingBottom: 4,
+        borderWidth: 0,
+        backgroundColor: Color.Transparent
+    };
+};
+
+const FilePicker__FileSelectionButton__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        flexGrow: 1,
+        fontSize: 28,
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
+    };
+};
+
+const FilePicker__FileSelectionButton__Label: TextStyle = function (textProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    const inheritedStyle = ButtonVariant.OutlinedRectangular(buttonContext.props).Label(textProps);
+
+    return {
+        ...inheritedStyle,
+        lineHeight: 15,
+        marginTop: 3,
+        paddingVertical: 0,
+        paddingHorizontal: 0,
+        fontSize: 12,
+        fontWeight: "bold",
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
+    };
+};
+
+const FilePicker__FileSelectionButton: ButtonStyle = function (buttonProps)
 {
     return {
-        ...ButtonVariant.OutlinedRectangular(buttonProps)
+        ...ButtonVariant.OutlinedRectangular(buttonProps),
+        Root: FilePicker__FileSelectionButton__Root,
+        Icon: FilePicker__FileSelectionButton__Icon,
+        Label: FilePicker__FileSelectionButton__Label
     };
 };
 
@@ -111,7 +180,7 @@ export const Default: FilePickerStyle = function ()
         ControlPanel: FilePicker__ControlPanel,
         FileList: FilePicker__FileList,
         FileRow: FilePicker__FileRow,
-        SelectFileButton: FilePicker__SelectFileButton,
+        FileSelectionButton: FilePicker__FileSelectionButton,
         Footnote: FilePicker__Footnote
     };
 };

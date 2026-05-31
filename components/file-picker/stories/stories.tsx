@@ -34,7 +34,8 @@ export const Playground: Story = {
         description: Sb.text(),
         fileSelectionButton: Sb.locked,
         files: Sb.locked,
-        maxFileCount: Sb.number(),
+        maxFileCount: Sb.rangeSlider(1, 10, 1),
+        byteMaxFileSize: Sb.rangeSlider(1000 * 1000, 10 * 1000 * 1000, 1000 * 1000),
         footnote: Sb.text(),
         onSelectFile: Sb.locked
     },
@@ -43,6 +44,7 @@ export const Playground: Story = {
         description: "Lorem ipsum dolor sit amet:",
         files: [],
         maxFileCount: undefined,
+        byteMaxFileSize: undefined,
         footnote: "Aenean varius mi accumsan imperdiet tincidunt turpis.",
         onSelectFile: () => { alert("Lorem ipsum dolor sit amet"); }
     }

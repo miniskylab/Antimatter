@@ -12,6 +12,6 @@ export type FilePickerStyle = (filePickerProps: WithoutStyle<FilePickerProps>) =
     ControlPanel: ViewStyle;
     FileList: ScrollViewStyle;
     FileRow: FileRow.Style;
-    SelectFileButton: ButtonStyle;
+    FileSelectionButton: ButtonStyle;
     Footnote: TextStyle;
 };

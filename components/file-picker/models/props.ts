@@ -55,6 +55,16 @@ export class FilePickerProps extends ComponentProps<FilePickerStyle>
 
 
     /**
+     * Specify the maximum allowed file size in bytes.
+     */
+    @IsPositive()
+    @IsInteger()
+    @IsNumber()
+    @IsOptional()
+    readonly byteMaxFileSize?: number;
+
+
+    /**
      * Specify additional information about the file picker.
      */
     @IsString()
@@ -65,5 +75,5 @@ export class FilePickerProps extends ComponentProps<FilePickerStyle>
     /**
      * Specify the piece of code that will be executed when users select a file.
      */
-    readonly onSelectFile?: (pathToSelectedFile: string) => void;
+    readonly onSelectFile?: (selectedFileUri: string) => void;
 }
