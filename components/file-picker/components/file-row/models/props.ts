@@ -28,5 +28,5 @@ export class Props extends ComponentProps<Style>
     readonly processingStatus?: ProcessingStatus;
 
 
-    readonly onRemove?: GestureResponderEventHandler;
+    readonly onDelete?: GestureResponderEventHandler;
 }

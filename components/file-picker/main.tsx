@@ -42,7 +42,8 @@ export function FilePicker({
                         icon={fileSelectionButton.icon}
                         label={fileSelectionButton.label}
                         disabled={fileSelectionButton.disabled}
-                        onPress={onFileSelectionButtonPress}/>
+                        onPress={onFileSelectionButtonPress}
+                    />
                 </View>
                 <ScrollView
                     style={computedStyle.FileList}
@@ -53,32 +54,33 @@ export function FilePicker({
                     <FileRow.Component
                         style={computedStyle.FileRow}
                         title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                        subtitle={"Lorem ipsum dolor sit amet"}
+                        onDelete={() => { console.log("LEL"); }}
                     />
                     <FileRow.Component
                         style={computedStyle.FileRow}
                         title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                        subtitle={"Lorem ipsum dolor sit amet"}
                     />
                     <FileRow.Component
                         style={computedStyle.FileRow}
                         title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                        subtitle={"Lorem ipsum dolor sit amet"}
                     />
                     <FileRow.Component
                         style={computedStyle.FileRow}
                         title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                        subtitle={"Lorem ipsum dolor sit amet"}
                     />
                     <FileRow.Component
                         style={computedStyle.FileRow}
                         title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                        subtitle={"Lorem ipsum dolor sit amet"}
                     />
                     <FileRow.Component
                         style={computedStyle.FileRow}
                         title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet, consectetur adipiscing elit"}
+                        subtitle={"Lorem ipsum dolor sit amet"}
                     />
                 </ScrollView>
                 {footnote && <Text style={computedStyle.Footnote}>{footnote}</Text>}

@@ -18,7 +18,7 @@ export default {
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
                 fileSelectionButton={{
                     ...args.fileSelectionButton,
-                    icon: DefaultIconSet.Document,
+                    icon: DefaultIconSet.PlusCircle,
                     label: "Select File"
                 }}
             />

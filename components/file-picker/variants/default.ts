@@ -1,6 +1,6 @@
 import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
-import {type IconStyle} from "@miniskylab/antimatter-icon";
+import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {PressableContextHook, type PressableStyle} from "@miniskylab/antimatter-pressable";
 import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
@@ -34,7 +34,7 @@ const FilePicker__ControlPanel: ViewStyle = function (viewProps)
     return {
         ...ViewVariant.Default(viewProps),
         height: 60,
-        paddingHorizontal: 20,
+        paddingLeft: 18,
         backgroundColor: Color.Background
     };
 };
@@ -128,7 +128,12 @@ const FilePicker__FileRow__Root: ViewStyle = function (viewProps)
 {
     return {
         ...ViewVariant.Default(viewProps),
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        alignItems: "stretch",
         height: 61,
+        paddingLeft: 15,
+        paddingRight: 16,
         marginTop: -1,
         borderTopWidth: 1,
         borderStyle: "solid",
@@ -136,11 +141,35 @@ const FilePicker__FileRow__Root: ViewStyle = function (viewProps)
     };
 };
 
-const FilePicker__FileRow__Title: TextStyle = function (textProps)
+const FilePicker__FileRow__Icon: IconStyle = function (iconProps)
+{
+    return {
+        ...IconVariant.Default(iconProps),
+        fontSize: 40,
+        color: Color.Neutral
+    };
+};
+
+const FilePicker__FileRow__TitleContainer: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        flex: 1,
+        alignItems: "flex-start",
+        rowGap: 5,
+        paddingLeft: 6,
+        paddingRight: 12
+    };
+};
+
+const FilePicker__FileRow__MainTitle: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
-        display: "none"
+        maxWidth: "100%",
+        color: Color.Neutral,
+        fontWeight: "bold",
+        fontSize: 17
     };
 };
 
@@ -148,7 +177,62 @@ const FilePicker__FileRow__Subtitle: TextStyle = function (textProps)
 {
     return {
         ...TextVariant.Default(textProps),
-        display: "none"
+        maxWidth: "100%",
+        paddingBottom: 1,
+        color: Color.Neutral,
+        fontSize: 13
+    };
+};
+
+const FilePicker__FileRow__ControlContainer: ViewStyle = function (viewProps)
+{
+    return {
+        ...ViewVariant.Default(viewProps),
+        flexDirection: "row",
+        columnGap: 20,
+        marginLeft: "auto"
+    };
+};
+
+const FilePicker__FileRow__DeleteButton__Root: PressableStyle = function (pressableProps, pressableState)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+
+    const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Root(pressableProps, pressableState);
+
+    return {
+        ...inheritedStyle,
+        width: "auto",
+        height: "auto",
+        border: "none",
+        backgroundColor: "none"
+    };
+};
+
+const FilePicker__FileRow__DeleteButton__Icon: IconStyle = function (iconProps)
+{
+    const buttonContext = ButtonContextHook.useButtonContext();
+    const pressableContext = PressableContextHook.usePressableContext();
+
+    const inheritedStyle = ButtonVariant.OutlinedCircular(buttonContext.props).Icon(iconProps);
+
+    return {
+        ...inheritedStyle,
+        fontSize: 14,
+        color: pressableContext.state.pressed
+            ? Color.Gray
+            : pressableContext.state.hovered
+                ? Color.White
+                : Color.Neutral
+    };
+};
+
+const FilePicker__FileRow__DeleteButton: ButtonStyle = function (buttonProps)
+{
+    return {
+        ...ButtonVariant.OutlinedCircular(buttonProps),
+        Root: FilePicker__FileRow__DeleteButton__Root,
+        Icon: FilePicker__FileRow__DeleteButton__Icon
     };
 };
 
@@ -156,8 +240,12 @@ const FilePicker__FileRow: FileRow.Style = function ()
 {
     return {
         Root: FilePicker__FileRow__Root,
-        Title: FilePicker__FileRow__Title,
-        Subtitle: FilePicker__FileRow__Subtitle
+        Icon: FilePicker__FileRow__Icon,
+        TitleContainer: FilePicker__FileRow__TitleContainer,
+        MainTitle: FilePicker__FileRow__MainTitle,
+        Subtitle: FilePicker__FileRow__Subtitle,
+        ControlContainer: FilePicker__FileRow__ControlContainer,
+        DeleteButton: FilePicker__FileRow__DeleteButton
     };
 };
 
