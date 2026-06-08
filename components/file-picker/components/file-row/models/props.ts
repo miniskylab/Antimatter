@@ -23,6 +23,12 @@ export class Props extends ComponentProps<Style>
     readonly subtitle: string;
 
 
+    @IsNotEmpty()
+    @IsString()
+    @IsDefined()
+    readonly uri: string;
+
+
     @IsEnum(ProcessingStatus)
     @IsOptional()
     readonly processingStatus?: ProcessingStatus;

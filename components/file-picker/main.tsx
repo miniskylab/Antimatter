@@ -1,7 +1,15 @@
 import {Button} from "@miniskylab/antimatter-button";
-import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
+import {
+    type AllPropertiesMustPresent,
+    EMPTY_STRING,
+    isNotNullAndUndefined,
+    Ts,
+    useComponentContext,
+    useComputedStyle
+} from "@miniskylab/antimatter-framework";
 import {ScrollView} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";
+import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import {getDocumentAsync} from "expo-document-picker";
 import React, {JSX} from "react";
@@ -20,11 +28,12 @@ export function FilePicker({
     maxFileCount,
     byteMaxFileSize,
     footnote = EMPTY_STRING,
-    onSelectFile
+    onSelectFile,
+    onDeleteFile
 }: FilePickerProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<FilePickerProps> = {
-        style, description, fileSelectionButton, files, maxFileCount, byteMaxFileSize, footnote, onSelectFile
+        style, description, fileSelectionButton, files, maxFileCount, byteMaxFileSize, footnote, onSelectFile, onDeleteFile
     };
 
     const context = useComponentContext<FilePickerContext>({props});
@@ -51,37 +60,18 @@ export function FilePicker({
                     showsHorizontalScrollIndicator={false}
                     contentInsetAdjustmentBehavior={"scrollableAxes"}
                 >
-                    <FileRow.Component
-                        style={computedStyle.FileRow}
-                        title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet"}
-                        onDelete={() => { console.log("LEL"); }}
-                    />
-                    <FileRow.Component
-                        style={computedStyle.FileRow}
-                        title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet"}
-                    />
-                    <FileRow.Component
-                        style={computedStyle.FileRow}
-                        title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet"}
-                    />
-                    <FileRow.Component
-                        style={computedStyle.FileRow}
-                        title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet"}
-                    />
-                    <FileRow.Component
-                        style={computedStyle.FileRow}
-                        title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet"}
-                    />
-                    <FileRow.Component
-                        style={computedStyle.FileRow}
-                        title={"Lorem ipsum dolor sit amet"}
-                        subtitle={"Lorem ipsum dolor sit amet"}
-                    />
+                    {files.map(x => (
+                        <FileRow.Component
+                            key={x.uri}
+                            style={computedStyle.FileRow}
+                            icon={x.icon}
+                            title={x.title}
+                            subtitle={x.subtitle}
+                            uri={x.uri}
+                            processingStatus={x.processingStatus}
+                            onDelete={() => { onDeleteFile?.(x.uri); }}
+                        />
+                    ))}
                 </ScrollView>
                 {footnote && <Text style={computedStyle.Footnote}>{footnote}</Text>}
             </View>
@@ -91,8 +81,20 @@ export function FilePicker({
     async function onFileSelectionButtonPress(): Promise<void>
     {
         const documentPickerResult = await getDocumentAsync({base64: false, copyToCacheDirectory: false, multiple: false, type: "*/*"});
-        console.log(documentPickerResult.canceled);
-        console.log(documentPickerResult.assets?.[0].size); // TODO: limit file size under 4MB
-        console.log(documentPickerResult.assets?.[0].uri);
+        if (documentPickerResult.canceled)
+        {
+            return;
+        }
+
+        documentPickerResult.assets?.forEach(x =>
+        {
+            onSelectFile?.({
+                icon: DefaultIconSet.Document,
+                title: x.name,
+                subtitle: isNotNullAndUndefined(x.size) ? `${(x.size / 1024).toFixed(2)} KB` : "-- KB",
+                uri: x.uri,
+                processingStatus: FileRow.ProcessingStatus.NotStarted
+            });
+        });
     }
 }

@@ -75,5 +75,12 @@ export class FilePickerProps extends ComponentProps<FilePickerStyle>
     /**
      * Specify the piece of code that will be executed when users select a file.
      */
-    readonly onSelectFile?: (selectedFileUri: string) => void;
+    readonly onSelectFile?: (selectedFileData: FileRow.FileData) => void;
+
+
+    /**
+     * Specify the piece of code that will be executed when users remove a file from the file picker.
+     * The removed file will NOT be deleted physically on disk.
+     */
+    readonly onDeleteFile?: (deletedFileUri: string) => void;
 }
