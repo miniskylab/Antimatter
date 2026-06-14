@@ -1,7 +1,7 @@
-import {ComponentProps, type GestureResponderEventHandler, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
+import {ComponentProps, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
-import {ProcessingStatus} from "../enums";
+import {Status} from "../enums";
 import {type Style} from "./style";
 
 export class Props extends ComponentProps<Style>
@@ -29,10 +29,19 @@ export class Props extends ComponentProps<Style>
     readonly uri: string;
 
 
-    @IsEnum(ProcessingStatus)
+    @IsEnum(Status)
     @IsOptional()
-    readonly processingStatus?: ProcessingStatus;
+    readonly status?: Status;
 
 
-    readonly onDelete?: GestureResponderEventHandler;
+    readonly onProcess?: () => Promise<void> | undefined;
+
+
+    readonly onFulfill?: () => void;
+
+
+    readonly onReject?: () => void;
+
+
+    readonly onDelete?: () => void;
 }

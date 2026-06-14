@@ -29,11 +29,15 @@ export function FilePicker({
     byteMaxFileSize,
     footnote = EMPTY_STRING,
     onSelectFile,
+    onProcessFile,
+    onFulfillFile,
+    onRejectFile,
     onDeleteFile
 }: FilePickerProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<FilePickerProps> = {
-        style, description, fileSelectionButton, files, maxFileCount, byteMaxFileSize, footnote, onSelectFile, onDeleteFile
+        style, description, fileSelectionButton, files, maxFileCount, byteMaxFileSize, footnote, onSelectFile, onProcessFile, onFulfillFile,
+        onRejectFile, onDeleteFile
     };
 
     const context = useComponentContext<FilePickerContext>({props});
@@ -68,8 +72,11 @@ export function FilePicker({
                             title={x.title}
                             subtitle={x.subtitle}
                             uri={x.uri}
-                            processingStatus={x.processingStatus}
-                            onDelete={() => { onDeleteFile?.(x.uri); }}
+                            status={x.status}
+                            onProcess={() => onProcessFile?.(x.uri)}
+                            onFulfill={() => onFulfillFile?.(x.uri)}
+                            onReject={() => onRejectFile?.(x.uri)}
+                            onDelete={() => onDeleteFile?.(x.uri)}
                         />
                     ))}
                 </ScrollView>
@@ -88,12 +95,20 @@ export function FilePicker({
 
         documentPickerResult.assets?.forEach(x =>
         {
+            let status = FileRow.Status.Processing;
+            let subtitle = isNotNullAndUndefined(x.size) ? `${(x.size / 1024).toFixed(2)} KB` : "-- KB";
+            if (isNotNullAndUndefined(x.size) && isNotNullAndUndefined(byteMaxFileSize) && x.size > byteMaxFileSize)
+            {
+                status = FileRow.Status.Faulted;
+                subtitle = "File size exceeds limit.";
+            }
+
             onSelectFile?.({
                 icon: DefaultIconSet.Document,
                 title: x.name,
-                subtitle: isNotNullAndUndefined(x.size) ? `${(x.size / 1024).toFixed(2)} KB` : "-- KB",
+                subtitle,
                 uri: x.uri,
-                processingStatus: FileRow.ProcessingStatus.NotStarted
+                status
             });
         });
     }

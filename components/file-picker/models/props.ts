@@ -79,6 +79,24 @@ export class FilePickerProps extends ComponentProps<FilePickerStyle>
 
 
     /**
+     * Specify the piece of code that will be executed when processing a file.
+     */
+    readonly onProcessFile?: (processedFileUri: string) => Promise<void>;
+
+
+    /**
+     * Specify the piece of code that will be executed when fulfilling a file.
+     */
+    readonly onFulfillFile?: (fulfilledFileUri: string) => void;
+
+
+    /**
+     * Specify the piece of code that will be executed when rejecting a file.
+     */
+    readonly onRejectFile?: (rejectedFileUri: string) => void;
+
+
+    /**
      * Specify the piece of code that will be executed when users remove a file from the file picker.
      * The removed file will NOT be deleted physically on disk.
      */

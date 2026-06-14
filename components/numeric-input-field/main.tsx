@@ -10,7 +10,7 @@ import {
 } from "@miniskylab/antimatter-framework";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useRef, useState} from "react";
-import {NativeSyntheticEvent, TextInputFocusEventData, TextInputKeyPressEventData, TextInputSelectionChangeEventData} from "react-native";
+import {FocusEvent, TextInputKeyPressEvent, TextInputSelectionChangeEvent} from "react-native";
 import {Keypress} from "./enums";
 import {NumericInputFieldContext, NumericInputFieldProps, type NumericInputFieldState} from "./models";
 import {getNextNumericInputFieldState} from "./services";
@@ -145,7 +145,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
         onChange?.(nextValue);
     }
 
-    function handleSelectionChangeEvent(selectionChangeEvent: NativeSyntheticEvent<TextInputSelectionChangeEventData>): void
+    function handleSelectionChangeEvent(selectionChangeEvent: TextInputSelectionChangeEvent): void
     {
         if (ignoreNextSelectionChangeEventRef.current)
         {
@@ -160,7 +160,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
         }));
     }
 
-    function handleKeypressEvent(keypressEvent: NativeSyntheticEvent<TextInputKeyPressEventData>): void
+    function handleKeypressEvent(keypressEvent: TextInputKeyPressEvent): void
     {
         switch (keypressEvent.nativeEvent.key)
         {
@@ -200,7 +200,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
         onKeyPress?.(keypressEvent);
     }
 
-    function handleBlurEvent(focusEvent: NativeSyntheticEvent<TextInputFocusEventData>): void
+    function handleBlurEvent(focusEvent: FocusEvent): void
     {
         const {nextUserInput, nextSelection} = getNextNumericInputFieldState(
             state.userInput,
@@ -223,7 +223,7 @@ export const NumericInputField = forwardRef(function NumericInputField(
         onBlur?.(focusEvent);
     }
 
-    function handleFocusEvent(focusEvent: NativeSyntheticEvent<TextInputFocusEventData>): void
+    function handleFocusEvent(focusEvent: FocusEvent): void
     {
         setState(prevState => ({
             ...prevState,

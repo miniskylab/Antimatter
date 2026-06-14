@@ -2,7 +2,6 @@ import {
     ArrayNotEmpty,
     ComponentName,
     ComponentProps,
-    type GestureResponderEventHandler,
     IsArray,
     IsDefined,
     IsEnum,
@@ -103,23 +102,23 @@ export class DataTableProps extends ComponentProps<DataTableStyle>
     /**
      * Specify the piece of code that will be executed when a new row is added to the data table.
      */
-    readonly onAddNewRow: GestureResponderEventHandler;
+    readonly onAddNewRow: () => void;
 
 
     /**
      * Specify the piece of code that will be executed when changes made to data of the selected row are saved.
      */
-    readonly onSaveRow: GestureResponderEventHandler;
+    readonly onSaveRow: () => void;
 
 
     /**
      * Specify the piece of code that will be executed when the selected row is deleted from the data table.
      */
-    readonly onDeleteRow: GestureResponderEventHandler;
+    readonly onDeleteRow: () => void;
 
 
     /**
      * Specify the piece of code that will be executed when changes made to data of the selected row are discarded.
      */
-    readonly onCancel: GestureResponderEventHandler;
+    readonly onCancel: () => void;
 }

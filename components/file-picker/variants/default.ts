@@ -175,12 +175,18 @@ const FilePicker__FileRow__MainTitle: TextStyle = function (textProps)
 
 const FilePicker__FileRow__Subtitle: TextStyle = function (textProps)
 {
+    const fileRowContext = FileRow.ContextHook.useFileRowContext();
+
     return {
         ...TextVariant.Default(textProps),
         maxWidth: "100%",
         paddingBottom: 1,
-        color: Color.Neutral,
-        fontSize: 13
+        fontSize: 13,
+        color: fileRowContext.props.status === FileRow.Status.Faulted
+            ? Color.Red
+            : fileRowContext.props.status === FileRow.Status.RanToCompletion
+                ? Color.Green
+                : Color.Neutral
     };
 };
 
