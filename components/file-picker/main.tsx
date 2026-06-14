@@ -94,7 +94,7 @@ export function FilePicker({
 
         documentPickerResult.assets?.forEach(x =>
         {
-            let status = FileRow.Status.Processing;
+            let status = FileRow.Status.Pending;
             let subtitle = isNotNullAndUndefined(x.size) ? `${(x.size / 1024).toFixed(2)} KB` : "-- KB";
             if (isNotNullAndUndefined(x.size) && isNotNullAndUndefined(byteMaxFileSize) && x.size > byteMaxFileSize)
             {

@@ -1,6 +1,7 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
+import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -31,7 +32,7 @@ export function Component({
 
     useEffect(() =>
     {
-        if (status !== Status.Processing)
+        if (status !== Status.Pending)
         {
             return;
         }
@@ -44,6 +45,7 @@ export function Component({
     return (
         <FileRowContext.Provider value={context}>
             <View style={computedStyle.Root}>
+                {status === Status.Processing && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={icon}/>
                 <View style={computedStyle.TitleContainer}>
                     <Text style={computedStyle.MainTitle} numberOfLines={1}>{title}</Text>

@@ -1,6 +1,8 @@
 import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {Layer} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
+import {ProgressStripesContextHook, type ProgressStripesStyle, ProgressStripesVariant} from "@miniskylab/antimatter-motion-graphics";
 import {PressableContextHook, type PressableStyle} from "@miniskylab/antimatter-pressable";
 import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
@@ -126,6 +128,8 @@ const FilePicker__FileList: ScrollViewStyle = function (scrollViewProps)
 
 const FilePicker__FileRow__Root: ViewStyle = function (viewProps)
 {
+    const fileRowContext = FileRow.ContextHook.useFileRowContext();
+
     return {
         ...ViewVariant.Default(viewProps),
         flexDirection: "row",
@@ -137,7 +141,10 @@ const FilePicker__FileRow__Root: ViewStyle = function (viewProps)
         marginTop: -1,
         borderTopWidth: 1,
         borderStyle: "solid",
-        borderColor: Color.Background
+        borderColor: Color.Background,
+        animationOverride: {
+            ...fileRowContext.props.status === FileRow.Status.Processing && {backgroundColor: Color.Blue__a10}
+        }
     };
 };
 
@@ -186,7 +193,9 @@ const FilePicker__FileRow__Subtitle: TextStyle = function (textProps)
             ? Color.Red
             : fileRowContext.props.status === FileRow.Status.RanToCompletion
                 ? Color.Green
-                : Color.Neutral
+                : fileRowContext.props.status === FileRow.Status.Processing
+                    ? Color.Blue
+                    : Color.Neutral
     };
 };
 
@@ -242,6 +251,50 @@ const FilePicker__FileRow__DeleteButton: ButtonStyle = function (buttonProps)
     };
 };
 
+const FilePicker__FileRow__ProgressStripes__Root: ViewStyle = function (viewProps)
+{
+    const progressStripesContext = ProgressStripesContextHook.useProgressStripesContext();
+
+    const inheritedStyle = ProgressStripesVariant.Default(progressStripesContext.props).Root(viewProps);
+
+    return {
+        ...inheritedStyle,
+        position: "absolute",
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+        width: undefined,
+        height: undefined,
+        zIndex: Layer.Ambient
+    };
+};
+
+const FilePicker__FileRow__ProgressStripes__Stripe: ViewStyle = function (viewProps)
+{
+    const stripeIndex = ProgressStripesContextHook.useStripeIndexContext();
+    const progressStripesContext = ProgressStripesContextHook.useProgressStripesContext();
+
+    const inheritedStyle = ProgressStripesVariant.Default(progressStripesContext.props).Stripe(viewProps);
+
+    return {
+        ...inheritedStyle,
+        width: 50,
+        backgroundColor: stripeIndex % 2 === 0
+            ? Color.White__a10
+            : Color.Transparent
+    };
+};
+
+const FilePicker__FileRow__ProgressStripes: ProgressStripesStyle = function (progressStripesProps)
+{
+    return {
+        ...ProgressStripesVariant.Default(progressStripesProps),
+        Root: FilePicker__FileRow__ProgressStripes__Root,
+        Stripe: FilePicker__FileRow__ProgressStripes__Stripe
+    };
+};
+
 const FilePicker__FileRow: FileRow.Style = function ()
 {
     return {
@@ -251,7 +304,8 @@ const FilePicker__FileRow: FileRow.Style = function ()
         MainTitle: FilePicker__FileRow__MainTitle,
         Subtitle: FilePicker__FileRow__Subtitle,
         ControlContainer: FilePicker__FileRow__ControlContainer,
-        DeleteButton: FilePicker__FileRow__DeleteButton
+        DeleteButton: FilePicker__FileRow__DeleteButton,
+        ProgressStripes: FilePicker__FileRow__ProgressStripes
     };
 };
 

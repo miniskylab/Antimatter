@@ -24,7 +24,7 @@ export default {
                     icon: DefaultIconSet.PlusCircle,
                     label: "Select File"
                 }}
-                onSelectFile={selectedFileData => { setArgs({files: [...args.files, selectedFileData]}); }}
+                onSelectFile={selectedFileData => { setArgs({files: [selectedFileData, ...args.files]}); }}
                 onProcessFile={async processedFileUri =>
                 {
                     const processedFileIndex = args.files.findIndex(x => x.uri === processedFileUri);
@@ -32,6 +32,7 @@ export default {
                     {
                         args.files[processedFileIndex] = {
                             ...args.files[processedFileIndex],
+                            subtitle: "Processing file ...",
                             status: FileRow.Status.Processing
                         };
 
