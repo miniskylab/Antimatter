@@ -64,9 +64,9 @@ export function FilePicker({
                     showsHorizontalScrollIndicator={false}
                     contentInsetAdjustmentBehavior={"scrollableAxes"}
                 >
-                    {files.map(x => (
+                    {files.map((x, i) => (
                         <FileRow.Component
-                            key={x.uri}
+                            key={i}
                             style={computedStyle.FileRow}
                             icon={x.icon}
                             title={x.title}
