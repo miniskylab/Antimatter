@@ -40,8 +40,8 @@ export class FilePickerProps extends ComponentProps<FilePickerStyle>
     @IsArray()
     @IsOptional()
     @ValidateNested({each: true})
-    @Type(() => FileRow.Props)
-    readonly files?: FileRow.FileData[];
+    @Type(() => FileRow.Data)
+    readonly files?: FileRow.Data[];
 
 
     /**
@@ -75,7 +75,7 @@ export class FilePickerProps extends ComponentProps<FilePickerStyle>
     /**
      * Specify the piece of code that will be executed when users select a file.
      */
-    readonly onSelectFile?: (selectedFileData: FileRow.FileData) => void;
+    readonly onSelectFile?: (selectedFileData: FileRow.Data) => void;
 
 
     /**

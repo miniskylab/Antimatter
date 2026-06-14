@@ -71,7 +71,6 @@ export function FilePicker({
                             icon={x.icon}
                             title={x.title}
                             subtitle={x.subtitle}
-                            uri={x.uri}
                             status={x.status}
                             onProcess={() => onProcessFile?.(x.uri)}
                             onFulfill={() => onFulfillFile?.(x.uri)}

@@ -13,7 +13,6 @@ export function Component({
     icon = DefaultIconSet.Document,
     title,
     subtitle,
-    uri,
     status = Status.Pending,
     onProcess,
     onFulfill,
@@ -22,7 +21,7 @@ export function Component({
 }: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, icon, title, subtitle, uri, status, onProcess, onFulfill, onReject, onDelete
+        style, icon, title, subtitle, status, onProcess, onFulfill, onReject, onDelete
     };
 
     const context = useComponentContext<FileRowContext>({props});
