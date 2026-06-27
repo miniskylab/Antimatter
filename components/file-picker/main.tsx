@@ -64,18 +64,18 @@ export function FilePicker({
                     showsHorizontalScrollIndicator={false}
                     contentInsetAdjustmentBehavior={"scrollableAxes"}
                 >
-                    {files.map((x, i) => (
+                    {files.map(x => (
                         <FileRow.Component
-                            key={i}
+                            key={x.id}
                             style={computedStyle.FileRow}
                             icon={x.icon}
                             title={x.title}
                             subtitle={x.subtitle}
                             status={x.status}
-                            onProcess={() => onProcessFile?.(x.uri)}
-                            onFulfill={() => onFulfillFile?.(x.uri)}
-                            onReject={() => onRejectFile?.(x.uri)}
-                            onDelete={() => onDeleteFile?.(x.uri)}
+                            onProcess={() => onProcessFile?.(x.id)}
+                            onFulfill={() => onFulfillFile?.(x.id)}
+                            onReject={() => onRejectFile?.(x.id)}
+                            onDelete={() => onDeleteFile?.(x.id)}
                         />
                     ))}
                 </ScrollView>
@@ -103,6 +103,7 @@ export function FilePicker({
             }
 
             onSelectFile?.({
+                id: `${Date.now()}`,
                 icon: DefaultIconSet.Document,
                 title: x.name,
                 subtitle,

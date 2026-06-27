@@ -5,6 +5,12 @@ import {Status} from "../enums";
 
 export class Data
 {
+    @IsNotEmpty()
+    @IsString()
+    @IsDefined()
+    readonly id: string;
+
+
     @IsEnum(DefaultIconSet)
     @IsOptional()
     readonly icon?: DefaultIconSet;

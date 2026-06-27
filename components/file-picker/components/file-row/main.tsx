@@ -7,7 +7,7 @@ import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX, useEffect} from "react";
 import {Status} from "./enums";
-import {FileRowContext, Props} from "./models";
+import {FileRowContext, type Props} from "./models";
 
 export function Component({
     style,
@@ -52,7 +52,7 @@ export function Component({
                     <Text style={computedStyle.Subtitle} numberOfLines={1}>{subtitle}</Text>
                 </View>
                 <View style={computedStyle.ControlContainer}>
-                    {status !== Status.Processing && (
+                    {(status !== Status.Processing) && (
                         <Button
                             style={computedStyle.DeleteButton}
                             icon={DefaultIconSet.XMark}
