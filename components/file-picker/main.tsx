@@ -75,7 +75,7 @@ export const FilePicker = forwardRef(function FilePicker(
                         style={computedStyle.FileSelectionButton}
                         icon={fileSelectionButton.icon}
                         label={fileSelectionButton.label}
-                        disabled={fileSelectionButton.disabled}
+                        disabled={isNotNullAndUndefined(maxFileCount) && Object.keys(files).length >= maxFileCount}
                         onPress={onFileSelectionButtonPress}
                     />
                 </View>

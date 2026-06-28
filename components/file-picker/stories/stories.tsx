@@ -96,8 +96,8 @@ export const Playground: Story = {
         style: Sb.getVariantName(Variant, Variant.Default),
         description: "Lorem ipsum dolor sit amet:",
         files: {...TestData.Files},
-        maxFileCount: 10,
-        byteMaxFileSize: 4 * 1000 * 1000,
+        maxFileCount: undefined,
+        byteMaxFileSize: undefined,
         footnote: "Aenean varius mi accumsan imperdiet tincidunt turpis."
     }
 };
