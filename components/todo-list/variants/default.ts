@@ -386,7 +386,9 @@ const TodoList__Reminder__Icon: IconStyle = function (iconProps)
                         ? Color.Pink
                         : reminderContext.extra.isDue
                             ? Color.Gold
-                            : Color.Neutral
+                            : reminderContext.extra.isDueTomorrow
+                                ? Color.White
+                                : Color.Neutral
     };
 };
 
@@ -548,17 +550,16 @@ const TodoList__Reminder__DueDurationIcon: IconStyle = function (iconProps)
 {
     const reminderContext = Reminder.ContextHook.useReminderContext();
 
-    const isDue = reminderContext.extra.isDue;
-    const isOverdue = reminderContext.extra.isOverdue;
-
     return {
         ...TodoList__Reminder__DueDateIcon(iconProps),
         fontSize: 15,
-        color: isOverdue
+        color: reminderContext.extra.isOverdue
             ? Color.Pink
-            : isDue
+            : reminderContext.extra.isDue
                 ? Color.Gold
-                : Color.Neutral
+                : reminderContext.extra.isDueTomorrow
+                    ? Color.White
+                    : Color.Neutral
     };
 };
 
@@ -572,7 +573,9 @@ const TodoList__Reminder__DueDuration: TextStyle = function (textProps)
             ? Color.Pink
             : reminderContext.extra.isDue
                 ? Color.Gold
-                : Color.Neutral
+                : reminderContext.extra.isDueTomorrow
+                    ? Color.White
+                    : Color.Neutral
     };
 };
 

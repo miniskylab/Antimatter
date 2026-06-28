@@ -73,14 +73,15 @@ export const Component = forwardRef(function Component(
         isOriginallyUsingLunarCalendar: originalData?.isUsingLunarCalendar
     });
     const {
-        dueDuration, formattedDueDate, formattedDueDuration, isPrioritized, isOverdue, isDue, suspenseToggleStatus, silenceToggleStatus,
-        useLunarCalendarToggleStatus, rescheduleForwardToggleStatus, rescheduleBackwardToggleStatus, recurrencePatternInputFieldStatus
+        dueDuration, formattedDueDate, formattedDueDuration, isPrioritized, isOverdue, isDue, isDueTomorrow, suspenseToggleStatus,
+        silenceToggleStatus, useLunarCalendarToggleStatus, rescheduleForwardToggleStatus, rescheduleBackwardToggleStatus,
+        recurrencePatternInputFieldStatus
     } = stateMachine.getDerivedProperties();
     const [
         hourNotificationIntervalTimeComponent, minuteNotificationIntervalTimeComponent, secNotificationIntervalTimeComponent
     ] = useMemo(() => Ts.Time.getTimeComponents(secNotificationInterval), [secNotificationInterval]);
 
-    const context = useComponentContext<ReminderContext>({props, extra: {isPrioritized, isOverdue, isDue}});
+    const context = useComponentContext<ReminderContext>({props, extra: {isPrioritized, isOverdue, isDue, isDueTomorrow}});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);

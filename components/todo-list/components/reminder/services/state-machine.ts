@@ -124,6 +124,7 @@ export class StateMachine
         const isOverdue = isNotNullAndUndefined(dueDuration) && dueDuration < 0;
         const isPrioritized = this._recurrencePattern === "!";
         const isDue = dueDuration === 0;
+        const isDueTomorrow = dueDuration === 1;
 
         const formattedDueDate = this.isSuspended()
             ? "Suspended"
@@ -142,6 +143,7 @@ export class StateMachine
         return {
             isDue,
             isOverdue,
+            isDueTomorrow,
             dueDuration,
             pendingStatus,
             isPrioritized,
