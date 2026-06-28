@@ -1,4 +1,4 @@
-import {Color} from "@miniskylab/antimatter-color-scheme";
+import {Color, type HexColorCode, shade, toHex} from "@miniskylab/antimatter-color-scheme";
 import {type ComponentAnimation, Layer} from "@miniskylab/antimatter-framework";
 import {useEffect, useLayoutEffect, useRef} from "react";
 import {Animated, type ColorValue, Easing} from "react-native";
@@ -64,7 +64,7 @@ export function useDisplayPanelFadeOutAnimation(): ComponentAnimation
     };
 }
 
-export function useFlashHighlightAnimation(): ComponentAnimation
+export function useFlashHighlightAnimation(baseColor: HexColorCode, highlightColor: HexColorCode): ComponentAnimation
 {
     const initialColor = 0;
     const initialLayer = Layer.Default;
@@ -72,11 +72,11 @@ export function useFlashHighlightAnimation(): ComponentAnimation
     const animatedLayer = useRef(new Animated.Value(initialLayer)).current;
     const interpolatedBorderColor = animatedColor.interpolate({
         inputRange: [0, 1, 2],
-        outputRange: [Color.Background, Color.Green, Color.Background]
+        outputRange: [baseColor, highlightColor, baseColor]
     });
     const interpolatedBackgroundColor = animatedColor.interpolate({
         inputRange: [0, 1, 2],
-        outputRange: [Color.Transparent, Color.Green__b10, Color.Transparent]
+        outputRange: [Color.Transparent, toHex(shade(highlightColor, 10)), Color.Transparent]
     });
 
     return {

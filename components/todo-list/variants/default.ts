@@ -313,7 +313,7 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
         overflow: "hidden",
         animations: () =>
         {
-            const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
+            const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation(Color.Background, Color.Green);
             const elasticHeightAnimation = DataListAnimationHook.useElasticHeightAnimation(66, 2, 181, 133);
 
             return reminderContext.props.isToBeDeleted

@@ -790,7 +790,7 @@ const TransactionTable__TransactionRecord__Root: PressableStyle = function (pres
         cursor: hasSelectedTransaction ? CursorType.Default : CursorType.Pointer,
         animations: () =>
         {
-            const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation();
+            const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation(Color.Background, Color.Green);
             const elasticHeightAnimation = DataListAnimationHook.useElasticHeightAnimation(66, 2, 66, 66);
 
             return transactionRecordContext.props.isToBeDeleted

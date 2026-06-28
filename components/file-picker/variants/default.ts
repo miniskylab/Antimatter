@@ -145,7 +145,7 @@ const FilePicker__FileRow__Root: ViewStyle = function (viewProps)
         borderColor: Color.Background,
         animations: () =>
         {
-            return [() => DataListAnimationHook.useFlashHighlightAnimation()];
+            return [() => DataListAnimationHook.useFlashHighlightAnimation(Color.Background, Color.Green)];
         },
         animationOverride: {
             ...fileRowContext.props.status === FileRow.Status.Processing && {backgroundColor: Color.Blue__a10}
