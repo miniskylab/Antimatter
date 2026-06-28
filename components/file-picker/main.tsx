@@ -3,6 +3,7 @@ import {
     type AllPropertiesMustPresent,
     EMPTY_STRING,
     isNotNullAndUndefined,
+    type Nullable,
     Ts,
     useComponentContext,
     useComputedStyle
@@ -12,38 +13,58 @@ import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import {getDocumentAsync} from "expo-document-picker";
-import React, {JSX} from "react";
+import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useRef} from "react";
 import {FileRow} from "./components";
-import {FilePickerContext, FilePickerProps} from "./models";
+import {FilePickerContext, FilePickerProps, type FilePickerRef} from "./models";
 import * as Variant from "./variants";
 
 /**
  * A component that allows users to select files from their local storage for processing.
  */
-export function FilePicker({
-    style = Variant.Default,
-    description = EMPTY_STRING,
-    fileSelectionButton,
-    files = [],
-    maxFileCount,
-    byteMaxFileSize,
-    footnote = EMPTY_STRING,
-    onSelectFile,
-    onProcessFile,
-    onFulfillFile,
-    onRejectFile,
-    onDeleteFile
-}: FilePickerProps): JSX.Element
+export const FilePicker = forwardRef(function FilePicker(
+    {
+        style = Variant.Default,
+        description = EMPTY_STRING,
+        fileSelectionButton,
+        files = {},
+        maxFileCount,
+        byteMaxFileSize,
+        footnote = EMPTY_STRING,
+        onSelectFile,
+        onProcessFile,
+        onFulfillFile,
+        onRejectFile,
+        onDeleteFile
+    }: FilePickerProps,
+    ref: RefObject<FilePickerRef>
+): JSX.Element
 {
     const props: AllPropertiesMustPresent<FilePickerProps> = {
         style, description, fileSelectionButton, files, maxFileCount, byteMaxFileSize, footnote, onSelectFile, onProcessFile, onFulfillFile,
         onRejectFile, onDeleteFile
     };
 
+    const toBeFlashHighlightedFileIdsRef = useRef<string[]>([]);
+    const filesRef = useRef<Record<string, Nullable<FileRow.Ref>>>({});
+
     const context = useComponentContext<FilePickerContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
+
+    useImperativeHandle(ref, () => ({
+        flashHighlightFiles(fileIds) { toBeFlashHighlightedFileIdsRef.current = [...fileIds]; }
+    }), []);
+
+    useEffect(() =>
+    {
+        let fileId = toBeFlashHighlightedFileIdsRef.current.pop();
+        while (fileId)
+        {
+            filesRef.current[fileId]?.flashHighlight?.();
+            fileId = toBeFlashHighlightedFileIdsRef.current.pop();
+        }
+    }, [toBeFlashHighlightedFileIdsRef.current]);
 
     return (
         <FilePickerContext.Provider value={context}>
@@ -64,18 +85,19 @@ export function FilePicker({
                     showsHorizontalScrollIndicator={false}
                     contentInsetAdjustmentBehavior={"scrollableAxes"}
                 >
-                    {files.map(x => (
+                    {Object.keys(files).sort(byCreatedDate).map(fileId => (
                         <FileRow.Component
-                            key={x.id}
+                            key={fileId}
+                            ref={ref => { filesRef.current[fileId] = ref; }}
                             style={computedStyle.FileRow}
-                            icon={x.icon}
-                            title={x.title}
-                            subtitle={x.subtitle}
-                            status={x.status}
-                            onProcess={() => onProcessFile?.(x.id)}
-                            onFulfill={() => onFulfillFile?.(x.id)}
-                            onReject={() => onRejectFile?.(x.id)}
-                            onDelete={() => onDeleteFile?.(x.id)}
+                            icon={files[fileId].icon}
+                            title={files[fileId].title}
+                            subtitle={files[fileId].subtitle}
+                            status={files[fileId].status}
+                            onProcess={() => onProcessFile?.(fileId)}
+                            onFulfill={() => onFulfillFile?.(fileId)}
+                            onReject={() => onRejectFile?.(fileId)}
+                            onDelete={() => onDeleteFile?.(fileId)}
                         />
                     ))}
                 </ScrollView>
@@ -83,6 +105,13 @@ export function FilePicker({
             </View>
         </FilePickerContext.Provider>
     );
+
+    function byCreatedDate(fileIdA: string, fileIdB: string): number
+    {
+        const fileA = files[fileIdA];
+        const fileB = files[fileIdB];
+        return fileB.createdDate.getTime() - fileA.createdDate.getTime();
+    }
 
     async function onFileSelectionButtonPress(): Promise<void>
     {
@@ -103,13 +132,13 @@ export function FilePicker({
             }
 
             onSelectFile?.({
-                id: `${Date.now()}`,
                 icon: DefaultIconSet.Document,
                 title: x.name,
                 subtitle,
                 uri: x.uri,
-                status
+                status,
+                createdDate: new Date()
             });
         });
     }
-}
+});

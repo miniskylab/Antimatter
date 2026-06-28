@@ -1,16 +1,10 @@
-import {IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
+import {IsDate, IsDefined, IsEnum, IsNotEmpty, IsString} from "@miniskylab/antimatter-framework";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {IsOptional} from "class-validator";
 import {Status} from "../enums";
 
 export class Data
 {
-    @IsNotEmpty()
-    @IsString()
-    @IsDefined()
-    readonly id: string;
-
-
     @IsEnum(DefaultIconSet)
     @IsOptional()
     readonly icon?: DefaultIconSet;
@@ -37,4 +31,9 @@ export class Data
     @IsEnum(Status)
     @IsOptional()
     readonly status?: Status;
+
+
+    @IsDate()
+    @IsDefined()
+    readonly createdDate: Date;
 }

@@ -72,7 +72,7 @@ export function useFlashHighlightAnimation(): ComponentAnimation
     const animatedLayer = useRef(new Animated.Value(initialLayer)).current;
     const interpolatedBorderColor = animatedColor.interpolate({
         inputRange: [0, 1, 2],
-        outputRange: [Color.Neutral, Color.Green, Color.Neutral]
+        outputRange: [Color.Background, Color.Green, Color.Background]
     });
     const interpolatedBackgroundColor = animatedColor.interpolate({
         inputRange: [0, 1, 2],

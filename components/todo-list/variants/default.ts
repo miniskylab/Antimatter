@@ -307,7 +307,7 @@ const TodoList__Reminder__Root: PressableStyle = function (pressableProps, press
         borderTopWidth: 2,
         borderBottomWidth: 2,
         borderStyle: "solid",
-        borderColor: Color.Neutral,
+        borderColor: Color.Background,
         marginTop: -2,
         cursor: isSelectableReminder ? CursorType.Pointer : CursorType.Default,
         overflow: "hidden",

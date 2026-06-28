@@ -1,5 +1,6 @@
 import {ButtonContextHook, type ButtonStyle, ButtonVariant} from "@miniskylab/antimatter-button";
 import {Color} from "@miniskylab/antimatter-color-scheme";
+import {DataListAnimationHook} from "@miniskylab/antimatter-data-list";
 import {Layer} from "@miniskylab/antimatter-framework";
 import {type IconStyle, IconVariant} from "@miniskylab/antimatter-icon";
 import {ProgressStripesContextHook, type ProgressStripesStyle, ProgressStripesVariant} from "@miniskylab/antimatter-motion-graphics";
@@ -142,6 +143,10 @@ const FilePicker__FileRow__Root: ViewStyle = function (viewProps)
         borderTopWidth: 1,
         borderStyle: "solid",
         borderColor: Color.Background,
+        animations: () =>
+        {
+            return [() => DataListAnimationHook.useFlashHighlightAnimation()];
+        },
         animationOverride: {
             ...fileRowContext.props.status === FileRow.Status.Processing && {backgroundColor: Color.Blue__a10}
         }

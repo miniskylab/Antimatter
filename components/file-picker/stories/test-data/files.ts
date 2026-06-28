@@ -1,3 +1,3 @@
 import {FilePickerProps} from "../../models";
 
-export const Files: NonNullable<FilePickerProps["files"]> = [];
+export const Files: NonNullable<FilePickerProps["files"]> = {};

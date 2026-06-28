@@ -5,30 +5,39 @@ import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
-import React, {JSX, useEffect} from "react";
+import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useRef} from "react";
 import {Status} from "./enums";
-import {FileRowContext, type Props} from "./models";
+import {FileRowContext, type Props, type Ref} from "./models";
 
-export function Component({
-    style,
-    icon = DefaultIconSet.Document,
-    title,
-    subtitle,
-    status = Status.Pending,
-    onProcess,
-    onFulfill,
-    onReject,
-    onDelete
-}: Props): JSX.Element
+export const Component = forwardRef(function Component(
+    {
+        style,
+        icon = DefaultIconSet.Document,
+        title,
+        subtitle,
+        status = Status.Pending,
+        onProcess,
+        onFulfill,
+        onReject,
+        onDelete
+    }: Props,
+    ref: RefObject<Ref>
+): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
         style, icon, title, subtitle, status, onProcess, onFulfill, onReject, onDelete
     };
 
+    const rootContainerRef = useRef<View<Ref>>(null);
+
     const context = useComponentContext<FileRowContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
+
+    useImperativeHandle(ref, () => ({
+        flashHighlight: rootContainerRef.current?.flashHighlight
+    }), []);
 
     useEffect(() =>
     {
@@ -44,7 +53,7 @@ export function Component({
 
     return (
         <FileRowContext.Provider value={context}>
-            <View style={computedStyle.Root}>
+            <View ref={rootContainerRef} style={computedStyle.Root}>
                 {status === Status.Processing && (<ProgressStripes style={computedStyle.ProgressStripes} msAnimationDuration={500}/>)}
                 <Icon style={computedStyle.Icon} name={icon}/>
                 <View style={computedStyle.TitleContainer}>
@@ -63,4 +72,4 @@ export function Component({
             </View>
         </FileRowContext.Provider>
     );
-}
+});
