@@ -43,8 +43,8 @@ export default {
 
                     setArgs({files: {...TestData.Files}});
 
-                    await new Promise(resolve => { setTimeout(resolve, 5000); });
-                    return Promise.resolve();
+                    await new Promise(resolve => { setTimeout(resolve, 4000); });
+                    return Math.random() < 0.5 ? Promise.resolve() : Promise.reject();
                 }}
                 onFulfillFile={fulfilledFileId =>
                 {
@@ -59,6 +59,7 @@ export default {
                 }}
                 onRejectFile={rejectedFileId =>
                 {
+                    filePickerRef.current?.flashHighlightFiles([rejectedFileId]);
                     TestData.Files[rejectedFileId] = {
                         ...TestData.Files[rejectedFileId],
                         subtitle: "Failed to process file.",

@@ -145,7 +145,10 @@ const FilePicker__FileRow__Root: ViewStyle = function (viewProps)
         borderColor: Color.Background,
         animations: () =>
         {
-            return [() => DataListAnimationHook.useFlashHighlightAnimation(Color.Background, Color.Green)];
+            const highlightColor = fileRowContext.props.status === FileRow.Status.Faulted ? Color.Red : Color.Green;
+            const flashHighlightAnimation = DataListAnimationHook.useFlashHighlightAnimation(Color.Background, highlightColor);
+
+            return [() => flashHighlightAnimation];
         },
         animationOverride: {
             ...fileRowContext.props.status === FileRow.Status.Processing && {backgroundColor: Color.Blue__a10}
