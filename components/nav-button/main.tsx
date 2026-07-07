@@ -7,7 +7,7 @@ import {
     useComponentContext,
     useComputedStyle
 } from "@miniskylab/antimatter-framework";
-import {NavigationContainerRefContext, NavigationContext, useNavigation} from "@react-navigation/native";
+import {NavigationContainerRefContext, NavigationContext, type NavigationProp, useNavigation} from "@react-navigation/native";
 import React, {JSX, useContext} from "react";
 import {Target} from "./enums";
 import {NavButtonContext, NavButtonProps} from "./models";
@@ -31,7 +31,9 @@ export function NavButton({
 
     const navigationContext = useContext(NavigationContext);
     const navigationContainerRefContext = useContext(NavigationContainerRefContext);
-    const clientSideNavigation = !isEnvironment("Web") || navigationContext || navigationContainerRefContext ? useNavigation() : undefined;
+    const clientSideNavigation = !isEnvironment("Web") || navigationContext || navigationContainerRefContext
+        ? useNavigation<NavigationProp<Record<string, unknown>>>()
+        : undefined;
 
     const context = useComponentContext<NavButtonContext>({props});
 
@@ -54,7 +56,7 @@ export function NavButton({
     {
         if (clientSideNavigation)
         {
-            clientSideNavigation.navigate({name: destination, params: {}} as never);
+            clientSideNavigation.navigate(destination);
         }
         else if (isEnvironment("WebBrowser"))
         {
