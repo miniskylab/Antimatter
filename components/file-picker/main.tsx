@@ -69,7 +69,7 @@ export const FilePicker = forwardRef(function FilePicker(
     return (
         <FilePickerContext.Provider value={context}>
             <View style={computedStyle.Root}>
-                {description && <Text style={computedStyle.Description}>{description}</Text>}
+                {!!description && <Text style={computedStyle.Description}>{description}</Text>}
                 <View style={computedStyle.ControlPanel}>
                     <Button
                         style={computedStyle.FileSelectionButton}
@@ -101,7 +101,7 @@ export const FilePicker = forwardRef(function FilePicker(
                         />
                     ))}
                 </ScrollView>
-                {footnote && <Text style={computedStyle.Footnote}>{footnote}</Text>}
+                {!!footnote && <Text style={computedStyle.Footnote}>{footnote}</Text>}
             </View>
         </FilePickerContext.Provider>
     );
