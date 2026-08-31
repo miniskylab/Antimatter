@@ -3,6 +3,7 @@ import {
     type AllPropertiesMustPresent,
     EMPTY_STRING,
     isEnvironment,
+    triggerDownload,
     Ts,
     useComponentContext,
     useComputedStyle
@@ -66,22 +67,9 @@ export function DownloadButton({
                 style={computedStyle}
                 label={label}
                 icon={icon}
-                onPress={onPress}
                 disabled={disabled || state.disabled}
+                onPress={() => { triggerDownload(state.blobURL, fileName ?? EMPTY_STRING); }}
             />
         </DownloadButtonContext.Provider>
     );
-
-    function onPress(): void
-    {
-        const hidden_a = document.createElement("a");
-        hidden_a.style.display = "none";
-        hidden_a.setAttribute("href", state.blobURL);
-        hidden_a.setAttribute("target", "_self");
-        hidden_a.setAttribute("download", fileName ?? EMPTY_STRING);
-
-        document.body.appendChild(hidden_a);
-        hidden_a.click();
-        document.body.removeChild(hidden_a);
-    }
 }
