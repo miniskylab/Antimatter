@@ -31,7 +31,7 @@ export const TextInput = forwardRef(function TextInput(
         onFocus,
         onKeyPress
     }: TextInputProps,
-    ref: RefObject<TextInput>
+    ref: RefObject<TextInputInstance>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<TextInputProps> = {
@@ -39,7 +39,7 @@ export const TextInput = forwardRef(function TextInput(
         onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
     };
 
-    const internalRef = useRef<TextInput>(null);
+    const internalRef = useRef<TextInputInstance>(null);
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
@@ -81,4 +81,4 @@ export const TextInput = forwardRef(function TextInput(
     );
 });
 
-export type TextInput<TExtra extends object = object> = Omit<ReactNative.TextInput, keyof TExtra> & TExtra;
+export type TextInputInstance<TExtra extends object = object> = Omit<ReactNative.TextInputInstance, keyof TExtra> & TExtra;

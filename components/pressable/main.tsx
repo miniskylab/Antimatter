@@ -13,7 +13,7 @@ export const Pressable = forwardRef(function Pressable(
         disabled = false,
         onPress
     }: PressableProps,
-    ref: RefObject<Pressable>
+    ref: RefObject<PressableInstance>
 ): JSX.Element | null
 {
     const props: AllPropertiesMustPresent<PressableProps> = {
@@ -24,7 +24,7 @@ export const Pressable = forwardRef(function Pressable(
     const [pressed, setPressed] = useState(false);
     const state: PressableState = {hovered, pressed};
 
-    const internalRef = useRef<Pressable>(null);
+    const internalRef = useRef<PressableInstance>(null);
 
     const context = useComponentContext<PressableContext>({props, state});
 
@@ -58,4 +58,4 @@ export const Pressable = forwardRef(function Pressable(
     );
 });
 
-export type Pressable<TExtra extends object = object> = Omit<ReactNative.View, keyof TExtra> & TExtra;
+export type PressableInstance<TExtra extends object = object> = Omit<ReactNative.PressableInstance, keyof TExtra> & TExtra;

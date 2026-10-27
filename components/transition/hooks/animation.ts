@@ -3,7 +3,7 @@ import {Animated, Easing, ViewStyle} from "react-native";
 import {Animation, SlideDirection, Stage, ZoomDirection} from "../enums";
 import {useTransitionContext} from "./context";
 
-type AnimationFinishedCallback = (endResult: Animated.EndResult) => void;
+type AnimationFinishedCallback = NonNullable<Parameters<ReturnType<typeof Animated.timing>["start"]>[0]>;
 export function useAnimation(transitionStage: Stage, onFinished: AnimationFinishedCallback)
 {
     const transitionContext = useTransitionContext();

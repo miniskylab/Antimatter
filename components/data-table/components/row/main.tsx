@@ -9,11 +9,11 @@ import {
 } from "@miniskylab/antimatter-framework";
 import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
-import {Pressable} from "@miniskylab/antimatter-pressable";
+import {Pressable, type PressableInstance} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import {Status as CheckboxStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import {View} from "@miniskylab/antimatter-view";
+import {type ViewInstance} from "@miniskylab/antimatter-view";
 import React, {JSX, useRef, useState} from "react";
 import {Mode} from "./enums";
 import {ColumnIndexContext, type Props, RowContext, type State} from "./models";
@@ -38,7 +38,7 @@ export function Component({
         dropdownMenuDropDirection: DropDirection.Down
     });
 
-    const ref = useRef<Pressable>(null);
+    const ref = useRef<PressableInstance>(null);
 
     const context = useComponentContext<RowContext>({props, state});
 
@@ -218,7 +218,7 @@ export function Component({
                 resolve(DropDirection.Down);
             }
 
-            const container = containerRef?.current as View;
+            const container = containerRef?.current as ViewInstance;
             let containerMeasurement: Measurement;
             let rowMeasurement: Measurement;
 

@@ -1,3 +1,3 @@
 export {ViewProps, type ViewStyle} from "./models";
-export {View} from "./main";
+export {View, type ViewInstance} from "./main";
 export * as ViewVariant from "./variants";

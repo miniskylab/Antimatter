@@ -11,7 +11,7 @@ import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
-import {Pressable} from "@miniskylab/antimatter-pressable";
+import {Pressable, PressableInstance} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -46,7 +46,7 @@ export const Component = forwardRef(function Component(
         modifiedDate, createdDate, mode, onPress, onChange
     };
 
-    const rootContainerRef = useRef<Pressable<Ref>>(null);
+    const rootContainerRef = useRef<PressableInstance<Ref>>(null);
 
     const context = useComponentContext<TransactionRecordContext>({props});
 

@@ -1,6 +1,6 @@
 import {Button} from "@miniskylab/antimatter-button";
 import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle} from "@miniskylab/antimatter-framework";
-import {ScrollView} from "@miniskylab/antimatter-scroll-view";
+import {ScrollView, type ScrollViewInstance} from "@miniskylab/antimatter-scroll-view";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
@@ -37,7 +37,7 @@ export function DataTable({
         onSaveRow, onDeleteRow, onCancel
     };
 
-    const scrollViewRef = useRef<ScrollView>(null);
+    const scrollViewRef = useRef<ScrollViewInstance>(null);
     const headerData = columns?.map(x => x.name).filter(x => !!x);
 
     const context = useComponentContext<DataTableContext>({props});

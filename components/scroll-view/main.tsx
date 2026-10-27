@@ -1,5 +1,5 @@
 import {type AllPropertiesMustPresent, Ts, useComputedStyle, useEnvironment} from "@miniskylab/antimatter-framework";
-import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useRef, WheelEvent} from "react";
+import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useRef} from "react";
 import ReactNative, {Animated} from "react-native";
 import {ScrollViewProps} from "./models";
 import * as Variant from "./variants";
@@ -17,7 +17,7 @@ export const ScrollView = forwardRef(function ScrollView(
         keyboardShouldPersistTaps = "never",
         refreshControl
     }: ScrollViewProps,
-    ref: RefObject<ScrollView>
+    ref: RefObject<ScrollViewInstance>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<ScrollViewProps> = {
@@ -25,7 +25,7 @@ export const ScrollView = forwardRef(function ScrollView(
         showsHorizontalScrollIndicator, automaticallyAdjustKeyboardInsets, keyboardShouldPersistTaps, refreshControl
     };
 
-    const internalRef = useRef<ScrollView>(null);
+    const internalRef = useRef<ScrollViewInstance>(null);
 
     const isRunningOnDesktopWeb = useEnvironment("DesktopWeb");
 
@@ -41,8 +41,8 @@ export const ScrollView = forwardRef(function ScrollView(
             return;
         }
 
-        const scrollableNode = internalRef.current?.getScrollableNode();
-        const wheelEventListener = scrollableNode.addEventListener("wheel", (event: WheelEvent) =>
+        const scrollableNode = internalRef.current as unknown as HTMLElement;
+        const wheelEventListener = (event: globalThis.WheelEvent) =>
         {
             if (event.deltaY === 0)
             {
@@ -53,8 +53,9 @@ export const ScrollView = forwardRef(function ScrollView(
                 x: scrollableNode.scrollLeft + event.deltaY,
                 animated: true
             });
-        });
+        };
 
+        scrollableNode.addEventListener("wheel", wheelEventListener);
         return () => scrollableNode.removeEventListener("wheel", wheelEventListener);
     }, [internalRef, horizontal]);
 
@@ -95,4 +96,4 @@ export const ScrollView = forwardRef(function ScrollView(
     );
 });
 
-export type ScrollView<TExtra extends object = object> = Omit<ReactNative.ScrollView, keyof TExtra> & TExtra;
+export type ScrollViewInstance<TExtra extends object = object> = Omit<ReactNative.ScrollViewInstance, keyof TExtra> & TExtra;

@@ -15,14 +15,14 @@ export const View = forwardRef(function View(
         onResponderStart,
         onResponderMove
     }: ViewProps,
-    ref: RefObject<View>
+    ref: RefObject<ViewInstance>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<ViewProps> = {
         style, children, pointerEvents, onLayout, onStartShouldSetResponder, onMoveShouldSetResponder, onResponderStart, onResponderMove
     };
 
-    const internalRef = useRef<View>(null);
+    const internalRef = useRef<ViewInstance>(null);
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle, imperativeHandles} = useComputedStyle(style, props);
@@ -45,4 +45,4 @@ export const View = forwardRef(function View(
     );
 });
 
-export type View<TExtra extends object = object> = Omit<ReactNative.View, keyof TExtra> & TExtra;
+export type ViewInstance<TExtra extends object = object> = Omit<ReactNative.ViewInstance, keyof TExtra> & TExtra;

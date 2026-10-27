@@ -4,7 +4,7 @@ import {Icon} from "@miniskylab/antimatter-icon";
 import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
 import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
-import {View} from "@miniskylab/antimatter-view";
+import {View, type ViewInstance} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, RefObject, useEffect, useImperativeHandle, useRef} from "react";
 import {Status} from "./enums";
 import {FileRowContext, type Props, type Ref} from "./models";
@@ -28,7 +28,7 @@ export const Component = forwardRef(function Component(
         style, icon, title, subtitle, status, onProcess, onFulfill, onReject, onDelete
     };
 
-    const rootContainerRef = useRef<View<Ref>>(null);
+    const rootContainerRef = useRef<ViewInstance<Ref>>(null);
 
     const context = useComponentContext<FileRowContext>({props});
 

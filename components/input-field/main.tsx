@@ -2,7 +2,7 @@ import {type AllPropertiesMustPresent, EMPTY_STRING, Ts, useComponentContext, us
 import {Icon} from "@miniskylab/antimatter-icon";
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
-import {TextInput} from "@miniskylab/antimatter-text-input";
+import {TextInput, type TextInputInstance} from "@miniskylab/antimatter-text-input";
 import {View} from "@miniskylab/antimatter-view";
 import React, {forwardRef, JSX, RefObject, useImperativeHandle, useRef} from "react";
 import {InputFieldContext, InputFieldProps} from "./models";
@@ -32,7 +32,7 @@ export const InputField = forwardRef(function InputField(
         onFocus,
         onKeyPress
     }: InputFieldProps,
-    ref: RefObject<InputField>
+    ref: RefObject<InputFieldInstance>
 ): JSX.Element
 {
     const props: AllPropertiesMustPresent<InputFieldProps> = {
@@ -40,7 +40,7 @@ export const InputField = forwardRef(function InputField(
         keyboardType, selection, onChangeText, onSelectionChange, onBlur, onFocus, onKeyPress
     };
 
-    const internalRef = useRef<InputField>(null);
+    const internalRef = useRef<InputFieldInstance>(null);
 
     const context = useComponentContext<InputFieldContext>({props});
 
@@ -84,4 +84,4 @@ export const InputField = forwardRef(function InputField(
     );
 });
 
-export type InputField = TextInput;
+export type InputFieldInstance = TextInputInstance;

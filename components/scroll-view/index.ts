@@ -1,3 +1,3 @@
 export {ScrollViewProps, type ScrollViewStyle} from "./models";
-export {ScrollView} from "./main";
+export {ScrollView, type ScrollViewInstance} from "./main";
 export * as ScrollViewVariant from "./variants";

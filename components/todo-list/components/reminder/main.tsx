@@ -12,7 +12,7 @@ import {Icon} from "@miniskylab/antimatter-icon";
 import {InputField} from "@miniskylab/antimatter-input-field";
 import {ProgressStripes} from "@miniskylab/antimatter-motion-graphics";
 import {NumericInputField} from "@miniskylab/antimatter-numeric-input-field";
-import {Pressable} from "@miniskylab/antimatter-pressable";
+import {Pressable, type PressableInstance} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import {Status as ToggleStatus, Toggle} from "@miniskylab/antimatter-toggle";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
@@ -59,7 +59,7 @@ export const Component = forwardRef(function Component(
         modifiedDate, createdDate, onPress, onChange
     };
 
-    const rootContainerRef = useRef<Pressable<Ref>>(null);
+    const rootContainerRef = useRef<PressableInstance<Ref>>(null);
 
     const stateMachine = new Service.StateMachine({
         mode,

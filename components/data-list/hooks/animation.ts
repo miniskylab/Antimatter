@@ -59,7 +59,7 @@ export function useDisplayPanelFadeOutAnimation(): ComponentAnimation
 
     return {
         animatedStyle: {
-            opacity: animatedOpacity
+            opacity: animatedOpacity as unknown as number
         }
     };
 }
@@ -160,7 +160,7 @@ export function useElasticHeightAnimation(
 
     return {
         animatedStyle: {
-            height: animatedHeight,
+            height: animatedHeight as unknown as number,
             backgroundColor: interpolatedBackgroundColor as unknown as ColorValue
         },
         imperativeAnimationHandles: {
