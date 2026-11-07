@@ -4,7 +4,7 @@ import {IconStyle} from "@miniskylab/antimatter-icon";
 import {ScrollViewStyle} from "@miniskylab/antimatter-scroll-view";
 import {TextStyle} from "@miniskylab/antimatter-text";
 import {ViewStyle} from "@miniskylab/antimatter-view";
-import {SongRow} from "../components";
+import {AudioRow} from "../components";
 import {MusicPlayerProps} from "./props";
 
 export type MusicPlayerStyle = (musicPlayerProps: WithoutStyle<MusicPlayerProps>) => {
@@ -22,6 +22,6 @@ export type MusicPlayerStyle = (musicPlayerProps: WithoutStyle<MusicPlayerProps>
     PlayNextButton: ButtonStyle;
     RepeatModeButton: ButtonStyle;
     PlaylistButton: ButtonStyle;
-    SongList: ScrollViewStyle;
-    SongRow: SongRow.Style;
+    AudioList: ScrollViewStyle;
+    AudioRow: AudioRow.Style;
 };

@@ -13,20 +13,20 @@ import {Text} from "@miniskylab/antimatter-text";
 import {DefaultIconSet} from "@miniskylab/antimatter-typography";
 import {View} from "@miniskylab/antimatter-view";
 import React, {JSX} from "react";
-import {SongRow} from "./components";
+import {AudioRow} from "./components";
 import {RepeatMode} from "./enums";
 import {MusicPlayerContext, MusicPlayerProps} from "./models";
 import * as Variant from "./variants";
 
 /**
- * A component for playing digital audio files.
+ * A component for playing digital audio content.
  */
 export function MusicPlayer({
     style = Variant.Default,
     titlePlaceholder,
     subtitlePlaceholder = EMPTY_STRING,
     secTimer = undefined,
-    selectedSongName = undefined,
+    selectedAudioName = undefined,
     isPlaying = false,
     isShuffleEnabled = false,
     repeatMode = RepeatMode.None,
@@ -39,17 +39,17 @@ export function MusicPlayer({
     onShuffleModeToggle,
     onRepeatModeChange,
     onPlaylistSelectionToggle,
-    onSongExclusionStatusToggle
+    onAudioExclusionStatusToggle
 }: MusicPlayerProps): JSX.Element
 {
     const props: AllPropertiesMustPresent<MusicPlayerProps> = {
-        style, titlePlaceholder, subtitlePlaceholder, secTimer, selectedSongName, isPlaying, isShuffleEnabled, repeatMode,
+        style, titlePlaceholder, subtitlePlaceholder, secTimer, selectedAudioName, isPlaying, isShuffleEnabled, repeatMode,
         isPlaylistSelectionEnabled, tracklist, onPlay, onPause, onPlayNext, onPlayPrevious, onShuffleModeToggle, onRepeatModeChange,
-        onPlaylistSelectionToggle, onSongExclusionStatusToggle
+        onPlaylistSelectionToggle, onAudioExclusionStatusToggle
     };
 
-    const selectedSong = tracklist.find(x => x.songName === selectedSongName);
-    const subTitle = selectedSong?.singer ?? subtitlePlaceholder;
+    const selectedAudio = tracklist.find(x => x.audioName === selectedAudioName);
+    const subTitle = selectedAudio?.artistName ?? subtitlePlaceholder;
 
     const context = useComponentContext<MusicPlayerContext>({props});
 
@@ -62,12 +62,12 @@ export function MusicPlayer({
                 <View style={computedStyle.NowPlayingContainer}>
                     <Icon style={computedStyle.Icon} name={DefaultIconSet.Music} selectable={false}/>
                     <View style={computedStyle.TitleContainer}>
-                        <Text style={computedStyle.MainTitle} numberOfLines={1}>{selectedSongName ?? titlePlaceholder}</Text>
+                        <Text style={computedStyle.MainTitle} numberOfLines={1}>{selectedAudioName ?? titlePlaceholder}</Text>
                         {!!subTitle && <Text style={computedStyle.Subtitle} numberOfLines={1}>{subTitle}</Text>}
                     </View>
                 </View>
                 <View style={computedStyle.ControlContainer}>
-                    <Text style={computedStyle.Timer} selectable={false}>{SongRow.Service.getFormattedTime(secTimer)}</Text>
+                    <Text style={computedStyle.Timer} selectable={false}>{AudioRow.Service.getFormattedTime(secTimer)}</Text>
                     <Button
                         style={computedStyle.ShuffleButton}
                         icon={DefaultIconSet.Shuffle}
@@ -83,7 +83,7 @@ export function MusicPlayer({
                     <Button
                         style={computedStyle.RepeatModeButton}
                         icon={repeatMode === RepeatMode.One ? DefaultIconSet.RepeatOne : DefaultIconSet.RepeatAll}
-                        onPress={() => changeRepeatMode(selectedSong)}
+                        onPress={() => changeRepeatMode(selectedAudio)}
                     />
                     <Button
                         style={computedStyle.PlaylistButton}
@@ -92,20 +92,24 @@ export function MusicPlayer({
                     />
                 </View>
                 <ScrollView
-                    style={computedStyle.SongList}
+                    style={computedStyle.AudioList}
                     showsVerticalScrollIndicator={false}
                     showsHorizontalScrollIndicator={false}
                     contentInsetAdjustmentBehavior={"scrollableAxes"}
                 >
                     {tracklist
-                        .filter(song => isPlaylistSelectionEnabled || !song.isExcludedFromActivePlaylist)
-                        .map(song => (
-                            <SongRow.Component
-                                key={song.songName}
-                                style={computedStyle.SongRow}
-                                isSelected={isSelectedSong(song)}
-                                onPress={isSelectedSong(song) && !isPlaylistSelectionEnabled ? undefined : () => { onSongRowPress(song); }}
-                                {...song}
+                        .filter(audio => isPlaylistSelectionEnabled || !audio.isExcludedFromActivePlaylist)
+                        .map(audio => (
+                            <AudioRow.Component
+                                key={audio.audioName}
+                                style={computedStyle.AudioRow}
+                                isSelected={isSelectedAudio(audio)}
+                                onPress={
+                                    isSelectedAudio(audio) && !isPlaylistSelectionEnabled
+                                        ? undefined
+                                        : () => { onAudioRowPress(audio); }
+                                }
+                                {...audio}
                             />
                         ))}
                 </ScrollView>
@@ -113,12 +117,12 @@ export function MusicPlayer({
         </MusicPlayerContext.Provider>
     );
 
-    function isSelectedSong(song: SongRow.SongData): boolean
+    function isSelectedAudio(audio: AudioRow.AudioData): boolean
     {
-        return selectedSongName === song.songName;
+        return selectedAudioName === audio.audioName;
     }
 
-    function changeRepeatMode(song: SongRow.SongData | undefined): void
+    function changeRepeatMode(audio: AudioRow.AudioData | undefined): void
     {
         switch (repeatMode)
         {
@@ -127,7 +131,7 @@ export function MusicPlayer({
                 return;
 
             case RepeatMode.All:
-                onRepeatModeChange?.(isNullOrUndefined(song) || song.isExcludedFromActivePlaylist ? RepeatMode.None : RepeatMode.One);
+                onRepeatModeChange?.(isNullOrUndefined(audio) || audio.isExcludedFromActivePlaylist ? RepeatMode.None : RepeatMode.One);
                 return;
 
             case RepeatMode.One:
@@ -146,16 +150,16 @@ export function MusicPlayer({
             return onPause?.();
         }
 
-        return onPlay?.(selectedSong?.songName);
+        return onPlay?.(selectedAudio?.audioName);
     }
 
-    function onSongRowPress(song: SongRow.SongData): void
+    function onAudioRowPress(audio: AudioRow.AudioData): void
     {
         if (isPlaylistSelectionEnabled)
         {
-            return onSongExclusionStatusToggle?.(song.songName, !song.isExcludedFromActivePlaylist);
+            return onAudioExclusionStatusToggle?.(audio.audioName, !audio.isExcludedFromActivePlaylist);
         }
 
-        return onPlay?.(song.songName);
+        return onPlay?.(audio.audioName);
     }
 }

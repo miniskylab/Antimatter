@@ -3,8 +3,8 @@ import {PressableStyle} from "@miniskylab/antimatter-pressable";
 import {TextStyle} from "@miniskylab/antimatter-text";
 import {Props} from "./props";
 
-export type Style = (songRowProps: WithoutStyle<Props>) => {
+export type Style = (audioRowProps: WithoutStyle<Props>) => {
     Root: PressableStyle;
-    SongName: TextStyle;
-    SongDuration: TextStyle;
+    AudioName: TextStyle;
+    AudioDuration: TextStyle;
 };

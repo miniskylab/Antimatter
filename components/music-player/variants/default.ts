@@ -6,7 +6,7 @@ import {PressableContextHook, type PressableStyle, PressableVariant} from "@mini
 import {type ScrollViewStyle, ScrollViewVariant} from "@miniskylab/antimatter-scroll-view";
 import {type TextStyle, TextVariant} from "@miniskylab/antimatter-text";
 import {type ViewStyle, ViewVariant} from "@miniskylab/antimatter-view";
-import {SongRow} from "../components";
+import {AudioRow} from "../components";
 import {RepeatMode} from "../enums";
 import {MusicPlayerContextHook} from "../hooks";
 import {type MusicPlayerStyle} from "../models";
@@ -244,7 +244,7 @@ const MusicPlayer__PlaylistButton: ButtonStyle = function (buttonProps)
     };
 };
 
-const MusicPlayer__SongList: ScrollViewStyle = function (scrollViewProps)
+const MusicPlayer__AudioList: ScrollViewStyle = function (scrollViewProps)
 {
     const isRunningInsideWebBrowser = isEnvironment("WebBrowser");
 
@@ -262,13 +262,13 @@ const MusicPlayer__SongList: ScrollViewStyle = function (scrollViewProps)
     };
 };
 
-const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pressableState)
+const MusicPlayer__AudioRow__Root: PressableStyle = function (pressableProps, pressableState)
 {
-    const songRowContext = SongRow.ContextHook.useSongRowContext();
+    const audioRowContext = AudioRow.ContextHook.useAudioRowContext();
     const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
 
     const isRunningInsideWebBrowser = isEnvironment("WebBrowser");
-    const isPressableAndHovered = songRowContext.props.onPress && pressableState.hovered;
+    const isPressableAndHovered = audioRowContext.props.onPress && pressableState.hovered;
 
     return {
         ...PressableVariant.Default(pressableProps, pressableState),
@@ -289,7 +289,7 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
         ...musicPlayerContext.props.isPlaylistSelectionEnabled
             ? {
                 borderColor: Color.Ambient,
-                backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Red : Color.Green,
+                backgroundColor: audioRowContext.props.isExcludedFromActivePlaylist ? Color.Red : Color.Green,
                 ...isRunningInsideWebBrowser && pressableState.hovered && {
                     borderStyle: "dashed",
                     borderColor: Color.White,
@@ -313,8 +313,8 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
                     borderColor: Color.Ambient,
                     zIndex: Layer.Higher
                 },
-                ...songRowContext.props.isSelected && {
-                    backgroundColor: songRowContext.props.isExcludedFromActivePlaylist ? Color.Red : Color.Blue,
+                ...audioRowContext.props.isSelected && {
+                    backgroundColor: audioRowContext.props.isExcludedFromActivePlaylist ? Color.Red : Color.Blue,
                     borderColor: Color.Ambient,
                     zIndex: Layer.AlwaysOnTop
                 }
@@ -322,9 +322,9 @@ const MusicPlayer__SongRow__Root: PressableStyle = function (pressableProps, pre
     };
 };
 
-const MusicPlayer__SongRow__SongName: TextStyle = function (textProps)
+const MusicPlayer__AudioRow__AudioName: TextStyle = function (textProps)
 {
-    const songRowContext = SongRow.ContextHook.useSongRowContext();
+    const audioRowContext = AudioRow.ContextHook.useAudioRowContext();
     const pressableContext = PressableContextHook.usePressableContext();
     const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
 
@@ -335,18 +335,18 @@ const MusicPlayer__SongRow__SongName: TextStyle = function (textProps)
         ...TextVariant.Default(textProps),
         flex: 1,
         fontSize: isRunningInsideWebBrowser ? 14 : 17,
-        fontWeight: !musicPlayerContext.props.isPlaylistSelectionEnabled && songRowContext.props.isSelected ? "bold" : "normal",
+        fontWeight: !musicPlayerContext.props.isPlaylistSelectionEnabled && audioRowContext.props.isSelected ? "bold" : "normal",
         color: musicPlayerContext.props.isPlaylistSelectionEnabled
             ? Color.Ambient
-            : songRowContext.props.isSelected || (isRunningInsideWebBrowser && isHoveredOrPressed)
+            : audioRowContext.props.isSelected || (isRunningInsideWebBrowser && isHoveredOrPressed)
                 ? Color.Ambient
                 : Color.Neutral
     };
 };
 
-const MusicPlayer__SongRow__SongDuration: TextStyle = function (textProps)
+const MusicPlayer__AudioRow__AudioDuration: TextStyle = function (textProps)
 {
-    const songRowContext = SongRow.ContextHook.useSongRowContext();
+    const audioRowContext = AudioRow.ContextHook.useAudioRowContext();
     const pressableContext = PressableContextHook.usePressableContext();
     const musicPlayerContext = MusicPlayerContextHook.useMusicPlayerContext();
 
@@ -358,21 +358,21 @@ const MusicPlayer__SongRow__SongDuration: TextStyle = function (textProps)
         minWidth: 45,
         textAlign: "right",
         fontSize: isRunningInsideWebBrowser ? 14 : 17,
-        fontWeight: !musicPlayerContext.props.isPlaylistSelectionEnabled && songRowContext.props.isSelected ? "bold" : "normal",
+        fontWeight: !musicPlayerContext.props.isPlaylistSelectionEnabled && audioRowContext.props.isSelected ? "bold" : "normal",
         color: musicPlayerContext.props.isPlaylistSelectionEnabled
             ? Color.Ambient
-            : songRowContext.props.isSelected || (isRunningInsideWebBrowser && isHoveredOrPressed)
+            : audioRowContext.props.isSelected || (isRunningInsideWebBrowser && isHoveredOrPressed)
                 ? Color.Ambient
                 : Color.Neutral
     };
 };
 
-const MusicPlayer__SongRow: SongRow.Style = function ()
+const MusicPlayer__AudioRow: AudioRow.Style = function ()
 {
     return {
-        Root: MusicPlayer__SongRow__Root,
-        SongName: MusicPlayer__SongRow__SongName,
-        SongDuration: MusicPlayer__SongRow__SongDuration
+        Root: MusicPlayer__AudioRow__Root,
+        AudioName: MusicPlayer__AudioRow__AudioName,
+        AudioDuration: MusicPlayer__AudioRow__AudioDuration
     };
 };
 
@@ -393,7 +393,7 @@ export const Default: MusicPlayerStyle = function ()
         PlayNextButton: MusicPlayer__PlayNextButton,
         RepeatModeButton: MusicPlayer__RepeatModeButton,
         PlaylistButton: MusicPlayer__PlaylistButton,
-        SongList: MusicPlayer__SongList,
-        SongRow: MusicPlayer__SongRow
+        AudioList: MusicPlayer__AudioList,
+        AudioRow: MusicPlayer__AudioRow
     };
 };

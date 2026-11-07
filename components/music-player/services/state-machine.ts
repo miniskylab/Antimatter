@@ -1,12 +1,12 @@
 import {isNotNullAndUndefined, isNullOrUndefined, Ts} from "@miniskylab/antimatter-framework";
-import {SongRow} from "../components";
+import {AudioRow} from "../components";
 import {RepeatMode} from "../enums";
 
 export const StateMachine = new class
 {
-    private _indexedTracklist: Record<string, SongRow.SongData>;
+    private _indexedTracklist: Record<string, AudioRow.AudioData>;
     private _playQueue: string[];
-    private _playingSongIndex: number | undefined;
+    private _playingAudioIndex: number | undefined;
     private _isPlaying: boolean;
     private _secBackSkipRestartThreshold: number | null | undefined;
     private _secPlaybackProgress: number | null | undefined;
@@ -18,9 +18,9 @@ export const StateMachine = new class
     constructor() { this.resetState(); }
 
     resetState(newState?: {
-        indexedTracklist?: Record<string, SongRow.SongData>,
+        indexedTracklist?: Record<string, AudioRow.AudioData>,
         playQueue?: string[],
-        playingSongIndex?: number | undefined,
+        playingAudioIndex?: number | undefined,
         isPlaying?: boolean,
         secBackSkipRestartThreshold?: number | null | undefined,
         secPlaybackProgress?: number | null | undefined,
@@ -32,7 +32,7 @@ export const StateMachine = new class
     {
         this._indexedTracklist = newState?.indexedTracklist ? {...newState.indexedTracklist} : {};
         this._playQueue = newState?.playQueue ? [...newState.playQueue] : [];
-        this._playingSongIndex = newState?.playingSongIndex;
+        this._playingAudioIndex = newState?.playingAudioIndex;
         this._isPlaying = newState?.isPlaying ?? false;
         this._secBackSkipRestartThreshold = newState?.secBackSkipRestartThreshold;
         this._secPlaybackProgress = newState?.secPlaybackProgress;
@@ -47,7 +47,7 @@ export const StateMachine = new class
         return {
             indexedTracklist: this._indexedTracklist,
             playQueue: this._playQueue,
-            playingSongIndex: this._playingSongIndex,
+            playingAudioIndex: this._playingAudioIndex,
             isPlaying: this._isPlaying,
             secBackSkipRestartThreshold: this._secBackSkipRestartThreshold,
             secPlaybackProgress: this._secPlaybackProgress,
@@ -58,37 +58,37 @@ export const StateMachine = new class
         };
     }
 
-    playSongNamed(toBePlayedSongName: string)
+    playAudioNamed(toBePlayedAudioName: string)
     {
-        const toBePlayedSongUri = this.getSongUriByName(toBePlayedSongName);
-        if (!toBePlayedSongUri)
+        const toBePlayedAudioUri = this.getAudioUriByName(toBePlayedAudioName);
+        if (!toBePlayedAudioUri)
         {
             this._secPlaybackProgress = undefined;
             this._secSeekerPosition = undefined;
             return;
         }
 
-        const lastPlayedSongIndex = this._playingSongIndex === Infinity
+        const lastPlayedAudioIndex = this._playingAudioIndex === Infinity
             ? this._playQueue.length - 1
-            : this._playingSongIndex;
+            : this._playingAudioIndex;
 
-        const lastPlayedSongUri = this.getSongUriBySongIndex(lastPlayedSongIndex);
-        if (toBePlayedSongUri === lastPlayedSongUri)
+        const lastPlayedAudioUri = this.getAudioUriByAudioIndex(lastPlayedAudioIndex);
+        if (toBePlayedAudioUri === lastPlayedAudioUri)
         {
-            this._playingSongIndex = lastPlayedSongIndex;
+            this._playingAudioIndex = lastPlayedAudioIndex;
             this._secSeekerPosition = undefined;
             this._isPlaying = true;
 
             return;
         }
 
-        this.clearPlayQueueStartingFrom(lastPlayedSongIndex);
-        this._playQueue.push(toBePlayedSongUri);
-        this._playingSongIndex = this._playQueue.length - 1;
+        this.clearPlayQueueStartingFrom(lastPlayedAudioIndex);
+        this._playQueue.push(toBePlayedAudioUri);
+        this._playingAudioIndex = this._playQueue.length - 1;
 
         if (this._isShuffleEnabled)
         {
-            this._playQueue.push(...this.getUpcomingSongUris(toBePlayedSongUri));
+            this._playQueue.push(...this.getUpcomingAudioUris(toBePlayedAudioUri));
         }
 
         this._secPlaybackProgress = undefined;
@@ -98,7 +98,7 @@ export const StateMachine = new class
 
     playNext()
     {
-        if (isNullOrUndefined(this._playingSongIndex) || this._playingSongIndex === Infinity)
+        if (isNullOrUndefined(this._playingAudioIndex) || this._playingAudioIndex === Infinity)
         {
             this._secPlaybackProgress = undefined;
             this._secSeekerPosition = undefined;
@@ -106,11 +106,11 @@ export const StateMachine = new class
             return;
         }
 
-        const toBePlayedSongIndex = this.searchPlayQueueForTheFirstNonExcludedNonDuplicateSongIndex(this._playingSongIndex);
-        if (isNotNullAndUndefined(toBePlayedSongIndex) && toBePlayedSongIndex < this._playQueue.length)
+        const toBePlayedAudioIndex = this.searchPlayQueueForTheFirstNonExcludedNonDuplicateAudioIndex(this._playingAudioIndex);
+        if (isNotNullAndUndefined(toBePlayedAudioIndex) && toBePlayedAudioIndex < this._playQueue.length)
         {
             this._repeatMode = this._repeatMode === RepeatMode.One ? RepeatMode.All : this._repeatMode;
-            this._playingSongIndex = toBePlayedSongIndex;
+            this._playingAudioIndex = toBePlayedAudioIndex;
             this._secPlaybackProgress = undefined;
             this._secSeekerPosition = undefined;
             this._isPlaying = true;
@@ -127,13 +127,13 @@ export const StateMachine = new class
             return;
         }
 
-        const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
-        const notPlayingPlayableTrackUris = playableTrackUris.filter(x => x !== playingSongUri);
+        const playingAudioUri = this.getAudioUriByAudioIndex(this._playingAudioIndex);
+        const notPlayingPlayableTrackUris = playableTrackUris.filter(x => x !== playingAudioUri);
         if (notPlayingPlayableTrackUris.length > 0)
         {
             if (!this._isShuffleEnabled)
             {
-                const playingTrackIndex = this.getTrackIndex(playingSongUri);
+                const playingTrackIndex = this.getTrackIndex(playingAudioUri);
                 if (isNotNullAndUndefined(playingTrackIndex))
                 {
                     const trackUris = this.getTrackUris();
@@ -144,7 +144,7 @@ export const StateMachine = new class
                         this._playQueue.push(trackUris[toBePlayedTrackIndex]);
                         this._secPlaybackProgress = undefined;
                         this._secSeekerPosition = undefined;
-                        this._playingSongIndex += 1;
+                        this._playingAudioIndex += 1;
                         this._isPlaying = true;
 
                         return;
@@ -154,7 +154,7 @@ export const StateMachine = new class
                         this._playQueue.push(notPlayingPlayableTrackUris[0]);
                         this._secPlaybackProgress = undefined;
                         this._secSeekerPosition = undefined;
-                        this._playingSongIndex += 1;
+                        this._playingAudioIndex += 1;
                         this._isPlaying = true;
 
                         return;
@@ -163,13 +163,13 @@ export const StateMachine = new class
             }
             else if (this._repeatMode === RepeatMode.All)
             {
-                const upcomingSongUris = this.getUpcomingSongUris(playingSongUri);
-                if (upcomingSongUris.length > 0)
+                const upcomingAudioUris = this.getUpcomingAudioUris(playingAudioUri);
+                if (upcomingAudioUris.length > 0)
                 {
-                    this._playQueue.push(...upcomingSongUris);
+                    this._playQueue.push(...upcomingAudioUris);
                     this._secPlaybackProgress = undefined;
                     this._secSeekerPosition = undefined;
-                    this._playingSongIndex += 1;
+                    this._playingAudioIndex += 1;
                     this._isPlaying = true;
 
                     return;
@@ -179,13 +179,13 @@ export const StateMachine = new class
 
         this._secPlaybackProgress = undefined;
         this._secSeekerPosition = undefined;
-        this._playingSongIndex = Infinity;
+        this._playingAudioIndex = Infinity;
         this._isPlaying = false;
     }
 
     playPrevious()
     {
-        if (isNullOrUndefined(this._playingSongIndex))
+        if (isNullOrUndefined(this._playingAudioIndex))
         {
             this._secPlaybackProgress = undefined;
             this._secSeekerPosition = undefined;
@@ -208,15 +208,15 @@ export const StateMachine = new class
 
         if (this._isShuffleEnabled)
         {
-            const firstNonExcludedNonDuplicateSongIndex = this.searchPlayQueueForTheFirstNonExcludedNonDuplicateSongIndex(
-                this._playingSongIndex,
+            const firstNonExcludedNonDuplicateAudioIndex = this.searchPlayQueueForTheFirstNonExcludedNonDuplicateAudioIndex(
+                this._playingAudioIndex,
                 true
             );
 
-            if (isNotNullAndUndefined(firstNonExcludedNonDuplicateSongIndex))
+            if (isNotNullAndUndefined(firstNonExcludedNonDuplicateAudioIndex))
             {
                 this._repeatMode = this._repeatMode === RepeatMode.One ? RepeatMode.All : this._repeatMode;
-                this._playingSongIndex = firstNonExcludedNonDuplicateSongIndex;
+                this._playingAudioIndex = firstNonExcludedNonDuplicateAudioIndex;
                 this._secPlaybackProgress = undefined;
                 this._secSeekerPosition = undefined;
                 this._isPlaying = true;
@@ -226,21 +226,21 @@ export const StateMachine = new class
         }
         else
         {
-            const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
-            const playingTrackIndex = this._playingSongIndex !== Infinity ? this.getTrackIndex(playingSongUri) : Infinity;
+            const playingAudioUri = this.getAudioUriByAudioIndex(this._playingAudioIndex);
+            const playingTrackIndex = this._playingAudioIndex !== Infinity ? this.getTrackIndex(playingAudioUri) : Infinity;
             if (isNotNullAndUndefined(playingTrackIndex))
             {
                 const firstNonExcludedTrackIndex = this.searchTracklistForTheFirstNonExcludedTrackIndex(playingTrackIndex, true);
                 const toBePlayedTrackUri = isNotNullAndUndefined(firstNonExcludedTrackIndex)
                     ? this.getTrackUris()[firstNonExcludedTrackIndex]
                     : this._repeatMode === RepeatMode.All
-                        ? this.getTrackUris(true).filter(x => x !== playingSongUri).at(-1)
+                        ? this.getTrackUris(true).filter(x => x !== playingAudioUri).at(-1)
                         : undefined;
 
                 if (isNotNullAndUndefined(toBePlayedTrackUri))
                 {
                     this._playQueue.push(toBePlayedTrackUri);
-                    this._playingSongIndex = this._playQueue.length - 1;
+                    this._playingAudioIndex = this._playQueue.length - 1;
                     this._repeatMode = this._repeatMode === RepeatMode.One ? RepeatMode.All : this._repeatMode;
                     this._secPlaybackProgress = undefined;
                     this._secSeekerPosition = undefined;
@@ -256,7 +256,7 @@ export const StateMachine = new class
         this._isPlaying = false;
     }
 
-    onSongEnd()
+    onAudioEnd()
     {
         if (this._repeatMode === RepeatMode.One)
         {
@@ -268,11 +268,11 @@ export const StateMachine = new class
         this.playNext();
     }
 
-    setIndexedTracklist(indexedTracklist: Record<string, SongRow.SongData>)
+    setIndexedTracklist(indexedTracklist: Record<string, AudioRow.AudioData>)
     {
         this._indexedTracklist = indexedTracklist ?? {};
         this._playQueue = [];
-        this._playingSongIndex = undefined;
+        this._playingAudioIndex = undefined;
         this._isPlaying = false;
         this._secSeekerPosition = undefined;
         this._secPlaybackProgress = undefined;
@@ -302,7 +302,7 @@ export const StateMachine = new class
 
     setPlaybackProgress(secPlaybackProgress: number | null | undefined)
     {
-        if (isNullOrUndefined(this._playingSongIndex) || !Number.isFinite(this._playingSongIndex))
+        if (isNullOrUndefined(this._playingAudioIndex) || !Number.isFinite(this._playingAudioIndex))
         {
             this._secPlaybackProgress = undefined;
             return;
@@ -314,10 +314,10 @@ export const StateMachine = new class
             return;
         }
 
-        const playingSongDuration = this._indexedTracklist[this._playQueue[this._playingSongIndex]].secSongDuration;
-        if (secPlaybackProgress > playingSongDuration)
+        const playingAudioDuration = this._indexedTracklist[this._playQueue[this._playingAudioIndex]].secAudioDuration;
+        if (secPlaybackProgress > playingAudioDuration)
         {
-            this._secPlaybackProgress = playingSongDuration;
+            this._secPlaybackProgress = playingAudioDuration;
             return;
         }
 
@@ -341,7 +341,7 @@ export const StateMachine = new class
                 this._secSeekerPosition = undefined;
             }
 
-            if (isNullOrUndefined(this._playingSongIndex) || this._playingSongIndex === Infinity)
+            if (isNullOrUndefined(this._playingAudioIndex) || this._playingAudioIndex === Infinity)
             {
                 const playableTrackUris = this.getTrackUris(true);
                 const toBePlayedTrackIndex = this._isShuffleEnabled ? Math.round(Ts.Number.random(0, playableTrackUris.length - 1)) : 0;
@@ -357,14 +357,14 @@ export const StateMachine = new class
                     return;
                 }
 
-                this.playSongNamed(toBePlayedTrack.songName);
+                this.playAudioNamed(toBePlayedTrack.audioName);
             }
         }
     }
 
     setSeekerPosition(secSeekerPosition: number | null | undefined)
     {
-        if (isNullOrUndefined(this._playingSongIndex) || !Number.isFinite(this._playingSongIndex))
+        if (isNullOrUndefined(this._playingAudioIndex) || !Number.isFinite(this._playingAudioIndex))
         {
             this._secSeekerPosition = undefined;
             return;
@@ -376,10 +376,10 @@ export const StateMachine = new class
             return;
         }
 
-        const playingSongDuration = this._indexedTracklist[this._playQueue[this._playingSongIndex]].secSongDuration;
-        if (secSeekerPosition > playingSongDuration)
+        const playingAudioDuration = this._indexedTracklist[this._playQueue[this._playingAudioIndex]].secAudioDuration;
+        if (secSeekerPosition > playingAudioDuration)
         {
-            this._secSeekerPosition = playingSongDuration;
+            this._secSeekerPosition = playingAudioDuration;
             return;
         }
 
@@ -389,44 +389,44 @@ export const StateMachine = new class
     setIsShuffleEnabled(isShuffleEnabled: boolean | null | undefined)
     {
         this._isShuffleEnabled = !!isShuffleEnabled;
-        if (Number.isFinite(this._playingSongIndex))
+        if (Number.isFinite(this._playingAudioIndex))
         {
-            this.clearPlayQueueStartingFrom(this._playingSongIndex);
+            this.clearPlayQueueStartingFrom(this._playingAudioIndex);
             if (this._isShuffleEnabled)
             {
-                const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
-                this._playQueue.push(...this.getUpcomingSongUris(playingSongUri));
+                const playingAudioUri = this.getAudioUriByAudioIndex(this._playingAudioIndex);
+                this._playQueue.push(...this.getUpcomingAudioUris(playingAudioUri));
             }
         }
     }
 
-    setSongExclusionStatus(songName: string, isExcluded: boolean | null | undefined)
+    setAudioExclusionStatus(audioName: string, isExcluded: boolean | null | undefined)
     {
-        const songUri = this.getSongUriByName(songName);
-        if (!songUri)
+        const audioUri = this.getAudioUriByName(audioName);
+        if (!audioUri)
         {
             return;
         }
 
-        if (this._indexedTracklist[songUri].isExcludedFromActivePlaylist === !!isExcluded)
+        if (this._indexedTracklist[audioUri].isExcludedFromActivePlaylist === !!isExcluded)
         {
             return;
         }
 
-        const copyOfSong = {...this._indexedTracklist[songUri]};
-        copyOfSong.isExcludedFromActivePlaylist = !!isExcluded;
+        const copyOfAudio = {...this._indexedTracklist[audioUri]};
+        copyOfAudio.isExcludedFromActivePlaylist = !!isExcluded;
 
-        this._indexedTracklist[songUri] = copyOfSong;
-        if (Number.isFinite(this._playingSongIndex))
+        this._indexedTracklist[audioUri] = copyOfAudio;
+        if (Number.isFinite(this._playingAudioIndex))
         {
-            const playingSongUri = this.getSongUriBySongIndex(this._playingSongIndex);
-            if (this._repeatMode === RepeatMode.One && playingSongUri === songUri)
+            const playingAudioUri = this.getAudioUriByAudioIndex(this._playingAudioIndex);
+            if (this._repeatMode === RepeatMode.One && playingAudioUri === audioUri)
             {
                 this._repeatMode = RepeatMode.All;
             }
 
-            this.clearPlayQueueStartingFrom(this._playingSongIndex);
-            this._playQueue.push(...this.getUpcomingSongUris(playingSongUri));
+            this.clearPlayQueueStartingFrom(this._playingAudioIndex);
+            this._playQueue.push(...this.getUpcomingAudioUris(playingAudioUri));
         }
     }
 
@@ -435,14 +435,14 @@ export const StateMachine = new class
         return Object.keys(this._indexedTracklist).filter(x => !isPlayableOnly || !this._indexedTracklist[x].isExcludedFromActivePlaylist);
     }
 
-    private getTrackIndex(songUri?: string | undefined)
+    private getTrackIndex(audioUri?: string | undefined)
     {
-        if (isNullOrUndefined(songUri))
+        if (isNullOrUndefined(audioUri))
         {
             return undefined;
         }
 
-        const trackIndex = Object.keys(this._indexedTracklist).indexOf(songUri);
+        const trackIndex = Object.keys(this._indexedTracklist).indexOf(audioUri);
         if (trackIndex <= -1)
         {
             return undefined;
@@ -451,14 +451,14 @@ export const StateMachine = new class
         return trackIndex;
     }
 
-    private getSongUriBySongIndex(songIndex: number | undefined)
+    private getAudioUriByAudioIndex(audioIndex: number | undefined)
     {
-        return isNotNullAndUndefined(songIndex) ? this._playQueue[songIndex] : undefined;
+        return isNotNullAndUndefined(audioIndex) ? this._playQueue[audioIndex] : undefined;
     }
 
-    private getSongUriByName(songName: string | undefined)
+    private getAudioUriByName(audioName: string | undefined)
     {
-        return Object.keys(this._indexedTracklist).find(x => this._indexedTracklist[x].songName === songName);
+        return Object.keys(this._indexedTracklist).find(x => this._indexedTracklist[x].audioName === audioName);
     }
 
     private clearPlayQueueStartingFrom(indexExcluded: number | undefined)
@@ -471,48 +471,51 @@ export const StateMachine = new class
         this._playQueue.splice(indexExcluded + 1);
     }
 
-    private getUpcomingSongUris(excludedSongUri: string | undefined)
+    private getUpcomingAudioUris(excludedAudioUri: string | undefined)
     {
-        let upcomingSongUris: string[] = [];
+        let upcomingAudioUris: string[] = [];
         if (this._isShuffleEnabled)
         {
-            upcomingSongUris = this.getTrackUris(true).filter(x => x !== excludedSongUri);
-            Ts.Array.shuffleInPlace(upcomingSongUris);
+            upcomingAudioUris = this.getTrackUris(true).filter(x => x !== excludedAudioUri);
+            Ts.Array.shuffleInPlace(upcomingAudioUris);
         }
 
-        return upcomingSongUris;
+        return upcomingAudioUris;
     }
 
-    private searchPlayQueueForTheFirstNonExcludedNonDuplicateSongIndex(playingSongIndexExcluded: number, isSearchingBackward = false)
+    private searchPlayQueueForTheFirstNonExcludedNonDuplicateAudioIndex(playingAudioIndexExcluded: number, isSearchingBackward = false)
     {
-        let firstNonExcludedNonDuplicateSongIndex = playingSongIndexExcluded > this._playQueue.length
+        let firstNonExcludedNonDuplicateAudioIndex = playingAudioIndexExcluded > this._playQueue.length
             ? this._playQueue.length
-            : playingSongIndexExcluded;
+            : playingAudioIndexExcluded;
 
         while (true)
         {
-            firstNonExcludedNonDuplicateSongIndex = isSearchingBackward
-                ? firstNonExcludedNonDuplicateSongIndex - 1
-                : firstNonExcludedNonDuplicateSongIndex + 1;
+            firstNonExcludedNonDuplicateAudioIndex = isSearchingBackward
+                ? firstNonExcludedNonDuplicateAudioIndex - 1
+                : firstNonExcludedNonDuplicateAudioIndex + 1;
 
-            if (firstNonExcludedNonDuplicateSongIndex < 0)
+            if (firstNonExcludedNonDuplicateAudioIndex < 0)
             {
                 return undefined;
             }
 
-            const firstNonExcludedNonDuplicateSongUri = this.getSongUriBySongIndex(firstNonExcludedNonDuplicateSongIndex);
-            const firstNonExcludedNonDuplicateSong = isNotNullAndUndefined(firstNonExcludedNonDuplicateSongUri)
-                ? this._indexedTracklist[firstNonExcludedNonDuplicateSongUri]
+            const firstNonExcludedNonDuplicateAudioUri = this.getAudioUriByAudioIndex(firstNonExcludedNonDuplicateAudioIndex);
+            const firstNonExcludedNonDuplicateAudio = isNotNullAndUndefined(firstNonExcludedNonDuplicateAudioUri)
+                ? this._indexedTracklist[firstNonExcludedNonDuplicateAudioUri]
                 : undefined;
 
-            const playingSongUri = this.getSongUriBySongIndex(playingSongIndexExcluded);
-            if (!firstNonExcludedNonDuplicateSong?.isExcludedFromActivePlaylist && firstNonExcludedNonDuplicateSongUri !== playingSongUri)
+            const playingAudioUri = this.getAudioUriByAudioIndex(playingAudioIndexExcluded);
+            if (
+                !firstNonExcludedNonDuplicateAudio?.isExcludedFromActivePlaylist &&
+                firstNonExcludedNonDuplicateAudioUri !== playingAudioUri
+            )
             {
                 break;
             }
         }
 
-        return firstNonExcludedNonDuplicateSongIndex;
+        return firstNonExcludedNonDuplicateAudioIndex;
     }
 
     private searchTracklistForTheFirstNonExcludedTrackIndex(playingTrackIndexExcluded: number, isSearchingBackward = false)

@@ -12,7 +12,7 @@ import {
 } from "@miniskylab/antimatter-framework";
 import {Type} from "class-transformer";
 import {IsOptional, ValidateNested} from "class-validator";
-import {SongRow} from "../components";
+import {AudioRow} from "../components";
 import {RepeatMode} from "../enums";
 import {type MusicPlayerStyle} from "./style";
 
@@ -20,7 +20,7 @@ import {type MusicPlayerStyle} from "./style";
 export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 {
     /**
-     * Specify the text that provides a succinct description of the music player before any audio files have been played.
+     * Specify the text that provides a succinct description of the music player before any audio has been played.
      */
     @IsNotEmpty()
     @IsString()
@@ -29,7 +29,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * Specify the text that clarifies or provides context to the title before any audio files have been played.
+     * Specify the text that clarifies or provides context to the title before any audio has been played.
      */
     @IsString()
     @IsOptional()
@@ -46,16 +46,16 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * Specify the selected song by its name.
+     * Specify the selected audio by its name.
      */
     @IsNotEmpty()
     @IsString()
     @IsOptional()
-    readonly selectedSongName?: string;
+    readonly selectedAudioName?: string;
 
 
     /**
-     * Set this option to ***true*** to specify that the music player is playing an audio file.
+     * Set this option to ***true*** to specify that the music player is playing audio.
      */
     @IsBoolean()
     @IsOptional()
@@ -71,7 +71,7 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * Specify what will happen when the music player finishes playing one or all the audio files.
+     * Specify what will happen when the music player finishes playing one or all of the audio items.
      *
      * @type RepeatMode
      */
@@ -81,8 +81,8 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * Set this option to ***true*** to enter playlist selection mode. In this mode, users can include or exclude audio files from the
-     * playlist. Excluded audio files will not be played. Set this option to ***false*** to exit playlist selection mode.
+     * Set this option to ***true*** to enter playlist selection mode. In this mode, users can include or exclude audio from the playlist.
+     * Excluded audio will not be played. Set this option to ***false*** to exit playlist selection mode.
      */
     @IsBoolean()
     @IsOptional()
@@ -90,19 +90,19 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * Specify all audio files to which the music player has access.
+     * Specify all audio accessible to the music player.
      */
     @IsArray()
     @IsOptional()
     @ValidateNested({each: true})
-    @Type(() => SongRow.Props)
-    readonly tracklist?: SongRow.SongData[];
+    @Type(() => AudioRow.Props)
+    readonly tracklist?: AudioRow.AudioData[];
 
 
     /**
-     * Specify the piece of code that will be executed when the music player starts playing an audio file or resumes playback.
+     * Specify the piece of code that will be executed when the music player starts or resumes audio playback.
      */
-    readonly onPlay?: (songName?: string) => void;
+    readonly onPlay?: (audioName?: string) => void;
 
 
     /**
@@ -112,13 +112,13 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * Specify the piece of code that will be executed when the music player plays the next audio file.
+     * Specify the piece of code that will be executed when the music player plays the next audio.
      */
     readonly onPlayNext?: () => void;
 
 
     /**
-     * Specify the piece of code that will be executed when the music player plays the previous audio file.
+     * Specify the piece of code that will be executed when the music player plays the previous audio.
      */
     readonly onPlayPrevious?: () => void;
 
@@ -136,13 +136,13 @@ export class MusicPlayerProps extends ComponentProps<MusicPlayerStyle>
 
 
     /**
-     * Specify the piece of code that will be executed when playlist-selection mode changes.
+     * Specify the piece of code that will be executed when the playlist-selection mode changes.
      */
     readonly onPlaylistSelectionToggle?: (isPlaylistSelectionEnabled: boolean) => void;
 
 
     /**
-     * Specify the piece of code that will be executed when an audio file is included or excluded from the playlist.
+     * Specify the piece of code that will be executed when audio is included in or excluded from the playlist.
      */
-    readonly onSongExclusionStatusToggle?: (songName: string, isExcluded: boolean) => void;
+    readonly onAudioExclusionStatusToggle?: (audioName: string, isExcluded: boolean) => void;
 }

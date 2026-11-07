@@ -1,1 +1,1 @@
-export * as SongRow from "./song-row";
+export * as AudioRow from "./audio-row";

@@ -21,31 +21,31 @@ export default {
             return StateMachine.getState();
         });
 
-        const playingSongUri = isNotNullAndUndefined(musicPlayerState.playingSongIndex)
-            ? musicPlayerState.playQueue[musicPlayerState.playingSongIndex]
+        const playingAudioUri = isNotNullAndUndefined(musicPlayerState.playingAudioIndex)
+            ? musicPlayerState.playQueue[musicPlayerState.playingAudioIndex]
             : undefined;
 
-        const playingSong = isNotNullAndUndefined(playingSongUri)
-            ? musicPlayerState.indexedTracklist[playingSongUri]
+        const playingAudio = isNotNullAndUndefined(playingAudioUri)
+            ? musicPlayerState.indexedTracklist[playingAudioUri]
             : undefined;
 
         return (
             <MusicPlayerWithValidation
                 {...args}
                 key={Sb.useNewKeyIfAnyOfTheseChanges([args.style])}
-                titlePlaceholder={musicPlayerState.playingSongIndex === Infinity ? "All Songs Have Been Played" : "Not Playing"}
+                titlePlaceholder={musicPlayerState.playingAudioIndex === Infinity ? "All Audio Has Been Played" : "Not Playing"}
                 tracklist={Object.values(musicPlayerState.indexedTracklist)}
                 isPlaylistSelectionEnabled={isPlaylistSelectionEnabled}
-                selectedSongName={playingSong?.songName}
+                selectedAudioName={playingAudio?.audioName}
                 isPlaying={musicPlayerState.isPlaying}
-                secTimer={musicPlayerState.secPlaybackProgress ?? playingSong?.secSongDuration}
+                secTimer={musicPlayerState.secPlaybackProgress ?? playingAudio?.secAudioDuration}
                 isShuffleEnabled={musicPlayerState.isShuffleEnabled}
                 repeatMode={musicPlayerState.repeatMode}
-                onPlay={songName =>
+                onPlay={audioName =>
                 {
-                    if (isNotNullAndUndefined(songName))
+                    if (isNotNullAndUndefined(audioName))
                     {
-                        StateMachine.playSongNamed(songName);
+                        StateMachine.playAudioNamed(audioName);
                     }
                     else
                     {
@@ -79,9 +79,9 @@ export default {
                     StateMachine.setRepeatMode(newRepeatMode);
                     setMusicPlayerState(StateMachine.getState());
                 }}
-                onSongExclusionStatusToggle={(songName, isExcluded) =>
+                onAudioExclusionStatusToggle={(audioName, isExcluded) =>
                 {
-                    StateMachine.setSongExclusionStatus(songName, isExcluded);
+                    StateMachine.setAudioExclusionStatus(audioName, isExcluded);
                     setMusicPlayerState(StateMachine.getState());
                 }}
                 onPlaylistSelectionToggle={isPlaylistSelectionEnabled => setIsPlaylistSelectionEnabled(isPlaylistSelectionEnabled)}
@@ -101,7 +101,7 @@ export const Playground: Story = {
         isShuffleEnabled: Sb.locked,
         isPlaylistSelectionEnabled: Sb.locked,
         repeatMode: Sb.locked,
-        selectedSongName: Sb.locked,
+        selectedAudioName: Sb.locked,
         tracklist: Sb.locked,
         onPlay: Sb.locked,
         onPause: Sb.locked,

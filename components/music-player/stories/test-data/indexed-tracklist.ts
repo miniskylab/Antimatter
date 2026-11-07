@@ -1,20 +1,20 @@
-import {SongRow} from "../../components";
+import {AudioRow} from "../../components";
 
-export const IndexedTracklist: Record<string, SongRow.SongData> = {
-    "praesent-dolor-orci": {songName: "Praesent dolor orci", singer: "Duis Eget", secSongDuration: 232},
-    "curabitur-mollis": {songName: "Curabitur mollis malesuada dui non facilisis", singer: "Ulamcorper Lacinia", secSongDuration: 291},
-    "lorem-ipsum": {songName: "Lorem ipsum dolor sit amet aliquam consectetur adipiscing", singer: "Finibus Diam", secSongDuration: 3650},
-    "sed-nec-sapien ": {songName: "Sed nec sapien eros curabitur ut mauris sem", singer: "Conubia Nostra", secSongDuration: 770},
-    "sit-amet-maximus ": {songName: "Sit amet maximus turpis efficitur ut", singer: "Rhoncus Lobortis", secSongDuration: 214},
-    "vivamus-quis ": {songName: "Vivamus quis pellentesque nisl", singer: "Tristique Ante", secSongDuration: 242},
-    "curabitur-tortor ": {songName: "Curabitur tortor quam, finibus et eros vel", singer: "Posuere Odio", secSongDuration: 170},
-    "cras-eu-ultricies ": {songName: "Cras eu ultricies tortor consequat", singer: "Elementum Vestibulum", secSongDuration: 389},
-    "etiam-tincidunt ": {songName: "Etiam tincidunt bibendum felis non eleifend", singer: "Mattis Dui", secSongDuration: 45},
-    "fusce-vehicula ": {songName: "Fusce vehicula ac est a scelerisque", singer: "Aptent Taciti Sociosqu", secSongDuration: 428},
-    "donec-finibus ": {songName: "Donec finibus tempus lectus", singer: "Tortor Porta", secSongDuration: 75},
-    "in-mattis ": {songName: "In mattis nulla metus", singer: "Mauris Commodo", secSongDuration: 313},
-    "aliquam-viverra ": {songName: "Aliquam viverra aliquet mauris", singer: "Augue Tempus Diam", secSongDuration: 531},
-    "cras-urna-sem ": {songName: "Cras urna sem luctus ut mi pretium rhoncus molestie", singer: "Scelerisque Leo", secSongDuration: 609},
-    "faucibus-a-maximus ": {songName: "Faucibus a maximus nisi, vitae mattis eros", singer: "Pulvinar Aliquet", secSongDuration: 137},
-    "morbi-molestie ": {songName: "Morbi molestie lectus in sapien convallis", singer: "Maximus Volutpat", secSongDuration: 469}
+export const IndexedTracklist: Record<string, AudioRow.AudioData> = {
+    "praesent-dolor-orci": {audioName: "Praesent dolor orci", artistName: "Duis Eget", secAudioDuration: 232},
+    "curabitur-molis": {audioName: "Curabitur mollis malesuada dui non facilisis", artistName: "Ulamcorper Lacinia", secAudioDuration: 291},
+    "loremi": {audioName: "Lorem ipsum dolor sit amet aliquam consectetur adipiscing", artistName: "Finibus Diam", secAudioDuration: 3650},
+    "sed-nec-sapien": {audioName: "Sed nec sapien eros curabitur ut mauris sem", artistName: "Conubia Nostra", secAudioDuration: 770},
+    "sit-amet-maximus": {audioName: "Sit amet maximus turpis efficitur ut", artistName: "Rhoncus Lobortis", secAudioDuration: 214},
+    "vivamus-quis": {audioName: "Vivamus quis pellentesque nisl", artistName: "Tristique Ante", secAudioDuration: 242},
+    "curabitur-tortor": {audioName: "Curabitur tortor quam, finibus et eros vel", artistName: "Posuere Odio", secAudioDuration: 170},
+    "cras-eu-ultricies": {audioName: "Cras eu ultricies tortor consequat", artistName: "Elementum Vestibulum", secAudioDuration: 389},
+    "etiam-tincidunt": {audioName: "Etiam tincidunt bibendum felis non eleifend", artistName: "Mattis Dui", secAudioDuration: 45},
+    "fusce-vehicula": {audioName: "Fusce vehicula ac est a scelerisque", artistName: "Aptent Taciti Sociosqu", secAudioDuration: 428},
+    "donec-finibus": {audioName: "Donec finibus tempus lectus", artistName: "Tortor Porta", secAudioDuration: 75},
+    "in-mattis": {audioName: "In mattis nulla metus", artistName: "Mauris Commodo", secAudioDuration: 313},
+    "aliquam-viverra": {audioName: "Aliquam viverra aliquet mauris", artistName: "Augue Tempus Diam", secAudioDuration: 531},
+    "cras-urna": {audioName: "Cras urna sem luctus ut mi pretium rhoncus molestie", artistName: "Scelerisque Leo", secAudioDuration: 609},
+    "faucibus-a-maximus": {audioName: "Faucibus a maximus nisi, vitae mattis eros", artistName: "Pulvinar Aliquet", secAudioDuration: 137},
+    "morbi-molestie": {audioName: "Morbi molestie lectus in sapien convallis", artistName: "Maximus Volutpat", secAudioDuration: 469}
 };

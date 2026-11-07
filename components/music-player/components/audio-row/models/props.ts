@@ -16,18 +16,18 @@ export class Props extends ComponentProps<Style>
     @IsNotEmpty()
     @IsString()
     @IsDefined()
-    readonly songName: string;
+    readonly audioName: string;
 
 
     @Min(0)
     @IsNumber({allowNaN: true})
     @IsDefined()
-    readonly secSongDuration: number;
+    readonly secAudioDuration: number;
 
 
     @IsString()
     @IsOptional()
-    readonly singer?: string;
+    readonly artistName?: string;
 
 
     @IsBoolean()

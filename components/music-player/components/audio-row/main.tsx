@@ -2,34 +2,34 @@ import {type AllPropertiesMustPresent, Ts, useComponentContext, useComputedStyle
 import {Pressable} from "@miniskylab/antimatter-pressable";
 import {Text} from "@miniskylab/antimatter-text";
 import React, {JSX} from "react";
-import {Props, SongRowContext} from "./models";
+import {AudioRowContext, Props} from "./models";
 import {getFormattedTime} from "./services";
 
 export function Component({
     style,
-    songName,
-    secSongDuration,
-    singer,
+    audioName,
+    secAudioDuration,
+    artistName,
     isSelected = false,
     isExcludedFromActivePlaylist = false,
     onPress
 }: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, songName, secSongDuration, singer, isSelected, isExcludedFromActivePlaylist, onPress
+        style, audioName, secAudioDuration, artistName, isSelected, isExcludedFromActivePlaylist, onPress
     };
 
-    const context = useComponentContext<SongRowContext>({props});
+    const context = useComponentContext<AudioRowContext>({props});
 
     Ts.Error.throwIfNullOrUndefined(style);
     const {computedStyle} = useComputedStyle(style, props);
 
     return (
-        <SongRowContext.Provider value={context}>
+        <AudioRowContext.Provider value={context}>
             <Pressable style={computedStyle.Root} onPress={onPress}>
-                <Text style={computedStyle.SongName} numberOfLines={1} selectable={false}>{songName}</Text>
-                <Text style={computedStyle.SongDuration} numberOfLines={1} selectable={false}>{getFormattedTime(secSongDuration)}</Text>
+                <Text style={computedStyle.AudioName} numberOfLines={1} selectable={false}>{audioName}</Text>
+                <Text style={computedStyle.AudioDuration} numberOfLines={1} selectable={false}>{getFormattedTime(secAudioDuration)}</Text>
             </Pressable>
-        </SongRowContext.Provider>
+        </AudioRowContext.Provider>
     );
 }
