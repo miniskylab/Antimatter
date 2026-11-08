@@ -38,7 +38,7 @@ export function DataTable({
     };
 
     const scrollViewRef = useRef<ScrollViewInstance>(null);
-    const headerData = columns?.map(x => x.name).filter(x => !!x);
+    const headerData = columns?.map(x => x.name).filter(Boolean);
 
     const context = useComponentContext<DataTableContext>({props});
 

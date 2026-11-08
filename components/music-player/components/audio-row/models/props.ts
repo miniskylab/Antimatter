@@ -25,6 +25,16 @@ export class Props extends ComponentProps<Style>
     readonly secAudioDuration: number;
 
 
+    @IsNumber()
+    @IsOptional()
+    readonly dbAudioGain?: number;
+
+
+    @IsNumber()
+    @IsOptional()
+    readonly rAudioPeak?: number;
+
+
     @IsString()
     @IsOptional()
     readonly artistName?: string;

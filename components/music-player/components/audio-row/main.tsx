@@ -9,6 +9,8 @@ export function Component({
     style,
     audioName,
     secAudioDuration,
+    dbAudioGain,
+    rAudioPeak,
     artistName,
     isSelected = false,
     isExcludedFromActivePlaylist = false,
@@ -16,7 +18,7 @@ export function Component({
 }: Props): JSX.Element
 {
     const props: AllPropertiesMustPresent<Props> = {
-        style, audioName, secAudioDuration, artistName, isSelected, isExcludedFromActivePlaylist, onPress
+        style, audioName, secAudioDuration, dbAudioGain, rAudioPeak, artistName, isSelected, isExcludedFromActivePlaylist, onPress
     };
 
     const context = useComponentContext<AudioRowContext>({props});
