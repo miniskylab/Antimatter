@@ -7,11 +7,11 @@ export function getReplayGainAdjustedVolume(dbAudioGain: number | null | undefin
         return 1;
     }
 
-    let replayGainVolume = Math.pow(10, dbAudioGain / 20);
+    let replayGainAdjustedVolume = Math.pow(10, dbAudioGain / 20);
     if (rAudioPeak > 0)
     {
-        replayGainVolume = Math.min(replayGainVolume, 1 / rAudioPeak);
+        replayGainAdjustedVolume = Math.min(replayGainAdjustedVolume, 1 / rAudioPeak);
     }
 
-    return Ts.Number.clamp(replayGainVolume, 0, 1);
+    return Ts.Number.clamp(replayGainAdjustedVolume, 0, 1);
 }
